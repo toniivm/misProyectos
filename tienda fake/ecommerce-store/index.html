@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda en Línea</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+  
+</head>
+
+<body class="font-[Poppins] bg-gray-50 text-gray-800">
+  <header class="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
+    <h1 class="text-2xl font-semibold">🛍️ Tienda en Línea</h1>
+    <nav>
+      <ul class="flex gap-4">
+        <li><a href="index.html" class="hover:text-blue-600">Inicio</a></li>
+        <li>
+          <a href="templates/cart.html" class="hover:text-blue-600">
+            Carrito (<span id="cart-count">0</span>)
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-6">
+    <section id="products" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Productos dinámicos -->
+    </section>
+  </main>
+
+  <footer class="text-center p-6 bg-white border-t mt-12">
+    <p>&copy; 2025 Tienda en Línea. Todos los derechos reservados.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<div class="product-template">
+  <div class="product-details">
+    <h1>{{ product.title }}</h1>
+    <div class="product-images">
+      {% for image in product.images %}
+        <img src="{{ image.src | img_url: 'large' }}" alt="{{ image.alt | escape }}" />
+      {% endfor %}
+    </div>
+    <div class="product-description">
+      <p>{{ product.description }}</p>
+    </div>
+    <div class="product-price">
+      <span class="price">{{ product.price | money }}</span>
+    </div>
+    <div class="product-variants">
+      {% if product.variants.size > 1 %}
+        <select id="product-variant-select">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+          {% endfor %}
+        </select>
+      {% endif %}
+    </div>
+    <div class="product-actions">
+      <button id="add-to-cart" data-product-id="{{ product.id }}">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('add-to-cart').addEventListener('click', function() {
+    const productId = this.getAttribute('data-product-id');
+    const variantId = document.getElementById('product-variant-select') ? document.getElementById('product-variant-select').value : productId;
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ id: variantId, quantity: 1 })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Product added to cart:', data);
+      // Optionally, update cart UI or show a success message
+    })
+    .catch((error) => {
+      console.error('Error adding product to cart:', error);
+    });
+  });
+</script>
