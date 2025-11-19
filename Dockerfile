@@ -1,17 +1,36 @@
 # Etapa 1: Build de la aplicación
-FROM node:20-alpine AS builder
+FROM node:20 AS builder
 
 # Establecer directorio de trabajo
 WORKDIR /app
 
 # Copiar archivos de dependencias
 COPY package*.json ./
+COPY package-lock.json ./
 
 # Instalar dependencias
-RUN npm install --production
+# Instalar todas las dependencias (incluye devDependencies necesarias para el build)
+RUN npm ci
 
 # Copiar el resto de archivos
 COPY . .
+
+# Variables opcionales para inyectar configuración en build (CRA usa REACT_APP_*)
+ARG REACT_APP_FIREBASE_API_KEY
+ARG REACT_APP_FIREBASE_AUTH_DOMAIN
+ARG REACT_APP_FIREBASE_PROJECT_ID
+ARG REACT_APP_FIREBASE_STORAGE_BUCKET
+ARG REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+ARG REACT_APP_FIREBASE_APP_ID
+ARG REACT_APP_FIREBASE_MEASUREMENT_ID
+
+ENV REACT_APP_FIREBASE_API_KEY=$REACT_APP_FIREBASE_API_KEY \
+	REACT_APP_FIREBASE_AUTH_DOMAIN=$REACT_APP_FIREBASE_AUTH_DOMAIN \
+	REACT_APP_FIREBASE_PROJECT_ID=$REACT_APP_FIREBASE_PROJECT_ID \
+	REACT_APP_FIREBASE_STORAGE_BUCKET=$REACT_APP_FIREBASE_STORAGE_BUCKET \
+	REACT_APP_FIREBASE_MESSAGING_SENDER_ID=$REACT_APP_FIREBASE_MESSAGING_SENDER_ID \
+	REACT_APP_FIREBASE_APP_ID=$REACT_APP_FIREBASE_APP_ID \
+	REACT_APP_FIREBASE_MEASUREMENT_ID=$REACT_APP_FIREBASE_MEASUREMENT_ID
 
 # Construir la aplicación
 RUN npm run build

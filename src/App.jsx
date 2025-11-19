@@ -1,15 +1,18 @@
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
-import HomePage from './pages/HomePage';
-import ProductPage from './pages/ProductPage';
-import CheckoutPage from './pages/CheckoutPage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import Login from './pages/Login';
 import CartSidebar from './components/CartSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
-import ProfilePage from './pages/ProfilePage';
+
+// Lazy loaded pages
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ProductPage = lazy(() => import('./pages/ProductPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
+const Login = lazy(() => import('./pages/Login'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 
 function App() {
   return (
@@ -20,14 +23,16 @@ function App() {
             <Header />
             
             <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/productos" element={<ProductPage />} />
-                <Route path="/product/:id" element={<ProductDetailPage />} /> 
-                <Route path="/login" element={<Login />} />
-                <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
-                <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />          
-              </Routes>
+              <Suspense fallback={<div className="p-6 text-center">Cargando…</div>}>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/productos" element={<ProductPage />} />
+                  <Route path="/product/:id" element={<ProductDetailPage />} /> 
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />          
+                </Routes>
+              </Suspense>
             </main>
             
             <footer className="bg-gray-900 text-white mt-auto">
