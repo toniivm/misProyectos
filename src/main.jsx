@@ -82,19 +82,18 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
         console.log('[PWA] Service Worker registration failed:', error);
       });
   });
-} else {
-  console.log('[PWA] Service Worker not registered (dev mode)');
 }
+
+// Always log this even in dev
+console.log('[URBANSTYLE] App initialized - Web Vitals monitoring active');
+console.log('[ENV] NODE_ENV:', process.env.NODE_ENV);
+console.log('[ENV] Is Production:', process.env.NODE_ENV === 'production');
 
 // Log web vitals metrics
 function sendToAnalytics(metric) {
   console.log(`[Web Vitals] ${metric.name}:`, metric.value, 'ms', metric);
-  // You can send to analytics here (Google Analytics, Sentry, etc.)
 }
 
-// Web Vitals will log after user interactions
 getCLS(sendToAnalytics);
 getFID(sendToAnalytics);
 getLCP(sendToAnalytics);
-
-console.log('[URBANSTYLE] App initialized - Web Vitals monitoring active');
