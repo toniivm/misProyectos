@@ -15,6 +15,8 @@ const Login = lazy(() => import('./pages/Login'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 
 function App() {
+  console.log('🎨 [URBANSTYLE] App component mounting');
+  
   return (
     <AuthProvider>
       <CartProvider>
