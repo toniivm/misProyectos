@@ -1,33 +1,141 @@
-# Getting Started with Create React App
+# 🛍️ URBANSTYLE - Tienda de Ropa Online
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Una moderna tienda de ropa online desarrollada con React, que ofrece una experiencia de compra elegante y fluida. Este proyecto incluye un catálogo completo de productos, carrito de compras, autenticación de usuarios y proceso de checkout.
 
-## Available Scripts
+## ✨ Características Principales
 
-In the project directory, you can run:
+- 🎨 **Diseño Moderno y Responsive**: Interfaz elegante adaptada a todos los dispositivos
+- 🛒 **Carrito de Compras**: Sistema completo con gestión de productos y tallas
+- 🔐 **Autenticación con Firebase**: Login y registro de usuarios
+- 🔍 **Filtros Avanzados**: Búsqueda por categoría, precio y ordenamiento
+- 💳 **Checkout Completo**: Proceso de pago paso a paso con validaciones
+- 🎯 **Animaciones Suaves**: Transiciones con Framer Motion
+- ⭐ **Sistema de Favoritos**: Guarda tus productos preferidos
+- 📱 **100% Responsive**: Optimizado para móvil, tablet y escritorio
+- 🎨 **Tailwind CSS**: Estilos modernos y mantenibles
+
+## 🚀 Tecnologías Utilizadas
+
+- **React 19.2** - Framework principal
+- **React Router DOM** - Navegación entre páginas
+- **Firebase** - Autenticación y base de datos
+- **Framer Motion** - Animaciones y transiciones
+- **Tailwind CSS** - Estilos y diseño responsive
+- **Lucide React** - Iconos modernos
+- **Context API** - Gestión de estado global
+
+## 📦 Instalación
+
+1. **Clonar el repositorio**
+```bash
+git clone [URL_DEL_REPOSITORIO]
+cd misProyectos
+```
+
+2. **Instalar dependencias**
+```bash
+npm install
+```
+
+3. **Configurar Firebase**
+   - Crea un proyecto en [Firebase Console](https://console.firebase.google.com/)
+   - Copia tus credenciales en `src/firebase/config.js`
+
+4. **Iniciar el servidor de desarrollo**
+```bash
+npm start
+```
+
+La aplicación se abrirá en [http://localhost:3000](http://localhost:3000)
+
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── components/          # Componentes reutilizables
+│   ├── Header.jsx      # Barra de navegación
+│   ├── ProductCard.jsx # Tarjeta de producto
+│   ├── CartSidebar.jsx # Panel lateral del carrito
+│   └── ...
+├── pages/              # Páginas principales
+│   ├── HomePage.jsx    # Página de inicio
+│   ├── ProductPage.jsx # Catálogo de productos
+│   ├── ProductDetailPage.jsx # Detalle del producto
+│   ├── CheckoutPage.jsx # Proceso de compra
+│   └── ...
+├── context/            # Context API para estado global
+│   ├── CartContext.jsx # Estado del carrito
+│   └── AuthContext.jsx # Estado de autenticación
+├── data/               # Datos de la aplicación
+│   └── products.js     # Catálogo de productos
+├── firebase/           # Configuración de Firebase
+│   └── config.js
+└── App.jsx            # Componente principal
+```
+
+## 🎯 Funcionalidades Detalladas
+
+### 🏠 Página de Inicio
+- Hero section con búsqueda
+- Filtros por categoría (Camisetas, Pantalones, Chaquetas, etc.)
+- Ordenamiento por precio, nombre y novedades
+- Filtros de rango de precio
+- Grid responsive de productos
+
+### 🛍️ Catálogo de Productos
+- 15+ productos en diferentes categorías
+- Información detallada de cada producto
+- Imágenes de alta calidad
+- Etiquetas de "NUEVO" y descuentos
+- Indicadores de colores disponibles
+
+### 📱 Detalle de Producto
+- Galería de imágenes con miniaturas
+- Selector de tallas interactivo
+- Selector de cantidad
+- Información de envío y devoluciones
+- Productos relacionados
+- Sistema de reseñas
+- Guía de tallas
+- Botón de favoritos y compartir
+
+### 🛒 Carrito de Compras
+- Sidebar deslizante
+- Vista detallada de productos
+- Gestión de cantidades
+- Cálculo automático de totales
+- Persistencia en localStorage
+
+### 💳 Checkout
+- Proceso en 3 pasos:
+  1. Información de envío
+  2. Método de pago
+  3. Confirmación de pedido
+- Validación de formularios
+- Opciones de envío (estándar, express, urgente)
+- Resumen del pedido en tiempo real
+- Confirmación visual con número de pedido
+
+## 🎨 Catálogo de Productos
+
+El proyecto incluye 15 productos distribuidos en 5 categorías:
+
+- **Camisetas**: Básicas, Oversize, Estampadas
+- **Pantalones**: Jeans, Cargo, Chinos
+- **Chaquetas**: Denim, Bomber, Parka
+- **Sudaderas**: Hoodie, Crewneck, Zip
+- **Accesorios**: Gorras, Mochilas, Cinturones
+
+## 🔧 Scripts Disponibles
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Inicia el servidor de desarrollo en [http://localhost:3000](http://localhost:3000)
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ejecuta los tests en modo interactivo
 
 ### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Crea una versión optimizada para producción en la carpeta `build`
 
 ### `npm run eject`
 
