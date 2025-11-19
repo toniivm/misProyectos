@@ -33,7 +33,7 @@ ENV REACT_APP_FIREBASE_API_KEY=$REACT_APP_FIREBASE_API_KEY \
 	REACT_APP_FIREBASE_MEASUREMENT_ID=$REACT_APP_FIREBASE_MEASUREMENT_ID
 
 # Construir la aplicación
-RUN npm run build
+RUN npm run build && ls -la build/ && cat build/index.html | head -20
 
 # Etapa 2: Servidor de producción con Nginx
 FROM nginx:alpine
