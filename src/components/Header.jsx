@@ -188,6 +188,7 @@ export default function Header() {
               placeholder="Buscar productos..."
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
               autoFocus
+              name="headerSearch"
             />
             <Search size={20} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>

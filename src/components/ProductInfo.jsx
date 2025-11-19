@@ -139,6 +139,7 @@ export default function ProductInfo({ product }) {
             value={quantity}
             onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
             className="border-2 border-gray-300 p-3 w-20 text-center font-semibold focus:outline-none focus:border-black"
+            name="quantity"
           />
           <button
             onClick={() => setQuantity(Math.min(10, quantity + 1))}

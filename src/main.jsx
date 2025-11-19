@@ -13,60 +13,33 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-// Register service worker with inline code (CRA doesn't copy public/*.js to build)
+// ALWAYS log first - even before SW registration
+console.log('🚀 [URBANSTYLE] App initialized');
+console.log('🔧 [ENV] NODE_ENV:', process.env.NODE_ENV);
+console.log('🏗️  [ENV] Is Production:', process.env.NODE_ENV === 'production');
+
+// Register service worker (SIMPLIFIED - no dependencies on external files)
 if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
   window.addEventListener('load', () => {
+    console.log('📦 [SW] Attempting registration...');
+    
+    // Inline minimal service worker
     const swCode = `
-      const CACHE_VERSION = 'urbanstyle-v1';
-      const STATIC_CACHE = CACHE_VERSION + '-static';
-      const DYNAMIC_CACHE = CACHE_VERSION + '-dynamic';
+      console.log('✅ [SW] Service Worker executing');
+      const CACHE_NAME = 'urbanstyle-v1';
       
       self.addEventListener('install', (e) => {
-        console.log('[SW] Installing...');
-        e.waitUntil(
-          caches.open(STATIC_CACHE).then(cache => {
-            return cache.addAll(['/', '/index.html', '/manifest.json']);
-          }).then(() => self.skipWaiting())
-        );
+        console.log('⚙️ [SW] Installing...');
+        self.skipWaiting();
       });
       
       self.addEventListener('activate', (e) => {
-        console.log('[SW] Activating...');
-        e.waitUntil(
-          caches.keys().then(keys => {
-            return Promise.all(keys.map(key => {
-              if (key !== STATIC_CACHE && key !== DYNAMIC_CACHE) {
-                return caches.delete(key);
-              }
-            }));
-          }).then(() => self.clients.claim())
-        );
+        console.log('✅ [SW] Activated!');
+        e.waitUntil(self.clients.claim());
       });
       
       self.addEventListener('fetch', (e) => {
-        if (e.request.method !== 'GET') return;
-        const url = new URL(e.request.url);
-        if (url.origin.includes('firebase') || url.origin.includes('googleapis')) return;
-        
-        e.respondWith(
-          caches.match(e.request).then(cached => {
-            if (cached) return cached;
-            return fetch(e.request).then(response => {
-              if (response && response.status === 200 && (
-                e.request.url.includes('/static/') ||
-                e.request.url.match(/\\.(js|css|png|jpg|jpeg|svg|gif|woff2?)$/)
-              )) {
-                const clone = response.clone();
-                caches.open(DYNAMIC_CACHE).then(cache => cache.put(e.request, clone));
-              }
-              return response;
-            }).catch(() => {
-              if (e.request.destination === 'document') {
-                return caches.match('/index.html');
-              }
-            });
-          })
-        );
+        // Pass-through - no caching for now
       });
     `;
     
@@ -75,19 +48,28 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
     
     navigator.serviceWorker
       .register(swUrl)
-      .then((registration) => {
-        console.log('[PWA] Service Worker registered:', registration.scope);
+      .then((reg) => {
+        console.log('✅ [SW] Registration successful! Scope:', reg.scope);
+        console.log('🔄 [SW] Reload the page once to activate control');
+        
+        // Check controller immediately
+        if (navigator.serviceWorker.controller) {
+          console.log('✅ [SW] Page is already controlled!');
+        } else {
+          console.log('⏳ [SW] Page not controlled yet - reload needed');
+        }
       })
       .catch((error) => {
-        console.log('[PWA] Service Worker registration failed:', error);
+        console.error('❌ [SW] Registration FAILED:', error);
       });
   });
+} else {
+  if (!('serviceWorker' in navigator)) {
+    console.warn('⚠️ [SW] Service Workers not supported in this browser');
+  } else {
+    console.log('🔧 [SW] Skipped - running in development mode');
+  }
 }
-
-// Always log this even in dev
-console.log('[URBANSTYLE] App initialized - Web Vitals monitoring active');
-console.log('[ENV] NODE_ENV:', process.env.NODE_ENV);
-console.log('[ENV] Is Production:', process.env.NODE_ENV === 'production');
 
 // Log web vitals metrics
 function sendToAnalytics(metric) {

@@ -68,6 +68,7 @@ export default function ProductPage() {
             className="w-full px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            name="search"
           />
         </div>
 
@@ -105,6 +106,7 @@ export default function ProductPage() {
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            name="sortBy"
           >
             <option value="destacados">Destacados</option>
             <option value="nuevos">Novedades</option>
@@ -142,6 +144,7 @@ export default function ProductPage() {
                     value={priceRange[0]}
                     onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
                     className="w-full"
+                    name="priceMin"
                   />
                   <input
                     type="range"
@@ -150,6 +153,7 @@ export default function ProductPage() {
                     value={priceRange[1]}
                     onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
                     className="w-full"
+                    name="priceMax"
                   />
                 </div>
               </div>
