@@ -83,7 +83,7 @@ const HomePage = () => {
               placeholder="Buscar productos..."
               className="w-full px-6 py-4 rounded-full text-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value.slice(0,80).trim())}
               name="search"
             />
           </motion.div>

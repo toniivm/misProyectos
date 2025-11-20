@@ -4,14 +4,27 @@ import App from "./App";
 import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 
-// 🚀 LOGS - After imports to satisfy ESLint
-console.log('🚀 [URBANSTYLE] index.js executing NOW');
-console.log('🔧 [ENV] NODE_ENV:', process.env.NODE_ENV);
-console.log('🏗️ [ENV] Location:', window.location.href);
-console.log('📦 [URBANSTYLE] Imports loaded, creating root...');
+// Dev-only verbose logs
+if (process.env.NODE_ENV !== 'production') {
+  console.log('🚀 [URBANSTYLE] index.js executing NOW');
+  console.log('🔧 [ENV] NODE_ENV:', process.env.NODE_ENV);
+  console.log('🏗️ [ENV] Location:', window.location.href);
+  console.log('📦 [URBANSTYLE] Imports loaded, creating root...');
+}
 
-// Service Worker deshabilitado - no es necesario para esta app
-console.log('🔧 [SW] Service Worker disabled');
+// Minimal production marker
+if (process.env.NODE_ENV === 'production') {
+  console.log('[URBANSTYLE] Boot');
+}
+
+// Optional minimal SW registration (no caching) to allow future upgrades
+if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(err => {
+      console.error('[SW] registration failed:', err.message);
+    });
+  });
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -21,4 +34,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-console.log('✅ [URBANSTYLE] App rendered successfully!');
+if (process.env.NODE_ENV !== 'production') {
+  console.log('✅ [URBANSTYLE] App rendered successfully!');
+}

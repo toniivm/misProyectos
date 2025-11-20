@@ -67,7 +67,7 @@ export default function ProductPage() {
             placeholder="Buscar productos..."
             className="w-full px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value.slice(0,80).trim())}
             name="search"
           />
         </div>
