@@ -75,7 +75,7 @@ const HomePage = () => {
           
           {/* Search Bar */}
           <motion.div 
-            className="max-w-2xl mx-auto flex flex-col md:flex-row gap-4 justify-center"
+            <div className="max-w-2xl mx-auto flex flex-col md:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -90,7 +90,7 @@ const HomePage = () => {
             />
             <div className="flex gap-4 justify-center">
               <a href="/productos" className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition shadow-lg">Ver catálogo</a>
-              <a href="/tallas" className="px-8 py-4 rounded-full bg-gradient-to-r from-neutral-800 to-neutral-600 text-white font-semibold hover:from-neutral-700 hover:to-neutral-500 transition shadow-lg">Guía de tallas</a>
+              <a href="/tallas" className="px-8 py-4 rounded-full bg-gradient-to-r from-black to-gray-700 text-white font-semibold hover:from-gray-900 hover:to-gray-600 transition shadow-lg">Guía de tallas</a>
             </div>
           </motion.div>
         </div>

@@ -4,6 +4,7 @@ import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import ErrorBoundary from './components/ErrorBoundary';
+import SkeletonGrid from './components/SkeletonGrid';
 import CartSidebar from './components/CartSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import CookieConsent from './components/CookieConsent';
@@ -21,6 +22,7 @@ const ShippingReturns = lazy(() => import('./pages/ShippingReturns'));
 const SizeGuide = lazy(() => import('./pages/SizeGuide'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Contact = lazy(() => import('./pages/Contact'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 function App() {
   console.log('🎨 [VALTREX] App component mounting');
@@ -47,7 +49,7 @@ function App() {
             
             <main className="flex-1">
               <ErrorBoundary>
-              <Suspense fallback={<div className="p-6 text-center">Cargando…</div>}>
+              <Suspense fallback={<div className="max-w-7xl mx-auto px-6 py-10"><SkeletonGrid count={8} /></div>}>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/productos" element={<ProductPage />} />
@@ -55,7 +57,8 @@ function App() {
                   <Route path="/producto/:slug" element={<ProductDetailPage />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
-                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />          
+                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                  <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />          
                     <Route path="/envios" element={<ShippingReturns />} />
                     <Route path="/tallas" element={<SizeGuide />} />
                     <Route path="/privacidad" element={<PrivacyPolicy />} />
@@ -131,7 +134,15 @@ function App() {
 
                 {/* Copyright */}
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-                  <p>© 2025 VALTREX. Todos los derechos reservados.</p>
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p>© 2025 VALTREX. Todos los derechos reservados.</p>
+                    <div className="flex items-center gap-4 opacity-80">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" className="h-6" loading="lazy" />
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6" loading="lazy" />
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="h-6" loading="lazy" />
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-6" loading="lazy" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </footer>

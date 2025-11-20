@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 import SafeImage from './SafeImage';
+import Button from './Button';
 
 const ProductCard = ({ product, highlightTerm }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -13,8 +14,8 @@ const ProductCard = ({ product, highlightTerm }) => {
 
   return (
     <motion.div
-      className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group relative"
-      whileHover={{ y: -5 }}
+      className="bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-card transition-all duration-300 group relative border border-gray-100"
+      whileHover={{ y: -6 }}
     >
       {/* Etiquetas superiores */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
@@ -36,7 +37,7 @@ const ProductCard = ({ product, highlightTerm }) => {
           e.preventDefault();
           setIsLiked(!isLiked);
         }}
-        className="absolute top-3 right-3 z-10 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all duration-300"
+        className="absolute top-3 right-3 z-10 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all duration-300 shadow"
       >
         <Heart
           size={20}
@@ -55,12 +56,12 @@ const ProductCard = ({ product, highlightTerm }) => {
             fetchpriority="low"
           />
           
-          {/* Overlay con botón de compra rápida */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-end justify-center pb-6">
-            <button className="bg-white text-black px-6 py-2 rounded-full font-semibold flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-              <ShoppingCart size={18} />
+          {/* Overlay con CTA */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+            <Button variant="secondary" size="md" className="opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0">
+              <ShoppingCart size={18} className="mr-2" />
               Añadir al carrito
-            </button>
+            </Button>
           </div>
         </div>
         
@@ -107,11 +108,11 @@ const ProductCard = ({ product, highlightTerm }) => {
             </div>
           )}
           
-          {/* Precio */}
-          <div className="flex items-center gap-2">
+          {/* Precio y stock */}
+          <div className="flex items-center gap-3">
             {hasDiscount ? (
               <>
-                <span className="text-lg font-bold text-black">
+                <span className="text-lg font-extrabold text-black">
                   {discountedPrice.toFixed(2)} €
                 </span>
                 <span className="text-sm text-gray-500 line-through">
@@ -119,8 +120,13 @@ const ProductCard = ({ product, highlightTerm }) => {
                 </span>
               </>
             ) : (
-              <span className="text-lg font-bold text-black">
+              <span className="text-lg font-extrabold text-black">
                 {product.price.toFixed(2)} €
+              </span>
+            )}
+            {product.stock !== undefined && (
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${product.stock < 10 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+                {product.stock < 10 ? 'Stock bajo' : 'Disponible'}
               </span>
             )}
           </div>
