@@ -7,11 +7,15 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="URBANSTYLE - Tu tienda de moda urbana con las últimas tendencias y la mejor calidad"
+      content="VALTREX — Moda urbana de alto rendimiento. Prendas premium que combinan estilo deportivo y calidad excepcional"
     />
-    <meta name="keywords" content="moda urbana, ropa, tienda online, streetwear, camisetas, pantalones, chaquetas" />
+    <meta name="keywords" content="valtrex, moda urbana, ropa deportiva premium, tienda online, streetwear, alto rendimiento, camisetas, pantalones, chaquetas" />
+    
+    <!-- Performance: Preconnect to critical domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <!-- NOTE: SRI hashes for Google Fonts are not stable due to dynamic CSS; consider self-hosting for full integrity protection -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -29,7 +33,38 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>URBANSTYLE - Tienda de Ropa Online</title>
+    <title>VALTREX - Moda Urbana Premium</title>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "VALTREX",
+      "url": "https://valtrex.example.com/",
+      "logo": "%PUBLIC_URL%/logo192.png",
+      "sameAs": [
+        "https://www.instagram.com/valtrex",
+        "https://www.facebook.com/valtrex"
+      ],
+      "description": "VALTREX — Moda urbana de alto rendimiento. Prendas premium que combinan estilo deportivo y calidad excepcional.",
+      "founder": {
+        "@type": "Person",
+        "name": "Propietario Local"
+      },
+      "makesOffer": [
+        {
+          "@type": "OfferCatalog",
+          "name": "Catálogo de Productos",
+          "itemListElement": [
+            {"@type": "Product", "name": "Camiseta Básica Blanca", "category": "camisetas", "description": "Camiseta esencial de algodón orgánico.", "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop", "offers": {"@type":"Offer","price":"19.99","priceCurrency":"EUR","availability":"https://schema.org/InStock"}},
+            {"@type": "Product", "name": "Camiseta Oversize Negra", "category": "camisetas", "description": "Diseño oversize moderno algodón premium.", "image": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&h=800&fit=crop", "offers": {"@type":"Offer","price":"29.99","priceCurrency":"EUR","availability":"https://schema.org/InStock"}},
+            {"@type": "Product", "name": "Jeans Slim Fit Azul Oscuro", "category": "pantalones", "description": "Jeans corte slim mezclilla stretch.", "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&h=800&fit=crop", "offers": {"@type":"Offer","price":"59.99","priceCurrency":"EUR","availability":"https://schema.org/InStock"}},
+            {"@type": "Product", "name": "Chaqueta Denim Azul", "category": "chaquetas", "description": "Chaqueta vaquera clásica lavado medio.", "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&h=800&fit=crop", "offers": {"@type":"Offer","price":"79.99","priceCurrency":"EUR","availability":"https://schema.org/InStock"}}
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

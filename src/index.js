@@ -6,15 +6,15 @@ import { AuthProvider } from "./context/AuthContext";
 
 // Dev-only verbose logs
 if (process.env.NODE_ENV !== 'production') {
-  console.log('🚀 [URBANSTYLE] index.js executing NOW');
+  console.log('🚀 [VALTREX] index.js executing NOW');
   console.log('🔧 [ENV] NODE_ENV:', process.env.NODE_ENV);
   console.log('🏗️ [ENV] Location:', window.location.href);
-  console.log('📦 [URBANSTYLE] Imports loaded, creating root...');
+  console.log('📦 [VALTREX] Imports loaded, creating root...');
 }
 
 // Minimal production marker
 if (process.env.NODE_ENV === 'production') {
-  console.log('[URBANSTYLE] Boot');
+  console.log('[VALTREX] Boot');
 }
 
 // Optional minimal SW registration (no caching) to allow future upgrades
@@ -35,5 +35,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 if (process.env.NODE_ENV !== 'production') {
-  console.log('✅ [URBANSTYLE] App rendered successfully!');
+  console.log('✅ [VALTREX] App rendered successfully!');
 }

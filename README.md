@@ -1,6 +1,6 @@
-# 🛍️ URBANSTYLE - Tienda de Ropa Online
+# 🛍️ VALTREX — Moda Urbana de Alto Rendimiento
 
-Una moderna tienda de ropa online desarrollada con React, que ofrece una experiencia de compra elegante y fluida. Este proyecto incluye un catálogo completo de productos, carrito de compras, autenticación de usuarios y proceso de checkout.
+**VALTREX** es una tienda de moda urbana premium desarrollada con React que combina estilo deportivo y calidad excepcional. Experiencia fluida tipo ecommerce moderno (inspiración Nike), catálogo completo, carrito, autenticación y checkout optimizado.
 
 ## ✨ Características Principales
 

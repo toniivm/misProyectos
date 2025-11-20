@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Truck, RefreshCw, Shield, Star } from 'lucide-react';
@@ -8,9 +8,44 @@ import ProductCard from "../components/ProductCard";
 import PRODUCTS from "../data/products";
 
 export default function ProductDetailPage() {
-  const { id } = useParams();
-  const product = PRODUCTS.find((p) => p.id === parseInt(id));
+  const params = useParams();
+  const { id, slug } = params;
+  const product = slug
+    ? PRODUCTS.find(p => p.slug === slug)
+    : PRODUCTS.find((p) => p.id === parseInt(id));
   const [activeTab, setActiveTab] = useState('descripcion');
+
+  useEffect(() => {
+    if (product) {
+      document.title = `${product.title} | VALTREX`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute('content', product.description.slice(0,155));
+      // Inject JSON-LD product data
+      const scriptId = 'product-json-ld';
+      let scriptTag = document.getElementById(scriptId);
+      if (scriptTag) scriptTag.remove();
+      scriptTag = document.createElement('script');
+      scriptTag.id = scriptId;
+      scriptTag.type = 'application/ld+json';
+      const payload = {
+        '@context': 'https://schema.org/',
+        '@type': 'Product',
+        name: product.title,
+        description: product.description,
+        image: product.images && product.images[0],
+        sku: `SKU-${product.id}`,
+        category: product.category,
+        offers: {
+          '@type': 'Offer',
+          priceCurrency: 'EUR',
+          price: product.price,
+          availability: 'https://schema.org/InStock'
+        }
+      };
+      scriptTag.textContent = JSON.stringify(payload);
+      document.head.appendChild(scriptTag);
+    }
+  }, [product]);
 
   if (!product) {
     return (

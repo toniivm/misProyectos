@@ -1,11 +1,19 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SlidersHorizontal, X } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import PRODUCTS from '../data/products';
 
 export default function ProductPage() {
+  const [rawSearch, setRawSearch] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  // Debounce search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchTerm(rawSearch.trim());
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [rawSearch]);
   const [selectedCategory, setSelectedCategory] = useState('todos');
   const [sortBy, setSortBy] = useState('destacados');
   const [priceRange, setPriceRange] = useState([0, 200]);
@@ -66,9 +74,10 @@ export default function ProductPage() {
             type="text"
             placeholder="Buscar productos..."
             className="w-full px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value.slice(0,80).trim())}
+            value={rawSearch}
+            onChange={(e) => setRawSearch(e.target.value.slice(0,80))}
             name="search"
+            aria-label="Buscar productos"
           />
         </div>
 
@@ -180,7 +189,7 @@ export default function ProductPage() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
             >
-              <ProductCard product={product} />
+              <ProductCard product={product} highlightTerm={searchTerm} />
             </motion.div>
           ))}
         </motion.div>

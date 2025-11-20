@@ -50,30 +50,32 @@ const HomePage = () => {
   }, [searchTerm, selectedCategory, sortBy, priceRange]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-gray-50">
       {/* Hero Section */}
-      <div className="bg-black text-white py-20 px-6">
+      <div className="bg-black text-white py-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_#ffffff,_transparent_60%)]" />
         <div className="max-w-7xl mx-auto text-center">
           <motion.h1 
-            className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight"
+            className="text-6xl md:text-7xl font-extrabold mb-8 tracking-tight font-[Inter]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            NUEVA TEMPORADA
+            <span className="text-white">VALTREX</span>
+            <span className="text-gray-400"> — NUEVA TEMPORADA</span>
           </motion.h1>
           <motion.p 
-            className="text-xl text-gray-300 mb-8"
+            className="text-2xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Descubre las últimas tendencias en moda urbana
+            Moda urbana de alto rendimiento. Prendas premium diseñadas para quienes no comprometen estilo ni calidad.
           </motion.p>
           
           {/* Search Bar */}
           <motion.div 
-            className="max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto flex flex-col md:flex-row gap-4 justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -81,11 +83,15 @@ const HomePage = () => {
             <input
               type="text"
               placeholder="Buscar productos..."
-              className="w-full px-6 py-4 rounded-full text-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+              className="flex-1 px-6 py-4 rounded-full text-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white shadow-lg"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value.slice(0,80).trim())}
               name="search"
             />
+            <div className="flex gap-4 justify-center">
+              <a href="/productos" className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition shadow-lg">Ver catálogo</a>
+              <a href="/tallas" className="px-8 py-4 rounded-full bg-gradient-to-r from-neutral-800 to-neutral-600 text-white font-semibold hover:from-neutral-700 hover:to-neutral-500 transition shadow-lg">Guía de tallas</a>
+            </div>
           </motion.div>
         </div>
       </div>

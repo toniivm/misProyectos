@@ -40,7 +40,7 @@ export default function Header() {
           to="/"
           className="text-2xl font-extrabold tracking-wider text-gray-900 hover:text-gray-700 transition-transform transform hover:scale-105"
         >
-          <span className="text-black">URBAN</span><span className="text-gray-500">STYLE</span>
+          <span className="text-black">VALT</span><span className="text-gray-500">REX</span>
         </Link>
 
         {/* NAVEGACIÓN DESKTOP */}

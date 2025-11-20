@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: urbanstyle-tienda
+    name: valtrex-tienda
     env: docker
     plan: starter
     autoDeploy: true

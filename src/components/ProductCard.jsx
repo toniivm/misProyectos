@@ -4,7 +4,7 @@ import { Heart, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 import SafeImage from './SafeImage';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, highlightTerm }) => {
   const [isLiked, setIsLiked] = useState(false);
   const image = product.images ? product.images[0] : 'https://placehold.co/800x800/222/FFF?text=Producto'; 
   
@@ -44,13 +44,15 @@ const ProductCard = ({ product }) => {
         />
       </button>
 
-      <Link to={`/product/${product.id}`} className="block">
+      <Link to={product.slug ? `/producto/${product.slug}` : `/product/${product.id}`} className="block">
         {/* Imagen del producto */}
         <div className="relative overflow-hidden bg-gray-100 aspect-square">
           <SafeImage
             src={image}
             alt={product.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
+            fetchpriority="low"
           />
           
           {/* Overlay con botón de compra rápida */}
@@ -70,9 +72,14 @@ const ProductCard = ({ product }) => {
             </span>
           </div>
           
-          <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 h-12">
-            {product.title}
-          </h3>
+          <h3
+            className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 h-12"
+            dangerouslySetInnerHTML={{
+              __html: highlightTerm && highlightTerm.length > 1
+                ? product.title.replace(new RegExp(`(${highlightTerm})`, 'ig'), '<mark class="bg-yellow-200">$1</mark>')
+                : product.title
+            }}
+          />
           
           {/* Colores disponibles */}
           {product.colors && product.colors.length > 0 && (

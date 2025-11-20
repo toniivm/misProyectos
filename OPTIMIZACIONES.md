@@ -27,7 +27,7 @@
   - Offline fallback a index.html
   - Límite de cache dinámico (50 items)
 - **Web Vitals**: logging de LCP, FID, CLS en consola
-- **Manifest.json**: configurado con branding URBANSTYLE
+- **Manifest.json**: configurado con branding VALTREX
 - **SEO**: meta description y keywords optimizados
 
 ## 📊 Métricas y Verificación
@@ -108,13 +108,13 @@ lhci autorun --collect.url=https://valtre.onrender.com
 ### Docker Local
 ```powershell
 # Build
-docker build -t urbanstyle-tienda:latest .
+docker build -t valtrex-tienda:latest .
 
 # Run
-docker run -d -p 3000:80 --name urbanstyle urbanstyle-tienda:latest
+docker run -d -p 3000:80 --name valtrex valtrex-tienda:latest
 
 # Logs
-docker logs -f urbanstyle
+docker logs -f valtrex
 ```
 
 ## 🔗 URLs

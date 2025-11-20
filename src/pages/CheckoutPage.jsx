@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CreditCard, Truck, MapPin, CheckCircle2, ArrowLeft } from 'lucide-react';
+import PRODUCTS from '../data/products';
 import { useCart } from '../context/CartContext';
 
 const CheckoutPage = () => {
@@ -9,6 +10,7 @@ const CheckoutPage = () => {
   const { cart, total } = useCart();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [orderId, setOrderId] = useState(null);
   
   const [shippingData, setShippingData] = useState({
     name: '',
@@ -67,12 +69,41 @@ const CheckoutPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newOrderId = `ORD-${Date.now()}`;
+    const order = {
+      id: newOrderId,
+      items: cart,
+      total: finalTotal,
+      shipping: shippingData,
+      method: shippingMethod,
+      createdAt: new Date().toISOString()
+    };
+    const existing = JSON.parse(localStorage.getItem('orders') || '[]');
+    existing.push(order);
+    localStorage.setItem('orders', JSON.stringify(existing));
+    // Update local stock snapshot
+    try {
+      const stockState = JSON.parse(localStorage.getItem('stock_state') || '{}');
+      cart.forEach(item => {
+        const current = stockState[item.id] ?? PRODUCTS.find(p => p.id === item.id)?.stock ?? 0;
+        stockState[item.id] = Math.max(0, current - item.quantity);
+      });
+      localStorage.setItem('stock_state', JSON.stringify(stockState));
+    } catch(err) { /* ignore */ }
+    setOrderId(newOrderId);
     setIsSubmitted(true);
-    // Simular procesamiento de pago
-    setTimeout(() => {
-      navigate('/');
-    }, 5000);
   };
+
+  // Analytics events
+  useEffect(() => {
+    console.log('[analytics] checkout_start', { items: cart.length });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (isSubmitted) {
+      console.log('[analytics] purchase', { total: finalTotal, orderId });
+    }
+  }, [isSubmitted, finalTotal, orderId]);
 
   const finalTotal = total + shippingCosts[shippingMethod];
 
@@ -111,13 +142,19 @@ const CheckoutPage = () => {
           </p>
           <div className="bg-gray-100 p-4 rounded-lg mb-6">
             <p className="text-sm text-gray-600">Número de pedido</p>
-            <p className="text-xl font-bold">#ORD-{Math.floor(Math.random() * 100000)}</p>
+            <p className="text-xl font-bold">{orderId}</p>
           </div>
           <button
             onClick={() => navigate('/')}
             className="bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition w-full"
           >
             Volver a la tienda
+          </button>
+          <button
+            onClick={() => navigate('/profile')}
+            className="mt-4 bg-gray-200 text-black px-8 py-3 rounded-lg hover:bg-gray-300 transition w-full"
+          >
+            Ver mis pedidos
           </button>
         </motion.div>
       </div>

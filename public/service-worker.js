@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-// URBANSTYLE Service Worker - PWA Support
-const CACHE_VERSION = 'urbanstyle-v1';
+// VALTREX Service Worker - PWA Support
+const CACHE_VERSION = 'valtrex-v2';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const MAX_DYNAMIC_ITEMS = 50;

@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import { getCLS, getFID, getLCP } from 'web-vitals';
+import { addResourceHints, clearUnusedCache, logWebVitals } from './utils/performance';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -14,9 +15,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 // ALWAYS log first - even before SW registration
-console.log('🚀 [URBANSTYLE] App initialized');
+console.log('🚀 [VALTREX] App initialized');
 console.log('🔧 [ENV] NODE_ENV:', process.env.NODE_ENV);
-console.log('🏗️  [ENV] Is Production:', process.env.NODE_ENV === 'production');
+console.log('🏭️  [ENV] Is Production:', process.env.NODE_ENV === 'production');
+
+// Initialize performance optimizations
+addResourceHints();
+clearUnusedCache();
 
 // Register service worker (SIMPLIFIED - no dependencies on external files)
 if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
@@ -26,7 +31,7 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
     // Inline minimal service worker
     const swCode = `
       console.log('✅ [SW] Service Worker executing');
-      const CACHE_NAME = 'urbanstyle-v1';
+      const CACHE_NAME = 'valtrex-v1';
       
       self.addEventListener('install', (e) => {
         console.log('⚙️ [SW] Installing...');
@@ -71,11 +76,8 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
   }
 }
 
-// Log web vitals metrics
-function sendToAnalytics(metric) {
-  console.log(`[Web Vitals] ${metric.name}:`, metric.value, 'ms', metric);
-}
-
-getCLS(sendToAnalytics);
-getFID(sendToAnalytics);
-getLCP(sendToAnalytics);
+// Log web vitals metrics with VALTREX Analytics
+getCLS(logWebVitals);
+getFID(logWebVitals);
+getLCP(logWebVitals);
+console.log('📊 [VALTREX Analytics] Web Vitals tracking active');

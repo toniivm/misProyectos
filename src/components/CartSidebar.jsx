@@ -16,6 +16,10 @@ const CartSidebar = () => {
 
       {/* Sidebar */}
       <div
+        role="dialog"
+        aria-modal={isCartOpen}
+        aria-label="Carrito de compra"
+        tabIndex={-1}
         className={`fixed top-0 right-0 w-80 max-w-full h-full bg-white shadow-2xl transform transition-transform duration-500 z-50 ${
           isCartOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
@@ -32,7 +36,7 @@ const CartSidebar = () => {
             </button>
           </div>
 
-          <ul className="flex-1 overflow-y-auto space-y-5 pr-2">
+          <ul className="flex-1 overflow-y-auto space-y-5 pr-2" aria-label="Lista de productos en carrito">
             {cart.length === 0 ? (
               <p className="text-gray-500 text-center mt-10 p-4 bg-gray-50 rounded-lg">
                 Tu carrito está vacío. ¡Es hora de comprar!

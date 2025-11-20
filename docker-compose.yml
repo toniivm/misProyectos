@@ -1,19 +1,19 @@
 version: '3.8'
 
 services:
-  urbanstyle-app:
+  valtrex-app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: urbanstyle-tienda
+    container_name: valtrex-tienda
     ports:
       - "3000:80"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
     networks:
-      - urbanstyle-network
+      - valtrex-network
 
 networks:
-  urbanstyle-network:
+  valtrex-network:
     driver: bridge

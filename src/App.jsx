@@ -1,8 +1,9 @@
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
+import ErrorBoundary from './components/ErrorBoundary';
 import CartSidebar from './components/CartSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import CookieConsent from './components/CookieConsent';
@@ -22,21 +23,36 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Contact = lazy(() => import('./pages/Contact'));
 
 function App() {
-  console.log('🎨 [URBANSTYLE] App component mounting');
+  console.log('🎨 [VALTREX] App component mounting');
+  
+  // Prefetch critical routes
+  useEffect(() => {
+    const prefetchRoutes = ['/productos', '/tallas', '/checkout'];
+    prefetchRoutes.forEach(route => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = route;
+      document.head.appendChild(link);
+    });
+    console.log('⚡ [VALTREX Performance] Critical routes prefetched');
+  }, []);
   
   return (
     <AuthProvider>
       <CartProvider>
         <Router>
           <div className="min-h-screen bg-white text-gray-900 flex flex-col"> 
+            <CookieConsent />
             <Header />
             
             <main className="flex-1">
+              <ErrorBoundary>
               <Suspense fallback={<div className="p-6 text-center">Cargando…</div>}>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/productos" element={<ProductPage />} />
-                  <Route path="/product/:id" element={<ProductDetailPage />} /> 
+                  <Route path="/product/:id" element={<ProductDetailPage />} />
+                  <Route path="/producto/:slug" element={<ProductDetailPage />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
                   <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />          
@@ -47,6 +63,7 @@ function App() {
                     <Route path="/contacto" element={<Contact />} />
                 </Routes>
               </Suspense>
+              </ErrorBoundary>
             </main>
             
             <footer className="bg-gray-900 text-white mt-auto">
@@ -55,11 +72,11 @@ function App() {
                   {/* Columna 1 - Marca */}
                   <div>
                     <h3 className="text-2xl font-bold mb-4">
-                      <span className="text-white">URBAN</span>
-                      <span className="text-gray-400">STYLE</span>
+                      <span className="text-white">VALT</span>
+                      <span className="text-gray-400">REX</span>
                     </h3>
                     <p className="text-gray-400 text-sm">
-                      Tu tienda de moda urbana con las últimas tendencias y la mejor calidad.
+                      VALTREX — Rendimiento deportivo y estilo urbano premium.
                     </p>
                   </div>
 
@@ -67,13 +84,13 @@ function App() {
                   <div>
                     <h4 className="font-bold mb-4 text-lg">Tienda</h4>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                      <li><a href="/productos" className="hover:text-white transition">Todos los productos</a></li>
-                      <li><a href="/?filter=nuevos" className="hover:text-white transition">Novedades</a></li>
-                      <li><a href="/?filter=ofertas" className="hover:text-white transition">Ofertas</a></li>
-                      <li><a href="/productos?category=camisetas" className="hover:text-white transition">Camisetas</a></li>
-                      <li><a href="/productos?category=pantalones" className="hover:text-white transition">Pantalones</a></li>
-                      <li><a href="/envios" className="hover:text-white transition">Envíos</a></li>
-                      <li><a href="/tallas" className="hover:text-white transition">Guía de Tallas</a></li>
+                      <li><Link to="/productos" className="hover:text-white transition">Todos los productos</Link></li>
+                      <li><Link to="/?filter=nuevos" className="hover:text-white transition">Novedades</Link></li>
+                      <li><Link to="/?filter=ofertas" className="hover:text-white transition">Ofertas</Link></li>
+                      <li><Link to="/productos?category=camisetas" className="hover:text-white transition">Camisetas</Link></li>
+                      <li><Link to="/productos?category=pantalones" className="hover:text-white transition">Pantalones</Link></li>
+                      <li><Link to="/envios" className="hover:text-white transition">Envíos</Link></li>
+                      <li><Link to="/tallas" className="hover:text-white transition">Guía de Tallas</Link></li>
                     </ul>
                   </div>
 
@@ -81,11 +98,11 @@ function App() {
                   <div>
                     <h4 className="font-bold mb-4 text-lg">Ayuda</h4>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                      <li><a href="/envios" className="hover:text-white transition">Envíos y devoluciones</a></li>
-                      <li><a href="/tallas" className="hover:text-white transition">Guía de tallas</a></li>
-                      <li><a href="/terminos" className="hover:text-white transition">Términos</a></li>
-                      <li><a href="/contacto" className="hover:text-white transition">Contacto</a></li>
-                      <li><a href="/privacidad" className="hover:text-white transition">Privacidad</a></li>
+                      <li><Link to="/envios" className="hover:text-white transition">Envíos y devoluciones</Link></li>
+                      <li><Link to="/tallas" className="hover:text-white transition">Guía de tallas</Link></li>
+                      <li><Link to="/terminos" className="hover:text-white transition">Términos</Link></li>
+                      <li><Link to="/contacto" className="hover:text-white transition">Contacto</Link></li>
+                      <li><Link to="/privacidad" className="hover:text-white transition">Privacidad</Link></li>
                     </ul>
                   </div>
 
@@ -114,13 +131,12 @@ function App() {
 
                 {/* Copyright */}
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-                  <p>© 2025 URBANSTYLE. Todos los derechos reservados.</p>
+                  <p>© 2025 VALTREX. Todos los derechos reservados.</p>
                 </div>
               </div>
             </footer>
             
             <CartSidebar />
-            <CookieConsent />
           </div>
         </Router>
       </CartProvider>

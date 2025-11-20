@@ -2,6 +2,8 @@ const PRODUCTS = [
     // CAMISETAS
     {
         id: 1,
+        slug: "camiseta-basica-blanca",
+        stock: 40,
         title: "Camiseta Básica Blanca",
         description: "Camiseta esencial de algodón 100% orgánico. Corte regular, perfecta para el día a día. Tejido suave y transpirable.",
         price: 19.99,
@@ -18,6 +20,8 @@ const PRODUCTS = [
     },
     {
         id: 2,
+        slug: "camiseta-oversize-negra",
+        stock: 25,
         title: "Camiseta Oversize Negra",
         description: "Diseño oversize moderno con caída perfecta. 100% algodón premium. Ideal para look urbano y casual.",
         price: 29.99,
@@ -33,6 +37,8 @@ const PRODUCTS = [
     },
     {
         id: 3,
+        slug: "camiseta-estampada-vintage",
+        stock: 15,
         title: "Camiseta Estampada Vintage",
         description: "Camiseta con estampado retro exclusivo. Edición limitada con acabado desgastado. 100% algodón prelavado.",
         price: 34.99,
@@ -50,6 +56,8 @@ const PRODUCTS = [
     // PANTALONES
     {
         id: 4,
+        slug: "jeans-slim-fit-azul-oscuro",
+        stock: 30,
         title: "Jeans Slim Fit Azul Oscuro",
         description: "Jeans de corte slim con mezclilla de alta calidad. Diseño atemporal con ligero stretch para mayor comodidad.",
         price: 59.99,
@@ -65,6 +73,8 @@ const PRODUCTS = [
     },
     {
         id: 5,
+        slug: "pantalon-cargo-verde-militar",
+        stock: 20,
         title: "Pantalón Cargo Verde Militar",
         description: "Pantalón cargo con múltiples bolsillos. Tela resistente y cómoda. Perfecto para estilo urbano y outdoor.",
         price: 49.99,
@@ -80,6 +90,8 @@ const PRODUCTS = [
     },
     {
         id: 6,
+        slug: "chinos-beige-clasicos",
+        stock: 50,
         title: "Chinos Beige Clásicos",
         description: "Pantalones chinos elegantes de algodón. Corte recto y acabado impecable. Ideales para ocasiones formales.",
         price: 44.99,
@@ -97,6 +109,8 @@ const PRODUCTS = [
     // CHAQUETAS
     {
         id: 7,
+        slug: "chaqueta-denim-azul",
+        stock: 18,
         title: "Chaqueta Denim Azul",
         description: "Chaqueta vaquera clásica con lavado medio. Diseño icónico y versátil. Perfecta para todas las estaciones.",
         price: 79.99,
@@ -112,6 +126,8 @@ const PRODUCTS = [
     },
     {
         id: 8,
+        slug: "bomber-negra-premium",
+        stock: 12,
         title: "Bomber Negra Premium",
         description: "Chaqueta bomber con forro acolchado. Cierre de cremallera y bolsillos laterales. Material resistente al agua.",
         price: 89.99,
@@ -127,6 +143,8 @@ const PRODUCTS = [
     },
     {
         id: 9,
+        slug: "parka-oversize-camel",
+        stock: 10,
         title: "Parka Oversize Camel",
         description: "Parka larga con capucha y forro térmico. Diseño oversize moderno. Múltiples bolsillos y ajuste en cintura.",
         price: 129.99,
@@ -144,6 +162,8 @@ const PRODUCTS = [
     // SUDADERAS
     {
         id: 10,
+        slug: "hoodie-gris-minimalista",
+        stock: 35,
         title: "Hoodie Gris Minimalista",
         description: "Sudadera con capucha de felpa francesa. Interior suave y cálido. Diseño clean sin estampados.",
         price: 39.99,
@@ -159,6 +179,8 @@ const PRODUCTS = [
     },
     {
         id: 11,
+        slug: "sudadera-crewneck-negra",
+        stock: 28,
         title: "Sudadera Crewneck Negra",
         description: "Sudadera cuello redondo con logotipo bordado. Ajuste regular y acabados reforzados. 80% algodón 20% poliéster.",
         price: 44.99,
@@ -174,6 +196,8 @@ const PRODUCTS = [
     },
     {
         id: 12,
+        slug: "sudadera-zip-deportiva",
+        stock: 22,
         title: "Sudadera Zip Deportiva",
         description: "Sudadera con cierre completo y capucha ajustable. Bolsillos canguro y puños elásticos. Perfecta para deporte.",
         price: 49.99,
@@ -191,6 +215,8 @@ const PRODUCTS = [
     // ACCESORIOS
     {
         id: 13,
+        slug: "gorra-snapback-negra",
+        stock: 60,
         title: "Gorra Snapback Negra",
         description: "Gorra de béisbol con visera plana y cierre ajustable. Bordado frontal de alta calidad.",
         price: 24.99,
@@ -206,6 +232,8 @@ const PRODUCTS = [
     },
     {
         id: 14,
+        slug: "mochila-urban-negra",
+        stock: 14,
         title: "Mochila Urban Negra",
         description: "Mochila espaciosa con compartimento acolchado para portátil. Material resistente al agua. Diseño urbano moderno.",
         price: 54.99,
@@ -221,6 +249,8 @@ const PRODUCTS = [
     },
     {
         id: 15,
+        slug: "cinturon-cuero-marron",
+        stock: 55,
         title: "Cinturón Cuero Marrón",
         description: "Cinturón de cuero genuino con hebilla de metal. Acabado artesanal y costuras reforzadas. Elegancia atemporal.",
         price: 29.99,

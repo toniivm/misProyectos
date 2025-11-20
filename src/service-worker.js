@@ -31,7 +31,7 @@ registerRoute(
   })
 );
 
-console.log('[SW] URBANSTYLE Service Worker loaded');
+console.log('[SW] VALTREX Service Worker loaded');
 
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing...');

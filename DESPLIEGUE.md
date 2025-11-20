@@ -1,6 +1,6 @@
 # 🚀 Guía de Despliegue con Docker
 
-## Pasos para desplegar tu tienda:
+## Pasos para desplegar tu tienda VALTREX:
 
 ### 1. Instalar dependencias y construir
 ```bash
@@ -10,12 +10,12 @@ npm run build
 
 ### 2. Construir la imagen Docker
 ```bash
-docker build -t urbanstyle-tienda .
+docker build -t valtrex-tienda .
 ```
 
 ### 3. Ejecutar el contenedor
 ```bash
-docker run -d -p 3000:80 --name urbanstyle urbanstyle-tienda
+docker run -d -p 3000:80 --name valtrex valtrex-tienda
 ```
 
 O usa docker-compose:

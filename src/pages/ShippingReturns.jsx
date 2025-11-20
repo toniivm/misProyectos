@@ -37,7 +37,7 @@ export default function ShippingReturns() {
         </section>
         <section>
           <h2 className="text-xl font-semibold mb-2">Ayuda</h2>
-          <p>Si tienes dudas escríbenos a <a href="mailto:soporte@urbanstyle.dev" className="text-black underline">soporte@urbanstyle.dev</a>.</p>
+          <p>Si tienes dudas escríbenos a <a href="mailto:soporte@valtrex.dev" className="text-black underline">soporte@valtrex.dev</a>.</p>
         </section>
       </div>
     </div>

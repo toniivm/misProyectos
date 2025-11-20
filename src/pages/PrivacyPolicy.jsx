@@ -18,7 +18,7 @@ export default function PrivacyPolicy(){
    </section>
    <section>
     <h2 className='font-semibold text-lg mb-2'>Conservación</h2>
-    <p>Eliminamos cuenta y datos bajo petición en soporte@urbanstyle.dev.</p>
+    <p>Eliminamos cuenta y datos bajo petición en soporte@valtrex.dev.</p>
    </section>
    <section>
     <h2 className='font-semibold text-lg mb-2'>Tus Derechos</h2>
