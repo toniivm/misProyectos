@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
+import SafeImage from './SafeImage';
 
 const ProductCard = ({ product }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -46,10 +47,10 @@ const ProductCard = ({ product }) => {
       <Link to={`/product/${product.id}`} className="block">
         {/* Imagen del producto */}
         <div className="relative overflow-hidden bg-gray-100 aspect-square">
-          <img 
-            src={image} 
-            alt={product.title} 
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+          <SafeImage
+            src={image}
+            alt={product.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           
           {/* Overlay con botón de compra rápida */}
