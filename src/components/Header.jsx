@@ -18,6 +18,8 @@ export default function Header() {
     { name: "Tienda", path: "/productos" },
     { name: "Ofertas", path: "/?filter=ofertas" },
     { name: "Novedades", path: "/?filter=nuevos" },
+    { name: "Envíos", path: "/envios" },
+    { name: "Tallas", path: "/tallas" },
   ];
 
   const handleLogout = async () => {

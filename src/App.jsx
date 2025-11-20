@@ -5,6 +5,8 @@ import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import CartSidebar from './components/CartSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
+import CookieConsent from './components/CookieConsent';
+import NewsletterSignup from './components/NewsletterSignup';
 
 // Lazy loaded pages
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -13,6 +15,11 @@ const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const Login = lazy(() => import('./pages/Login'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const Terms = lazy(() => import('./pages/Terms')); // new
+const ShippingReturns = lazy(() => import('./pages/ShippingReturns'));
+const SizeGuide = lazy(() => import('./pages/SizeGuide'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 function App() {
   console.log('🎨 [URBANSTYLE] App component mounting');
@@ -33,6 +40,11 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
                   <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />          
+                    <Route path="/envios" element={<ShippingReturns />} />
+                    <Route path="/tallas" element={<SizeGuide />} />
+                    <Route path="/privacidad" element={<PrivacyPolicy />} />
+                    <Route path="/terminos" element={<Terms />} />
+                    <Route path="/contacto" element={<Contact />} />
                 </Routes>
               </Suspense>
             </main>
@@ -60,6 +72,8 @@ function App() {
                       <li><a href="/?filter=ofertas" className="hover:text-white transition">Ofertas</a></li>
                       <li><a href="/productos?category=camisetas" className="hover:text-white transition">Camisetas</a></li>
                       <li><a href="/productos?category=pantalones" className="hover:text-white transition">Pantalones</a></li>
+                      <li><a href="/envios" className="hover:text-white transition">Envíos</a></li>
+                      <li><a href="/tallas" className="hover:text-white transition">Guía de Tallas</a></li>
                     </ul>
                   </div>
 
@@ -67,11 +81,11 @@ function App() {
                   <div>
                     <h4 className="font-bold mb-4 text-lg">Ayuda</h4>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                      <li><a href="#" className="hover:text-white transition">Envíos y devoluciones</a></li>
-                      <li><a href="#" className="hover:text-white transition">Guía de tallas</a></li>
-                      <li><a href="#" className="hover:text-white transition">Preguntas frecuentes</a></li>
-                      <li><a href="#" className="hover:text-white transition">Contacto</a></li>
-                      <li><a href="#" className="hover:text-white transition">Política de privacidad</a></li>
+                      <li><a href="/envios" className="hover:text-white transition">Envíos y devoluciones</a></li>
+                      <li><a href="/tallas" className="hover:text-white transition">Guía de tallas</a></li>
+                      <li><a href="/terminos" className="hover:text-white transition">Términos</a></li>
+                      <li><a href="/contacto" className="hover:text-white transition">Contacto</a></li>
+                      <li><a href="/privacidad" className="hover:text-white transition">Privacidad</a></li>
                     </ul>
                   </div>
 
@@ -81,17 +95,7 @@ function App() {
                     <p className="text-gray-400 text-sm mb-4">
                       Suscríbete para recibir ofertas exclusivas
                     </p>
-                    <div className="flex gap-2">
-                      <input
-                        type="email"
-                        placeholder="Tu email"
-                        className="flex-1 px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:border-white text-sm"
-                        name="newsletterEmail"
-                      />
-                      <button className="bg-white text-black px-6 py-2 rounded font-semibold hover:bg-gray-200 transition text-sm">
-                        Enviar
-                      </button>
-                    </div>
+                    <NewsletterSignup />
                     
                     {/* Redes Sociales */}
                     <div className="flex gap-4 mt-6">
@@ -116,6 +120,7 @@ function App() {
             </footer>
             
             <CartSidebar />
+            <CookieConsent />
           </div>
         </Router>
       </CartProvider>
