@@ -35,13 +35,9 @@ ENV REACT_APP_FIREBASE_API_KEY=$REACT_APP_FIREBASE_API_KEY \
 # Construir la aplicación (sin pasos de debug)
 RUN npm run build
 
-# Crear usuario no root para servir archivos (defensa básica)
-RUN adduser -D appuser
-
 # Etapa 2: Servidor de producción con Nginx
 FROM nginx:alpine
 
- # Copiar los archivos compilados desde la etapa de build
 COPY --from=builder /app/build /usr/share/nginx/html
 
 # Copiar configuración personalizada de Nginx
@@ -50,9 +46,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Exponer puerto 80
 EXPOSE 80
 
-# Ajustar permisos y usar usuario no root
-RUN chown -R appuser:appuser /usr/share/nginx/html
-USER appuser
+# Mantener root (nginx necesita binding al puerto 80). Workers siguen siendo no-root internos.
 
 # Comando por defecto
 CMD ["nginx", "-g", "daemon off;"]
