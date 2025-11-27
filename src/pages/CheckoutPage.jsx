@@ -1,18 +1,31 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CreditCard, Truck, MapPin, CheckCircle2, ArrowLeft } from 'lucide-react';
+import { CreditCard, Truck, MapPin, CheckCircle2, ArrowLeft, Shield, AlertCircle, Apple } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import { db } from '../firebase/config';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { cart, total } = useCart();
+  const { cart, total, clearCart } = useCart();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [orderNumber, setOrderNumber] = useState('');
+  
+  // Legal acceptance
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
+  
+  // Form validation errors
+  const [errors, setErrors] = useState({});
   
   const [shippingData, setShippingData] = useState({
     name: '',
-    email: '',
+    email: user?.email || '',
     phone: '',
     address: '',
     city: '',
@@ -41,37 +54,242 @@ const CheckoutPage = () => {
     { id: 'urgent', name: 'Envío Urgente', time: '24 horas', cost: 19.99 },
   ];
 
+  // Input formatting helpers
+  const formatCardNumber = (value) => {
+    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    const matches = v.match(/\d{4,16}/g);
+    const match = (matches && matches[0]) || '';
+    const parts = [];
+    for (let i = 0, len = match.length; i < len; i += 4) {
+      parts.push(match.substring(i, i + 4));
+    }
+    return parts.length ? parts.join(' ') : value;
+  };
+
+  const formatExpiryDate = (value) => {
+    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    if (v.length >= 2) {
+      return v.slice(0, 2) + '/' + v.slice(2, 4);
+    }
+    return v;
+  };
+
+  const formatPhone = (value) => {
+    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    return v.slice(0, 9);
+  };
+
   const handleShippingChange = (e) => {
-    setShippingData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    let formattedValue = value;
+    
+    if (name === 'phone') {
+      formattedValue = formatPhone(value);
+    } else if (name === 'zip') {
+      formattedValue = value.replace(/[^0-9]/gi, '').slice(0, 5);
+    }
+    
+    setShippingData((prev) => ({ ...prev, [name]: formattedValue }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handlePaymentChange = (e) => {
-    setPaymentData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    let formattedValue = value;
+    
+    if (name === 'cardNumber') {
+      formattedValue = formatCardNumber(value);
+    } else if (name === 'expiryDate') {
+      formattedValue = formatExpiryDate(value);
+    } else if (name === 'cvv') {
+      formattedValue = value.replace(/[^0-9]/gi, '').slice(0, 4);
+    }
+    
+    setPaymentData((prev) => ({ ...prev, [name]: formattedValue }));
+    
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const validateStep1 = () => {
-    return Object.values(shippingData).every(value => value.trim() !== '');
+    const newErrors = {};
+    
+    if (!shippingData.name.trim()) newErrors.name = 'El nombre es obligatorio';
+    if (!shippingData.email.trim()) {
+      newErrors.email = 'El email es obligatorio';
+    } else if (!validateEmail(shippingData.email)) {
+      newErrors.email = 'Email inválido';
+    }
+    if (!shippingData.phone.trim()) {
+      newErrors.phone = 'El teléfono es obligatorio';
+    } else if (shippingData.phone.length < 9) {
+      newErrors.phone = 'Teléfono debe tener 9 dígitos';
+    }
+    if (!shippingData.address.trim()) newErrors.address = 'La dirección es obligatoria';
+    if (!shippingData.city.trim()) newErrors.city = 'La ciudad es obligatoria';
+    if (!shippingData.state.trim()) newErrors.state = 'La provincia es obligatoria';
+    if (!shippingData.zip.trim()) {
+      newErrors.zip = 'El código postal es obligatorio';
+    } else if (shippingData.zip.length !== 5) {
+      newErrors.zip = 'CP debe tener 5 dígitos';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const validateStep2 = () => {
-    return Object.values(paymentData).every(value => value.trim() !== '');
+    const newErrors = {};
+    
+    const cardNumberClean = paymentData.cardNumber.replace(/\s/g, '');
+    if (!cardNumberClean) {
+      newErrors.cardNumber = 'Número de tarjeta obligatorio';
+    } else if (cardNumberClean.length < 15) {
+      newErrors.cardNumber = 'Número de tarjeta inválido';
+    }
+    
+    if (!paymentData.cardName.trim()) {
+      newErrors.cardName = 'Nombre en tarjeta obligatorio';
+    }
+    
+    if (!paymentData.expiryDate) {
+      newErrors.expiryDate = 'Fecha de vencimiento obligatoria';
+    } else if (paymentData.expiryDate.length !== 5) {
+      newErrors.expiryDate = 'Formato: MM/AA';
+    }
+    
+    if (!paymentData.cvv) {
+      newErrors.cvv = 'CVV obligatorio';
+    } else if (paymentData.cvv.length < 3) {
+      newErrors.cvv = 'CVV debe tener 3-4 dígitos';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleNextStep = () => {
     if (currentStep === 1 && validateStep1()) {
       setCurrentStep(2);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (currentStep === 2 && validateStep2()) {
       setCurrentStep(3);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  const handleSubmit = (e) => {
+  // Save order to Firebase Firestore
+  const saveOrderToFirebase = async (orderData) => {
+    try {
+      const ordersRef = collection(db, 'orders');
+      const docRef = await addDoc(ordersRef, {
+        ...orderData,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+      return docRef.id;
+    } catch (error) {
+      console.error('Error saving order:', error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    // Simular procesamiento de pago
-    setTimeout(() => {
-      navigate('/');
-    }, 5000);
+    
+    // Validate legal acceptance
+    if (!acceptedTerms) {
+      setErrors({ terms: 'Debes aceptar los Términos y Condiciones' });
+      return;
+    }
+    if (!acceptedPrivacy) {
+      setErrors({ privacy: 'Debes aceptar la Política de Privacidad' });
+      return;
+    }
+    
+    setIsProcessing(true);
+    
+    try {
+      // Generate order number
+      const orderNum = 'ORD-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 7).toUpperCase();
+      
+      // Prepare order data for Firebase
+      const orderData = {
+        orderNumber: orderNum,
+        userId: user?.uid || 'guest',
+        userEmail: user?.email || shippingData.email,
+        status: 'pending', // pending, processing, shipped, delivered, cancelled
+        
+        // Shipping information
+        shipping: {
+          name: shippingData.name,
+          email: shippingData.email,
+          phone: shippingData.phone,
+          address: shippingData.address,
+          city: shippingData.city,
+          state: shippingData.state,
+          zip: shippingData.zip,
+          method: shippingMethod,
+          cost: shippingCosts[shippingMethod],
+        },
+        
+        // Payment information (only last 4 digits for security)
+        payment: {
+          method: 'credit_card', // TODO: Replace with actual payment gateway (stripe, paypal, apple_pay)
+          cardLast4: paymentData.cardNumber.replace(/\s/g, '').slice(-4),
+          cardName: paymentData.cardName,
+          // NEVER store full card number or CVV
+        },
+        
+        // Products
+        products: cart.map(item => ({
+          id: item.id,
+          title: item.title,
+          brand: item.brand,
+          price: item.price,
+          size: item.size,
+          quantity: item.quantity,
+          image: item.images ? item.images[0] : item.image,
+        })),
+        
+        // Totals
+        subtotal: total,
+        shippingCost: shippingCosts[shippingMethod],
+        total: finalTotal,
+        
+        // Legal acceptance
+        legalAcceptance: {
+          termsAccepted: acceptedTerms,
+          privacyAccepted: acceptedPrivacy,
+          acceptedAt: new Date().toISOString(),
+        },
+      };
+      
+      // Save to Firebase
+      await saveOrderToFirebase(orderData);
+      
+      // Clear cart and show success
+      setOrderNumber(orderNum);
+      setIsSubmitted(true);
+      clearCart();
+      
+      // TODO: Send confirmation email (implement with Firebase Functions or SendGrid)
+      // TODO: Process actual payment with Stripe/PayPal API
+      
+    } catch (error) {
+      console.error('Error processing order:', error);
+      setErrors({ submit: 'Error al procesar el pedido. Por favor, inténtalo de nuevo.' });
+      setIsProcessing(false);
+    }
   };
 
   const finalTotal = total + shippingCosts[shippingMethod];
@@ -95,9 +313,9 @@ const CheckoutPage = () => {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-6">
         <motion.div
-          className="bg-white p-12 rounded-2xl shadow-xl text-center max-w-md"
+          className="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-md w-full"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -111,7 +329,12 @@ const CheckoutPage = () => {
           </p>
           <div className="bg-gray-100 p-4 rounded-lg mb-6">
             <p className="text-sm text-gray-600">Número de pedido</p>
-            <p className="text-xl font-bold">#ORD-{Math.floor(Math.random() * 100000)}</p>
+            <p className="text-xl font-bold">#{orderNumber}</p>
+          </div>
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 text-left">
+            <p className="text-sm text-blue-900">
+              <strong>📦 Siguiente paso:</strong> Recibirás un email con la información de seguimiento en 24-48 horas.
+            </p>
           </div>
           <button
             onClick={() => navigate('/')}
@@ -191,22 +414,40 @@ const CheckoutPage = () => {
                         <input
                           type="text"
                           name="name"
+                          autoComplete="name"
                           value={shippingData.name}
                           onChange={handleShippingChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                            errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                          }`}
+                          placeholder="Juan Pérez"
                           required
                         />
+                        {errors.name && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} /> {errors.name}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-2">Email *</label>
                         <input
                           type="email"
                           name="email"
+                          autoComplete="email"
                           value={shippingData.email}
                           onChange={handleShippingChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                            errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                          }`}
+                          placeholder="juan@ejemplo.com"
                           required
                         />
+                        {errors.email && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} /> {errors.email}
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -215,11 +456,21 @@ const CheckoutPage = () => {
                       <input
                         type="tel"
                         name="phone"
+                        autoComplete="tel"
                         value={shippingData.phone}
                         onChange={handleShippingChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                        }`}
+                        placeholder="612345678"
+                        maxLength="9"
                         required
                       />
+                      {errors.phone && (
+                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                          <AlertCircle size={12} /> {errors.phone}
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -227,11 +478,20 @@ const CheckoutPage = () => {
                       <input
                         type="text"
                         name="address"
+                        autoComplete="street-address"
                         value={shippingData.address}
                         onChange={handleShippingChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          errors.address ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                        }`}
+                        placeholder="Calle Serrano 45, 3º B"
                         required
                       />
+                      {errors.address && (
+                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                          <AlertCircle size={12} /> {errors.address}
+                        </p>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -240,33 +500,61 @@ const CheckoutPage = () => {
                         <input
                           type="text"
                           name="city"
+                          autoComplete="address-level2"
                           value={shippingData.city}
                           onChange={handleShippingChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                            errors.city ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                          }`}
+                          placeholder="Madrid"
                           required
                         />
+                        {errors.city && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} /> {errors.city}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-2">Provincia *</label>
                         <input
                           type="text"
                           name="state"
+                          autoComplete="address-level1"
                           value={shippingData.state}
                           onChange={handleShippingChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                            errors.state ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                          }`}
+                          placeholder="Madrid"
                           required
                         />
+                        {errors.state && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} /> {errors.state}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-2">CP *</label>
                         <input
                           type="text"
                           name="zip"
+                          autoComplete="postal-code"
                           value={shippingData.zip}
                           onChange={handleShippingChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                            errors.zip ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                          }`}
+                          placeholder="28001"
+                          maxLength="5"
                           required
                         />
+                        {errors.zip && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} /> {errors.zip}
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -326,19 +614,70 @@ const CheckoutPage = () => {
                     <h2 className="text-2xl font-bold">Información de Pago</h2>
                   </div>
 
+                  {/* Payment Gateway Buttons (Future Implementation) */}
+                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                    <p className="text-sm text-blue-900 mb-3">
+                      <strong>🔒 Pago Rápido:</strong> Métodos de pago express (próximamente)
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <button
+                        type="button"
+                        disabled
+                        className="flex-1 min-w-[140px] bg-black text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
+                      >
+                        <Apple size={20} />
+                        Apple Pay
+                      </button>
+                      <button
+                        type="button"
+                        disabled
+                        className="flex-1 min-w-[140px] bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold opacity-50 cursor-not-allowed"
+                      >
+                        PayPal
+                      </button>
+                      <button
+                        type="button"
+                        disabled
+                        className="flex-1 min-w-[140px] bg-white border-2 border-gray-300 py-3 px-4 rounded-lg font-semibold opacity-50 cursor-not-allowed"
+                      >
+                        Google Pay
+                      </button>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-2">
+                      * Apple Pay, PayPal y Google Pay estarán disponibles tras integrar Stripe Payment Gateway
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex-1 border-t border-gray-300"></div>
+                    <span className="text-sm text-gray-500">O pagar con tarjeta</span>
+                    <div className="flex-1 border-t border-gray-300"></div>
+                  </div>
+
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-semibold mb-2">Número de Tarjeta *</label>
                       <input
                         type="text"
                         name="cardNumber"
+                        autoComplete="cc-number"
                         placeholder="1234 5678 9012 3456"
                         value={paymentData.cardNumber}
                         onChange={handlePaymentChange}
                         maxLength="19"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          errors.cardNumber ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                        }`}
                         required
                       />
+                      {errors.cardNumber && (
+                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                          <AlertCircle size={12} /> {errors.cardNumber}
+                        </p>
+                      )}
+                      <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                        <Shield size={12} /> SSL cifrado - Nunca almacenamos datos completos de tarjeta
+                      </p>
                     </div>
 
                     <div>
@@ -346,40 +685,65 @@ const CheckoutPage = () => {
                       <input
                         type="text"
                         name="cardName"
-                        placeholder="Juan Pérez"
+                        autoComplete="cc-name"
+                        placeholder="JUAN PEREZ"
                         value={paymentData.cardName}
                         onChange={handlePaymentChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          errors.cardName ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                        }`}
                         required
                       />
+                      {errors.cardName && (
+                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                          <AlertCircle size={12} /> {errors.cardName}
+                        </p>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-semibold mb-2">Fecha de Vencimiento *</label>
+                        <label className="block text-sm font-semibold mb-2">Vencimiento *</label>
                         <input
                           type="text"
                           name="expiryDate"
-                          placeholder="MM/YY"
+                          autoComplete="cc-exp"
+                          placeholder="MM/AA"
                           value={paymentData.expiryDate}
                           onChange={handlePaymentChange}
                           maxLength="5"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                            errors.expiryDate ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                          }`}
                           required
                         />
+                        {errors.expiryDate && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} /> {errors.expiryDate}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-semibold mb-2">CVV *</label>
                         <input
                           type="text"
                           name="cvv"
+                          autoComplete="cc-csc"
                           placeholder="123"
                           value={paymentData.cvv}
                           onChange={handlePaymentChange}
                           maxLength="4"
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                            errors.cvv ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
+                          }`}
                           required
                         />
+                        {errors.cvv && (
+                          <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                            <AlertCircle size={12} /> {errors.cvv}
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-500 mt-1">3 dígitos (4 para Amex)</p>
                       </div>
                     </div>
                   </div>
@@ -415,35 +779,132 @@ const CheckoutPage = () => {
 
                   <div className="space-y-6">
                     <div className="bg-gray-50 p-6 rounded-lg">
-                      <h3 className="font-bold mb-3">Dirección de Envío</h3>
-                      <p>{shippingData.name}</p>
+                      <h3 className="font-bold mb-3 flex items-center gap-2">
+                        <MapPin size={20} />
+                        Dirección de Envío
+                      </h3>
+                      <p className="font-semibold">{shippingData.name}</p>
                       <p>{shippingData.address}</p>
                       <p>{shippingData.city}, {shippingData.state} {shippingData.zip}</p>
                       <p className="mt-2 text-gray-600">{shippingData.email}</p>
                       <p className="text-gray-600">{shippingData.phone}</p>
+                      <p className="mt-3 text-sm font-semibold text-gray-700">
+                        Envío: {shippingOptions.find(opt => opt.id === shippingMethod)?.name} 
+                        ({shippingOptions.find(opt => opt.id === shippingMethod)?.time})
+                      </p>
                     </div>
 
                     <div className="bg-gray-50 p-6 rounded-lg">
-                      <h3 className="font-bold mb-3">Método de Pago</h3>
-                      <p>**** **** **** {paymentData.cardNumber.slice(-4)}</p>
-                      <p>{paymentData.cardName}</p>
+                      <h3 className="font-bold mb-3 flex items-center gap-2">
+                        <CreditCard size={20} />
+                        Método de Pago
+                      </h3>
+                      <p className="font-mono">**** **** **** {paymentData.cardNumber.replace(/\s/g, '').slice(-4)}</p>
+                      <p className="text-gray-600">{paymentData.cardName}</p>
+                      <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
+                        <Shield size={12} /> 
+                        Pago seguro con cifrado SSL
+                      </p>
+                    </div>
+
+                    {/* Legal Acceptance */}
+                    <div className="bg-yellow-50 border-2 border-yellow-300 p-6 rounded-lg space-y-4">
+                      <h3 className="font-bold mb-3 flex items-center gap-2">
+                        <Shield size={20} />
+                        Aceptación Legal
+                      </h3>
+                      
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={acceptedTerms}
+                          onChange={(e) => {
+                            setAcceptedTerms(e.target.checked);
+                            if (errors.terms) setErrors(prev => ({ ...prev, terms: '' }));
+                          }}
+                          className="mt-1 w-5 h-5 accent-black"
+                          required
+                        />
+                        <span className="text-sm">
+                          He leído y acepto los{' '}
+                          <Link to="/terms" target="_blank" className="text-blue-600 hover:underline font-semibold">
+                            Términos y Condiciones
+                          </Link>{' '}
+                          de compra, incluyendo la política de devoluciones y garantía de autenticidad. *
+                        </span>
+                      </label>
+                      {errors.terms && (
+                        <p className="text-red-500 text-xs flex items-center gap-1">
+                          <AlertCircle size={12} /> {errors.terms}
+                        </p>
+                      )}
+
+                      <label className="flex items-start gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={acceptedPrivacy}
+                          onChange={(e) => {
+                            setAcceptedPrivacy(e.target.checked);
+                            if (errors.privacy) setErrors(prev => ({ ...prev, privacy: '' }));
+                          }}
+                          className="mt-1 w-5 h-5 accent-black"
+                          required
+                        />
+                        <span className="text-sm">
+                          Acepto la{' '}
+                          <Link to="/privacy" target="_blank" className="text-blue-600 hover:underline font-semibold">
+                            Política de Privacidad
+                          </Link>{' '}
+                          y el tratamiento de mis datos personales conforme al RGPD. *
+                        </span>
+                      </label>
+                      {errors.privacy && (
+                        <p className="text-red-500 text-xs flex items-center gap-1">
+                          <AlertCircle size={12} /> {errors.privacy}
+                        </p>
+                      )}
+
+                      <p className="text-xs text-gray-600 mt-3">
+                        * Campos obligatorios. Al realizar el pedido, confirmas que has leído y aceptado nuestros 
+                        términos legales. Tus datos serán almacenados de forma segura y nunca compartidos con terceros 
+                        sin tu consentimiento.
+                      </p>
                     </div>
                   </div>
+
+                  {errors.submit && (
+                    <div className="bg-red-50 border-2 border-red-500 p-4 rounded-lg mt-6 flex items-center gap-2 text-red-700">
+                      <AlertCircle size={20} />
+                      <span>{errors.submit}</span>
+                    </div>
+                  )}
 
                   <form onSubmit={handleSubmit}>
                     <div className="flex gap-4 mt-8">
                       <button
                         type="button"
                         onClick={() => setCurrentStep(2)}
-                        className="flex-1 border-2 border-gray-300 text-gray-700 py-4 rounded-lg font-semibold hover:bg-gray-100 transition"
+                        disabled={isProcessing}
+                        className="flex-1 border-2 border-gray-300 text-gray-700 py-4 rounded-lg font-semibold hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         Atrás
                       </button>
                       <button
                         type="submit"
-                        className="flex-1 bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition"
+                        disabled={isProcessing || !acceptedTerms || !acceptedPrivacy}
+                        className="flex-1 bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       >
-                        Confirmar y Pagar
+                        {isProcessing ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            Procesando...
+                          </>
+                        ) : (
+                          <>
+                            <Shield size={20} />
+                            Confirmar y Pagar {finalTotal.toFixed(2)} €
+                          </>
+                        )}
                       </button>
                     </div>
                   </form>

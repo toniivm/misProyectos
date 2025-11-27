@@ -16,6 +16,8 @@ const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const Login = lazy(() => import('./pages/Login'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 
 function App() {
   console.log('🎨 [URBANSTYLE] App component mounting');
@@ -37,7 +39,9 @@ function App() {
                   <Route path="/product/:id" element={<ProductDetailPage />} /> 
                   <Route path="/login" element={<Login />} />
                   <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
-                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />          
+                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                  <Route path="/terms" element={<TermsOfService />} />
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
                 </Routes>
               </Suspense>
             </main>
@@ -160,6 +164,21 @@ function App() {
                     <p className="font-semibold">© 2025 VALTREX. Todos los derechos reservados.</p>
                     <p className="mt-2 text-xs">Envíos discretos y rastreables. Pago 100% cifrado SSL. Verificación de autenticidad garantizada.</p>
                     <p className="mt-1 text-xs text-gray-500">Protegemos tu privacidad. Nunca compartimos tus datos con terceros.</p>
+                    
+                    {/* Legal Links */}
+                    <div className="flex justify-center gap-4 mt-4 flex-wrap">
+                      <a href="/terms" className="text-xs text-gray-500 hover:text-white transition underline">
+                        Términos y Condiciones
+                      </a>
+                      <span className="text-gray-700">•</span>
+                      <a href="/privacy" className="text-xs text-gray-500 hover:text-white transition underline">
+                        Política de Privacidad
+                      </a>
+                      <span className="text-gray-700">•</span>
+                      <a href="mailto:legal@valtrex.com" className="text-xs text-gray-500 hover:text-white transition underline">
+                        Contacto Legal
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
