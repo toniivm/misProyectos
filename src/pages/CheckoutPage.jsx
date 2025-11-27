@@ -6,6 +6,7 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import StripeCheckout from '../components/StripeCheckout';
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const CheckoutPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
+  const [clientSecret, setClientSecret] = useState('');
+  const [useStripePayment, setUseStripePayment] = useState(false);
   
   // Legal acceptance
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -177,14 +180,101 @@ const CheckoutPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNextStep = () => {
+  const handleNextStep = async () => {
     if (currentStep === 1 && validateStep1()) {
       setCurrentStep(2);
+      
+      // MODO DEMO: Crear un PaymentIntent simulado
+      // TODO: En producción, esto debe hacerse con Firebase Functions
+      if (!clientSecret && useStripePayment) {
+        try {
+          // Por ahora mostramos el formulario de Stripe sin clientSecret real
+          // En producción, aquí llamarías a tu Cloud Function:
+          // const response = await fetch('YOUR_CLOUD_FUNCTION_URL', { ... })
+          console.log('Stripe Payment habilitado - Integrar con Firebase Functions para payment intent real');
+        } catch (error) {
+          console.error('Error creating payment intent:', error);
+        }
+      }
+      
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (currentStep === 2 && validateStep2()) {
+    } else if (currentStep === 2 && !useStripePayment && validateStep2()) {
       setCurrentStep(3);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  };
+
+  // Stripe Payment Handlers
+  const handleStripeSuccess = async (paymentIntent) => {
+    console.log('✅ Pago exitoso con Stripe:', paymentIntent);
+    
+    try {
+      // Generate order number
+      const orderNum = 'ORD-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 7).toUpperCase();
+      
+      // Prepare order data
+      const orderData = {
+        orderNumber: orderNum,
+        userId: user?.uid || 'guest',
+        userEmail: user?.email || shippingData.email,
+        status: 'paid',
+        
+        shipping: {
+          name: shippingData.name,
+          email: shippingData.email,
+          phone: shippingData.phone,
+          address: shippingData.address,
+          city: shippingData.city,
+          state: shippingData.state,
+          zip: shippingData.zip,
+          method: shippingMethod,
+          cost: shippingCosts[shippingMethod],
+        },
+        
+        payment: {
+          method: 'stripe',
+          paymentIntentId: paymentIntent.id,
+          status: paymentIntent.status,
+        },
+        
+        products: cart.map(item => ({
+          id: item.id,
+          title: item.title,
+          brand: item.brand,
+          price: item.price,
+          size: item.size,
+          quantity: item.quantity,
+          image: item.images ? item.images[0] : item.image,
+        })),
+        
+        subtotal: total,
+        shippingCost: shippingCosts[shippingMethod],
+        total: finalTotal,
+        
+        legalAcceptance: {
+          termsAccepted: acceptedTerms,
+          privacyAccepted: acceptedPrivacy,
+          acceptedAt: new Date().toISOString(),
+        },
+      };
+      
+      // Save to Firebase
+      await saveOrderToFirebase(orderData);
+      
+      // Show success
+      setOrderNumber(orderNum);
+      setIsSubmitted(true);
+      clearCart();
+      
+    } catch (error) {
+      console.error('Error al guardar el pedido:', error);
+      setErrors({ submit: 'Pago exitoso pero error al guardar pedido. Contacta soporte.' });
+    }
+  };
+  
+  const handleStripeError = (error) => {
+    console.error('❌ Error en Stripe:', error);
+    setErrors({ payment: error.message || 'Error al procesar el pago' });
   };
 
   // Save order to Firebase Firestore
@@ -614,54 +704,56 @@ const CheckoutPage = () => {
                     <h2 className="text-2xl font-bold">Información de Pago</h2>
                   </div>
 
-                  {/* Payment Gateway Buttons (Future Implementation) */}
-                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
-                    <p className="text-sm text-blue-900 mb-3">
-                      <strong>🔒 Pago Rápido:</strong> Métodos de pago express (próximamente)
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      <button
-                        type="button"
-                        disabled
-                        className="flex-1 min-w-[140px] bg-black text-white py-3 px-4 rounded-lg font-semibold flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
-                      >
-                        <Apple size={20} />
-                        Apple Pay
-                      </button>
-                      <button
-                        type="button"
-                        disabled
-                        className="flex-1 min-w-[140px] bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold opacity-50 cursor-not-allowed"
-                      >
-                        PayPal
-                      </button>
-                      <button
-                        type="button"
-                        disabled
-                        className="flex-1 min-w-[140px] bg-white border-2 border-gray-300 py-3 px-4 rounded-lg font-semibold opacity-50 cursor-not-allowed"
-                      >
-                        Google Pay
-                      </button>
+                  {/* Stripe Notice */}
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 p-5 rounded-lg mb-6">
+                    <div className="flex items-start gap-3">
+                      <Shield size={24} className="text-blue-600 mt-1" />
+                      <div>
+                        <h3 className="font-bold text-gray-900 mb-1">🔒 Pago Seguro con Stripe</h3>
+                        <p className="text-sm text-gray-700 mb-3">
+                          Actualmente en <strong>MODO DEMO</strong> para probar la integración. 
+                          Usa la tarjeta de prueba para completar el pago.
+                        </p>
+                        <div className="bg-white border border-gray-300 p-3 rounded text-sm">
+                          <p className="font-semibold text-gray-800 mb-1">Tarjeta de Prueba Stripe:</p>
+                          <p className="font-mono text-gray-600">4242 4242 4242 4242</p>
+                          <p className="text-xs text-gray-500 mt-1">Vencimiento: 12/34 | CVV: 123</p>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-xs text-gray-600 mt-2">
-                      * Apple Pay, PayPal y Google Pay estarán disponibles tras integrar Stripe Payment Gateway
+                  </div>
+
+                  {/* Stripe Checkout Component - MODO DEMO */}
+                  <div className="mb-6">
+                    <p className="text-sm text-gray-600 mb-4 text-center">
+                      ⚠️ <strong>IMPORTANTE:</strong> Para activar pagos reales, necesitas configurar Firebase Functions 
+                      para crear Payment Intents desde el backend (ver STRIPE_INTEGRATION_GUIDE.md)
                     </p>
+                    
+                    {/* Demo Message */}
+                    <div className="bg-yellow-50 border-2 border-yellow-300 p-4 rounded-lg mb-4">
+                      <p className="text-sm text-yellow-800">
+                        <strong>🚧 Modo Demo:</strong> El componente StripeCheckout requiere un <code>clientSecret</code> 
+                        generado desde el backend. Por ahora, usa el formulario manual abajo o configura Firebase Functions.
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="flex-1 border-t border-gray-300"></div>
-                    <span className="text-sm text-gray-500">O pagar con tarjeta</span>
-                    <div className="flex-1 border-t border-gray-300"></div>
-                  </div>
-
+                  {/* Manual Card Form (Fallback) */}
                   <div className="space-y-4">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="flex-1 border-t border-gray-300"></div>
+                      <span className="text-sm text-gray-500 font-semibold">Formulario Manual (Sin Stripe)</span>
+                      <div className="flex-1 border-t border-gray-300"></div>
+                    </div>
+
                     <div>
                       <label className="block text-sm font-semibold mb-2">Número de Tarjeta *</label>
                       <input
                         type="text"
                         name="cardNumber"
                         autoComplete="cc-number"
-                        placeholder="1234 5678 9012 3456"
+                        placeholder="4242 4242 4242 4242 (Prueba)"
                         value={paymentData.cardNumber}
                         onChange={handlePaymentChange}
                         maxLength="19"
@@ -676,7 +768,7 @@ const CheckoutPage = () => {
                         </p>
                       )}
                       <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                        <Shield size={12} /> SSL cifrado - Nunca almacenamos datos completos de tarjeta
+                        <Shield size={12} /> Este formulario NO procesa pagos reales (solo demo)
                       </p>
                     </div>
 
@@ -708,7 +800,7 @@ const CheckoutPage = () => {
                           type="text"
                           name="expiryDate"
                           autoComplete="cc-exp"
-                          placeholder="MM/AA"
+                          placeholder="12/34"
                           value={paymentData.expiryDate}
                           onChange={handlePaymentChange}
                           maxLength="5"
