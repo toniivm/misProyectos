@@ -1,18 +1,73 @@
-# 🛍️ URBANSTYLE - Tienda de Ropa Online
+# 🔒 VALTREX - Sneakers Premium Multimarca
 
-Una moderna tienda de ropa online desarrollada con React, que ofrece una experiencia de compra elegante y fluida. Este proyecto incluye un catálogo completo de productos, carrito de compras, autenticación de usuarios y proceso de checkout.
+Tienda online multimarca de sneakers premium con máxima seguridad y privacidad. Envío discreto, pago 100% cifrado SSL y autenticación de productos garantizada. Nike, Adidas, Balenciaga, Gucci, Off-White, Prada y más marcas exclusivas.
+
+## 🎯 Demo en Vivo
+
+🌐 **[https://valtre.onrender.com/](https://valtre.onrender.com/)**
+
+## 🔐 Seguridad y Confianza
+
+- 🛡️ **SSL Seguro**: Pago 100% cifrado con certificado SSL
+- 🚀 **Envío Discreto**: Entrega rápida 24-48h sin información visible
+- ✅ **100% Auténtico**: Todos los productos con garantía de autenticidad verificada
+- 🔒 **Privacidad Total**: Datos protegidos, sin tracking de ubicación
+- 💳 **Múltiples Métodos de Pago**: VISA, Mastercard, Apple Pay, PayPal, Google Pay, Crypto
+- 🏦 **Pago Seguro**: Procesamiento bancario certificado PCI DSS
 
 ## ✨ Características Principales
 
+- 🏆 **15 Marcas Premium**: Nike, Adidas, Balenciaga, Gucci, Off-White, Prada, Alexander McQueen, Golden Goose, New Balance, Versace, Salomon, Veja, Rick Owens, Converse
+- 👟 **30 Modelos Exclusivos**: Desde Jordan 1 hasta Balenciaga Triple S
+- 💎 **Precios de Lujo**: Productos desde 109€ hasta 1299€
 - 🎨 **Diseño Moderno y Responsive**: Interfaz elegante adaptada a todos los dispositivos
 - 🛒 **Carrito de Compras**: Sistema completo con gestión de productos y tallas
-- 🔐 **Autenticación con Firebase**: Login y registro de usuarios
-- 🔍 **Filtros Avanzados**: Búsqueda por categoría, precio y ordenamiento
-- 💳 **Checkout Completo**: Proceso de pago paso a paso con validaciones
-- 🎯 **Animaciones Suaves**: Transiciones con Framer Motion
-- ⭐ **Sistema de Favoritos**: Guarda tus productos preferidos
+- 💝 **Lista de Deseos (Wishlist)**: Guarda tus sneakers favoritas con persistencia en localStorage
+- 🔐 **Autenticación con Firebase**: Login y registro de usuarios con encriptación
+- 🔍 **Filtros por Marca**: Búsqueda inteligente por marca, precio y ordenamiento
+- 💳 **Checkout Completo**: Proceso de pago paso a paso con validaciones de seguridad
+- 🎯 **Animaciones Suaves**: Transiciones con Framer Motion para UX premium
+- 🏷️ **Secciones Destacadas**: Novedades, Ofertas y Productos Populares
+- 🎨 **Tema Personalizado**: Diseño minimalista negro con badges de confianza
 - 📱 **100% Responsive**: Optimizado para móvil, tablet y escritorio
-- 🎨 **Tailwind CSS**: Estilos modernos y mantenibles
+- 🔒 **Privacidad Total**: Sin información de ubicación visible, envíos anónimos
+- 🐳 **Docker Ready**: Configuración completa para despliegue con Docker y Nginx
+
+## 👟 Catálogo por Marcas
+
+### Nike (4 modelos)
+- Air Jordan 1 Chicago - 189.99€
+- Dunk Low Panda - 129.99€
+- TN Triple Black - 199.99€
+- Travis Scott Jordan 1 - 899.99€
+
+### Adidas (4 modelos)
+- Yeezy Boost 350 V2 Zebra - 399.99€
+- Samba OG - 119.99€
+- Gazelle Bold Pink - 139.99€
+- Bad Bunny Campus - 449.99€
+
+### Balenciaga (3 modelos)
+- Triple S Clear Sole - 1099.99€
+- Speed Trainer Black - 799.99€
+- Track LED - 1299.99€
+
+### Gucci (3 modelos)
+- Ace Bee Embroidery - 699.99€
+- Rhyton Vintage - 899.99€
+- Screener Leather - 749.99€
+
+### Marcas Premium
+- **Off-White**: Out Of Office, Odsy-1000
+- **Prada**: Cloudbust Thunder, America's Cup
+- **Alexander McQueen**: Oversized, Tread Slick Boot
+- **Golden Goose**: Superstar, Mid Star Leopard
+- **New Balance**: 550, 2002R
+- **Versace**: Chain Reaction
+- **Salomon**: XT-6, CDG Speedcross
+- **Rick Owens**: DRKSHDW Ramones
+- **Veja**: V-10 Eco-Luxury
+- **Converse**: CDG Play Chuck 70
 
 ## 🚀 Tecnologías Utilizadas
 

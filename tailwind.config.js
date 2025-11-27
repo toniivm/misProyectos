@@ -14,7 +14,21 @@ module.exports = {
         fadeIn: "fadeIn 0.3s ease-out",
       },
       colors: {
-        primary: "#ef4444", // rojo
+        primary: {
+          DEFAULT: "#1a1a1a", // Negro principal
+          light: "#2d2d2d",
+          dark: "#0a0a0a",
+        },
+        accent: {
+          DEFAULT: "#d4af37", // Dorado
+          light: "#f0d98d",
+          dark: "#b8941f",
+        },
+        secondary: {
+          DEFAULT: "#6b7280", // Gris
+          light: "#9ca3af",
+          dark: "#4b5563",
+        },
         dark: "#0a0a0a",
         light: "#f9fafb",
       },

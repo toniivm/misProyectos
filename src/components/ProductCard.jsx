@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingCart } from 'lucide-react';
-import { useState } from 'react';
+import { useWishlist } from '../context/WishlistContext';
 
 const ProductCard = ({ product }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const { isInWishlist, addToWishlist } = useWishlist();
+  const isLiked = isInWishlist(product.id);
   const image = product.images ? product.images[0] : 'https://placehold.co/800x800/222/FFF?text=Producto'; 
   
   const hasDiscount = product.discount > 0;
@@ -33,7 +34,7 @@ const ProductCard = ({ product }) => {
       <button
         onClick={(e) => {
           e.preventDefault();
-          setIsLiked(!isLiked);
+          addToWishlist(product);
         }}
         className="absolute top-3 right-3 z-10 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all duration-300"
       >

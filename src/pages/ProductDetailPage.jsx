@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Truck, RefreshCw, Shield, Star } from 'lucide-react';
@@ -11,6 +11,11 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const product = PRODUCTS.find((p) => p.id === parseInt(id));
   const [activeTab, setActiveTab] = useState('descripcion');
+
+  // Scroll to top when product changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
 
   if (!product) {
     return (
