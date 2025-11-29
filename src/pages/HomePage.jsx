@@ -1,225 +1,273 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { SlidersHorizontal, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, TrendingUp, Shield, Truck, Award } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import PaymentLogos from '../components/PaymentLogos';
 import PRODUCTS from '../data/products'; 
 
 const HomePage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('todos');
-  const [sortBy, setSortBy] = useState('destacados');
-  const [priceRange, setPriceRange] = useState([0, 200]);
-  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('nuevos');
 
+  // Categorías - Flight Club Style
   const categories = [
-    { id: 'todos', name: 'Todos' },
-    { id: 'camisetas', name: 'Camisetas' },
-    { id: 'pantalones', name: 'Pantalones' },
-    { id: 'chaquetas', name: 'Chaquetas' },
-    { id: 'sudaderas', name: 'Sudaderas' },
-    { id: 'accesorios', name: 'Accesorios' },
+    { id: 'nuevos', label: 'Nuevos Lanzamientos', icon: <TrendingUp size={18} /> },
+    { id: 'ofertas', label: 'Ofertas', icon: <Award size={18} /> },
+    { id: 'jordan', label: 'Air Jordan' },
+    { id: 'yeezy', label: 'Yeezy' },
+    { id: 'luxury', label: 'Luxury' },
   ];
 
-  const filteredProducts = useMemo(() => {
-    let filtered = PRODUCTS.filter((product) => {
-      const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === 'todos' || product.category === selectedCategory;
-      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-      return matchesSearch && matchesCategory && matchesPrice;
-    });
-
-    // Ordenamiento
-    switch (sortBy) {
-      case 'precio-asc':
-        filtered.sort((a, b) => a.price - b.price);
-        break;
-      case 'precio-desc':
-        filtered.sort((a, b) => b.price - a.price);
-        break;
-      case 'nombre':
-        filtered.sort((a, b) => a.title.localeCompare(b.title));
-        break;
+  const getProductsByCategory = (categoryId) => {
+    switch (categoryId) {
       case 'nuevos':
-        filtered.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
-        break;
+        return PRODUCTS.filter(p => p.isNew).slice(0, 8);
+      case 'ofertas':
+        return PRODUCTS.filter(p => p.discount > 0).slice(0, 8);
+      case 'jordan':
+        return PRODUCTS.filter(p => p.title.toLowerCase().includes('jordan')).slice(0, 8);
+      case 'yeezy':
+        return PRODUCTS.filter(p => p.title.toLowerCase().includes('yeezy')).slice(0, 8);
+      case 'luxury':
+        return PRODUCTS.filter(p => ['Balenciaga', 'Gucci', 'Prada', 'Off-White'].includes(p.brand)).slice(0, 8);
       default:
-        break;
+        return PRODUCTS.slice(0, 8);
     }
+  };
 
-    return filtered;
-  }, [searchTerm, selectedCategory, sortBy, priceRange]);
+  const displayProducts = getProductsByCategory(selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-gray-50">
-      {/* Hero Section */}
-      <div className="bg-black text-white py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_#ffffff,_transparent_60%)]" />
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.h1 
-            className="text-6xl md:text-7xl font-extrabold mb-8 tracking-tight font-[Inter]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="text-white">VALTREX</span>
-            <span className="text-gray-400"> — NUEVA TEMPORADA</span>
-          </motion.h1>
-          <motion.p 
-            className="text-2xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Moda urbana de alto rendimiento. Prendas premium diseñadas para quienes no comprometen estilo ni calidad.
-          </motion.p>
+    <div className="min-h-screen bg-white">
+      {/* Hero - Large Image Banner (Flight Club Style) */}
+      <div className="relative overflow-hidden bg-black text-white">
+        <div className="relative h-[65vh] md:h-[75vh]">
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent z-10"></div>
+          <img 
+            src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1920&h=1080&fit=crop&q=90" 
+            alt="Sneakers Premium"
+            className="w-full h-full object-cover object-center"
+          />
           
-          {/* Search Bar */}
-          <motion.div 
-            className="max-w-2xl mx-auto flex flex-col md:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              className="flex-1 px-6 py-4 rounded-full text-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white shadow-lg"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value.slice(0,80).trim())}
-              name="search"
-            />
-            <div className="flex gap-4 justify-center">
-              <a href="/productos" className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition shadow-lg">Ver catálogo</a>
-              <a href="/tallas" className="px-8 py-4 rounded-full bg-gradient-to-r from-black to-gray-700 text-white font-semibold hover:from-gray-900 hover:to-gray-600 transition shadow-lg">Guía de tallas</a>
+          {/* Content */}
+          <div className="absolute inset-0 z-20 flex items-center">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 w-full">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="max-w-2xl"
+              >
+                <motion.h1 
+                  className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-none tracking-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  SNEAKERS<br/>
+                  <span className="text-gray-400">AUTÉNTICAS</span>
+                </motion.h1>
+                
+                <motion.p 
+                  className="text-lg md:text-2xl text-gray-300 mb-8 max-w-xl font-light"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  Las mejores marcas. Verificación garantizada. Envío express 24-48h.
+                </motion.p>
+
+                <motion.div 
+                  className="flex flex-wrap gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  <Link 
+                    to="/productos" 
+                    className="bg-white text-black px-8 py-4 font-bold text-sm md:text-base hover:bg-gray-200 transition-all inline-flex items-center gap-2 group"
+                  >
+                    EXPLORAR TIENDA
+                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link 
+                    to="/productos"
+                    className="border-2 border-white text-white px-8 py-4 font-bold text-sm md:text-base hover:bg-white hover:text-black transition-all"
+                  >
+                    NUEVOS LANZAMIENTOS
+                  </Link>
+                </motion.div>
+
+                {/* Trust Indicators */}
+                <motion.div
+                  className="mt-12 flex flex-wrap gap-6 text-sm"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  <div className="flex items-center gap-2">
+                    <Shield size={18} className="text-green-400" />
+                    <span className="text-gray-300">100% Auténtico</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Truck size={18} className="text-blue-400" />
+                    <span className="text-gray-300">Envío Gratis +100€</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Award size={18} className="text-purple-400" />
+                    <span className="text-gray-300">Verificación Experta</span>
+                  </div>
+                </motion.div>
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Filtros y Ordenamiento */}
-        <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="flex items-center gap-4 flex-wrap">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
-            >
-              <SlidersHorizontal size={18} />
-              Filtros
-            </button>
-
-            {/* Categorías */}
-            <div className="flex gap-2 flex-wrap">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                    selectedCategory === cat.id
-                      ? 'bg-black text-white'
-                      : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Ordenamiento */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-            name="sortBy"
-          >
-            <option value="destacados">Destacados</option>
-            <option value="nuevos">Novedades</option>
-            <option value="precio-asc">Precio: Menor a Mayor</option>
-            <option value="precio-desc">Precio: Mayor a Menor</option>
-            <option value="nombre">Nombre A-Z</option>
-          </select>
-        </div>
-
-        {/* Panel de Filtros Expandible */}
-        {showFilters && (
-          <motion.div
-            className="mb-8 p-6 bg-white rounded-lg border border-gray-200"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold">Filtros</h3>
-              <button onClick={() => setShowFilters(false)}>
-                <X size={20} />
+      {/* Category Tabs - Sticky */}
+      <div className="border-b border-gray-200 bg-white sticky top-[72px] z-40 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="flex overflow-x-auto scrollbar-hide gap-2 py-4">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`
+                  px-6 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-2
+                  ${selectedCategory === cat.id 
+                    ? 'bg-black text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }
+                `}
+              >
+                {cat.icon}
+                {cat.label}
               </button>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold mb-2">
-                  Rango de Precio: {priceRange[0]}€ - {priceRange[1]}€
-                </label>
-                <div className="flex gap-4 items-center">
-                  <input
-                    type="range"
-                    min="0"
-                    max="200"
-                    value={priceRange[0]}
-                    onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                    className="w-full"
-                    name="priceMin"
-                  />
-                  <input
-                    type="range"
-                    min="0"
-                    max="200"
-                    value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                    className="w-full"
-                    name="priceMax"
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
+            ))}
+          </div>
+        </div>
+      </div>
 
-        {/* Resultados */}
-        <div className="mb-6 text-gray-600">
-          Mostrando {filteredProducts.length} producto{filteredProducts.length !== 1 ? 's' : ''}
+      {/* Products Grid */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-12">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-black">
+            {categories.find(c => c.id === selectedCategory)?.label}
+          </h2>
+          <Link 
+            to="/productos" 
+            className="text-sm font-bold hover:underline flex items-center gap-1 group"
+          >
+            Ver Todo
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
-        {/* Cuadrícula de Productos */}
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-          layout
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
         >
-          {filteredProducts.map((product) => (
-            <motion.div
-              key={product.id}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ProductCard product={product} />
-            </motion.div>
+          {displayProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </motion.div>
-        
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-2xl text-gray-500 mb-4">
-              No se encontraron productos
-            </p>
-            <p className="text-gray-400">
-              Intenta ajustar tus filtros de búsqueda
-            </p>
+      </div>
+
+      {/* Featured Brands */}
+      <div className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <h2 className="text-3xl md:text-4xl font-black mb-8 text-center">Marcas Destacadas</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {['Nike', 'Adidas', 'Balenciaga', 'Gucci', 'Off-White', 'Prada'].map((brand) => (
+              <Link
+                key={brand}
+                to={`/productos`}
+                className="aspect-square bg-white rounded-lg flex items-center justify-center text-xl md:text-2xl font-black hover:shadow-xl transition-all hover:scale-105"
+              >
+                {brand}
+              </Link>
+            ))}
           </div>
-        )}
+        </div>
+      </div>
+
+      {/* Trust Section */}
+      <div className="bg-black text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <Shield size={48} className="mx-auto mb-4 text-green-400" />
+              <h3 className="text-xl font-bold mb-2">100% Autenticidad</h3>
+              <p className="text-gray-400 text-sm">
+                Verificación experta de 20 puntos en cada producto
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <Truck size={48} className="mx-auto mb-4 text-blue-400" />
+              <h3 className="text-xl font-bold mb-2">Envío Express</h3>
+              <p className="text-gray-400 text-sm">
+                Entrega en 24-48h. Empaquetado discreto
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Award size={48} className="mx-auto mb-4 text-purple-400" />
+              <h3 className="text-xl font-bold mb-2">Garantía Total</h3>
+              <p className="text-gray-400 text-sm">
+                Devolución garantizada. Compra 100% segura
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Payment Methods */}
+      <div className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-center">Métodos de Pago Seguros</h3>
+          <PaymentLogos size="lg" showAll={true} />
+          <p className="text-center text-gray-400 text-sm mt-6">
+            Pago 100% seguro con cifrado SSL • Procesamiento PCI-DSS Level 1
+          </p>
+        </div>
+      </div>
+
+      {/* Final CTA */}
+      <div className="bg-white py-20">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 text-center">
+          <h2 className="text-4xl md:text-6xl font-black mb-6">
+            ¿Listo para tu próximo par?
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Explora nuestra colección completa de sneakers premium
+          </p>
+          <Link
+            to="/productos"
+            className="inline-flex items-center gap-2 bg-black text-white px-10 py-5 text-lg font-bold hover:bg-gray-800 transition-all group"
+          >
+            Ver Toda la Colección
+            <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
+          </Link>
+        </div>
       </div>
     </div>
   );

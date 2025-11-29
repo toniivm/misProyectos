@@ -2,13 +2,14 @@ import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
+import { WishlistProvider } from './context/WishlistContext';
 import Header from './components/Header';
 import ErrorBoundary from './components/ErrorBoundary';
 import SkeletonGrid from './components/SkeletonGrid';
 import CartSidebar from './components/CartSidebar';
+import WishlistSidebar from './components/WishlistSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
-import CookieConsent from './components/CookieConsent';
-import NewsletterSignup from './components/NewsletterSignup';
+import PaymentLogos from './components/PaymentLogos';
 
 // Lazy loaded pages
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -17,11 +18,8 @@ const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
 const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 const Login = lazy(() => import('./pages/Login'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
-const Terms = lazy(() => import('./pages/Terms')); // new
-const ShippingReturns = lazy(() => import('./pages/ShippingReturns'));
-const SizeGuide = lazy(() => import('./pages/SizeGuide'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
-const Contact = lazy(() => import('./pages/Contact'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 function App() {
@@ -29,7 +27,7 @@ function App() {
   
   // Prefetch critical routes
   useEffect(() => {
-    const prefetchRoutes = ['/productos', '/tallas', '/checkout'];
+    const prefetchRoutes = ['/productos', '/checkout'];
     prefetchRoutes.forEach(route => {
       const link = document.createElement('link');
       link.rel = 'prefetch';
@@ -41,11 +39,12 @@ function App() {
   
   return (
     <AuthProvider>
-      <CartProvider>
-        <Router>
-          <div className="min-h-screen bg-white text-gray-900 flex flex-col"> 
-            <CookieConsent />
-            <Header />
+      <WishlistProvider>
+        <CartProvider>
+          <Router>
+            <div className="min-h-screen bg-white text-gray-900 flex flex-col"> 
+              <Header />
+              <WishlistSidebar />
             
             <main className="flex-1">
               <ErrorBoundary>
@@ -53,17 +52,13 @@ function App() {
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/productos" element={<ProductPage />} />
-                  <Route path="/product/:id" element={<ProductDetailPage />} />
-                  <Route path="/producto/:slug" element={<ProductDetailPage />} />
+                  <Route path="/product/:id" element={<ProductDetailPage />} /> 
                   <Route path="/login" element={<Login />} />
                   <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
                   <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-                  <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />          
-                    <Route path="/envios" element={<ShippingReturns />} />
-                    <Route path="/tallas" element={<SizeGuide />} />
-                    <Route path="/privacidad" element={<PrivacyPolicy />} />
-                    <Route path="/terminos" element={<Terms />} />
-                    <Route path="/contacto" element={<Contact />} />
+                  <Route path="/admin" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+                  <Route path="/terms" element={<TermsOfService />} />
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
                 </Routes>
               </Suspense>
               </ErrorBoundary>
@@ -75,47 +70,69 @@ function App() {
                   {/* Columna 1 - Marca */}
                   <div>
                     <h3 className="text-2xl font-bold mb-4">
-                      <span className="text-white">VALT</span>
-                      <span className="text-gray-400">REX</span>
+                      <span className="text-white">VALTREX</span>
                     </h3>
                     <p className="text-gray-400 text-sm">
-                      VALTREX — Rendimiento deportivo y estilo urbano premium.
+                      Tu tienda multimarca de zapatillas y streetwear de lujo. Nike, Adidas, Balenciaga, Gucci, Off-White, Prada y más.
                     </p>
                   </div>
 
                   {/* Columna 2 - Tienda */}
                   <div>
-                    <h4 className="font-bold mb-4 text-lg">Tienda</h4>
+                    <h4 className="font-bold mb-4 text-lg">Marcas</h4>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                      <li><Link to="/productos" className="hover:text-white transition">Todos los productos</Link></li>
-                      <li><Link to="/?filter=nuevos" className="hover:text-white transition">Novedades</Link></li>
-                      <li><Link to="/?filter=ofertas" className="hover:text-white transition">Ofertas</Link></li>
-                      <li><Link to="/productos?category=camisetas" className="hover:text-white transition">Camisetas</Link></li>
-                      <li><Link to="/productos?category=pantalones" className="hover:text-white transition">Pantalones</Link></li>
-                      <li><Link to="/envios" className="hover:text-white transition">Envíos</Link></li>
-                      <li><Link to="/tallas" className="hover:text-white transition">Guía de Tallas</Link></li>
+                      <li><a href="/" className="hover:text-white transition">Nike</a></li>
+                      <li><a href="/" className="hover:text-white transition">Adidas</a></li>
+                      <li><a href="/" className="hover:text-white transition">Balenciaga</a></li>
+                      <li><a href="/" className="hover:text-white transition">Gucci</a></li>
+                      <li><a href="/" className="hover:text-white transition">Off-White</a></li>
                     </ul>
                   </div>
 
-                  {/* Columna 3 - Ayuda */}
+                  {/* Columna 3 - Seguridad */}
                   <div>
-                    <h4 className="font-bold mb-4 text-lg">Ayuda</h4>
+                    <h4 className="font-bold mb-4 text-lg">Seguridad y Confianza</h4>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                      <li><Link to="/envios" className="hover:text-white transition">Envíos y devoluciones</Link></li>
-                      <li><Link to="/tallas" className="hover:text-white transition">Guía de tallas</Link></li>
-                      <li><Link to="/terminos" className="hover:text-white transition">Términos</Link></li>
-                      <li><Link to="/contacto" className="hover:text-white transition">Contacto</Link></li>
-                      <li><Link to="/privacidad" className="hover:text-white transition">Privacidad</Link></li>
+                      <li className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        Certificado SSL
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        Verificación 20 Puntos
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        Pago Cifrado PCI-DSS
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        Envío Discreto 24-48h
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        Privacidad Garantizada
+                      </li>
                     </ul>
                   </div>
 
-                  {/* Columna 4 - Newsletter */}
+                  {/* Columna 4 - Pago Seguro */}
                   <div>
-                    <h4 className="font-bold mb-4 text-lg">Newsletter</h4>
+                    <h4 className="font-bold mb-4 text-lg">Pago Seguro</h4>
                     <p className="text-gray-400 text-sm mb-4">
-                      Suscríbete para recibir ofertas exclusivas
+                      Envío discreto y anónimo. Pago 100% seguro.
                     </p>
-                    <NewsletterSignup />
+                    <PaymentLogos size="sm" showAll={true} />
                     
                     {/* Redes Sociales */}
                     <div className="flex gap-4 mt-6">
@@ -132,25 +149,64 @@ function App() {
                   </div>
                 </div>
 
-                {/* Copyright */}
-                <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-                  <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p>© 2025 VALTREX. Todos los derechos reservados.</p>
-                    <div className="flex items-center gap-4 opacity-80">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" className="h-6" loading="lazy" />
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6" loading="lazy" />
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="h-6" loading="lazy" />
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-6" loading="lazy" />
+                {/* Security Badges */}
+                <div className="border-t border-gray-800 mt-8 pt-8">
+                  <div className="flex justify-center items-center gap-6 mb-6 flex-wrap">
+                    <div className="flex items-center gap-2 text-gray-400 text-xs">
+                      <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                      <span>SSL CERTIFIED</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-400 text-xs">
+                      <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
+                      <span>PCI-DSS COMPLIANT</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-400 text-xs">
+                      <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                      <span>256-BIT ENCRYPTION</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-400 text-xs">
+                      <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>100% AUTHENTIC</span>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center text-gray-400 text-sm">
+                    <p className="font-semibold">© 2025 VALTREX. Todos los derechos reservados.</p>
+                    <p className="mt-2 text-xs">Envíos discretos y rastreables. Pago 100% cifrado SSL. Verificación de autenticidad garantizada.</p>
+                    <p className="mt-1 text-xs text-gray-500">Protegemos tu privacidad. Nunca compartimos tus datos con terceros.</p>
+                    
+                    {/* Legal Links */}
+                    <div className="flex justify-center gap-4 mt-4 flex-wrap">
+                      <a href="/terms" className="text-xs text-gray-500 hover:text-white transition underline">
+                        Términos y Condiciones
+                      </a>
+                      <span className="text-gray-700">•</span>
+                      <a href="/privacy" className="text-xs text-gray-500 hover:text-white transition underline">
+                        Política de Privacidad
+                      </a>
+                      <span className="text-gray-700">•</span>
+                      <a href="mailto:legal@valtrex.com" className="text-xs text-gray-500 hover:text-white transition underline">
+                        Contacto Legal
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
             </footer>
             
-            <CartSidebar />
-          </div>
-        </Router>
-      </CartProvider>
+              <CartSidebar />
+            </div>
+          </Router>
+        </CartProvider>
+      </WishlistProvider>
     </AuthProvider>
   );
 }

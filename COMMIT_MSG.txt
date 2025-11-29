@@ -1,0 +1,5 @@
+Merge remote Stripe+Wishlist+Sneakers with local Admin+Performance
+
+Integrated remote: Stripe checkout, Wishlist feature, 30 premium sneaker models
+Preserved local: AdminPage, performance utils, ErrorBoundary, SkeletonGrid
+Merged: ProductCard wishlist+styling, HomePage Flight Club design

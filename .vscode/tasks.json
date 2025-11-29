@@ -1,0 +1,111 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "git-push-merge",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git add -A; git commit -m \"Merge updates: Stripe, Wishlist, Sneakers, Admin, Performance\"; git push origin main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-status",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git status -s -b"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-status-full",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git status"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-commit-push",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git add -A; git commit -m \"Merge updates: Stripe, Wishlist, Sneakers, Admin, Performance\"; git push origin main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-add-all",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git add -A; git status -s -b"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-commit",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git commit -m \"Merge updates: Stripe, Wishlist, Sneakers, Admin, Performance\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-commit-verbose",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git commit -m \"Merge updates: Stripe, Wishlist, Sneakers, Admin, Performance\" 2>&1 | Out-String"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "run-commit-push-script",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"d:\\Escritorio\\tiendaPrueba\\misProyectos\\scripts\\commit_push.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
