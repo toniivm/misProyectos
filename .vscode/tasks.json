@@ -160,6 +160,88 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "cleanup-unused-files",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"d:\\Escritorio\\tiendaPrueba\\misProyectos\\scripts\\cleanup.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "cleanup-step1",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; if (Test-Path tienda-zapatillas) { Remove-Item -Recurse -Force tienda-zapatillas }; if (Test-Path src\\pages\\HomePage.backup.jsx) { Remove-Item -Force src\\pages\\HomePage.backup.jsx }; if (Test-Path src\\components\\CookieConsent.jsx) { Remove-Item -Force src\\components\\CookieConsent.jsx }; if (Test-Path src\\components\\NewsletterSignup.jsx) { Remove-Item -Force src\\components\\NewsletterSignup.jsx }; if (Test-Path src\\components\\FeaturedSection.jsx) { Remove-Item -Force src\\components\\FeaturedSection.jsx }"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "cleanup-docs",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; @('ACTIVAR_STRIPE_5_PASOS.md', 'CHANGELOG.md', 'CHECKOUT_IMPLEMENTATION_GUIDE.md', 'COMMIT_MSG.txt', 'commit_push.log', 'deploy.ps1', 'OPTIMIZACIONES.md', 'PROBAR_STRIPE.md', 'products.js', 'RESUMEN_MEJORAS_CHECKOUT.md', 'STRIPE_INTEGRATION_GUIDE.md') | ForEach-Object { if (Test-Path $_) { Remove-Item -Force $_ ; Write-Host \"Deleted: $_\" } }"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "cleanup-final",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; Remove-Item -Force ACTIVAR_STRIPE_5_PASOS.md,CHANGELOG.md,CHECKOUT_IMPLEMENTATION_GUIDE.md,OPTIMIZACIONES.md,PROBAR_STRIPE.md,RESUMEN_MEJORAS_CHECKOUT.md,STRIPE_INTEGRATION_GUIDE.md -ErrorAction SilentlyContinue; Remove-Item -Force COMMIT_MSG.txt,commit_push.log,deploy.ps1,products.js -ErrorAction SilentlyContinue; Write-Host 'Cleanup done'"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "build-after-cleanup",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; npm run build 2>&1 | Select-Object -Last 20"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "commit-cleanup",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"d:\\Escritorio\\tiendaPrueba\\misProyectos\\scripts\\commit_push.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }
