@@ -125,9 +125,9 @@ const CheckoutPage = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const validateStep1 = () => {
+  const validateStep1 = (opts = {}) => {
+    const silent = opts.silent === true;
     const newErrors = {};
-    
     if (!shippingData.name.trim()) newErrors.name = 'El nombre es obligatorio';
     if (!shippingData.email.trim()) {
       newErrors.email = 'El email es obligatorio';
@@ -147,38 +147,33 @@ const CheckoutPage = () => {
     } else if (shippingData.zip.length !== 5) {
       newErrors.zip = 'CP debe tener 5 dígitos';
     }
-    
-    setErrors(newErrors);
+    if (!silent) setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const validateStep2 = () => {
+  const validateStep2 = (opts = {}) => {
+    const silent = opts.silent === true;
     const newErrors = {};
-    
     const cardNumberClean = paymentData.cardNumber.replace(/\s/g, '');
     if (!cardNumberClean) {
       newErrors.cardNumber = 'Número de tarjeta obligatorio';
     } else if (cardNumberClean.length < 15) {
       newErrors.cardNumber = 'Número de tarjeta inválido';
     }
-    
     if (!paymentData.cardName.trim()) {
       newErrors.cardName = 'Nombre en tarjeta obligatorio';
     }
-    
     if (!paymentData.expiryDate) {
       newErrors.expiryDate = 'Fecha de vencimiento obligatoria';
     } else if (paymentData.expiryDate.length !== 5) {
       newErrors.expiryDate = 'Formato: MM/AA';
     }
-    
     if (!paymentData.cvv) {
       newErrors.cvv = 'CVV obligatorio';
     } else if (paymentData.cvv.length < 3) {
       newErrors.cvv = 'CVV debe tener 3-4 dígitos';
     }
-    
-    setErrors(newErrors);
+    if (!silent) setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
@@ -213,7 +208,10 @@ const CheckoutPage = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        if (!resp.ok) throw new Error('Intent creation failed');
+        if (!resp.ok) {
+          const errJson = await resp.json().catch(() => ({}));
+          throw new Error(`Intent creation failed: ${errJson.error || resp.status}`);
+        }
         const data = await resp.json();
         if (data?.clientSecret) setClientSecret(data.clientSecret);
         if (data?.orderId) {
@@ -223,6 +221,7 @@ const CheckoutPage = () => {
         setUseStripePayment(true);
       } catch (error) {
         console.error('Error creating payment intent:', error);
+        setErrors(prev => ({ ...prev, paymentIntent: 'Error iniciando pago. Revisa conexión con el backend o stock.' }));
       }
       
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -725,7 +724,7 @@ const CheckoutPage = () => {
 
                   <button
                     onClick={handleNextStep}
-                    disabled={!validateStep1()}
+                    disabled={!validateStep1({ silent: true })}
                     className="w-full mt-8 bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-300 disabled:cursor-not-allowed"
                   >
                     Continuar al Pago
@@ -774,6 +773,12 @@ const CheckoutPage = () => {
                       />
                     </div>
                   )}
+                      {errors.paymentIntent && (
+                        <div className="bg-red-50 border-2 border-red-500 p-4 rounded-lg mb-6 flex items-center gap-2 text-red-700">
+                          <AlertCircle size={20} />
+                          <span>{errors.paymentIntent}</span>
+                        </div>
+                      )}
 
                   {/* Manual Card Form (Fallback) */}
                   <div className="space-y-4">
@@ -885,7 +890,7 @@ const CheckoutPage = () => {
                     </button>
                     <button
                       onClick={handleNextStep}
-                      disabled={!validateStep2()}
+                      disabled={!validateStep2({ silent: true })}
                       className="flex-1 bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-300 disabled:cursor-not-allowed"
                     >
                       Revisar Pedido

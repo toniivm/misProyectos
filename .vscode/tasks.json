@@ -350,6 +350,34 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "git-commit-push-backend-files",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git commit -m \"feat(backend): add server with Stripe/Firestore/SendGrid; wire Checkout to backend; render.yaml multi-service\"; git push origin main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "run-add-server",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"d:\\Escritorio\\tiendaPrueba\\misProyectos\\scripts\\add_server.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

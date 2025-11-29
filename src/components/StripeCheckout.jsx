@@ -5,7 +5,8 @@ import { AlertCircle, Lock, CreditCard } from 'lucide-react';
 
 // Inicializar Stripe con tu Public Key
 // IMPORTANTE: Reemplazar con tu clave después de crear cuenta en stripe.com
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY || 'pk_test_REEMPLAZAR_CON_TU_CLAVE');
+const rawPublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY || 'pk_test_REEMPLAZAR_CON_TU_CLAVE';
+const stripePromise = loadStripe(rawPublicKey);
 
 // Componente interno del formulario de pago
 const PaymentForm = ({ amount, onSuccess, onError, customerEmail }) => {
@@ -121,8 +122,15 @@ const StripeCheckout = ({ amount, clientSecret, onSuccess, onError, customerEmai
     },
   };
 
+  const isPlaceholder = rawPublicKey.includes('REEMPLAZAR');
+
   return (
     <div className="stripe-checkout">
+      {isPlaceholder && (
+        <div className="mb-4 bg-red-50 border border-red-400 text-red-700 p-3 rounded text-sm">
+          ⚠️ Clave pública Stripe no configurada. Define `REACT_APP_STRIPE_PUBLIC_KEY` en tu entorno.
+        </div>
+      )}
       {clientSecret ? (
         <Elements stripe={stripePromise} options={options}>
           <PaymentForm
