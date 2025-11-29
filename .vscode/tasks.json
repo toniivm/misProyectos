@@ -283,6 +283,73 @@
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "commit-and-push-backend-2",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git add -A; git commit -m \"feat(backend): add Express server with Stripe, Firestore, SendGrid; wire Checkout to create-intent; add Render config\"; git push origin main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-add-commit-push-backend",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; & git add -A; & git commit -m \"feat(backend): add Express server with Stripe, Firestore, SendGrid; wire Checkout to create-intent; add Render config\"; & git push origin main"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "commit-and-push-backend-3",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"d:\\Escritorio\\tiendaPrueba\\misProyectos\\scripts\\commit_push.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-status-after-backend",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git status -s -b"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "git-add-server",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"cd d:\\Escritorio\\tiendaPrueba\\misProyectos; git add server; git add render.yaml src/pages/CheckoutPage.jsx .vscode/tasks.json; git status -s"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }
