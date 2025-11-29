@@ -18,6 +18,8 @@ const CheckoutPage = () => {
   const [orderNumber, setOrderNumber] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [useStripePayment, setUseStripePayment] = useState(false);
+  const [orderId, setOrderId] = useState(null);
+  const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8080';
   
   // Legal acceptance
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -184,17 +186,43 @@ const CheckoutPage = () => {
     if (currentStep === 1 && validateStep1()) {
       setCurrentStep(2);
       
-      // MODO DEMO: Crear un PaymentIntent simulado
-      // TODO: En producción, esto debe hacerse con Firebase Functions
-      if (!clientSecret && useStripePayment) {
-        try {
-          // Por ahora mostramos el formulario de Stripe sin clientSecret real
-          // En producción, aquí llamarías a tu Cloud Function:
-          // const response = await fetch('YOUR_CLOUD_FUNCTION_URL', { ... })
-          console.log('Stripe Payment habilitado - Integrar con Firebase Functions para payment intent real');
-        } catch (error) {
-          console.error('Error creating payment intent:', error);
+      // Crear PaymentIntent real en backend y activar Stripe UI
+      try {
+        const items = [
+          ...cart.map(item => ({
+            id: String(item.id),
+            qty: item.quantity,
+            price: Number(item.price),
+            name: item.title || item.name || 'Producto',
+          })),
+          { id: `shipping:${shippingMethod}`, qty: 1, price: Number(shippingCosts[shippingMethod] || 0), name: `Shipping ${shippingMethod}` }
+        ];
+
+        const payload = {
+          items,
+          currency: 'eur',
+          email: shippingData.email,
+          shipping: {
+            name: shippingData.name,
+            address: { line1: shippingData.address, city: shippingData.city, postal_code: shippingData.zip, country: 'ES' }
+          }
+        };
+
+        const resp = await fetch(`${API_BASE}/payments/create-intent`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!resp.ok) throw new Error('Intent creation failed');
+        const data = await resp.json();
+        if (data?.clientSecret) setClientSecret(data.clientSecret);
+        if (data?.orderId) {
+          setOrderId(data.orderId);
+          setOrderNumber(data.orderId);
         }
+        setUseStripePayment(true);
+      } catch (error) {
+        console.error('Error creating payment intent:', error);
       }
       
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -257,6 +285,18 @@ const CheckoutPage = () => {
           acceptedAt: new Date().toISOString(),
         },
       };
+      // Envío de email de confirmación (backend)
+      try {
+        if (orderId) {
+          await fetch(`${API_BASE}/emails/order-confirmation`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId })
+          });
+        }
+      } catch (e) {
+        console.warn('No se pudo enviar email de confirmación:', e?.message);
+      }
       
       // Save to Firebase
       await saveOrderToFirebase(orderData);
@@ -711,8 +751,7 @@ const CheckoutPage = () => {
                       <div>
                         <h3 className="font-bold text-gray-900 mb-1">🔒 Pago Seguro con Stripe</h3>
                         <p className="text-sm text-gray-700 mb-3">
-                          Actualmente en <strong>MODO DEMO</strong> para probar la integración. 
-                          Usa la tarjeta de prueba para completar el pago.
+                          Pagos habilitados en modo test. Usa la tarjeta de prueba para completar el pago.
                         </p>
                         <div className="bg-white border border-gray-300 p-3 rounded text-sm">
                           <p className="font-semibold text-gray-800 mb-1">Tarjeta de Prueba Stripe:</p>
@@ -723,21 +762,18 @@ const CheckoutPage = () => {
                     </div>
                   </div>
 
-                  {/* Stripe Checkout Component - MODO DEMO */}
-                  <div className="mb-6">
-                    <p className="text-sm text-gray-600 mb-4 text-center">
-                      ⚠️ <strong>IMPORTANTE:</strong> Para activar pagos reales, necesitas configurar Firebase Functions 
-                      para crear Payment Intents desde el backend (ver STRIPE_INTEGRATION_GUIDE.md)
-                    </p>
-                    
-                    {/* Demo Message */}
-                    <div className="bg-yellow-50 border-2 border-yellow-300 p-4 rounded-lg mb-4">
-                      <p className="text-sm text-yellow-800">
-                        <strong>🚧 Modo Demo:</strong> El componente StripeCheckout requiere un <code>clientSecret</code> 
-                        generado desde el backend. Por ahora, usa el formulario manual abajo o configura Firebase Functions.
-                      </p>
+                  {/* Stripe Checkout Component */}
+                  {useStripePayment && (
+                    <div className="mb-8">
+                      <StripeCheckout
+                        amount={finalTotal}
+                        clientSecret={clientSecret}
+                        onSuccess={handleStripeSuccess}
+                        onError={(e) => console.error('Stripe error', e)}
+                        customerEmail={shippingData.email}
+                      />
                     </div>
-                  </div>
+                  )}
 
                   {/* Manual Card Form (Fallback) */}
                   <div className="space-y-4">

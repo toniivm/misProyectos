@@ -22,3 +22,32 @@ services:
         sync: false
       - key: REACT_APP_FIREBASE_MEASUREMENT_ID
         sync: false
+      - key: REACT_APP_STRIPE_PUBLIC_KEY
+        sync: false
+      - key: REACT_APP_API_BASE
+        sync: false
+
+  - type: web
+    name: valtrex-backend
+    env: node
+    plan: starter
+    rootDirectory: server
+    autoDeploy: true
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: SENDER_EMAIL
+        sync: false
