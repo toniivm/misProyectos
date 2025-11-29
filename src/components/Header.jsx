@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShoppingBag, Menu, X, User, Search, LogOut, Heart } from "lucide-react";
+import { ShoppingBag, Menu, X, User, Search, LogOut, Heart, Shield } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { usePrivacy } from "../context/PrivacyContext";
 import { auth } from "../firebase/config";
 import { signOut } from "firebase/auth";
 
@@ -17,6 +18,7 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user: currentUser, setUser } = useAuth();
+  const { privacyMode, togglePrivacyMode } = usePrivacy();
   
   const navLinks = [
     { name: "Inicio", path: "/" },
@@ -77,6 +79,16 @@ export default function Header() {
                 aria-label="Buscar"
               >
                 <Search size={20} />
+              </button>
+
+              {/* Privacy Mode Toggle */}
+              <button
+                onClick={togglePrivacyMode}
+                className={`relative p-2 rounded-lg transition ${privacyMode ? 'bg-black text-white' : 'hover:bg-gray-100'}`}
+                aria-label="Modo Privacidad"
+                title={privacyMode ? 'Privacidad activada' : 'Activar modo privacidad'}
+              >
+                <Shield size={20} />
               </button>
 
               {/* WISHLIST */}
