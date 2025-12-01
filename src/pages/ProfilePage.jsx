@@ -1,13 +1,23 @@
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase/config';
+import { auth, db } from '../firebase/config';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { LogOut, ShoppingBag } from 'lucide-react';
 import PRODUCTS from '../data/products';
 
 export default function ProfilePage() {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
+  const [profile, setProfile] = React.useState({
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+  });
+  const [saving, setSaving] = React.useState(false);
+  const [loaded, setLoaded] = React.useState(false);
 
   const handleLogout = async () => {
     try {
@@ -23,6 +33,40 @@ export default function ProfilePage() {
   const orders = (() => {
     try { return JSON.parse(localStorage.getItem('orders') || '[]').sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt)); } catch { return []; }
   })();
+
+  React.useEffect(() => {
+    const load = async () => {
+      if (!user?.uid) return;
+      const ref = doc(db, 'users', user.uid);
+      const snap = await getDoc(ref);
+      if (snap.exists()) {
+        const data = snap.data();
+        setProfile({
+          phone: data.phone || '',
+          address: data.address || '',
+          city: data.city || '',
+          state: data.state || '',
+          zip: data.zip || '',
+        });
+      }
+      setLoaded(true);
+    };
+    load();
+  }, [user?.uid]);
+
+  const saveProfile = async (e) => {
+    e.preventDefault();
+    if (!user?.uid) return;
+    setSaving(true);
+    try {
+      await setDoc(doc(db, 'users', user.uid), {
+        ...profile,
+        updatedAt: serverTimestamp(),
+      }, { merge: true });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
@@ -54,7 +98,34 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        <p className="text-sm text-gray-500">Historial de pedidos almacenado localmente (demo). Para producción usar base de datos segura.</p>
+        <form onSubmit={saveProfile} className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label className="text-sm font-medium text-gray-700">Teléfono</label>
+            <input className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" value={profile.phone} onChange={(e)=>setProfile(p=>({...p, phone:e.target.value}))} placeholder="+34 600 000 000" />
+          </div>
+          <div className="md:col-span-2">
+            <label className="text-sm font-medium text-gray-700">Dirección</label>
+            <input className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" value={profile.address} onChange={(e)=>setProfile(p=>({...p, address:e.target.value}))} placeholder="Calle Ejemplo 123" />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700">Ciudad</label>
+            <input className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" value={profile.city} onChange={(e)=>setProfile(p=>({...p, city:e.target.value}))} placeholder="Madrid" />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700">Provincia</label>
+            <input className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" value={profile.state} onChange={(e)=>setProfile(p=>({...p, state:e.target.value}))} placeholder="Comunidad de Madrid" />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-gray-700">Código Postal</label>
+            <input className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" value={profile.zip} onChange={(e)=>setProfile(p=>({...p, zip:e.target.value}))} placeholder="28001" />
+          </div>
+          <div className="md:col-span-2 flex justify-end">
+            <button type="submit" className="bg-black text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-gray-800 transition disabled:opacity-50" disabled={saving || !loaded}>
+              {saving ? 'Guardando...' : 'Guardar perfil'}
+            </button>
+          </div>
+        </form>
+        <p className="text-sm text-gray-500 mt-3">Historial de pedidos almacenado localmente (demo). Para producción usar base de datos segura.</p>
       </div>
 
       <div className="space-y-6">
