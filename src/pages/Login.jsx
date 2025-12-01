@@ -1,4 +1,5 @@
-import { auth, provider } from "../firebase/config";
+import { auth, provider, db } from "../firebase/config";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,15 @@ export default function Login() {
         photo: result.user.photoURL,
         uid: result.user.uid
       };
+      // Persist user in Firestore
+      await setDoc(doc(db, "users", userData.uid), {
+        name: userData.name,
+        email: userData.email,
+        photo: userData.photo || null,
+        createdAt: serverTimestamp(),
+        lastLoginAt: serverTimestamp(),
+        provider: "google",
+      }, { merge: true });
       localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
       navigate("/");
@@ -49,6 +59,14 @@ export default function Login() {
           photo: cred.user.photoURL,
           uid: cred.user.uid,
         };
+        await setDoc(doc(db, "users", userData.uid), {
+          name: userData.name,
+          email: userData.email,
+          photo: userData.photo || null,
+          createdAt: serverTimestamp(),
+          lastLoginAt: serverTimestamp(),
+          provider: "password",
+        }, { merge: true });
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
         navigate("/");
@@ -60,6 +78,13 @@ export default function Login() {
           photo: cred.user.photoURL,
           uid: cred.user.uid,
         };
+        await setDoc(doc(db, "users", userData.uid), {
+          name: userData.name,
+          email: userData.email,
+          photo: userData.photo || null,
+          lastLoginAt: serverTimestamp(),
+          provider: "password",
+        }, { merge: true });
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
         navigate("/");
