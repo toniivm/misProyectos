@@ -22,3 +22,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# secrets / keys (DO NOT COMMIT)
+*firebase-adminsdk*.json
+server/*.env
+server/.env*
+*.pem
+*.p12

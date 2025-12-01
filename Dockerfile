@@ -43,8 +43,8 @@ COPY --from=builder /app/build /usr/share/nginx/html
 # Copiar configuración personalizada de Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Exponer puerto 80
-EXPOSE 80
+# Exponer puerto 8080 (Render usa PORT=8080)
+EXPOSE 8080
 
 # Mantener root (nginx necesita binding al puerto 80). Workers siguen siendo no-root internos.
 
