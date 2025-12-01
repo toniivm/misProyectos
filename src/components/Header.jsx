@@ -45,7 +45,7 @@ export default function Header() {
       </div>
 
       <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="max-w-7xl mx-auto px-3 md:px-6">
           {/* Main Header Row */}
           <div className="grid grid-cols-3 items-center py-2 md:py-4">
             {/* Mobile Menu Button */}
@@ -60,31 +60,31 @@ export default function Header() {
             {/* LOGO - Centered on mobile */}
             <Link
               to="/"
-              className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity justify-self-center md:justify-self-start"
+              className="min-w-0 flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity justify-self-center md:justify-self-start"
             >
               <img
                 src="/img/logo.jpg"
                 alt="VALTREX"
-                width="48"
-                height="48"
+                width="40"
+                height="40"
                 loading="eager"
                 fetchpriority="high"
-                className="w-10 h-10 md:w-12 md:h-12 rounded-xl object-cover shadow-lg"
+                className="w-9 h-9 md:w-12 md:h-12 rounded-lg object-cover shadow-lg shrink-0"
               />
-              <span className="text-xl md:text-2xl font-black tracking-tight">
+              <span className="hidden md:inline text-xl md:text-2xl font-black tracking-tight truncate">
                 <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">VALTREX</span>
               </span>
             </Link>
 
             {/* Right Icons */}
-            <div className="flex items-center gap-1 md:gap-3 justify-self-end">
+            <div className="flex items-center gap-1.5 md:gap-3 justify-self-end shrink-0">
               {/* Search Icon - Mobile */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
                 className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition"
                 aria-label="Buscar"
               >
-                <Search size={20} />
+                <Search size={18} />
               </button>
 
               {/* Privacy Mode Toggle */}
@@ -103,7 +103,7 @@ export default function Header() {
                 className="relative p-2 hover:bg-gray-100 rounded-lg transition"
                 aria-label="Wishlist"
               >
-                <Heart size={20} className="md:size-22" />
+                <Heart size={18} className="md:size-22" />
                 {wishlistItems > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white w-5 h-5 flex items-center justify-center rounded-full text-[10px] font-bold">
                     {wishlistItems}
@@ -117,7 +117,7 @@ export default function Header() {
                 className="relative p-2 hover:bg-gray-100 rounded-lg transition group"
                 aria-label="Carrito"
               >
-                <ShoppingBag size={20} className="md:size-22 group-hover:scale-110 transition-transform" />
+                <ShoppingBag size={18} className="md:size-22 group-hover:scale-110 transition-transform" />
                 {totalItems > 0 && (
                   <span className="absolute -top-1 -right-1 bg-black text-white w-5 h-5 flex items-center justify-center rounded-full text-[10px] font-bold animate-pulse">
                     {totalItems}
