@@ -62,9 +62,15 @@ export default function Header() {
               to="/"
               className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity justify-self-center md:justify-self-start"
             >
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-black to-gray-700 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-black text-lg md:text-xl">V</span>
-              </div>
+              <img
+                src="/img/logo.jpg"
+                alt="VALTREX"
+                width="48"
+                height="48"
+                loading="eager"
+                fetchpriority="high"
+                className="w-10 h-10 md:w-12 md:h-12 rounded-xl object-cover shadow-lg"
+              />
               <span className="text-xl md:text-2xl font-black tracking-tight">
                 <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">VALTREX</span>
               </span>
