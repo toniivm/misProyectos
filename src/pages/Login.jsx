@@ -1,5 +1,5 @@
 import { auth, provider } from "../firebase/config";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { User, LogOut } from "lucide-react";
@@ -7,6 +7,12 @@ import { User, LogOut } from "lucide-react";
 export default function Login() {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
+  const [mode, setMode] = useState("login"); // 'login' | 'register'
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleGoogleLogin = async () => {
     try {
@@ -26,6 +32,46 @@ export default function Login() {
     }
   };
 
+  const handleEmailAuth = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      if (mode === "register") {
+        if (!name.trim()) {
+          throw new Error("Introduce tu nombre");
+        }
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(cred.user, { displayName: name });
+        const userData = {
+          name: cred.user.displayName || name,
+          email: cred.user.email,
+          photo: cred.user.photoURL,
+          uid: cred.user.uid,
+        };
+        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
+        navigate("/");
+      } else {
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        const userData = {
+          name: cred.user.displayName || cred.user.email.split("@")[0],
+          email: cred.user.email,
+          photo: cred.user.photoURL,
+          uid: cred.user.uid,
+        };
+        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
+        navigate("/");
+      }
+    } catch (err) {
+      console.error("Auth error:", err);
+      setError(err.message || "Error de autenticación");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -38,24 +84,46 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-md w-full">
+      <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl max-w-md w-full">
         {!user ? (
           <>
-            <div className="mb-6">
-              <div className="w-20 h-20 bg-red-500 rounded-full mx-auto flex items-center justify-center mb-4">
-                <User size={40} className="text-white" />
+            <div className="mb-6 text-center">
+              <div className="w-16 h-16 bg-black rounded-xl mx-auto flex items-center justify-center mb-3">
+                <User size={28} className="text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                Bienvenido
-              </h2>
-              <p className="text-gray-600">
-                Inicia sesión para continuar
-              </p>
+              <h2 className="text-2xl font-bold text-gray-800">Accede a tu cuenta</h2>
+              <p className="text-gray-600 text-sm">Inicia sesión o regístrate</p>
             </div>
+
+            <div className="flex mb-4 border rounded-lg overflow-hidden">
+              <button className={`w-1/2 py-2 text-sm font-semibold ${mode === 'login' ? 'bg-black text-white' : 'bg-gray-100 text-gray-700'}`} onClick={() => setMode('login')}>Iniciar sesión</button>
+              <button className={`w-1/2 py-2 text-sm font-semibold ${mode === 'register' ? 'bg-black text-white' : 'bg-gray-100 text-gray-700'}`} onClick={() => setMode('register')}>Crear cuenta</button>
+            </div>
+
+            <form onSubmit={handleEmailAuth} className="space-y-3">
+              {mode === 'register' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Nombre</label>
+                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="Tu nombre" required />
+                </div>
+              )}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="tucorreo@email.com" required />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Contraseña</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="••••••••" required />
+              </div>
+              {error && <p className="text-red-600 text-sm">{error}</p>}
+              <button type="submit" disabled={loading} className="w-full bg-black text-white font-semibold py-2.5 rounded-lg hover:bg-gray-800 transition disabled:opacity-50">
+                {loading ? (mode === 'register' ? 'Creando...' : 'Entrando...') : (mode === 'register' ? 'Crear cuenta' : 'Entrar')}
+              </button>
+            </form>
             
             <button
               onClick={handleGoogleLogin}
-              className="w-full bg-white border-2 border-gray-200 hover:border-red-500 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-lg"
+              className="w-full bg-white border-2 border-gray-200 hover:border-black text-gray-700 font-semibold py-2.5 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-lg mt-3"
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
