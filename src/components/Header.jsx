@@ -47,11 +47,11 @@ export default function Header() {
       <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-md">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           {/* Main Header Row */}
-          <div className="flex justify-between items-center py-3 md:py-4">
+          <div className="grid grid-cols-3 items-center py-2 md:py-4">
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition"
+              className="md:hidden p-2 justify-self-start hover:bg-gray-100 rounded-lg transition"
               aria-label="Menú"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -60,7 +60,7 @@ export default function Header() {
             {/* LOGO - Centered on mobile */}
             <Link
               to="/"
-              className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity absolute left-1/2 -translate-x-1/2 md:relative md:left-auto md:translate-x-0"
+              className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity justify-self-center md:justify-self-start"
             >
               <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-black to-gray-700 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-black text-lg md:text-xl">V</span>
@@ -71,7 +71,7 @@ export default function Header() {
             </Link>
 
             {/* Right Icons */}
-            <div className="flex items-center gap-2 md:gap-3">
+            <div className="flex items-center gap-1 md:gap-3 justify-self-end">
               {/* Search Icon - Mobile */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
@@ -84,7 +84,7 @@ export default function Header() {
               {/* Privacy Mode Toggle */}
               <button
                 onClick={togglePrivacyMode}
-                className={`relative p-2 rounded-lg transition ${privacyMode ? 'bg-black text-white' : 'hover:bg-gray-100'}`}
+                className={`relative p-2 rounded-lg transition ${privacyMode ? 'bg-black text-white' : 'hover:bg-gray-100'} hidden xs:block`}
                 aria-label="Modo Privacidad"
                 title={privacyMode ? 'Privacidad activada' : 'Activar modo privacidad'}
               >

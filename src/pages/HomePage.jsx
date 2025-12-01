@@ -39,15 +39,17 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero - Large Image Banner (Flight Club Style) */}
+      {/* Hero - Large Image Banner (Refined Mobile) */}
       <div className="relative overflow-hidden bg-black text-white">
-        <div className="relative h-[65vh] md:h-[75vh]">
+        <div className="relative h-[70vh] md:h-[75vh]">
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/20 z-10"></div>
           <img 
-            src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1920&h=1080&fit=crop&q=90" 
+            src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1280&h=1280&fit=crop&q=80" 
             alt="Sneakers Premium"
             className="w-full h-full object-cover object-center"
+            loading="lazy"
+            fetchPriority="high"
           />
           
           {/* Content */}
@@ -60,7 +62,7 @@ const HomePage = () => {
                 className="max-w-2xl"
               >
                 <motion.h1 
-                  className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-none tracking-tight"
+                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 leading-tight tracking-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
@@ -70,7 +72,7 @@ const HomePage = () => {
                 </motion.h1>
                 
                 <motion.p 
-                  className="text-lg md:text-2xl text-gray-300 mb-8 max-w-xl font-light"
+                  className="text-base sm:text-lg md:text-2xl text-gray-300 mb-6 max-w-xl font-light"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
@@ -79,21 +81,21 @@ const HomePage = () => {
                 </motion.p>
 
                 <motion.div 
-                  className="flex flex-wrap gap-4"
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.6 }}
                 >
                   <Link 
                     to="/productos" 
-                    className="bg-white text-black px-8 py-4 font-bold text-sm md:text-base hover:bg-gray-200 transition-all inline-flex items-center gap-2 group"
+                    className="bg-white text-black px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm md:text-base hover:bg-gray-200 transition-all inline-flex items-center justify-center gap-2 rounded-md shadow"
                   >
                     EXPLORAR TIENDA
                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link 
                     to="/productos"
-                    className="border-2 border-white text-white px-8 py-4 font-bold text-sm md:text-base hover:bg-white hover:text-black transition-all"
+                    className="border border-white/70 text-white px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm md:text-base hover:bg-white hover:text-black transition-all rounded-md backdrop-blur-sm"
                   >
                     NUEVOS LANZAMIENTOS
                   </Link>
@@ -101,20 +103,20 @@ const HomePage = () => {
 
                 {/* Trust Indicators */}
                 <motion.div
-                  className="mt-12 flex flex-wrap gap-6 text-sm"
+                  className="mt-8 sm:mt-10 flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-[40%]">
                     <Shield size={18} className="text-green-400" />
                     <span className="text-gray-300">100% Auténtico</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-[40%]">
                     <Truck size={18} className="text-blue-400" />
                     <span className="text-gray-300">Envío Gratis +100€</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 min-w-[40%]">
                     <Award size={18} className="text-purple-400" />
                     <span className="text-gray-300">Verificación Experta</span>
                   </div>
@@ -125,18 +127,18 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Category Tabs - Sticky */}
-      <div className="border-b border-gray-200 bg-white sticky top-[72px] z-40 shadow-sm">
+      {/* Category Tabs - Sticky (improved mobile spacing) */}
+      <div className="border-b border-gray-200 bg-white sticky top-[64px] sm:top-[72px] z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="flex overflow-x-auto scrollbar-hide gap-2 py-4">
+          <div className="flex overflow-x-auto scrollbar-hide gap-2 py-3 sm:py-4">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`
-                  px-6 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all flex items-center gap-2
+                  px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-2
                   ${selectedCategory === cat.id 
-                    ? 'bg-black text-white' 
+                    ? 'bg-black text-white shadow-inner' 
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }
                 `}

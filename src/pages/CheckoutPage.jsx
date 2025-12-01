@@ -477,8 +477,8 @@ const CheckoutPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-6">
+    <div className="min-h-screen bg-gray-50 py-6 sm:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <button
           onClick={() => navigate(-1)}
@@ -488,7 +488,7 @@ const CheckoutPage = () => {
           Volver
         </button>
 
-        <h1 className="text-4xl font-bold mb-8">Finalizar Compra</h1>
+        <h1 className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-8">Finalizar Compra</h1>
 
         {/* Progress Steps */}
         <div className="mb-12">
@@ -524,7 +524,7 @@ const CheckoutPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Formulario */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-lg p-8">
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
               {/* Step 1: Información de Envío */}
               {currentStep === 1 && (
                 <motion.div
@@ -536,7 +536,7 @@ const CheckoutPage = () => {
                     <h2 className="text-2xl font-bold">Información de Envío</h2>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-semibold mb-2">Nombre completo *</label>
@@ -546,7 +546,7 @@ const CheckoutPage = () => {
                           autoComplete="name"
                           value={shippingData.name}
                           onChange={handleShippingChange}
-                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                             errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                           }`}
                           placeholder="Juan Pérez"
@@ -566,7 +566,7 @@ const CheckoutPage = () => {
                           autoComplete="email"
                           value={shippingData.email}
                           onChange={handleShippingChange}
-                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                             errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                           }`}
                           placeholder="juan@ejemplo.com"
@@ -588,7 +588,7 @@ const CheckoutPage = () => {
                         autoComplete="tel"
                         value={shippingData.phone}
                         onChange={handleShippingChange}
-                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                           errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                         }`}
                         placeholder="612345678"
@@ -610,7 +610,7 @@ const CheckoutPage = () => {
                         autoComplete="street-address"
                         value={shippingData.address}
                         onChange={handleShippingChange}
-                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                           errors.address ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                         }`}
                         placeholder="Calle Serrano 45, 3º B"
@@ -632,7 +632,7 @@ const CheckoutPage = () => {
                           autoComplete="address-level2"
                           value={shippingData.city}
                           onChange={handleShippingChange}
-                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                             errors.city ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                           }`}
                           placeholder="Madrid"
@@ -652,7 +652,7 @@ const CheckoutPage = () => {
                           autoComplete="address-level1"
                           value={shippingData.state}
                           onChange={handleShippingChange}
-                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                             errors.state ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                           }`}
                           placeholder="Madrid"
@@ -672,7 +672,7 @@ const CheckoutPage = () => {
                           autoComplete="postal-code"
                           value={shippingData.zip}
                           onChange={handleShippingChange}
-                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                             errors.zip ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                           }`}
                           placeholder="28001"
@@ -763,7 +763,7 @@ const CheckoutPage = () => {
 
                   {/* Stripe Checkout Component */}
                   {useStripePayment && (
-                    <div className="mb-8">
+                    <div className="mb-6 sm:mb-8">
                       <StripeCheckout
                         amount={finalTotal}
                         clientSecret={clientSecret}
@@ -781,7 +781,7 @@ const CheckoutPage = () => {
                       )}
 
                   {/* Manual Card Form (Fallback) */}
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-center gap-2 mb-4">
                       <div className="flex-1 border-t border-gray-300"></div>
                       <span className="text-sm text-gray-500 font-semibold">Formulario Manual (Sin Stripe)</span>
@@ -798,7 +798,7 @@ const CheckoutPage = () => {
                         value={paymentData.cardNumber}
                         onChange={handlePaymentChange}
                         maxLength="19"
-                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                           errors.cardNumber ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                         }`}
                         required
@@ -822,7 +822,7 @@ const CheckoutPage = () => {
                         placeholder="JUAN PEREZ"
                         value={paymentData.cardName}
                         onChange={handlePaymentChange}
-                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                        className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                           errors.cardName ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                         }`}
                         required
@@ -845,7 +845,7 @@ const CheckoutPage = () => {
                           value={paymentData.expiryDate}
                           onChange={handlePaymentChange}
                           maxLength="5"
-                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                             errors.expiryDate ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                           }`}
                           required
@@ -866,7 +866,7 @@ const CheckoutPage = () => {
                           value={paymentData.cvv}
                           onChange={handlePaymentChange}
                           maxLength="4"
-                          className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
+                          className={`w-full px-3 py-2 sm:px-4 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 transition ${
                             errors.cvv ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-black'
                           }`}
                           required
@@ -881,7 +881,7 @@ const CheckoutPage = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 mt-8">
+                  <div className="flex gap-3 sm:gap-4 mt-6 sm:mt-8">
                     <button
                       onClick={() => setCurrentStep(1)}
                       className="flex-1 border-2 border-gray-300 text-gray-700 py-4 rounded-lg font-semibold hover:bg-gray-100 transition"
@@ -1048,7 +1048,7 @@ const CheckoutPage = () => {
 
           {/* Resumen del Pedido */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24">
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 sticky top-16 sm:top-24">
               <h3 className="text-xl font-bold mb-6">Resumen del Pedido</h3>
               
               <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">

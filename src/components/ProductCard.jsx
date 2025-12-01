@@ -54,7 +54,7 @@ const ProductCard = ({ product, highlightTerm }) => {
             alt={product.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
-            fetchpriority="low"
+            fetchPriority="low"
           />
           
           {/* Overlay con CTA */}
@@ -75,7 +75,7 @@ const ProductCard = ({ product, highlightTerm }) => {
           </div>
           
           <h3
-            className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 h-12"
+            className="text-sm sm:text-base font-semibold text-gray-900 mb-2 line-clamp-2"
             dangerouslySetInnerHTML={{
               __html: highlightTerm && highlightTerm.length > 1
                 ? product.title.replace(new RegExp(`(${highlightTerm})`, 'ig'), '<mark class="bg-yellow-200">$1</mark>')
@@ -110,23 +110,23 @@ const ProductCard = ({ product, highlightTerm }) => {
           )}
           
           {/* Precio y stock */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {hasDiscount ? (
               <>
-                <span className="text-lg font-extrabold text-black">
+                <span className="text-base sm:text-lg font-extrabold text-black">
                   {discountedPrice.toFixed(2)} €
                 </span>
-                <span className="text-sm text-gray-500 line-through">
+                <span className="text-xs sm:text-sm text-gray-500 line-through">
                   {product.price.toFixed(2)} €
                 </span>
               </>
             ) : (
-              <span className="text-lg font-extrabold text-black">
+              <span className="text-base sm:text-lg font-extrabold text-black">
                 {product.price.toFixed(2)} €
               </span>
             )}
             {product.stock !== undefined && (
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${product.stock < 10 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
+              <span className={`text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full ${product.stock < 10 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
                 {product.stock < 10 ? 'Stock bajo' : 'Disponible'}
               </span>
             )}
