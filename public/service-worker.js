@@ -1,14 +1,12 @@
 /* eslint-disable no-restricted-globals */
 // VALTREX Service Worker - PWA Support
-const CACHE_VERSION = 'valtrex-v3';
+const CACHE_VERSION = 'valtrex-v4';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const MAX_DYNAMIC_ITEMS = 50;
 
 // Assets to precache
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
   '/manifest.json',
   '/favicon.ico'
 ];
@@ -57,6 +55,22 @@ self.addEventListener('fetch', (event) => {
 
   // Skip Firebase/external APIs
   if (url.origin.includes('firebase') || url.origin.includes('googleapis')) {
+    return;
+  }
+
+  // Network-first for navigation/documents to avoid stale index.html
+  if (request.destination === 'document') {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          const clone = networkResponse.clone();
+          caches.open(STATIC_CACHE).then((cache) => {
+            cache.put('/index.html', clone);
+          });
+          return networkResponse;
+        })
+        .catch(() => caches.match('/index.html'))
+    );
     return;
   }
 
