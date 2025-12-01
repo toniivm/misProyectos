@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 // VALTREX Service Worker - PWA Support
-const CACHE_VERSION = 'valtrex-v2';
+const CACHE_VERSION = 'valtrex-v3';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const MAX_DYNAMIC_ITEMS = 50;
