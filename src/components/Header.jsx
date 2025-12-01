@@ -45,7 +45,7 @@ export default function Header() {
       </div>
 
       <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-md">
-        <div className="max-w-7xl mx-auto px-3 md:px-6">
+        <div className="max-w-7xl mx-auto px-2 sm:px-3 md:px-6">
           {/* Main Header Row */}
           <div className="grid grid-cols-3 items-center py-2 md:py-4">
             {/* Mobile Menu Button */}
@@ -65,11 +65,11 @@ export default function Header() {
               <img
                 src="/img/logo.jpg"
                 alt="VALTREX"
-                width="40"
-                height="40"
+                width="36"
+                height="36"
                 loading="eager"
                 fetchpriority="high"
-                className="w-9 h-9 md:w-12 md:h-12 rounded-lg object-cover shadow-lg shrink-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 md:w-12 md:h-12 rounded-lg object-cover shadow-lg shrink-0"
               />
               <span className="hidden md:inline text-xl md:text-2xl font-black tracking-tight truncate">
                 <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">VALTREX</span>
@@ -100,7 +100,7 @@ export default function Header() {
               {/* WISHLIST */}
               <button
                 onClick={() => setIsWishlistOpen(true)}
-                className="relative p-2 hover:bg-gray-100 rounded-lg transition"
+                className="relative p-2 hover:bg-gray-100 rounded-lg transition hidden sm:inline-flex"
                 aria-label="Wishlist"
               >
                 <Heart size={18} className="md:size-22" />
