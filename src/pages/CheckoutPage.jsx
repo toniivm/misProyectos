@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CreditCard, Truck, MapPin, CheckCircle2, ArrowLeft, Shield, AlertCircle, Apple } from 'lucide-react';
+import { CreditCard, MapPin, CheckCircle2, ArrowLeft, Shield, AlertCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase/config';
