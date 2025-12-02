@@ -29,3 +29,5 @@ server/*.env
 server/.env*
 *.pem
 *.p12
+*.7z
+*.zip
