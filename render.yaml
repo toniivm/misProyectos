@@ -31,7 +31,8 @@ services:
     name: valtrex-backend
     env: docker
     plan: starter
-    dockerfilePath: server/Dockerfile
+    dockerfilePath: Dockerfile
+    dockerContext: server
     autoDeploy: true
     healthCheckPath: /health
     envVars:
@@ -50,4 +51,6 @@ services:
       - key: SENDGRID_API_KEY
         sync: false
       - key: SENDER_EMAIL
+        sync: false
+      - key: ADMIN_API_KEY
         sync: false

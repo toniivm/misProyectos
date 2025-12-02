@@ -228,4 +228,32 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
   res.json({ ok: true });
 });
 
+// Order confirmation email (called by frontend after successful payment)
+app.post('/emails/order-confirmation', async (req,res) => {
+  const { orderId, email } = req.body;
+  if (!orderId || !email) return res.status(400).json({ error: 'MISSING_FIELDS' });
+  
+  const ref = db.collection('orders').doc(orderId);
+  const snap = await ref.get();
+  if (!snap.exists) return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
+  
+  const order = snap.data();
+  const itemsList = order.items.map(it => `<li>${it.name} x${it.qty} - €${(it.price * it.qty).toFixed(2)}</li>`).join('');
+  const total = (order.amount / 100).toFixed(2);
+  
+  await sendEmail(
+    email,
+    `✅ Confirmación de pedido #${orderId} - VALTREX`,
+    `<h1>¡Gracias por tu pedido!</h1>
+    <p>Pedido: <strong>#${orderId}</strong></p>
+    <h3>Artículos:</h3>
+    <ul>${itemsList}</ul>
+    <p><strong>Total: €${total}</strong></p>
+    <p>Recibirás un email cuando tu pedido sea enviado.</p>
+    <p>Gracias por confiar en VALTREX.</p>`
+  );
+  
+  res.json({ ok: true });
+});
+
 export { app, db, skipExternal };

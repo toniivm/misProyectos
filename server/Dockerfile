@@ -8,7 +8,8 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Copy source
-COPY . .
+COPY src ./src
+COPY tests ./tests
 
 ENV NODE_ENV=production \
     PORT=8080
