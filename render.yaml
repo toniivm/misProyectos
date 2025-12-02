@@ -25,18 +25,18 @@ services:
       - key: REACT_APP_STRIPE_PUBLIC_KEY
         sync: false
       - key: REACT_APP_API_BASE
-        sync: false
+        value: https://valtrex-backend.onrender.com
 
   - type: web
     name: valtrex-backend
-    env: node
+    env: docker
     plan: starter
-    rootDirectory: server
+    dockerfilePath: server/Dockerfile
     autoDeploy: true
-    buildCommand: npm install
-    startCommand: npm start
     healthCheckPath: /health
     envVars:
+      - key: PORT
+        value: 8080
       - key: STRIPE_SECRET_KEY
         sync: false
       - key: STRIPE_WEBHOOK_SECRET

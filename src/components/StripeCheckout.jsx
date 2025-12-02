@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import React, { useEffect, useState } from 'react';
+import { Elements, PaymentElement, useStripe, useElements, PaymentRequestButtonElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { AlertCircle, Lock, CreditCard } from 'lucide-react';
 
@@ -9,11 +9,61 @@ const rawPublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY || 'pk_test_REEMPLA
 const stripePromise = loadStripe(rawPublicKey);
 
 // Componente interno del formulario de pago
-const PaymentForm = ({ amount, onSuccess, onError, customerEmail }) => {
+const PaymentForm = ({ amount, onSuccess, onError, customerEmail, clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [pr, setPr] = useState(null);
+
+  // Initialize Payment Request (Apple Pay / Google Pay) if available
+  useEffect(() => {
+    if (!stripe || !amount) return;
+    const prq = stripe.paymentRequest({
+      country: 'ES',
+      currency: 'eur',
+      total: { label: 'VALTREX Pedido', amount: Math.round(Number(amount) * 100) },
+      requestPayerName: true,
+      requestPayerEmail: true,
+    });
+    prq.canMakePayment().then((result) => {
+      if (result) {
+        setPr(prq);
+      }
+    });
+
+    if (clientSecret) {
+      prq.on('paymentmethod', async (ev) => {
+        try {
+          const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: ev.paymentMethod.id,
+          }, { handleActions: false });
+          if (confirmError) {
+            ev.complete('fail');
+            setErrorMessage(confirmError.message || 'Pago rechazado');
+            onError(confirmError);
+            return;
+          }
+          ev.complete('success');
+
+          if (paymentIntent && paymentIntent.status === 'requires_action') {
+            const { error, paymentIntent: nextPi } = await stripe.confirmCardPayment(clientSecret);
+            if (error) {
+              setErrorMessage(error.message || 'Autenticación requerida fallida');
+              onError(error);
+            } else {
+              onSuccess(nextPi);
+            }
+          } else if (paymentIntent) {
+            onSuccess(paymentIntent);
+          }
+        } catch (e) {
+          setErrorMessage(e.message || 'Error en Payment Request');
+          onError(e);
+        }
+      });
+    }
+  }, [stripe, amount, clientSecret, onError, onSuccess]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,6 +104,11 @@ const PaymentForm = ({ amount, onSuccess, onError, customerEmail }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {pr && (
+        <div className="mb-3">
+          <PaymentRequestButtonElement options={{ paymentRequest: pr, style: { paymentRequestButton: { type: 'buy', theme: 'dark', height: '44px' } } }} />
+        </div>
+      )}
       {/* Payment Element de Stripe (incluye tarjeta, Apple Pay, Google Pay automáticamente) */}
       <div className="bg-white border-2 border-gray-200 rounded-lg p-4">
         <PaymentElement
@@ -138,6 +193,7 @@ const StripeCheckout = ({ amount, clientSecret, onSuccess, onError, customerEmai
             onSuccess={onSuccess}
             onError={onError}
             customerEmail={customerEmail}
+            clientSecret={clientSecret}
           />
         </Elements>
       ) : (

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase/config';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import Toast from '../components/Toast';
 import { LogOut, ShoppingBag } from 'lucide-react';
 import PRODUCTS from '../data/products';
 
@@ -18,6 +19,7 @@ export default function ProfilePage() {
   });
   const [saving, setSaving] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
+  const [toast, setToast] = React.useState('');
 
   const handleLogout = async () => {
     try {
@@ -57,12 +59,25 @@ export default function ProfilePage() {
   const saveProfile = async (e) => {
     e.preventDefault();
     if (!user?.uid) return;
+    // Simple validations
+    if (profile.phone && profile.phone.replace(/\D/g,'').length < 9) {
+      setToast('Teléfono debe tener 9 dígitos');
+      setTimeout(() => setToast(''), 2500);
+      return;
+    }
+    if (profile.zip && profile.zip.replace(/\D/g,'').length !== 5) {
+      setToast('Código postal debe tener 5 dígitos');
+      setTimeout(() => setToast(''), 2500);
+      return;
+    }
     setSaving(true);
     try {
       await setDoc(doc(db, 'users', user.uid), {
         ...profile,
         updatedAt: serverTimestamp(),
       }, { merge: true });
+      setToast('Perfil guardado');
+      setTimeout(() => setToast(''), 2000);
     } finally {
       setSaving(false);
     }
@@ -163,6 +178,7 @@ export default function ProfilePage() {
           </div>
         ))}
       </div>
+      {toast && <Toast message={toast} />}
     </div>
   );
 }
