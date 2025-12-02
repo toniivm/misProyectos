@@ -31,8 +31,8 @@ services:
     name: valtrex-backend
     env: docker
     plan: starter
-    dockerfilePath: Dockerfile
-    dockerContext: server
+    rootDirectory: server
+    dockerfilePath: ./Dockerfile
     autoDeploy: true
     healthCheckPath: /health
     envVars:
