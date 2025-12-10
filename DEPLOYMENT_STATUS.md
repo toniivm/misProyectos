@@ -74,7 +74,7 @@ REACT_APP_API_BASE=https://valtrex-backend.onrender.com
 
 ### Option 1: Automated Monitoring (Recommended)
 ```powershell
-.\scripts\monitor_deployment.ps1
+.\scripts\deployment\monitor_deployment.ps1
 ```
 This script checks the backend every 10 seconds and notifies when it's live.
 

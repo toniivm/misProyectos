@@ -1,16 +1,14 @@
-# Etapa 1: Build de la aplicación
-FROM node:18 AS builder
+# Etapa 1: Build de la aplicación (Node 20 para compatibilidad de engines)
+FROM node:20-alpine AS builder
 
 # Establecer directorio de trabajo
 WORKDIR /app
 
 # Copiar archivos de dependencias
 COPY package*.json ./
-COPY package-lock.json ./
 
-# Instalar dependencias
-# Instalar todas las dependencias (incluye devDependencies necesarias para el build)
-RUN npm ci
+# Instalar dependencias con fallback
+RUN npm ci || npm install
 
 # Copiar el resto de archivos
 COPY . .
