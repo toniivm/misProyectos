@@ -9,7 +9,7 @@ import sgMail from '@sendgrid/mail';
 import Joi from 'joi';
 import { v4 as uuidv4 } from 'uuid';
 import rateLimit from 'express-rate-limit';
-import PRODUCTS from './data/products.js';
+import PRODUCTS from './products.js';
 
 const skipExternal = !!process.env.SKIP_EXTERNAL;
 

@@ -12,9 +12,8 @@ COPY package*.json ./
 # Install dependencies with fallback
 RUN npm ci --only=production || npm install --production
 
-# Copy all source code and data files
+# Copy source code
 COPY src ./src
-COPY src/data ./src/data
 
 ENV NODE_ENV=production \
     PORT=8080
