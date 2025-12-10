@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { auth, provider, db } from "../firebase/config";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";

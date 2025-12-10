@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Truck, RefreshCw, Shield, Star } from 'lucide-react';
 import ProductGallery from "../components/ProductGallery";
 import ProductInfo from "../components/ProductInfo";
 import ProductCard from "../components/ProductCard";
-import PRODUCTS from "../data/products";
+import useProducts from "../hooks/useProducts";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
-  const product = PRODUCTS.find((p) => p.id === parseInt(id));
+  const { products, loading, error } = useProducts();
+  const product = useMemo(() => {
+    const numericId = parseInt(id, 10);
+    return (products || []).find((p) => p.id === numericId || String(p.id) === String(id));
+  }, [products, id]);
   const [activeTab, setActiveTab] = useState('descripcion');
 
   // Scroll to top when product changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">Cargando producto...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -33,7 +45,7 @@ export default function ProductDetailPage() {
   const { images = [], sizes = [] } = product;
   
   // Productos relacionados (misma categoría)
-  const relatedProducts = PRODUCTS.filter(
+  const relatedProducts = (products || []).filter(
     p => p.category === product.category && p.id !== product.id
   ).slice(0, 4);
 
@@ -238,6 +250,9 @@ export default function ProductDetailPage() {
               ))}
             </div>
           </div>
+        )}
+        {error && (
+          <p className="text-center text-xs text-red-500 mt-8">Usando datos locales: {error}</p>
         )}
       </div>
     </div>

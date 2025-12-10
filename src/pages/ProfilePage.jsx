@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
@@ -10,16 +11,16 @@ import PRODUCTS from '../data/products';
 export default function ProfilePage() {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
-  const [profile, setProfile] = React.useState({
+  const [profile, setProfile] = useState({
     phone: '',
     address: '',
     city: '',
     state: '',
     zip: '',
   });
-  const [saving, setSaving] = React.useState(false);
-  const [loaded, setLoaded] = React.useState(false);
-  const [toast, setToast] = React.useState('');
+  const [saving, setSaving] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [toast, setToast] = useState('');
 
   const handleLogout = async () => {
     try {
@@ -36,7 +37,7 @@ export default function ProfilePage() {
     try { return JSON.parse(localStorage.getItem('orders') || '[]').sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt)); } catch { return []; }
   })();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const load = async () => {
       if (!user?.uid) return;
       const ref = doc(db, 'users', user.uid);

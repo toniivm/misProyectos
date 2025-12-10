@@ -9,7 +9,7 @@ const rawPublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY || 'pk_test_REEMPLA
 const stripePromise = loadStripe(rawPublicKey);
 
 // Componente interno del formulario de pago
-const PaymentForm = ({ amount, onSuccess, onError, customerEmail, clientSecret }) => {
+const PaymentForm = ({ amount, onSuccess, onError, customerEmail, clientSecret, disabled }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -140,7 +140,7 @@ const PaymentForm = ({ amount, onSuccess, onError, customerEmail, clientSecret }
       {/* Botón de pago */}
       <button
         type="submit"
-        disabled={!stripe || isProcessing}
+        disabled={disabled || !stripe || isProcessing}
         className="w-full bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {isProcessing ? (
@@ -160,7 +160,7 @@ const PaymentForm = ({ amount, onSuccess, onError, customerEmail, clientSecret }
 };
 
 // Componente principal exportado
-const StripeCheckout = ({ amount, clientSecret, onSuccess, onError, customerEmail }) => {
+const StripeCheckout = ({ amount, clientSecret, onSuccess, onError, customerEmail, disabled = false }) => {
   // Opciones para Elements Provider
   const options = {
     clientSecret,
@@ -194,6 +194,7 @@ const StripeCheckout = ({ amount, clientSecret, onSuccess, onError, customerEmai
             onError={onError}
             customerEmail={customerEmail}
             clientSecret={clientSecret}
+            disabled={disabled}
           />
         </Elements>
       ) : (

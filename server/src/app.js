@@ -9,6 +9,7 @@ import sgMail from '@sendgrid/mail';
 import Joi from 'joi';
 import { v4 as uuidv4 } from 'uuid';
 import rateLimit from 'express-rate-limit';
+import PRODUCTS from '../../src/data/products.js';
 
 const skipExternal = !!process.env.SKIP_EXTERNAL;
 
@@ -111,7 +112,8 @@ function calcAmount(items){
 async function verifyInventory(items){
   const productItems = items.filter(it => !it.id.startsWith('shipping:'));
   for (const it of productItems){
-    const snap = await db.collection('products').doc(it.id).get();
+    const productId = String(it.id);
+    const snap = await db.collection('products').doc(productId).get();
     if (!snap.exists) throw new Error(`NO_PRODUCT:${it.id}`);
     const data = snap.data();
     if (typeof data.stock !== 'number') throw new Error(`NO_STOCK_FIELD:${it.id}`);
@@ -123,7 +125,7 @@ async function decrementInventory(items){
   if (!productItems.length) return;
   await db.runTransaction(async (tx) => {
     for (const it of productItems){
-      const ref = db.collection('products').doc(it.id);
+      const ref = db.collection('products').doc(String(it.id));
       const snap = await tx.get(ref);
       if (!snap.exists) throw new Error(`NO_PRODUCT:${it.id}`);
       const data = snap.data();
@@ -134,7 +136,54 @@ async function decrementInventory(items){
   });
 }
 
+async function getStockMap(){
+  try {
+    const snap = await db.collection('products').get();
+    const map = {};
+    snap.docs.forEach(doc => {
+      const data = doc.data();
+      if (typeof data?.stock === 'number') map[doc.id] = data.stock;
+    });
+    return map;
+  } catch (e){
+    console.error('Error reading stock map', e);
+    return {};
+  }
+}
+
 app.get('/health', (_req,res) => res.json({ ok: true, test: skipExternal }));
+
+app.get('/products', async (_req,res) => {
+  try {
+    const stockMap = await getStockMap();
+    const payload = PRODUCTS.map((p) => ({
+      ...p,
+      id: String(p.id),
+      stock: stockMap[String(p.id)] ?? p.stock ?? null
+    }));
+    res.json({ products: payload });
+  } catch (e){
+    console.error('Error returning products', e);
+    res.status(500).json({ error: 'PRODUCTS_FETCH_FAILED' });
+  }
+});
+
+// Seed Firestore products from the static catalog (admin only)
+app.post('/admin/seed-products', adminAuth, async (req,res) => {
+  const { defaultStock = 20 } = req.body || {};
+  try {
+    const ops = PRODUCTS.map(async (p) => {
+      const id = String(p.id);
+      const ref = db.collection('products').doc(id);
+      await ref.set({ stock: typeof p.stock === 'number' ? p.stock : defaultStock }, { merge: true });
+    });
+    await Promise.all(ops);
+    res.json({ ok: true, count: PRODUCTS.length, defaultStock });
+  } catch (e){
+    console.error('Error seeding products', e);
+    res.status(500).json({ error: 'SEED_FAILED' });
+  }
+});
 
 app.post('/payments/create-intent', async (req,res) => {
   const { error, value } = createIntentSchema.validate(req.body, { abortEarly: false });

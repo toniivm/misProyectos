@@ -2,9 +2,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SlidersHorizontal, X } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
-import PRODUCTS from '../data/products';
+import useProducts from '../hooks/useProducts';
 
 export default function ProductPage() {
+  const { products, loading, error } = useProducts();
   const [rawSearch, setRawSearch] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   // Debounce search input
@@ -29,7 +30,8 @@ export default function ProductPage() {
   ];
 
   const filteredProducts = useMemo(() => {
-    let filtered = PRODUCTS.filter((product) => {
+    const source = Array.isArray(products) ? products : [];
+    let filtered = source.filter((product) => {
       const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = selectedCategory === 'todos' || product.category === selectedCategory;
       const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
@@ -55,7 +57,7 @@ export default function ProductPage() {
     }
 
     return filtered;
-  }, [searchTerm, selectedCategory, sortBy, priceRange]);
+  }, [products, searchTerm, selectedCategory, sortBy, priceRange]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -180,7 +182,7 @@ export default function ProductPage() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           layout
         >
-          {filteredProducts.map((product) => (
+          {!loading && filteredProducts.map((product) => (
             <motion.div
               key={product.id}
               layout
@@ -194,7 +196,10 @@ export default function ProductPage() {
           ))}
         </motion.div>
         
-        {filteredProducts.length === 0 && (
+        {loading && (
+          <div className="text-center py-20 text-gray-500">Cargando productos...</div>
+        )}
+        {!loading && filteredProducts.length === 0 && (
           <div className="text-center py-20">
             <p className="text-2xl text-gray-500 mb-4">
               No se encontraron productos
@@ -203,6 +208,9 @@ export default function ProductPage() {
               Intenta ajustar tus filtros de búsqueda
             </p>
           </div>
+        )}
+        {error && (
+          <p className="text-center text-xs text-red-500 mt-4">Usando datos locales: {error}</p>
         )}
       </div>
     </div>

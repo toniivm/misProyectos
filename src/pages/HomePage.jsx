@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, TrendingUp, Shield, Truck, Award } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import PaymentLogos from '../components/PaymentLogos';
-import PRODUCTS from '../data/products'; 
+import useProducts from '../hooks/useProducts'; 
 
 const HomePage = () => {
+  const { products, loading, error } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('nuevos');
 
   // Categorías - Flight Club Style
@@ -19,23 +20,24 @@ const HomePage = () => {
   ];
 
   const getProductsByCategory = (categoryId) => {
+    const source = Array.isArray(products) ? products : [];
     switch (categoryId) {
       case 'nuevos':
-        return PRODUCTS.filter(p => p.isNew).slice(0, 8);
+        return source.filter(p => p.isNew).slice(0, 8);
       case 'ofertas':
-        return PRODUCTS.filter(p => p.discount > 0).slice(0, 8);
+        return source.filter(p => p.discount > 0).slice(0, 8);
       case 'jordan':
-        return PRODUCTS.filter(p => p.title.toLowerCase().includes('jordan')).slice(0, 8);
+        return source.filter(p => p.title.toLowerCase().includes('jordan')).slice(0, 8);
       case 'yeezy':
-        return PRODUCTS.filter(p => p.title.toLowerCase().includes('yeezy')).slice(0, 8);
+        return source.filter(p => p.title.toLowerCase().includes('yeezy')).slice(0, 8);
       case 'luxury':
-        return PRODUCTS.filter(p => ['Balenciaga', 'Gucci', 'Prada', 'Off-White'].includes(p.brand)).slice(0, 8);
+        return source.filter(p => ['Balenciaga', 'Gucci', 'Prada', 'Off-White'].includes(p.brand)).slice(0, 8);
       default:
-        return PRODUCTS.slice(0, 8);
+        return source.slice(0, 8);
     }
   };
 
-  const displayProducts = getProductsByCategory(selectedCategory);
+  const displayProducts = useMemo(() => getProductsByCategory(selectedCategory), [selectedCategory, products]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -172,10 +174,16 @@ const HomePage = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          {displayProducts.map((product) => (
+          {loading && (
+            <div className="col-span-4 text-center text-gray-500 py-8">Cargando productos...</div>
+          )}
+          {!loading && displayProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </motion.div>
+        {error && (
+          <p className="text-xs text-red-500 mt-3">Usando datos locales: {error}</p>
+        )}
       </div>
 
       {/* Featured Brands */}

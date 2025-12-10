@@ -6,6 +6,25 @@ Tienda online multimarca de sneakers premium con máxima seguridad y privacidad.
 
 🌐 **[https://valtre.onrender.com/](https://valtre.onrender.com/)**
 
+## 🚀 Despliegue en Render (backend y frontend)
+
+- Backend Render: `https://valtre-backend.onrender.com` (service id: `srv-d4mvuvchg0os73c7n47g`).
+- Frontend debe tener `REACT_APP_API_URL=https://valtre-backend.onrender.com` en las env vars de Render.
+- Backend env vars mínimas: `ADMIN_API_KEY`, `STRIPE_SECRET_KEY`, `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` (usa `\n`), opcional `SENDGRID_API_KEY`, `SENDER_EMAIL`, `STRIPE_WEBHOOK_SECRET`.
+- Seed de stock en Firestore (requiere `ADMIN_API_KEY`):
+```bash
+curl -X POST https://valtre-backend.onrender.com/admin/seed-products \
+  -H "x-admin-key: <ADMIN_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{"defaultStock":25}'
+```
+- Alternativa (Windows/PowerShell):
+  ```pwsh
+  $env:ADMIN_API_KEY="<ADMIN_API_KEY>"
+  ./scripts/seed_products.ps1 -ApiBase "https://valtre-backend.onrender.com" -DefaultStock 25
+  ```
+
+
 ## 🔐 Seguridad y Confianza
 
 - 🛡️ **SSL Seguro**: Pago 100% cifrado con certificado SSL
