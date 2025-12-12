@@ -25,9 +25,18 @@ yarn-error.log*
 
 # secrets / keys (DO NOT COMMIT)
 *firebase-adminsdk*.json
+*serviceAccountKey*.json
 server/*.env
 server/.env*
 *.pem
 *.p12
+*.key
 *.7z
 *.zip
+
+# Sensitive config files
+RENDER_ENV*.txt
+VALORES_RENDER*.txt
+CONFIGURAR_BACKEND*.md
+firebase-debug.log
+*-debug.log
