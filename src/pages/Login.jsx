@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth, provider, db } from "../firebase/config";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getRedirectResult, signInWithRedirect, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { User, LogOut } from "lucide-react";
@@ -16,32 +16,49 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Manejo de Google con redirect para evitar bloqueos de popup
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      const userData = {
-        name: result.user.displayName,
-        email: result.user.email,
-        photo: result.user.photoURL,
-        uid: result.user.uid
-      };
-      // Persist user in Firestore
-      await setDoc(doc(db, "users", userData.uid), {
-        name: userData.name,
-        email: userData.email,
-        photo: userData.photo || null,
-        createdAt: serverTimestamp(),
-        lastLoginAt: serverTimestamp(),
-        provider: "google",
-      }, { merge: true });
-      localStorage.setItem("user", JSON.stringify(userData));
-      setUser(userData);
-      navigate("/");
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error);
       alert("Error al iniciar sesión. Por favor, intenta de nuevo.");
     }
   };
+
+  // Procesa el resultado del redirect y persiste el usuario
+  useEffect(() => {
+    const resolveRedirect = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        if (!result?.user) return;
+        const userData = {
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+          uid: result.user.uid,
+        };
+        await setDoc(doc(db, "users", userData.uid), {
+          name: userData.name,
+          email: userData.email,
+          photo: userData.photo || null,
+          createdAt: serverTimestamp(),
+          lastLoginAt: serverTimestamp(),
+          provider: "google",
+        }, { merge: true });
+        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
+        navigate("/");
+      } catch (error) {
+        if (error?.code === "auth/cancelled-popup-request" || error?.code === "auth/popup-blocked") {
+          // Ignora cancels/blocks para no molestar al usuario
+          return;
+        }
+        console.error("Error al procesar redirect de Google:", error);
+      }
+    };
+    resolveRedirect();
+  }, [navigate, setUser]);
 
   const handleEmailAuth = async (e) => {
     e.preventDefault();
