@@ -11,70 +11,160 @@ import { v4 as uuidv4 } from 'uuid';
 import rateLimit from 'express-rate-limit';
 import PRODUCTS from './products.js';
 
-const skipExternal = !!process.env.SKIP_EXTERNAL;
-
-// Init external clients (or mocks)
-let stripe;
-if (!skipExternal) {
-  stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy', { apiVersion: '2024-06-20' });
-} else {
-  stripe = { paymentIntents: { create: async ({ amount, currency, metadata }) => ({ client_secret: 'test_client_secret_'+Date.now(), id: 'pi_test_'+Date.now(), amount, currency, metadata }) }, webhooks: { constructEvent: () => ({ type: 'payment_intent.succeeded', data: { object: { id: 'pi_test', metadata: { orderId: 'order_mock' } } } }) } };
+function parseBool(value) {
+  if (value == null) return false;
+  const s = String(value).trim().toLowerCase();
+  return s === '1' || s === 'true' || s === 'yes' || s === 'on';
 }
 
-let db;
-if (!skipExternal) {
-  if (!admin.apps.length) {
-    admin.initializeApp({
-      credential: admin.credential.cert({
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      })
-    });
-  }
-  db = admin.firestore();
-  if (process.env.SENDGRID_API_KEY) sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-} else {
+const skipExternal = parseBool(process.env.SKIP_EXTERNAL);
+const isProd = (process.env.NODE_ENV || 'production') === 'production';
+
+const externalStatus = {
+  skipExternal,
+  stripe: { enabled: false, reason: null },
+  firebase: { enabled: false, reason: null },
+  sendgrid: { enabled: false, reason: null },
+};
+
+function createMockDb() {
   // In-memory mock store
   const store = { orders: {}, products: { '1': { stock: 10 }, '2': { stock: 5 } } };
-  db = {
-    collection(name){
+  return {
+    collection(name) {
       return {
-        doc(id){
+        doc(id) {
           const _id = id || Math.random().toString(36).slice(2);
           return {
             id: _id,
-            async set(data, opts){
+            async set(data) {
               if (name === 'orders') {
-                store.orders[_id] = { ...(store.orders[_id]||{}), ...data };
+                store.orders[_id] = { ...(store.orders[_id] || {}), ...data };
               } else if (name === 'products') {
-                store.products[_id] = { ...(store.products[_id]||{}), ...data };
+                store.products[_id] = { ...(store.products[_id] || {}), ...data };
               }
             },
-            async get(){
+            async get() {
               const data = name === 'orders' ? store.orders[_id] : store.products[_id];
               return { exists: !!data, data: () => data };
-            }
+            },
           };
         },
-        async orderBy(){ return this; },
-        async limit(){ return this; },
-        async get(){
-          const arr = Object.entries(name === 'orders' ? store.orders : store.products).map(([id,data]) => ({ id, data: () => data }));
+        async get() {
+          const arr = Object.entries(name === 'orders' ? store.orders : store.products).map(([id, data]) => ({ id, data: () => data }));
           return { docs: arr };
-        }
+        },
       };
     },
     runTransaction: async (fn) => {
       const tx = {
-        async get(ref){ return ref.get(); },
-        update(ref, data){ ref.set(data, { merge: true }); }
+        async get(ref) { return ref.get(); },
+        update(ref, data) { ref.set(data, { merge: true }); },
       };
       await fn(tx);
-    }
+    },
   };
+}
+
+function missingEnv(keys) {
+  return keys.filter((k) => !process.env[k] || !String(process.env[k]).trim());
+}
+
+function normalizeServiceAccount(obj) {
+  if (!obj || typeof obj !== 'object') return obj;
+  const out = { ...obj };
+  if (typeof out.private_key === 'string') out.private_key = out.private_key.replace(/\\n/g, '\n');
+  if (typeof out.project_id === 'string') out.project_id = out.project_id.trim();
+  return out;
+}
+
+// Init external clients (or mocks)
+let stripe;
+if (!skipExternal) {
+  if (process.env.STRIPE_SECRET_KEY && String(process.env.STRIPE_SECRET_KEY).trim()) {
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' });
+    externalStatus.stripe.enabled = true;
+  } else if (!isProd) {
+    stripe = new Stripe('sk_test_dummy', { apiVersion: '2024-06-20' });
+    externalStatus.stripe.enabled = true;
+    externalStatus.stripe.reason = 'Using dummy Stripe key (development only)';
+  } else {
+    stripe = null;
+    externalStatus.stripe.enabled = false;
+    externalStatus.stripe.reason = 'Missing STRIPE_SECRET_KEY';
+  }
+} else {
+  stripe = { paymentIntents: { create: async ({ amount, currency, metadata }) => ({ client_secret: 'test_client_secret_'+Date.now(), id: 'pi_test_'+Date.now(), amount, currency, metadata }) }, webhooks: { constructEvent: () => ({ type: 'payment_intent.succeeded', data: { object: { id: 'pi_test', metadata: { orderId: 'order_mock' } } } }) } };
+  externalStatus.stripe.enabled = true;
+  externalStatus.stripe.reason = 'SKIP_EXTERNAL enabled';
+}
+
+let db;
+if (!skipExternal) {
+  try {
+    let serviceAccount = null;
+
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+      serviceAccount = normalizeServiceAccount(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON));
+    } else {
+      const missing = missingEnv(['FIREBASE_PROJECT_ID', 'FIREBASE_CLIENT_EMAIL', 'FIREBASE_PRIVATE_KEY']);
+      if (!missing.length) {
+        serviceAccount = normalizeServiceAccount({
+          project_id: process.env.FIREBASE_PROJECT_ID,
+          client_email: process.env.FIREBASE_CLIENT_EMAIL,
+          private_key: process.env.FIREBASE_PRIVATE_KEY,
+        });
+      } else {
+        externalStatus.firebase.enabled = false;
+        externalStatus.firebase.reason = `Missing env vars: ${missing.join(', ')}`;
+      }
+    }
+
+    if (serviceAccount) {
+      if (!admin.apps.length) {
+        admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount),
+        });
+      }
+      db = admin.firestore();
+      externalStatus.firebase.enabled = true;
+    } else {
+      db = null;
+    }
+  } catch (e) {
+    console.error('Firebase init error', e);
+    db = null;
+    externalStatus.firebase.enabled = false;
+    externalStatus.firebase.reason = e?.message || 'Firebase init failed';
+  }
+
+  if (process.env.SENDGRID_API_KEY && String(process.env.SENDGRID_API_KEY).trim()) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    externalStatus.sendgrid.enabled = true;
+  } else {
+    externalStatus.sendgrid.enabled = false;
+    externalStatus.sendgrid.reason = 'Missing SENDGRID_API_KEY';
+  }
+} else {
+  db = createMockDb();
   // Minimal substitute for admin.firestore.FieldValue.serverTimestamp()
   admin.FieldValue = { serverTimestamp: () => new Date() };
+  externalStatus.firebase.enabled = true;
+  externalStatus.firebase.reason = 'SKIP_EXTERNAL enabled';
+  externalStatus.sendgrid.enabled = true;
+  externalStatus.sendgrid.reason = 'SKIP_EXTERNAL enabled';
+}
+
+function requireDb(res) {
+  if (db) return true;
+  res.status(503).json({ error: 'FIREBASE_NOT_CONFIGURED', detail: externalStatus.firebase.reason || 'Firebase is not configured' });
+  return false;
+}
+
+function requireStripe(res) {
+  if (stripe) return true;
+  res.status(503).json({ error: 'STRIPE_NOT_CONFIGURED', detail: externalStatus.stripe.reason || 'Stripe is not configured' });
+  return false;
 }
 
 const app = express();
@@ -138,6 +228,7 @@ async function decrementInventory(items){
 
 async function getStockMap(){
   try {
+    if (!db) return {};
     const snap = await db.collection('products').get();
     const map = {};
     snap.docs.forEach(doc => {
@@ -151,7 +242,17 @@ async function getStockMap(){
   }
 }
 
-app.get('/health', (_req,res) => res.json({ ok: true, test: skipExternal }));
+app.get('/health', (_req,res) => {
+  res.json({
+    ok: true,
+    skipExternal,
+    externals: {
+      stripe: externalStatus.stripe,
+      firebase: externalStatus.firebase,
+      sendgrid: externalStatus.sendgrid,
+    }
+  });
+});
 
 app.get('/products', async (_req,res) => {
   try {
@@ -170,6 +271,7 @@ app.get('/products', async (_req,res) => {
 
 // Seed Firestore products from the static catalog (admin only)
 app.post('/admin/seed-products', adminAuth, async (req,res) => {
+  if (!requireDb(res)) return;
   const { defaultStock = 20 } = req.body || {};
   try {
     const ops = PRODUCTS.map(async (p) => {
@@ -186,6 +288,8 @@ app.post('/admin/seed-products', adminAuth, async (req,res) => {
 });
 
 app.post('/payments/create-intent', async (req,res) => {
+  if (!requireDb(res)) return;
+  if (!requireStripe(res)) return;
   const { error, value } = createIntentSchema.validate(req.body, { abortEarly: false });
   if (error) return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details });
   const { items, currency, email, shipping } = value;
@@ -206,12 +310,14 @@ app.post('/payments/create-intent', async (req,res) => {
 });
 
 app.get('/orders', adminAuth, async (req,res) => {
+  if (!requireDb(res)) return;
   const snap = await db.collection('orders').get();
   const orders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
   res.json({ orders });
 });
 
 app.patch('/orders/:id', adminAuth, async (req,res) => {
+  if (!requireDb(res)) return;
   const { error, value } = orderUpdateSchema.validate(req.body, { abortEarly: false });
   if (error) return res.status(400).json({ error: 'INVALID_UPDATE', details: error.details });
   const ref = db.collection('orders').doc(req.params.id);
@@ -234,6 +340,7 @@ async function sendEmail(to, subject, html){
 
 // Workflow endpoints
 app.post('/orders/:id/pack', adminAuth, async (req,res) => {
+  if (!requireDb(res)) return;
   const ref = db.collection('orders').doc(req.params.id);
   const snap = await ref.get();
   if (!snap.exists) return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
@@ -244,6 +351,7 @@ app.post('/orders/:id/pack', adminAuth, async (req,res) => {
 });
 
 app.post('/orders/:id/ship', adminAuth, async (req,res) => {
+  if (!requireDb(res)) return;
   const { trackingNumber, carrier } = req.body || {};
   if (!trackingNumber || !carrier) return res.status(400).json({ error: 'MISSING_FIELDS' });
   const ref = db.collection('orders').doc(req.params.id);
@@ -262,6 +370,7 @@ app.post('/orders/:id/ship', adminAuth, async (req,res) => {
 });
 
 app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
+  if (!requireDb(res)) return;
   const ref = db.collection('orders').doc(req.params.id);
   const snap = await ref.get();
   if (!snap.exists) return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
@@ -279,6 +388,7 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
 
 // Order confirmation email (called by frontend after successful payment)
 app.post('/emails/order-confirmation', async (req,res) => {
+  if (!requireDb(res)) return;
   const { orderId, email } = req.body;
   if (!orderId || !email) return res.status(400).json({ error: 'MISSING_FIELDS' });
   

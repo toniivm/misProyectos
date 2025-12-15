@@ -1,0 +1,6 @@
+{
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "powershell.codeFormatting.preset": "Custom",
+  "powershell.integratedConsole.useLegacyReadLine": false
+}

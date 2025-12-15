@@ -18,6 +18,10 @@ export default function Login() {
 
   // Manejo de Google con redirect para evitar bloqueos de popup
   const handleGoogleLogin = async () => {
+    if (!auth || !provider) {
+      setError('Autenticación no disponible (Firebase no configurado).');
+      return;
+    }
     try {
       await signInWithRedirect(auth, provider);
     } catch (error) {
@@ -29,6 +33,7 @@ export default function Login() {
   // Procesa el resultado del redirect y persiste el usuario
   useEffect(() => {
     const resolveRedirect = async () => {
+      if (!auth) return;
       try {
         const result = await getRedirectResult(auth);
         if (!result?.user) return;
@@ -38,14 +43,16 @@ export default function Login() {
           photo: result.user.photoURL,
           uid: result.user.uid,
         };
-        await setDoc(doc(db, "users", userData.uid), {
-          name: userData.name,
-          email: userData.email,
-          photo: userData.photo || null,
-          createdAt: serverTimestamp(),
-          lastLoginAt: serverTimestamp(),
-          provider: "google",
-        }, { merge: true });
+        if (db) {
+          await setDoc(doc(db, "users", userData.uid), {
+            name: userData.name,
+            email: userData.email,
+            photo: userData.photo || null,
+            createdAt: serverTimestamp(),
+            lastLoginAt: serverTimestamp(),
+            provider: "google",
+          }, { merge: true });
+        }
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
         navigate("/");
@@ -63,6 +70,10 @@ export default function Login() {
   const handleEmailAuth = async (e) => {
     e.preventDefault();
     setError("");
+    if (!auth) {
+      setError('Autenticación no disponible (Firebase no configurado).');
+      return;
+    }
     setLoading(true);
     try {
       if (mode === "register") {
@@ -77,14 +88,16 @@ export default function Login() {
           photo: cred.user.photoURL,
           uid: cred.user.uid,
         };
-        await setDoc(doc(db, "users", userData.uid), {
-          name: userData.name,
-          email: userData.email,
-          photo: userData.photo || null,
-          createdAt: serverTimestamp(),
-          lastLoginAt: serverTimestamp(),
-          provider: "password",
-        }, { merge: true });
+        if (db) {
+          await setDoc(doc(db, "users", userData.uid), {
+            name: userData.name,
+            email: userData.email,
+            photo: userData.photo || null,
+            createdAt: serverTimestamp(),
+            lastLoginAt: serverTimestamp(),
+            provider: "password",
+          }, { merge: true });
+        }
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
         navigate("/");
@@ -96,13 +109,15 @@ export default function Login() {
           photo: cred.user.photoURL,
           uid: cred.user.uid,
         };
-        await setDoc(doc(db, "users", userData.uid), {
-          name: userData.name,
-          email: userData.email,
-          photo: userData.photo || null,
-          lastLoginAt: serverTimestamp(),
-          provider: "password",
-        }, { merge: true });
+        if (db) {
+          await setDoc(doc(db, "users", userData.uid), {
+            name: userData.name,
+            email: userData.email,
+            photo: userData.photo || null,
+            lastLoginAt: serverTimestamp(),
+            provider: "password",
+          }, { merge: true });
+        }
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
         navigate("/");
@@ -117,7 +132,9 @@ export default function Login() {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      if (auth) {
+        await signOut(auth);
+      }
       localStorage.removeItem("user");
       setUser(null);
     } catch (error) {

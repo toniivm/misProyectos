@@ -17,7 +17,7 @@ const CheckoutPage = () => {
   const [orderNumber, setOrderNumber] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [orderId, setOrderId] = useState(null);
-  const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8080';
+  const API_BASE = (process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE || 'http://localhost:8080').replace(/\/$/, '');
   
   // Legal acceptance
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -227,6 +227,7 @@ const CheckoutPage = () => {
   // Save order to Firebase Firestore
   const saveOrderToFirebase = async (orderData) => {
     try {
+      if (!db) return null;
       const ordersRef = collection(db, 'orders');
       const docRef = await addDoc(ordersRef, {
         ...orderData,
@@ -236,7 +237,7 @@ const CheckoutPage = () => {
       return docRef.id;
     } catch (error) {
       console.error('Error saving order:', error);
-      throw error;
+      return null;
     }
   };
 

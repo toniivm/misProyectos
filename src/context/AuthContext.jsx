@@ -17,6 +17,13 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!auth) {
+      localStorage.removeItem('user');
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     // Suscribe al estado de Firebase Auth para soportar redirect y mantener sesión
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {

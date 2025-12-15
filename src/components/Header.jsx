@@ -29,7 +29,9 @@ export default function Header() {
 
   const logout = async () => {
     try {
-      await signOut(auth);
+      if (auth) {
+        await signOut(auth);
+      }
       localStorage.removeItem("user");
       setUser(null);
     } catch (error) {

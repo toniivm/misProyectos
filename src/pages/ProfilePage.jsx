@@ -24,7 +24,9 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      if (auth) {
+        await signOut(auth);
+      }
       localStorage.removeItem('user');
       setUser(null);
       navigate('/');
@@ -40,6 +42,10 @@ export default function ProfilePage() {
   useEffect(() => {
     const load = async () => {
       if (!user?.uid) return;
+      if (!db) {
+        setLoaded(true);
+        return;
+      }
       const ref = doc(db, 'users', user.uid);
       const snap = await getDoc(ref);
       if (snap.exists()) {
@@ -60,6 +66,11 @@ export default function ProfilePage() {
   const saveProfile = async (e) => {
     e.preventDefault();
     if (!user?.uid) return;
+    if (!db) {
+      setToast('Perfil no disponible (Firebase no configurado)');
+      setTimeout(() => setToast(''), 2500);
+      return;
+    }
     // Simple validations
     if (profile.phone && profile.phone.replace(/\D/g,'').length < 9) {
       setToast('Teléfono debe tener 9 dígitos');

@@ -25,7 +25,7 @@ services:
       - key: REACT_APP_STRIPE_PUBLIC_KEY
         sync: false
       - key: REACT_APP_API_BASE
-        value: https://misproyectos-neyj.onrender.com
+        value: https://valtrex-backend.onrender.com
 
   - type: web
     name: valtrex-backend
@@ -47,6 +47,8 @@ services:
       - key: FIREBASE_CLIENT_EMAIL
         sync: false
       - key: FIREBASE_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
         sync: false
       - key: SENDGRID_API_KEY
         sync: false
