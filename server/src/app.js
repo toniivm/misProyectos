@@ -168,19 +168,65 @@ function requireStripe(res) {
 }
 
 const app = express();
-app.use(helmet({ crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' } }));
-app.use(cors({ origin: '*', methods: ['GET','POST','PATCH','OPTIONS'] }));
-app.use(rateLimit({ windowMs: 15*60*1000, max: 200 }));
-app.use(morgan('dev'));
+app.use(helmet({ 
+  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
+  contentSecurityPolicy: false,
+  frameguard: { action: 'deny' },
+  hsts: { maxAge: 31536000, includeSubDomains: true, preload: true }
+}));
+app.use(cors({ 
+  origin: process.env.CORS_ORIGIN || ['https://valtre.onrender.com', 'http://localhost:3000'],
+  methods: ['GET','POST','PATCH','OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'X-Admin-Key']
+}));
+
+// Enhanced rate limiting with different strategies
+const apiLimiter = rateLimit({ 
+  windowMs: 15*60*1000, 
+  max: 300,
+  message: { error: 'Too many requests, please try again later' },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+const checkoutLimiter = rateLimit({
+  windowMs: 60*1000,
+  max: 5,
+  message: { error: 'Too many checkout attempts, please slow down' }
+});
+
+app.use(morgan(':date[iso] :method :url :status :response-time ms - :user-agent'));
 app.use('/stripe/webhook', express.raw({ type: 'application/json' }));
-app.use(express.json());
+app.use(express.json({ limit: '10kb' }));
+app.use(apiLimiter);
+
+// Request logging and validation middleware
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.path} - ${res.statusCode}`);
+  });
+  next();
+});
 
 // Schemas
 const createIntentSchema = Joi.object({
-  items: Joi.array().items(Joi.object({ id: Joi.string().required(), qty: Joi.number().min(1).required(), price: Joi.number().min(0).required(), name: Joi.string().required() })).min(1).required(),
-  currency: Joi.string().default('eur'),
-  email: Joi.string().email().required(),
-  shipping: Joi.object({ name: Joi.string().required(), address: Joi.object({ line1: Joi.string().required(), city: Joi.string().required(), postal_code: Joi.string().required(), country: Joi.string().required() }).required() }).required()
+  items: Joi.array().items(Joi.object({ 
+    id: Joi.string().required(), 
+    qty: Joi.number().min(1).integer().required(), 
+    price: Joi.number().min(0).required(), 
+    name: Joi.string().max(200).required() 
+  })).min(1).max(100).required(),
+  currency: Joi.string().valid('eur', 'usd', 'gbp', 'jpy').default('eur'),
+  email: Joi.string().email().max(100).required(),
+  shipping: Joi.object({ 
+    name: Joi.string().max(100).required(), 
+    address: Joi.object({ 
+      line1: Joi.string().max(200).required(), 
+      city: Joi.string().max(100).required(), 
+      postal_code: Joi.string().max(20).required(), 
+      country: Joi.string().length(2).required() 
+    }).required() 
+  }).required()
 });
 
 const orderUpdateSchema = Joi.object({
@@ -243,9 +289,20 @@ async function getStockMap(){
 }
 
 app.get('/health', (_req,res) => {
+  const uptime = process.uptime();
+  const memory = process.memoryUsage();
+  
   res.json({
     ok: true,
+    timestamp: new Date().toISOString(),
+    uptime: Math.floor(uptime),
+    version: process.env.npm_package_version || '1.0.0',
+    environment: isProd ? 'production' : 'development',
     skipExternal,
+    memory: {
+      heapUsed: Math.round(memory.heapUsed / 1024 / 1024) + 'MB',
+      heapTotal: Math.round(memory.heapTotal / 1024 / 1024) + 'MB'
+    },
     externals: {
       stripe: externalStatus.stripe,
       firebase: externalStatus.firebase,
@@ -287,25 +344,70 @@ app.post('/admin/seed-products', adminAuth, async (req,res) => {
   }
 });
 
-app.post('/payments/create-intent', async (req,res) => {
+app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
   if (!requireDb(res)) return;
   if (!requireStripe(res)) return;
-  const { error, value } = createIntentSchema.validate(req.body, { abortEarly: false });
-  if (error) return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details });
-  const { items, currency, email, shipping } = value;
+  
   try {
+    const { error, value } = createIntentSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+      console.warn('Validation error in checkout:', error.details.map(e => e.message).join(', '));
+      return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
+    }
+    
+    const { items, currency, email, shipping } = value;
+    
+    // Verify inventory before creating intent
     await verifyInventory(items);
+    
     const amount = calcAmount(items);
+    if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
+    
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
     const orderRef = db.collection('orders').doc();
-    const orderData = { status: 'pending', email, items, amount, currency, shipping, createdAt: new Date() };
+    
+    const orderData = {
+      status: 'pending',
+      email,
+      items,
+      amount,
+      currency,
+      shipping,
+      ip: req.ip,
+      userAgent: req.get('user-agent'),
+      createdAt: new Date(),
+      expiresAt: new Date(Date.now() + 30*60*1000) // 30 minute expiry
+    };
+    
     await orderRef.set(orderData);
-    const paymentIntent = await stripe.paymentIntents.create({ amount, currency, receipt_email: email, metadata: { orderId: orderRef.id } }, { idempotencyKey });
+    
+    const paymentIntent = await stripe.paymentIntents.create(
+      {
+        amount,
+        currency,
+        receipt_email: email,
+        metadata: { orderId: orderRef.id },
+        description: `Order ${orderRef.id}`
+      },
+      { idempotencyKey }
+    );
+    
+    console.log(`✓ Payment intent created: ${paymentIntent.id} for order ${orderRef.id}`);
     res.json({ clientSecret: paymentIntent.client_secret, orderId: orderRef.id });
-  } catch (e){
-    if (e.message?.startsWith('OUT_OF_STOCK')) return res.status(409).json({ error: 'OUT_OF_STOCK', detail: e.message });
-    if (e.message?.startsWith('NO_PRODUCT')) return res.status(404).json({ error: 'PRODUCT_NOT_FOUND', detail: e.message });
-    res.status(500).json({ error: 'INTENT_ERROR' });
+  } catch (e) {
+    console.error('Checkout error:', e.message);
+    
+    if (e.message?.startsWith('OUT_OF_STOCK')) {
+      return res.status(409).json({ error: 'OUT_OF_STOCK', detail: e.message });
+    }
+    if (e.message?.startsWith('NO_PRODUCT')) {
+      return res.status(404).json({ error: 'PRODUCT_NOT_FOUND', detail: e.message });
+    }
+    if (e.message?.startsWith('RACE_OUT_OF_STOCK')) {
+      return res.status(409).json({ error: 'OUT_OF_STOCK', detail: 'Item sold out during processing' });
+    }
+    
+    res.status(500).json({ error: 'INTENT_ERROR', detail: 'Failed to create payment intent' });
   }
 });
 
@@ -413,6 +515,30 @@ app.post('/emails/order-confirmation', async (req,res) => {
   );
   
   res.json({ ok: true });
+});
+
+// 404 handler
+app.use((req, res) => {
+  console.warn(`404 Not Found: ${req.method} ${req.path}`);
+  res.status(404).json({ error: 'NOT_FOUND', path: req.path });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(`[ERROR] ${err.status || 500} - ${err.message}`, err.stack);
+  
+  if (err.status === 429) {
+    return res.status(429).json({ error: 'TOO_MANY_REQUESTS' });
+  }
+  
+  if (err.status === 413) {
+    return res.status(413).json({ error: 'PAYLOAD_TOO_LARGE' });
+  }
+  
+  res.status(err.status || 500).json({
+    error: err.message || 'INTERNAL_SERVER_ERROR',
+    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+  });
 });
 
 export { app, db, skipExternal };

@@ -81,25 +81,49 @@ const CheckoutPage = () => {
   const validateStep1 = (opts = {}) => {
     const silent = opts.silent === true;
     const newErrors = {};
-    if (!shippingData.name.trim()) newErrors.name = 'El nombre es obligatorio';
+    
+    if (!shippingData.name.trim()) {
+      newErrors.name = 'El nombre es obligatorio';
+    } else if (shippingData.name.trim().length < 2) {
+      newErrors.name = 'El nombre debe tener al menos 2 caracteres';
+    }
+    
     if (!shippingData.email.trim()) {
       newErrors.email = 'El email es obligatorio';
     } else if (!validateEmail(shippingData.email)) {
-      newErrors.email = 'Email inválido';
+      newErrors.email = 'Email inválido (ej: usuario@dominio.com)';
     }
+    
     if (!shippingData.phone.trim()) {
       newErrors.phone = 'El teléfono es obligatorio';
     } else if (shippingData.phone.length < 9) {
       newErrors.phone = 'Teléfono debe tener 9 dígitos';
     }
-    if (!shippingData.address.trim()) newErrors.address = 'La dirección es obligatoria';
-    if (!shippingData.city.trim()) newErrors.city = 'La ciudad es obligatoria';
-    if (!shippingData.state.trim()) newErrors.state = 'La provincia es obligatoria';
+    
+    if (!shippingData.address.trim()) {
+      newErrors.address = 'La dirección es obligatoria';
+    } else if (shippingData.address.trim().length < 5) {
+      newErrors.address = 'La dirección debe tener al menos 5 caracteres';
+    }
+    
+    if (!shippingData.city.trim()) {
+      newErrors.city = 'La ciudad es obligatoria';
+    } else if (shippingData.city.trim().length < 2) {
+      newErrors.city = 'La ciudad debe tener al menos 2 caracteres';
+    }
+    
+    if (!shippingData.state.trim()) {
+      newErrors.state = 'La provincia es obligatoria';
+    } else if (shippingData.state.trim().length < 2) {
+      newErrors.state = 'La provincia debe tener al menos 2 caracteres';
+    }
+    
     if (!shippingData.zip.trim()) {
       newErrors.zip = 'El código postal es obligatorio';
     } else if (shippingData.zip.length !== 5) {
-      newErrors.zip = 'CP debe tener 5 dígitos';
+      newErrors.zip = 'CP debe tener 5 dígitos (ej: 28001)';
     }
+    
     if (!silent) setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -115,7 +139,7 @@ const CheckoutPage = () => {
             id: String(item.id),
             qty: item.quantity,
             price: Number(item.price),
-            name: item.title || item.name || 'Producto',
+            name: (item.title || item.name || 'Producto').substring(0, 200),
           })),
           { id: `shipping:${shippingMethod}`, qty: 1, price: Number(shippingCosts[shippingMethod] || 0), name: `Shipping ${shippingMethod}` }
         ];
@@ -123,31 +147,52 @@ const CheckoutPage = () => {
         const payload = {
           items,
           currency: 'eur',
-          email: shippingData.email,
+          email: shippingData.email.toLowerCase().trim(),
           shipping: {
-            name: shippingData.name,
-            address: { line1: shippingData.address, city: shippingData.city, postal_code: shippingData.zip, country: 'ES' }
+            name: shippingData.name.trim(),
+            address: {
+              line1: shippingData.address.trim(),
+              city: shippingData.city.trim(),
+              postal_code: shippingData.zip.trim(),
+              country: 'ES'
+            }
           }
         };
 
         const resp = await fetch(`${API_BASE}/payments/create-intent`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Idempotency-Key': `checkout-${shippingData.email}-${Date.now()}`
+          },
           body: JSON.stringify(payload)
         });
+        
         if (!resp.ok) {
           const errJson = await resp.json().catch(() => ({}));
-          throw new Error(`Intent creation failed: ${errJson.error || resp.status}`);
+          const errorMsg = errJson?.error === 'OUT_OF_STOCK' 
+            ? 'Algún producto no tiene stock. Por favor, revisa tu carrito.'
+            : `Error al procesar el pago: ${errJson.error || resp.statusText}`;
+          throw new Error(errorMsg);
         }
+        
         const data = await resp.json();
-        if (data?.clientSecret) setClientSecret(data.clientSecret);
+        if (!data?.clientSecret) {
+          throw new Error('No se recibió la confirmación del servidor. Intenta nuevamente.');
+        }
+        
+        setClientSecret(data.clientSecret);
         if (data?.orderId) {
           setOrderId(data.orderId);
           setOrderNumber(data.orderId);
         }
       } catch (error) {
         console.error('Error creating payment intent:', error);
-        setErrors(prev => ({ ...prev, paymentIntent: 'Error iniciando pago. Revisa conexión con el backend o stock.' }));
+        setErrors(prev => ({ 
+          ...prev, 
+          paymentIntent: error.message || 'Error iniciando pago. Revisa conexión con el servidor.' 
+        }));
+        setCurrentStep(1);
       }
       
       window.scrollTo({ top: 0, behavior: 'smooth' });
