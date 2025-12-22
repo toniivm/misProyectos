@@ -38,6 +38,8 @@ services:
     envVars:
       - key: PORT
         value: 8080
+      - key: SKIP_EXTERNAL
+        value: "true"
       - key: STRIPE_SECRET_KEY
         sync: false
       - key: STRIPE_WEBHOOK_SECRET
