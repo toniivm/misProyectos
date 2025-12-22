@@ -17,7 +17,7 @@ function parseBool(value) {
   return s === '1' || s === 'true' || s === 'yes' || s === 'on';
 }
 
-const skipExternal = true; // TEMP: Mock mode for testing
+const skipExternal = parseBool(process.env.SKIP_EXTERNAL);
 const isProd = (process.env.NODE_ENV || 'production') === 'production';
 
 const externalStatus = {
