@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import compression from 'compression';
 import Stripe from 'stripe';
 import admin from 'firebase-admin';
 import sgMail from '@sendgrid/mail';
@@ -10,6 +11,11 @@ import Joi from 'joi';
 import { v4 as uuidv4 } from 'uuid';
 import rateLimit from 'express-rate-limit';
 import PRODUCTS from './products.js';
+
+// In-memory cache for stock map (5 min TTL)
+let stockMapCache = null;
+let stockMapCacheTime = 0;
+const STOCK_CACHE_TTL = 5 * 60 * 1000;
 
 function parseBool(value) {
   if (value == null) return false;
@@ -168,6 +174,7 @@ function requireStripe(res) {
 }
 
 const app = express();
+app.use(compression({ level: 6, threshold: 1024 }));
 app.use(helmet({ 
   crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
   contentSecurityPolicy: false,
@@ -180,6 +187,17 @@ app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'X-Admin-Key']
 }));
+
+// Cache middleware for GET /products and /health
+app.use('/products', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=300');
+  next();
+});
+
+app.use('/health', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=60');
+  next();
+});
 
 // Enhanced rate limiting with different strategies
 const apiLimiter = rateLimit({ 
@@ -195,7 +213,7 @@ const checkoutLimiter = rateLimit({
   message: { error: 'Too many checkout attempts, please slow down' }
 });
 
-app.use(morgan(':date[iso] :method :url :status :response-time ms - :user-agent'));
+app.use(morgan(isProd ? ':status :response-time ms' : ':date[iso] :method :url :status :response-time ms'));
 app.use('/stripe/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json({ limit: '10kb' }));
 app.use(apiLimiter);
@@ -203,7 +221,9 @@ app.use(apiLimiter);
 // Request logging and validation middleware
 app.use((req, res, next) => {
   res.on('finish', () => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.path} - ${res.statusCode}`);
+    if (!isProd || res.statusCode >= 400) {
+      console.log(`[${new Date().toISOString()}] ${req.method} ${req.path} - ${res.statusCode}`);
+    }
   });
   next();
 });
@@ -281,6 +301,12 @@ async function decrementInventory(items){
 }
 
 async function getStockMap(){
+  // Check cache first
+  const now = Date.now();
+  if (stockMapCache && (now - stockMapCacheTime) < STOCK_CACHE_TTL) {
+    return stockMapCache;
+  }
+
   try {
     if (!db) return {};
     const snap = await db.collection('products').get();
@@ -289,6 +315,10 @@ async function getStockMap(){
       const data = doc.data();
       if (typeof data?.stock === 'number') map[doc.id] = data.stock;
     });
+    
+    // Update cache
+    stockMapCache = map;
+    stockMapCacheTime = now;
     return map;
   } catch (e){
     console.error('Error reading stock map', e);
@@ -363,6 +393,9 @@ app.post('/admin/seed-products', adminAuth, async (req,res) => {
       await ref.set({ stock: typeof p.stock === 'number' ? p.stock : defaultStock }, { merge: true });
     });
     await Promise.all(ops);
+    // Invalidate cache after seeding
+    stockMapCache = null;
+    stockMapCacheTime = 0;
     res.json({ ok: true, count: PRODUCTS.length, defaultStock });
   } catch (e){
     console.error('Error seeding products', e);

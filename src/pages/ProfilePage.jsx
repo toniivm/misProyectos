@@ -6,7 +6,6 @@ import { auth, db } from '../firebase/config';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import Toast from '../components/Toast';
 import { LogOut, ShoppingBag } from 'lucide-react';
-import PRODUCTS from '../data/products';
 
 export default function ProfilePage() {
   const { user, setUser } = useAuth();
