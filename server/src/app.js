@@ -371,8 +371,17 @@ app.post('/admin/seed-products', adminAuth, async (req,res) => {
 });
 
 app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
-  if (!requireDb(res)) return;
-  if (!requireStripe(res)) return;
+  console.log(`\n🔵 POST /payments/create-intent started`);
+  console.log(`Body: ${JSON.stringify(req.body)}`);
+  
+  if (!requireDb(res)) {
+    console.log(`❌ DB not available`);
+    return;
+  }
+  if (!requireStripe(res)) {
+    console.log(`❌ Stripe not available`);
+    return;
+  }
   
   try {
     const { error, value } = createIntentSchema.validate(req.body, { abortEarly: false });
