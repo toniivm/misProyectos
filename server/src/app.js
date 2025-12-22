@@ -384,7 +384,18 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
     const { items, currency, email, shipping } = value;
     
     // Verify inventory before creating intent
-    await verifyInventory(items);
+    try {
+      await verifyInventory(items);
+    } catch (invErr) {
+      console.error('Inventory verification failed:', invErr.message);
+      if (invErr.message?.startsWith('OUT_OF_STOCK')) {
+        return res.status(409).json({ error: 'OUT_OF_STOCK', detail: invErr.message });
+      }
+      if (invErr.message?.startsWith('NO_PRODUCT')) {
+        return res.status(404).json({ error: 'PRODUCT_NOT_FOUND', detail: invErr.message });
+      }
+      throw invErr;
+    }
     
     const amount = calcAmount(items);
     if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
@@ -405,8 +416,11 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       expiresAt: new Date(Date.now() + 30*60*1000) // 30 minute expiry
     };
     
+    console.log(`📝 Saving order ${orderRef.id}...`);
     await orderRef.set(orderData);
+    console.log(`✓ Order saved: ${orderRef.id}`);
     
+    console.log(`💳 Creating Stripe intent for order ${orderRef.id}...`);
     const paymentIntent = await stripe.paymentIntents.create(
       {
         amount,
@@ -422,6 +436,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
     res.json({ clientSecret: paymentIntent.client_secret, orderId: orderRef.id });
   } catch (e) {
     console.error('Checkout error:', e.message);
+    console.error('Stack:', e.stack);
     
     if (e.message?.startsWith('OUT_OF_STOCK')) {
       return res.status(409).json({ error: 'OUT_OF_STOCK', detail: e.message });
