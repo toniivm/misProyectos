@@ -14,7 +14,6 @@ export default function AdminPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [showBulkActions, setShowBulkActions] = useState(false);
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalStock: 0,
@@ -53,10 +52,16 @@ export default function AdminPage() {
   };
 
   const handleSaveProducts = (updatedProducts) => {
-    localStorage.setItem('admin_products', JSON.stringify(updatedProducts));
-    setProducts(updatedProducts);
-    calculateStats(updatedProducts);
-    console.log('📦 [VALTREX Admin] Products saved to localStorage');
+    try {
+      localStorage.setItem('admin_products', JSON.stringify(updatedProducts));
+      setProducts(updatedProducts);
+      calculateStats(updatedProducts);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Products saved to localStorage');
+      }
+    } catch (err) {
+      console.error('Failed to save products:', err.message);
+    }
   };
 
   const handleStockUpdate = (productId, newStock) => {

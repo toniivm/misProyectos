@@ -37,7 +37,7 @@ const HomePage = () => {
     }
   };
 
-  const displayProducts = useMemo(() => getProductsByCategory(selectedCategory), [selectedCategory, products]);
+  const displayProducts = useMemo(() => getProductsByCategory(selectedCategory), [selectedCategory, products, getProductsByCategory]);
 
   return (
     <div className="min-h-screen bg-white">

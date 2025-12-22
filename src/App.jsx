@@ -24,18 +24,9 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 function App() {
-  console.log('🎨 [VALTREX] App component mounting');
-  
-  // Prefetch critical routes
+  // Lazy routes already optimized by webpack code splitting
   useEffect(() => {
-    const prefetchRoutes = ['/productos', '/checkout'];
-    prefetchRoutes.forEach(route => {
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = route;
-      document.head.appendChild(link);
-    });
-    console.log('⚡ [VALTREX Performance] Critical routes prefetched');
+    // No-op: SPA doesn't benefit from link prefetch
   }, []);
   
   return (

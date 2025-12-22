@@ -37,7 +37,7 @@ export default function ProductPage() {
       .toString()
       .toLowerCase()
       .normalize('NFD')
-        .replace(/[\x00-\x1F]/g, ' ')
+        .replace(/[\u0000-\u001F]/g, ' ')
         .replace(/[\u0300-\u036f]/g, '')
       .replace(/\s+/g, ' ')
       .trim();

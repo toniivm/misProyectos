@@ -68,10 +68,15 @@ const ProductCard = ({ product, highlightTerm }) => {
         
         {/* Información del producto */}
         <div className="p-4">
-          <div className="mb-2">
+          <div className="mb-2 flex items-center justify-between gap-2">
             <span className="text-xs text-gray-500 uppercase tracking-wider">
               {product.category}
             </span>
+            {product.brand && (
+              <span className="text-[10px] font-bold text-gray-700 bg-gray-100 px-2 py-1 rounded whitespace-nowrap">
+                {product.brand}
+              </span>
+            )}
           </div>
           
           <h3

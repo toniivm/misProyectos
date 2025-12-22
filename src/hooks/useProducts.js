@@ -45,9 +45,13 @@ export function useProducts(){
         }
       } catch (err){
         if (!cancelled){
-          console.error('Products fetch failed, using fallback', err);
+          // Only log non-abort errors and only in dev
+          if (err?.name !== 'AbortError' && process.env.NODE_ENV !== 'production') {
+            console.error('Products fetch failed, using fallback', err);
+          }
           setProducts(normalize(LOCAL_PRODUCTS));
-          setError(err.message || 'FETCH_FAILED');
+          // Don't set error state for expected aborts
+          setError(err?.name === 'AbortError' ? null : err.message || 'FETCH_FAILED');
         }
       } finally {
         clearTimeout(timeoutId);
