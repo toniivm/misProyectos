@@ -21,8 +21,9 @@ export function useProducts(){
 
   useEffect(() => {
     let cancelled = false;
+    let controller;
     const load = async () => {
-      const controller = new AbortController();
+      controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 4000);
       try {
         if (!pending) {
@@ -54,7 +55,7 @@ export function useProducts(){
       }
     };
     load();
-    return () => { cancelled = true; controller.abort(); };
+    return () => { cancelled = true; if (controller) controller.abort(); };
   }, []);
 
   return { products, loading, error };
