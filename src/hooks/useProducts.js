@@ -22,9 +22,11 @@ export function useProducts(){
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
       try {
         if (!pending) {
-          pending = fetch(`${API_BASE}/products`, { headers: { 'Accept': 'application/json' } })
+          pending = fetch(`${API_BASE}/products`, { headers: { 'Accept': 'application/json' }, signal: controller.signal })
             .then(async (res) => {
               if (!res.ok) throw new Error(`HTTP_${res.status}`);
               const body = await res.json();
@@ -47,11 +49,12 @@ export function useProducts(){
           setError(err.message || 'FETCH_FAILED');
         }
       } finally {
+        clearTimeout(timeoutId);
         if (!cancelled) setLoading(false);
       }
     };
     load();
-    return () => { cancelled = true; };
+    return () => { cancelled = true; controller.abort(); };
   }, []);
 
   return { products, loading, error };

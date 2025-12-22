@@ -619,6 +619,57 @@ const PRODUCTS = [
         isNew: true,
         discount: 20,
         stock: 7
+    },
+
+    // EXTRA BOLSOS / SNEAKERS
+    {
+        id: 38,
+        title: "Dior Book Tote Oblique",
+        description: "Tote mediana con el icónico jacquard Dior Oblique. Bordado artesanal y espacio para diario.",
+        price: 2099.99,
+        images: [
+            "https://images.unsplash.com/photo-1542293771-0d59ee1c1b79?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Dior",
+        colors: ["Azul", "Beige"],
+        isNew: true,
+        discount: 0,
+        stock: 4
+    },
+    {
+        id: 39,
+        title: "Nike Air Force 1 Low Triple White",
+        description: "El clásico AF1 en cuero blanco completo. Versátil, cómodo y listo para cualquier outfit urbano.",
+        price: 129.99,
+        images: [
+            "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&h=800&fit=crop"
+        ],
+        sizes: ["38", "39", "40", "41", "42", "43", "44", "45"],
+        category: "zapatillas",
+        brand: "Nike",
+        colors: ["Blanco"],
+        isNew: false,
+        discount: 0,
+        stock: 20
+    },
+    {
+        id: 40,
+        title: "Celine Triomphe Shoulder Bag",
+        description: "Bolso shoulder en cuero de becerro con cierre Triomphe dorado. Minimalismo parisino de lujo.",
+        price: 1890.00,
+        images: [
+            "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Celine",
+        colors: ["Negro", "Dorado"],
+        isNew: true,
+        discount: 5,
+        stock: 5
     }
 ];
 

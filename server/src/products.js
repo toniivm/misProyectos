@@ -506,6 +506,171 @@ const PRODUCTS = [
         isNew: true,
         discount: 0
     }
+
+    // BOLSOS - LUXURY
+    ,{
+        id: 31,
+        title: "Louis Vuitton Neverfull MM",
+        description: "El bolso más icónico del mundo. Tote de canvas Damier con cuero LV premium. Capacidad total y elegancia atemporal.",
+        price: 1299.99,
+        images: [
+            "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Louis Vuitton",
+        colors: ["Marrón", "Crema"],
+        isNew: false,
+        discount: 0,
+        stock: 3
+    },
+    {
+        id: 32,
+        title: "Gucci GG Marmont Small",
+        description: "Bolso de hombro en cuero puro con cadena dorada. Solapa con distintivo GG. Perfecto para día y noche.",
+        price: 1199.99,
+        images: [
+            "https://images.unsplash.com/photo-1548690596-f4ee67dabb14?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Gucci",
+        colors: ["Negro", "Burdeos"],
+        isNew: true,
+        discount: 10,
+        stock: 5
+    },
+    {
+        id: 33,
+        title: "Hermès Birkin 30 Togo",
+        description: "El bolso de lujo por excelencia. Cuero Togo resistente, cierre de clip plateado. Status symbol indiscutible.",
+        price: 2499.99,
+        images: [
+            "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1520763185298-1b434c919eba?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Hermès",
+        colors: ["Negro", "Camel"],
+        isNew: true,
+        discount: 0,
+        stock: 2
+    },
+    {
+        id: 34,
+        title: "Bottega Veneta Jodie",
+        description: "Bolso artesanal con tejido Intrecciato. Cadena de cuero suave. Lujo sostenible italiano.",
+        price: 1649.99,
+        images: [
+            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1548690596-f4ee67dabb14?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Bottega Veneta",
+        colors: ["Intrecciato Negro", "Intrecciato Marrón"],
+        isNew: false,
+        discount: 15,
+        stock: 4
+    },
+    {
+        id: 35,
+        title: "Chanel Classic Flap Medium",
+        description: "Bolso acolchado con cadena dorada. Cierre CC. Ícono de elegancia desde 1955.",
+        price: 1899.99,
+        images: [
+            "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Chanel",
+        colors: ["Negro", "Beige"],
+        isNew: true,
+        discount: 5,
+        stock: 3
+    },
+    {
+        id: 36,
+        title: "Prada Nylon Re-Edition 2005",
+        description: "Bolso vintage moderno. Nylon técnico resistente con detalles de cuero. Nostalgia con estilo actual.",
+        price: 1149.99,
+        images: [
+            "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Prada",
+        colors: ["Negro", "Blanco"],
+        isNew: false,
+        discount: 0,
+        stock: 6
+    },
+    {
+        id: 37,
+        title: "Fendi Baguette",
+        description: "El bolso que revolucionó la moda. Pequeño, cuadrado, perfecto. Candado FF dorado. Coleccionista.",
+        price: 949.99,
+        images: [
+            "https://images.unsplash.com/photo-1520763185298-1b434c919eba?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Fendi",
+        colors: ["Negro", "Rojo"],
+        isNew: true,
+        discount: 20,
+        stock: 7
+    },
+
+    // EXTRA BOLSOS / SNEAKERS
+    {
+        id: 38,
+        title: "Dior Book Tote Oblique",
+        description: "Tote mediana con el icónico jacquard Dior Oblique. Bordado artesanal y espacio para diario.",
+        price: 2099.99,
+        images: [
+            "https://images.unsplash.com/photo-1542293771-0d59ee1c1b79?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Dior",
+        colors: ["Azul", "Beige"],
+        isNew: true,
+        discount: 0,
+        stock: 4
+    },
+    {
+        id: 39,
+        title: "Nike Air Force 1 Low Triple White",
+        description: "El clásico AF1 en cuero blanco completo. Versátil, cómodo y listo para cualquier outfit urbano.",
+        price: 129.99,
+        images: [
+            "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&h=800&fit=crop"
+        ],
+        sizes: ["38", "39", "40", "41", "42", "43", "44", "45"],
+        category: "zapatillas",
+        brand: "Nike",
+        colors: ["Blanco"],
+        isNew: false,
+        discount: 0,
+        stock: 20
+    },
+    {
+        id: 40,
+        title: "Celine Triomphe Shoulder Bag",
+        description: "Bolso shoulder en cuero de becerro con cierre Triomphe dorado. Minimalismo parisino de lujo.",
+        price: 1890.00,
+        images: [
+            "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop"
+        ],
+        category: "bolsos",
+        brand: "Celine",
+        colors: ["Negro", "Dorado"],
+        isNew: true,
+        discount: 5,
+        stock: 5
+    }
 ];
 
 export default PRODUCTS;
