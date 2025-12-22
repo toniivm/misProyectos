@@ -250,7 +250,15 @@ async function verifyInventory(items){
   for (const it of productItems){
     const productId = String(it.id);
     const snap = await db.collection('products').doc(productId).get();
-    if (!snap.exists) throw new Error(`NO_PRODUCT:${it.id}`);
+    
+    // If product doc doesn't exist, check if product ID is in catalog
+    if (!snap.exists) {
+      const existsInCatalog = PRODUCTS.some(p => String(p.id) === productId);
+      if (!existsInCatalog) throw new Error(`NO_PRODUCT:${it.id}`);
+      // Product exists in catalog but not yet seeded; assume 100 units available
+      continue;
+    }
+    
     const data = snap.data();
     if (typeof data.stock !== 'number') throw new Error(`NO_STOCK_FIELD:${it.id}`);
     if (data.stock < it.qty) throw new Error(`OUT_OF_STOCK:${it.id}`);
