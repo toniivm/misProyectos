@@ -313,7 +313,25 @@ app.get('/health', (_req,res) => {
 
 app.get('/products', async (_req,res) => {
   try {
-    const stockMap = await getStockMap();
+    let stockMap = await getStockMap();
+    
+    // Auto-seed products if stockMap is empty and db is available
+    if (db && Object.keys(stockMap).length === 0) {
+      console.log('📦 Auto-seeding products with 20 units each...');
+      const ops = PRODUCTS.map(async (p) => {
+        const id = String(p.id);
+        const ref = db.collection('products').doc(id);
+        await ref.set({ stock: 20 }, { merge: true });
+      });
+      try {
+        await Promise.all(ops);
+        console.log('✓ Auto-seed completed');
+        stockMap = await getStockMap(); // Refresh stockMap after seeding
+      } catch (seedErr) {
+        console.error('⚠ Auto-seed failed (non-fatal)', seedErr.message);
+      }
+    }
+    
     const payload = PRODUCTS.map((p) => ({
       ...p,
       id: String(p.id),
