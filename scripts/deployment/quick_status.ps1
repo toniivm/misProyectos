@@ -25,7 +25,8 @@ Write-Host "`nFrontend ($frontend):" -NoNewline
 try {
     $r = Invoke-WebRequest -Uri $frontend -ErrorAction Stop
     $status = $r.StatusCode
-    Write-Host " OK (Status $status)" -ForegroundColor Green
+    $msg = " OK (Code " + $status + ")"
+    Write-Host $msg -ForegroundColor Green
 } catch {
     Write-Host " FAILED" -ForegroundColor Red
 }
