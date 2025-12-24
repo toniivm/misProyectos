@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { SlidersHorizontal, X } from 'lucide-react';
+import { SlidersHorizontal, X, Search } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import useProducts from '../hooks/useProducts';
 
@@ -126,17 +126,47 @@ export default function ProductPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Barra de búsqueda */}
-        <div className="mb-8">
-          <input
-            type="text"
-            placeholder="Buscar zapatillas, bolsos, sneakers, marcas..."
-            className="w-full px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-            value={rawSearch}
-            onChange={(e) => setRawSearch(e.target.value.slice(0,80))}
-            name="search"
-            aria-label="Buscar productos"
-          />
+        {/* Barra de búsqueda mejorada */}
+        <div className="mb-8 relative">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              placeholder="Buscar zapatillas, bolsos, sneakers, marcas..."
+              className="w-full pl-12 pr-12 py-4 rounded-lg border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+              value={rawSearch}
+              onChange={(e) => setRawSearch(e.target.value.slice(0,80))}
+              name="search"
+              aria-label="Buscar productos"
+            />
+            {rawSearch && (
+              <button
+                onClick={() => setRawSearch('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+                aria-label="Limpiar búsqueda"
+              >
+                <X size={20} />
+              </button>
+            )}
+          </div>
+          {/* Indicador de búsqueda activa */}
+          {searchTerm && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-3 flex items-center gap-2 text-sm text-gray-600"
+            >
+              <span className="font-semibold">{filteredProducts.length}</span>
+              {filteredProducts.length === 1 ? 'resultado' : 'resultados'} para
+              <span className="font-semibold text-black">"{searchTerm}"</span>
+              <button
+                onClick={() => setRawSearch('')}
+                className="ml-2 text-blue-600 hover:underline"
+              >
+                Limpiar
+              </button>
+            </motion.div>
+          )}
         </div>
 
         {/* Filtros y Ordenamiento */}

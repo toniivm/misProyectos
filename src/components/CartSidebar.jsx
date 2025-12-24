@@ -104,23 +104,48 @@ const CartSidebar = () => {
             )}
           </ul>
         </div>
-        <div className="px-5 pb-6 pt-4 border-t bg-white shadow-inner">
-          <div className="mb-4 flex justify-between items-center">
-            <p className="text-lg sm:text-xl font-bold">Total:</p>
+        {/* Footer con resumen y checkout */}
+        <div className="px-5 pb-6 pt-4 border-t bg-gray-50 shadow-inner">
+          {/* Subtotal y desglose */}
+          {cart.length > 0 && (
+            <div className="mb-4 space-y-2 text-sm">
+              <div className="flex justify-between text-gray-600">
+                <span>Subtotal ({cart.reduce((acc, item) => acc + item.quantity, 0)} artículos)</span>
+                <span className="font-semibold">{total.toFixed(2)} €</span>
+              </div>
+              <div className="flex justify-between text-gray-600">
+                <span>Envío</span>
+                <span className="font-semibold text-green-600">GRATIS</span>
+              </div>
+            </div>
+          )}
+          
+          {/* Total destacado */}
+          <div className="mb-4 flex justify-between items-center py-3 px-4 bg-white rounded-lg shadow-sm">
+            <p className="text-lg sm:text-xl font-bold text-gray-800">Total:</p>
             <p className="text-xl sm:text-2xl font-extrabold text-black">{total.toFixed(2)} €</p>
           </div>
+          
+          {/* Botón de checkout mejorado */}
           <Link
             to="/checkout"
             onClick={() => setIsCartOpen(false)}
-            className={`block w-full text-center py-3 rounded-lg transition font-semibold shadow ${
+            className={`block w-full text-center py-3.5 rounded-lg transition-all duration-200 font-semibold shadow-md ${
               cart.length === 0 
                 ? 'bg-gray-300 text-gray-600 cursor-not-allowed' 
-                : 'bg-black text-white hover:bg-gray-800 active:scale-[.98]'
+                : 'bg-black text-white hover:bg-gray-800 hover:shadow-lg active:scale-[.98] hover:-translate-y-0.5'
             }`}
             aria-disabled={cart.length === 0}
           >
-            Finalizar compra
+            {cart.length === 0 ? 'Carrito vacío' : 'Proceder al pago →'}
           </Link>
+          
+          {/* Mensaje de seguridad */}
+          {cart.length > 0 && (
+            <p className="text-xs text-gray-500 text-center mt-3">
+              🔒 Pago seguro · Envío discreto 24-48h
+            </p>
+          )}
         </div>
       </div>
     </>

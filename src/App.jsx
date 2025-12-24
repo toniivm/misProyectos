@@ -11,6 +11,7 @@ import CartSidebar from './components/CartSidebar';
 import WishlistSidebar from './components/WishlistSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import PaymentLogos from './components/PaymentLogos';
+import ScrollToTop from './components/ScrollToTop';
 
 // Lazy loaded pages
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -35,6 +36,7 @@ function App() {
         <WishlistProvider>
           <CartProvider>
             <Router>
+              <ScrollToTop />
               <div className="min-h-screen bg-white text-gray-900 flex flex-col"> 
                 <Header />
                 <WishlistSidebar />
