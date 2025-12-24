@@ -16,6 +16,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Redirigir si ya está autenticado
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
   // Manejo de Google con redirect para evitar bloqueos de popup
   const handleGoogleLogin = async () => {
     if (!auth || !provider) {

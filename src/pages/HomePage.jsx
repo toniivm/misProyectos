@@ -48,8 +48,7 @@ const HomePage = () => {
             src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1280&h=1280&fit=crop&q=80" 
             alt="Sneakers Premium"
             className="w-full h-full object-cover object-center"
-            loading="lazy"
-            fetchPriority="high"
+            loading="eager"
           />
           
           {/* Content */}
