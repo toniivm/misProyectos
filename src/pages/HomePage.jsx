@@ -19,9 +19,9 @@ const HomePage = () => {
     { id: 'luxury', label: 'Luxury' },
   ];
 
-  const getProductsByCategory = (categoryId) => {
+  const displayProducts = useMemo(() => {
     const source = Array.isArray(products) ? products : [];
-    switch (categoryId) {
+    switch (selectedCategory) {
       case 'nuevos':
         return source.filter(p => p.isNew).slice(0, 8);
       case 'ofertas':
@@ -35,9 +35,7 @@ const HomePage = () => {
       default:
         return source.slice(0, 8);
     }
-  };
-
-  const displayProducts = useMemo(() => getProductsByCategory(selectedCategory), [selectedCategory, products, getProductsByCategory]);
+  }, [selectedCategory, products]);
 
   return (
     <div className="min-h-screen bg-white">

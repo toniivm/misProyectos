@@ -110,7 +110,6 @@ export default function AdminPage() {
       const updated = products.filter(p => !selectedProducts.includes(p.id));
       handleSaveProducts(updated);
       setSelectedProducts([]);
-      setShowBulkActions(false);
     }
   };
 
@@ -123,7 +122,6 @@ export default function AdminPage() {
     });
     handleSaveProducts(updated);
     setSelectedProducts([]);
-    setShowBulkActions(false);
   };
 
   const handleBulkDiscount = (discount) => {
@@ -135,7 +133,6 @@ export default function AdminPage() {
     });
     handleSaveProducts(updated);
     setSelectedProducts([]);
-    setShowBulkActions(false);
   };
 
   const handleExportProducts = () => {

@@ -37,6 +37,7 @@ export default function ProductPage() {
       .toString()
       .toLowerCase()
       .normalize('NFD')
+        // eslint-disable-next-line no-control-regex
         .replace(/[\u0000-\u001F]/g, ' ')
         .replace(/[\u0300-\u036f]/g, '')
       .replace(/\s+/g, ' ')
