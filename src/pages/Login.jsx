@@ -228,16 +228,16 @@ export default function Login() {
               {mode === 'register' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Nombre</label>
-                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="Tu nombre" required />
+                  <input type="text" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="Tu nombre" required />
                 </div>
               )}
               <div>
                 <label className="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="tucorreo@email.com" required />
+                <input type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="tucorreo@email.com" required />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Contraseña</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="••••••••" required />
+                <input type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="••••••••" required />
               </div>
               {error && <p className="text-red-600 text-sm">{error}</p>}
               <button type="submit" disabled={loading} className="w-full bg-black text-white font-semibold py-2.5 rounded-lg hover:bg-gray-800 transition disabled:opacity-50">
