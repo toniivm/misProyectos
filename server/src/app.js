@@ -635,6 +635,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     res.json({ sessionId: session.id, url: session.url, orderId: orderRef.id });
   } catch (e) {
     console.error('Checkout session error:', e.message);
+    if (e?.raw) console.error('Stripe raw error:', JSON.stringify({ code: e.raw.code, type: e.raw.type, param: e.raw.param, message: e.raw.message }, null, 2));
     console.error('Stack:', e.stack);
 
     if (e.message?.startsWith('OUT_OF_STOCK')) {
@@ -647,7 +648,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       return res.status(409).json({ error: 'OUT_OF_STOCK', detail: 'Item sold out during processing' });
     }
 
-    res.status(500).json({ error: 'CHECKOUT_SESSION_ERROR', detail: 'Failed to create checkout session' });
+    res.status(500).json({ error: 'CHECKOUT_SESSION_ERROR', detail: e?.message || 'Failed to create checkout session' });
   }
 });
 
