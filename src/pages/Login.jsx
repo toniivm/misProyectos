@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth, provider, db } from "../firebase/config";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { getRedirectResult, signInWithRedirect, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getRedirectResult, signInWithRedirect, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { User, LogOut } from "lucide-react";
@@ -41,17 +41,13 @@ export default function Login() {
   useEffect(() => {
     const resolveRedirect = async () => {
       if (!auth) return;
-      try {
-        const result = await getRedirectResult(auth);
-        if (!result?.user) {
-          console.info("Google redirect sin user (posible cancelación o no se completó)");
-          return;
-        }
+      const setFromUser = async (firebaseUser) => {
+        if (!firebaseUser) return;
         const userData = {
-          name: result.user.displayName,
-          email: result.user.email,
-          photo: result.user.photoURL,
-          uid: result.user.uid,
+          name: firebaseUser.displayName,
+          email: firebaseUser.email,
+          photo: firebaseUser.photoURL,
+          uid: firebaseUser.uid,
         };
         if (db) {
           await setDoc(doc(db, "users", userData.uid), {
@@ -66,6 +62,25 @@ export default function Login() {
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
         navigate("/");
+      };
+
+      try {
+        const result = await getRedirectResult(auth);
+        if (result?.user) {
+          await setFromUser(result.user);
+          return;
+        }
+        console.info("Google redirect sin user (usando fallback auth state)");
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+          if (currentUser) {
+            await setFromUser(currentUser);
+          } else {
+            console.warn("Auth state sin usuario tras redirect");
+          }
+          unsubscribe();
+        });
+        // Fallback hard-timeout to avoid dangling listener
+        setTimeout(() => unsubscribe(), 4000);
       } catch (error) {
         if (error?.code === "auth/cancelled-popup-request" || error?.code === "auth/popup-blocked") {
           // Ignora cancels/blocks para no molestar al usuario
