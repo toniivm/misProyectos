@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth, provider, db } from "../firebase/config";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { getRedirectResult, signInWithRedirect, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
+import { getRedirectResult, signInWithRedirect, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { User, LogOut } from "lucide-react";
@@ -29,9 +29,48 @@ export default function Login() {
       setError('Autenticación no disponible (Firebase no configurado).');
       return;
     }
+    // Intento popup primero para evitar ida y vuelta; si falla, uso redirect
+    const setFromUser = async (firebaseUser) => {
+      if (!firebaseUser) return;
+      const userData = {
+        name: firebaseUser.displayName,
+        email: firebaseUser.email,
+        photo: firebaseUser.photoURL,
+        uid: firebaseUser.uid,
+      };
+      if (db) {
+        await setDoc(doc(db, "users", userData.uid), {
+          name: userData.name,
+          email: userData.email,
+          photo: userData.photo || null,
+          createdAt: serverTimestamp(),
+          lastLoginAt: serverTimestamp(),
+          provider: "google",
+        }, { merge: true });
+      }
+      localStorage.setItem("user", JSON.stringify(userData));
+      setUser(userData);
+      navigate("/");
+    };
+
     try {
+      const res = await signInWithPopup(auth, provider);
+      if (res?.user) {
+        await setFromUser(res.user);
+        return;
+      }
+      // Si no hay user, cae a redirect
       await signInWithRedirect(auth, provider);
     } catch (error) {
+      if (error?.code === "auth/popup-blocked" || error?.code === "auth/popup-closed-by-user") {
+        try {
+          await signInWithRedirect(auth, provider);
+        } catch (err) {
+          console.error("Error al iniciar sesión con Google (redirect):", err);
+          alert("Error al iniciar sesión. Por favor, intenta de nuevo.");
+        }
+        return;
+      }
       console.error("Error al iniciar sesión con Google:", error);
       alert("Error al iniciar sesión. Por favor, intenta de nuevo.");
     }
