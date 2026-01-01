@@ -13,13 +13,20 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    // Restore user from localStorage on mount
+    try {
+      const stored = localStorage.getItem('user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!auth) {
-      localStorage.removeItem('user');
-      setUser(null);
+      // Firebase not configured - rely on localStorage persistence
       setLoading(false);
       return;
     }
@@ -36,6 +43,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('user', JSON.stringify(normalized));
         setUser(normalized);
       } else {
+        // Only clear localStorage if explicitly signed out
         localStorage.removeItem('user');
         setUser(null);
       }
