@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CreditCard, MapPin, CheckCircle2, ArrowLeft, Shield, AlertCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { db } from '../firebase/config';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import StripeCheckout from '../components/StripeCheckout';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY || '');
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ const CheckoutPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
-  const [clientSecret, setClientSecret] = useState('');
   const [orderId, setOrderId] = useState(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const API_BASE = (process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE || 'http://localhost:8080').replace(/\/$/, '');
   
   // Legal acceptance
@@ -50,6 +50,25 @@ const CheckoutPage = () => {
     { id: 'urgent', name: 'Envío Urgente', time: '24 horas', cost: 19.99 },
   ];
 
+  // Detect return from hosted checkout (success or cancel)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get('status');
+    if (status === 'success') {
+      const ord = params.get('orderId');
+      if (ord) {
+        setOrderNumber(ord);
+        setOrderId(ord);
+      }
+      setIsSubmitted(true);
+      clearCart();
+      window.history.replaceState({}, '', window.location.pathname);
+    } else if (status === 'cancel') {
+      setCurrentStep(2);
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, [clearCart]);
+
   // Input formatting helpers
   const formatPhone = (value) => {
     const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
@@ -72,6 +91,24 @@ const CheckoutPage = () => {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
+  };
+
+  const buildItemsPayload = () => {
+    const items = [
+      ...cart.map(item => ({
+        id: String(item.id),
+        qty: item.quantity,
+        price: Number(item.price),
+        name: (item.title || item.name || 'Producto').substring(0, 200),
+      })),
+    ];
+
+    const shippingCost = Number(shippingCosts[shippingMethod] || 0);
+    if (shippingCost > 0) {
+      items.push({ id: `shipping:${shippingMethod}`, qty: 1, price: shippingCost, name: `Shipping ${shippingMethod}` });
+    }
+
+    return items;
   };
 
   const validateEmail = (email) => {
@@ -128,161 +165,81 @@ const CheckoutPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNextStep = async () => {
+  const handleNextStep = () => {
     if (currentStep === 1 && validateStep1()) {
       setCurrentStep(2);
-      
-      // Crear PaymentIntent real en backend y activar Stripe UI
-      try {
-        const items = [
-          ...cart.map(item => ({
-            id: String(item.id),
-            qty: item.quantity,
-            price: Number(item.price),
-            name: (item.title || item.name || 'Producto').substring(0, 200),
-          })),
-          { id: `shipping:${shippingMethod}`, qty: 1, price: Number(shippingCosts[shippingMethod] || 0), name: `Shipping ${shippingMethod}` }
-        ];
-
-        const payload = {
-          items,
-          currency: 'eur',
-          email: shippingData.email.toLowerCase().trim(),
-          shipping: {
-            name: shippingData.name.trim(),
-            address: {
-              line1: shippingData.address.trim(),
-              city: shippingData.city.trim(),
-              postal_code: shippingData.zip.trim(),
-              country: 'ES'
-            }
-          }
-        };
-
-        const resp = await fetch(`${API_BASE}/payments/create-intent`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Idempotency-Key': `checkout-${shippingData.email}-${Date.now()}`
-          },
-          body: JSON.stringify(payload)
-        });
-        
-        if (!resp.ok) {
-          const errJson = await resp.json().catch(() => ({}));
-          const errorMsg = errJson?.error === 'OUT_OF_STOCK' 
-            ? 'Algún producto no tiene stock. Por favor, revisa tu carrito.'
-            : `Error al procesar el pago: ${errJson.error || resp.statusText}`;
-          throw new Error(errorMsg);
-        }
-        
-        const data = await resp.json();
-        if (!data?.clientSecret) {
-          throw new Error('No se recibió la confirmación del servidor. Intenta nuevamente.');
-        }
-        
-        setClientSecret(data.clientSecret);
-        if (data?.orderId) {
-          setOrderId(data.orderId);
-          setOrderNumber(data.orderId);
-        }
-      } catch (error) {
-        console.error('Error creating payment intent:', error);
-        setErrors(prev => ({ 
-          ...prev, 
-          paymentIntent: error.message || 'Error iniciando pago. Revisa conexión con el servidor.' 
-        }));
-        setCurrentStep(1);
-      }
-      
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  // Stripe Payment Handlers
-  const handleStripeSuccess = async (paymentIntent) => {
-    console.log('✅ Pago exitoso con Stripe:', paymentIntent);
-    
+  const handleHostedCheckout = async () => {
+    if (!acceptedTerms || !acceptedPrivacy) {
+      setErrors((prev) => ({
+        ...prev,
+        terms: !acceptedTerms ? 'Acepta los términos para continuar' : prev.terms,
+        privacy: !acceptedPrivacy ? 'Acepta la privacidad para continuar' : prev.privacy,
+      }));
+      return;
+    }
+
     try {
-      const orderNum = orderId || ('ORD-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 7).toUpperCase());
-      const orderData = {
-        orderNumber: orderNum,
-        userId: user?.uid || 'guest',
-        userEmail: user?.email || shippingData.email,
-        status: 'paid',
+      setIsRedirecting(true);
+      setErrors((prev) => ({ ...prev, paymentIntent: '', payment: '' }));
+
+      const items = buildItemsPayload();
+      const payload = {
+        items,
+        currency: 'eur',
+        email: shippingData.email.toLowerCase().trim(),
         shipping: {
-          name: shippingData.name,
-          email: shippingData.email,
-          phone: shippingData.phone,
-          address: shippingData.address,
-          city: shippingData.city,
-          state: shippingData.state,
-          zip: shippingData.zip,
-          method: shippingMethod,
-          cost: shippingCosts[shippingMethod],
-        },
-        payment: {
-          method: 'stripe',
-          paymentIntentId: paymentIntent.id,
-          status: paymentIntent.status,
-        },
-        products: cart.map(item => ({
-          id: item.id,
-          title: item.title,
-          brand: item.brand,
-          price: item.price,
-          size: item.size,
-          quantity: item.quantity,
-          image: item.images ? item.images[0] : item.image,
-        })),
-        subtotal: total,
-        shippingCost: shippingCosts[shippingMethod],
-        total: finalTotal,
-        legalAcceptance: {
-          termsAccepted: acceptedTerms,
-          privacyAccepted: acceptedPrivacy,
-          acceptedAt: new Date().toISOString(),
+          name: shippingData.name.trim(),
+          address: {
+            line1: shippingData.address.trim(),
+            city: shippingData.city.trim(),
+            postal_code: shippingData.zip.trim(),
+            country: 'ES',
+          },
         },
       };
 
-      // Send confirmation email if backend order exists
-      try {
-        if (orderId) {
-          await fetch(`${API_BASE}/emails/order-confirmation`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ orderId })
-          });
-        }
-      } catch (e) {
-        console.warn('No se pudo enviar email de confirmación:', e?.message);
+      const resp = await fetch(`${API_BASE}/payments/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Idempotency-Key': `checkout-${shippingData.email}-${Date.now()}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!resp.ok) {
+        const errJson = await resp.json().catch(() => ({}));
+        const errorMsg = errJson?.error === 'OUT_OF_STOCK'
+          ? 'Algún producto no tiene stock. Revisa tu carrito.'
+          : `Error al procesar el pago: ${errJson.error || resp.statusText}`;
+        throw new Error(errorMsg);
       }
 
-      await saveOrderToFirebase(orderData);
-      setOrderNumber(orderNum);
-      setIsSubmitted(true);
-      clearCart();
-      
+      const data = await resp.json();
+      if (data?.orderId) {
+        setOrderId(data.orderId);
+        setOrderNumber(data.orderId);
+      }
+
+      if (data?.url) {
+        window.location.assign(data.url);
+        return;
+      }
+
+      const stripe = await stripePromise;
+      if (!stripe) throw new Error('Stripe no inicializado');
+
+      const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+      if (error) throw new Error(error.message || 'No se pudo redirigir al pago');
     } catch (error) {
-      console.error('Error al guardar el pedido:', error);
-      setErrors({ submit: 'Pago exitoso pero error al guardar pedido. Contacta soporte.' });
-    }
-  };
-  
-  // Save order to Firebase Firestore
-  const saveOrderToFirebase = async (orderData) => {
-    try {
-      if (!db) return null;
-      const ordersRef = collection(db, 'orders');
-      const docRef = await addDoc(ordersRef, {
-        ...orderData,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      });
-      return docRef.id;
-    } catch (error) {
-      console.error('Error saving order:', error);
-      return null;
+      console.error('Error iniciando Stripe Checkout:', error);
+      setErrors((prev) => ({ ...prev, payment: error.message || 'Error al iniciar el pago.' }));
+    } finally {
+      setIsRedirecting(false);
     }
   };
 
@@ -624,23 +581,31 @@ const CheckoutPage = () => {
                     </div>
                   </div>
 
-                  {/* Stripe Checkout Component */}
-                  <div className="mb-6 sm:mb-8">
-                    <StripeCheckout
-                      amount={finalTotal}
-                      clientSecret={clientSecret}
-                      onSuccess={handleStripeSuccess}
-                      onError={(e) => setErrors(prev => ({ ...prev, payment: e?.message || 'Error al procesar el pago' }))}
-                      customerEmail={shippingData.email}
-                      disabled={!acceptedTerms || !acceptedPrivacy}
-                    />
+                  <div className="mb-6 sm:mb-8 space-y-3">
+                    <button
+                      onClick={handleHostedCheckout}
+                      disabled={isRedirecting || !validateStep1({ silent: true })}
+                      className="w-full bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      {isRedirecting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Redirigiendo a pago seguro...
+                        </>
+                      ) : (
+                        <>
+                          <CreditCard size={20} />
+                          Pagar {finalTotal.toFixed(2)} € con Stripe Checkout
+                        </>
+                      )}
+                    </button>
+                    {errors.payment && (
+                      <div className="bg-red-50 border-2 border-red-500 p-4 rounded-lg flex items-center gap-2 text-red-700">
+                        <AlertCircle size={20} />
+                        <span>{errors.payment}</span>
+                      </div>
+                    )}
                   </div>
-                  {errors.paymentIntent && (
-                    <div className="bg-red-50 border-2 border-red-500 p-4 rounded-lg mb-6 flex items-center gap-2 text-red-700">
-                      <AlertCircle size={20} />
-                      <span>{errors.paymentIntent}</span>
-                    </div>
-                  )}
 
                   {/* Aceptación legal antes de pagar */}
                   <div className="bg-yellow-50 border-2 border-yellow-300 p-6 rounded-lg space-y-4">
@@ -711,7 +676,6 @@ const CheckoutPage = () => {
                     </button>
                   </div>
                 </motion.div>
-              )}
               )}
             </div>
           </div>

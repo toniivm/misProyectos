@@ -177,17 +177,44 @@ const app = express();
 // Trust the Render proxy (needed for express-rate-limit and X-Forwarded-For)
 app.set('trust proxy', 1);
 app.use(compression({ level: 6, threshold: 1024 }));
+
+const defaultOrigins = ['https://valtre.onrender.com', 'http://localhost:3000'];
+const envOrigins = (process.env.CORS_ORIGIN || process.env.CORS_ORIGINS || '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+const allowedOrigins = envOrigins.length ? envOrigins : defaultOrigins;
+
 app.use(helmet({ 
   crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
-  contentSecurityPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'https://js.stripe.com'],
+      connectSrc: ["'self'", 'https://api.stripe.com', 'https://checkout.stripe.com'],
+      frameSrc: ['https://js.stripe.com', 'https://hooks.stripe.com', 'https://checkout.stripe.com'],
+      imgSrc: ["'self'", 'data:', 'https://*.stripe.com'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://js.stripe.com', 'https://checkout.stripe.com'],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+      formAction: ["'self'", 'https://checkout.stripe.com'],
+      upgradeInsecureRequests: [],
+    },
+  },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
   frameguard: { action: 'deny' },
   hsts: { maxAge: 31536000, includeSubDomains: true, preload: true }
 }));
+
 app.use(cors({ 
-  origin: process.env.CORS_ORIGIN || ['https://valtre.onrender.com', 'http://localhost:3000'],
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('CORS_NOT_ALLOWED'), false);
+  },
   methods: ['GET','POST','PATCH','OPTIONS'],
   credentials: true,
-  allowedHeaders: ['Content-Type', 'X-Admin-Key']
+  allowedHeaders: ['Content-Type', 'X-Admin-Key', 'Idempotency-Key', 'idempotency-key']
 }));
 
 // Cache middleware for GET /products and /health
@@ -252,6 +279,11 @@ const createIntentSchema = Joi.object({
   }).required()
 });
 
+const createSessionSchema = createIntentSchema.keys({
+  successUrl: Joi.string().uri().optional(),
+  cancelUrl: Joi.string().uri().optional(),
+});
+
 const orderUpdateSchema = Joi.object({
   status: Joi.string().valid('pending','paid','processing','packed','shipped','delivered','cancelled').optional(),
   trackingNumber: Joi.string().max(64).optional(),
@@ -268,6 +300,23 @@ function adminAuth(req,res,next){
 function calcAmount(items){
   return items.reduce((sum, it) => sum + Math.round(it.price * 100) * it.qty, 0);
 }
+
+function toStripeLineItems(items, currency){
+  return items
+    .filter((it) => it && Number.isFinite(it.price) && it.qty > 0 && Math.round(Number(it.price) * 100) > 0)
+    .map((it) => ({
+      price_data: {
+        currency,
+        unit_amount: Math.round(Number(it.price) * 100),
+        product_data: {
+          name: (it.name || `Item ${it.id || ''}`).toString().slice(0, 200),
+        },
+      },
+      quantity: it.qty,
+    }));
+}
+
+const frontendBaseUrl = (process.env.FRONTEND_URL || process.env.FRONTEND_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
 async function verifyInventory(items){
   const productItems = items.filter(it => !it.id.startsWith('shipping:'));
   for (const it of productItems){
@@ -494,6 +543,111 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
     }
     
     res.status(500).json({ error: 'INTENT_ERROR', detail: 'Failed to create payment intent' });
+  }
+});
+
+app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) => {
+  console.log(`\n🔵 POST /payments/create-checkout-session started`);
+  console.log(`Body: ${JSON.stringify(req.body)}`);
+
+  if (!requireDb(res)) {
+    console.log(`❌ DB not available`);
+    return;
+  }
+  if (!requireStripe(res)) {
+    console.log(`❌ Stripe not available`);
+    return;
+  }
+
+  try {
+    const { error, value } = createSessionSchema.validate(req.body, { abortEarly: false });
+    if (error) {
+      console.warn('Validation error in checkout session:', error.details.map(e => e.message).join(', '));
+      return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
+    }
+
+    const { items, currency, email, shipping, successUrl, cancelUrl } = value;
+
+    try {
+      await verifyInventory(items);
+    } catch (invErr) {
+      console.error('Inventory verification failed:', invErr.message);
+      if (invErr.message?.startsWith('OUT_OF_STOCK')) {
+        return res.status(409).json({ error: 'OUT_OF_STOCK', detail: invErr.message });
+      }
+      if (invErr.message?.startsWith('NO_PRODUCT')) {
+        return res.status(404).json({ error: 'PRODUCT_NOT_FOUND', detail: invErr.message });
+      }
+      throw invErr;
+    }
+
+    const amount = calcAmount(items);
+    if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
+
+    const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
+    const orderRef = db.collection('orders').doc();
+
+    const orderData = {
+      status: 'pending',
+      email,
+      items,
+      amount,
+      currency,
+      shipping,
+      ip: req.ip,
+      userAgent: req.get('user-agent'),
+      createdAt: new Date(),
+      expiresAt: new Date(Date.now() + 30*60*1000) // 30 minute expiry
+    };
+
+    console.log(`📝 Saving order ${orderRef.id} (checkout session)...`);
+    await orderRef.set(orderData);
+    console.log(`✓ Order saved: ${orderRef.id}`);
+
+    const productItems = items.filter((it) => !String(it.id).startsWith('shipping:'));
+    const shippingItems = items.filter((it) => String(it.id).startsWith('shipping:'));
+    const lineItems = [
+      ...toStripeLineItems(productItems, currency),
+      ...toStripeLineItems(shippingItems, currency),
+    ];
+
+    if (!lineItems.length) return res.status(400).json({ error: 'INVALID_AMOUNT' });
+
+    const defaultSuccess = `${frontendBaseUrl}/checkout?status=success&orderId=${orderRef.id}&session_id={CHECKOUT_SESSION_ID}`;
+    const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderRef.id}`;
+
+    console.log(`💳 Creating Stripe Checkout session for order ${orderRef.id}...`);
+    const session = await stripe.checkout.sessions.create(
+      {
+        mode: 'payment',
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        customer_email: email,
+        success_url: successUrl || defaultSuccess,
+        cancel_url: cancelUrl || defaultCancel,
+        metadata: { orderId: orderRef.id },
+        payment_intent_data: { metadata: { orderId: orderRef.id } },
+      },
+      { idempotencyKey }
+    );
+
+    console.log(`✓ Checkout session created: ${session.id} for order ${orderRef.id}`);
+    res.json({ sessionId: session.id, url: session.url, orderId: orderRef.id });
+  } catch (e) {
+    console.error('Checkout session error:', e.message);
+    console.error('Stack:', e.stack);
+
+    if (e.message?.startsWith('OUT_OF_STOCK')) {
+      return res.status(409).json({ error: 'OUT_OF_STOCK', detail: e.message });
+    }
+    if (e.message?.startsWith('NO_PRODUCT')) {
+      return res.status(404).json({ error: 'PRODUCT_NOT_FOUND', detail: e.message });
+    }
+    if (e.message?.startsWith('RACE_OUT_OF_STOCK')) {
+      return res.status(409).json({ error: 'OUT_OF_STOCK', detail: 'Item sold out during processing' });
+    }
+
+    res.status(500).json({ error: 'CHECKOUT_SESSION_ERROR', detail: 'Failed to create checkout session' });
   }
 });
 
