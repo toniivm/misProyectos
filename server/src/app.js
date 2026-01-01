@@ -174,6 +174,8 @@ function requireStripe(res) {
 }
 
 const app = express();
+// Trust the Render proxy (needed for express-rate-limit and X-Forwarded-For)
+app.set('trust proxy', 1);
 app.use(compression({ level: 6, threshold: 1024 }));
 app.use(helmet({ 
   crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
@@ -205,7 +207,8 @@ const apiLimiter = rateLimit({
   max: 300,
   message: { error: 'Too many requests, please try again later' },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  skip: (req) => !isProd // Skip rate limiting validation in development
 });
 const checkoutLimiter = rateLimit({
   windowMs: 60*1000,
