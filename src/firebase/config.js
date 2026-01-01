@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -29,6 +29,10 @@ let provider = null;
 if (missingEnv.length === 0) {
   app = initializeApp(firebaseConfig);
   auth = getAuth(app);
+  // Fuerza persistencia en localStorage para que el redirect no pierda sesión
+  setPersistence(auth, browserLocalPersistence).catch((err) => {
+    console.error("Firebase persistence error", err);
+  });
   provider = new GoogleAuthProvider();
   db = getFirestore(app);
 } else {

@@ -43,7 +43,10 @@ export default function Login() {
       if (!auth) return;
       try {
         const result = await getRedirectResult(auth);
-        if (!result?.user) return;
+        if (!result?.user) {
+          console.info("Google redirect sin user (posible cancelación o no se completó)");
+          return;
+        }
         const userData = {
           name: result.user.displayName,
           email: result.user.email,
