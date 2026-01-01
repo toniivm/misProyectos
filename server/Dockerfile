@@ -9,8 +9,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies with fallback
-RUN npm ci --only=production || npm install --production
+# Install dependencies (all, not just production)
+RUN npm ci || npm install
 
 # Copy source code
 COPY src ./src
