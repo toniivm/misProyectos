@@ -24,8 +24,8 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 
-// Componente para timeout en Suspense
-function SuspenseWithTimeout({ children, fallback = null, timeoutMs = 8000 }) {
+// Componente para timeout en Suspense (aviso no bloqueante)
+function SuspenseWithTimeout({ children, fallback = null, timeoutMs = 30000 }) {
   const [timedOut, setTimedOut] = useState(false);
 
   useEffect(() => {
@@ -33,18 +33,26 @@ function SuspenseWithTimeout({ children, fallback = null, timeoutMs = 8000 }) {
     return () => clearTimeout(timer);
   }, [timeoutMs]);
 
-  if (timedOut) {
-    return (
-      <div className="max-w-7xl mx-auto px-6 py-10 text-center">
-        <p className="text-red-600 font-semibold">La página tardó demasiado en cargar. Por favor, recarga.</p>
-        <button onClick={() => window.location.reload()} className="mt-4 px-4 py-2 bg-black text-white rounded">
-          Recargar
-        </button>
-      </div>
-    );
-  }
+  const effectiveFallback = (
+    <div className="max-w-7xl mx-auto px-6 py-10">
+      {fallback || <SkeletonGrid count={8} />}
+      {timedOut && (
+        <div className="mt-6 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-4 text-center">
+          <p className="font-semibold">La carga está tardando más de lo normal.</p>
+          <div className="flex flex-wrap gap-3 justify-center mt-3">
+            <button onClick={() => window.location.reload()} className="px-4 py-2 bg-black text-white rounded">
+              Recargar
+            </button>
+            <button onClick={() => setTimedOut(false)} className="px-4 py-2 border border-black text-black rounded">
+              Seguir esperando
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 
-  return <Suspense fallback={fallback}>{children}</Suspense>;
+  return <Suspense fallback={effectiveFallback}>{children}</Suspense>;
 }
 
 function App() {
@@ -66,7 +74,7 @@ function App() {
               
               <main className="flex-1">
                 <ErrorBoundary>
-                <SuspenseWithTimeout fallback={<div className="max-w-7xl mx-auto px-6 py-10"><SkeletonGrid count={8} /></div>} timeoutMs={10000}>
+                <SuspenseWithTimeout fallback={<div className="max-w-7xl mx-auto px-6 py-10"><SkeletonGrid count={8} /></div>}>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/productos" element={<ProductPage />} />
