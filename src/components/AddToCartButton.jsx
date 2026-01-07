@@ -5,14 +5,30 @@ import Toast from "./Toast";
 export default function AddToCartButton({ product, size, quantity }) {
   const { addToCart } = useCart();
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const handleAdd = () => {
-    // Solo añadir si hay cantidad válida
-    if (quantity < 1 || !size) return; 
+    // Validar si es bolso (sizes vacío es válido) o zapatilla/ropa (size requerido)
+    const isBag = product.sizes && product.sizes.length === 0;
+    if ((quantity < 1 && !isBag) || (!isBag && !size)) {
+      setToastMessage("Por favor selecciona una talla");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2500);
+      return;
+    }
 
-    addToCart({ ...product, size, quantity });
+    // Validar stock
+    const stock = product.stock || 999;
+    if (quantity > stock) {
+      setToastMessage(`Solo hay ${stock} unidades disponibles`);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2500);
+      return;
+    }
+
+    addToCart({ ...product, size: isBag ? "Único" : size, quantity });
+    setToastMessage("Producto añadido al carrito ✅");
     setShowToast(true);
-    // Mostrar el toast por 2.5 segundos
     setTimeout(() => setShowToast(false), 2500); 
   };
 
@@ -24,7 +40,7 @@ export default function AddToCartButton({ product, size, quantity }) {
       >
         Añadir al carrito ({product.price * (quantity || 1)} €)
       </button>
-      {showToast && <Toast message="Producto añadido al carrito ✅" />}
+      {showToast && <Toast message={toastMessage} />}
     </>
   );
 }

@@ -517,6 +517,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Louis Vuitton",
         colors: ["Marrón", "Crema"],
@@ -533,6 +534,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1548690596-f4ee67dabb14?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Gucci",
         colors: ["Negro", "Burdeos"],
@@ -549,6 +551,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1520763185298-1b434c919eba?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Hermès",
         colors: ["Negro", "Camel"],
@@ -565,6 +568,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1548690596-f4ee67dabb14?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Bottega Veneta",
         colors: ["Intrecciato Negro", "Intrecciato Marrón"],
@@ -581,6 +585,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Chanel",
         colors: ["Negro", "Beige"],
@@ -597,6 +602,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Prada",
         colors: ["Negro", "Blanco"],
@@ -613,6 +619,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1520763185298-1b434c919eba?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Fendi",
         colors: ["Negro", "Rojo"],
@@ -631,6 +638,7 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1542293771-0d59ee1c1b79?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Dior",
         colors: ["Azul", "Beige"],
@@ -664,12 +672,151 @@ const PRODUCTS = [
             "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&h=800&fit=crop",
             "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=800&fit=crop"
         ],
+        sizes: [],
         category: "bolsos",
         brand: "Celine",
         colors: ["Negro", "Dorado"],
         isNew: true,
         discount: 5,
         stock: 5
+    },
+
+    // ROPA - NEW CATEGORY
+    {
+        id: 41,
+        title: "Oversized T-Shirt Black Premium Cotton",
+        description: "Camiseta oversized en algodón 100% premium. Corte relajado perfecto para layering. Disponible en múltiples tallas.",
+        price: 49.99,
+        images: [
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1554521666-7deac817c8d7?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "Basic Luxury",
+        colors: ["Negro", "Blanco", "Gris"],
+        isNew: true,
+        discount: 0,
+        stock: 45
+    },
+    {
+        id: 42,
+        title: "Cargo Pants Olive Green Utility",
+        description: "Pantalón cargo con bolsillos laterales funcionales. Tela resistente 100% algodón. Estilo militar urbano.",
+        price: 89.99,
+        images: [
+            "https://images.unsplash.com/photo-1542272604-787c62d465d1?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1548883329-c4db88a50cef?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "UrbanWear Co",
+        colors: ["Verde Oliva", "Caqui", "Negro"],
+        isNew: true,
+        discount: 10,
+        stock: 32
+    },
+    {
+        id: 43,
+        title: "Hoodie Champion Embroidered Logo",
+        description: "Sudadera con capucha en 80/20 algodón-poliéster. Logo bordado clásico. Perfecta para frío extremo.",
+        price: 79.99,
+        images: [
+            "https://images.unsplash.com/photo-1556821840-febf3c2d7b3f?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1539822260-d32210a884c2?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "Champion",
+        colors: ["Negro", "Gris", "Azul Marino"],
+        isNew: false,
+        discount: 15,
+        stock: 38
+    },
+    {
+        id: 44,
+        title: "Denim Jacket Vintage Blue Oversize",
+        description: "Chaqueta vaquera vintage oversized. Lavado azul clásico con botones de latón. Pieza atemporal imprescindible.",
+        price: 129.99,
+        images: [
+            "https://images.unsplash.com/photo-1610182443963-635814b73da2?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1516052612892-4a5a27f6c4d0?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "Levi's",
+        colors: ["Azul Claro", "Azul Oscuro", "Negro"],
+        isNew: false,
+        discount: 0,
+        stock: 25
+    },
+    {
+        id: 45,
+        title: "Leather Jacket Black Biker Style",
+        description: "Chaqueta de cuero genuino estilo biker. Cierres y remaches de metal. Símbolo de rebeldía urbana.",
+        price: 349.99,
+        images: [
+            "https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1544992733-fa3e4b1d5699?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "Schott NYC",
+        colors: ["Negro", "Marrón"],
+        isNew: true,
+        discount: 0,
+        stock: 12
+    },
+    {
+        id: 46,
+        title: "Long Sleeve Henley Striped",
+        description: "Camiseta manga larga con cuello Henley. Rayas clásicas. Versátil para todas las estaciones.",
+        price: 39.99,
+        images: [
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1554521666-7deac817c8d7?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "Gap",
+        colors: ["Blanco/Negro", "Azul/Blanco", "Rojo/Blanco"],
+        isNew: false,
+        discount: 20,
+        stock: 50
+    },
+    {
+        id: 47,
+        title: "Bomber Jacket Technical Nylon",
+        description: "Chaqueta bomber en nylon técnico repelente al agua. Forro cálido. Bolsillos internos prácticos.",
+        price: 119.99,
+        images: [
+            "https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1544992733-fa3e4b1d5699?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "Alpha Industries",
+        colors: ["Negro", "Caqui", "Rojo"],
+        isNew: true,
+        discount: 0,
+        stock: 28
+    },
+    {
+        id: 48,
+        title: "Polo Shirt Ralph Lauren Classic",
+        description: "Polo clásico de Ralph Lauren en piqué de algodón. Logo bordado pony. Elegancia casual eternal.",
+        price: 99.99,
+        images: [
+            "https://images.unsplash.com/photo-1607987557830-37cb744fb117?w=800&h=800&fit=crop",
+            "https://images.unsplash.com/photo-1516478179778-b880068f2695?w=800&h=800&fit=crop"
+        ],
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        category: "ropa",
+        brand: "Ralph Lauren",
+        colors: ["Negro", "Blanco", "Azul Marino", "Rojo"],
+        isNew: false,
+        discount: 5,
+        stock: 35
     }
 ];
 

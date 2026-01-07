@@ -15,6 +15,7 @@ const CheckoutPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [orderId, setOrderId] = useState(null);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const API_BASE = (process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE || 'http://localhost:8080').replace(/\/$/, '');

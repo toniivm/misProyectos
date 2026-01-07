@@ -5,6 +5,7 @@ import { Truck, RefreshCw, Shield, Star } from 'lucide-react';
 import ProductGallery from "../components/ProductGallery";
 import ProductInfo from "../components/ProductInfo";
 import ProductCard from "../components/ProductCard";
+import SEOHelper from "../components/SEOHelper";
 import useProducts from "../hooks/useProducts";
 
 export default function ProductDetailPage() {
@@ -60,6 +61,13 @@ export default function ProductDetailPage() {
 
   return (
     <div className="bg-white">
+      <SEOHelper 
+        title={product.title}
+        description={product.description}
+        image={product.images?.[0]}
+        url={window.location.href}
+      />
+      
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center gap-2 text-sm text-gray-600">

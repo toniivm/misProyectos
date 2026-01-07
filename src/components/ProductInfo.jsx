@@ -1,13 +1,17 @@
 import React, { useState, useMemo } from "react";
 import { Heart, Share2 } from "lucide-react";
 import AddToCartButton from "./AddToCartButton";
+import ColorSelector from "./ColorSelector";
+import { useWishlist } from "../context/WishlistContext";
 
 export default function ProductInfo({ product }) {
+  const { isInWishlist, addToWishlist } = useWishlist();
+  const isFavorite = isInWishlist(product.id);
   const sizesList = product.sizes || ["M"]; 
   const initialSize = sizesList[0]; 
   const [size, setSize] = useState(initialSize);
+  const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
   const [quantity, setQuantity] = useState(1);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const hasDiscount = product.discount > 0;
   const discountedPrice = hasDiscount ? product.price * (1 - product.discount / 100) : product.price;
@@ -61,35 +65,11 @@ export default function ProductInfo({ product }) {
 
       {/* Colores disponibles */}
       {product.colors && product.colors.length > 0 && (
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 mb-3 uppercase">
-            Colores Disponibles
-          </label>
-          <div className="flex gap-3">
-            {product.colors.map((color, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col items-center gap-2"
-              >
-                <div
-                  className="w-10 h-10 rounded-full border-2 border-gray-300 cursor-pointer hover:border-black transition"
-                  style={{
-                    backgroundColor: color === 'Blanco' ? '#fff' :
-                                   color === 'Negro' ? '#000' :
-                                   color === 'Gris' ? '#6b7280' :
-                                   color === 'Azul' || color === 'Azul Marino' || color === 'Azul Oscuro' ? '#1e3a8a' :
-                                   color === 'Rojo' ? '#dc2626' :
-                                   color === 'Verde' || color === 'Verde Militar' ? '#16a34a' :
-                                   color === 'Beige' || color === 'Camel' ? '#d4a574' :
-                                   '#9ca3af'
-                  }}
-                  title={color}
-                />
-                <span className="text-xs text-gray-600">{color}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ColorSelector 
+          colors={product.colors} 
+          selectedColor={selectedColor}
+          onColorSelect={setSelectedColor}
+        />
       )}
 
       {/* Selector de Talla */}
@@ -135,28 +115,31 @@ export default function ProductInfo({ product }) {
           <input
             type="number"
             min="1"
-            max="10" 
+            max={product.stock || 100}
             value={quantity}
-            onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
+            onChange={(e) => setQuantity(Math.min(product.stock || 100, Math.max(1, parseInt(e.target.value) || 1)))}
             className="border-2 border-gray-300 p-3 w-20 text-center font-semibold focus:outline-none focus:border-black"
             name="quantity"
           />
           <button
-            onClick={() => setQuantity(Math.min(10, quantity + 1))}
+            onClick={() => setQuantity(Math.min(product.stock || 100, quantity + 1))}
             className="w-10 h-10 border-2 border-gray-300 rounded hover:border-black transition font-bold"
           >
             +
           </button>
+          {product.stock && product.stock < 10 && (
+            <span className="text-sm text-orange-600 font-semibold">Solo {product.stock} en stock</span>
+          )}
         </div>
       </div>
 
       {/* Botones de acción */}
       <div className="flex flex-col gap-3 mt-4">
-        <AddToCartButton product={product} size={size} quantity={quantity} />
+        <AddToCartButton product={{...product, selectedColor}} size={size} quantity={quantity} />
         
         <div className="flex gap-3">
           <button 
-            onClick={() => setIsFavorite(!isFavorite)}
+            onClick={() => addToWishlist(product)}
             className={`flex-1 flex items-center justify-center gap-2 border-2 py-3 rounded-lg font-semibold transition ${
               isFavorite 
                 ? 'border-red-500 text-red-500 bg-red-50' 
