@@ -83,7 +83,7 @@ const ProductCard = ({ product, highlightTerm }) => {
             className="text-sm sm:text-base font-semibold text-gray-900 mb-2 line-clamp-2"
             dangerouslySetInnerHTML={{
               __html: highlightTerm && highlightTerm.length > 1
-                ? product.title.replace(new RegExp(`(${highlightTerm})`, 'ig'), '<mark class="bg-yellow-200">$1</mark>')
+                ? product.title.replace(new RegExp(`(${highlightTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig'), '<mark class="bg-yellow-200">$1</mark>')
                 : product.title
             }}
           />
