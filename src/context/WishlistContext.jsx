@@ -6,12 +6,21 @@ export const useWishlist = () => useContext(WishlistContext);
 
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState(() => {
-    const saved = localStorage.getItem('urbanstyle_wishlist');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem('urbanstyle_wishlist');
+      return saved ? JSON.parse(saved) : [];
+    } catch (err) {
+      console.warn('[Wishlist] localStorage error on init:', err?.message);
+      return [];
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('urbanstyle_wishlist', JSON.stringify(wishlist));
+    try {
+      localStorage.setItem('urbanstyle_wishlist', JSON.stringify(wishlist));
+    } catch (err) {
+      console.warn('[Wishlist] localStorage error on save:', err?.message);
+    }
   }, [wishlist]);
 
   const addToWishlist = (product) => {

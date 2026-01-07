@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { X, ShoppingCart, Search } from 'lucide-react';
+import { X, ShoppingCart, Search, Heart, Trash2 } from 'lucide-react';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,9 +22,13 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
   }, [wishlist, searchTerm]);
 
   const handleAddToCart = (product) => {
-    const defaultSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Único';
-    addToCart({ ...product, size: defaultSize, quantity: 1 });
-    removeFromWishlist(product.id);
+    try {
+      const defaultSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Único';
+      addToCart({ ...product, size: defaultSize, quantity: 1 });
+      removeFromWishlist(product.id);
+    } catch (err) {
+      console.error('[Wishlist] Error adding to cart:', err);
+    }
   };
 
   return (
@@ -51,8 +55,11 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
       >
         <div className="p-6 border-b border-gray-200">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">❤️ Mi Lista de Deseos</h2>
-            <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-gray-100 rounded-full">
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <Heart size={24} className="text-red-500 fill-red-500" />
+              Mi Lista de Deseos
+            </h2>
+            <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
               <X size={24} />
             </button>
           </div>
@@ -66,7 +73,7 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
                 placeholder="Buscar favoritos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
               />
             </div>
           )}
@@ -85,38 +92,44 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
               <p className="text-gray-500">No hay resultados para "{searchTerm}"</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {filteredWishlist.map((item) => (
-                <div key={item.id} className="flex gap-4 border-b border-gray-200 pb-4">
+                <motion.div 
+                  key={item.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex gap-3 border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow"
+                >
                   <Link to={`/product/${item.id}`} onClick={() => setIsOpen(false)}>
                     <img
-                      src={item.images[0]}
+                      src={item.images?.[0] || 'https://via.placeholder.com/80'}
                       alt={item.title}
                       className="w-20 h-20 object-cover rounded"
                     />
                   </Link>
                   <div className="flex-1">
                     <Link to={`/product/${item.id}`} onClick={() => setIsOpen(false)}>
-                      <h3 className="font-semibold hover:text-blue-600 text-sm">{item.title}</h3>
+                      <h3 className="font-semibold hover:text-red-600 text-sm">{item.title}</h3>
                     </Link>
-                    <p className="text-lg font-bold mt-1">{item.price.toFixed(2)} €</p>
+                    <p className="text-lg font-bold text-black mt-1">{item.price?.toFixed(2) || '0.00'} €</p>
                     <div className="flex gap-2 mt-2">
                       <button
                         onClick={() => handleAddToCart(item)}
-                        className="flex items-center gap-1 text-sm bg-black text-white px-3 py-1 rounded hover:bg-gray-800"
+                        className="flex items-center gap-1 text-xs bg-black text-white px-2 py-1 rounded hover:bg-gray-800 transition-colors"
                       >
-                        <ShoppingCart size={14} />
-                        Añadir
+                        <ShoppingCart size={12} />
+                        Carrito
                       </button>
                       <button
                         onClick={() => removeFromWishlist(item.id)}
-                        className="text-sm text-red-500 hover:text-red-700"
+                        className="flex items-center gap-1 text-xs text-red-500 hover:text-red-700 hover:bg-red-50 px-2 py-1 rounded transition-colors"
                       >
-                        Eliminar
+                        <Trash2 size={12} />
+                        Quitar
                       </button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}

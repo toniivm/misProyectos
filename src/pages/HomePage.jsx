@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, TrendingUp, Shield, Truck, Award } from 'lucide-react';
+import { ArrowRight, TrendingUp, Shield, Truck, Award, Zap } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import PaymentLogos from '../components/PaymentLogos';
 import useProducts from '../hooks/useProducts'; 
@@ -171,12 +171,39 @@ const HomePage = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          {loading && (
-            <div className="col-span-4 text-center text-gray-500 py-8">Cargando productos...</div>
+          {loading ? (
+            <div className="col-span-2 md:col-span-3 lg:col-span-4 flex flex-col items-center justify-center py-16">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="mb-4"
+              >
+                <Zap size={40} className="text-black" />
+              </motion.div>
+              <p className="text-gray-600 font-semibold">Cargando productos premium...</p>
+              <div className="flex gap-1 mt-3">
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
+                  className="w-2 h-2 bg-black rounded-full"
+                />
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
+                  className="w-2 h-2 bg-black rounded-full"
+                />
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
+                  className="w-2 h-2 bg-black rounded-full"
+                />
+              </div>
+            </div>
+          ) : (
+            displayProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
           )}
-          {!loading && displayProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
         </motion.div>
         {error && (
           <p className="text-xs text-red-500 mt-3">Usando datos locales: {error}</p>

@@ -58,18 +58,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network-first for navigation/documents to avoid stale index.html
+  // Network-first for navigation/documents with timeout to avoid long waits
   if (request.destination === 'document') {
     event.respondWith(
-      fetch(request)
-        .then((networkResponse) => {
-          const clone = networkResponse.clone();
-          caches.open(STATIC_CACHE).then((cache) => {
-            cache.put('/index.html', clone);
-          });
+      Promise.race([
+        fetch(request).then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(STATIC_CACHE).then((cache) => {
+              cache.put('/index.html', clone);
+            });
+          }
           return networkResponse;
-        })
-        .catch(() => caches.match('/index.html'))
+        }),
+        new Promise((resolve) =>
+          setTimeout(() => {
+            caches.match('/index.html').then(resolve);
+          }, 3000) // 3 second timeout - use cache if network is slow
+        )
+      ]).catch(() => caches.match('/index.html'))
     );
     return;
   }
