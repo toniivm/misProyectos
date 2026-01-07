@@ -14,7 +14,8 @@ const PRODUCTS = [
         brand: "Nike",
         colors: ["Rojo", "Blanco", "Negro"],
         isNew: true,
-        discount: 0
+        discount: 0,
+        stock: 15
     },
     {
         id: 2,
@@ -30,7 +31,8 @@ const PRODUCTS = [
         brand: "Nike",
         colors: ["Blanco", "Negro"],
         isNew: false,
-        discount: 10
+        discount: 10,
+        stock: 28
     },
     {
         id: 3,
@@ -46,7 +48,8 @@ const PRODUCTS = [
         brand: "Nike",
         colors: ["Negro"],
         isNew: true,
-        discount: 0
+        discount: 0,
+        stock: 8
     },
     {
         id: 4,
@@ -62,7 +65,8 @@ const PRODUCTS = [
         brand: "Nike",
         colors: ["Marrón", "Rosa"],
         isNew: true,
-        discount: 0
+        discount: 0,
+        stock: 3
     },
 
     // ADIDAS
@@ -80,7 +84,8 @@ const PRODUCTS = [
         brand: "Adidas",
         colors: ["Blanco", "Negro"],
         isNew: true,
-        discount: 0
+        discount: 0,
+        stock: 11
     },
     {
         id: 6,
@@ -96,7 +101,8 @@ const PRODUCTS = [
         brand: "Adidas",
         colors: ["Negro", "Blanco"],
         isNew: false,
-        discount: 15
+        discount: 15,
+        stock: 22
     },
     {
         id: 7,
