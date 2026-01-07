@@ -6,8 +6,13 @@ export const useCart = () => useContext(CartContext);
 
 // Función de ayuda para obtener el carrito de localStorage
 const getInitialCart = () => {
-  const savedCart = localStorage.getItem('sneaker_cart');
-  return savedCart ? JSON.parse(savedCart) : [];
+  try {
+    const savedCart = localStorage.getItem('sneaker_cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  } catch (error) {
+    console.error('Error al cargar carrito de localStorage:', error);
+    return [];
+  }
 };
 
 export const CartProvider = ({ children }) => {
@@ -16,15 +21,19 @@ export const CartProvider = ({ children }) => {
 
   // Efecto para guardar el carrito en localStorage cada vez que cambia
   useEffect(() => {
-    localStorage.setItem('sneaker_cart', JSON.stringify(cart));
+    try {
+      localStorage.setItem('sneaker_cart', JSON.stringify(cart));
+    } catch (error) {
+      console.error('Error al guardar carrito en localStorage:', error);
+    }
   }, [cart]);
 
 
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingItemIndex = prevCart.findIndex(
-        // Identificar ítem por ID y TALLA
-        (item) => item.id === product.id && item.size === product.size
+        // Identificar ítem por ID, TALLA y COLOR para evitar duplicados
+        (item) => item.id === product.id && item.size === product.size && item.color === product.color
       );
 
       if (existingItemIndex > -1) {
@@ -43,20 +52,25 @@ export const CartProvider = ({ children }) => {
     setIsCartOpen(true); // Abrir sidebar automáticamente al añadir
   };
 
-  const removeFromCart = (itemId, itemSize) => {
+  const removeFromCart = (itemId, itemSize, itemColor) => {
     setCart((prev) =>
-      // Filtrar por ID y TALLA
-      prev.filter((item) => !(item.id === itemId && item.size === itemSize))
+      // Filtrar por ID, TALLA y COLOR
+      prev.filter((item) => !(item.id === itemId && item.size === itemSize && item.color === itemColor))
     );
+  };
+
+  // Limpiar carrito completamente (para después del checkout)
+  const clearCart = () => {
+    setCart([]);
   };
 
   // Cálculo total: (precio * cantidad) de todos los ítems
   const total = useMemo(() =>
-    cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+    cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 0), 0)
   , [cart]);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, total, isCartOpen, setIsCartOpen }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, total, isCartOpen, setIsCartOpen }}>
       {children}
     </CartContext.Provider>
   );

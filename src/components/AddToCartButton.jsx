@@ -8,6 +8,22 @@ export default function AddToCartButton({ product, size, quantity }) {
   const [toastMessage, setToastMessage] = useState("");
 
   const handleAdd = () => {
+    // Validar que producto existe y tiene precio
+    if (!product || typeof product.price !== 'number' || product.price < 0) {
+      setToastMessage("Producto inválido");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2500);
+      return;
+    }
+
+    // Validar cantidad positiva
+    if (quantity < 1 || !Number.isInteger(quantity)) {
+      setToastMessage("Cantidad inválida");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2500);
+      return;
+    }
+
     // Validar si es bolso (sizes vacío es válido) o zapatilla/ropa (size requerido)
     const isBag = product.sizes && product.sizes.length === 0;
     if ((quantity < 1 && !isBag) || (!isBag && !size)) {
@@ -18,7 +34,7 @@ export default function AddToCartButton({ product, size, quantity }) {
     }
 
     // Validar stock
-    const stock = product.stock || 999;
+    const stock = Math.max(0, product.stock || 999);
     if (quantity > stock) {
       setToastMessage(`Solo hay ${stock} unidades disponibles`);
       setShowToast(true);

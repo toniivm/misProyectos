@@ -11,6 +11,7 @@ import useProducts from "../hooks/useProducts";
 export default function ProductDetailPage() {
   const { id } = useParams();
   const { products, loading, error } = useProducts();
+  const [retryCount, setRetryCount] = useState(0);
   const product = useMemo(() => {
     const numericId = parseInt(id, 10);
     return (products || []).find((p) => p.id === numericId || String(p.id) === String(id));
@@ -35,9 +36,20 @@ export default function ProductDetailPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">Producto no encontrado</h2>
-          <Link to="/" className="text-blue-600 hover:underline">
-            Volver a la tienda
-          </Link>
+          <p className="text-gray-600 mb-6">El producto que buscas no existe o ha sido eliminado.</p>
+          <div className="flex gap-3 justify-center">
+            <Link to="/" className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
+              Volver a la tienda
+            </Link>
+            {retryCount < 3 && (
+              <button 
+                onClick={() => setRetryCount(prev => prev + 1)}
+                className="px-6 py-2 border-2 border-black rounded-lg hover:bg-gray-100 transition"
+              >
+                Reintentar ({retryCount}/3)
+              </button>
+            )}
+          </div>
         </div>
       </div>
     );

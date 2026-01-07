@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
@@ -24,6 +24,29 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 
+// Componente para timeout en Suspense
+function SuspenseWithTimeout({ children, fallback = null, timeoutMs = 8000 }) {
+  const [timedOut, setTimedOut] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setTimedOut(true), timeoutMs);
+    return () => clearTimeout(timer);
+  }, [timeoutMs]);
+
+  if (timedOut) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-10 text-center">
+        <p className="text-red-600 font-semibold">La página tardó demasiado en cargar. Por favor, recarga.</p>
+        <button onClick={() => window.location.reload()} className="mt-4 px-4 py-2 bg-black text-white rounded">
+          Recargar
+        </button>
+      </div>
+    );
+  }
+
+  return <Suspense fallback={fallback}>{children}</Suspense>;
+}
+
 function App() {
   // Lazy routes already optimized by webpack code splitting
   useEffect(() => {
@@ -43,7 +66,7 @@ function App() {
               
               <main className="flex-1">
                 <ErrorBoundary>
-                <Suspense fallback={<div className="max-w-7xl mx-auto px-6 py-10"><SkeletonGrid count={8} /></div>}>
+                <SuspenseWithTimeout fallback={<div className="max-w-7xl mx-auto px-6 py-10"><SkeletonGrid count={8} /></div>} timeoutMs={10000}>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/productos" element={<ProductPage />} />
@@ -55,7 +78,7 @@ function App() {
                     <Route path="/terms" element={<TermsOfService />} />
                     <Route path="/privacy" element={<PrivacyPolicy />} />
                   </Routes>
-                </Suspense>
+                </SuspenseWithTimeout>
                 </ErrorBoundary>
               </main>
               

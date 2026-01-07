@@ -25,6 +25,7 @@ export function useProducts(){
     const load = async () => {
       controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 4000);
+      let hasError = false;
       try {
         if (!pending) {
           pending = fetch(`${API_BASE}/products`, { headers: { 'Accept': 'application/json' }, signal: controller.signal })
@@ -44,7 +45,10 @@ export function useProducts(){
           setError(null);
         }
       } catch (err){
+        hasError = true;
         if (!cancelled){
+          // Reset pending on error so next request can retry
+          pending = null;
           // Only log non-abort errors and only in dev
           if (err?.name !== 'AbortError' && process.env.NODE_ENV !== 'production') {
             console.error('Products fetch failed, using fallback', err);
@@ -55,7 +59,13 @@ export function useProducts(){
         }
       } finally {
         clearTimeout(timeoutId);
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+          // Reset pending on success so next request can proceed
+          if (!hasError) {
+            pending = null;
+          }
+        }
       }
     };
     load();

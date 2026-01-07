@@ -8,7 +8,7 @@ import { useWishlist } from '../context/WishlistContext';
 const ProductCard = ({ product, highlightTerm }) => {
   const { isInWishlist, addToWishlist } = useWishlist();
   const isLiked = isInWishlist(product.id);
-  const image = product.images ? product.images[0] : 'https://placehold.co/800x800/222/FFF?text=Producto'; 
+  const image = product?.images?.[0] || 'https://images.unsplash.com/photo-1555062407-98eeb64c6a62?w=800&h=800&fit=crop'; 
   
   const hasDiscount = product.discount > 0;
   const discountedPrice = hasDiscount ? product.price * (1 - product.discount / 100) : product.price;

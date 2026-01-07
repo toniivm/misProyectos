@@ -131,6 +131,11 @@ export default function Login() {
     resolveRedirect();
   }, [navigate, setUser]);
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleEmailAuth = async (e) => {
     e.preventDefault();
     setError("");
@@ -138,11 +143,33 @@ export default function Login() {
       setError('Autenticación no disponible (Firebase no configurado).');
       return;
     }
+
+    // Validar email
+    if (!validateEmail(email)) {
+      setError("Por favor introduce un correo válido");
+      return;
+    }
+
+    // Validar contraseña
+    if (password.length < 6) {
+      setError("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+
+    // Validar contraseña más fuerte en register
+    if (mode === "register" && password.length < 8) {
+      setError("Para crear cuenta, la contraseña debe tener al menos 8 caracteres");
+      return;
+    }
+
     setLoading(true);
     try {
       if (mode === "register") {
         if (!name.trim()) {
           throw new Error("Introduce tu nombre");
+        }
+        if (name.trim().length < 2) {
+          throw new Error("El nombre debe tener al menos 2 caracteres");
         }
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(cred.user, { displayName: name });

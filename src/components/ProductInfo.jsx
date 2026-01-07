@@ -135,7 +135,7 @@ export default function ProductInfo({ product }) {
 
       {/* Botones de acción */}
       <div className="flex flex-col gap-3 mt-4">
-        <AddToCartButton product={{...product, selectedColor}} size={size} quantity={quantity} />
+        <AddToCartButton product={{...product, selectedColor, color: selectedColor}} size={size} quantity={quantity} />
         
         <div className="flex gap-3">
           <button 
