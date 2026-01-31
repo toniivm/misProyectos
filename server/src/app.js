@@ -316,7 +316,22 @@ function toStripeLineItems(items, currency){
     }));
 }
 
-const frontendBaseUrl = (process.env.FRONTEND_URL || process.env.FRONTEND_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
+const envFrontendBaseUrl = (process.env.FRONTEND_URL || process.env.FRONTEND_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
+function resolveFrontendBaseUrl(req) {
+  const envUrl = envFrontendBaseUrl && envFrontendBaseUrl !== 'http://localhost:3000' ? envFrontendBaseUrl : null;
+  const origin = req.get('origin');
+  const referer = req.get('referer');
+  let refererOrigin = null;
+  if (referer) {
+    try {
+      refererOrigin = new URL(referer).origin;
+    } catch {
+      refererOrigin = null;
+    }
+  }
+  const fallback = allowedOrigins?.[0] || 'http://localhost:3000';
+  return (envUrl || origin || refererOrigin || fallback).replace(/\/$/, '');
+}
 async function verifyInventory(items){
   const productItems = items.filter(it => !it.id.startsWith('shipping:'));
   for (const it of productItems){
@@ -613,6 +628,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
 
     if (!lineItems.length) return res.status(400).json({ error: 'INVALID_AMOUNT' });
 
+    const frontendBaseUrl = resolveFrontendBaseUrl(req);
     const defaultSuccess = `${frontendBaseUrl}/checkout?status=success&orderId=${orderRef.id}&session_id={CHECKOUT_SESSION_ID}`;
     const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderRef.id}`;
 

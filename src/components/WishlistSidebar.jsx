@@ -5,8 +5,8 @@ import { useCart } from '../context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useMemo } from 'react';
 
-const WishlistSidebar = ({ isOpen, setIsOpen }) => {
-  const { wishlist, removeFromWishlist } = useWishlist();
+const WishlistSidebar = () => {
+  const { wishlist, removeFromWishlist, isWishlistOpen, setIsWishlistOpen } = useWishlist();
   const { addToCart } = useCart();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -35,13 +35,13 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
     <>
       {/* Backdrop */}
       <AnimatePresence>
-        {isOpen && (
+        {isWishlistOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black opacity-60 z-40"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsWishlistOpen(false)}
           />
         )}
       </AnimatePresence>
@@ -49,7 +49,7 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
       {/* Sidebar */}
       <motion.div
         initial={{ x: '100%' }}
-        animate={{ x: isOpen ? 0 : '100%' }}
+        animate={{ x: isWishlistOpen ? 0 : '100%' }}
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
         className="fixed top-0 right-0 w-96 max-w-full h-full bg-white shadow-2xl z-50 flex flex-col"
       >
@@ -59,7 +59,7 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
               <Heart size={24} className="text-red-500 fill-red-500" />
               Mi Lista de Deseos
             </h2>
-            <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <button onClick={() => setIsWishlistOpen(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
               <X size={24} />
             </button>
           </div>
@@ -83,7 +83,7 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
           {wishlist.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500 mb-4">Tu lista de deseos está vacía</p>
-              <Link to="/" onClick={() => setIsOpen(false)} className="text-blue-600 hover:underline">
+              <Link to="/" onClick={() => setIsWishlistOpen(false)} className="text-blue-600 hover:underline">
                 Explorar productos
               </Link>
             </div>
@@ -100,7 +100,7 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex gap-3 border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow"
                 >
-                  <Link to={`/product/${item.id}`} onClick={() => setIsOpen(false)}>
+                  <Link to={`/product/${item.id}`} onClick={() => setIsWishlistOpen(false)}>
                     <img
                       src={item.images?.[0] || 'https://via.placeholder.com/80'}
                       alt={item.title}
@@ -108,7 +108,7 @@ const WishlistSidebar = ({ isOpen, setIsOpen }) => {
                     />
                   </Link>
                   <div className="flex-1">
-                    <Link to={`/product/${item.id}`} onClick={() => setIsOpen(false)}>
+                    <Link to={`/product/${item.id}`} onClick={() => setIsWishlistOpen(false)}>
                       <h3 className="font-semibold hover:text-red-600 text-sm">{item.title}</h3>
                     </Link>
                     <p className="text-lg font-bold text-black mt-1">{item.price?.toFixed(2) || '0.00'} €</p>

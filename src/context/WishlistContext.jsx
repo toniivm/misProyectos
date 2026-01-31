@@ -5,6 +5,7 @@ const WishlistContext = createContext();
 export const useWishlist = () => useContext(WishlistContext);
 
 export const WishlistProvider = ({ children }) => {
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [wishlist, setWishlist] = useState(() => {
     try {
       const saved = localStorage.getItem('urbanstyle_wishlist');
@@ -41,7 +42,7 @@ export const WishlistProvider = ({ children }) => {
   };
 
   return (
-    <WishlistContext.Provider value={{ wishlist, addToWishlist, removeFromWishlist, isInWishlist }}>
+    <WishlistContext.Provider value={{ wishlist, addToWishlist, removeFromWishlist, isInWishlist, isWishlistOpen, setIsWishlistOpen }}>
       {children}
     </WishlistContext.Provider>
   );
