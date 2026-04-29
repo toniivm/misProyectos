@@ -29,7 +29,7 @@ ADMIN_API_KEY=STRONG_RANDOM_KEY_HERE     # Generar con: openssl rand -base64 32
     "title": "Nombre Producto",
     "price": 99.99,
     "stock": 50,    // ⚠️ CAMPO OBLIGATORIO (number)
-    "brand": "Nike",
+    "brand": "Sin marca",
     "images": ["url1", "url2"]
   }
   ```

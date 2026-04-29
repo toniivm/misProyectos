@@ -101,6 +101,7 @@ const CheckoutPage = () => {
         qty: item.quantity,
         price: Number(item.price),
         name: (item.title || item.name || 'Producto').substring(0, 200),
+        personalization: item.personalization || null,
       })),
     ];
 

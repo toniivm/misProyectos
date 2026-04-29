@@ -96,22 +96,22 @@ function App() {
                     {/* Columna 1 - Marca */}
                     <div>
                       <h3 className="text-2xl font-bold mb-4">
-                        <span className="text-white">VALTREX</span>
+                        <span className="text-white">FLAGVIBE</span>
                       </h3>
                       <p className="text-gray-400 text-sm">
-                        Tu tienda multimarca de zapatillas y streetwear de lujo. Nike, Adidas, Balenciaga, Gucci, Off-White, Prada y más.
+                        Productos personalizados: banderas, gorras y accesorios. Diseños a medida para tu marca o evento.
                       </p>
                     </div>
 
                     {/* Columna 2 - Tienda */}
                     <div>
-                      <h4 className="font-bold mb-4 text-lg">Marcas</h4>
+                      <h4 className="font-bold mb-4 text-lg">Categorías</h4>
                       <ul className="space-y-2 text-gray-400 text-sm">
-                        <li><a href="/" className="hover:text-white transition">Nike</a></li>
-                        <li><a href="/" className="hover:text-white transition">Adidas</a></li>
-                        <li><a href="/" className="hover:text-white transition">Balenciaga</a></li>
-                        <li><a href="/" className="hover:text-white transition">Gucci</a></li>
-                        <li><a href="/" className="hover:text-white transition">Off-White</a></li>
+                        <li><a href="/productos" className="hover:text-white transition">Gorras</a></li>
+                        <li><a href="/productos" className="hover:text-white transition">Banderas</a></li>
+                        <li><a href="/productos" className="hover:text-white transition">Sudaderas</a></li>
+                        <li><a href="/productos" className="hover:text-white transition">Accesorios</a></li>
+                        <li><a href="/productos" className="hover:text-white transition">Pegatinas</a></li>
                       </ul>
                     </div>
 

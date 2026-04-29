@@ -24,7 +24,7 @@ const PrivacyPolicy = () => {
 
           <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8">
             <p className="text-sm text-blue-900">
-              En VALTREX respetamos tu privacidad y nos comprometemos a proteger tus datos personales conforme al 
+              En FLAGVIBE respetamos tu privacidad y nos comprometemos a proteger tus datos personales conforme al 
               Reglamento General de Protección de Datos (RGPD) de la UE y la Ley Orgánica de Protección de Datos (LOPD).
             </p>
           </div>
@@ -36,11 +36,11 @@ const PrivacyPolicy = () => {
                 <h2 className="text-2xl font-bold text-black">1. Responsable del Tratamiento</h2>
               </div>
               <ul className="list-none space-y-2 bg-gray-50 p-4 rounded-lg">
-                <li><strong>Identidad:</strong> VALTREX E-COMMERCE S.L.</li>
+                <li><strong>Identidad:</strong> FLAGVIBE S.L.</li>
                 <li><strong>NIF:</strong> B-12345678</li>
                 <li><strong>Dirección:</strong> Calle Serrano 45, 28001 Madrid, España</li>
-                <li><strong>Email:</strong> privacy@valtrex.com</li>
-                <li><strong>DPO (Delegado de Protección de Datos):</strong> dpo@valtrex.com</li>
+                <li><strong>Email:</strong> privacy@flagvibe.com</li>
+                <li><strong>DPO (Delegado de Protección de Datos):</strong> dpo@flagvibe.com</li>
               </ul>
             </section>
 
@@ -224,7 +224,7 @@ const PrivacyPolicy = () => {
               <div className="bg-green-50 border-l-4 border-green-500 p-4 mt-4">
                 <h3 className="font-bold mb-2">¿Cómo ejercer tus derechos?</h3>
                 <p className="text-sm mb-2">
-                  Puedes ejercer cualquiera de estos derechos enviando un email a: <strong>privacy@valtrex.com</strong>
+                  Puedes ejercer cualquiera de estos derechos enviando un email a: <strong>privacy@flagvibe.com</strong>
                 </p>
                 <p className="text-sm">
                   Responderemos en un plazo máximo de 1 mes. Si no estás satisfecho, puedes reclamar ante la 
@@ -263,7 +263,7 @@ const PrivacyPolicy = () => {
             <section>
               <h2 className="text-2xl font-bold text-black mb-4">9. Menores de Edad</h2>
               <p>
-                VALTREX no está dirigido a menores de 16 años. No recopilamos conscientemente datos de menores. 
+                FLAGVIBE no está dirigido a menores de 16 años. No recopilamos conscientemente datos de menores. 
                 Si eres padre/madre/tutor y descubres que tu hijo ha proporcionado datos, contacta con nosotros 
                 para proceder a su eliminación inmediata.
               </p>
@@ -282,8 +282,8 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-bold text-black mb-4">11. Contacto</h2>
               <p className="mb-3">Para cualquier consulta sobre privacidad o protección de datos:</p>
               <ul className="list-none space-y-2 bg-gray-50 p-4 rounded-lg">
-                <li><strong>Email de Privacidad:</strong> privacy@valtrex.com</li>
-                <li><strong>DPO (Delegado de Protección de Datos):</strong> dpo@valtrex.com</li>
+                <li><strong>Email de Privacidad:</strong> privacy@flagvibe.com</li>
+                <li><strong>DPO (Delegado de Protección de Datos):</strong> dpo@flagvibe.com</li>
                 <li><strong>Teléfono:</strong> +34 900 123 456</li>
                 <li><strong>Dirección Postal:</strong> Calle Serrano 45, 28001 Madrid, España</li>
               </ul>
@@ -291,7 +291,7 @@ const PrivacyPolicy = () => {
 
             <div className="border-t pt-8 mt-12">
               <p className="text-sm text-gray-600">
-                Al utilizar VALTREX, aceptas esta Política de Privacidad y el tratamiento de tus datos conforme a lo 
+                Al utilizar FLAGVIBE, aceptas esta Política de Privacidad y el tratamiento de tus datos conforme a lo 
                 descrito. Si no estás de acuerdo, por favor no utilices nuestros servicios.
               </p>
             </div>

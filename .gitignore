@@ -34,7 +34,7 @@ yarn-error.log*
 server/*.env
 server/.env*
 server/node_modules/
-tienda-zapatillas/node_modules/
+flagvibe-app/node_modules/
 *.pem
 *.p12
 *.key

@@ -47,23 +47,36 @@ const ProductCard = ({ product, highlightTerm }) => {
       </button>
 
       <Link to={product.slug ? `/producto/${product.slug}` : `/product/${product.id}`} className="block">
-        {/* Imagen del producto */}
-        <div className="relative overflow-hidden bg-gray-100 aspect-square">
-          <SafeImage
-            src={image}
-            alt={product.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-            fetchPriority="low"
-          />
-          
-          {/* Overlay con CTA */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-            <Button variant="secondary" size="md" className="opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0">
-              <ShoppingCart size={18} className="mr-2" />
-              Añadir al carrito
-            </Button>
+        {/* Imagen del producto con miniaturas verticales */}
+        <div className="relative overflow-hidden bg-gray-100 aspect-square flex">
+          <div className="flex-1 relative">
+            <SafeImage
+              src={image}
+              alt={product.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+              fetchPriority="low"
+            />
+
+            {/* Overlay con CTA */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <Button variant="secondary" size="md" className="opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0">
+                <ShoppingCart size={18} className="mr-2" />
+                Añadir al carrito
+              </Button>
+            </div>
           </div>
+
+          {/* Miniaturas verticales (solo en md+) */}
+          {product.images && product.images.length > 1 && (
+            <div className="hidden md:flex flex-col w-16 bg-transparent items-center justify-center gap-3 p-2">
+              {product.images.slice(1, 5).map((img, idx) => (
+                <div key={idx} className="w-12 h-12 border border-gray-200 shadow-sm overflow-hidden rounded-sm">
+                  <SafeImage src={img} alt={`${product.title}-thumb-${idx}`} className="w-full h-full object-cover" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         
         {/* Información del producto */}

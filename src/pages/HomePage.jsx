@@ -10,13 +10,13 @@ const HomePage = () => {
   const { products, loading, error } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('nuevos');
 
-  // Categorías - Flight Club Style
+  // Categorías principales (personalización)
   const categories = [
     { id: 'nuevos', label: 'Nuevos Lanzamientos', icon: <TrendingUp size={18} /> },
     { id: 'ofertas', label: 'Ofertas', icon: <Award size={18} /> },
-    { id: 'jordan', label: 'Air Jordan' },
-    { id: 'yeezy', label: 'Yeezy' },
-    { id: 'luxury', label: 'Luxury' },
+    { id: 'gorras', label: 'Gorras' },
+    { id: 'banderas', label: 'Banderas' },
+    { id: 'accesorios', label: 'Accesorios' },
   ];
 
   const displayProducts = useMemo(() => {
@@ -26,12 +26,12 @@ const HomePage = () => {
         return source.filter(p => p.isNew).slice(0, 8);
       case 'ofertas':
         return source.filter(p => p.discount > 0).slice(0, 8);
-      case 'jordan':
-        return source.filter(p => p.title.toLowerCase().includes('jordan')).slice(0, 8);
-      case 'yeezy':
-        return source.filter(p => p.title.toLowerCase().includes('yeezy')).slice(0, 8);
-      case 'luxury':
-        return source.filter(p => ['Balenciaga', 'Gucci', 'Prada', 'Off-White'].includes(p.brand)).slice(0, 8);
+      case 'gorras':
+        return source.filter(p => p.category === 'gorras').slice(0, 8);
+      case 'banderas':
+        return source.filter(p => p.category === 'banderas').slice(0, 8);
+      case 'accesorios':
+        return source.filter(p => p.category === 'accesorios').slice(0, 8);
       default:
         return source.slice(0, 8);
     }
@@ -55,50 +55,43 @@ const HomePage = () => {
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="max-w-7xl mx-auto px-4 md:px-6 w-full">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                className="max-w-2xl"
-              >
-                <motion.h1 
-                  className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 leading-tight tracking-tight"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  SNEAKERS<br/>
-                  <span className="text-gray-400">AUTÉNTICAS</span>
-                </motion.h1>
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="w-full text-center"
+                  >
+                    <motion.h1 
+                      className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 leading-tight tracking-tight text-black"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                    >
+                      Diseña tu sudadera perfecta
+                    </motion.h1>
                 
-                <motion.p 
-                  className="text-base sm:text-lg md:text-2xl text-gray-300 mb-6 max-w-xl font-light"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                  Las mejores marcas. Verificación garantizada. Envío express 24-48h.
-                </motion.p>
+                    <motion.p 
+                      className="text-sm sm:text-base text-gray-600 mb-6 max-w-2xl mx-auto"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                      Crea diseños únicos con nuestras plantillas. Añade banderas, nombres o logos.
+                    </motion.p>
 
-                <motion.div 
-                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                >
-                  <Link 
-                    to="/productos" 
-                    className="bg-white text-black px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm md:text-base hover:bg-gray-200 transition-all inline-flex items-center justify-center gap-2 rounded-md shadow"
-                  >
-                    EXPLORAR TIENDA
-                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link 
-                    to="/productos"
-                    className="border border-white/70 text-white px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm md:text-base hover:bg-white hover:text-black transition-all rounded-md backdrop-blur-sm"
-                  >
-                    NUEVOS LANZAMIENTOS
-                  </Link>
-                </motion.div>
+                    <motion.div 
+                      className="mx-auto"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                    >
+                      <Link 
+                        to="/productos" 
+                        className="bg-black text-white px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm md:text-base hover:bg-gray-900 transition-all inline-flex items-center justify-center gap-2 rounded-md shadow"
+                      >
+                        EXPLORAR TODAS LAS SUDADERAS
+                      </Link>
+                    </motion.div>
+                  </motion.div>
 
                 {/* Trust Indicators */}
                 <motion.div
@@ -120,7 +113,6 @@ const HomePage = () => {
                     <span className="text-gray-300">Verificación Experta</span>
                   </div>
                 </motion.div>
-              </motion.div>
             </div>
           </div>
         </div>
@@ -213,15 +205,15 @@ const HomePage = () => {
       {/* Featured Brands */}
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <h2 className="text-3xl md:text-4xl font-black mb-8 text-center">Marcas Destacadas</h2>
+          <h2 className="text-3xl md:text-4xl font-black mb-8 text-center">Categorías Destacadas</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {['Nike', 'Adidas', 'Balenciaga', 'Gucci', 'Off-White', 'Prada'].map((brand) => (
+            {['Gorras', 'Banderas', 'Sudaderas', 'Accesorios', 'Pegatinas', 'Llaveros'].map((cat) => (
               <Link
-                key={brand}
+                key={cat}
                 to={`/productos`}
                 className="aspect-square bg-white rounded-lg flex items-center justify-center text-xl md:text-2xl font-black hover:shadow-xl transition-all hover:scale-105"
               >
-                {brand}
+                {cat}
               </Link>
             ))}
           </div>

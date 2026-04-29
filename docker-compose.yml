@@ -1,13 +1,13 @@
 version: '3.8'
 
 services:
-  valtrex-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: valtrex-tienda
+  flagvibe-app:
+    build: .
+    container_name: flagvibe-app
     ports:
-      - "3000:8080"
+      - "3000:3000"
+    networks:
+      - flagvibe-network
     restart: unless-stopped
     environment:
       - NODE_ENV=production
@@ -15,5 +15,5 @@ services:
       - valtrex-network
 
 networks:
-  valtrex-network:
+  flagvibe-network:
     driver: bridge

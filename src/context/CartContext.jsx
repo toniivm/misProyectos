@@ -31,9 +31,10 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     setCart((prevCart) => {
+      const productPersonalization = JSON.stringify(product.personalization || null);
       const existingItemIndex = prevCart.findIndex(
-        // Identificar ítem por ID, TALLA y COLOR para evitar duplicados
-        (item) => item.id === product.id && item.size === product.size && item.color === product.color
+        // Identificar ítem por ID, TALLA, COLOR y PERSONALIZACIÓN para evitar duplicados
+        (item) => item.id === product.id && item.size === product.size && item.color === product.color && JSON.stringify(item.personalization || null) === productPersonalization
       );
 
       if (existingItemIndex > -1) {
@@ -52,10 +53,15 @@ export const CartProvider = ({ children }) => {
     setIsCartOpen(true); // Abrir sidebar automáticamente al añadir
   };
 
-  const removeFromCart = (itemId, itemSize, itemColor) => {
+  const removeFromCart = (itemId, itemSize, itemColor, itemPersonalizationJson = null) => {
     setCart((prev) =>
-      // Filtrar por ID, TALLA y COLOR
-      prev.filter((item) => !(item.id === itemId && item.size === itemSize && item.color === itemColor))
+      // Filtrar por ID, TALLA, COLOR y PERSONALIZACIÓN (si se pasó)
+      prev.filter((item) => {
+        const sameId = item.id === itemId && item.size === itemSize && item.color === itemColor;
+        if (!sameId) return true;
+        if (itemPersonalizationJson == null) return false; // remove even if no personalization provided
+        return JSON.stringify(item.personalization || null) !== String(itemPersonalizationJson);
+      })
     );
   };
 

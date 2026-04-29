@@ -170,7 +170,7 @@ Creates a Stripe PaymentIntent
 ```json
 Request:
 {
-  "items": [{ "id": "product-1", "qty": 2, "price": 89.99, "name": "Nike Air Max" }],
+  "items": [{ "id": "product-1", "qty": 2, "price": 89.99, "name": "Producto personalizado" }],
   "currency": "eur",
   "email": "customer@example.com",
   "shipping": {

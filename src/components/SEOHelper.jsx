@@ -40,21 +40,21 @@ export default function SEOHelper({
     };
 
     // Standard meta tags
-    setMetaTag('description', description || 'Descubre nuestra colección premium de sneakers auténticas, bolsos de lujo y ropa de moda. Envío gratis en pedidos superiores a 50€.');
+    setMetaTag('description', description || 'Productos personalizados: gorras, banderas, sudaderas y accesorios. Diseños personalizables y envío rápido.');
     setMetaTag('viewport', 'width=device-width, initial-scale=1.0');
-    setMetaTag('keywords', 'sneakers, zapatillas, bolsos, moda, ropa premium, Nike, Adidas, Gucci');
+    setMetaTag('keywords', 'productos personalizados, gorras, banderas, sudaderas, accesorios, personalización');
 
     // Open Graph tags
-    setOGTag('og:title', title || 'Tienda de Moda Premium');
-    setOGTag('og:description', description || 'Descubre nuestra colección premium de sneakers auténticas, bolsos de lujo y ropa de moda.');
+    setOGTag('og:title', title || 'Tienda de Productos Personalizados');
+    setOGTag('og:description', description || 'Productos personalizados: gorras, banderas, sudaderas y accesorios.');
     setOGTag('og:image', image || 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1200&h=630&fit=crop');
     setOGTag('og:url', url || window.location.href);
     setOGTag('og:type', 'website');
 
     // Twitter Card tags
     setMetaTag('twitter:card', 'summary_large_image');
-    setMetaTag('twitter:title', title || 'Tienda de Moda Premium');
-    setMetaTag('twitter:description', description || 'Descubre nuestra colección premium de sneakers auténticas, bolsos de lujo y ropa de moda.');
+    setMetaTag('twitter:title', title || 'Tienda de Productos Personalizados');
+    setMetaTag('twitter:description', description || 'Productos personalizados: gorras, banderas, sudaderas y accesorios.');
     setMetaTag('twitter:image', image || 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1200&h=630&fit=crop');
 
     // Cleanup on unmount

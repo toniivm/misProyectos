@@ -3,7 +3,7 @@ $body = @{
     id = "1"
     qty = 1
     price = 189.99
-    name = "Nike AF1"
+    name = "Producto personalizado de prueba"
   })
   currency = "eur"
   email = "test@example.com"

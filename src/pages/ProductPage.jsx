@@ -24,12 +24,7 @@ export default function ProductPage() {
   const synonymMap = useMemo(() => ({
     zapatillas: ['sneakers', 'sneaker', 'tenis', 'calzado', 'shoes', 'shoe'],
     bolsos: ['bolso', 'bag', 'bags', 'cartera', 'bolsa', 'handbag', 'tote'],
-    nike: ['air force', 'air max', 'jordan'],
-    louis: ['louis vuitton', 'lv'],
-    prada: ['nylon', 're-edition'],
-    gucci: ['gg', 'marmont'],
-    hermès: ['hermes'],
-    dior: ['oblique', 'book tote'],
+    personalizado: ['personalizado', 'personal', 'custom', 'customizado', 'personalizar'],
   }), []);
 
   const normalizeText = (text) =>

@@ -95,13 +95,13 @@ Una vez que el backend esté online, verificar:
 
 1. **Health endpoint**:
    ```powershell
-   Invoke-RestMethod -Uri https://valtrex-backend.onrender.com/health
+   Invoke-RestMethod -Uri https://flagvibe-backend.onrender.com/health
    ```
 
 2. **Payment intent creation**:
    ```powershell
    $body = @{ amount = 10000 } | ConvertTo-Json
-   Invoke-RestMethod -Uri https://valtrex-backend.onrender.com/payments/create-intent `
+   Invoke-RestMethod -Uri https://flagvibe-backend.onrender.com/payments/create-intent `
      -Method POST -Body $body -ContentType 'application/json'
    ```
 
@@ -114,7 +114,7 @@ Una vez que el backend esté online, verificar:
 
 Asegurar que en Render Dashboard estén configuradas:
 
-**Backend (`valtrex-backend`):**
+**Backend (`flagvibe-backend`):**
 ```env
 PORT=8080
 STRIPE_SECRET_KEY=sk_test_...
@@ -138,6 +138,6 @@ ADMIN_API_KEY=...
 ## Referencias
 
 - Render Dashboard: https://dashboard.render.com/
-- Backend Service: valtrex-backend
+- Backend Service: flagvibe-backend
 - Frontend Service: valtrex-tienda
 - Documentación: [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)

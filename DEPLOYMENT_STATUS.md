@@ -1,4 +1,4 @@
-# VALTREX - Backend Deployment Status
+# FLAGVIBE - Backend Deployment Status
 
 **Date**: December 2, 2025  
 **Status**: 🟡 Deployment In Progress
@@ -29,7 +29,7 @@ All endpoints are properly configured:
 ### 3. Environment Variables Required
 Make sure these are set in Render Dashboard:
 
-**Backend (valtrex-backend)**:
+**Backend (flagvibe-backend)**:
 ```
 PORT=8080
 STRIPE_SECRET_KEY=sk_test_...
@@ -42,7 +42,7 @@ SENDER_EMAIL=noreply@yourdomain.com
 ADMIN_API_KEY=your-secure-admin-key
 ```
 
-**Frontend (valtrex-tienda)**:
+**Frontend (flagvibe-app)**:
 ```
 REACT_APP_FIREBASE_API_KEY=AIzaxxx
 REACT_APP_FIREBASE_AUTH_DOMAIN=xxx.firebaseapp.com
@@ -52,7 +52,7 @@ REACT_APP_FIREBASE_MESSAGING_SENDER_ID=xxx
 REACT_APP_FIREBASE_APP_ID=1:xxx:web:xxx
 REACT_APP_FIREBASE_MEASUREMENT_ID=G-xxx
 REACT_APP_STRIPE_PUBLIC_KEY=pk_test_xxx
-REACT_APP_API_BASE=https://valtrex-backend.onrender.com
+REACT_APP_API_BASE=https://flagvibe-backend.onrender.com
 ```
 
 ---

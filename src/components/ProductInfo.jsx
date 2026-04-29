@@ -12,6 +12,13 @@ export default function ProductInfo({ product }) {
   const [size, setSize] = useState(initialSize);
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
   const [quantity, setQuantity] = useState(1);
+  const personalizationOpts = product.personalizationOptions || null;
+  const [personalization, setPersonalization] = useState(() => ({
+    text: '',
+    position: personalizationOpts?.positions?.[0] || null,
+    font: personalizationOpts?.fonts?.[0] || null,
+    imageData: null,
+  }));
 
   const hasDiscount = product.discount > 0;
   const discountedPrice = hasDiscount ? product.price * (1 - product.discount / 100) : product.price;
@@ -135,8 +142,82 @@ export default function ProductInfo({ product }) {
 
       {/* Botones de acción */}
       <div className="flex flex-col gap-3 mt-4">
-        <AddToCartButton product={{...product, selectedColor, color: selectedColor}} size={size} quantity={quantity} />
-        
+        {personalizationOpts && (
+          <div className="border rounded-lg p-4 bg-gray-50 space-y-3">
+            <h4 className="font-semibold">Personalización</h4>
+            {personalizationOpts.allowText && (
+              <div>
+                <label className="text-sm text-gray-700">Texto (máx {personalizationOpts.maxTextLength})</label>
+                <input
+                  type="text"
+                  maxLength={personalizationOpts.maxTextLength}
+                  value={personalization.text}
+                  onChange={(e) => setPersonalization(p => ({ ...p, text: e.target.value }))}
+                  className="w-full mt-2 p-2 border rounded"
+                />
+              </div>
+            )}
+
+            {personalizationOpts.positions && (
+              <div>
+                <label className="text-sm text-gray-700">Posición</label>
+                <select
+                  value={personalization.position}
+                  onChange={(e) => setPersonalization(p => ({ ...p, position: e.target.value }))}
+                  className="w-full mt-2 p-2 border rounded"
+                >
+                  {personalizationOpts.positions.map((pos) => (
+                    <option key={pos} value={pos}>{pos.replace(/-/g, ' ')}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {personalizationOpts.fonts && (
+              <div>
+                <label className="text-sm text-gray-700">Fuente</label>
+                <select
+                  value={personalization.font}
+                  onChange={(e) => setPersonalization(p => ({ ...p, font: e.target.value }))}
+                  className="w-full mt-2 p-2 border rounded"
+                >
+                  {personalizationOpts.fonts.map((f) => (
+                    <option key={f} value={f}>{f}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {personalizationOpts.allowImage && (
+              <div>
+                <label className="text-sm text-gray-700">Imagen (opcional)</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={async (e) => {
+                    const file = e.target.files && e.target.files[0];
+                    if (!file) return setPersonalization(p => ({ ...p, imageData: null }));
+                    const reader = new FileReader();
+                    reader.onload = () => setPersonalization(p => ({ ...p, imageData: reader.result }));
+                    reader.readAsDataURL(file);
+                  }}
+                  className="w-full mt-2"
+                />
+                {personalization.imageData && (
+                  <img src={personalization.imageData} alt="preview" className="mt-2 w-28 h-28 object-cover rounded" />
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        <AddToCartButton
+          product={{ ...product, selectedColor, color: selectedColor }}
+          size={size}
+          quantity={quantity}
+          personalization={personalizationOpts ? personalization : undefined}
+        />
+
         <div className="flex gap-3">
           <button 
             onClick={() => addToWishlist(product)}

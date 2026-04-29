@@ -1,6 +1,6 @@
 # 🚀 Guía de Despliegue con Docker
 
-## Pasos para desplegar tu tienda VALTREX:
+## Pasos para desplegar tu tienda FLAGVIBE:
 
 ### 1. Instalar dependencias y construir
 ```bash
@@ -10,12 +10,12 @@ npm run build
 
 ### 2. Construir la imagen Docker
 ```bash
-docker build -t valtrex-tienda .
+docker build -t flagvibe-app .
 ```
 
 ### 3. Ejecutar el contenedor
 ```bash
-docker run -d -p 3000:80 --name valtrex valtrex-tienda
+docker run -d -p 3000:80 --name flagvibe flagvibe-app
 ```
 
 O usa docker-compose:

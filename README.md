@@ -1,92 +1,45 @@
-# 🔒 VALTREX - Sneakers Premium Multimarca
+# FLAGVIBE — Tienda de Productos Personalizados
 
-Tienda online multimarca de sneakers premium con máxima seguridad y privacidad. Envío discreto, pago 100% cifrado SSL y autenticación de productos garantizada. Nike, Adidas, Balenciaga, Gucci, Off-White, Prada y más marcas exclusivas.
+FLAGVIBE es una tienda para productos personalizados: banderas, gorras, parches, llaveros y pegatinas. Diseña tu producto, añade texto o logo, y te lo entregamos listo para usar.
+## Desarrollo local
 
-## 🎯 Demo en Vivo
-
-🌐 **[https://valtre.onrender.com/](https://valtre.onrender.com/)**
-
-## 🚀 Despliegue en Render (backend y frontend)
-
-- Backend Render: `https://valtre-backend.onrender.com` (service id: `srv-d4mvuvchg0os73c7n47g`).
-- Frontend debe tener `REACT_APP_API_URL=https://valtre-backend.onrender.com` en las env vars de Render.
-- Backend env vars mínimas: `ADMIN_API_KEY`, `STRIPE_SECRET_KEY`, `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` (usa `\n`), opcional `SENDGRID_API_KEY`, `SENDER_EMAIL`, `STRIPE_WEBHOOK_SECRET`.
-- Seed de stock en Firestore (requiere `ADMIN_API_KEY`):
-```bash
-curl -X POST https://valtre-backend.onrender.com/admin/seed-products \
-  -H "x-admin-key: <ADMIN_API_KEY>" \
-  -H "Content-Type: application/json" \
-  -d '{"defaultStock":25}'
+1. Instala dependencias:
 ```
-- Alternativa (Windows/PowerShell):
-  ```pwsh
-  $env:ADMIN_API_KEY="<ADMIN_API_KEY>"
-  ./scripts/seed_products.ps1 -ApiBase "https://valtre-backend.onrender.com" -DefaultStock 25
-  ```
+npm install
+```
+2. Inicia el backend (modo mock para evitar servicios externos):
 
+PowerShell:
+```
+cd server
+$env:SKIP_EXTERNAL='1'
+npm run dev
+```
+3. En otra terminal, inicia el frontend:
 
-## 🔐 Seguridad y Confianza
+```
+cd ..
+npm start
+```
+Abre `http://localhost:3000` (o el puerto que indique la app) para ver la tienda.
 
-- 🛡️ **SSL Seguro**: Pago 100% cifrado con certificado SSL
-- 🚀 **Envío Discreto**: Entrega rápida 24-48h sin información visible
-- ✅ **100% Auténtico**: Todos los productos con garantía de autenticidad verificada
-- 🔒 **Privacidad Total**: Datos protegidos, sin tracking de ubicación
-- 💳 **Múltiples Métodos de Pago**: VISA, Mastercard, Apple Pay, PayPal, Google Pay, Crypto
-- 🏦 **Pago Seguro**: Procesamiento bancario certificado PCI DSS
+## Catálogo
+El catálogo por defecto contiene productos orientados a personalización (banderas, gorras, accesorios). Puedes editar `server/src/products.js` y `src/data/products.js` para cambiar imágenes y descripciones.
 
-## ✨ Características Principales
+## Pruebas rápidas
+- Abre un producto, añade personalización (texto o imagen), añádelo al carrito.
+- Ve a la página de checkout para verificar que el payload incluye el objeto `personalization` por ítem.
 
-- 🏆 **15 Marcas Premium**: Nike, Adidas, Balenciaga, Gucci, Off-White, Prada, Alexander McQueen, Golden Goose, New Balance, Versace, Salomon, Veja, Rick Owens, Converse
-- 👟 **30 Modelos Exclusivos**: Desde Jordan 1 hasta Balenciaga Triple S
-- 💎 **Precios de Lujo**: Productos desde 109€ hasta 1299€
-- 🎨 **Diseño Moderno y Responsive**: Interfaz elegante adaptada a todos los dispositivos
-- 🛒 **Carrito de Compras**: Sistema completo con gestión de productos y tallas
-- 💝 **Lista de Deseos (Wishlist)**: Guarda tus sneakers favoritas con persistencia en localStorage
-- 🔐 **Autenticación con Firebase**: Login y registro de usuarios con encriptación
-- 🔍 **Filtros por Marca**: Búsqueda inteligente por marca, precio y ordenamiento
-- 💳 **Checkout Completo**: Proceso de pago paso a paso con validaciones de seguridad
-- 🎯 **Animaciones Suaves**: Transiciones con Framer Motion para UX premium
-- 🏷️ **Secciones Destacadas**: Novedades, Ofertas y Productos Populares
-- 🎨 **Tema Personalizado**: Diseño minimalista negro con badges de confianza
-- 📱 **100% Responsive**: Optimizado para móvil, tablet y escritorio
-- 🔒 **Privacidad Total**: Sin información de ubicación visible, envíos anónimos
-- 🐳 **Docker Ready**: Configuración completa para despliegue con Docker y Nginx
+Si quieres que adapte el diseño visual a unas imágenes que tienes, pásame las imágenes o indícame los assets a reemplazar en `/public/img`.
+## Catálogo destacado
 
-## 👟 Catálogo por Marcas
+FLAGVIBE se centra en productos personalizables: gorras, banderas, sudaderas y accesorios. El catálogo de ejemplo incluye artículos pensados para personalización (texto, logo, colores y posiciones de impresión).
 
-### Nike (4 modelos)
-- Air Jordan 1 Chicago - 189.99€
-- Dunk Low Panda - 129.99€
-- TN Triple Black - 199.99€
-- Travis Scott Jordan 1 - 899.99€
+- 📦 Productos: Gorras, Banderas, Sudaderas, Pegatinas, Llaveros
+- 🎨 Opciones de personalización: Texto, tipografías, colores, posiciones
+- 🚚 Envío: Entregas rápidas y seguimiento de pedidos
 
-### Adidas (4 modelos)
-- Yeezy Boost 350 V2 Zebra - 399.99€
-- Samba OG - 119.99€
-- Gazelle Bold Pink - 139.99€
-- Bad Bunny Campus - 449.99€
-
-### Balenciaga (3 modelos)
-- Triple S Clear Sole - 1099.99€
-- Speed Trainer Black - 799.99€
-- Track LED - 1299.99€
-
-### Gucci (3 modelos)
-- Ace Bee Embroidery - 699.99€
-- Rhyton Vintage - 899.99€
-- Screener Leather - 749.99€
-
-### Marcas Premium
-- **Off-White**: Out Of Office, Odsy-1000
-- **Prada**: Cloudbust Thunder, America's Cup
-- **Alexander McQueen**: Oversized, Tread Slick Boot
-- **Golden Goose**: Superstar, Mid Star Leopard
-- **New Balance**: 550, 2002R
-- **Versace**: Chain Reaction
-- **Salomon**: XT-6, CDG Speedcross
-- **Rick Owens**: DRKSHDW Ramones
-- **Veja**: V-10 Eco-Luxury
-- **Converse**: CDG Play Chuck 70
+Puedes editar `server/src/products.js` y `src/data/products.js` para cambiar imágenes y descripciones de ejemplo.
 
 ## 🚀 Tecnologías Utilizadas
 

@@ -66,7 +66,7 @@ export default function Header() {
             >
               <img
                 src="/img/logo.jpg"
-                alt="VALTREX"
+                  alt="FLAGVIBE"
                 width="36"
                 height="36"
                 loading="eager"
@@ -76,6 +76,9 @@ export default function Header() {
               <span className="hidden md:inline text-xl md:text-2xl font-black tracking-tight truncate">
                 <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">VALTREX</span>
               </span>
+                <span className="hidden md:inline text-xl md:text-2xl font-black tracking-tight truncate">
+                  <span className="bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">FLAGVIBE</span>
+                </span>
             </Link>
 
             {/* Right Icons */}

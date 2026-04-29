@@ -264,7 +264,8 @@ const createIntentSchema = Joi.object({
     id: Joi.string().required(), 
     qty: Joi.number().min(1).integer().required(), 
     price: Joi.number().min(0).required(), 
-    name: Joi.string().max(200).required() 
+    name: Joi.string().max(200).required(),
+    personalization: Joi.object().optional()
   })).min(1).max(100).required(),
   currency: Joi.string().valid('eur', 'usd', 'gbp', 'jpy').default('eur'),
   email: Joi.string().email().max(100).required(),

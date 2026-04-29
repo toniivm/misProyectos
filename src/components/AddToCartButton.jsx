@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import Toast from "./Toast";
 
-export default function AddToCartButton({ product, size, quantity }) {
+export default function AddToCartButton({ product, size, quantity, personalization }) {
   const { addToCart } = useCart();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -42,7 +42,7 @@ export default function AddToCartButton({ product, size, quantity }) {
       return;
     }
 
-    addToCart({ ...product, size: isBag ? "Único" : size, quantity });
+    addToCart({ ...product, size: isBag ? "Único" : size, quantity, personalization });
     setToastMessage("Producto añadido al carrito ✅");
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2500); 

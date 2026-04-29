@@ -300,11 +300,10 @@ export default function AdminPage() {
                 className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
               >
                 <option value="all">Todas las categorías</option>
-                <option value="camisetas">Camisetas</option>
-                <option value="pantalones">Pantalones</option>
-                <option value="chaquetas">Chaquetas</option>
-                <option value="sudaderas">Sudaderas</option>
+                <option value="banderas">Banderas</option>
+                <option value="gorras">Gorras</option>
                 <option value="accesorios">Accesorios</option>
+                <option value="collares">Collares</option>
               </select>
             </div>
 
@@ -512,10 +511,10 @@ function AddProductForm({ onSave, onCancel }) {
     title: '',
     description: '',
     price: '',
-    category: 'camisetas',
+    category: 'banderas',
     stock: '50',
     images: ['https://placehold.co/800x800/333/FFF?text=Nuevo+Producto'],
-    sizes: ['S', 'M', 'L', 'XL'],
+    sizes: ['Único'],
     discount: 0
   });
 
@@ -551,11 +550,10 @@ function AddProductForm({ onSave, onCancel }) {
             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
           >
-            <option value="camisetas">Camisetas</option>
-            <option value="pantalones">Pantalones</option>
-            <option value="chaquetas">Chaquetas</option>
-            <option value="sudaderas">Sudaderas</option>
+            <option value="banderas">Banderas</option>
+            <option value="gorras">Gorras</option>
             <option value="accesorios">Accesorios</option>
+            <option value="collares">Collares</option>
           </select>
         </div>
 

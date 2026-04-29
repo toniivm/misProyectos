@@ -80,7 +80,7 @@ const CartSidebar = () => {
               </p>
             ) : (
               cart.map((item) => (
-                <li key={`${item.id}-${item.size || 'unico'}`} className="flex items-start gap-4 border-b border-gray-100 pb-4 last:border-b-0">
+                <li key={`${item.id}-${item.size || 'unico'}-${encodeURIComponent(JSON.stringify(item.personalization || ''))}`} className="flex items-start gap-4 border-b border-gray-100 pb-4 last:border-b-0">
                   <img
                     src={item.images ? item.images[0] : item.image}
                     alt={item.title}
@@ -90,10 +90,13 @@ const CartSidebar = () => {
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900 text-sm truncate">{item.title}</p>
                     <p className="text-xs text-gray-500 mt-1">Talla: {item.size} {item.color && `| Color: ${item.color}`} | Cant: {item.quantity}</p>
+                    {item.personalization && (
+                      <p className="text-xs text-gray-500 mt-1">Personalización: {item.personalization.text || '—'} {item.personalization.position ? `· ${item.personalization.position.replace(/-/g,' ')}` : ''}</p>
+                    )}
                     <p className="font-bold text-base mt-1 text-black">{(item.price * item.quantity).toFixed(2)} €</p>
                   </div>
                   <button
-                    onClick={() => removeFromCart(item.id, item.size, item.color)}
+                    onClick={() => removeFromCart(item.id, item.size, item.color, JSON.stringify(item.personalization || null))}
                     className="text-xs font-medium text-red-500 hover:text-red-600 ml-2 mt-1 flex-shrink-0"
                     aria-label={`Eliminar ${item.title}`}
                   >
