@@ -1,7 +1,13 @@
 #!/usr/bin/env pwsh
 # Script para commit y push de cambios finales a producción
 
-Set-Location -Path "d:\Escritorio\tiendaPrueba\misProyectos"
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$projectRootPath = Join-Path $scriptDir '..\..'
+try {
+    Set-Location -Path (Resolve-Path $projectRootPath).Path
+} catch {
+    Write-Host "⚠️ No se pudo resolver la ruta del proyecto; usando el directorio actual." -ForegroundColor Yellow
+}
 
 Write-Host "📦 Staging all changes..." -ForegroundColor Cyan
 git add .
