@@ -59,6 +59,29 @@
       ]
     }
     </script>
+    <!-- Quick cache-bust: unregister old service worker and clear caches once on production to force clients to fetch updated assets -->
+    <script>
+      (function(){
+        try{
+          var host = location.hostname;
+          if ((host === 'valtre.onrender.com' || host === 'www.valtre.onrender.com') && !sessionStorage.getItem('sw_unregistered_v2')){
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then(function(regs){
+                regs.forEach(function(r){ try{ r.unregister(); }catch(e){} });
+              }).catch(()=>{});
+            }
+            if (window.caches) {
+              caches.keys().then(function(keys){
+                return Promise.all(keys.map(function(k){ return caches.delete(k); }));
+              }).catch(()=>{});
+            }
+            sessionStorage.setItem('sw_unregistered_v2','1');
+            // Reload once to fetch fresh app shell and assets
+            setTimeout(function(){ try{ location.reload(); }catch(e){} }, 200);
+          }
+        }catch(e){/* ignore */}
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
