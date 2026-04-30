@@ -11,6 +11,8 @@ const STATIC_ASSETS = [
   '/favicon.ico'
 ];
 
+const FALLBACK_SVG = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23e5e7eb'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,Arial' font-size='28' fill='%236b7280'>Offline</text></svg>`;
+
 // Install event - precache static assets
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing service worker...');
@@ -71,11 +73,15 @@ self.addEventListener('fetch', (event) => {
           }
           return networkResponse;
         }),
-        new Promise((resolve) =>
+        new Promise((resolve) => {
           setTimeout(() => {
-            caches.match('/index.html').then(resolve);
+            caches.match('/index.html').then((resp) => {
+              if (resp) return resolve(resp);
+              // If index.html is not in cache, return a simple offline Response
+              return resolve(new Response('<!doctype html><html><head><meta charset="utf-8"><title>Offline</title></head><body><h1>Offline</h1><p>Contenido no disponible</p></body></html>', { headers: { 'Content-Type': 'text/html' }, status: 503 }));
+            });
           }, 3000) // 3 second timeout - use cache if network is slow
-        )
+        })
       ]).catch(() => caches.match('/index.html'))
     );
     return;
@@ -113,8 +119,16 @@ self.addEventListener('fetch', (event) => {
           .catch(() => {
             // Offline fallback for navigation requests
             if (request.destination === 'document') {
-              return caches.match('/index.html');
+              return caches.match('/index.html').then((resp) => resp || new Response('<!doctype html><html><head><meta charset="utf-8"><title>Offline</title></head><body><h1>Offline</h1><p>Contenido no disponible</p></body></html>', { headers: { 'Content-Type': 'text/html' }, status: 503 }));
             }
+
+            // For images, return a small SVG placeholder Response
+            if (request.destination === 'image') {
+              return fetch(FALLBACK_SVG).catch(() => new Response(FALLBACK_SVG, { headers: { 'Content-Type': 'image/svg+xml' }, status: 200 }));
+            }
+
+            // Generic fallback response
+            return new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
           });
       })
   );

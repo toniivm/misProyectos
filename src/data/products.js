@@ -5,7 +5,7 @@ const PRODUCTS = [
     title: "Bandera Personalizada - Poliéster 90x60cm",
     description: "Bandera para exteriores/interiores en poliéster resistente. Añade texto o logo personalizado.",
     price: 19.99,
-    images: ["/img/products/product-1.svg", "/img/products/product-1.svg"],
+    images: ["/img/products/product-1.svg", "/img/products/product-1-thumb1.svg", "https://picsum.photos/seed/flag1/800/800"],
     sizes: ["90x60"],
     category: "banderas",
     brand: "MiTaller",
@@ -31,7 +31,7 @@ const PRODUCTS = [
     title: "Gorra Personalizada - Snapback",
     description: "Gorra snapback con frontal imprimible. Elige color y añade texto o bordado (simulado).",
     price: 14.99,
-    images: ["/img/products/product-2.svg", "/img/products/product-2.svg"],
+    images: ["/img/products/product-2.svg", "/img/products/product-2-thumb1.svg", "https://picsum.photos/seed/hat1/800/800"],
     sizes: ["S/M", "M/L"],
     category: "gorras",
     brand: "MiTaller",
@@ -52,7 +52,7 @@ const PRODUCTS = [
     title: "Parche Bordado Personalizado",
     description: "Parche termo-adhesivo con diseño personalizado. Perfecto para chaquetas o mochilas.",
     price: 7.5,
-    images: ["/img/products/product-3.svg", "/img/products/product-3.svg"],
+    images: ["/img/products/product-3.svg", "/img/products/product-3-thumb1.svg", "https://picsum.photos/seed/patch1/800/800"],
     sizes: ["10x6cm", "15x9cm"],
     category: "accesorios",
     brand: "MiTaller",
@@ -89,7 +89,7 @@ const PRODUCTS = [
   },
   {
     id: 5,
-    title: "Gorra Trucker Personalizada - Estampado en frontal",
+    images: ["/img/products/product-1.svg", "https://picsum.photos/seed/keychain1/800/800"],
     description: "Gorra trucker con frontal alto imprimible. Ideal para merchandising y regalos.",
     price: 16.99,
     images: ["/img/products/product-2.svg"],
@@ -109,7 +109,7 @@ const PRODUCTS = [
   },
   {
     id: 6,
-    title: "Pegatina resistente al agua - Personalizada",
+    images: ["/img/products/product-2.svg", "https://picsum.photos/seed/trucker1/800/800"],
     description: "Pegatina vinílica resistente al agua. Ideal para botellas, cascos o laptops.",
     price: 1.5,
     images: ["/img/products/product-3.svg"],
@@ -130,3 +130,4 @@ const PRODUCTS = [
 ];
 
 export default PRODUCTS;
+    images: ["/img/products/product-3.svg", "https://picsum.photos/seed/sticker1/800/800"],
