@@ -72,7 +72,7 @@ const PRODUCTS = [
     title: "Llavero Personalizado en Acrílico",
     description: "Llavero rectangular con impresión a doble cara. Añade texto o una pequeña imagen.",
     price: 4.99,
-    images: ["/img/products/product-1.svg"],
+    images: ["/img/products/product-1.svg", "https://source.unsplash.com/800x800/?keychain,acrylic"],
     sizes: ["5x3cm"],
     category: "accesorios",
     brand: "MiTaller",
@@ -89,10 +89,10 @@ const PRODUCTS = [
   },
   {
     id: 5,
-    images: ["/img/products/product-1.svg", "https://source.unsplash.com/800x800/?keychain,acrylic"],
+    title: "Gorra Trucker Personalizada - Estampado en frontal",
     description: "Gorra trucker con frontal alto imprimible. Ideal para merchandising y regalos.",
     price: 16.99,
-    images: ["/img/products/product-2.svg"],
+    images: ["/img/products/product-2.svg", "https://source.unsplash.com/800x800/?trucker,cap"],
     sizes: ["Único"],
     category: "gorras",
     brand: "MiTaller",
@@ -109,10 +109,10 @@ const PRODUCTS = [
   },
   {
     id: 6,
-    images: ["/img/products/product-2.svg", "https://source.unsplash.com/800x800/?trucker,cap"],
+    title: "Pegatina resistente al agua - Personalizada",
     description: "Pegatina vinílica resistente al agua. Ideal para botellas, cascos o laptops.",
     price: 1.5,
-    images: ["/img/products/product-3.svg"],
+    images: ["/img/products/product-3.svg", "https://source.unsplash.com/800x800/?sticker,vinyl"],
     sizes: ["5cm", "10cm"],
     category: "accesorios",
     brand: "MiTaller",
@@ -130,4 +130,3 @@ const PRODUCTS = [
 ];
 
 export default PRODUCTS;
-    images: ["/img/products/product-3.svg", "https://source.unsplash.com/800x800/?sticker,vinyl"],
