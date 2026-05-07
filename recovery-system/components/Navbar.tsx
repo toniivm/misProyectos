@@ -1,0 +1,121 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
+
+const links = [
+  { label: 'Products', href: '#products' },
+  { label: 'Benefits', href: '#benefits' },
+  { label: 'Results', href: '#transformation' },
+  { label: 'Reviews', href: '#testimonials' },
+  { label: 'Pricing', href: '#offer' },
+]
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <>
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? 'bg-[#050508]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between h-[72px]">
+            {/* Logo */}
+            <a href="#" className="flex items-center gap-3 group">
+              <div className="relative w-8 h-8">
+                <div className="absolute inset-0 bg-electric-500 rounded-sm opacity-20 group-hover:opacity-40 transition-opacity" />
+                <svg viewBox="0 0 32 32" fill="none" className="relative w-8 h-8">
+                  <rect x="4" y="4" width="10" height="10" rx="2" fill="#0ea5e9" />
+                  <rect x="18" y="4" width="10" height="10" rx="2" fill="#0ea5e9" opacity="0.4" />
+                  <rect x="4" y="18" width="10" height="10" rx="2" fill="#0ea5e9" opacity="0.4" />
+                  <rect x="18" y="18" width="10" height="10" rx="2" fill="#0ea5e9" />
+                </svg>
+              </div>
+              <span className="font-display font-bold text-sm tracking-[0.2em] uppercase text-white">
+                Recovery System<span className="text-electric-400">™</span>
+              </span>
+            </a>
+
+            {/* Desktop links */}
+            <div className="hidden lg:flex items-center gap-8">
+              {links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs font-medium tracking-[0.12em] uppercase text-slate-400 hover:text-white transition-colors duration-200 relative group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-electric-500 group-hover:w-full transition-all duration-300" />
+                </a>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="hidden lg:flex items-center gap-4">
+              <a href="#offer" className="btn-primary text-xs py-3 px-6 z-10">
+                <span className="relative z-10">Start Recovering</span>
+              </a>
+            </div>
+
+            {/* Mobile menu toggle */}
+            <button
+              className="lg:hidden text-slate-400 hover:text-white p-1"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-[72px] left-0 right-0 z-40 bg-[#050508]/95 backdrop-blur-xl border-b border-white/5 lg:hidden"
+          >
+            <div className="px-6 py-6 flex flex-col gap-6">
+              {links.map((link, i) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm font-medium tracking-[0.12em] uppercase text-slate-300 hover:text-electric-400 transition-colors"
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+              <a href="#offer" className="btn-primary text-xs w-full justify-center" onClick={() => setMenuOpen(false)}>
+                <span className="relative z-10">Start Recovering</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
