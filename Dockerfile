@@ -14,6 +14,9 @@ RUN npm run build
 # Stage 2: minimal runtime image
 FROM node:20-alpine AS runner
 
+# bust Render's stale Docker layer cache
+ARG CACHE_BUST=2
+
 WORKDIR /app
 ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
