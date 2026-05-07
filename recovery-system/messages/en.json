@@ -1,0 +1,132 @@
+{
+  "seo": {
+    "title": "RECOVERY SYSTEM™ | Premium at-home recovery",
+    "description": "Deep muscle relief, better sleep and high-performance recovery in one premium daily ritual."
+  },
+  "nav": {
+    "brand": "RECOVERY SYSTEM™",
+    "links": {
+      "system": "System",
+      "benefits": "Benefits",
+      "reviews": "Reviews",
+      "plans": "Plans"
+    },
+    "cta": "Start recovering",
+    "language": "Language"
+  },
+  "hero": {
+    "kicker": "Premium wellness technology",
+    "line1": "YOUR BODY NEVER FULLY RECOVERS.",
+    "line2": "UNTIL NOW.",
+    "subtitle": "Deep muscle relief. Better sleep. Faster recovery.",
+    "primary": "START RECOVERING",
+    "secondary": "WATCH THE ROUTINE",
+    "metrics": {
+      "users": "10,000+ active routines",
+      "rating": "4.9 verified average",
+      "guarantee": "30-day guarantee"
+    }
+  },
+  "problem": {
+    "title": "Modern life destroys recovery.",
+    "body": "Screens, stress, poor posture and intense training keep your body in a permanent recovery deficit. RECOVERY SYSTEM™ is built to close that gap every day.",
+    "items": [
+      "Neck tension from office and gaming",
+      "Persistent post-workout soreness",
+      "Shallow sleep and repeated wake-ups",
+      "Mental fatigue and low daytime energy",
+      "No real decompression ritual for stress",
+      "Feeling never truly recovered"
+    ]
+  },
+  "system": {
+    "title": "The Complete Recovery System.",
+    "description": "Three carefully selected tools, rebranded into one integrated at-home recovery ritual.",
+    "products": [
+      {
+        "name": "Pulse Pro X",
+        "tag": "Massage Gun",
+        "focus": "Deep-tissue percussion to release tension, speed up gym recovery and reduce soreness.",
+        "features": ["8 attachments", "6 intensity levels", "USB-C", "quiet motor"]
+      },
+      {
+        "name": "CerviFlex",
+        "tag": "Neck Massager",
+        "focus": "Relieves neck and shoulder stress from posture, office work and long screen sessions.",
+        "features": ["3 modes", "cervical relief", "lightweight", "daily use"]
+      },
+      {
+        "name": "SleepSeal",
+        "tag": "Sleep Mouth Tape",
+        "focus": "Supports better nighttime breathing for deeper rest and overnight recovery.",
+        "features": ["soft fit", "safe material", "night use", "30-night pack"]
+      }
+    ]
+  },
+  "benefits": {
+    "title": "Outcomes you can feel within a week.",
+    "items": [
+      "Faster recovery",
+      "Better sleep",
+      "Less pain",
+      "More energy",
+      "Reduced stress",
+      "Recovery at home"
+    ]
+  },
+  "transformation": {
+    "title": "From surviving your day to owning your performance.",
+    "before": ["Stress", "Fatigue", "Tension", "Soreness"],
+    "after": ["Calm", "Recovery", "Deep sleep", "Energy"]
+  },
+  "social": {
+    "title": "Real reviews, real routines.",
+    "testimonials": [
+      {
+        "name": "Sofia M.",
+        "role": "Product Designer",
+        "quote": "I went from ending every day in neck pain to feeling genuinely reset before bed. Neck + sleep changed everything."
+      },
+      {
+        "name": "Carlos R.",
+        "role": "Functional athlete",
+        "quote": "Deep-tissue sessions dramatically reduced my recovery time. I perform better without paying for it the next day."
+      },
+      {
+        "name": "Lucia P.",
+        "role": "Founder",
+        "quote": "This is not another gadget. It is a recovery ritual that gives me better focus, sleep and energy every week."
+      }
+    ]
+  },
+  "plans": {
+    "title": "Choose your recovery level.",
+    "cards": [
+      {
+        "name": "Starter",
+        "price": "$89",
+        "description": "Your entry into premium recovery.",
+        "items": ["Pulse Pro X", "Routine guide", "Free shipping"]
+      },
+      {
+        "name": "Pro",
+        "price": "$167",
+        "description": "The most balanced daily stack.",
+        "items": ["Pulse Pro X", "CerviFlex", "Bundle savings", "30-day guarantee"]
+      },
+      {
+        "name": "Elite",
+        "price": "$187",
+        "description": "Full 24/7 recovery system.",
+        "items": ["Pulse Pro X", "CerviFlex", "SleepSeal", "Priority shipping"]
+      }
+    ],
+    "footnote": "Limited stock • Free shipping • Satisfaction guarantee"
+  },
+  "finalCta": {
+    "title": "Recover harder. Sleep deeper. Perform better.",
+    "subtitle": "Turn your recovery into a daily performance edge.",
+    "primary": "Build my routine",
+    "secondary": "See the system"
+  }
+}

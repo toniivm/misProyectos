@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Syne } from 'next/font/google'
+import {getLocale} from 'next-intl/server'
 import './globals.css'
 
 const inter = Inter({
@@ -16,9 +17,9 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'RECOVERY SYSTEM™ — The Complete Body Recovery Kit',
+  title: 'RECOVERY SYSTEM™',
   description:
-    'Deep muscle relief. Better sleep. Faster recovery. The premium wellness tech kit trusted by athletes and high performers.',
+    'Premium recovery system for muscle relief, neck tension and sleep optimization.',
   keywords: ['recovery', 'massage gun', 'neck massager', 'sleep optimization', 'wellness', 'biohacking'],
   openGraph: {
     title: 'RECOVERY SYSTEM™',
@@ -27,14 +28,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const locale = await getLocale()
+
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable}`}>
-      <body className="bg-[#050508] text-slate-100 font-sans antialiased overflow-x-hidden">
+    <html lang={locale} className={`${inter.variable} ${syne.variable}`}>
+      <body className="bg-[#0b0d11] text-slate-100 font-sans antialiased overflow-x-hidden">
         {children}
       </body>
     </html>

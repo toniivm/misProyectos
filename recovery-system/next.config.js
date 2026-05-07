@@ -1,9 +1,13 @@
+const createNextIntlPlugin = require('next-intl/plugin');
+
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: [],
-  },
-}
+    domains: []
+  }
+};
 
-module.exports = nextConfig
+module.exports = withNextIntl(nextConfig);
