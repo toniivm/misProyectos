@@ -16,6 +16,7 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
 
 # Copy Next standalone server and static assets
 COPY --from=builder /app/recovery-system/.next/standalone ./
