@@ -21,8 +21,6 @@ ENV HOSTNAME=0.0.0.0
 # Copy Next standalone server and static assets
 COPY --from=builder /app/recovery-system/.next/standalone ./
 COPY --from=builder /app/recovery-system/.next/static ./.next/static
-COPY --from=builder /app/recovery-system/public ./public
-
 EXPOSE 10000
 
 # Render injects PORT=10000 at runtime
