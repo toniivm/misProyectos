@@ -5,11 +5,12 @@ services:
     plan: starter
     autoDeploy: true
     dockerfilePath: Dockerfile
-    healthCheckPath: /
-    numInstances: 2
+    healthCheckPath: /es
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: "10000"
 
   - type: web
     name: valtrex-backend

@@ -21,8 +21,10 @@ ENV HOSTNAME=0.0.0.0
 # Copy Next standalone server and static assets
 COPY --from=builder /app/recovery-system/.next/standalone ./
 COPY --from=builder /app/recovery-system/.next/static ./.next/static
+COPY --from=builder /app/recovery-system/public ./public
 
-EXPOSE 8080
+EXPOSE 10000
 
-# Render injects PORT at runtime; fallback to 8080 for local container runs
-CMD ["sh", "-c", "PORT=${PORT:-8080} node server.js"]
+# Render injects PORT=10000 at runtime
+ENV PORT=10000
+CMD ["node", "server.js"]
