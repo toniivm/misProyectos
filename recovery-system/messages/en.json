@@ -11,6 +11,134 @@
       "reviews": "Reviews",
       "plans": "Plans"
     },
+    "cta": "Get started",
+    "language": "Language"
+  },
+  "hero": {
+    "kicker": "Premium wellness technology",
+    "line1": "Recover better.",
+    "line2": "Sleep deeper. Perform more.",
+    "subtitle": "Deep muscle relief, optimized sleep and high-performance recovery — one premium ritual for home.",
+    "primary": "Get started",
+    "secondary": "See the system",
+    "metrics": {
+      "users": "10,000+ active routines",
+      "rating": "4.9 verified average",
+      "guarantee": "30-day guarantee"
+    }
+  },
+  "problem": {
+    "title": "Modern life destroys your recovery.",
+    "body": "Screens, stress, poor posture and intense training keep your body in a permanent deficit. RECOVERY SYSTEM™ is built to close that gap every single day.",
+    "items": [
+      "Neck tension from office and screens",
+      "Persistent post-workout muscle soreness",
+      "Shallow sleep and repeated wake-ups",
+      "Mental fatigue and low daytime energy",
+      "No real decompression ritual for stress",
+      "Never feeling fully recovered"
+    ]
+  },
+  "system": {
+    "title": "The complete recovery system.",
+    "description": "Three carefully selected tools designed to work as one integrated at-home recovery ritual.",
+    "products": [
+      {
+        "name": "Pulse Pro X",
+        "tag": "Massage Gun",
+        "focus": "Deep-tissue percussion to release tension, speed up muscle recovery and reduce soreness.",
+        "features": ["8 attachments", "6 intensity levels", "USB-C", "Quiet motor"]
+      },
+      {
+        "name": "CerviFlex",
+        "tag": "Neck Massager",
+        "focus": "Relieves neck and shoulder stress from posture, office work and long screen sessions.",
+        "features": ["3 modes", "Cervical relief", "Lightweight", "Daily use"]
+      },
+      {
+        "name": "SleepSeal",
+        "tag": "Sleep Mouth Tape",
+        "focus": "Supports better nighttime breathing for deeper rest and overnight recovery.",
+        "features": ["Soft fit", "Safe material", "Night use", "30-night pack"]
+      }
+    ]
+  },
+  "benefits": {
+    "title": "Results you can feel within a week.",
+    "items": [
+      "Faster recovery",
+      "Deeper sleep",
+      "Less muscle pain",
+      "More daily energy",
+      "Reduced stress",
+      "At home, every day"
+    ]
+  },
+  "transformation": {
+    "title": "From surviving your day to owning your performance.",
+    "before": ["Constant stress", "Accumulated fatigue", "Neck tension", "Muscle soreness"],
+    "after": ["Calm and control", "Real recovery", "Deep sleep", "Stable energy"]
+  },
+  "social": {
+    "title": "Real reviews from real routines.",
+    "testimonials": [
+      {
+        "name": "Sofia M.",
+        "role": "Product Designer",
+        "quote": "I went from ending every night in neck pain to feeling genuinely reset before bed. The neck and sleep combo changed everything."
+      },
+      {
+        "name": "Carlos R.",
+        "role": "Functional athlete",
+        "quote": "Deep-tissue sessions dramatically cut my recovery time. I perform better without paying for it the next day."
+      },
+      {
+        "name": "Lucia P.",
+        "role": "Founder",
+        "quote": "This is not another gadget. It is a recovery ritual that gives me better focus, sleep and energy every single week."
+      }
+    ]
+  },
+  "plans": {
+    "title": "Choose your recovery level.",
+    "cards": [
+      {
+        "name": "Starter",
+        "price": "$89",
+        "description": "Your entry into premium recovery.",
+        "items": ["Pulse Pro X", "Routine guide", "Free shipping"]
+      },
+      {
+        "name": "Pro",
+        "price": "$167",
+        "description": "The most balanced daily stack.",
+        "items": ["Pulse Pro X", "CerviFlex", "Bundle savings", "30-day guarantee"]
+      },
+      {
+        "name": "Elite",
+        "price": "$187",
+        "description": "Full 24/7 recovery system.",
+        "items": ["Pulse Pro X", "CerviFlex", "SleepSeal", "Priority shipping"]
+      }
+    ],
+    "footnote": "Limited stock · Free shipping · Satisfaction guarantee"
+  },
+  "finalCta": {
+    "title": "Your body deserves recovery.",
+    "subtitle": "Turn recovery into your daily performance edge.",
+    "primary": "Get started",
+    "secondary": "See the system"
+  }
+}
+
+  "nav": {
+    "brand": "RECOVERY SYSTEM™",
+    "links": {
+      "system": "System",
+      "benefits": "Benefits",
+      "reviews": "Reviews",
+      "plans": "Plans"
+    },
     "cta": "Start recovering",
     "language": "Language"
   },
