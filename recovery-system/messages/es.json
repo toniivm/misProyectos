@@ -12,7 +12,10 @@
       "plans": "Planes"
     },
     "cta": "Empezar ahora",
-    "language": "Idioma"
+    "language": "Idioma",
+    "addToCart": "Añadir al carrito",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión"
   },
   "hero": {
     "kicker": "Wellness technology premium",
@@ -128,5 +131,25 @@
     "subtitle": "Convierte la recuperación en tu ventaja competitiva diaria.",
     "primary": "Empezar ahora",
     "secondary": "Ver el sistema"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "items": [
+      {"q": "¿Cuánto tiempo tarda en notarse el resultado?", "a": "La mayoría de clientes notan la diferencia en la primera semana de uso. La tensión muscular suele reducirse en 2-3 días de uso diario."},
+      {"q": "¿Se puede usar el Pulse Pro X a diario?", "a": "Sí. El Pulse Pro X está diseñado para rituales de recuperación diaria. Empieza con sesiones de 2-3 minutos por grupo muscular."},
+      {"q": "¿Cuál es vuestra política de devoluciones?", "a": "Ofrecemos una garantía de satisfacción de 30 días. Si no estás satisfecho, contáctanos para un reembolso completo sin preguntas."},
+      {"q": "¿Hacéis envíos internacionales?", "a": "Sí, enviamos a todo el mundo. El envío estándar es gratuito en todos los pedidos. Las opciones exprés están disponibles al pagar."},
+      {"q": "¿Puedo usar CerviFlex si tengo dolor crónico de cuello?", "a": "CerviFlex está diseñado para el alivio de la tensión cotidiana, no para tratamientos médicos. Consulta a tu médico si tienes una condición crónica."}
+    ]
+  },
+  "footer": {
+    "tagline": "Herramientas de recuperación premium para el rendimiento moderno.",
+    "shop": "Tienda",
+    "support": "Soporte",
+    "returns": "Devoluciones en 30 días",
+    "shipping": "Envío gratis",
+    "rights": "Todos los derechos reservados.",
+    "securePayments": "Pagos seguros de 256 bits",
+    "trustBadge": "Pago seguro · Garantía 30 días · Envío gratis"
   }
 }

@@ -3,6 +3,10 @@ import {getMessages, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import type {Metadata} from 'next';
 import {locales} from '../../i18n/routing';
+import {CartProvider} from '../../context/CartContext';
+import {AuthProvider} from '../../context/AuthContext';
+import CartSidebar from '../../components/CartSidebar';
+import AuthModal from '../../components/AuthModal';
 
 type Props = {
   children: React.ReactNode;
@@ -56,7 +60,13 @@ export default async function LocaleLayout({children, params}: Props) {
 
   return (
     <NextIntlClientProvider messages={messages}>
-      {children}
+      <CartProvider>
+        <AuthProvider>
+          {children}
+          <CartSidebar />
+          <AuthModal />
+        </AuthProvider>
+      </CartProvider>
     </NextIntlClientProvider>
   );
 }
