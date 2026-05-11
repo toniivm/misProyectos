@@ -1,0 +1,1 @@
+﻿{"currency":"eur","paymentMethod":"paypal","email":"test@test.com","shipping":{"name":"Test","address":{"line1":"123","city":"Madrid","postal_code":"28001","country":"ES"}},"items":[{"id":"pulse-pro-x","qty":1,"price":8900,"name":"Test"}]}
