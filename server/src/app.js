@@ -340,7 +340,7 @@ const checkoutUrlSchema = Joi.string().custom((value, helpers) => {
 const createSessionSchema = createIntentSchema.keys({
   successUrl: checkoutUrlSchema.optional(),
   cancelUrl: checkoutUrlSchema.optional(),
-});
+}).unknown(true);
 
 const orderUpdateSchema = Joi.object({
   status: Joi.string().valid('pending','paid','processing','packed','shipped','delivered','cancelled').optional(),
