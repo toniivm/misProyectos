@@ -35,7 +35,14 @@ const externalStatus = {
 
 function createMockDb() {
   // In-memory mock store
-  const store = { orders: {}, products: { '1': { stock: 10 }, '2': { stock: 5 } } };
+  const store = {
+    orders: {},
+    products: {
+      'pulse-pro-x': { stock: 10 },
+      cerviflex: { stock: 5 },
+      sleepseal: { stock: 15 },
+    },
+  };
   return {
     collection(name) {
       return {
@@ -178,12 +185,17 @@ const app = express();
 app.set('trust proxy', 1);
 app.use(compression({ level: 6, threshold: 1024 }));
 
-const defaultOrigins = ['https://valtre.onrender.com', 'http://localhost:3000'];
+const defaultOrigins = [
+  'https://valtre.onrender.com',
+  'https://valtre-73c7b.web.app',
+  'https://valtre-73c7b.firebaseapp.com',
+  'http://localhost:3000'
+];
 const envOrigins = (process.env.CORS_ORIGIN || process.env.CORS_ORIGINS || '')
   .split(',')
   .map((s) => s.trim())
   .filter(Boolean);
-const allowedOrigins = envOrigins.length ? envOrigins : defaultOrigins;
+const allowedOrigins = Array.from(new Set([...defaultOrigins, ...envOrigins]));
 
 app.use(helmet({ 
   crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },

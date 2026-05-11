@@ -46,7 +46,9 @@ services:
       - key: NODE_ENV
         value: production
       - key: CORS_ORIGIN
-        value: https://valtre.onrender.com
+        value: https://valtre.onrender.com,https://valtre-73c7b.web.app,https://valtre-73c7b.firebaseapp.com
+      - key: FRONTEND_URL
+        value: https://valtre-73c7b.web.app
       - key: STRIPE_SECRET_KEY
         sync: false
       - key: STRIPE_WEBHOOK_SECRET

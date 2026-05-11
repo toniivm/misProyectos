@@ -16,7 +16,7 @@ async function testHealth(){
 
 async function testCreateIntent(){
   const payload = {
-    items: [ { id: '1', qty: 1, price: 49.99, name: 'Producto Test' } ],
+    items: [ { id: 'pulse-pro-x', qty: 1, price: 89, name: 'Pulse Pro X' } ],
     currency: 'eur',
     email: 'test@example.com',
     shipping: { name: 'Tester', address: { line1: 'C/ Test 1', city: 'Madrid', postal_code: '28001', country: 'ES' } }
@@ -28,7 +28,7 @@ async function testCreateIntent(){
 
 async function testInventoryFailure(){
   const payload = {
-    items: [ { id: '2', qty: 999, price: 10, name: 'Producto Escaso' } ],
+    items: [ { id: 'cerviflex', qty: 999, price: 59, name: 'CerviFlex' } ],
     currency: 'eur',
     email: 'fail@example.com',
     shipping: { name: 'Fail', address: { line1: 'C/ Fail 2', city: 'Madrid', postal_code: '28001', country: 'ES' } }

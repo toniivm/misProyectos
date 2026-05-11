@@ -11,12 +11,6 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
   'https://valtre-backend.onrender.com';
 
-const PRODUCT_IDS: Record<string, string> = {
-  'pulse-pro-x': '1',
-  cerviflex: '2',
-  sleepseal: '3',
-};
-
 const COUNTRY_CODES: Record<string, string> = {
   Spain: 'ES',
   'United States': 'US',
@@ -76,7 +70,7 @@ export default function CheckoutPage() {
           },
         },
         items: items.map((item) => ({
-          id: PRODUCT_IDS[item.slug] || item.slug,
+          id: item.slug,
           qty: item.quantity,
           price: item.price,
           name: item.name,
