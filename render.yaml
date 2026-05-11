@@ -1,4 +1,6 @@
 services:
+  # Multi-service deployment: frontend on Firebase, backend on Render
+  # Updated for PayPal, Google Pay, Apple Pay support (2026-05-11)
   - type: web
     name: valtre-frontend
     env: docker
