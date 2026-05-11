@@ -1,14 +1,21 @@
+"use client";
+
 import { CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface Props {
   params: { locale: string };
-  searchParams: { session_id?: string };
 }
 
-export default function CheckoutSuccessPage({ params, searchParams }: Props) {
+export default function CheckoutSuccessPage({ params }: Props) {
   const { locale } = params;
-  const ref = searchParams.session_id?.slice(-8).toUpperCase();
+  const [ref, setRef] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sessionId = new URLSearchParams(window.location.search).get('session_id');
+    setRef(sessionId ? sessionId.slice(-8).toUpperCase() : null);
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-5 text-center">

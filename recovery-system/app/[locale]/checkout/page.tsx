@@ -7,6 +7,26 @@ import Link from 'next/link';
 import {useState} from 'react';
 import {useCart} from '../../../context/CartContext';
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
+  'https://valtre-backend.onrender.com';
+
+const PRODUCT_IDS: Record<string, string> = {
+  'pulse-pro-x': '1',
+  cerviflex: '2',
+  sleepseal: '3',
+};
+
+const COUNTRY_CODES: Record<string, string> = {
+  Spain: 'ES',
+  'United States': 'US',
+  'United Kingdom': 'GB',
+  France: 'FR',
+  Germany: 'DE',
+  Mexico: 'MX',
+  Other: 'ES',
+};
+
 const PRODUCT_BG: Record<string, string> = {
   'pulse-pro-x': '#f0f9ff',
   cerviflex: '#f0fdf4',
@@ -21,10 +41,10 @@ const PRODUCT_ICON: Record<string, string> = {
 export default function CheckoutPage() {
   const t = useTranslations();
   const locale = useLocale();
-  const {items, subtotal, clear} = useCart();
+  const {items, subtotal} = useCart();
 
-  const [step, setStep] = useState<'form' | 'success'>('form');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [contact, setContact] = useState({email: '', phone: ''});
   const [shipping, setShipping] = useState({
@@ -35,62 +55,57 @@ export default function CheckoutPage() {
     country: 'Spain',
     zip: '',
   });
-  const [payment, setPayment] = useState({
-    card: '',
-    expiry: '',
-    cvc: '',
-  });
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!items.length) return;
+
     setLoading(true);
-    // Simulate processing
-    await new Promise((r) => setTimeout(r, 1800));
-    clear();
-    setLoading(false);
-    setStep('success');
+    setError(null);
+
+    try {
+      const payload = {
+        currency: 'eur',
+        email: contact.email,
+        shipping: {
+          name: `${shipping.firstName} ${shipping.lastName}`.trim(),
+          address: {
+            line1: shipping.address,
+            city: shipping.city,
+            postal_code: shipping.zip,
+            country: COUNTRY_CODES[shipping.country] || 'ES',
+          },
+        },
+        items: items.map((item) => ({
+          id: PRODUCT_IDS[item.slug] || item.slug,
+          qty: item.quantity,
+          price: item.price,
+          name: item.name,
+        })),
+        successUrl: `${window.location.origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${window.location.origin}/${locale}/checkout`,
+      };
+
+      const response = await fetch(`${API_BASE_URL}/payments/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data?.url) {
+        throw new Error(data?.detail || data?.error || 'Could not start payment');
+      }
+
+      window.location.href = data.url;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Payment failed';
+      setError(message);
+      setLoading(false);
+    }
   };
-
-  const orderNumber = `REC-${Math.floor(100000 + Math.random() * 900000)}`;
-
-  if (step === 'success') {
-    return (
-      <div className="min-h-screen bg-white">
-        <header className="border-b border-gray-100 bg-white px-5 py-4">
-          <div className="mx-auto max-w-6xl">
-            <Link href={`/${locale}`} className="font-display text-sm font-extrabold tracking-widest text-gray-900">
-              RECOVER™
-            </Link>
-          </div>
-        </header>
-        <div className="flex min-h-[80vh] items-center justify-center px-5">
-          <motion.div
-            initial={{opacity: 0, scale: 0.95}}
-            animate={{opacity: 1, scale: 1}}
-            transition={{duration: 0.4}}
-            className="text-center max-w-md"
-          >
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
-              <Check size={36} className="text-green-600" />
-            </div>
-            <h1 className="font-display text-3xl font-black text-gray-900">Order confirmed!</h1>
-            <p className="mt-3 text-gray-500">
-              Thank you for your purchase. We've sent a confirmation to {contact.email || 'your email'}.
-            </p>
-            <p className="mt-2 rounded-xl bg-gray-50 px-4 py-2 text-sm font-semibold text-gray-700">
-              Order {orderNumber}
-            </p>
-            <div className="mt-4 text-sm text-gray-500">
-              Estimated delivery: <span className="font-semibold text-gray-900">3–5 business days</span>
-            </div>
-            <Link href={`/${locale}`} className="btn-primary mt-8 inline-flex">
-              Continue shopping
-            </Link>
-          </motion.div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -229,73 +244,11 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {/* Payment */}
-            <section className="rounded-2xl border border-gray-100 bg-white p-6">
-              <div className="mb-5 flex items-center justify-between">
-                <h2 className="font-display text-lg font-bold text-gray-900">Payment</h2>
-                <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <Lock size={11} />
-                  256-bit encryption
-                </div>
+            {error && (
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {error}
               </div>
-
-              <div className="grid gap-4">
-                <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">Card number</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      required
-                      value={payment.card}
-                      onChange={(e) => {
-                        const v = e.target.value.replace(/\D/g, '').slice(0, 16);
-                        const formatted = v.match(/.{1,4}/g)?.join(' ') ?? v;
-                        setPayment((p) => ({...p, card: formatted}));
-                      }}
-                      placeholder="1234 5678 9012 3456"
-                      maxLength={19}
-                      className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 pr-12 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
-                    />
-                    <CreditCard
-                      size={16}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="mb-1.5 block text-xs font-semibold text-gray-700">Expiry</label>
-                    <input
-                      type="text"
-                      required
-                      value={payment.expiry}
-                      onChange={(e) => {
-                        let v = e.target.value.replace(/\D/g, '').slice(0, 4);
-                        if (v.length >= 3) v = v.slice(0, 2) + '/' + v.slice(2);
-                        setPayment((p) => ({...p, expiry: v}));
-                      }}
-                      placeholder="MM / YY"
-                      maxLength={5}
-                      className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="mb-1.5 block text-xs font-semibold text-gray-700">CVC</label>
-                    <input
-                      type="text"
-                      required
-                      value={payment.cvc}
-                      onChange={(e) =>
-                        setPayment((p) => ({...p, cvc: e.target.value.replace(/\D/g, '').slice(0, 4)}))
-                      }
-                      placeholder="123"
-                      maxLength={4}
-                      className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
+            )}
 
             <button
               type="submit"
@@ -310,7 +263,7 @@ export default function CheckoutPage() {
               ) : (
                 <>
                   <Lock size={15} />
-                  Place order — ${subtotal}
+                  Continue to secure payment — €{subtotal.toFixed(2)}
                 </>
               )}
             </button>
@@ -349,7 +302,7 @@ export default function CheckoutPage() {
                         <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
                       </div>
                       <span className="text-sm font-semibold text-gray-900">
-                        ${item.price * item.quantity}
+                        €{(item.price * item.quantity).toFixed(2)}
                       </span>
                     </li>
                   ))}
@@ -358,7 +311,7 @@ export default function CheckoutPage() {
                 <div className="mt-5 space-y-2.5 border-t border-gray-100 pt-5">
                   <div className="flex items-center justify-between text-sm text-gray-500">
                     <span>Subtotal</span>
-                    <span className="font-semibold text-gray-900">${subtotal}</span>
+                    <span className="font-semibold text-gray-900">€{subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm text-gray-500">
                     <span>Shipping</span>
@@ -366,7 +319,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex items-center justify-between border-t border-gray-100 pt-3">
                     <span className="font-bold text-gray-900">Total</span>
-                    <span className="text-xl font-black text-gray-900">${subtotal}</span>
+                    <span className="text-xl font-black text-gray-900">€{subtotal.toFixed(2)}</span>
                   </div>
                 </div>
 
