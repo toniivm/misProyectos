@@ -620,7 +620,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
 });
 
 app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) => {
-  console.log(`\n🔵 POST /payments/create-checkout-session started`);
+  console.log(`\n🔵 POST /payments/create-checkout-session started [2026-05-11T22:12 PAYMENT_METHODS_V2]`);
   console.log(`Body: ${JSON.stringify(req.body)}`);
 
   if (!requireStripe(res)) {
