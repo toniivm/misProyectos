@@ -720,11 +720,12 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderId}`;
 
     // Map payment method to Stripe payment_method_types
+    // Note: Stripe shows Apple Pay/Google Pay automatically on capable devices when using 'card'
     const paymentMethodTypes = {
       'card': ['card'],
       'paypal': ['paypal'],
-      'apple_pay': ['apple_pay'],
-      'google_pay': ['google_pay']
+      'apple_pay': ['card'],  // Stripe shows Apple Pay on iOS/Safari when card is enabled
+      'google_pay': ['card']   // Stripe shows Google Pay on Android/Chrome when card is enabled
     };
 
     console.log(`💳 Creating Stripe Checkout session for order ${orderId}... (method: ${paymentMethod})`);
