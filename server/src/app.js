@@ -1,3 +1,4 @@
+// @version: 2.1.0-payment-methods (2026-05-12) - PayPal, Google Pay, Apple Pay support
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
