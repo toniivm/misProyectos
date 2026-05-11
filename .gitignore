@@ -47,3 +47,4 @@ VALORES_RENDER*.txt
 CONFIGURAR_BACKEND*.md
 firebase-debug.log
 *-debug.log
+.firebase/
