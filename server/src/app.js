@@ -341,7 +341,7 @@ const createSessionSchema = createIntentSchema.keys({
   paymentMethod: Joi.string().valid('card', 'paypal', 'apple_pay', 'google_pay').default('card').optional(),
   successUrl: checkoutUrlSchema.optional(),
   cancelUrl: checkoutUrlSchema.optional(),
-});
+}).unknown(false);
 
 const orderUpdateSchema = Joi.object({
   status: Joi.string().valid('pending','paid','processing','packed','shipped','delivered','cancelled').optional(),
