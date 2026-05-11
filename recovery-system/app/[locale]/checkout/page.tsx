@@ -75,7 +75,7 @@ export default function CheckoutPage() {
           price: item.price,
           name: item.name,
         })),
-        successUrl: `${window.location.origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        successUrl: `${window.location.origin}/${locale}/checkout/success`,
         cancelUrl: `${window.location.origin}/${locale}/checkout`,
       };
 

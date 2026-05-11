@@ -205,6 +205,16 @@ function requireStripe(res) {
   return false;
 }
 
+function isFirestoreRuntimeError(err) {
+  const message = err?.message || '';
+  return (
+    message.includes('UNAUTHENTICATED') ||
+    message.includes('invalid authentication credentials') ||
+    message.includes('Could not load the default credentials') ||
+    message.includes('credential')
+  );
+}
+
 const app = express();
 // Trust the Render proxy (needed for express-rate-limit and X-Forwarded-For)
 app.set('trust proxy', 1);
@@ -613,10 +623,6 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
   console.log(`\n🔵 POST /payments/create-checkout-session started`);
   console.log(`Body: ${JSON.stringify(req.body)}`);
 
-  if (!requireDb(res)) {
-    console.log(`❌ DB not available`);
-    return;
-  }
   if (!requireStripe(res)) {
     console.log(`❌ Stripe not available`);
     return;
@@ -631,24 +637,33 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
 
     const { items, currency, email, shipping, successUrl, cancelUrl } = value;
 
-    try {
-      await verifyInventory(items);
-    } catch (invErr) {
-      console.error('Inventory verification failed:', invErr.message);
-      if (invErr.message?.startsWith('OUT_OF_STOCK')) {
-        return res.status(409).json({ error: 'OUT_OF_STOCK', detail: invErr.message });
+    if (db) {
+      try {
+        await verifyInventory(items);
+      } catch (invErr) {
+        console.error('Inventory verification failed:', invErr.message);
+        if (invErr.message?.startsWith('OUT_OF_STOCK')) {
+          return res.status(409).json({ error: 'OUT_OF_STOCK', detail: invErr.message });
+        }
+        if (invErr.message?.startsWith('NO_PRODUCT')) {
+          return res.status(404).json({ error: 'PRODUCT_NOT_FOUND', detail: invErr.message });
+        }
+        if (isFirestoreRuntimeError(invErr)) {
+          console.warn('⚠ Firestore inventory check skipped due to runtime auth/config issue');
+        } else {
+          throw invErr;
+        }
       }
-      if (invErr.message?.startsWith('NO_PRODUCT')) {
-        return res.status(404).json({ error: 'PRODUCT_NOT_FOUND', detail: invErr.message });
-      }
-      throw invErr;
+    } else {
+      console.warn('⚠ Firestore unavailable, skipping inventory verification for checkout session');
     }
 
     const amount = calcAmount(items);
     if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
 
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
-    const orderRef = db.collection('orders').doc();
+    const orderRef = db ? db.collection('orders').doc() : null;
+    const orderId = orderRef?.id || uuidv4();
 
     const orderData = {
       status: 'pending',
@@ -663,9 +678,19 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       expiresAt: new Date(Date.now() + 30*60*1000) // 30 minute expiry
     };
 
-    console.log(`📝 Saving order ${orderRef.id} (checkout session)...`);
-    await orderRef.set(orderData);
-    console.log(`✓ Order saved: ${orderRef.id}`);
+    if (orderRef) {
+      try {
+        console.log(`📝 Saving order ${orderId} (checkout session)...`);
+        await orderRef.set(orderData);
+        console.log(`✓ Order saved: ${orderId}`);
+      } catch (dbErr) {
+        if (isFirestoreRuntimeError(dbErr)) {
+          console.warn(`⚠ Order ${orderId} not persisted because Firestore is misconfigured`);
+        } else {
+          throw dbErr;
+        }
+      }
+    }
 
     const productItems = items.filter((it) => !String(it.id).startsWith('shipping:'));
     const shippingItems = items.filter((it) => String(it.id).startsWith('shipping:'));
@@ -677,10 +702,10 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     if (!lineItems.length) return res.status(400).json({ error: 'INVALID_AMOUNT' });
 
     const frontendBaseUrl = resolveFrontendBaseUrl(req);
-    const defaultSuccess = `${frontendBaseUrl}/checkout?status=success&orderId=${orderRef.id}&session_id={CHECKOUT_SESSION_ID}`;
-    const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderRef.id}`;
+    const defaultSuccess = `${frontendBaseUrl}/checkout?status=success&orderId=${orderId}&session_id={CHECKOUT_SESSION_ID}`;
+    const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderId}`;
 
-    console.log(`💳 Creating Stripe Checkout session for order ${orderRef.id}...`);
+    console.log(`💳 Creating Stripe Checkout session for order ${orderId}...`);
     const session = await stripe.checkout.sessions.create(
       {
         mode: 'payment',
@@ -689,14 +714,14 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
         customer_email: email,
         success_url: successUrl || defaultSuccess,
         cancel_url: cancelUrl || defaultCancel,
-        metadata: { orderId: orderRef.id },
-        payment_intent_data: { metadata: { orderId: orderRef.id } },
+        metadata: { orderId, items: JSON.stringify(items.map((item) => ({ id: item.id, qty: item.qty }))) },
+        payment_intent_data: { metadata: { orderId } },
       },
       { idempotencyKey }
     );
 
-    console.log(`✓ Checkout session created: ${session.id} for order ${orderRef.id}`);
-    res.json({ sessionId: session.id, url: session.url, orderId: orderRef.id });
+    console.log(`✓ Checkout session created: ${session.id} for order ${orderId}`);
+    res.json({ sessionId: session.id, url: session.url, orderId });
   } catch (e) {
     console.error('Checkout session error:', e.message);
     if (e?.raw) console.error('Stripe raw error:', JSON.stringify({ code: e.raw.code, type: e.raw.type, param: e.raw.param, message: e.raw.message }, null, 2));
