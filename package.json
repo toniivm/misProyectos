@@ -25,11 +25,10 @@
     "workbox-webpack-plugin": "^7.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "postbuild": "node scripts/compress-build.js",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "cd recovery-system && npm run dev",
+    "build": "cd recovery-system && npm run build",
+    "test": "echo 'No tests configured'",
+    "eject": "echo 'Cannot eject Next.js project'"
   },
   "eslintConfig": {
     "extends": [

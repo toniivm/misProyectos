@@ -39,6 +39,7 @@ export default function CheckoutPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'apple_pay' | 'google_pay'>('card');
 
   const [contact, setContact] = useState({email: '', phone: ''});
   const [shipping, setShipping] = useState({
@@ -59,6 +60,7 @@ export default function CheckoutPage() {
     try {
       const payload = {
         currency: 'eur',
+        paymentMethod,
         email: contact.email,
         shipping: {
           name: `${shipping.firstName} ${shipping.lastName}`.trim(),
@@ -238,11 +240,75 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {error && (
-              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                {error}
+            {/* Payment Methods */}
+            <section className="rounded-2xl border border-gray-100 bg-white p-6">
+              <h2 className="mb-5 font-display text-lg font-bold text-gray-900">Payment method</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('card')}
+                  className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
+                    paymentMethod === 'card'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                  }`}
+                >
+                  <CreditCard size={18} />
+                  <div className="text-left">
+                    <div className="text-sm font-semibold text-gray-900">Card</div>
+                    <div className="text-xs text-gray-500">Visa, Mastercard, Amex</div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('paypal')}
+                  className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
+                    paymentMethod === 'paypal'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="text-lg">🅿️</div>
+                  <div className="text-left">
+                    <div className="text-sm font-semibold text-gray-900">PayPal</div>
+                    <div className="text-xs text-gray-500">Fast & secure</div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('apple_pay')}
+                  className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
+                    paymentMethod === 'apple_pay'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="text-lg">🍎</div>
+                  <div className="text-left">
+                    <div className="text-sm font-semibold text-gray-900">Apple Pay</div>
+                    <div className="text-xs text-gray-500">For iOS devices</div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('google_pay')}
+                  className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
+                    paymentMethod === 'google_pay'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="text-lg">🔵</div>
+                  <div className="text-left">
+                    <div className="text-sm font-semibold text-gray-900">Google Pay</div>
+                    <div className="text-xs text-gray-500">Android & Chrome</div>
+                  </div>
+                </button>
               </div>
-            )}
+            </section>
 
             <button
               type="submit"

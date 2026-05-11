@@ -338,6 +338,7 @@ const checkoutUrlSchema = Joi.string().custom((value, helpers) => {
 }, 'Stripe checkout redirect URL validation');
 
 const createSessionSchema = createIntentSchema.keys({
+  paymentMethod: Joi.string().valid('card', 'paypal', 'apple_pay', 'google_pay').default('card').optional(),
   successUrl: checkoutUrlSchema.optional(),
   cancelUrl: checkoutUrlSchema.optional(),
 });
@@ -635,7 +636,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
     }
 
-    const { items, currency, email, shipping, successUrl, cancelUrl } = value;
+    const { items, currency, email, shipping, successUrl, cancelUrl, paymentMethod } = value;
 
     if (db) {
       try {
@@ -705,17 +706,25 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const defaultSuccess = `${frontendBaseUrl}/checkout?status=success&orderId=${orderId}&session_id={CHECKOUT_SESSION_ID}`;
     const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderId}`;
 
-    console.log(`💳 Creating Stripe Checkout session for order ${orderId}...`);
+    // Map payment method to Stripe payment_method_types
+    const paymentMethodTypes: Record<string, string[]> = {
+      'card': ['card'],
+      'paypal': ['paypal'],
+      'apple_pay': ['apple_pay'],
+      'google_pay': ['google_pay']
+    };
+
+    console.log(`💳 Creating Stripe Checkout session for order ${orderId}... (method: ${paymentMethod})`);
     const session = await stripe.checkout.sessions.create(
       {
         mode: 'payment',
-        payment_method_types: ['card'],
+        payment_method_types: paymentMethodTypes[paymentMethod] || ['card'],
         line_items: lineItems,
         customer_email: email,
         success_url: successUrl || defaultSuccess,
         cancel_url: cancelUrl || defaultCancel,
-        metadata: { orderId, items: JSON.stringify(items.map((item) => ({ id: item.id, qty: item.qty }))) },
-        payment_intent_data: { metadata: { orderId } },
+        metadata: { orderId, items: JSON.stringify(items.map((item) => ({ id: item.id, qty: item.qty }))), paymentMethod },
+        payment_intent_data: { metadata: { orderId, paymentMethod } },
       },
       { idempotencyKey }
     );
