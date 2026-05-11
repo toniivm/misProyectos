@@ -119,7 +119,7 @@ export default function ProductDetail({product}: {product: Product}) {
               </span>
               <span className="text-lg text-gray-400 line-through">€{product.comparePrice}</span>
               <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-700">
-                Save ${product.comparePrice - product.price}
+                Save €{product.comparePrice - product.price}
               </span>
             </div>
 
@@ -174,7 +174,7 @@ export default function ProductDetail({product}: {product: Product}) {
               href={`/${locale}/checkout`}
               className="btn-accent mt-3 flex w-full items-center justify-center py-3.5 text-sm"
             >
-              Buy now — ${product.price * qty}
+              Buy now — €{(product.price * qty).toFixed(2)}
             </Link>
 
             {/* Trust badges */}
@@ -219,7 +219,7 @@ export default function ProductDetail({product}: {product: Product}) {
                     <p className="font-semibold text-gray-900">{p.name}</p>
                     <p className="text-sm text-gray-500">{pData?.focus?.slice(0, 60)}…</p>
                   </div>
-                  <span className="ml-auto font-bold text-gray-900">${p.price}</span>
+                  <span className="ml-auto font-bold text-gray-900">€{p.price}</span>
                 </Link>
               );
             })}

@@ -369,8 +369,8 @@ export default function LandingPage() {
                 </div>
                 <div className="mt-5 flex items-center justify-between">
                   <div>
-                    <span className="text-lg font-black text-gray-900">${PRODUCTS[i].price}</span>
-                    <span className="ml-1.5 text-sm text-gray-400 line-through">${PRODUCTS[i].comparePrice}</span>
+                    <span className="text-lg font-black text-gray-900">€{PRODUCTS[i].price}</span>
+                    <span className="ml-1.5 text-sm text-gray-400 line-through">€{PRODUCTS[i].comparePrice}</span>
                   </div>
                   <button onClick={() => handleAddToCart(i)} className="btn-primary py-2 text-xs">
                     {t('nav.addToCart')}

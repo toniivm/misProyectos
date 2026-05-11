@@ -9,7 +9,7 @@ import {useCart} from '../../../context/CartContext';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
-  'https://valtre-backend.onrender.com';
+  'https://misproyectos-neyj.onrender.com';
 
 const COUNTRY_CODES: Record<string, string> = {
   Spain: 'ES',

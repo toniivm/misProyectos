@@ -107,7 +107,32 @@ if (!skipExternal) {
     externalStatus.stripe.reason = 'Missing STRIPE_SECRET_KEY';
   }
 } else {
-  stripe = { paymentIntents: { create: async ({ amount, currency, metadata }) => ({ client_secret: 'test_client_secret_'+Date.now(), id: 'pi_test_'+Date.now(), amount, currency, metadata }) }, webhooks: { constructEvent: () => ({ type: 'payment_intent.succeeded', data: { object: { id: 'pi_test', metadata: { orderId: 'order_mock' } } } }) } };
+  stripe = {
+    paymentIntents: {
+      create: async ({ amount, currency, metadata }) => ({
+        client_secret: 'test_client_secret_' + Date.now(),
+        id: 'pi_test_' + Date.now(),
+        amount,
+        currency,
+        metadata,
+      }),
+    },
+    checkout: {
+      sessions: {
+        create: async ({ success_url, cancel_url, metadata }) => ({
+          id: 'cs_test_' + Date.now(),
+          url: success_url || cancel_url || 'https://checkout.stripe.test/session/mock',
+          metadata,
+        }),
+      },
+    },
+    webhooks: {
+      constructEvent: () => ({
+        type: 'payment_intent.succeeded',
+        data: { object: { id: 'pi_test', metadata: { orderId: 'order_mock' } } },
+      }),
+    },
+  };
   externalStatus.stripe.enabled = true;
   externalStatus.stripe.reason = 'SKIP_EXTERNAL enabled';
 }
@@ -292,9 +317,19 @@ const createIntentSchema = Joi.object({
   }).required()
 });
 
+const checkoutUrlSchema = Joi.string().custom((value, helpers) => {
+  try {
+    const normalized = value.replace('{CHECKOUT_SESSION_ID}', 'cs_test_placeholder');
+    new URL(normalized);
+    return value;
+  } catch {
+    return helpers.error('string.uri');
+  }
+}, 'Stripe checkout redirect URL validation');
+
 const createSessionSchema = createIntentSchema.keys({
-  successUrl: Joi.string().uri().optional(),
-  cancelUrl: Joi.string().uri().optional(),
+  successUrl: checkoutUrlSchema.optional(),
+  cancelUrl: checkoutUrlSchema.optional(),
 });
 
 const orderUpdateSchema = Joi.object({
