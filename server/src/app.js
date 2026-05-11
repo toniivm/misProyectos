@@ -720,7 +720,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderId}`;
 
     // Map payment method to Stripe payment_method_types
-    const paymentMethodTypes: Record<string, string[]> = {
+    const paymentMethodTypes = {
       'card': ['card'],
       'paypal': ['paypal'],
       'apple_pay': ['apple_pay'],
