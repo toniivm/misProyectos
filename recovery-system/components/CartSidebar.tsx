@@ -116,7 +116,7 @@ export default function CartSidebar() {
                         </div>
 
                         <p className="text-sm font-bold text-gray-900">
-                          ${item.price}
+                          €{item.price}
                         </p>
 
                         <div className="flex items-center gap-2">
@@ -153,7 +153,7 @@ export default function CartSidebar() {
                 <div className="flex items-center justify-between text-sm text-gray-500">
                   <span>Subtotal</span>
                   <span className="font-semibold text-gray-900">
-                    ${subtotal}
+                    €{subtotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm text-gray-500">
@@ -163,7 +163,7 @@ export default function CartSidebar() {
                 <div className="flex items-center justify-between border-t border-gray-100 pt-3">
                   <span className="font-bold text-gray-900">Total</span>
                   <span className="text-lg font-black text-gray-900">
-                    ${subtotal}
+                    €{subtotal.toFixed(2)}
                   </span>
                 </div>
 

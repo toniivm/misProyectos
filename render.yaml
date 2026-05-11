@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: valtrex-tienda
+    name: valtre-frontend
     env: docker
     plan: starter
     autoDeploy: true
@@ -11,9 +11,27 @@ services:
         value: production
       - key: PORT
         value: "10000"
+      # Stripe — public key only, safe to expose in frontend
+      - key: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+        sync: false
+      # Stripe — secret key for the /api/checkout API route
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      # Firebase client (public)
+      - key: NEXT_PUBLIC_FIREBASE_API_KEY
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+        sync: false
+      - key: NEXT_PUBLIC_FIREBASE_APP_ID
+        sync: false
+      # Canonical origin used in Stripe redirect URLs
+      - key: NEXT_PUBLIC_APP_URL
+        value: https://valtre.onrender.com
 
   - type: web
-    name: valtrex-backend
+    name: valtre-backend
     env: docker
     plan: starter
     rootDirectory: server

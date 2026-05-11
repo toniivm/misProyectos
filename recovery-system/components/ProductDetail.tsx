@@ -115,9 +115,9 @@ export default function ProductDetail({product}: {product: Product}) {
             {/* Price */}
             <div className="mt-5 flex items-baseline gap-3">
               <span className="font-display text-4xl font-black text-gray-900">
-                ${product.price}
+                €{product.price}
               </span>
-              <span className="text-lg text-gray-400 line-through">${product.comparePrice}</span>
+              <span className="text-lg text-gray-400 line-through">€{product.comparePrice}</span>
               <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-700">
                 Save ${product.comparePrice - product.price}
               </span>

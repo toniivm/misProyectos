@@ -4,7 +4,8 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {Check, ChevronDown, Globe, Menu, ShoppingBag, ShieldCheck, X, Zap, Moon, Battery, Activity, Heart} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
 import Link from 'next/link';
-import {useMemo, useRef, useEffect, useState} from 'react';
+import {useRouter, usePathname} from 'next/navigation';
+import {useMemo, useRef, useEffect, useState, useTransition} from 'react';
 import {useCart} from '../context/CartContext';
 import {useAuth} from '../context/AuthContext';
 import {PRODUCTS} from '../lib/products';
@@ -61,6 +62,9 @@ function LanguageSwitch() {
   const locale = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [, startTransition] = useTransition();
 
   useEffect(() => {
     function handler(e: MouseEvent) {
@@ -72,9 +76,12 @@ function LanguageSwitch() {
 
   const switchLocale = (code: string) => {
     setOpen(false);
-    const path = window.location.pathname;
-    const newPath = path.replace(/^\/(es|en)/, '/' + code);
-    window.location.href = newPath === path ? '/' + code : newPath;
+    if (code === locale) return;
+    // Replace locale prefix in current path — SPA navigation, no full reload
+    const newPath = pathname.replace(/^\/(es|en)/, '/' + code);
+    startTransition(() => {
+      router.push(newPath === pathname ? '/' + code : newPath);
+    });
   };
 
   return (
