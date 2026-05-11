@@ -338,10 +338,9 @@ const checkoutUrlSchema = Joi.string().custom((value, helpers) => {
 }, 'Stripe checkout redirect URL validation');
 
 const createSessionSchema = createIntentSchema.keys({
-  paymentMethod: Joi.string().valid('card', 'paypal', 'apple_pay', 'google_pay').default('card').optional(),
   successUrl: checkoutUrlSchema.optional(),
   cancelUrl: checkoutUrlSchema.optional(),
-}).unknown(false);
+});
 
 const orderUpdateSchema = Joi.object({
   status: Joi.string().valid('pending','paid','processing','packed','shipped','delivered','cancelled').optional(),
@@ -630,13 +629,22 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
   }
 
   try {
+    // Extract paymentMethod before validation (not part of base schema)
+    const paymentMethod = req.body.paymentMethod || 'card';
+    
+    // Validate payment method
+    if (!['card', 'paypal', 'apple_pay', 'google_pay'].includes(paymentMethod)) {
+      return res.status(400).json({ error: 'INVALID_PAYMENT_METHOD', detail: `Payment method must be one of: card, paypal, apple_pay, google_pay` });
+    }
+
+    // Validate rest of payload without paymentMethod
     const { error, value } = createSessionSchema.validate(req.body, { abortEarly: false });
     if (error) {
       console.warn('Validation error in checkout session:', error.details.map(e => e.message).join(', '));
       return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
     }
 
-    const { items, currency, email, shipping, successUrl, cancelUrl, paymentMethod } = value;
+    const { items, currency, email, shipping, successUrl, cancelUrl } = value;
 
     if (db) {
       try {
