@@ -1,632 +1,607 @@
 'use client';
 
-import {AnimatePresence, motion} from 'framer-motion';
-import {Check, ChevronDown, Globe, Menu, ShoppingBag, ShieldCheck, X, Zap, Moon, Battery, Activity, Heart} from 'lucide-react';
-import {useLocale, useTranslations} from 'next-intl';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import {useRouter, usePathname} from 'next/navigation';
-import {useMemo, useRef, useEffect, useState, useTransition} from 'react';
-import {useCart} from '../context/CartContext';
-import {useAuth} from '../context/AuthContext';
-import {PRODUCTS} from '../lib/products';
+import { useParams } from 'next/navigation';
+import { MODULES, SYSTEMS, getSystemByStressLevel } from '../lib/modules';
+import { MODULE_VISUALS } from './ModuleVisuals';
 
-/* ── Shared fade-up animation ── */
-const fadeUp = {
-  hidden: {opacity: 0, y: 20},
-  show: {opacity: 1, y: 0, transition: {duration: 0.5, ease: 'easeOut'}}
-};
+// ─── Types ───────────────────────────────────────────────────────
+type StressLevel = 'low' | 'moderate' | 'high';
 
-/* ── Product placeholder visual ── */
-const PRODUCT_BG = ['#f0f9ff', '#f0fdf4', '#faf5ff'];
-const PRODUCT_ICON = ['💆', '🧘', '🌙'];
+// ─── Easing ──────────────────────────────────────────────────────
+const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
 
-function ProductVisual({index, size = 'md'}: {index: number; size?: 'sm' | 'md' | 'lg'}) {
-  const heights: Record<string, string> = {sm: 'h-40', md: 'h-52', lg: 'h-64'};
-  return (
-    <div
-      className={`flex ${heights[size]} w-full items-center justify-center rounded-2xl text-5xl`}
-      style={{background: PRODUCT_BG[index], border: '1px solid #e5e7eb'}}
-    >
-      {PRODUCT_ICON[index]}
-    </div>
-  );
-}
-
-function FAQItem({question, answer}: {question: string; answer: string}) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-b border-gray-100 py-5">
-      <button onClick={() => setOpen((v) => !v)} className="flex w-full items-center justify-between gap-4 text-left">
-        <span className="font-semibold text-gray-900">{question}</span>
-        <ChevronDown size={18} className={`flex-shrink-0 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{height: 0, opacity: 0}}
-            animate={{height: 'auto', opacity: 1}}
-            exit={{height: 0, opacity: 0}}
-            transition={{duration: 0.2}}
-            className="overflow-hidden"
-          >
-            <p className="mt-3 text-sm leading-relaxed text-gray-500">{answer}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-/* ── Language switcher ── */
-function LanguageSwitch() {
-  const locale = useLocale();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-  const pathname = usePathname();
-  const [, startTransition] = useTransition();
+// ─── Entry Gate ──────────────────────────────────────────────────
+function EntryGate({ onComplete }: { onComplete: (level: StressLevel) => void }) {
+  const [phase, setPhase] = useState<'in' | 'out'>('out');
 
   useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    const t = setInterval(() => setPhase((p) => (p === 'in' ? 'out' : 'in')), 4000);
+    return () => clearInterval(t);
   }, []);
 
-  const switchLocale = (code: string) => {
-    setOpen(false);
-    if (code === locale) return;
-    // Replace locale prefix in current path — SPA navigation, no full reload
-    const newPath = pathname.replace(/^\/(es|en)/, '/' + code);
-    startTransition(() => {
-      router.push(newPath === pathname ? '/' + code : newPath);
-    });
-  };
+  const states: { id: StressLevel; label: string; size: number }[] = [
+    { id: 'low', label: 'Manageable', size: 52 },
+    { id: 'moderate', label: 'Elevated', size: 72 },
+    { id: 'high', label: 'Overloaded', size: 96 },
+  ];
 
   return (
-    <div className="relative" ref={ref}>
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-600 transition hover:border-gray-300 hover:text-gray-900"
-        aria-label="Switch language"
-      >
-        <Globe size={13} />
-        {locale.toUpperCase()}
-        <ChevronDown size={11} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
+    <motion.div
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#080808]"
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.9, ease: EASE_OUT }}
+    >
+      {/* Breathing circle */}
+      <div className="relative flex items-center justify-center mb-16">
+        <motion.div
+          className="absolute rounded-full border border-[#E8E4DF]/10"
+          style={{ width: 200, height: 200 }}
+          animate={{ scale: [1, 1.5], opacity: [0.4, 0] }}
+          transition={{ duration: 3, ease: 'easeOut', repeat: Infinity }}
+        />
+        <motion.div
+          className="rounded-full border border-[#E8E4DF]/20"
+          style={{ width: 160, height: 160, boxShadow: '0 0 80px rgba(232,228,223,0.04)' }}
+          animate={{
+            scale: phase === 'in' ? 1.12 : 1,
+            opacity: phase === 'in' ? 0.75 : 0.35,
+          }}
+          transition={{ duration: 4, ease: 'easeInOut' }}
+        />
+      </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{opacity: 0, y: 4}}
-            animate={{opacity: 1, y: 0}}
-            exit={{opacity: 0, y: 4}}
-            transition={{duration: 0.12}}
-            className="absolute right-0 mt-1.5 w-20 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
+      <motion.p
+        className="text-[#E8E4DF] text-lg font-light tracking-[0.08em] mb-14 text-center px-8"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.9 }}
+      >
+        How overstimulated are you right now?
+      </motion.p>
+
+      <motion.div
+        className="flex items-end gap-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1, duration: 0.9 }}
+      >
+        {states.map(({ id, label, size }) => (
+          <button
+            key={id}
+            onClick={() => onComplete(id)}
+            className="flex flex-col items-center gap-4 group cursor-pointer"
           >
-            {(['es', 'en'] as const).map((code) => (
-              <button
-                key={code}
-                onClick={() => switchLocale(code)}
-                className={`block w-full px-4 py-2.5 text-left text-xs font-semibold transition ${
-                  locale === code ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                {code.toUpperCase()}
-              </button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+            <motion.div
+              className="rounded-full border border-[#E8E4DF]/15 bg-[#E8E4DF]/[0.04] transition-colors duration-700 group-hover:border-[#E8E4DF]/35 group-hover:bg-[#E8E4DF]/[0.08]"
+              style={{ width: size, height: size }}
+              whileHover={{ scale: 1.06 }}
+              transition={{ duration: 0.6 }}
+            />
+            <span className="text-[#8A8580] text-[10px] tracking-[0.18em] uppercase font-light">
+              {label}
+            </span>
+          </button>
+        ))}
+      </motion.div>
+
+      <motion.button
+        className="absolute bottom-10 text-[#4A4744] text-xs tracking-widest hover:text-[#8A8580] transition-colors duration-500"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
+        onClick={() => onComplete('moderate')}
+      >
+        SKIP
+      </motion.button>
+    </motion.div>
   );
 }
 
-/* ════════════════════════════════════════
-   MAIN COMPONENT
-════════════════════════════════════════ */
-export default function LandingPage() {
-  const t = useTranslations();
-  const locale = useLocale();
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const {totalItems, add, open: openCart} = useCart();
-  const {user, openModal, logout} = useAuth();
+// ─── Navbar ──────────────────────────────────────────────────────
+function RecoveryNavbar({ locale }: { locale: string }) {
+  const [scrolled, setScrolled] = useState(false);
 
-  const problemItems  = t.raw('problem.items')   as string[];
-  const benefits      = t.raw('benefits.items')  as string[];
-  const before        = t.raw('transformation.before') as string[];
-  const after         = t.raw('transformation.after')  as string[];
-  const products      = t.raw('system.products') as Array<{name: string; tag: string; focus: string; features: string[]}>;
-  const testimonials  = t.raw('social.testimonials') as Array<{name: string; role: string; quote: string}>;
-  const plans         = t.raw('plans.cards') as Array<{name: string; price: string; description: string; items: string[]}>;
-  const faqItems      = t.raw('faq.items') as Array<{q: string; a: string}>;
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  const benefitIcons = [Activity, Moon, Heart, Zap, ShieldCheck, Battery];
+  return (
+    <motion.nav
+      className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 md:px-10 h-16 transition-all duration-700"
+      style={{
+        background: scrolled ? 'rgba(8,8,8,0.92)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(232,228,223,0.06)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+      }}
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2, duration: 0.8 }}
+    >
+      <span className="font-display font-semibold text-[#E8E4DF] tracking-[0.12em] text-sm">
+        RS™
+      </span>
 
-  const navLinks = useMemo(() => [
-    {href: '#system',   label: t('nav.links.system')},
-    {href: '#benefits', label: t('nav.links.benefits')},
-    {href: '#reviews',  label: t('nav.links.reviews')},
-    {href: '#plans',    label: t('nav.links.plans')},
-  ], [t]);
+      <div className="hidden md:flex items-center gap-8">
+        {[
+          { label: 'Modules', href: '#modules' },
+          { label: 'Systems', href: '#systems' },
+          { label: 'Protocol', href: '#protocol' },
+        ].map(({ label, href }) => (
+          <a
+            key={label}
+            href={href}
+            className="text-[#8A8580] text-xs tracking-[0.14em] uppercase hover:text-[#E8E4DF] transition-colors duration-500"
+          >
+            {label}
+          </a>
+        ))}
+      </div>
 
-  const handleAddToCart = (i: number) => {
-    const p = PRODUCTS[i];
-    add({slug: p.slug, name: p.name, price: p.price, icon: p.icon});
+      <a
+        href="#modules"
+        className="text-[#080808] bg-[#E8E4DF] text-xs tracking-[0.14em] uppercase px-5 py-2 hover:bg-[#C8B89A] transition-colors duration-[600ms] font-medium"
+      >
+        Begin Protocol
+      </a>
+    </motion.nav>
+  );
+}
+
+// ─── Protocol Section ─────────────────────────────────────────────
+function ProtocolSection({
+  stressLevel,
+  locale,
+}: {
+  stressLevel: StressLevel;
+  locale: string;
+}) {
+  const system = getSystemByStressLevel(stressLevel);
+
+  const phaseColors: Record<number, string> = {
+    0: '#4A4744',
+    1: '#7A6E60',
+    2: '#9A8E80',
+    3: '#C8B89A',
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <section
+      id="protocol"
+      className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-32 pb-24"
+    >
+      <motion.p
+        className="text-[#4A4744] text-[10px] tracking-[0.22em] uppercase mb-8"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        Tonight's Protocol
+      </motion.p>
 
-      {/* ── NAVBAR ── */}
-      <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+      <motion.h1
+        className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold text-[#E8E4DF] leading-[0.92] tracking-[-0.02em] mb-6 max-w-4xl"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.9, delay: 0.1, ease: EASE_OUT }}
+      >
+        {system.name}
+      </motion.h1>
 
-          <Link href={`/${locale}`} className="font-display text-sm font-extrabold tracking-widest text-gray-900">
-            RECOVER™
-          </Link>
+      <motion.p
+        className="text-[#8A8580] text-lg md:text-xl font-light tracking-wide mb-4 max-w-lg"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.25 }}
+      >
+        {system.tagline}
+      </motion.p>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-8 lg:flex">
-            {navLinks.map(({href, label}) => (
-              <a key={href} href={href}
-                className="text-sm font-medium text-gray-500 transition hover:text-gray-900">
-                {label}
-              </a>
-            ))}
-          </nav>
+      <motion.p
+        className="text-[#4A4744] text-sm font-light mb-14 max-w-md"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.35 }}
+      >
+        {system.target}
+      </motion.p>
 
-          <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-2 lg:flex">
-              <LanguageSwitch />
-              {user ? (
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-xs font-bold text-white">
-                    {(user.displayName?.[0] ?? user.email?.[0] ?? 'U').toUpperCase()}
-                  </div>
-                  <button onClick={logout} className="text-xs text-gray-500 transition hover:text-gray-900">
-                    {t('nav.logout')}
-                  </button>
-                </div>
-              ) : (
-                <button onClick={openModal} className="text-sm font-medium text-gray-600 transition hover:text-gray-900">
-                  {t('nav.login')}
-                </button>
-              )}
-            </div>
+      <motion.div
+        className="flex flex-col gap-0 mb-14 max-w-xl"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.45 }}
+      >
+        {system.protocol.map((step, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-6 py-4"
+            style={{ borderBottom: '1px solid rgba(232,228,223,0.06)' }}
+          >
+            <span className="text-[#4A4744] text-xs tracking-widest font-mono w-16 shrink-0">
+              {step.time}
+            </span>
+            <div
+              className="w-1 h-1 rounded-full shrink-0"
+              style={{ background: phaseColors[step.phase] }}
+            />
+            <span className="text-[#E8E4DF] text-sm font-light flex-1">{step.module}</span>
+            <span className="text-[#4A4744] text-xs font-mono">{step.duration}</span>
+          </div>
+        ))}
+      </motion.div>
 
-            <button
-              onClick={openCart}
-              className="relative rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
-              aria-label="Open cart"
+      <motion.div
+        className="flex flex-col sm:flex-row items-start sm:items-center gap-6"
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.55 }}
+      >
+        <span className="text-[#4A4744] text-xs tracking-widest font-mono">
+          {system.nights > 1 ? `${system.nights}-NIGHT PROTOCOL` : system.duration.toUpperCase()}
+        </span>
+        <a
+          href="#modules"
+          className="text-[#E8E4DF] text-xs tracking-[0.16em] uppercase hover:text-[#C8B89A] transition-colors duration-[600ms]"
+          style={{ borderBottom: '1px solid rgba(232,228,223,0.2)', paddingBottom: '2px' }}
+        >
+          Configure Modules →
+        </a>
+      </motion.div>
+    </section>
+  );
+}
+
+// ─── Modules Section ──────────────────────────────────────────────
+function ModulesSection({ locale }: { locale: string }) {
+  return (
+    <section id="modules" className="px-6 md:px-16 lg:px-24 py-24">
+      <motion.div
+        className="mb-16"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <p className="text-[#4A4744] text-[10px] tracking-[0.22em] uppercase mb-4">
+          Hardware Modules
+        </p>
+        <h2 className="font-display text-4xl md:text-5xl font-semibold text-[#E8E4DF] tracking-[-0.02em] max-w-xl">
+          Four input nodes. One protocol.
+        </h2>
+      </motion.div>
+
+      <div
+        className="grid grid-cols-1 md:grid-cols-2"
+        style={{ gap: '1px', background: 'rgba(232,228,223,0.06)' }}
+      >
+        {MODULES.map((mod, i) => (
+          <motion.div
+            key={mod.slug}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: i * 0.08, ease: EASE_OUT }}
+          >
+            <Link
+              href={`/${locale}/products/${mod.slug}`}
+              className="group block bg-[#080808] p-8 md:p-10 hover:bg-[#0D0D0D] transition-colors duration-700"
             >
-              <ShoppingBag size={18} />
-              {totalItems > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-gray-900 text-[10px] font-bold text-white">
-                  {totalItems}
+              <div className="flex items-start justify-between mb-6">
+                <span
+                  className="font-mono text-[#4A4744] text-[11px] tracking-widest px-3 py-1.5"
+                  style={{ border: '1px solid rgba(232,228,223,0.08)' }}
+                >
+                  {mod.abbr}
                 </span>
-              )}
-            </button>
-
-            <button
-              className="inline-flex rounded-lg border border-gray-200 bg-white p-2 text-gray-600 lg:hidden"
-              onClick={() => setMobileMenu((v) => !v)}
-              aria-label="menu"
-            >
-              {mobileMenu ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
-        </div>
-
-        <AnimatePresence>
-          {mobileMenu && (
-            <motion.div
-              initial={{height: 0, opacity: 0}}
-              animate={{height: 'auto', opacity: 1}}
-              exit={{height: 0, opacity: 0}}
-              transition={{duration: 0.2}}
-              className="overflow-hidden border-t border-gray-100 bg-white"
-            >
-              <div className="space-y-1 px-5 py-4">
-                {navLinks.map(({href, label}) => (
-                  <a key={href} href={href}
-                    onClick={() => setMobileMenu(false)}
-                    className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                    {label}
-                  </a>
-                ))}
-                <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3">
-                  <LanguageSwitch />
-                  {user ? (
-                    <button onClick={logout} className="text-sm font-medium text-gray-600">{t('nav.logout')}</button>
-                  ) : (
-                    <button onClick={() => {setMobileMenu(false); openModal();}} className="btn-primary text-sm">
-                      {t('nav.login')}
-                    </button>
-                  )}
-                </div>
+                <span className="font-mono text-[#4A4744] text-[10px] tracking-widest">
+                  {mod.phase}
+                </span>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
 
-      {/* ── HERO ── */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:py-28">
-        <motion.div
-          initial="hidden" animate="show" variants={fadeUp}
-          className="space-y-6"
-        >
-          <span className="inline-block rounded-full bg-gray-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-600">
-            {t('hero.kicker')}
-          </span>
-
-          <h1 className="font-display text-5xl font-black leading-[1.05] tracking-tight text-gray-900 sm:text-6xl">
-            {t('hero.line1')}<br />
-            <span className="text-[#1a56db]">{t('hero.line2')}</span>
-          </h1>
-
-          <p className="max-w-lg text-lg leading-relaxed text-gray-500">
-            {t('hero.subtitle')}
-          </p>
-
-          <div className="flex flex-wrap gap-3 pt-1">
-            <a href="#plans" className="btn-primary">{t('hero.primary')}</a>
-            <a href="#system" className="btn-secondary">{t('hero.secondary')}</a>
-          </div>
-
-          <div className="flex flex-wrap gap-4 pt-2">
-            {[t('hero.metrics.users'), t('hero.metrics.rating'), t('hero.metrics.guarantee')].map((m) => (
-              <div key={m} className="flex items-center gap-1.5 text-sm font-medium text-gray-600">
-                <Check size={14} className="text-[#1a56db]" />
-                {m}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}}
-          transition={{duration: 0.6, delay: 0.15}}
-          className="grid gap-4 sm:grid-cols-2"
-        >
-          <div className="sm:col-span-2"><ProductVisual index={0} /></div>
-          <ProductVisual index={1} />
-          <ProductVisual index={2} />
-        </motion.div>
-      </section>
-
-      {/* ── PROBLEM ── */}
-      <section className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <motion.div
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="max-w-2xl"
-          >
-            <h2 className="font-display text-4xl font-bold tracking-tight text-gray-900">
-              {t('problem.title')}
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-gray-500">{t('problem.body')}</p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden" whileInView="show" viewport={{once: true}}
-            variants={{show: {transition: {staggerChildren: 0.06}}}}
-            className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {problemItems.map((item) => (
-              <motion.div key={item} variants={fadeUp}
-                className="flex items-start gap-3 rounded-xl bg-white px-5 py-4 shadow-sm ring-1 ring-gray-100">
-                <span className="mt-0.5 h-2 w-2 flex-shrink-0 rounded-full bg-red-400" />
-                <span className="text-sm font-medium text-gray-700">{item}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── PRODUCTS ── */}
-      <section id="system" className="py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <motion.div
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="mb-12 max-w-xl"
-          >
-            <h2 className="font-display text-4xl font-bold tracking-tight text-gray-900">{t('system.title')}</h2>
-            <p className="mt-4 text-lg text-gray-500">{t('system.description')}</p>
-          </motion.div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {products.map((product, i) => (
-              <motion.article
-                key={product.name}
-                initial="hidden" whileInView="show" viewport={{once: true}}
-                variants={fadeUp}
-                transition={{delay: i * 0.08}}
-                whileHover={{y: -4, transition: {duration: 0.2}}}
-                className="flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
-              >
-                <Link href={`/${locale}/products/${PRODUCTS[i].slug}`}>
-                  <ProductVisual index={i} />
-                </Link>
-                <div className="mt-5 flex-1 space-y-3">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[#1a56db]">{product.tag}</span>
-                  <h3 className="font-display text-2xl font-bold text-gray-900">
-                    <Link href={`/${locale}/products/${PRODUCTS[i].slug}`} className="transition hover:text-[#1a56db]">
-                      {product.name}
-                    </Link>
-                  </h3>
-                  <p className="text-sm leading-relaxed text-gray-500">{product.focus}</p>
-                  <ul className="space-y-1.5 pt-1">
-                    {product.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
-                        <Check size={13} className="flex-shrink-0 text-[#1a56db]" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-5 flex items-center justify-between">
-                  <div>
-                    <span className="text-lg font-black text-gray-900">€{PRODUCTS[i].price}</span>
-                    <span className="ml-1.5 text-sm text-gray-400 line-through">€{PRODUCTS[i].comparePrice}</span>
+              {/* Module visual preview */}
+              {(() => {
+                const Visual = MODULE_VISUALS[mod.slug];
+                return Visual ? (
+                  <div className="w-full h-36 mb-6 flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-700">
+                    <Visual className="w-auto h-full" />
                   </div>
-                  <button onClick={() => handleAddToCart(i)} className="btn-primary py-2 text-xs">
-                    {t('nav.addToCart')}
-                  </button>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+                ) : null;
+              })()}
 
-      {/* ── BENEFITS ── */}
-      <section id="benefits" className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <motion.h2
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="mb-10 font-display text-4xl font-bold tracking-tight text-gray-900"
-          >
-            {t('benefits.title')}
-          </motion.h2>
+              <h3 className="font-display text-2xl md:text-3xl font-medium text-[#E8E4DF] tracking-[-0.01em] mb-3 group-hover:text-[#C8B89A] transition-colors duration-[600ms]">
+                {mod.name}
+              </h3>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((benefit, i) => {
-              const Icon = benefitIcons[i % benefitIcons.length];
-              return (
-                <motion.div key={benefit}
-                  initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-                  transition={{delay: i * 0.05}}
-                  className="flex items-center gap-4 rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-100"
-                >
-                  <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#eff3ff]">
-                    <Icon size={18} className="text-[#1a56db]" />
-                  </span>
-                  <span className="font-semibold text-gray-800">{benefit}</span>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+              <p className="text-[#8A8580] text-sm mb-5 tracking-wide">{mod.function}</p>
 
-      {/* ── TRANSFORMATION ── */}
-      <section className="py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <motion.h2
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="mb-10 font-display text-4xl font-bold tracking-tight text-gray-900"
-          >
-            {t('transformation.title')}
-          </motion.h2>
+              <p className="text-[#4A4744] text-sm font-light leading-relaxed mb-8 max-w-sm">
+                {mod.description}
+              </p>
 
-          <div className="grid gap-6 lg:grid-cols-2">
-            <motion.div
-              initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-              className="rounded-2xl border border-red-100 bg-red-50 p-8"
-            >
-              <p className="mb-5 text-xs font-bold uppercase tracking-widest text-red-400">Before</p>
-              <ul className="space-y-3">
-                {before.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm font-medium text-red-900">
-                    <span className="h-1.5 w-1.5 rounded-full bg-red-400" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-              transition={{delay: 0.1}}
-              className="rounded-2xl border border-green-100 bg-green-50 p-8"
-            >
-              <p className="mb-5 text-xs font-bold uppercase tracking-widest text-green-500">After</p>
-              <ul className="space-y-3">
-                {after.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm font-medium text-green-900">
-                    <Check size={14} className="flex-shrink-0 text-green-500" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section id="reviews" className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <motion.h2
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="mb-10 font-display text-4xl font-bold tracking-tight text-gray-900"
-          >
-            {t('social.title')}
-          </motion.h2>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {testimonials.map((item, i) => (
-              <motion.article key={item.name}
-                initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-                transition={{delay: i * 0.08}}
-                className="flex flex-col rounded-2xl border border-gray-100 bg-white p-7 shadow-sm"
-              >
-                <div className="mb-4 flex gap-0.5 text-amber-400">
-                  {'★★★★★'.split('').map((s, j) => <span key={j}>{s}</span>)}
-                </div>
-                <p className="flex-1 text-sm leading-relaxed text-gray-700">"{item.quote}"</p>
-                <div className="mt-6 border-t border-gray-100 pt-5">
-                  <p className="font-semibold text-gray-900">{item.name}</p>
-                  <p className="mt-0.5 text-xs text-gray-400">{item.role}</p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── PRICING ── */}
-      <section id="plans" className="py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <motion.h2
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="mb-12 text-center font-display text-4xl font-bold tracking-tight text-gray-900"
-          >
-            {t('plans.title')}
-          </motion.h2>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {plans.map((plan, i) => {
-              const isFeatured = i === 1;
-              return (
-                <motion.article key={plan.name}
-                  initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-                  transition={{delay: i * 0.08}}
-                  className={`relative flex flex-col rounded-2xl p-8 ${
-                    isFeatured
-                      ? 'bg-gray-900 text-white shadow-2xl'
-                      : 'border border-gray-100 bg-white shadow-sm'
-                  }`}
-                >
-                  {isFeatured && (
-                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#1a56db] px-4 py-1 text-xs font-bold text-white">
-                      Most popular
-                    </span>
-                  )}
-                  <p className={`text-xs font-bold uppercase tracking-widest ${isFeatured ? 'text-blue-300' : 'text-gray-400'}`}>
-                    {plan.name}
-                  </p>
-                  <p className={`mt-3 font-display text-5xl font-black ${isFeatured ? 'text-white' : 'text-gray-900'}`}>
-                    {plan.price}
-                  </p>
-                  <p className={`mt-2 text-sm ${isFeatured ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {plan.description}
-                  </p>
-                  <ul className="mt-6 flex-1 space-y-3">
-                    {plan.items.map((entry) => (
-                      <li key={entry} className={`flex items-center gap-2.5 text-sm ${isFeatured ? 'text-gray-300' : 'text-gray-600'}`}>
-                        <Check size={14} className={isFeatured ? 'text-blue-400' : 'text-[#1a56db]'} />
-                        {entry}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href={`/${locale}/checkout`}
-                    className={`mt-8 flex w-full items-center justify-center rounded-xl py-3 text-sm font-semibold transition ${
-                      isFeatured
-                        ? 'bg-white text-gray-900 hover:bg-gray-100'
-                        : 'btn-primary'
-                    }`}
-                  >
-                    {t('nav.cta')}
-                  </Link>
-                </motion.article>
-              );
-            })}
-          </div>
-          <p className="mt-8 text-center text-sm text-gray-400">{t('plans.footnote')}</p>
-        </div>
-      </section>
-
-      {/* ── FAQ ── */}
-      <section id="faq" className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-3xl px-5">
-          <motion.h2
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="mb-10 font-display text-4xl font-bold tracking-tight text-gray-900"
-          >
-            {t('faq.title')}
-          </motion.h2>
-          <div className="rounded-2xl border border-gray-100 bg-white px-6 shadow-sm">
-            {faqItems.map((item) => (
-              <FAQItem key={item.q} question={item.q} answer={item.a} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── FINAL CTA ── */}
-      <section className="bg-gray-900 py-24">
-        <div className="mx-auto max-w-3xl px-5 text-center">
-          <motion.div
-            initial="hidden" whileInView="show" viewport={{once: true}} variants={fadeUp}
-            className="space-y-6"
-          >
-            <h2 className="font-display text-5xl font-black tracking-tight text-white">
-              {t('finalCta.title')}
-            </h2>
-            <p className="text-lg text-gray-400">{t('finalCta.subtitle')}</p>
-            <div className="flex flex-wrap justify-center gap-3 pt-2">
-              <a href="#plans" className="btn-accent px-8 py-3.5 text-sm">{t('finalCta.primary')}</a>
-              <a href="#system" className="btn-secondary-light">{t('finalCta.secondary')}</a>
-            </div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-xs text-gray-400">
-              <ShieldCheck size={13} />
-              Premium checkout · Secure payments · Free shipping
-            </div>
+              <div className="flex items-center justify-between">
+                <span className="text-[#4A4744] font-mono text-xs">{mod.duration}</span>
+                <span className="text-[#8A8580] text-xs tracking-[0.14em] uppercase group-hover:text-[#E8E4DF] transition-colors duration-500">
+                  Add to protocol →
+                </span>
+              </div>
+            </Link>
           </motion.div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-      {/* ── FOOTER ── */}
-      <footer className="border-t border-gray-100 bg-white py-12">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="grid gap-8 sm:grid-cols-3">
-            <div>
-              <span className="font-display font-black tracking-widest text-gray-900">RECOVER™</span>
-              <p className="mt-2 text-sm text-gray-400">{t('footer.tagline')}</p>
+// ─── Systems Section ──────────────────────────────────────────────
+function SystemsSection({ locale }: { locale: string }) {
+  const [active, setActive] = useState(0);
+  const system = SYSTEMS[active];
+
+  const phaseColors: Record<number, string> = {
+    0: '#4A4744',
+    1: '#7A6E60',
+    2: '#9A8E80',
+    3: '#C8B89A',
+  };
+
+  return (
+    <section
+      id="systems"
+      className="px-6 md:px-16 lg:px-24 py-24"
+      style={{ borderTop: '1px solid rgba(232,228,223,0.06)' }}
+    >
+      <motion.div
+        className="mb-16"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <p className="text-[#4A4744] text-[10px] tracking-[0.22em] uppercase mb-4">
+          Recovery Systems
+        </p>
+        <h2 className="font-display text-4xl md:text-5xl font-semibold text-[#E8E4DF] tracking-[-0.02em] max-w-xl">
+          Three complete experiences.
+        </h2>
+      </motion.div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="flex flex-col gap-0">
+          {SYSTEMS.map((s, i) => (
+            <button
+              key={s.id}
+              onClick={() => setActive(i)}
+              className="text-left py-6 transition-all duration-[600ms]"
+              style={{
+                borderBottom: '1px solid rgba(232,228,223,0.06)',
+                paddingLeft: '1rem',
+                borderLeft: `2px solid ${active === i ? '#C8B89A' : 'transparent'}`,
+              }}
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span
+                  className="font-display text-xl font-medium tracking-tight transition-colors duration-[600ms]"
+                  style={{ color: active === i ? '#E8E4DF' : '#4A4744' }}
+                >
+                  {s.name}
+                </span>
+                <span className="font-mono text-xs text-[#4A4744]">{s.duration}</span>
+              </div>
+              <p
+                className="text-sm font-light transition-colors duration-[600ms]"
+                style={{ color: active === i ? '#8A8580' : '#4A4744' }}
+              >
+                {s.target.split('.')[0]}
+              </p>
+            </button>
+          ))}
+        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={system.id}
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -8 }}
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className="p-8 md:p-10"
+            style={{ background: '#111111' }}
+          >
+            <p className="text-[#C8B89A] text-xs tracking-widest uppercase mb-6 font-mono">
+              {system.tagline}
+            </p>
+
+            <h3 className="font-display text-3xl font-semibold text-[#E8E4DF] tracking-tight mb-8">
+              {system.name}
+            </h3>
+
+            <div className="flex flex-col gap-0 mb-8">
+              {system.protocol.map((step, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-5 py-3.5"
+                  style={{ borderBottom: '1px solid rgba(232,228,223,0.06)' }}
+                >
+                  <span className="text-[#4A4744] text-xs font-mono w-16 shrink-0">
+                    {step.time}
+                  </span>
+                  <div
+                    className="w-1.5 h-1.5 rounded-full shrink-0"
+                    style={{ background: phaseColors[step.phase] }}
+                  />
+                  <span className="text-[#E8E4DF] text-sm font-light flex-1">{step.module}</span>
+                  <span className="text-[#4A4744] text-xs font-mono text-right">
+                    {step.duration}
+                  </span>
+                </div>
+              ))}
             </div>
-            <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-400">{t('footer.shop')}</p>
-              <ul className="space-y-2 text-sm text-gray-600">
-                {PRODUCTS.map((p) => (
-                  <li key={p.slug}>
-                    <Link href={`/${locale}/products/${p.slug}`} className="transition hover:text-gray-900">{p.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-400">{t('footer.support')}</p>
-              <ul className="space-y-2 text-sm text-gray-500">
-                <li><a href="#faq" className="transition hover:text-gray-900">{t('faq.title')}</a></li>
-                <li>{t('footer.returns')}</li>
-                <li>{t('footer.shipping')}</li>
-              </ul>
-            </div>
+
+            <Link
+              href={`/${locale}/products/sleep-induction-module`}
+              className="inline-block text-[#080808] bg-[#E8E4DF] px-7 py-3 text-xs tracking-[0.16em] uppercase hover:bg-[#C8B89A] transition-colors duration-[600ms] font-medium"
+            >
+              Enter System
+            </Link>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+}
+
+// ─── Philosophy Section ───────────────────────────────────────────
+function PhilosophySection() {
+  return (
+    <section
+      className="px-6 md:px-16 lg:px-24 py-32"
+      style={{ borderTop: '1px solid rgba(232,228,223,0.06)' }}
+    >
+      <motion.div
+        className="max-w-2xl"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: EASE_OUT }}
+      >
+        <p className="text-[#4A4744] text-[10px] tracking-[0.22em] uppercase mb-8">
+          System Philosophy
+        </p>
+        <blockquote className="font-display text-3xl md:text-4xl lg:text-5xl font-light text-[#E8E4DF] leading-[1.2] tracking-[-0.01em] mb-8">
+          "The system is intelligent.{' '}
+          <span style={{ color: '#4A4744' }}>
+            The user surrenders to it. That surrender is the product.
+          </span>"
+        </blockquote>
+        <p className="text-[#8A8580] text-sm font-light leading-relaxed max-w-md">
+          Recovery System is not a product company that sells devices. It is an operating system
+          that uses devices as input nodes. The mental model is not{' '}
+          <em style={{ color: '#4A4744' }}>"I bought a device."</em> It is:{' '}
+          <em style={{ color: '#E8E4DF' }}>"I enrolled in a protocol."</em>
+        </p>
+      </motion.div>
+    </section>
+  );
+}
+
+// ─── Footer ───────────────────────────────────────────────────────
+function RecoveryFooter({ locale }: { locale: string }) {
+  return (
+    <footer
+      className="px-6 md:px-16 lg:px-24 py-12"
+      style={{ borderTop: '1px solid rgba(232,228,223,0.06)' }}
+    >
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div>
+          <span className="font-display font-semibold text-[#E8E4DF] tracking-[0.12em] text-sm block mb-2">
+            RS™
+          </span>
+          <p className="text-[#4A4744] text-xs font-light max-w-xs leading-relaxed">
+            A mental recovery operating system designed for overstimulated modern humans.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-8 text-xs text-[#4A4744]">
+          <div className="flex flex-col gap-3">
+            {MODULES.slice(0, 2).map((m) => (
+              <Link
+                key={m.slug}
+                href={`/${locale}/products/${m.slug}`}
+                className="hover:text-[#8A8580] transition-colors duration-500"
+              >
+                {m.name}
+              </Link>
+            ))}
           </div>
-          <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-gray-100 pt-8 sm:flex-row">
-            <p className="text-sm text-gray-400">© {new Date().getFullYear()} RECOVER™. {t('footer.rights')}</p>
-            <div className="flex items-center gap-1.5 text-xs text-gray-400">
-              <ShieldCheck size={12} />
-              {t('footer.securePayments')}
-            </div>
+          <div className="flex flex-col gap-3">
+            {MODULES.slice(2).map((m) => (
+              <Link
+                key={m.slug}
+                href={`/${locale}/products/${m.slug}`}
+                className="hover:text-[#8A8580] transition-colors duration-500"
+              >
+                {m.name}
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-col gap-3">
+            <a href="#" className="hover:text-[#8A8580] transition-colors duration-500">
+              Privacy
+            </a>
+            <a href="#" className="hover:text-[#8A8580] transition-colors duration-500">
+              Legal
+            </a>
+            <a href="#" className="hover:text-[#8A8580] transition-colors duration-500">
+              Module Support
+            </a>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+
+      <p className="text-[#4A4744] text-[10px] tracking-widest mt-10">
+        © {new Date().getFullYear()} RECOVERY SYSTEM™. All rights reserved.
+      </p>
+    </footer>
+  );
+}
+
+// ─── Recovery OS ──────────────────────────────────────────────────
+function RecoveryOS({ stressLevel, locale }: { stressLevel: StressLevel; locale: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, ease: EASE_OUT }}
+    >
+      <RecoveryNavbar locale={locale} />
+      <ProtocolSection stressLevel={stressLevel} locale={locale} />
+      <ModulesSection locale={locale} />
+      <SystemsSection locale={locale} />
+      <PhilosophySection />
+      <RecoveryFooter locale={locale} />
+    </motion.div>
+  );
+}
+
+// ─── Main Export ──────────────────────────────────────────────────
+export default function LandingPage() {
+  const params = useParams();
+  const locale = (params?.locale as string) ?? 'en';
+  const [stressLevel, setStressLevel] = useState<StressLevel | null>(null);
+  const [entryDone, setEntryDone] = useState(false);
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem('rs_stress_level') as StressLevel | null;
+    if (saved) {
+      setStressLevel(saved);
+      setEntryDone(true);
+    }
+  }, []);
+
+  const handleEntryComplete = (level: StressLevel) => {
+    sessionStorage.setItem('rs_stress_level', level);
+    setStressLevel(level);
+    setEntryDone(true);
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      {!entryDone ? (
+        <EntryGate key="entry" onComplete={handleEntryComplete} />
+      ) : (
+        <RecoveryOS key="os" stressLevel={stressLevel!} locale={locale} />
+      )}
+    </AnimatePresence>
   );
 }

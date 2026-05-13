@@ -1,157 +1,225 @@
 'use client';
 
-import {AnimatePresence, motion} from 'framer-motion';
-import {ArrowLeft, Check, ShieldCheck, ShoppingBag, Star, Truck} from 'lucide-react';
-import {useLocale, useTranslations} from 'next-intl';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Check } from 'lucide-react';
 import Link from 'next/link';
-import {useState} from 'react';
-import {useCart} from '../context/CartContext';
-import {getProductIndex, PRODUCTS, type Product} from '../lib/products';
+import { useState } from 'react';
+import { useLocale } from 'next-intl';
+import { useCart } from '../context/CartContext';
+import { getModuleBySlug, MODULES } from '../lib/modules';
+import { type Product, PRODUCTS } from '../lib/products';
+import { MODULE_VISUALS } from './ModuleVisuals';
 
-const PRODUCT_BG = ['#f0f9ff', '#f0fdf4', '#faf5ff'];
-const PRODUCT_ICON = ['💆', '🧘', '🌙'];
+const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
 
-export default function ProductDetail({product}: {product: Product}) {
-  const t = useTranslations();
+const MODULE_FUNCTIONS: Record<string, string[]> = {
+  'sleep-induction-module': [
+    'Beta → alpha → theta brainwave entrainment',
+    'Calibrated audio frequencies for sleep induction',
+    'Compatible with Night Reset, Deep Sleep, and Full Recovery protocols',
+    'Phase 3 activation — final stage of the protocol',
+    '22–45 min session duration',
+  ],
+  'cervical-downshift-module': [
+    'Releases cervical-trapezius tension accumulation',
+    'Decompresses the primary site of chronic mental load',
+    'Phase 1 activation — first stage, physical gateway',
+    'Prepares the nervous system for neural decompression',
+    '18–45 min session duration',
+  ],
+  'sensory-stillness-module': [
+    'Reduces external sensory input',
+    'Creates perceptual isolation for parasympathetic shift',
+    'Phase 2 activation — descent stage',
+    'Works in sequence after Cervical Downshift',
+    '20–30 min session duration',
+  ],
+  'environment-calibration-module': [
+    'Synchronizes light temperature, sound floor, and air',
+    'Creates a personalized sleep-optimized environment signature',
+    'Passive activation — begins 90 min before protocol',
+    'Conditions the body before conscious effort begins',
+    'Required for Deep Sleep and Full Recovery Systems',
+  ],
+};
+
+export default function ProductDetail({ product }: { product: Product }) {
   const locale = useLocale();
-  const {add} = useCart();
+  const { add } = useCart();
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
 
-  const i = getProductIndex(product.slug);
-  const systemProducts = t.raw('system.products') as Array<{
-    name: string;
-    tag: string;
-    focus: string;
-    features: string[];
-  }>;
-  const productData = systemProducts[i];
+  const mod = getModuleBySlug(product.slug);
+  const functions = MODULE_FUNCTIONS[product.slug] ?? [];
 
   const handleAdd = () => {
     for (let q = 0; q < qty; q++) {
-      add({slug: product.slug, name: product.name, price: product.price, icon: PRODUCT_ICON[i]});
+      add({ slug: product.slug, name: product.name, price: product.price, icon: product.icon });
     }
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
 
-  const otherProducts = PRODUCTS.filter((p) => p.slug !== product.slug);
+  const otherModules = PRODUCTS.filter((p) => p.slug !== product.slug).slice(0, 2);
+  const ModuleVisual = MODULE_VISUALS[product.slug] ?? null;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#080808] text-[#E8E4DF]">
       {/* Minimal header */}
-      <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 backdrop-blur-md">
-        <div className="mx-auto flex h-14 max-w-6xl items-center px-5">
-          <Link href={`/${locale}`} className="font-display text-sm font-extrabold tracking-widest text-gray-900">
-            RECOVER™
-          </Link>
-        </div>
-      </header>
-
-      <div className="mx-auto max-w-6xl px-5 py-10">
-        {/* Breadcrumb */}
+      <header
+        className="sticky top-0 z-30 flex h-16 items-center justify-between px-6 md:px-10"
+        style={{
+          background: 'rgba(8,8,8,0.92)',
+          borderBottom: '1px solid rgba(232,228,223,0.06)',
+          backdropFilter: 'blur(16px)',
+        }}
+      >
         <Link
           href={`/${locale}`}
-          className="mb-8 inline-flex items-center gap-1.5 text-sm text-gray-400 transition hover:text-gray-700"
+          className="font-display font-semibold text-[#E8E4DF] tracking-[0.12em] text-sm"
         >
-          <ArrowLeft size={14} />
-          Back to shop
+          RS™
+        </Link>
+        <Link
+          href={`/${locale}/checkout`}
+          className="text-[#080808] bg-[#E8E4DF] text-xs tracking-[0.14em] uppercase px-5 py-2 hover:bg-[#C8B89A] transition-colors duration-[600ms] font-medium"
+        >
+          Proceed to Checkout
+        </Link>
+      </header>
+
+      <div className="mx-auto max-w-6xl px-6 md:px-10 py-12">
+        {/* Back */}
+        <Link
+          href={`/${locale}`}
+          className="mb-12 inline-flex items-center gap-2 text-xs text-[#4A4744] tracking-[0.14em] uppercase hover:text-[#8A8580] transition-colors duration-500"
+        >
+          <ArrowLeft size={12} />
+          Back to Recovery OS
         </Link>
 
-        {/* Product grid */}
-        <div className="grid gap-12 lg:grid-cols-2">
-          {/* Image */}
+        <div className="grid gap-16 lg:grid-cols-2">
+          {/* Left — Module visual */}
           <motion.div
-            initial={{opacity: 0, x: -20}}
-            animate={{opacity: 1, x: 0}}
-            transition={{duration: 0.5}}
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: EASE_OUT }}
           >
+            {/* Main visual */}
             <div
-              className="flex h-80 w-full items-center justify-center rounded-3xl text-8xl sm:h-[420px]"
-              style={{background: PRODUCT_BG[i], border: '1px solid #e5e7eb'}}
+              className="flex h-80 sm:h-[420px] w-full items-center justify-center p-10"
+              style={{
+                background: '#111111',
+                border: '1px solid rgba(232,228,223,0.08)',
+              }}
             >
-              {PRODUCT_ICON[i]}
+              {ModuleVisual ? (
+                <ModuleVisual className="w-full h-full max-h-[340px] object-contain" />
+              ) : (
+                <div className="text-center">
+                  <span
+                    className="font-mono text-[#4A4744] text-xs tracking-widest block mb-6 px-3 py-1.5 mx-auto w-fit"
+                    style={{ border: '1px solid rgba(232,228,223,0.08)' }}
+                  >
+                    {mod?.abbr ?? product.icon}
+                  </span>
+                  <p className="font-display text-5xl font-light text-[#E8E4DF]/20 tracking-[-0.02em]">
+                    {mod?.phase ?? ''}
+                  </p>
+                </div>
+              )}
             </div>
 
-            {/* Thumbnails */}
-            <div className="mt-4 grid grid-cols-3 gap-3">
-              {[0, 1, 2].map((j) => (
+            {/* Three detail panels */}
+            <div className="mt-1 grid grid-cols-3 gap-px" style={{ background: 'rgba(232,228,223,0.06)' }}>
+              {[
+                { label: 'Phase', value: mod?.phaseName ?? '—' },
+                { label: 'Duration', value: mod?.duration ?? '—' },
+                { label: 'Function', value: mod?.function ?? '—' },
+              ].map(({ label, value }) => (
                 <div
-                  key={j}
-                  className="flex h-20 items-center justify-center rounded-xl text-3xl"
-                  style={{background: PRODUCT_BG[i], border: '1px solid #e5e7eb'}}
+                  key={label}
+                  className="bg-[#080808] p-5 flex flex-col gap-1"
                 >
-                  {PRODUCT_ICON[i]}
+                  <span className="text-[#4A4744] text-[9px] tracking-widest uppercase font-mono">
+                    {label}
+                  </span>
+                  <span className="text-[#8A8580] text-xs font-light leading-relaxed">{value}</span>
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Info */}
+          {/* Right — Module info */}
           <motion.div
-            initial={{opacity: 0, x: 20}}
-            animate={{opacity: 1, x: 0}}
-            transition={{duration: 0.5, delay: 0.1}}
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE_OUT }}
             className="flex flex-col"
           >
-            <span className="text-xs font-bold uppercase tracking-widest text-[#1a56db]">
-              {productData?.tag ?? product.tag}
+            {/* Label */}
+            <span className="text-[#4A4744] text-[10px] tracking-[0.22em] uppercase font-mono mb-4">
+              {mod?.function ?? product.tag}
             </span>
 
-            <h1 className="mt-2 font-display text-4xl font-black tracking-tight text-gray-900 sm:text-5xl">
+            {/* Name */}
+            <h1 className="font-display text-4xl sm:text-5xl font-semibold text-[#E8E4DF] tracking-[-0.02em] mb-6 leading-[0.95]">
               {product.name}
             </h1>
 
-            {/* Rating */}
-            <div className="mt-3 flex items-center gap-2">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, k) => (
-                  <Star key={k} size={14} fill="currentColor" />
-                ))}
-              </div>
-              <span className="text-sm text-gray-500">4.9 · 1,240 reviews</span>
-            </div>
+            {/* Description */}
+            {mod?.description && (
+              <p className="text-[#8A8580] text-base font-light leading-relaxed mb-8">
+                {mod.description}
+              </p>
+            )}
 
-            {/* Price */}
-            <div className="mt-5 flex items-baseline gap-3">
-              <span className="font-display text-4xl font-black text-gray-900">
-                €{product.price}
-              </span>
-              <span className="text-lg text-gray-400 line-through">€{product.comparePrice}</span>
-              <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-700">
-                Save €{product.comparePrice - product.price}
-              </span>
-            </div>
-
-            <p className="mt-5 text-base leading-relaxed text-gray-500">
-              {productData?.focus}
-            </p>
-
-            {/* Features */}
-            {productData?.features && (
-              <ul className="mt-5 space-y-2">
-                {productData.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm text-gray-700">
-                    <Check size={14} className="flex-shrink-0 text-[#1a56db]" />
-                    {f}
+            {/* Functions */}
+            {functions.length > 0 && (
+              <ul className="flex flex-col gap-3 mb-10">
+                {functions.map((f) => (
+                  <li key={f} className="flex items-start gap-3 text-sm">
+                    <Check
+                      size={12}
+                      className="mt-0.5 shrink-0"
+                      style={{ color: '#C8B89A' }}
+                    />
+                    <span className="text-[#8A8580] font-light">{f}</span>
                   </li>
                 ))}
               </ul>
             )}
 
-            {/* Qty + Add */}
-            <div className="mt-8 flex items-center gap-3">
-              <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50">
+            {/* Pricing — minimal */}
+            <div
+              className="flex items-baseline gap-4 py-6 mb-8"
+              style={{ borderTop: '1px solid rgba(232,228,223,0.06)', borderBottom: '1px solid rgba(232,228,223,0.06)' }}
+            >
+              <span className="font-display text-4xl font-semibold text-[#E8E4DF]">
+                €{product.price}
+              </span>
+              <span className="text-[#4A4744] text-sm line-through">€{product.comparePrice}</span>
+              <span className="text-[#4A4744] text-xs font-mono">
+                Save €{product.comparePrice - product.price}
+              </span>
+            </div>
+
+            {/* Qty + Add to protocol */}
+            <div className="flex items-center gap-4 mb-4">
+              <div
+                className="flex items-center"
+                style={{ border: '1px solid rgba(232,228,223,0.1)', background: '#111111' }}
+              >
                 <button
                   onClick={() => setQty((v) => Math.max(1, v - 1))}
-                  className="px-4 py-3 text-gray-600 transition hover:text-gray-900"
+                  className="px-5 py-3 text-[#8A8580] hover:text-[#E8E4DF] transition-colors duration-300 text-sm"
                 >
                   −
                 </button>
-                <span className="w-8 text-center text-sm font-semibold">{qty}</span>
+                <span className="w-8 text-center text-sm text-[#E8E4DF] font-mono">{qty}</span>
                 <button
                   onClick={() => setQty((v) => v + 1)}
-                  className="px-4 py-3 text-gray-600 transition hover:text-gray-900"
+                  className="px-5 py-3 text-[#8A8580] hover:text-[#E8E4DF] transition-colors duration-300 text-sm"
                 >
                   +
                 </button>
@@ -159,67 +227,86 @@ export default function ProductDetail({product}: {product: Product}) {
 
               <button
                 onClick={handleAdd}
-                className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold transition ${
-                  added
-                    ? 'bg-green-600 text-white'
-                    : 'bg-gray-900 text-white hover:bg-gray-800 active:scale-[0.98]'
-                }`}
+                className="flex-1 py-3.5 text-xs tracking-[0.14em] uppercase font-medium transition-all duration-[600ms]"
+                style={{
+                  background: added ? '#2A2A1A' : '#111111',
+                  border: `1px solid ${added ? 'rgba(200,184,154,0.4)' : 'rgba(232,228,223,0.15)'}`,
+                  color: added ? '#C8B89A' : '#E8E4DF',
+                }}
               >
-                <ShoppingBag size={16} />
-                {added ? '✓ Added to cart' : 'Add to cart'}
+                {added ? '✓ Added to protocol' : 'Add to protocol'}
               </button>
             </div>
 
             <Link
               href={`/${locale}/checkout`}
-              className="btn-accent mt-3 flex w-full items-center justify-center py-3.5 text-sm"
+              className="flex w-full items-center justify-center py-3.5 text-xs tracking-[0.14em] uppercase font-medium transition-colors duration-[600ms] mb-8"
+              style={{ background: '#E8E4DF', color: '#080808' }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = '#C8B89A')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = '#E8E4DF')}
             >
-              Buy now — €{(product.price * qty).toFixed(2)}
+              Begin with this module — €{(product.price * qty).toFixed(2)}
             </Link>
 
-            {/* Trust badges */}
-            <div className="mt-6 grid grid-cols-3 gap-3 rounded-2xl border border-gray-100 bg-gray-50 p-4">
-              <div className="flex flex-col items-center gap-1 text-center">
-                <ShieldCheck size={18} className="text-gray-500" />
-                <span className="text-xs font-medium text-gray-600">30-day guarantee</span>
-              </div>
-              <div className="flex flex-col items-center gap-1 text-center">
-                <Truck size={18} className="text-gray-500" />
-                <span className="text-xs font-medium text-gray-600">Free shipping</span>
-              </div>
-              <div className="flex flex-col items-center gap-1 text-center">
-                <ShoppingBag size={18} className="text-gray-500" />
-                <span className="text-xs font-medium text-gray-600">Secure checkout</span>
-              </div>
+            {/* Trust */}
+            <div
+              className="grid grid-cols-3 gap-px"
+              style={{ background: 'rgba(232,228,223,0.06)' }}
+            >
+              {[
+                { label: '30-day protocol guarantee' },
+                { label: 'Free shipping worldwide' },
+                { label: 'Secure checkout' },
+              ].map(({ label }) => (
+                <div
+                  key={label}
+                  className="bg-[#080808] px-4 py-4 text-center"
+                >
+                  <span className="text-[#4A4744] text-[10px] tracking-wide font-light leading-tight">
+                    {label}
+                  </span>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
 
-        {/* You may also like */}
-        <div className="mt-20">
-          <h2 className="mb-8 font-display text-2xl font-bold text-gray-900">You may also like</h2>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {otherProducts.map((p, j) => {
-              const pIndex = getProductIndex(p.slug);
-              const pData = systemProducts[pIndex];
+        {/* Related modules */}
+        <div
+          className="mt-24 pt-16"
+          style={{ borderTop: '1px solid rgba(232,228,223,0.06)' }}
+        >
+          <p className="text-[#4A4744] text-[10px] tracking-[0.22em] uppercase mb-8">
+            Related Modules
+          </p>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-px"
+            style={{ background: 'rgba(232,228,223,0.06)' }}
+          >
+            {otherModules.map((p) => {
+              const relMod = getModuleBySlug(p.slug);
               return (
                 <Link
                   key={p.slug}
                   href={`/${locale}/products/${p.slug}`}
-                  className="flex items-center gap-5 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                  className="group block bg-[#080808] p-8 hover:bg-[#0D0D0D] transition-colors duration-700"
                 >
-                  <div
-                    className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl text-2xl"
-                    style={{background: PRODUCT_BG[pIndex]}}
-                  >
-                    {PRODUCT_ICON[pIndex]}
+                  <div className="flex items-start justify-between mb-6">
+                    <span
+                      className="font-mono text-[#4A4744] text-[11px] tracking-widest px-3 py-1.5"
+                      style={{ border: '1px solid rgba(232,228,223,0.08)' }}
+                    >
+                      {relMod?.abbr ?? p.icon}
+                    </span>
+                    <span className="font-mono text-[#4A4744] text-[10px] tracking-widest">
+                      {relMod?.phase ?? ''}
+                    </span>
                   </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-[#1a56db]">{p.tag}</p>
-                    <p className="font-semibold text-gray-900">{p.name}</p>
-                    <p className="text-sm text-gray-500">{pData?.focus?.slice(0, 60)}…</p>
-                  </div>
-                  <span className="ml-auto font-bold text-gray-900">€{p.price}</span>
+                  <h3 className="font-display text-xl font-medium text-[#E8E4DF] mb-2 group-hover:text-[#C8B89A] transition-colors duration-[600ms]">
+                    {p.name}
+                  </h3>
+                  <p className="text-[#4A4744] text-sm font-light">{relMod?.function ?? p.tag}</p>
+                  <p className="text-[#8A8580] text-sm mt-3">€{p.price}</p>
                 </Link>
               );
             })}

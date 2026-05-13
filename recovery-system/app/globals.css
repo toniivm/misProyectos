@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --accent: #1a56db;
-  --accent-hover: #1648c0;
+  --bg-base: #080808;
+  --bg-surface: #111111;
+  --bg-elevated: #1A1A1A;
+  --text-primary: #E8E4DF;
+  --text-secondary: #8A8580;
+  --text-muted: #4A4744;
+  --accent: #C8B89A;
+  --accent-dim: #7A6E60;
+  --border: rgba(232, 228, 223, 0.08);
 }
 
 * {
@@ -19,17 +26,19 @@ html {
 }
 
 body {
-  background: #fff;
-  color: #111827;
+  background: var(--bg-base);
+  color: var(--text-primary);
   font-family: var(--font-inter), system-ui, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 2px; }
+
+::selection { background: rgba(200, 184, 154, 0.18); color: var(--text-primary); }
 
 /* ── Buttons ── */
 .btn-primary {
