@@ -187,10 +187,14 @@ const products = [
     specs: ['Battery: 2500mAh', 'Stall Force: 28 lbs', 'Weight: 0.95kg', 'Noise: <45dB'],
     useCases: ['Post-workout recovery', 'Gym soreness', 'Injury prevention', 'Deep tissue release'],
     price: '€89',
-    badge: 'Best Seller',
+    comparePrice: '€149',
+    badge: 'BEST SELLER',
+    badgeColor: 'bg-amber-400/10 text-amber-300 border-amber-400/20',
+    reviews: { rating: 4.9, count: 847 },
     Visual: MassageGunDetailSVG,
     accent: 'from-blue-500/20 via-transparent to-transparent',
     glow: 'shadow-[0_0_60px_rgba(14,165,233,0.2)]',
+    tabColor: 'text-electric-400',
   },
   {
     id: 'cerviflex',
@@ -211,10 +215,14 @@ const products = [
     specs: ['Material: ABS+TPR', 'Battery: 600mAh', 'Input: 5V/1A USB-C', 'Weight: 180g'],
     useCases: ['Office neck pain', 'Posture correction', 'Stress relief', 'Shoulder decompression'],
     price: '€59',
-    badge: 'Fan Favorite',
+    comparePrice: '€99',
+    badge: 'MOST POPULAR',
+    badgeColor: 'bg-electric-500/10 text-electric-300 border-electric-500/20',
+    reviews: { rating: 4.8, count: 1284 },
     Visual: NeckMassagerDetailSVG,
     accent: 'from-cyan-500/20 via-transparent to-transparent',
     glow: 'shadow-[0_0_60px_rgba(6,182,212,0.2)]',
+    tabColor: 'text-cyan-400',
   },
   {
     id: 'sleepseal',
@@ -235,10 +243,14 @@ const products = [
     specs: ['Type: Physical', 'Function: Anti-snore', 'Material: TPE', 'Pack: 30 strips'],
     useCases: ['Deeper REM sleep', 'Snoring elimination', 'Oxygen optimization', 'Recovery overnight'],
     price: '€29',
-    badge: 'Sleep Hack',
+    comparePrice: '€49',
+    badge: 'SLEEP ESSENTIAL',
+    badgeColor: 'bg-violet-500/10 text-violet-300 border-violet-500/20',
+    reviews: { rating: 4.9, count: 612 },
     Visual: SleepTapeDetailSVG,
     accent: 'from-violet-500/20 via-transparent to-transparent',
     glow: 'shadow-[0_0_60px_rgba(139,92,246,0.2)]',
+    tabColor: 'text-violet-400',
   },
 ]
 
@@ -280,21 +292,25 @@ export default function ProductsSection() {
               onClick={() => setActive(i)}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className={`relative px-6 py-3.5 rounded-xl text-sm font-semibold tracking-wider uppercase transition-all duration-300 ${
+              className={`relative px-6 py-4 rounded-2xl text-sm font-semibold tracking-wider uppercase transition-all duration-300 ${
                 active === i
-                  ? 'bg-electric-500 text-white shadow-glow'
-                  : 'glass-card border border-white/5 text-slate-400 hover:text-white hover:border-white/10'
+                  ? 'bg-electric-500 text-[#03111a] shadow-glow'
+                  : 'glass-card border border-white/8 text-slate-400 hover:text-white hover:border-white/15'
               }`}
             >
-              {p.badge && active === i && (
-                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] bg-white text-electric-600 px-2 py-0.5 rounded-full font-bold tracking-wider">
-                  {p.badge}
-                </span>
-              )}
+              {/* Badge */}
+              <span className={`absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] px-2.5 py-0.5 rounded-full font-black tracking-wider border ${p.badgeColor}`}>
+                {p.badge}
+              </span>
               <span className="flex items-center gap-2">
-                <span className="text-[10px] opacity-60">{`0${i + 1}`}</span>
+                <span className="text-[10px] opacity-50">{`0${i + 1}`}</span>
                 {p.name}
               </span>
+              {/* Mini rating */}
+              <div className={`flex items-center gap-1 mt-1 text-[10px] ${active === i ? 'text-[#03111a]/60' : 'text-slate-500'}`}>
+                <Star size={9} className={active === i ? 'fill-[#03111a]/60 text-[#03111a]/60' : 'fill-yellow-400 text-yellow-400'} />
+                {p.reviews.rating} ({p.reviews.count})
+              </div>
             </motion.button>
           ))}
         </div>
@@ -307,7 +323,7 @@ export default function ProductsSection() {
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: -20, filter: 'blur(4px)' }}
             transition={{ duration: 0.4 }}
-            className={`relative glass-card electric-border rounded-3xl overflow-hidden ${product.glow}`}
+            className={`relative card-premium overflow-hidden ${product.glow}`}
           >
             {/* BG gradient */}
             <div className={`absolute inset-0 bg-gradient-to-br ${product.accent}`} />
@@ -367,12 +383,18 @@ export default function ProductsSection() {
                   </div>
 
                   {/* CTA row */}
-                  <div className="flex items-center gap-6 pt-2">
+                  <div className="flex items-center gap-5 pt-2">
                     <div>
-                      <span className="font-display font-black text-3xl text-white">{product.price}</span>
-                      <span className="text-slate-500 text-xs ml-2">one-time</span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-display font-black text-3xl text-white">{product.price}</span>
+                        <span className="text-slate-500 text-sm line-through">{product.comparePrice}</span>
+                        <span className="text-[10px] font-black text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full border border-emerald-400/15">
+                          Save {Math.round((1 - parseInt(product.price.slice(1)) / parseInt(product.comparePrice.slice(1))) * 100)}%
+                        </span>
+                      </div>
+                      <span className="text-slate-600 text-[10px]">one-time · no subscription</span>
                     </div>
-                    <a href="#offer" className="btn-primary text-xs py-3 px-6 flex-shrink-0">
+                    <a href="#offer" className="btn-primary text-xs py-3.5 px-7 flex-shrink-0">
                       <span className="relative z-10">Add to Kit</span>
                       <ChevronRight size={14} className="relative z-10" />
                     </a>

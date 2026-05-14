@@ -274,16 +274,35 @@ export default function HeroSection() {
               transition={{ delay: 1.3, duration: 0.7 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <a href="#offer" className="btn-primary">
+              <a href="#offer" className="btn-primary py-3.5 px-8 text-sm">
                 <span className="relative z-10">Start Recovering</span>
                 <ArrowDown size={14} className="relative z-10" />
               </a>
               <a href="#products" className="btn-ghost inline-flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
-                  <Play size={10} fill="currentColor" />
+                <span className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center bg-white/[0.04] hover:border-electric-500/30 transition-colors">
+                  <Play size={10} fill="currentColor" className="text-electric-400" />
                 </span>
-                Watch the Routine
+                See the system
               </a>
+            </motion.div>
+
+            {/* Trust chips */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.6, duration: 0.8 }}
+              className="flex flex-wrap items-center gap-5 pt-2"
+            >
+              {[
+                { icon: '⭐', text: '4.9/5 · 1,284 verified reviews' },
+                { icon: '🚚', text: 'Free shipping' },
+                { icon: '🔒', text: '30-day money-back' },
+              ].map((chip) => (
+                <div key={chip.text} className="flex items-center gap-1.5 text-xs text-slate-500">
+                  <span>{chip.icon}</span>
+                  <span>{chip.text}</span>
+                </div>
+              ))}
             </motion.div>
           </div>
 

@@ -37,7 +37,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${inter.variable} ${syne.variable}`}>
-      <body className="bg-[#080808] text-[#E8E4DF] font-sans antialiased overflow-x-hidden">
+      <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden">
         {children}
       </body>
     </html>

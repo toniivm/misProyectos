@@ -30,7 +30,7 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-[#050508]/90 backdrop-blur-xl border-b border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+            ? 'bg-[#080c16]/92 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.5)]'
             : 'bg-transparent'
         }`}
       >
@@ -68,9 +68,12 @@ export default function Navbar() {
 
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-4">
-              <a href="#offer" className="btn-primary text-xs py-3 px-6 z-10">
-                <span className="relative z-10">Start Recovering</span>
-              </a>
+              <div className="text-right">
+                <a href="#offer" className="btn-primary text-xs py-2.5 px-5">
+                  <span className="relative z-10">Shop the System</span>
+                </a>
+                <div className="text-[9px] text-slate-600 text-center mt-1 tracking-wide">Free shipping · 30-day guarantee</div>
+              </div>
             </div>
 
             {/* Mobile menu toggle */}
