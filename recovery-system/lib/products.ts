@@ -36,6 +36,15 @@ export const PRODUCTS: Product[] = [
     icon: 'SSM',
     bg: '#111111',
   },
+  {
+    slug: 'sleepband-pro',
+    name: 'SleepBand Pro',
+    tag: 'Bluetooth sleep headband',
+    price: 69,
+    comparePrice: 119,
+    icon: 'SBP',
+    bg: '#101828',
+  },
 ];
 
 export function getProductBySlug(slug: string): Product | undefined {

@@ -2,23 +2,30 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useLocale } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import {
   Activity,
   ArrowRight,
   Check,
+  ChevronDown,
   Moon,
   Package,
   ShieldCheck,
+  ShoppingCart,
   Star,
   Truck,
 } from 'lucide-react'
+import { useCart } from '../context/CartContext'
 
 type ArtworkProps = {
   className?: string
 }
 
 type Product = {
-  id: 'pulse' | 'cerviflex' | 'sleepseal'
+  id: 'pulse' | 'cerviflex' | 'sleepseal' | 'sleepband'
+  slug: string
+  cartIcon: string
   label: string
   name: string
   category: string
@@ -27,6 +34,7 @@ type Product = {
   highlights: string[]
   chips: string[]
   price: string
+  priceNum: number
   comparePrice: string
   review: string
   reviewer: string
@@ -150,9 +158,57 @@ function SleepSealArt({ className }: ArtworkProps) {
   )
 }
 
+function SleepBandArt({ className }: ArtworkProps) {
+  return (
+    <svg viewBox="0 0 320 140" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <defs>
+        <linearGradient id="sb-body" x1="0" y1="70" x2="320" y2="70" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#1B2636" />
+          <stop offset="0.45" stopColor="#263447" />
+          <stop offset="1" stopColor="#141E2D" />
+        </linearGradient>
+        <linearGradient id="sb-sheen" x1="160" y1="44" x2="160" y2="62" gradientUnits="userSpaceOnUse">
+          <stop stopColor="rgba(255,255,255,0.07)" />
+          <stop offset="1" stopColor="rgba(255,255,255,0)" />
+        </linearGradient>
+      </defs>
+      {/* Drop shadow */}
+      <ellipse cx="160" cy="122" rx="108" ry="7" fill="rgba(0,0,0,0.28)" />
+      {/* Main band */}
+      <rect x="20" y="42" width="280" height="60" rx="30" fill="url(#sb-body)" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+      {/* Surface sheen */}
+      <rect x="28" y="43" width="264" height="18" rx="14" fill="url(#sb-sheen)" />
+      {/* Left speaker module */}
+      <ellipse cx="62" cy="72" rx="27" ry="23" fill="#111D2B" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+      {[[-8,-8],[-8,0],[-8,8],[0,-8],[0,0],[0,8],[8,-8],[8,0],[8,8]].map(([dx, dy], i) => (
+        <circle key={i} cx={62+(dx??0)} cy={72+(dy??0)} r="1.8" fill="rgba(0,0,0,0.65)" />
+      ))}
+      {/* Right speaker module */}
+      <ellipse cx="258" cy="72" rx="27" ry="23" fill="#111D2B" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+      {[[-8,-8],[-8,0],[-8,8],[0,-8],[0,0],[0,8],[8,-8],[8,0],[8,8]].map(([dx, dy], i) => (
+        <circle key={`r${i}`} cx={258+(dx??0)} cy={72+(dy??0)} r="1.8" fill="rgba(0,0,0,0.65)" />
+      ))}
+      {/* Center control panel */}
+      <rect x="118" y="50" width="84" height="44" rx="13" fill="#1C2C40" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+      {[63, 71, 79].map(y => (
+        <line key={y} x1="126" y1={y} x2="194" y2={y} stroke="rgba(255,255,255,0.04)" strokeWidth="0.8" />
+      ))}
+      {/* LED indicator */}
+      <circle cx="155" cy="57" r="5" fill="#8EA7C7" opacity="0.15" />
+      <circle cx="155" cy="57" r="2.5" fill="#A3C0DC" />
+      {/* Brand accent line */}
+      <rect x="136" y="76" width="48" height="1.5" rx="0.75" fill="#8EA7C7" opacity="0.4" />
+      {/* USB-C port */}
+      <rect x="154" y="95" width="12" height="4" rx="2" fill="#0C1622" stroke="rgba(255,255,255,0.12)" strokeWidth="0.5" />
+    </svg>
+  )
+}
+
 const products: Product[] = [
   {
     id: 'pulse',
+    slug: 'pulse-pro-x',
+    cartIcon: '💆',
     label: 'Deep tissue relief',
     name: 'Pulse Pro X',
     category: 'Quiet percussion massage gun',
@@ -162,6 +218,7 @@ const products: Product[] = [
     highlights: ['16 mm deep tissue reach', 'Six quiet intensity levels', 'Brushless motor under 45 dB'],
     chips: ['Post-training', 'Desk recovery', 'Deep release'],
     price: '€89',
+    priceNum: 89,
     comparePrice: '€149',
     review: 'Feels closer to premium studio equipment than a gym accessory.',
     reviewer: 'Marcus, endurance athlete',
@@ -170,6 +227,8 @@ const products: Product[] = [
   },
   {
     id: 'cerviflex',
+    slug: 'cerviflex',
+    cartIcon: '🧘',
     label: 'Neck decompression',
     name: 'CerviFlex',
     category: 'Cervical relief massager',
@@ -179,6 +238,7 @@ const products: Product[] = [
     highlights: ['Three gentle massage modes', 'Heat-assisted relaxation', 'Light enough for every night use'],
     chips: ['Neck relief', 'Shoulders', 'Posture reset'],
     price: '€59',
+    priceNum: 59,
     comparePrice: '€99',
     review: 'The first neck tool that feels elegant enough to leave out at home.',
     reviewer: 'Sofia, product designer',
@@ -187,6 +247,8 @@ const products: Product[] = [
   },
   {
     id: 'sleepseal',
+    slug: 'sleepseal',
+    cartIcon: '🌙',
     label: 'Sleep optimization',
     name: 'SleepSeal',
     category: 'Night breathing support',
@@ -196,11 +258,32 @@ const products: Product[] = [
     highlights: ['30-night starter pack', 'Soft-touch hypoallergenic material', 'Designed for nightly consistency'],
     chips: ['Night routine', 'Breathing', 'Deeper sleep'],
     price: '€29',
+    priceNum: 29,
     comparePrice: '€49',
     review: 'Small enough to disappear visually, noticeable enough to stay in the routine.',
     reviewer: 'James, founder',
     savings: 'Save 41%',
     Artwork: SleepSealArt,
+  },
+  {
+    id: 'sleepband',
+    slug: 'sleepband-pro',
+    cartIcon: '🎧',
+    label: 'Sleep & audio',
+    name: 'SleepBand Pro',
+    category: 'Bluetooth sleep headband',
+    preview: 'For side sleepers who want music, meditation or white noise without earbuds.',
+    description:
+      'A soft fabric headband with ultra-thin HD stereo speakers designed to stay comfortable through the night. Wireless, breathable and quiet enough for even the lightest sleepers.',
+    highlights: ['Bluetooth 5.0 — 10-hour battery', 'Ultra-thin HD stereo speakers', 'Breathable fabric for side sleepers'],
+    chips: ['Sleep audio', 'Side sleepers', 'Meditation'],
+    price: '€69',
+    priceNum: 69,
+    comparePrice: '€119',
+    review: 'Finally fell asleep to audiobooks without painful earbuds pressing into my ear.',
+    reviewer: 'Ana, remote worker',
+    savings: 'Save 42%',
+    Artwork: SleepBandArt,
   },
 ]
 
@@ -231,18 +314,69 @@ const reviews = [
       'I wanted recovery products that worked but did not make my bedroom feel like a sports lab. This is the first system that gets both right.',
     author: 'Elena V.',
     role: 'Night-shift nurse',
+    stars: 5,
   },
   {
     quote:
       'The ritual feels expensive in the right way: restrained, useful and easy to come back to every night.',
     author: 'Daniel K.',
     role: 'Founder and runner',
+    stars: 5,
   },
   {
     quote:
       'The massage gun does the heavy lifting, the neck unit calms me down, and SleepSeal finishes the job. The flow makes sense.',
     author: 'Nora S.',
     role: 'Strength coach',
+    stars: 5,
+  },
+  {
+    quote:
+      'This is the second SleepBand Pro I have bought after using the first every night for almost two years. The sound quality is surprisingly good.',
+    author: 'Marco R.',
+    role: 'UX designer',
+    stars: 5,
+  },
+  {
+    quote:
+      'I can finally listen to relaxing audio without painful earbuds while sleeping on my side. Changed my sleep routine completely.',
+    author: 'Priya M.',
+    role: 'Triathlete',
+    stars: 5,
+  },
+  {
+    quote:
+      'Comfortable, lightweight and the CerviFlex genuinely reduces neck tension after long desk sessions. Hard to go back.',
+    author: 'James B.',
+    role: 'Software engineer',
+    stars: 5,
+  },
+]
+
+const faqs = [
+  {
+    q: 'What is included in the Full Ritual bundle?',
+    a: 'The Full Ritual includes the Pulse Pro X percussion massager, the CerviFlex cervical massager and a 30-night SleepSeal starter pack. Everything arrives in one order with express shipping included.',
+  },
+  {
+    q: 'How does the 30-night guarantee work?',
+    a: 'Try the full system for 30 nights. If it does not fit your routine for any reason, contact us and we will handle the return without friction. No questions asked.',
+  },
+  {
+    q: 'Is the SleepBand Pro compatible with all devices?',
+    a: 'Yes. The SleepBand Pro connects via Bluetooth 5.0 to any smartphone, tablet or computer. It pairs in seconds and stays connected throughout the night.',
+  },
+  {
+    q: 'How long does the SleepBand Pro battery last?',
+    a: 'Up to 10 hours on a single charge at moderate volume — enough for a full night of sleep with margin. It recharges via the included cable in approximately 2 hours.',
+  },
+  {
+    q: 'What is the noise level of the Pulse Pro X?',
+    a: 'The Pulse Pro X operates under 45 dB at all intensity levels — quieter than a normal conversation. It is designed to fit into a calming evening routine without disruption.',
+  },
+  {
+    q: 'When will my order arrive?',
+    a: 'Standard orders ship within 24 hours and arrive in 3–5 business days across Europe. Express shipping is included in the Full Ritual bundle.',
   },
 ]
 
@@ -255,6 +389,7 @@ const bundles = [
     highlight: false,
     items: ['Pulse Pro X', 'Six intensity levels', 'USB-C charging', '30-night guarantee'],
     cta: 'Choose Starter',
+    cartItems: [{ slug: 'pulse-pro-x', name: 'Pulse Pro X', price: 89, icon: '💆' }],
   },
   {
     name: 'Complete',
@@ -264,6 +399,10 @@ const bundles = [
     highlight: true,
     items: ['Pulse Pro X', 'CerviFlex', 'Free shipping', 'Priority support'],
     cta: 'Choose Complete',
+    cartItems: [
+      { slug: 'pulse-pro-x', name: 'Pulse Pro X', price: 89, icon: '💆' },
+      { slug: 'cerviflex', name: 'CerviFlex', price: 59, icon: '🧘' },
+    ],
   },
   {
     name: 'Full Ritual',
@@ -273,12 +412,31 @@ const bundles = [
     highlight: false,
     items: ['Pulse Pro X', 'CerviFlex', 'SleepSeal 30-night pack', 'Express shipping'],
     cta: 'Choose Full Ritual',
+    cartItems: [
+      { slug: 'pulse-pro-x', name: 'Pulse Pro X', price: 89, icon: '💆' },
+      { slug: 'cerviflex', name: 'CerviFlex', price: 59, icon: '🧘' },
+      { slug: 'sleepseal', name: 'SleepSeal', price: 29, icon: '🌙' },
+    ],
   },
 ]
 
 export default function EditorialLandingPage() {
   const [activeProduct, setActiveProduct] = useState<Product['id']>('pulse')
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const { add, totalItems, open: openCart } = useCart()
+  const locale = useLocale()
+  const router = useRouter()
+
   const currentProduct = products.find((product) => product.id === activeProduct) ?? products[0]
+
+  const addToCart = (product: Product) => {
+    add({ slug: product.slug, name: product.name, price: product.priceNum, icon: product.cartIcon })
+  }
+
+  const buyBundle = (slugs: Array<{ slug: string; name: string; price: number; icon: string }>) => {
+    slugs.forEach((item) => add(item))
+    router.push(`/${locale}/checkout`)
+  }
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#0c1016] text-[#f4f1ea]">
@@ -323,12 +481,26 @@ export default function EditorialLandingPage() {
               ))}
             </nav>
 
-            <a
-              href="#pricing"
-              className="inline-flex items-center rounded-full border border-[#f2eee7]/70 bg-[#f2eee7] px-4 py-2 text-[12px] font-semibold tracking-[0.06em] text-[#131922] transition-transform duration-300 hover:-translate-y-[1px]"
-            >
-              Build your ritual
-            </a>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={openCart}
+                aria-label="Open cart"
+                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.07] hover:text-[#f4f1ea]"
+              >
+                <ShoppingCart size={15} />
+                {totalItems > 0 && (
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#f2eee7] text-[9px] font-bold text-[#11161d]">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+              <a
+                href="#pricing"
+                className="inline-flex items-center rounded-full border border-[#f2eee7]/70 bg-[#f2eee7] px-4 py-2 text-[12px] font-semibold tracking-[0.06em] text-[#131922] transition-transform duration-300 hover:-translate-y-[1px]"
+              >
+                Build your ritual
+              </a>
+            </div>
           </div>
         </Container>
       </header>
@@ -573,13 +745,14 @@ export default function EditorialLandingPage() {
                         <div className="mt-2 text-[12px] text-[#7f8b9b]">One-time purchase · no subscription</div>
                       </div>
 
-                      <a
-                        href="#pricing"
+                      <button
+                        type="button"
+                        onClick={() => addToCart(currentProduct)}
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-5 py-3 text-[14px] font-semibold text-[#11161d] transition-transform duration-300 hover:-translate-y-[1px]"
                       >
-                        Add to bundle
-                        <ArrowRight size={16} />
-                      </a>
+                        Add to cart
+                        <ShoppingCart size={15} />
+                      </button>
                     </div>
                   </div>
                 </motion.div>
@@ -639,13 +812,20 @@ export default function EditorialLandingPage() {
         <section id="reviews" className="pt-20 lg:pt-24">
           <Container>
             <motion.div {...reveal} className="max-w-[720px]">
-              <SectionEyebrow>Reviews</SectionEyebrow>
+              <SectionEyebrow>Customer reviews</SectionEyebrow>
               <h2 className="mt-5 text-[clamp(2rem,3.2vw,3.2rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-[#f6f2eb]">
-                Trusted by athletes, founders and desk-heavy professionals.
+                Real people. Real routines.
               </h2>
+              <div className="mt-4 flex items-center gap-4">
+                <div className="flex items-center gap-1 text-[#d9cba2]">
+                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} size={13} className="fill-current" />)}
+                </div>
+                <span className="text-[15px] font-semibold text-[#f5f1ea]">4.9 / 5</span>
+                <span className="text-[13px] text-[#7f8b9b]">from 2,400+ verified orders</span>
+              </div>
             </motion.div>
 
-            <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {reviews.map((review, index) => (
                 <motion.div
                   key={review.author}
@@ -654,12 +834,12 @@ export default function EditorialLandingPage() {
                   className="rounded-[30px] border border-white/8 bg-white/[0.025] p-6 sm:p-7"
                 >
                   <div className="flex items-center gap-1 text-[#d9cba2]">
-                    {Array.from({ length: 5 }).map((_, starIndex) => (
-                      <Star key={starIndex} size={14} className="fill-current" />
+                    {Array.from({ length: review.stars }).map((_, starIndex) => (
+                      <Star key={starIndex} size={13} className="fill-current" />
                     ))}
                   </div>
-                  <p className="mt-5 text-[15px] leading-8 text-[#dde4ec]">“{review.quote}”</p>
-                  <div className="mt-6 text-[13px] font-medium text-[#f5f1ea]">{review.author}</div>
+                  <p className="mt-5 text-[15px] leading-8 text-[#dde4ec]">&ldquo;{review.quote}&rdquo;</p>
+                  <div className="mt-6 text-[13px] font-semibold text-[#f5f1ea]">{review.author}</div>
                   <div className="mt-1 text-[12px] uppercase tracking-[0.16em] text-[#7f8b9b]">{review.role}</div>
                 </motion.div>
               ))}
@@ -712,16 +892,18 @@ export default function EditorialLandingPage() {
                     ))}
                   </ul>
 
-                  <a
-                    href="#"
-                    className={`mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-[14px] font-semibold transition-colors duration-300 ${
+                  <button
+                    type="button"
+                    onClick={() => buyBundle(bundle.cartItems)}
+                    className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-[14px] font-semibold transition-all duration-300 ${
                       bundle.highlight
-                        ? 'bg-[#f2eee7] text-[#11161d] hover:bg-[#f6f2eb]'
-                        : 'border border-white/10 bg-white/[0.03] text-[#edf1f6] hover:border-white/20 hover:bg-white/[0.05]'
+                        ? 'bg-[#f2eee7] text-[#11161d] hover:bg-[#f6f2eb] hover:-translate-y-[1px]'
+                        : 'border border-white/10 bg-white/[0.03] text-[#edf1f6] hover:border-white/20 hover:bg-white/[0.05] hover:-translate-y-[1px]'
                     }`}
                   >
                     {bundle.cta}
-                  </a>
+                    <ArrowRight size={14} />
+                  </button>
 
                   <div className="mt-4 text-center text-[12px] text-[#7f8b9b]">30-night guarantee</div>
                 </motion.div>
@@ -743,6 +925,47 @@ export default function EditorialLandingPage() {
                   </div>
                 )
               })}
+            </div>
+          </Container>
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="pt-20 lg:pt-24">
+          <Container>
+            <motion.div {...reveal} className="max-w-[720px]">
+              <SectionEyebrow>FAQ</SectionEyebrow>
+              <h2 className="mt-5 text-[clamp(2rem,3.2vw,3.2rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-[#f6f2eb]">
+                Common questions.
+              </h2>
+            </motion.div>
+            <div className="mt-10 divide-y divide-white/[0.06]">
+              {faqs.map((faq, index) => (
+                <motion.div key={index} {...reveal} transition={{ ...reveal.transition, delay: index * 0.04 }}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                    className="flex w-full items-start justify-between gap-6 py-5 text-left"
+                  >
+                    <span className="text-[16px] font-medium text-[#e8edf3] leading-relaxed">{faq.q}</span>
+                    <span className={`mt-1 shrink-0 transition-transform duration-300 text-[#8791a1] ${openFaq === index ? 'rotate-180' : ''}`}>
+                      <ChevronDown size={18} />
+                    </span>
+                  </button>
+                  <AnimatePresence>
+                    {openFaq === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <p className="pb-6 text-[15px] leading-8 text-[#98a3b2]">{faq.a}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))}
             </div>
           </Container>
         </section>
@@ -785,17 +1008,89 @@ export default function EditorialLandingPage() {
         </section>
       </main>
 
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-white/[0.06] bg-[#080c12] px-5 py-12 sm:px-6">
+        <Container>
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="lg:col-span-2">
+              <LogoMark />
+              <p className="mt-4 max-w-[28rem] text-[13px] leading-7 text-[#6b7280]">
+                A premium recovery system for deeper sleep, muscle relief and quieter daily routines.
+                Designed to feel at home.
+              </p>
+              <div className="mt-5 flex items-center gap-3 text-[12px] text-[#6b7280]">
+                <ShieldCheck size={13} className="text-[#8791a1]" />
+                <span>30-night guarantee</span>
+                <span className="text-[#2d3748]">·</span>
+                <Truck size={13} className="text-[#8791a1]" />
+                <span>Free shipping</span>
+              </div>
+            </div>
+            <div>
+              <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#4a5568]">Products</div>
+              <ul className="space-y-3">
+                {[
+                  { label: 'Pulse Pro X', href: '#system' },
+                  { label: 'CerviFlex', href: '#system' },
+                  { label: 'SleepSeal', href: '#system' },
+                  { label: 'SleepBand Pro', href: '#system' },
+                  { label: 'Bundles', href: '#pricing' },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-[13px] text-[#6b7280] transition hover:text-[#c4cdd6]">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#4a5568]">Support</div>
+              <ul className="space-y-3">
+                {[
+                  { label: 'FAQ', href: '#faq' },
+                  { label: 'Returns', href: '#faq' },
+                  { label: 'Shipping', href: '#faq' },
+                  { label: 'Contact us', href: 'mailto:hello@recoverysystem.io' },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-[13px] text-[#6b7280] transition hover:text-[#c4cdd6]">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/[0.05] pt-8 sm:flex-row">
+            <div className="text-[12px] text-[#374151]">
+              © 2025 Recovery System™. All rights reserved.
+            </div>
+            <div className="flex items-center gap-5 text-[12px] text-[#374151]">
+              <a href="#" className="transition hover:text-[#6b7280]">Privacy</a>
+              <a href="#" className="transition hover:text-[#6b7280]">Terms</a>
+              <a href="#" className="transition hover:text-[#6b7280]">Cookies</a>
+            </div>
+          </div>
+        </Container>
+      </footer>
+
+      {/* Mobile sticky CTA */}
       <div className="fixed inset-x-4 bottom-4 z-40 md:hidden">
-        <a
-          href="#pricing"
-          className="flex items-center justify-between rounded-[22px] border border-white/10 bg-[rgba(242,238,231,0.95)] px-4 py-3 text-[#11161d] shadow-[0_20px_40px_rgba(0,0,0,0.16)] backdrop-blur-xl"
+        <button
+          type="button"
+          onClick={() => buyBundle([{ slug: 'pulse-pro-x', name: 'Pulse Pro X', price: 89, icon: '💆' }])}
+          className="flex w-full items-center justify-between rounded-[22px] border border-white/10 bg-[rgba(242,238,231,0.96)] px-4 py-3 text-[#11161d] shadow-[0_20px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl"
         >
           <div>
-            <div className="text-[13px] font-semibold">Build your ritual</div>
+            <div className="text-[13px] font-semibold">Start your ritual</div>
             <div className="text-[11px] text-[#596170]">Free shipping · 30-night guarantee</div>
           </div>
-          <div className="text-[14px] font-semibold">From €89</div>
-        </a>
+          <div className="flex items-center gap-2 text-[14px] font-semibold">
+            From €89
+            <ArrowRight size={14} />
+          </div>
+        </button>
       </div>
     </div>
   )

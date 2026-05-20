@@ -22,14 +22,16 @@ const COUNTRY_CODES: Record<string, string> = {
 };
 
 const PRODUCT_BG: Record<string, string> = {
-  'pulse-pro-x': '#f0f9ff',
-  cerviflex: '#f0fdf4',
-  sleepseal: '#faf5ff',
+  'pulse-pro-x': '#0d1f2d',
+  cerviflex: '#0d1f1a',
+  sleepseal: '#1a1028',
+  'sleepband-pro': '#101828',
 };
 const PRODUCT_ICON: Record<string, string> = {
   'pulse-pro-x': '💆',
   cerviflex: '🧘',
   sleepseal: '🌙',
+  'sleepband-pro': '🎧',
 };
 
 export default function CheckoutPage() {
@@ -104,13 +106,13 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="border-b border-gray-100 bg-white px-5 py-4">
+    <div className="min-h-screen bg-[#080c16] text-[#f4f1ea]">
+      <header className="border-b border-white/[0.07] bg-[rgba(8,12,22,0.88)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <Link href={`/${locale}`} className="font-display text-sm font-extrabold tracking-widest text-gray-900">
-            RECOVER™
+          <Link href={`/${locale}`} className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#f2eee7]">
+            RECOVERY SYSTEM™
           </Link>
-          <div className="flex items-center gap-1.5 text-xs text-gray-500">
+          <div className="flex items-center gap-1.5 text-[12px] text-[#6b7280]">
             <Lock size={12} />
             Secure checkout
           </div>
@@ -120,7 +122,7 @@ export default function CheckoutPage() {
       <div className="mx-auto max-w-6xl px-5 py-10">
         <Link
           href={`/${locale}`}
-          className="mb-8 inline-flex items-center gap-1.5 text-sm text-gray-400 transition hover:text-gray-700"
+          className="mb-8 inline-flex items-center gap-1.5 text-[13px] text-[#6b7280] transition hover:text-[#c4cdd6]"
         >
           <ArrowLeft size={14} />
           Back to shop
@@ -131,11 +133,11 @@ export default function CheckoutPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
 
             {/* Contact */}
-            <section className="rounded-2xl border border-gray-100 bg-white p-6">
-              <h2 className="mb-5 font-display text-lg font-bold text-gray-900">Contact</h2>
+            <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
+              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Contact</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     Email address
                   </label>
                   <input
@@ -144,11 +146,11 @@ export default function CheckoutPage() {
                     value={contact.email}
                     onChange={(e) => setContact((c) => ({...c, email: e.target.value}))}
                     placeholder="you@example.com"
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     Phone (optional)
                   </label>
                   <input
@@ -156,77 +158,77 @@ export default function CheckoutPage() {
                     value={contact.phone}
                     onChange={(e) => setContact((c) => ({...c, phone: e.target.value}))}
                     placeholder="+34 600 000 000"
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
               </div>
             </section>
 
             {/* Shipping */}
-            <section className="rounded-2xl border border-gray-100 bg-white p-6">
-              <h2 className="mb-5 font-display text-lg font-bold text-gray-900">Shipping address</h2>
+            <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
+              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Shipping address</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">First name</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">First name</label>
                   <input
                     type="text"
                     required
                     value={shipping.firstName}
                     onChange={(e) => setShipping((s) => ({...s, firstName: e.target.value}))}
                     placeholder="John"
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">Last name</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">Last name</label>
                   <input
                     type="text"
                     required
                     value={shipping.lastName}
                     onChange={(e) => setShipping((s) => ({...s, lastName: e.target.value}))}
                     placeholder="Doe"
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">Address</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">Address</label>
                   <input
                     type="text"
                     required
                     value={shipping.address}
                     onChange={(e) => setShipping((s) => ({...s, address: e.target.value}))}
                     placeholder="123 Main Street"
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">City</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">City</label>
                   <input
                     type="text"
                     required
                     value={shipping.city}
                     onChange={(e) => setShipping((s) => ({...s, city: e.target.value}))}
                     placeholder="Madrid"
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">ZIP code</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">ZIP code</label>
                   <input
                     type="text"
                     required
                     value={shipping.zip}
                     onChange={(e) => setShipping((s) => ({...s, zip: e.target.value}))}
                     placeholder="28001"
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-xs font-semibold text-gray-700">Country</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">Country</label>
                   <select
                     value={shipping.country}
                     onChange={(e) => setShipping((s) => ({...s, country: e.target.value}))}
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-gray-400 focus:bg-white"
+                    className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   >
                     <option>Spain</option>
                     <option>United States</option>
@@ -241,22 +243,22 @@ export default function CheckoutPage() {
             </section>
 
             {/* Payment Methods */}
-            <section className="rounded-2xl border border-gray-100 bg-white p-6">
-              <h2 className="mb-5 font-display text-lg font-bold text-gray-900">Payment method</h2>
+            <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
+              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Payment method</h2>
               <div className="grid gap-3 sm:grid-cols-2">
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('card')}
                   className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
                     paymentMethod === 'card'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                      ? 'border-[#8ea7c7] bg-[#8ea7c7]/10'
+                      : 'border-white/[0.08] bg-[#111720] hover:border-white/[0.18]'
                   }`}
                 >
-                  <CreditCard size={18} />
+                  <CreditCard size={18} className="text-[#8ea7c7]" />
                   <div className="text-left">
-                    <div className="text-sm font-semibold text-gray-900">Card</div>
-                    <div className="text-xs text-gray-500">Visa, Mastercard, Amex</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">Card</div>
+                    <div className="text-[11px] text-[#6b7280]">Visa, Mastercard, Amex</div>
                   </div>
                 </button>
 
@@ -265,14 +267,14 @@ export default function CheckoutPage() {
                   onClick={() => setPaymentMethod('paypal')}
                   className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
                     paymentMethod === 'paypal'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                      ? 'border-[#8ea7c7] bg-[#8ea7c7]/10'
+                      : 'border-white/[0.08] bg-[#111720] hover:border-white/[0.18]'
                   }`}
                 >
                   <div className="text-lg">🅿️</div>
                   <div className="text-left">
-                    <div className="text-sm font-semibold text-gray-900">PayPal</div>
-                    <div className="text-xs text-gray-500">Fast & secure</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">PayPal</div>
+                    <div className="text-[11px] text-[#6b7280]">Fast & secure</div>
                   </div>
                 </button>
 
@@ -281,14 +283,14 @@ export default function CheckoutPage() {
                   onClick={() => setPaymentMethod('apple_pay')}
                   className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
                     paymentMethod === 'apple_pay'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                      ? 'border-[#8ea7c7] bg-[#8ea7c7]/10'
+                      : 'border-white/[0.08] bg-[#111720] hover:border-white/[0.18]'
                   }`}
                 >
                   <div className="text-lg">🍎</div>
                   <div className="text-left">
-                    <div className="text-sm font-semibold text-gray-900">Apple Pay</div>
-                    <div className="text-xs text-gray-500">For iOS devices</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">Apple Pay</div>
+                    <div className="text-[11px] text-[#6b7280]">For iOS devices</div>
                   </div>
                 </button>
 
@@ -297,27 +299,33 @@ export default function CheckoutPage() {
                   onClick={() => setPaymentMethod('google_pay')}
                   className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
                     paymentMethod === 'google_pay'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                      ? 'border-[#8ea7c7] bg-[#8ea7c7]/10'
+                      : 'border-white/[0.08] bg-[#111720] hover:border-white/[0.18]'
                   }`}
                 >
                   <div className="text-lg">🔵</div>
                   <div className="text-left">
-                    <div className="text-sm font-semibold text-gray-900">Google Pay</div>
-                    <div className="text-xs text-gray-500">Android & Chrome</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">Google Pay</div>
+                    <div className="text-[11px] text-[#6b7280]">Android & Chrome</div>
                   </div>
                 </button>
               </div>
             </section>
 
+            {error && (
+              <div className="rounded-xl border border-red-900/40 bg-red-950/30 px-4 py-3 text-[13px] text-red-400">
+                {error}
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={loading || items.length === 0}
-              className="btn-primary flex w-full items-center justify-center gap-2 py-4 text-sm disabled:opacity-60"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-4 text-[15px] font-semibold text-[#11161d] transition-transform duration-300 hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <>
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />
                   Processing…
                 </>
               ) : (
@@ -328,7 +336,7 @@ export default function CheckoutPage() {
               )}
             </button>
 
-            <div className="flex items-center justify-center gap-4 text-xs text-gray-400">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-[12px] text-[#6b7280]">
               <span className="flex items-center gap-1"><ShieldCheck size={12} /> 30-day guarantee</span>
               <span className="flex items-center gap-1"><Truck size={12} /> Free shipping</span>
               <span className="flex items-center gap-1"><Lock size={12} /> Secure checkout</span>
@@ -336,13 +344,13 @@ export default function CheckoutPage() {
           </form>
 
           {/* Order summary */}
-          <aside className="h-fit rounded-2xl border border-gray-100 bg-white p-6 lg:sticky lg:top-24">
-            <h2 className="mb-5 font-display text-lg font-bold text-gray-900">Order summary</h2>
+          <aside className="h-fit rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6 lg:sticky lg:top-24">
+            <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Order summary</h2>
 
             {items.length === 0 ? (
-              <div className="py-8 text-center text-sm text-gray-400">
+              <div className="py-8 text-center text-[13px] text-[#6b7280]">
                 Your cart is empty.{' '}
-                <Link href={`/${locale}`} className="text-gray-700 underline">
+                <Link href={`/${locale}`} className="text-[#c4cdd6] underline">
                   Add items
                 </Link>
               </div>
@@ -352,40 +360,40 @@ export default function CheckoutPage() {
                   {items.map((item) => (
                     <li key={item.slug} className="flex items-center gap-3">
                       <div
-                        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-xl"
-                        style={{background: PRODUCT_BG[item.slug] ?? '#f9fafb'}}
+                        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] text-xl"
+                        style={{background: PRODUCT_BG[item.slug] ?? '#111720'}}
                       >
                         {PRODUCT_ICON[item.slug] ?? '📦'}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-gray-900 truncate">{item.name}</p>
-                        <p className="text-xs text-gray-400">Qty: {item.quantity}</p>
+                        <p className="text-[14px] font-semibold text-[#f2eee7] truncate">{item.name}</p>
+                        <p className="text-[12px] text-[#6b7280]">Qty: {item.quantity}</p>
                       </div>
-                      <span className="text-sm font-semibold text-gray-900">
+                      <span className="text-[14px] font-semibold text-[#f2eee7]">
                         €{(item.price * item.quantity).toFixed(2)}
                       </span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-5 space-y-2.5 border-t border-gray-100 pt-5">
-                  <div className="flex items-center justify-between text-sm text-gray-500">
+                <div className="mt-5 space-y-2.5 border-t border-white/[0.07] pt-5">
+                  <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                     <span>Subtotal</span>
-                    <span className="font-semibold text-gray-900">€{subtotal.toFixed(2)}</span>
+                    <span className="font-semibold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
+                  <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                     <span>Shipping</span>
-                    <span className="font-semibold text-green-600">Free</span>
+                    <span className="font-semibold text-[#5fb07c]">Free</span>
                   </div>
-                  <div className="flex items-center justify-between border-t border-gray-100 pt-3">
-                    <span className="font-bold text-gray-900">Total</span>
-                    <span className="text-xl font-black text-gray-900">€{subtotal.toFixed(2)}</span>
+                  <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
+                    <span className="text-[15px] font-semibold text-[#f2eee7]">Total</span>
+                    <span className="text-[20px] font-bold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-xl bg-gray-50 p-3 text-center text-xs text-gray-500">
-                  <Check size={12} className="mr-1 inline text-green-600" />
-                  30-day money-back guarantee
+                <div className="mt-4 rounded-xl border border-white/[0.06] bg-white/[0.03] p-3 text-center text-[12px] text-[#6b7280]">
+                  <Check size={12} className="mr-1 inline text-[#5fb07c]" />
+                  30-night money-back guarantee
                 </div>
               </>
             )}
