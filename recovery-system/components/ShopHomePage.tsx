@@ -249,8 +249,31 @@ export default function ShopHomePage() {
   const deals = getDeals()
   const allProducts = CATALOG
 
+  const TICKER = [
+    '🚚 Free shipping on every order',
+    '⭐ 4.9 stars — 6,000+ happy customers',
+    '🔄 30-day return guarantee, no questions asked',
+    '🔒 Secure checkout via Stripe',
+    '📦 Ships within 24 hours',
+  ]
+
   return (
     <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
+      {/* ── Announcement bar ───────────────────────────────────────── */}
+      <div className="overflow-hidden bg-[#0d1520] py-2.5 border-b border-white/[0.05]">
+        <motion.div
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 28, ease: 'linear', repeat: Infinity }}
+          className="flex w-max items-center gap-10"
+        >
+          {[...TICKER, ...TICKER].map((msg, i) => (
+            <span key={i} className="shrink-0 text-[11px] font-medium uppercase tracking-[0.14em] text-[#8791a1]">
+              {msg}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
       {/* ── Header ─────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] backdrop-blur-xl">
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
@@ -308,32 +331,131 @@ export default function ShopHomePage() {
 
       <main className="mx-auto max-w-[1280px] px-4 pb-24 sm:px-6">
         {/* ── Hero ───────────────────────────────────────────────────── */}
-        <section className="py-12 sm:py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl"
-          >
-            <h1 className="text-[clamp(2rem,5vw,3.8rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f2eb]">
-              Premium Sleep &<br />Recovery Gear
-            </h1>
-            <p className="mt-4 text-[15px] leading-7 text-[#8791a1] sm:text-[16px]">
-              Over 15 products for better sleep, faster recovery and daily wellness.
-              Free shipping. 30-day returns.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {CATEGORIES.map((cat) => (
+        <section className="relative overflow-hidden pt-10 pb-12 sm:pt-16 sm:pb-16">
+          {/* Background glow */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_15%_50%,rgba(20,48,90,0.16),transparent)]" />
+
+          <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+            {/* Left — copy */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Eyebrow */}
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">
+                  Premium Wellness Store
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-[clamp(2.2rem,5.5vw,4rem)] font-bold leading-[1.04] tracking-[-0.045em] text-[#f6f2eb]">
+                Sleep deeper.{' '}
+                <span className="bg-[linear-gradient(135deg,#c8d8f0_10%,#8ea7c7_90%)] bg-clip-text text-transparent">
+                  Recover faster.
+                </span>
+                <br />Feel better every day.
+              </h1>
+
+              {/* Sub */}
+              <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">
+                Premium hardware for people who take their wellbeing seriously.
+                Bluetooth sleep headbands, massage guns, cervical relief devices,
+                weighted eye masks and more — 15 products across 5 wellness categories.
+              </p>
+
+              {/* Problem pills */}
+              <div className="mt-6 flex flex-wrap gap-2">
+                {([
+                  { emoji: '😴', label: "Can't fall asleep", slug: 'sleep-audio' },
+                  { emoji: '🦴', label: 'Neck & back pain', slug: 'neck-recovery' },
+                  { emoji: '💆', label: 'Sore muscles', slug: 'muscle-recovery' },
+                  { emoji: '✈️', label: 'Travel fatigue', slug: 'travel' },
+                ] as const).map((item) => (
+                  <Link
+                    key={item.slug}
+                    href={`/${locale}/shop/${item.slug}`}
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-white/[0.09] bg-white/[0.03] px-3.5 py-2 text-[12px] font-medium text-[#b8c4d0] transition hover:border-white/[0.18] hover:bg-white/[0.07] hover:text-white"
+                  >
+                    <span>{item.emoji}</span>
+                    {item.label}
+                    <ChevronRight size={12} className="opacity-30 group-hover:opacity-70" />
+                  </Link>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link
-                  key={cat.id}
-                  href={`/${locale}/shop/${cat.slug}`}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-[13px] font-medium text-[#d0d8e4] transition hover:border-white/[0.2] hover:bg-white/[0.08] hover:text-white"
+                  href={`/${locale}/shop/all`}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-6 py-3.5 text-[14px] font-semibold text-[#11161d] shadow-[0_4px_20px_rgba(242,238,231,0.1)] transition hover:bg-white hover:shadow-[0_4px_20px_rgba(242,238,231,0.25)]"
                 >
-                  {cat.icon} {cat.name}
+                  <ShoppingCart size={14} />
+                  Shop all 15 products
+                </Link>
+                <Link
+                  href={`/${locale}/shop/sleep-audio`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-6 py-3.5 text-[14px] font-medium text-[#c8d4e2] transition hover:border-white/[0.22] hover:text-white"
+                >
+                  Start with sleep →
+                </Link>
+              </div>
+
+              {/* Micro social proof */}
+              <div className="mt-6 flex items-center gap-3">
+                <div className="flex -space-x-1.5">
+                  {['#8ea7c7', '#9fb8d8', '#7a96b8', '#a8bcce', '#b8c8dc'].map((c, i) => (
+                    <div
+                      key={i}
+                      className="h-6 w-6 rounded-full border-2 border-[#0c1016]"
+                      style={{ background: c }}
+                    />
+                  ))}
+                </div>
+                <span className="text-[12px] text-[#5a6678]">
+                  Joined by{' '}
+                  <strong className="text-[#9aa7b9]">6,000+ customers</strong>
+                  {' '}— rated{' '}
+                  <strong className="text-amber-400">4.9★</strong>
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Right — stat cards */}
+            <motion.div
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="hidden lg:grid grid-rows-2 grid-cols-2 gap-3 w-[320px] shrink-0"
+            >
+              {([
+                { emoji: '🎧', name: 'SleepBand Pro', detail: 'Bluetooth sleep headband', price: '€69', badge: 'Best Seller', slug: 'sleepband-pro' },
+                { emoji: '💆', name: 'Pulse Pro X', detail: 'Percussion massage gun', price: '€89', badge: 'Best Seller', slug: 'pulse-pro-x' },
+                { emoji: '🧘', name: 'CerviFlex', detail: 'Cervical relief device', price: '€59', badge: 'Popular', slug: 'cerviflex' },
+                { emoji: '🌙', name: 'SleepSeal Mask', detail: '3D contoured eye mask', price: '€29', badge: 'Deal', slug: 'sleepseal' },
+              ] as const).map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/${locale}/products/${p.slug}`}
+                  className="group flex flex-col gap-2 rounded-2xl border border-white/[0.07] bg-[#0d1219] p-4 transition hover:border-white/[0.14] hover:bg-[#111822]"
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="text-2xl">{p.emoji}</span>
+                    <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#8791a1]">
+                      {p.badge}
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{p.name}</div>
+                    <div className="text-[11px] text-[#6b7785]">{p.detail}</div>
+                  </div>
+                  <div className="mt-auto text-[14px] font-bold text-[#f2eee7]">{p.price}</div>
                 </Link>
               ))}
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </section>
 
         {/* ── Trust strip ─────────────────────────────────────────────── */}
@@ -355,6 +477,133 @@ export default function ShopHomePage() {
               </div>
             </div>
           ))}
+        </section>
+
+        {/* ── What we solve ──────────────────────────────────────────── */}
+        <section className="mb-16">
+          <div className="mb-7 flex items-end justify-between">
+            <div>
+              <h2 className="text-[clamp(1.3rem,3vw,1.7rem)] font-bold tracking-[-0.035em] text-[#f2eee7]">
+                One store. Every recovery need.
+              </h2>
+              <p className="mt-1.5 text-[13px] text-[#6b7785]">
+                Find the right product for your specific problem.
+              </p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                emoji: '😴',
+                problem: "Can't sleep?",
+                solution: 'Sleep & Audio',
+                description: 'Bluetooth sleep headbands, white noise machines and nasal strips. Fall asleep faster, stay asleep longer.',
+                slug: 'sleep-audio',
+                colorFrom: '#0d1828',
+                colorTo: '#0c1520',
+                borderColor: '#1e3a5f',
+                borderHover: '#2a5080',
+              },
+              {
+                emoji: '🦴',
+                problem: 'Neck or back pain?',
+                solution: 'Neck Recovery',
+                description: 'Cervical traction devices, targeted massagers and posture correctors. Undo hours at a desk in 20 minutes.',
+                slug: 'neck-recovery',
+                colorFrom: '#0d1f1a',
+                colorTo: '#0c1520',
+                borderColor: '#1a3d2e',
+                borderHover: '#246040',
+              },
+              {
+                emoji: '💆',
+                problem: 'Sore or tired muscles?',
+                solution: 'Muscle Recovery',
+                description: 'Percussion massage guns, vibration massagers and heating pads. Pro-level recovery at home.',
+                slug: 'muscle-recovery',
+                colorFrom: '#1a1020',
+                colorTo: '#0c1520',
+                borderColor: '#3a1f5f',
+                borderHover: '#5a3080',
+              },
+              {
+                emoji: '✈️',
+                problem: 'Always travelling?',
+                solution: 'Travel Recovery',
+                description: 'Compact travel pillows, portable massagers and complete sleep kits. Quality rest wherever you land.',
+                slug: 'travel',
+                colorFrom: '#101828',
+                colorTo: '#0c1520',
+                borderColor: '#1e3550',
+                borderHover: '#2a4a70',
+              },
+            ].map((item) => (
+              <Link key={item.slug} href={`/${locale}/shop/${item.slug}`} className="group block">
+                <div
+                  className="flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+                  style={{
+                    background: `linear-gradient(160deg, ${item.colorFrom}, ${item.colorTo})`,
+                    borderColor: item.borderColor,
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = item.borderHover)}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = item.borderColor)}
+                >
+                  <span className="mb-4 text-3xl">{item.emoji}</span>
+                  <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#5a6878]">
+                    {item.problem}
+                  </div>
+                  <h3 className="mb-2.5 text-[15px] font-bold text-[#f2eee7] group-hover:text-white transition-colors">
+                    {item.solution}
+                  </h3>
+                  <p className="flex-1 text-[12px] leading-[1.6] text-[#6b7a8a]">{item.description}</p>
+                  <div className="mt-5 flex items-center gap-1 text-[12px] font-semibold text-[#7a9ab8] group-hover:text-[#a8c0d8] transition-colors">
+                    Shop now
+                    <ChevronRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ── How it works ──────────────────────────────────────────── */}
+        <section className="mb-16 overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-8 sm:p-10">
+          <h2 className="mb-8 text-center text-[18px] font-bold tracking-[-0.03em] text-[#f2eee7]">
+            How it works
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-3">
+            {[
+              {
+                step: '01',
+                icon: '🎯',
+                title: 'Pick your problem',
+                text: 'Browse by category — sleep, pain relief, muscle recovery or travel. Every product targets a specific daily issue.',
+              },
+              {
+                step: '02',
+                icon: '📦',
+                title: 'Order today, ships tomorrow',
+                text: 'Every order ships within 24 hours with free tracked delivery across Europe. Typically arrives in 3–5 days.',
+              },
+              {
+                step: '03',
+                icon: '✨',
+                title: '30-night guarantee',
+                text: 'Try it for a month. If you don\'t feel the difference, contact us for a full refund. Zero risk.',
+              },
+            ].map((item) => (
+              <div key={item.step} className="flex flex-col items-center text-center sm:items-start sm:text-left">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] text-[18px]">
+                    {item.icon}
+                  </span>
+                  <span className="font-mono text-[11px] font-semibold tracking-[0.2em] text-[#4a5568]">{item.step}</span>
+                </div>
+                <h3 className="mb-2 text-[15px] font-bold text-[#f2eee7]">{item.title}</h3>
+                <p className="text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* ── Categories ───────────────────────────────────────────────── */}
