@@ -75,6 +75,40 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     { author: 'Nora S.', role: 'Verified buyer', stars: 4, text: `Good product. Build quality is better than I expected at this price point. Shipping was fast.` },
   ];
 
+  const routineHighlights = [
+    {
+      title: 'Low-friction to use',
+      text: 'Designed to fit into a nightly or post-workout routine without feeling like extra work.',
+    },
+    {
+      title: 'Portable by design',
+      text: 'Easy to keep at home, pack for travel, or use during short reset windows in a busy day.',
+    },
+    {
+      title: 'Backed by a guarantee',
+      text: 'Try it for 30 nights and keep it only if it earns a place in your routine.',
+    },
+  ];
+
+  const productFaqs = [
+    {
+      q: `How quickly will my ${displayName} arrive?`,
+      a: 'Orders usually ship within 24 hours and arrive in 3 to 5 business days across Europe with tracking included.',
+    },
+    {
+      q: 'Can I return it if it does not fit my routine?',
+      a: 'Yes. You have a 30-day return window, so you can test it at home and send it back if it is not the right fit.',
+    },
+    {
+      q: 'Is checkout secure?',
+      a: 'Yes. Payments are processed securely through Stripe and supported payment wallets on compatible devices.',
+    },
+    {
+      q: 'Who is this product best for?',
+      a: product?.shortDescription ?? `${displayName} is built for people who want a simple, reliable tool for sleep or recovery at home.`,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
       {/* Header */}
@@ -344,6 +378,78 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             )}
           </div>
         </div>
+
+        {/* Routine proof */}
+        <section className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+          {product?.images ? (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {product.images.slice(0, 3).map((src, idx) => (
+                <div
+                  key={src}
+                  className={`overflow-hidden rounded-[26px] border border-white/[0.07] bg-[#10161f] ${idx === 0 ? 'sm:col-span-2 min-h-[280px]' : 'min-h-[200px]'}`}
+                >
+                  <img
+                    src={src}
+                    alt={`${displayName} in use`}
+                    className="h-full w-full object-cover"
+                    style={{ objectPosition: idx === 0 ? '50% 100%' : idx === 1 ? '50% 5%' : '50% 55%' }}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+              {[displayName, category?.name ?? 'Recovery', 'Daily routine'].map((item) => (
+                <div key={item} className="flex min-h-[150px] items-end rounded-[26px] border border-white/[0.07] bg-[linear-gradient(160deg,#111720,#0d1219)] p-5">
+                  <div className="text-[18px] font-bold tracking-[-0.03em] text-[#f2eee7]">{item}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="rounded-[28px] border border-white/[0.07] bg-[linear-gradient(180deg,#101722,#0c1118)] p-7 sm:p-8">
+            <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8ea7c7]">
+              Why this product works in real life
+            </span>
+            <h2 className="mt-4 text-[clamp(1.6rem,3vw,2.25rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
+              Built for repeated use, not one-off novelty.
+            </h2>
+            <p className="mt-4 text-[14px] leading-7 text-[#8791a1]">
+              The strongest stores do not just show specs. They show how the product fits into daily life.
+              That is the same principle here: clear benefits, simple setup and enough trust to buy without hesitation.
+            </p>
+
+            <div className="mt-7 grid gap-3">
+              {routineHighlights.map((item) => (
+                <div key={item.title} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-4">
+                  <div className="text-[14px] font-semibold text-[#f2eee7]">{item.title}</div>
+                  <p className="mt-1.5 text-[12px] leading-6 text-[#6f7c8b]">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ accordions */}
+        <section className="mt-12">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7]">Frequently asked questions</h2>
+              <p className="mt-1 text-[13px] text-[#6b7785]">Quick answers before you add it to your routine.</p>
+            </div>
+          </div>
+          <div className="grid gap-3">
+            {productFaqs.map((faq) => (
+              <details key={faq.q} className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] px-5 py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-semibold text-[#f2eee7]">
+                  <span>{faq.q}</span>
+                  <span className="text-[#6b7785] transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="pt-3 text-[13px] leading-6 text-[#8791a1]">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
 
         {/* Related products */}
         {related.length > 0 && (

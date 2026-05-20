@@ -244,10 +244,31 @@ function SearchBar({ locale }: { locale: string }) {
 export default function ShopHomePage() {
   const locale = useLocale()
   const { totalItems, open: openCart } = useCart()
-  const router = useRouter()
   const bestSellers = getBestSellers()
   const deals = getDeals()
   const allProducts = CATALOG
+  const flagship = CATALOG.find((product) => product.slug === 'sleepband-pro') ?? bestSellers[0]
+
+  const lifestyleShots = [
+    {
+      src: '/images/sleepband-lifestyle.avif',
+      title: 'Faster wind-down',
+      copy: 'Soft audio at night without hard earbuds',
+      objectPosition: '50% 100%',
+    },
+    {
+      src: '/images/sleepband-product.jpg',
+      title: 'Clean hardware',
+      copy: 'Low-profile comfort built for nightly use',
+      objectPosition: '50% 5%',
+    },
+    {
+      src: '/images/sleepband-sport.avif',
+      title: 'Travel ready',
+      copy: 'Portable recovery for flights, hotels and naps',
+      objectPosition: '50% 55%',
+    },
+  ]
 
   const TICKER = [
     '🚚 Free shipping on every order',
@@ -332,129 +353,135 @@ export default function ShopHomePage() {
       <main className="mx-auto max-w-[1280px] px-4 pb-24 sm:px-6">
         {/* ── Hero ───────────────────────────────────────────────────── */}
         <section className="relative overflow-hidden pt-10 pb-12 sm:pt-16 sm:pb-16">
-          {/* Background glow */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_15%_50%,rgba(20,48,90,0.16),transparent)]" />
 
-          <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
-            {/* Left — copy */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              {/* Eyebrow */}
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">
-                  Premium Wellness Store
-                </span>
-              </div>
+          <div className="relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(13,18,25,0.98),rgba(10,15,22,0.94))] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-stretch">
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col justify-center p-8 sm:p-10 lg:p-12"
+              >
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
+                  <Headphones size={12} className="text-[#8ea7c7]" />
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">
+                    Sleep, recovery and daily calm
+                  </span>
+                </div>
 
-              {/* Headline */}
-              <h1 className="text-[clamp(2.2rem,5.5vw,4rem)] font-bold leading-[1.04] tracking-[-0.045em] text-[#f6f2eb]">
-                Sleep deeper.{' '}
-                <span className="bg-[linear-gradient(135deg,#c8d8f0_10%,#8ea7c7_90%)] bg-clip-text text-transparent">
-                  Recover faster.
-                </span>
-                <br />Feel better every day.
-              </h1>
+                <h1 className="text-[clamp(2.35rem,5.4vw,4.35rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[#f6f2eb]">
+                  A better night starts
+                  <br />with better recovery tools.
+                </h1>
 
-              {/* Sub */}
-              <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">
-                Premium hardware for people who take their wellbeing seriously.
-                Bluetooth sleep headbands, massage guns, cervical relief devices,
-                weighted eye masks and more — 15 products across 5 wellness categories.
-              </p>
+                <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">
+                  We build a real home-recovery store around the problems people feel every day:
+                  poor sleep, neck tension, tired muscles and restless travel. Premium hardware,
+                  clean design and routines you will actually use.
+                </p>
 
-              {/* Problem pills */}
-              <div className="mt-6 flex flex-wrap gap-2">
-                {([
-                  { emoji: '😴', label: "Can't fall asleep", slug: 'sleep-audio' },
-                  { emoji: '🦴', label: 'Neck & back pain', slug: 'neck-recovery' },
-                  { emoji: '💆', label: 'Sore muscles', slug: 'muscle-recovery' },
-                  { emoji: '✈️', label: 'Travel fatigue', slug: 'travel' },
-                ] as const).map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={`/${locale}/shop/${item.slug}`}
-                    className="group inline-flex items-center gap-1.5 rounded-full border border-white/[0.09] bg-white/[0.03] px-3.5 py-2 text-[12px] font-medium text-[#b8c4d0] transition hover:border-white/[0.18] hover:bg-white/[0.07] hover:text-white"
-                  >
-                    <span>{item.emoji}</span>
-                    {item.label}
-                    <ChevronRight size={12} className="opacity-30 group-hover:opacity-70" />
-                  </Link>
-                ))}
-              </div>
-
-              {/* CTAs */}
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/${locale}/shop/all`}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-6 py-3.5 text-[14px] font-semibold text-[#11161d] shadow-[0_4px_20px_rgba(242,238,231,0.1)] transition hover:bg-white hover:shadow-[0_4px_20px_rgba(242,238,231,0.25)]"
-                >
-                  <ShoppingCart size={14} />
-                  Shop all 15 products
-                </Link>
-                <Link
-                  href={`/${locale}/shop/sleep-audio`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-6 py-3.5 text-[14px] font-medium text-[#c8d4e2] transition hover:border-white/[0.22] hover:text-white"
-                >
-                  Start with sleep →
-                </Link>
-              </div>
-
-              {/* Micro social proof */}
-              <div className="mt-6 flex items-center gap-3">
-                <div className="flex -space-x-1.5">
-                  {['#8ea7c7', '#9fb8d8', '#7a96b8', '#a8bcce', '#b8c8dc'].map((c, i) => (
-                    <div
-                      key={i}
-                      className="h-6 w-6 rounded-full border-2 border-[#0c1016]"
-                      style={{ background: c }}
-                    />
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {([
+                    { emoji: '😴', label: "Can't switch off", slug: 'sleep-audio' },
+                    { emoji: '🦴', label: 'Desk neck tension', slug: 'neck-recovery' },
+                    { emoji: '💆', label: 'Heavy legs and sore muscles', slug: 'muscle-recovery' },
+                    { emoji: '✈️', label: 'Flights and hotel nights', slug: 'travel' },
+                  ] as const).map((item) => (
+                    <Link
+                      key={item.slug}
+                      href={`/${locale}/shop/${item.slug}`}
+                      className="group inline-flex items-center gap-1.5 rounded-full border border-white/[0.09] bg-white/[0.03] px-3.5 py-2 text-[12px] font-medium text-[#b8c4d0] transition hover:border-white/[0.18] hover:bg-white/[0.07] hover:text-white"
+                    >
+                      <span>{item.emoji}</span>
+                      {item.label}
+                      <ChevronRight size={12} className="opacity-30 group-hover:opacity-70" />
+                    </Link>
                   ))}
                 </div>
-                <span className="text-[12px] text-[#5a6678]">
-                  Joined by{' '}
-                  <strong className="text-[#9aa7b9]">6,000+ customers</strong>
-                  {' '}— rated{' '}
-                  <strong className="text-amber-400">4.9★</strong>
-                </span>
-              </div>
-            </motion.div>
 
-            {/* Right — stat cards */}
-            <motion.div
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="hidden lg:grid grid-rows-2 grid-cols-2 gap-3 w-[320px] shrink-0"
-            >
-              {([
-                { emoji: '🎧', name: 'SleepBand Pro', detail: 'Bluetooth sleep headband', price: '€69', badge: 'Best Seller', slug: 'sleepband-pro' },
-                { emoji: '💆', name: 'Pulse Pro X', detail: 'Percussion massage gun', price: '€89', badge: 'Best Seller', slug: 'pulse-pro-x' },
-                { emoji: '🧘', name: 'CerviFlex', detail: 'Cervical relief device', price: '€59', badge: 'Popular', slug: 'cerviflex' },
-                { emoji: '🌙', name: 'SleepSeal Mask', detail: '3D contoured eye mask', price: '€29', badge: 'Deal', slug: 'sleepseal' },
-              ] as const).map((p) => (
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <Link
+                    href={`/${locale}/shop/all`}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-6 py-3.5 text-[14px] font-semibold text-[#11161d] shadow-[0_4px_20px_rgba(242,238,231,0.1)] transition hover:bg-white hover:shadow-[0_4px_20px_rgba(242,238,231,0.25)]"
+                  >
+                    <ShoppingCart size={14} />
+                    Shop all 15 products
+                  </Link>
+                  <Link
+                    href={`/${locale}/products/${flagship.slug}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.12] px-6 py-3.5 text-[14px] font-medium text-[#c8d4e2] transition hover:border-white/[0.22] hover:text-white"
+                  >
+                    Explore {flagship.name}
+                  </Link>
+                </div>
+
+                <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                  {[
+                    { value: '4.9★', label: 'average review score' },
+                    { value: '24h', label: 'dispatch on most orders' },
+                    { value: '30 nights', label: 'risk-free trial window' },
+                  ].map((item) => (
+                    <div key={item.label} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] px-4 py-3">
+                      <div className="text-[15px] font-bold text-[#f2eee7]">{item.value}</div>
+                      <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#5a6678]">{item.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="grid gap-3 p-4 sm:p-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
+              >
                 <Link
-                  key={p.slug}
-                  href={`/${locale}/products/${p.slug}`}
-                  className="group flex flex-col gap-2 rounded-2xl border border-white/[0.07] bg-[#0d1219] p-4 transition hover:border-white/[0.14] hover:bg-[#111822]"
+                  href={`/${locale}/products/${flagship.slug}`}
+                  className="group relative min-h-[340px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#10161f] sm:min-h-[420px]"
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="text-2xl">{p.emoji}</span>
-                    <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#8791a1]">
-                      {p.badge}
-                    </span>
+                  <img
+                    src={flagship.images?.[1] ?? flagship.images?.[0]}
+                    alt={flagship.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    style={{ objectPosition: '50% 100%' }}
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,16,0.1),rgba(8,12,16,0.65))]" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                    <div className="mb-2 inline-flex items-center rounded-full border border-white/10 bg-[rgba(10,15,22,0.55)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#d6dde7] backdrop-blur-sm">
+                      Flagship product
+                    </div>
+                    <div className="max-w-[18rem] text-[22px] font-bold leading-tight tracking-[-0.03em] text-[#f6f2eb]">
+                      {flagship.name}
+                    </div>
+                    <p className="mt-2 max-w-[19rem] text-[13px] leading-6 text-[#d6dde7]">
+                      The easiest entry point into better sleep: soft audio, no hard earbuds, nightly comfort.
+                    </p>
                   </div>
-                  <div>
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{p.name}</div>
-                    <div className="text-[11px] text-[#6b7785]">{p.detail}</div>
-                  </div>
-                  <div className="mt-auto text-[14px] font-bold text-[#f2eee7]">{p.price}</div>
                 </Link>
-              ))}
-            </motion.div>
+
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                  {lifestyleShots.slice(1).map((shot) => (
+                    <div
+                      key={shot.title}
+                      className="relative min-h-[168px] overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#10161f]"
+                    >
+                      <img
+                        src={shot.src}
+                        alt={shot.title}
+                        className="h-full w-full object-cover"
+                        style={{ objectPosition: shot.objectPosition }}
+                      />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,16,0.02),rgba(8,12,16,0.62))]" />
+                      <div className="absolute inset-x-0 bottom-0 p-4">
+                        <div className="text-[13px] font-semibold text-[#f2eee7]">{shot.title}</div>
+                        <div className="mt-1 text-[11px] leading-5 text-[#c1ccd8]">{shot.copy}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -601,6 +628,75 @@ export default function ShopHomePage() {
                 </div>
                 <h3 className="mb-2 text-[15px] font-bold text-[#f2eee7]">{item.title}</h3>
                 <p className="text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Recovery In Real Life ─────────────────────────────────── */}
+        <section className="mb-16 grid gap-5 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
+          <div className="rounded-[28px] border border-white/[0.07] bg-[linear-gradient(180deg,#101722,#0c1118)] p-7 sm:p-8">
+            <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8ea7c7]">
+              Recovery made practical
+            </span>
+            <h2 className="mt-4 text-[clamp(1.6rem,3vw,2.35rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
+              Premium tools that fit into real routines.
+            </h2>
+            <p className="mt-4 max-w-xl text-[14px] leading-7 text-[#8791a1]">
+              The reference you shared is strong because it explains the product with images, small proof blocks and very clear use cases.
+              We are applying that same structure here, but translated into a calmer recovery brand: less playful, more premium, more sleep-focused.
+            </p>
+
+            <div className="mt-8 grid gap-3">
+              {[
+                {
+                  title: 'Use it every night',
+                  copy: 'Audio sleep gear and eye masks designed for repeated, low-friction use instead of one-off gimmicks.',
+                },
+                {
+                  title: 'Portable enough to travel',
+                  copy: 'Compact products for planes, hotels, post-gym recovery and quick resets between long work days.',
+                },
+                {
+                  title: 'Built around specific problems',
+                  copy: 'Each category is organized by what you feel first: poor sleep, stiff neck, sore muscles or travel fatigue.',
+                },
+              ].map((item) => (
+                <div key={item.title} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-4">
+                  <div className="text-[14px] font-semibold text-[#f2eee7]">{item.title}</div>
+                  <p className="mt-1.5 text-[12px] leading-6 text-[#6f7c8b]">{item.copy}</p>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href={`/${locale}/products/${flagship.slug}`}
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-5 py-3 text-[13px] font-semibold text-[#11161d] transition hover:bg-white"
+            >
+              See flagship routine
+              <ChevronRight size={14} />
+            </Link>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {lifestyleShots.map((shot, idx) => (
+              <div
+                key={shot.title}
+                className={`relative overflow-hidden rounded-[28px] border border-white/[0.07] bg-[#10161f] ${
+                  idx === 0 ? 'sm:col-span-2 min-h-[280px]' : 'min-h-[220px]'
+                }`}
+              >
+                <img
+                  src={shot.src}
+                  alt={shot.title}
+                  className="h-full w-full object-cover"
+                  style={{ objectPosition: shot.objectPosition }}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,16,0.02),rgba(8,12,16,0.6))]" />
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <div className="text-[14px] font-semibold text-[#f2eee7]">{shot.title}</div>
+                  <div className="mt-1 text-[12px] leading-6 text-[#d6dde7]">{shot.copy}</div>
+                </div>
               </div>
             ))}
           </div>
@@ -778,6 +874,66 @@ export default function ShopHomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── Buyer Moments ─────────────────────────────────────────── */}
+        <section className="mb-16 overflow-hidden rounded-[32px] border border-white/[0.07] bg-[linear-gradient(135deg,#0e1520,#101822)]">
+          <div className="grid gap-0 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
+            <div className="grid grid-cols-2 gap-3 p-4 sm:p-6">
+              {[
+                { src: '/images/sleepband-product.jpg', objectPosition: '50% 5%' },
+                { src: '/images/sleepband-lifestyle.avif', objectPosition: '50% 100%' },
+                { src: '/images/sleepband-sport.avif', objectPosition: '50% 55%' },
+                { src: '/images/sleepband-battery.avif', objectPosition: 'center' },
+              ].map((shot, idx) => (
+                <div
+                  key={shot.src}
+                  className={`overflow-hidden rounded-[26px] border border-white/[0.08] bg-[#111720] ${idx === 0 ? 'col-span-2 min-h-[220px]' : 'min-h-[170px]'}`}
+                >
+                  <img
+                    src={shot.src}
+                    alt="Recovery System product scene"
+                    className="h-full w-full object-cover"
+                    style={{ objectPosition: shot.objectPosition }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col justify-center p-8 sm:p-10">
+              <span className="inline-flex w-fit items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8ea7c7]">
+                Real-world visuals
+              </span>
+              <h2 className="mt-4 text-[clamp(1.9rem,4vw,3.2rem)] font-bold leading-[0.98] tracking-[-0.05em] text-[#f6f2eb]">
+                A store that shows the routine, not just the product.
+              </h2>
+              <p className="mt-4 text-[14px] leading-7 text-[#8791a1]">
+                This is the core lesson from the references: customers need to see context, lifestyle and use-case clarity.
+                So the store now mixes product blocks with real imagery, trust signals and direct explanations instead of relying only on catalog cards.
+              </p>
+
+              <div className="mt-7 grid gap-3 sm:grid-cols-3">
+                {[
+                  { value: 'Sleep', label: 'audio and sensory products' },
+                  { value: 'Relief', label: 'neck and muscle recovery' },
+                  { value: 'Travel', label: 'portable calm on demand' },
+                ].map((item) => (
+                  <div key={item.value} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4">
+                    <div className="text-[16px] font-bold text-[#f2eee7]">{item.value}</div>
+                    <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#5a6678]">{item.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href={`/${locale}/shop/all`}
+                className="mt-7 inline-flex w-fit items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.03] px-5 py-3 text-[13px] font-semibold text-[#d6dde7] transition hover:border-white/[0.2] hover:text-white"
+              >
+                Browse the full store
+                <ChevronRight size={14} />
+              </Link>
+            </div>
           </div>
         </section>
 
