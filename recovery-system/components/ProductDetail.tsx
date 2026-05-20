@@ -132,7 +132,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         </div>
       </header>
 
-      <div className="mx-auto max-w-[1280px] px-4 pb-24 sm:px-6">
+      <div className="mx-auto max-w-[1280px] px-4 pb-28 sm:px-6 lg:pb-40">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 py-4 text-[12px] text-[#6b7785]">
           <Link href={`/${locale}`} className="hover:text-[#f2eee7] transition-colors">Home</Link>
@@ -202,7 +202,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: EASE_OUT }}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start"
           >
             {/* Category + badge */}
             <div className="flex items-center gap-2">
@@ -481,6 +481,81 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
           </div>
         )}
+      </div>
+
+      {/* Sticky desktop buy bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 hidden border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] backdrop-blur-xl lg:block">
+        <div className="mx-auto flex max-w-[1280px] items-center gap-4 px-4 py-3">
+          <div className="flex min-w-0 items-center gap-3">
+            {product?.images ? (
+              <img
+                src={product.images[0]}
+                alt={displayName}
+                className="h-14 w-14 shrink-0 rounded-2xl border border-white/[0.08] object-cover"
+                style={{ objectPosition: '50% 5%' }}
+              />
+            ) : (
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#111720] text-2xl">
+                {product?.icon ?? legacyProduct.icon}
+              </div>
+            )}
+
+            <div className="min-w-0">
+              <div className="truncate text-[14px] font-semibold text-[#f2eee7]">{displayName}</div>
+              <div className="mt-1 flex items-center gap-2 text-[11px] text-[#8791a1]">
+                {product ? (
+                  <>
+                    <Stars rating={product.rating} size={12} />
+                    <span>{product.rating} · {product.reviewCount.toLocaleString()} reviews</span>
+                  </>
+                ) : (
+                  <span>{legacyProduct.tag}</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="ml-auto flex items-center gap-3">
+            <div className="flex items-center gap-0 rounded-full border border-white/[0.12] bg-[#111720]">
+              <button
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+                className="flex h-10 w-10 items-center justify-center rounded-full text-[#c8d0da] hover:text-white transition-colors"
+              >
+                <Minus size={14} />
+              </button>
+              <span className="min-w-[2ch] text-center text-[14px] font-semibold text-[#f2eee7]">{qty}</span>
+              <button
+                onClick={() => setQty((q) => q + 1)}
+                className="flex h-10 w-10 items-center justify-center rounded-full text-[#c8d0da] hover:text-white transition-colors"
+              >
+                <Plus size={14} />
+              </button>
+            </div>
+
+            <div className="text-right">
+              <div className="text-[19px] font-bold text-[#f6f2eb]">€{displayPrice * qty}</div>
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[#5a6678]">Save {savings}%</div>
+            </div>
+
+            <button
+              onClick={handleAdd}
+              className={`inline-flex min-w-[220px] items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold transition-all duration-200 ${
+                added
+                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                  : 'bg-[#f2eee7] text-[#11161d] hover:bg-white'
+              }`}
+            >
+              {added ? <><Check size={15} /> Added to cart</> : <><ShoppingCart size={15} /> Add to cart</>}
+            </button>
+
+            <Link
+              href={`/${locale}/checkout`}
+              className="hidden items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.03] px-5 py-3 text-[13px] font-semibold text-[#d6dde7] transition hover:border-white/[0.2] hover:text-white xl:inline-flex"
+            >
+              Checkout
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Sticky mobile add to cart */}

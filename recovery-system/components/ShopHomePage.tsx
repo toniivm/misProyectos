@@ -248,6 +248,29 @@ export default function ShopHomePage() {
   const deals = getDeals()
   const allProducts = CATALOG
   const flagship = CATALOG.find((product) => product.slug === 'sleepband-pro') ?? bestSellers[0]
+  const starterRoutines = [
+    {
+      title: 'Night reset',
+      slug: 'sleep-audio',
+      accent: '😴',
+      copy: 'For people who cannot switch off, sleep through noise, or wear hard earbuds in bed.',
+      picks: ['SleepBand Pro', 'White Noise Pro', 'SleepSeal+ Pack'],
+    },
+    {
+      title: 'Desk recovery',
+      slug: 'neck-recovery',
+      accent: '🦴',
+      copy: 'For stiff necks, screen-heavy routines and shoulders that feel loaded by the end of the day.',
+      picks: ['CerviFlex', 'NeckPulse Pro', 'PostureBand'],
+    },
+    {
+      title: 'Travel reset',
+      slug: 'travel',
+      accent: '✈️',
+      copy: 'For flights, hotel nights and long days away from home where recovery has to stay portable.',
+      picks: ['TravelPillow Ultra', 'PortablePulse', 'NapKit Pro'],
+    },
+  ]
 
   const lifestyleShots = [
     {
@@ -366,19 +389,19 @@ export default function ShopHomePage() {
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
                   <Headphones size={12} className="text-[#8ea7c7]" />
                   <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">
-                    Sleep, recovery and daily calm
+                    Premium recovery store
                   </span>
                 </div>
 
                 <h1 className="text-[clamp(2.35rem,5.4vw,4.35rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[#f6f2eb]">
-                  A better night starts
-                  <br />with better recovery tools.
+                  Quieter nights.
+                  <br />Better mornings.
                 </h1>
 
                 <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">
-                  We build a real home-recovery store around the problems people feel every day:
-                  poor sleep, neck tension, tired muscles and restless travel. Premium hardware,
-                  clean design and routines you will actually use.
+                  A sleep and recovery store built around what people actually feel every day:
+                  poor sleep, neck tension, sore muscles and travel fatigue. Premium hardware,
+                  cleaner routines and less guesswork.
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -418,9 +441,9 @@ export default function ShopHomePage() {
 
                 <div className="mt-8 grid gap-3 sm:grid-cols-3">
                   {[
-                    { value: '4.9★', label: 'average review score' },
-                    { value: '24h', label: 'dispatch on most orders' },
-                    { value: '30 nights', label: 'risk-free trial window' },
+                    { value: 'Side sleepers', label: 'sleep-first essentials' },
+                    { value: 'Desk workers', label: 'neck and posture relief' },
+                    { value: 'Frequent flyers', label: 'portable recovery gear' },
                   ].map((item) => (
                     <div key={item.label} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] px-4 py-3">
                       <div className="text-[15px] font-bold text-[#f2eee7]">{item.value}</div>
@@ -504,6 +527,58 @@ export default function ShopHomePage() {
               </div>
             </div>
           ))}
+        </section>
+
+        {/* ── Starter routines ─────────────────────────────────────── */}
+        <section className="mb-16">
+          <div className="mb-7 flex items-end justify-between gap-4">
+            <div>
+              <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7]">
+                Start with the routine that matches your problem.
+              </h2>
+              <p className="mt-2 text-[14px] text-[#6b7785]">
+                Instead of browsing randomly, begin with the type of recovery you need most.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            {starterRoutines.map((routine) => (
+              <Link
+                key={routine.slug}
+                href={`/${locale}/shop/${routine.slug}`}
+                className="group block overflow-hidden rounded-[28px] border border-white/[0.07] bg-[linear-gradient(180deg,#101722,#0c1118)] p-6 transition hover:border-white/[0.14] hover:shadow-[0_18px_48px_rgba(0,0,0,0.28)]"
+              >
+                <div className="mb-5 flex items-center justify-between">
+                  <span className="text-3xl">{routine.accent}</span>
+                  <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                    Curated start
+                  </span>
+                </div>
+
+                <h3 className="text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7] group-hover:text-white">
+                  {routine.title}
+                </h3>
+                <p className="mt-3 text-[13px] leading-7 text-[#8791a1]">{routine.copy}</p>
+
+                <div className="mt-6 space-y-2">
+                  {routine.picks.map((pick) => (
+                    <div key={pick} className="flex items-center gap-2 text-[12px] text-[#c8d0da]">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-[11px]">
+                        <Check size={11} className="text-[#8ea7c7]" />
+                      </span>
+                      {pick}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 flex items-center gap-1 text-[13px] font-semibold text-[#8ea7c7] transition-colors group-hover:text-[#c9d8e7]">
+                  Shop this routine
+                  <ChevronRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                </div>
+              </Link>
+            ))}
+          </div>
         </section>
 
         {/* ── What we solve ──────────────────────────────────────────── */}
