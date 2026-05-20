@@ -47,4 +47,8 @@ VALORES_RENDER*.txt
 CONFIGURAR_BACKEND*.md
 firebase-debug.log
 *-debug.log
+.deploy.log
+.commit.log
+.push.log
+*.copilot-build.log
 .firebase/
