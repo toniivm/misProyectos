@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -39,6 +39,7 @@ type Product = {
   review: string
   reviewer: string
   savings: string
+  images?: string[]
   Artwork: ({ className }: ArtworkProps) => JSX.Element
 }
 
@@ -283,6 +284,11 @@ const products: Product[] = [
     review: 'Finally fell asleep to audiobooks without painful earbuds pressing into my ear.',
     reviewer: 'Ana, remote worker',
     savings: 'Save 42%',
+    images: [
+      '/images/sleepband-product.jpg',
+      '/images/sleepband-lifestyle.avif',
+      '/images/sleepband-sport.avif',
+    ],
     Artwork: SleepBandArt,
   },
 ]
@@ -422,12 +428,17 @@ const bundles = [
 
 export default function EditorialLandingPage() {
   const [activeProduct, setActiveProduct] = useState<Product['id']>('pulse')
+  const [activeImageIdx, setActiveImageIdx] = useState(0)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const { add, totalItems, open: openCart } = useCart()
   const locale = useLocale()
   const router = useRouter()
 
   const currentProduct = products.find((product) => product.id === activeProduct) ?? products[0]
+
+  useEffect(() => {
+    setActiveImageIdx(0)
+  }, [activeProduct])
 
   const addToCart = (product: Product) => {
     add({ slug: product.slug, name: product.name, price: product.priceNum, icon: product.cartIcon })
@@ -632,7 +643,7 @@ export default function EditorialLandingPage() {
             </motion.div>
 
             <div className="mt-10 overflow-x-auto pb-2">
-              <div className="grid min-w-[880px] gap-4 md:grid-cols-3">
+              <div className="grid min-w-[1100px] gap-3 grid-cols-4">
                 {products.map((product) => {
                   const isActive = product.id === activeProduct
                   const Artwork = product.Artwork
@@ -649,8 +660,17 @@ export default function EditorialLandingPage() {
                       }`}
                     >
                       <div className="grid grid-cols-[84px_minmax(0,1fr)] items-center gap-4">
-                        <div className="flex h-24 items-center justify-center rounded-[22px] border border-white/8 bg-[#10161d]">
-                          <Artwork className="h-16 w-16" />
+                        <div className="h-24 overflow-hidden rounded-[22px] border border-white/8 bg-[#10161d] flex items-center justify-center">
+                          {product.images ? (
+                            <img
+                              src={product.images[0]}
+                              alt={product.name}
+                              className="h-full w-full object-cover"
+                              style={{ objectPosition: '50% 5%' }}
+                            />
+                          ) : (
+                            <Artwork className="h-16 w-16" />
+                          )}
                         </div>
                         <div>
                           <div className="text-[10px] uppercase tracking-[0.18em] text-[#8f9caf]">{product.label}</div>
@@ -674,19 +694,54 @@ export default function EditorialLandingPage() {
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="grid gap-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:gap-12"
                 >
-                  <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-[30px] border border-white/8 bg-[#10161d] p-8 sm:min-h-[540px] lg:p-12">
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background:
-                          currentProduct.id === 'pulse'
-                            ? 'radial-gradient(circle at 50% 26%, rgba(141,163,196,0.18), transparent 26%)'
-                            : currentProduct.id === 'cerviflex'
-                              ? 'radial-gradient(circle at 50% 30%, rgba(214,219,226,0.13), transparent 26%)'
-                              : 'radial-gradient(circle at 50% 44%, rgba(184,199,219,0.14), transparent 24%)',
-                      }}
-                    />
-                    <currentProduct.Artwork className="relative h-[78%] w-auto max-w-[360px]" />
+                  <div className="relative flex min-h-[420px] flex-col overflow-hidden rounded-[30px] border border-white/8 bg-[#10161d] sm:min-h-[540px]">
+                    {currentProduct.images ? (
+                      <>
+                        <div className="relative flex-1 overflow-hidden">
+                          <img
+                            key={currentProduct.images[activeImageIdx]}
+                            src={currentProduct.images[activeImageIdx]}
+                            alt={currentProduct.name}
+                            className="h-full w-full object-cover transition-opacity duration-300"
+                            style={{ objectPosition: activeImageIdx === 0 ? '50% 5%' : activeImageIdx === 1 ? '50% 100%' : '50% 55%' }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#10161d]/60 via-transparent to-transparent pointer-events-none" />
+                        </div>
+                        {currentProduct.images.length > 1 && (
+                          <div className="flex items-center justify-center gap-2 px-4 py-3 bg-[#0d1219]">
+                            {currentProduct.images.map((src, idx) => (
+                              <button
+                                key={idx}
+                                type="button"
+                                onClick={() => setActiveImageIdx(idx)}
+                                className={`h-14 w-14 overflow-hidden rounded-xl border-2 transition-all duration-200 ${
+                                  activeImageIdx === idx
+                                    ? 'border-[#f2eee7]/50 opacity-100'
+                                    : 'border-white/10 opacity-50 hover:opacity-75'
+                                }`}
+                              >
+                                <img src={src} alt="" className="h-full w-full object-cover" style={{ objectPosition: idx === 0 ? '50% 5%' : idx === 1 ? '50% 100%' : '50% 55%' }} />
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="relative flex flex-1 items-center justify-center p-8 lg:p-12">
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            background:
+                              currentProduct.id === 'pulse'
+                                ? 'radial-gradient(circle at 50% 26%, rgba(141,163,196,0.18), transparent 26%)'
+                                : currentProduct.id === 'cerviflex'
+                                  ? 'radial-gradient(circle at 50% 30%, rgba(214,219,226,0.13), transparent 26%)'
+                                  : 'radial-gradient(circle at 50% 44%, rgba(184,199,219,0.14), transparent 24%)',
+                          }}
+                        />
+                        <currentProduct.Artwork className="relative h-[78%] w-auto max-w-[360px]" />
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-col justify-center py-2 lg:py-6">

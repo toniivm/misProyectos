@@ -1,5 +1,5 @@
-import EditorialLandingPage from '../../components/EditorialLandingPage';
+import ShopHomePage from '../../components/ShopHomePage'
 
 export default function LocalizedHomePage() {
-  return <EditorialLandingPage />;
+  return <ShopHomePage />
 }
