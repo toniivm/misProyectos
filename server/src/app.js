@@ -25,7 +25,9 @@ function parseBool(value) {
   return s === '1' || s === 'true' || s === 'yes' || s === 'on';
 }
 
-const skipExternal = parseBool(process.env.SKIP_EXTERNAL);
+// For quick staging tests, default to skipping external services unless explicitly disabled.
+// This forces mock behaviour (emails, stripe, firestore) when SKIP_EXTERNAL is not set.
+const skipExternal = parseBool(process.env.SKIP_EXTERNAL ?? 'true');
 const isProd = (process.env.NODE_ENV || 'production') === 'production';
 
 const externalStatus = {
