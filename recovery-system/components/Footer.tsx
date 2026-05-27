@@ -1,4 +1,5 @@
 import { Instagram, Twitter, Youtube } from 'lucide-react'
+import { useLocale } from 'next-intl'
 
 const links = {
   product: [
@@ -22,6 +23,7 @@ const links = {
 }
 
 export default function Footer() {
+  const locale = useLocale();
   return (
     <footer className="relative border-t border-white/5 bg-[#040407]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
@@ -88,16 +90,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-700">
             © {new Date().getFullYear()} Recovery System™. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            {['Privacy Policy', 'Terms of Use', 'Cookie Settings'].map((item) => (
-              <a key={item} href="#" className="text-xs text-slate-700 hover:text-slate-400 transition-colors">
-                {item}
-              </a>
-            ))}
+            <a href={`/${locale}/legal/privacy`} className="text-xs text-slate-700 hover:text-slate-400 transition-colors">Privacy Policy</a>
+            <a href={`/${locale}/legal/terms`} className="text-xs text-slate-700 hover:text-slate-400 transition-colors">Terms of Use</a>
+            <a href={`/${locale}/legal/shipping`} className="text-xs text-slate-700 hover:text-slate-400 transition-colors">Shipping</a>
+            <a href={`/${locale}/legal/returns`} className="text-xs text-slate-700 hover:text-slate-400 transition-colors">Returns</a>
           </div>
         </div>
       </div>
