@@ -4,8 +4,9 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {ArrowLeft, Check, CreditCard, Lock, ShieldCheck, Truck} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
 import Link from 'next/link';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useCart} from '../../../context/CartContext';
+import { useAuth } from '../../../context/AuthContext';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -60,6 +61,7 @@ export default function CheckoutPage() {
   const t = useTranslations();
   const locale = useLocale();
   const {items, subtotal, hasHydrated} = useCart();
+  const { user } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -129,6 +131,11 @@ export default function CheckoutPage() {
       setLoading(false);
     }
   };
+
+  // Prefill email when user is logged in
+  useEffect(() => {
+    if (user?.email) setContact((c) => ({ ...c, email: user.email }));
+  }, [user]);
 
   return (
     <div className="min-h-screen bg-[#080c16] text-[#f4f1ea]">
