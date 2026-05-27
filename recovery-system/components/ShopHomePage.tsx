@@ -274,22 +274,22 @@ export default function ShopHomePage() {
 
   const lifestyleShots = [
     {
-      src: '/images/sleepband-lifestyle.avif',
+      src: '/images/sleepband-lifestyle-clean.png',
       title: 'Faster wind-down',
       copy: 'Soft audio at night without hard earbuds',
-      objectPosition: '50% 100%',
+      objectPosition: '50% 78%',
     },
     {
-      src: '/images/sleepband-product.jpg',
+      src: '/images/sleepband-product-clean.png',
       title: 'Clean hardware',
       copy: 'Low-profile comfort built for nightly use',
-      objectPosition: '50% 5%',
+      objectPosition: '50% 52%',
     },
     {
-      src: '/images/sleepband-sport.avif',
+      src: '/images/sleepband-sport-clean.png',
       title: 'Travel ready',
       copy: 'Portable recovery for flights, hotels and naps',
-      objectPosition: '50% 55%',
+      objectPosition: '58% 36%',
     },
   ]
 
@@ -957,10 +957,10 @@ export default function ShopHomePage() {
           <div className="grid gap-0 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
             <div className="grid grid-cols-2 gap-3 p-4 sm:p-6">
               {[
-                { src: '/images/sleepband-product.jpg', objectPosition: '50% 5%' },
-                { src: '/images/sleepband-lifestyle.avif', objectPosition: '50% 100%' },
-                { src: '/images/sleepband-sport.avif', objectPosition: '50% 55%' },
-                { src: '/images/sleepband-battery.avif', objectPosition: 'center' },
+                { src: '/images/sleepband-product-clean.png', objectPosition: '50% 52%' },
+                { src: '/images/sleepband-lifestyle-clean.png', objectPosition: '50% 78%' },
+                { src: '/images/sleepband-sport-clean.png', objectPosition: '58% 36%' },
+                { src: '/images/sleepband-detail-clean.png', objectPosition: '50% 42%' },
               ].map((shot, idx) => (
                 <div
                   key={shot.src}

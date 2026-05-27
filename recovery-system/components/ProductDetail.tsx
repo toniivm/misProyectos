@@ -53,8 +53,18 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const product = getCatalogProductBySlug(legacyProduct.slug);
   const category = product ? CATEGORIES.find((c) => c.id === product.category) : null;
   const related = product ? getProductsByCategory(product.category).filter((p) => p.slug !== product.slug).slice(0, 3) : [];
+  // Helper to pick localized field if available
+  function getLocalizedField(obj: any, field: string) {
+    if (!obj) return undefined;
+    const en = obj[`${field}_en`];
+    const es = obj[`${field}_es`];
+    if (String(locale || '').toLowerCase().startsWith('es')) {
+      return es ?? obj[field] ?? en;
+    }
+    return en ?? obj[field] ?? es;
+  }
 
-  const displayName = product?.name ?? legacyProduct.name;
+  const displayName = product ? getLocalizedField(product, 'name') ?? legacyProduct.name : legacyProduct.name;
   const displayPrice = product?.price ?? legacyProduct.price;
   const displayComparePrice = product?.comparePrice ?? legacyProduct.comparePrice;
   const savings = Math.round(((displayComparePrice - displayPrice) / displayComparePrice) * 100);
@@ -105,7 +115,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     },
     {
       q: 'Who is this product best for?',
-      a: product?.shortDescription ?? `${displayName} is built for people who want a simple, reliable tool for sleep or recovery at home.`,
+      a: getLocalizedField(product, 'shortDescription') ?? product?.shortDescription ?? `${displayName} is built for people who want a simple, reliable tool for sleep or recovery at home.`,
     },
   ];
 
@@ -340,7 +350,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {activeTab === 'description' && (
               <div className="max-w-2xl">
                 <p className="text-[15px] leading-8 text-[#9aa7b9]">
-                  {product?.description ?? legacyProduct.tag}
+                  {getLocalizedField(product, 'description') ?? product?.description ?? legacyProduct.tag}
                 </p>
               </div>
             )}

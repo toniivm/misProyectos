@@ -285,9 +285,9 @@ const products: Product[] = [
     reviewer: 'Ana, remote worker',
     savings: 'Save 42%',
     images: [
-      '/images/sleepband-product.jpg',
-      '/images/sleepband-lifestyle.avif',
-      '/images/sleepband-sport.avif',
+      '/images/sleepband-product-clean.png',
+      '/images/sleepband-lifestyle-clean.png',
+      '/images/sleepband-sport-clean.png',
     ],
     Artwork: SleepBandArt,
   },

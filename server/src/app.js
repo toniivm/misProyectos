@@ -8,6 +8,7 @@ import compression from 'compression';
 import Stripe from 'stripe';
 import admin from 'firebase-admin';
 import sgMail from '@sendgrid/mail';
+import fs from 'fs/promises';
 import Joi from 'joi';
 import { v4 as uuidv4 } from 'uuid';
 import rateLimit from 'express-rate-limit';
@@ -785,11 +786,24 @@ app.patch('/orders/:id', adminAuth, async (req,res) => {
 
 // Email helpers
 async function sendEmail(to, subject, html){
-  if (skipExternal || !process.env.SENDGRID_API_KEY) return;
-  try {
-    await sgMail.send({ to, from: process.env.SENDER_EMAIL, subject, html });
-  } catch (e){
-    console.error('Email send error', e);
+  if (skipExternal) {
+    console.log(`[MOCK EMAIL][skipExternal] To: ${to} Subject: ${subject}\n${html}`);
+    return;
+  }
+
+  // If SendGrid configured, use it. Otherwise fallback to a console mock.
+  if (process.env.SENDGRID_API_KEY && String(process.env.SENDGRID_API_KEY).trim()){
+    try {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      const from = process.env.SENDER_EMAIL || 'no-reply@calma.com';
+      await sgMail.send({ to, from, subject, html });
+      console.log(`Email sent to ${to} (SendGrid)`);
+    } catch (e){
+      console.error('SendGrid email error', e);
+      console.log(`[MOCK EMAIL][send-error] To: ${to} Subject: ${subject}\n${html}`);
+    }
+  } else {
+    console.log(`[MOCK EMAIL] To: ${to} Subject: ${subject}\n${html}`);
   }
 }
 
@@ -803,6 +817,103 @@ app.post('/orders/:id/pack', adminAuth, async (req,res) => {
   if (!['paid','processing'].includes(order.status)) return res.status(409).json({ error: 'INVALID_STATE' });
   await ref.set({ status: 'packed', packedAt: new Date() }, { merge: true });
   res.json({ ok: true });
+});
+
+// Stripe webhook handler — verifies signature and marks orders as paid
+async function handleOrderPaid(orderId, stripeObj){
+  if (!orderId) {
+    console.warn('handleOrderPaid: missing orderId');
+    return;
+  }
+  if (!db) {
+    console.warn('handleOrderPaid: no DB configured - skipping order update');
+    return;
+  }
+
+  try {
+    const ref = db.collection('orders').doc(orderId);
+    const snap = await ref.get();
+    if (!snap.exists) {
+      console.warn(`Order ${orderId} not found in DB`);
+      return;
+    }
+    const order = snap.data();
+    if (['paid','processing','packed','shipped','delivered'].includes(order.status)){
+      console.log(`Order ${orderId} already in status ${order.status}`);
+      return;
+    }
+
+    await ref.set({ status: 'paid', paidAt: new Date(), paymentInfo: { stripe: stripeObj?.id || null } }, { merge: true });
+
+    // Attempt to decrement inventory (best-effort)
+    try {
+      await decrementInventory(order.items || []);
+    } catch (e){
+      console.error(`Failed to decrement inventory for order ${orderId}`, e?.message || e);
+    }
+
+    // Send confirmation email to customer
+    try {
+      const itemsList = (order.items || []).map(it => `<li>${it.name} x${it.qty} - €${(it.price * it.qty).toFixed(2)}</li>`).join('');
+      const total = ((order.amount || 0) / 100).toFixed(2);
+      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - CALMA`, `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${orderId}</strong></p><ul>${itemsList}</ul><p><strong>Total: €${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`);
+    } catch (e){
+      console.error('Failed to send order confirmation email', e?.message || e);
+    }
+  } catch (e){
+    console.error('handleOrderPaid error', e?.message || e);
+  }
+}
+
+app.post('/stripe/webhook', async (req, res) => {
+  let event;
+  const sig = req.headers['stripe-signature'] || req.headers['stripe_signature'];
+  try {
+    if (stripe && stripe.webhooks && process.env.STRIPE_WEBHOOK_SECRET) {
+      // Verify signature when secret available
+      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } else if (stripe && stripe.webhooks && typeof stripe.webhooks.constructEvent === 'function') {
+      // Dev/mock path: try constructEvent without secret
+      try {
+        event = stripe.webhooks.constructEvent(req.body);
+      } catch (e) {
+        event = req.body;
+      }
+    } else {
+      // Fallback: parse raw body
+      if (Buffer.isBuffer(req.body)) {
+        const s = req.body.toString('utf8') || '{}';
+        event = JSON.parse(s);
+      } else {
+        event = req.body;
+      }
+    }
+  } catch (err) {
+    console.error('Webhook signature verification failed.', err?.message || err);
+    return res.status(400).send(`Webhook Error: ${err?.message || err}`);
+  }
+
+  console.log('Stripe webhook received:', event?.type || 'unknown');
+
+  try {
+    const type = event.type;
+    if (type === 'checkout.session.completed') {
+      const session = event.data.object;
+      const orderId = session?.metadata?.orderId || session?.metadata?.order_id;
+      await handleOrderPaid(orderId, session);
+    } else if (type === 'payment_intent.succeeded') {
+      const pi = event.data.object;
+      const orderId = pi?.metadata?.orderId || pi?.metadata?.order_id;
+      await handleOrderPaid(orderId, pi);
+    } else {
+      console.log('Unhandled stripe event type:', type);
+    }
+  } catch (e) {
+    console.error('Error handling webhook event', e?.message || e);
+    return res.status(500).send('Webhook handler error');
+  }
+
+  res.json({ received: true });
 });
 
 app.post('/orders/:id/ship', adminAuth, async (req,res) => {
@@ -852,21 +963,41 @@ app.post('/emails/order-confirmation', async (req,res) => {
   if (!snap.exists) return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
   
   const order = snap.data();
-  const itemsList = order.items.map(it => `<li>${it.name} x${it.qty} - €${(it.price * it.qty).toFixed(2)}</li>`).join('');
-  const total = (order.amount / 100).toFixed(2);
-  
-  await sendEmail(
-    email,
-    `✅ Confirmación de pedido #${orderId} - VALTREX`,
-    `<h1>¡Gracias por tu pedido!</h1>
-    <p>Pedido: <strong>#${orderId}</strong></p>
-    <h3>Artículos:</h3>
-    <ul>${itemsList}</ul>
-    <p><strong>Total: €${total}</strong></p>
-    <p>Recibirás un email cuando tu pedido sea enviado.</p>
-    <p>Gracias por confiar en VALTREX.</p>`
-  );
-  
+  const itemsList = (order.items || []).map(it => `<li>${it.name} x${it.qty} - €${(it.price * it.qty).toFixed(2)}</li>`).join('');
+  const total = ((order.amount || 0) / 100).toFixed(2);
+
+  // Try to load HTML template if available
+  let tpl = null;
+  try {
+    const tplPath = new URL('../templates/order-confirmation.html', import.meta.url);
+    tpl = await fs.readFile(tplPath, 'utf8');
+  } catch (e) {
+    tpl = null;
+  }
+
+  const customerName = order.shipping?.name || '';
+  if (tpl) {
+    const html = tpl
+      .replace(/{{orderId}}/g, orderId)
+      .replace(/{{customerName}}/g, customerName)
+      .replace(/{{itemsHtml}}/g, `<ul>${itemsList}</ul>`)
+      .replace(/{{total}}/g, `€${total}`);
+
+    await sendEmail(email, `✅ Confirmación de pedido #${orderId} - CALMA`, html);
+  } else {
+    await sendEmail(
+      email,
+      `✅ Confirmación de pedido #${orderId} - CALMA`,
+      `<h1>¡Gracias por tu pedido!</h1>
+      <p>Pedido: <strong>#${orderId}</strong></p>
+      <h3>Artículos:</h3>
+      <ul>${itemsList}</ul>
+      <p><strong>Total: €${total}</strong></p>
+      <p>Recibirás un email cuando tu pedido sea enviado.</p>
+      <p>Gracias por confiar en CALMA.</p>`
+    );
+  }
+
   res.json({ ok: true });
 });
 

@@ -5,6 +5,7 @@ import {
   useContext,
   useReducer,
   useEffect,
+  useState,
   ReactNode,
 } from 'react';
 
@@ -86,6 +87,7 @@ function reducer(state: CartState, action: Action): CartState {
 interface CartContextValue {
   items: CartItem[];
   isOpen: boolean;
+  hasHydrated: boolean;
   totalItems: number;
   subtotal: number;
   add: (item: Omit<CartItem, 'quantity'>) => void;
@@ -103,19 +105,28 @@ export function CartProvider({ children }: { children: ReactNode }) {
     items: [],
     isOpen: false,
   });
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem('recover_cart');
-      if (saved) dispatch({ type: 'HYDRATE', items: JSON.parse(saved) });
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          dispatch({ type: 'HYDRATE', items: parsed });
+        }
+      }
     } catch {}
+    setHasHydrated(true);
   }, []);
 
   useEffect(() => {
+    if (!hasHydrated) return;
+
     try {
       localStorage.setItem('recover_cart', JSON.stringify(state.items));
     } catch {}
-  }, [state.items]);
+  }, [hasHydrated, state.items]);
 
   const totalItems = state.items.reduce((s, i) => s + i.quantity, 0);
   const subtotal = state.items.reduce(
@@ -128,6 +139,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       value={{
         items: state.items,
         isOpen: state.isOpen,
+        hasHydrated,
         totalItems,
         subtotal,
         add: (item) => dispatch({ type: 'ADD', item }),

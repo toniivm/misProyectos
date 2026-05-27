@@ -9,6 +9,8 @@ export type Category = {
 export type CatalogProduct = {
   slug: string
   name: string
+  name_en?: string
+  name_es?: string
   category: string
   price: number
   comparePrice: number
@@ -16,7 +18,11 @@ export type CatalogProduct = {
   reviewCount: number
   badge?: 'bestseller' | 'new' | 'deal' | 'trending'
   shortDescription: string
+  shortDescription_en?: string
+  shortDescription_es?: string
   description: string
+  description_en?: string
+  description_es?: string
   features: string[]
   specs: Record<string, string>
   images?: string[]
@@ -68,6 +74,8 @@ export const CATALOG: CatalogProduct[] = [
   {
     slug: 'sleepband-pro',
     name: 'SleepBand Pro',
+    name_en: 'SleepBand Pro',
+    name_es: 'Cinta SleepBand Pro',
     category: 'sleep-audio',
     price: 69,
     comparePrice: 119,
@@ -75,8 +83,14 @@ export const CATALOG: CatalogProduct[] = [
     reviewCount: 1247,
     badge: 'bestseller',
     shortDescription: 'Bluetooth sleep headband with ultra-thin HD speakers. Designed for side sleepers. 10-hour battery.',
+    shortDescription_en: 'Bluetooth sleep headband with ultra-thin HD speakers. Designed for side sleepers. 10-hour battery.',
+    shortDescription_es: 'Cinta para dormir con Bluetooth y altavoces ultrafinos. Pensada para quienes duermen de lado. Batería de 10 horas.',
     description:
       'The SleepBand Pro is a soft fabric sleep headband with built-in HD stereo speakers. Designed for side sleepers who want music, meditation, or white noise without uncomfortable earbuds pressing into the ear. Bluetooth 5.0 connects instantly to any device and a 10-hour battery lasts through the night.',
+    description_en:
+      'The SleepBand Pro is a soft fabric sleep headband with built-in HD stereo speakers. Designed for side sleepers who want music, meditation, or white noise without uncomfortable earbuds pressing into the ear. Bluetooth 5.0 connects instantly to any device and a 10-hour battery lasts through the night.',
+    description_es:
+      'La SleepBand Pro es una cinta suave con altavoces estéreo HD integrados. Diseñada para quienes duermen de lado y quieren música, meditación o ruido blanco sin usar auriculares incómodos. Bluetooth 5.0 se conecta al instante y la batería de 10 horas dura toda la noche.',
     features: [
       'Bluetooth 5.0 — stable overnight connection',
       'Ultra-thin HD speakers — no pressure on ears',
@@ -94,7 +108,11 @@ export const CATALOG: CatalogProduct[] = [
       'Sizes': 'One size fits most',
       'Weight': '60g',
     },
-    images: ['/images/sleepband-product.jpg', '/images/sleepband-lifestyle.avif', '/images/sleepband-sport.avif'],
+    images: [
+      '/images/sleepband-product-clean.png',
+      '/images/sleepband-lifestyle-clean.png',
+      '/images/sleepband-sport-clean.png',
+    ],
     icon: '🎧',
     cartIcon: '🎧',
     color: '#101828',
@@ -168,6 +186,8 @@ export const CATALOG: CatalogProduct[] = [
   {
     slug: 'cerviflex',
     name: 'CerviFlex',
+    name_en: 'CerviFlex',
+    name_es: 'Masajeador Cervical CerviFlex',
     category: 'neck-recovery',
     price: 59,
     comparePrice: 99,
@@ -175,8 +195,14 @@ export const CATALOG: CatalogProduct[] = [
     reviewCount: 1021,
     badge: 'bestseller',
     shortDescription: 'Cervical massager with 3 modes and optional heat. Reduces neck tension after long desk sessions.',
+    shortDescription_en: 'Cervical massager with 3 modes and optional heat. Reduces neck tension after long desk sessions.',
+    shortDescription_es: 'Masajeador cervical con 3 modos y calor opcional. Reduce la tensión tras jornadas largas sentado.',
     description:
       'CerviFlex is a soft-touch cervical massager that targets the neck and upper trapezius. Three massage modes with optional 45°C heat therapy help reduce tension built up from screen time, commuting, and poor posture. USB-C rechargeable with a 90-minute battery.',
+    description_en:
+      'CerviFlex is a soft-touch cervical massager that targets the neck and upper trapezius. Three massage modes with optional 45°C heat therapy help reduce tension built up from screen time, commuting, and poor posture. USB-C rechargeable with a 90-minute battery.',
+    description_es:
+      'CerviFlex es un masajeador cervical de tacto suave que actúa sobre el cuello y trapecio superior. Sus tres modos de masaje y la opción de calor hasta 45°C ayudan a reducir la tensión acumulada por pantallas, desplazamientos y mala postura. Recargable por USB-C con 90 min de autonomía.',
     features: [
       '3 massage intensity modes',
       'Gentle heat therapy up to 45°C',

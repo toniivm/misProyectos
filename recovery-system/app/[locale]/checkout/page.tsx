@@ -59,7 +59,7 @@ const PRODUCT_ICON: Record<string, string> = {
 export default function CheckoutPage() {
   const t = useTranslations();
   const locale = useLocale();
-  const {items, subtotal} = useCart();
+  const {items, subtotal, hasHydrated} = useCart();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -74,9 +74,12 @@ export default function CheckoutPage() {
     country: 'Spain',
     zip: '',
   });
+  const checkoutItems = hasHydrated ? items : [];
+  const checkoutSubtotal = hasHydrated ? subtotal : 0;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!items.length) return;
+    if (!hasHydrated || !checkoutItems.length) return;
 
     setLoading(true);
     setError(null);
@@ -95,7 +98,7 @@ export default function CheckoutPage() {
             country: COUNTRY_CODES[shipping.country] || 'ES',
           },
         },
-        items: items.map((item) => ({
+        items: checkoutItems.map((item) => ({
           id: item.slug,
           qty: item.quantity,
           price: item.price,
@@ -266,7 +269,10 @@ export default function CheckoutPage() {
 
             {/* Payment Methods */}
             <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
-              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Payment method</h2>
+              <h2 className="mb-2 text-[17px] font-semibold text-[#f2eee7]">Preferred checkout method</h2>
+              <p className="mb-5 text-[12px] leading-5 text-[#8791a1]">
+                Cards work across modern browsers and mobile devices. Apple Pay and Google Pay appear on Stripe's secure page when the device, browser and wallet are compatible.
+              </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 <button
                   type="button"
@@ -296,7 +302,7 @@ export default function CheckoutPage() {
                   <div className="text-lg">🅿️</div>
                   <div className="text-left">
                     <div className="text-[13px] font-semibold text-[#f2eee7]">PayPal</div>
-                    <div className="text-[11px] text-[#6b7280]">Fast & secure</div>
+                    <div className="text-[11px] text-[#6b7280]">Available where supported</div>
                   </div>
                 </button>
 
@@ -312,7 +318,7 @@ export default function CheckoutPage() {
                   <div className="text-lg">🍎</div>
                   <div className="text-left">
                     <div className="text-[13px] font-semibold text-[#f2eee7]">Apple Pay</div>
-                    <div className="text-[11px] text-[#6b7280]">For iOS devices</div>
+                    <div className="text-[11px] text-[#6b7280]">Compatible Apple devices</div>
                   </div>
                 </button>
 
@@ -328,9 +334,13 @@ export default function CheckoutPage() {
                   <div className="text-lg">🔵</div>
                   <div className="text-left">
                     <div className="text-[13px] font-semibold text-[#f2eee7]">Google Pay</div>
-                    <div className="text-[11px] text-[#6b7280]">Android & Chrome</div>
+                    <div className="text-[11px] text-[#6b7280]">Compatible Android & Chrome</div>
                   </div>
                 </button>
+              </div>
+
+              <div className="mt-4 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-[12px] text-[#aab4c2]">
+                Stripe-hosted checkout confirms the final payment options for each shopper based on browser, device, location and wallet availability.
               </div>
             </section>
 
@@ -342,7 +352,7 @@ export default function CheckoutPage() {
 
             <button
               type="submit"
-              disabled={loading || items.length === 0}
+              disabled={loading || !hasHydrated || checkoutItems.length === 0}
               className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-4 text-[15px] font-semibold text-[#11161d] transition-transform duration-300 hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
@@ -353,7 +363,7 @@ export default function CheckoutPage() {
               ) : (
                 <>
                   <Lock size={15} />
-                  Continue to secure payment — €{subtotal.toFixed(2)}
+                  Continue to secure payment — €{checkoutSubtotal.toFixed(2)}
                 </>
               )}
             </button>
@@ -369,7 +379,11 @@ export default function CheckoutPage() {
           <aside className="h-fit rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6 lg:sticky lg:top-24">
             <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Order summary</h2>
 
-            {items.length === 0 ? (
+            {!hasHydrated ? (
+              <div className="py-8 text-center text-[13px] text-[#6b7280]">
+                Loading your cart...
+              </div>
+            ) : checkoutItems.length === 0 ? (
               <div className="py-8 text-center text-[13px] text-[#6b7280]">
                 Your cart is empty.{' '}
                 <Link href={`/${locale}`} className="text-[#c4cdd6] underline">
@@ -379,7 +393,7 @@ export default function CheckoutPage() {
             ) : (
               <>
                 <ul className="space-y-4">
-                  {items.map((item) => (
+                  {checkoutItems.map((item) => (
                     <li key={item.slug} className="flex items-center gap-3">
                       <div
                         className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] text-xl"
@@ -401,7 +415,7 @@ export default function CheckoutPage() {
                 <div className="mt-5 space-y-2.5 border-t border-white/[0.07] pt-5">
                   <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                     <span>Subtotal</span>
-                    <span className="font-semibold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
+                    <span className="font-semibold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                     <span>Shipping</span>
@@ -409,7 +423,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
                     <span className="text-[15px] font-semibold text-[#f2eee7]">Total</span>
-                    <span className="text-[20px] font-bold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
+                    <span className="text-[20px] font-bold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
                 </div>
 
