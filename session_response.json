@@ -1,0 +1,29 @@
+HTTP/1.1 400 Bad Request
+Date: Wed, 27 May 2026 00:51:52 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+access-control-allow-credentials: true
+cf-cache-status: DYNAMIC
+content-security-policy: default-src 'self';script-src 'self' https://js.stripe.com;connect-src 'self' https://api.stripe.com https://checkout.stripe.com;frame-src https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com;img-src 'self' data: https://*.stripe.com;style-src 'self' 'unsafe-inline' https://js.stripe.com https://checkout.stripe.com;object-src 'none';base-uri 'self';form-action 'self' https://checkout.stripe.com;upgrade-insecure-requests;font-src 'self' https: data:;frame-ancestors 'self';script-src-attr 'none'
+cross-origin-opener-policy: same-origin-allow-popups
+cross-origin-resource-policy: same-origin
+etag: W/"3f-GMIx/iZA23Ug/HIab0O01zehbtw"
+origin-agent-cluster: ?1
+referrer-policy: strict-origin-when-cross-origin
+rndr-id: ea467164-ab3c-48e8
+Server: cloudflare
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+vary: Origin, Accept-Encoding
+vary: Accept-Encoding
+x-content-type-options: nosniff
+x-dns-prefetch-control: off
+x-download-options: noopen
+x-frame-options: DENY
+x-permitted-cross-domain-policies: none
+x-render-origin-server: Render
+x-xss-protection: 0
+CF-RAY: a021089fd9a400b2-MAD
+alt-svc: h3=":443"; ma=86400
+
+{"error":"Expected property name or '}' in JSON at position 1"}
