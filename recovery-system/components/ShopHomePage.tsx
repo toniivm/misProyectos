@@ -3,7 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import {
   ShoppingCart,
@@ -243,6 +243,7 @@ function SearchBar({ locale }: { locale: string }) {
 
 export default function ShopHomePage() {
   const locale = useLocale()
+  const t = useTranslations()
   const { totalItems, open: openCart } = useCart()
   const bestSellers = getBestSellers()
   const deals = getDeals()
@@ -389,13 +390,13 @@ export default function ShopHomePage() {
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
                   <Headphones size={12} className="text-[#8ea7c7]" />
                   <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">
-                    Premium recovery store
+                    {t('hero.kicker')}
                   </span>
                 </div>
 
                 <h1 className="text-[clamp(2.35rem,5.4vw,4.35rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[#f6f2eb]">
-                  Quieter nights.
-                  <br />Better mornings.
+                  {t('hero.line1')}
+                  <br />{t('hero.line2')}
                 </h1>
 
                 <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">
