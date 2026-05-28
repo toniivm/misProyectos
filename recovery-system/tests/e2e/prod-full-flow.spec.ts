@@ -20,10 +20,16 @@ test('prod full flow - TikTok user (non-destructive)', async ({ page }) => {
   const cartButton = page.locator('button[aria-label^="Cart"]');
   await expect(cartButton).toHaveAttribute('aria-label', /1 item|1 items/);
 
-  // Open cart
-  await cartButton.click();
+  // Open cart (only click if panel not already visible)
   const cartPanel = page.locator('aside[role="dialog"], [data-testid="cart-sidebar"]');
-  await cartPanel.waitFor({ state: 'visible', timeout: 5000 });
+  const isCartVisible = await cartPanel.isVisible().catch(() => false);
+  if (!isCartVisible) {
+    await cartButton.waitFor({ state: 'visible', timeout: 3000 });
+    await cartButton.click();
+    await cartPanel.waitFor({ state: 'visible', timeout: 5000 });
+  } else {
+    await cartPanel.waitFor({ state: 'visible', timeout: 5000 });
+  }
 
   // Click proceed to checkout but do NOT complete payment
   let proceedBtn = cartPanel.locator('text=Proceed to checkout');
