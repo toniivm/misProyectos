@@ -110,7 +110,11 @@ export default function CheckoutPage() {
         cancelUrl: `${window.location.origin}/${locale}/checkout`,
       };
 
-      const response = await fetch(`${API_BASE_URL}/payments/create-checkout-session`, {
+      const endpoint = API_BASE_URL
+        ? `${API_BASE_URL}/payments/create-checkout-session`
+        : '/api/payments/create-checkout-session';
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -118,13 +122,57 @@ export default function CheckoutPage() {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      // Handle non-OK responses first and try to surface meaningful server messages
+      if (!response.ok) {
+        let msg = 'Could not start payment';
+        try {
+          const text = await response.text();
+          try {
+            const parsed = JSON.parse(text);
+            msg = parsed?.detail || parsed?.error || text || msg;
+          } catch {
+            msg = text || msg;
+          }
+        } catch (e) {
+          // ignore parsing errors
+        }
+        throw new Error(msg);
+      }
 
-      if (!response.ok || !data?.url) {
+      // Parse JSON safely
+      let data: any = null;
+      try {
+        data = await response.json();
+      } catch (e) {
+        const text = await response.text().catch(() => null);
+        throw new Error(text || 'Invalid server response');
+      }
+
+      if (!data?.url) {
         throw new Error(data?.detail || data?.error || 'Could not start payment');
       }
 
-      window.location.href = data.url;
+      // Attempt navigation robustly: prefer top-level navigation, fall back to open/new tab
+      try {
+        if (window.top && window.top !== window) {
+          try {
+            window.top.location.href = data.url;
+          } catch (e) {
+            // Cross-origin or blocked; open a new tab instead
+            const opened = window.open(data.url, '_blank');
+            if (!opened) window.location.assign(data.url);
+          }
+        } else {
+          window.location.href = data.url;
+        }
+      } catch (e) {
+        try {
+          const opened = window.open(data.url, '_blank');
+          if (!opened) window.location.assign(data.url);
+        } catch {
+          window.location.assign(data.url);
+        }
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Payment failed';
       setError(message);
