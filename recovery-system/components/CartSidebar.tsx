@@ -14,11 +14,13 @@ import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function CartSidebar() {
   const { isOpen, close, items, remove, updateQty, subtotal, totalItems } =
     useCart();
   const locale = useLocale();
+  const { user, openModal } = useAuth();
 
   // Lock body scroll while the cart drawer is open to avoid double scrolling on mobile
   useEffect(() => {
@@ -173,7 +175,14 @@ export default function CartSidebar() {
 
                 <Link
                   href={`/${locale}/checkout`}
-                  onClick={close}
+                  onClick={(e) => {
+                    if (!user) {
+                      e.preventDefault();
+                      openModal();
+                      return;
+                    }
+                    close();
+                  }}
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-5 py-3.5 text-[14px] font-semibold text-[#11161d] transition-transform duration-300 hover:-translate-y-[1px]"
                 >
                   Proceed to checkout

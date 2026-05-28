@@ -61,7 +61,7 @@ export default function CheckoutPage() {
   const t = useTranslations();
   const locale = useLocale();
   const {items, subtotal, hasHydrated} = useCart();
-  const { user } = useAuth();
+  const { user, openModal, loading: authLoading } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -399,6 +399,19 @@ export default function CheckoutPage() {
               </div>
             </section>
 
+            {!user && !authLoading && (
+              <div className="mb-4 rounded-xl border border-yellow-600/20 bg-yellow-950/10 px-4 py-3 text-[13px] text-yellow-200">
+                Please sign in or create an account to complete your purchase.
+                <button
+                  type="button"
+                  onClick={() => openModal()}
+                  className="ml-3 inline-flex items-center rounded-full bg-yellow-200/10 px-3 py-1 text-[13px] font-semibold text-yellow-200"
+                >
+                  Sign in / Create account
+                </button>
+              </div>
+            )}
+
             {error && (
               <div className="rounded-xl border border-red-900/40 bg-red-950/30 px-4 py-3 text-[13px] text-red-400">
                 {error}
@@ -407,7 +420,7 @@ export default function CheckoutPage() {
 
             <button
               type="submit"
-              disabled={loading || !hasHydrated || checkoutItems.length === 0}
+              disabled={loading || !hasHydrated || checkoutItems.length === 0 || !user}
               className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-4 text-[15px] font-semibold text-[#11161d] transition-transform duration-300 hover:-translate-y-[1px] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
