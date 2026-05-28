@@ -33,6 +33,7 @@ const firebaseEnabled = !!(
   process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
   process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
 );
+const devAuthEnabled = !firebaseEnabled && process.env.NEXT_PUBLIC_ALLOW_DEV_AUTH === 'true';
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
@@ -44,6 +45,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!firebaseEnabled) {
+      if (devAuthEnabled) {
+        try {
+          const stored = localStorage.getItem('dev_user');
+          if (stored) setUser(JSON.parse(stored));
+        } catch {}
+        setLoading(false);
+        return;
+      }
       setLoading(false);
       return;
     }
@@ -107,9 +116,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithGoogle = async () => {
     setError(null);
-    if (!firebaseEnabled) {
+    if (!firebaseEnabled && !devAuthEnabled) {
       setError('Auth not configured. Add Firebase environment variables.');
       return;
+    }
+    if (devAuthEnabled) {
+      try {
+        const mock = {
+          uid: `dev-google-${Date.now()}`,
+          email: `dev.user+${Date.now()}@example.com`,
+          displayName: 'Dev User',
+          photoURL: null,
+        } as SimpleUser;
+        setUser(mock);
+        try { localStorage.setItem('dev_user', JSON.stringify(mock)); } catch {}
+        setShowModal(false);
+        return;
+      } catch (e: any) {
+        setError(e?.message ?? 'Google sign-in failed. Please try again.');
+        return;
+      }
     }
     try {
       const auth = await getAuth();
@@ -125,9 +151,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithEmail = async (email: string, password: string) => {
     setError(null);
-    if (!firebaseEnabled) {
+    if (!firebaseEnabled && !devAuthEnabled) {
       setError('Auth not configured. Add Firebase environment variables.');
       return;
+    }
+    if (devAuthEnabled) {
+      try {
+        const raw = localStorage.getItem('dev_users') || '{}';
+        const users = JSON.parse(raw || '{}');
+        const record = users[email];
+        if (!record || record.password !== password) {
+          setError('Invalid credentials');
+          return;
+        }
+        const u = { uid: record.uid, email, displayName: record.displayName ?? null, photoURL: record.photoURL ?? null } as SimpleUser;
+        setUser(u);
+        try { localStorage.setItem('dev_user', JSON.stringify(u)); } catch {}
+        setShowModal(false);
+        return;
+      } catch (e: any) {
+        setError(e?.message ?? 'Sign-in failed. Check your credentials.');
+        return;
+      }
     }
     try {
       const auth = await getAuth();
@@ -141,9 +186,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUpWithEmail = async (email: string, password: string) => {
     setError(null);
-    if (!firebaseEnabled) {
+    if (!firebaseEnabled && !devAuthEnabled) {
       setError('Auth not configured. Add Firebase environment variables.');
       return;
+    }
+    if (devAuthEnabled) {
+      try {
+        const raw = localStorage.getItem('dev_users') || '{}';
+        const users = JSON.parse(raw || '{}');
+        if (users[email]) {
+          setError('User already exists');
+          return;
+        }
+        const uid = `dev-${Date.now()}`;
+        users[email] = { uid, password, displayName: null, photoURL: null };
+        try { localStorage.setItem('dev_users', JSON.stringify(users)); } catch {}
+        const u = { uid, email, displayName: null, photoURL: null } as SimpleUser;
+        setUser(u);
+        try { localStorage.setItem('dev_user', JSON.stringify(u)); } catch {}
+        setShowModal(false);
+        return;
+      } catch (e: any) {
+        setError(e?.message ?? 'Sign-up failed. Please try again.');
+        return;
+      }
     }
     try {
       const auth = await getAuth();
@@ -157,6 +223,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
+      if (devAuthEnabled) {
+        try { localStorage.removeItem('dev_user'); } catch {}
+        setUser(null);
+        return;
+      }
       if (firebaseEnabled) {
         const auth = await getAuth();
         const { signOut } = await import('firebase/auth');
