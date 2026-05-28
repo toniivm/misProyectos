@@ -31,14 +31,25 @@ export async function POST(req: Request) {
     const successUrl = body.successUrl || `${defaultBase}/checkout/success?session_id={CHECKOUT_SESSION_ID}`;
     const cancelUrl = body.cancelUrl || `${defaultBase}/checkout`;
 
-    const session = await stripe.checkout.sessions.create({
+    // Normalize metadata (Stripe expects string values)
+    const metadata =
+      body?.metadata && typeof body.metadata === 'object'
+        ? Object.fromEntries(
+            Object.entries(body.metadata).map(([k, v]) => [k, String(v ?? '')]),
+          )
+        : undefined;
+
+    const sessionParams: any = {
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
       success_url: successUrl,
       cancel_url: cancelUrl,
       allow_promotion_codes: true,
-    });
+    };
+    if (metadata) sessionParams.metadata = metadata;
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
 
     return new Response(JSON.stringify({ url: session.url }), { status: 200 });
   } catch (err: unknown) {

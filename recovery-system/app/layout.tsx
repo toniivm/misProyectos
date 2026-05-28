@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Syne } from 'next/font/google'
 import {getLocale} from 'next-intl/server'
 import './globals.css'
+import UtmCapture from '../components/UtmCapture'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${inter.variable} ${syne.variable}`}>
       <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden">
+        <UtmCapture />
         {children}
       </body>
     </html>
