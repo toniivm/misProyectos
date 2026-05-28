@@ -21,7 +21,8 @@ test('prod full flow - TikTok user (non-destructive)', async ({ page }) => {
   await expect(cartButton).toHaveAttribute('aria-label', /1 item|1 items/);
 
   // Open cart (only click if panel not already visible)
-  const cartPanel = page.locator('aside[role="dialog"], [data-testid="cart-sidebar"]');
+  // The cart drawer uses Tailwind classes: fixed right-0 top-0 z-60
+  const cartPanel = page.locator('aside.fixed.right-0.top-0, aside[class*="z-60"]');
   const isCartVisible = await cartPanel.isVisible().catch(() => false);
   if (!isCartVisible) {
     await cartButton.waitFor({ state: 'visible', timeout: 3000 });
