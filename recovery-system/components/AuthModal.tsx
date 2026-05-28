@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Mail, Lock, Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 export default function AuthModal() {
@@ -20,6 +20,35 @@ export default function AuthModal() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const emailRef = useRef<HTMLInputElement | null>(null);
+
+  // Lock body scroll while auth modal is open
+  useEffect(() => {
+    if (!showModal) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    // focus first input when modal opens
+    const focusTimeout = setTimeout(() => {
+      emailRef.current?.focus();
+    }, 50);
+
+    return () => {
+      clearTimeout(focusTimeout);
+      document.body.style.overflow = prev || '';
+    };
+  }, [showModal]);
+
+  // Close on Escape key for accessibility
+  useEffect(() => {
+    if (!showModal) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeModal();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showModal, closeModal]);
+
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +86,7 @@ export default function AuthModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
-            className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm"
+            className="fixed inset-0 z-60 bg-black/30 backdrop-blur-sm"
           />
 
           <motion.div
@@ -65,7 +94,10 @@ export default function AuthModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
-            className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-8 shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="auth-modal-title"
+            className="fixed left-1/2 top-1/2 z-70 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-8 shadow-2xl"
           >
             <button
               onClick={closeModal}
@@ -79,7 +111,7 @@ export default function AuthModal() {
               <span className="text-[10px] font-black tracking-[0.25em] text-gray-400">
                 RECOVER™
               </span>
-              <h2 className="mt-2 font-display text-2xl font-bold text-gray-900">
+              <h2 id="auth-modal-title" className="mt-2 font-display text-2xl font-bold text-gray-900">
                 {mode === 'login' ? 'Welcome back' : 'Create account'}
               </h2>
               <p className="mt-1 text-sm text-gray-500">
@@ -129,6 +161,7 @@ export default function AuthModal() {
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                 />
                 <input
+                  ref={emailRef}
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -160,7 +193,7 @@ export default function AuthModal() {
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
-                  tabIndex={-1}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                 </button>

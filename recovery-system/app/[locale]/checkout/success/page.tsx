@@ -3,6 +3,7 @@
 import { CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useCart } from '../../../../context/CartContext';
 
 interface Props {
   params: { locale: string };
@@ -11,10 +12,24 @@ interface Props {
 export default function CheckoutSuccessPage({ params }: Props) {
   const { locale } = params;
   const [ref, setRef] = useState<string | null>(null);
+  const { clear } = useCart();
 
   useEffect(() => {
     const sessionId = new URLSearchParams(window.location.search).get('session_id');
     setRef(sessionId ? sessionId.slice(-8).toUpperCase() : null);
+    try {
+      clear?.();
+    } catch (e) {
+      // non-fatal
+      // eslint-disable-next-line no-console
+      console.warn('Could not clear cart after checkout success', e);
+    }
+    try {
+      localStorage.removeItem('recover_cart');
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Could not remove recover_cart key', e);
+    }
   }, []);
 
   return (

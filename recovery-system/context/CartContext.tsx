@@ -1,4 +1,4 @@
-'use client';
+ 'use client';
 
 import {
   createContext,
@@ -116,8 +116,28 @@ export function CartProvider({ children }: { children: ReactNode }) {
           dispatch({ type: 'HYDRATE', items: parsed });
         }
       }
-    } catch {}
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to read cart from localStorage', e);
+    }
+
+    // Cross-tab sync: listen for changes to the cart key
+    const onStorage = (ev: StorageEvent) => {
+      if (ev.key !== 'recover_cart') return;
+      try {
+        const newVal = ev.newValue;
+        if (!newVal) return dispatch({ type: 'HYDRATE', items: [] });
+        const parsed = JSON.parse(newVal);
+        if (Array.isArray(parsed)) dispatch({ type: 'HYDRATE', items: parsed });
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to parse cart from storage event', err);
+      }
+    };
+
+    window.addEventListener('storage', onStorage);
     setHasHydrated(true);
+    return () => window.removeEventListener('storage', onStorage);
   }, []);
 
   useEffect(() => {
@@ -125,7 +145,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     try {
       localStorage.setItem('recover_cart', JSON.stringify(state.items));
-    } catch {}
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to write cart to localStorage', e);
+    }
   }, [hasHydrated, state.items]);
 
   const totalItems = state.items.reduce((s, i) => s + i.quantity, 0);

@@ -25,6 +25,7 @@ export default function StickyMobileCTA() {
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="fixed bottom-3 left-3 right-3 z-50 lg:hidden"
+          style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)' }}
         >
           <div
             className="flex items-center justify-between gap-3 rounded-2xl px-4 py-3"
@@ -55,11 +56,16 @@ export default function StickyMobileCTA() {
             {/* Right: CTA */}
             <a
               href="#offer"
-              className="shrink-0 flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[12px] font-black tracking-wide"
+              aria-label="Get full system offer"
+              className="shrink-0 flex items-center gap-1.5 rounded-xl text-[12px] font-black tracking-wide"
               style={{
                 color: '#03111a',
                 background: 'linear-gradient(135deg, #9DE8D7 0%, #10BFD8 55%, #7FD9FF 100%)',
                 boxShadow: '0 6px 20px rgba(16,191,216,0.4)',
+                padding: '10px 16px',
+                minHeight: '44px',
+                display: 'inline-flex',
+                alignItems: 'center',
               }}
             >
               <Zap size={12} />
