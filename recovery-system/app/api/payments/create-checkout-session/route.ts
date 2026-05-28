@@ -6,7 +6,7 @@ if (!stripeSecret) {
   // but attempts to create sessions will return a clear error.
 }
 
-const stripe = stripeSecret ? new Stripe(stripeSecret, { apiVersion: '2022-11-15' }) : null;
+const stripe = stripeSecret ? new Stripe(stripeSecret) : null;
 
 export async function POST(req: Request) {
   try {
