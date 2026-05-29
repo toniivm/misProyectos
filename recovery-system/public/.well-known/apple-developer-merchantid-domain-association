@@ -1,8 +1,1 @@
-REPLACE_THIS_FILE_WITH_CONTENT_PROVIDED_BY_STRIPE
-
-# Instructions:
-# 1) In your Stripe Dashboard: Payment methods -> Apple Pay -> Add domain.
-# 2) Download the domain association file from Stripe (a short ASCII file).
-# 3) Replace the contents of this file with the exact content from Stripe.
-# 4) Commit & push, then deploy the frontend so Stripe can verify the domain.
-# 5) After deployment, verify domain in Stripe Dashboard.
+pmd_1TcQiuCiLTbtsf8WJb5JMFCh
