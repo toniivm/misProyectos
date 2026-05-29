@@ -344,6 +344,8 @@ const checkoutUrlSchema = Joi.string().custom((value, helpers) => {
 const createSessionSchema = createIntentSchema.keys({
   successUrl: checkoutUrlSchema.optional(),
   cancelUrl: checkoutUrlSchema.optional(),
+  // Allow optional metadata (utm, campaign tags) with string values
+  metadata: Joi.object().pattern(Joi.string(), Joi.string()).optional(),
 });
 
 const orderUpdateSchema = Joi.object({
