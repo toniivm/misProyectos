@@ -582,7 +582,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       currency,
       shipping,
       ip: req.ip,
-      userAgent: req.get('user-agent'),
+      userAgent: req.get('user-agent') || null,
       createdAt: new Date(),
       expiresAt: new Date(Date.now() + 30*60*1000) // 30 minute expiry
     };
@@ -690,7 +690,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       currency,
       shipping,
       ip: req.ip,
-      userAgent: req.get('user-agent'),
+      userAgent: req.get('user-agent') || null,
       createdAt: new Date(),
       expiresAt: new Date(Date.now() + 30*60*1000) // 30 minute expiry
     };
