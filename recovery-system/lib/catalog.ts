@@ -177,6 +177,11 @@ export const CATALOG: CatalogProduct[] = [
       'Dimensions': '9 × 9 × 8 cm',
       'Weight': '210g',
     },
+    images: [
+      '/images/white-noise-pro-1.jpg',
+      '/images/white-noise-pro-2.jpg',
+      '/images/white-noise-pro-3.jpg',
+    ],
     icon: '🔊',
     cartIcon: '🔊',
     color: '#131020',
@@ -435,6 +440,11 @@ export const CATALOG: CatalogProduct[] = [
       'Material': 'Velvet outer + glass bead fill',
       'Washable': 'Outer shell — 30°C',
     },
+    images: [
+      '/images/weighted-mask-pro-1.jpg',
+      '/images/weighted-mask-pro-2.jpg',
+      '/images/weighted-mask-pro-3.jpg',
+    ],
     icon: '😴',
     cartIcon: '😴',
     color: '#12101e',

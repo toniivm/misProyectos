@@ -30,7 +30,7 @@ services:
         sync: false
       # Canonical origin used in Stripe redirect URLs
       - key: NEXT_PUBLIC_APP_URL
-        value: https://valtre.onrender.com
+        value: https://valtre-73c7b.web.app
 
   - type: web
     name: valtre-backend
