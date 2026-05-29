@@ -110,22 +110,7 @@ export default function CheckoutPage() {
         cancelUrl: `${window.location.origin}/${locale}/checkout`,
       };
 
-      // Attach UTM metadata captured on the client, if any
-      try {
-        const raw = localStorage.getItem('utm_params');
-        if (raw) {
-          const parsed = JSON.parse(raw || '{}');
-          if (parsed && typeof parsed === 'object') {
-            const meta: Record<string, string> = {};
-            Object.entries(parsed).forEach(([k, v]) => {
-              if (v !== null && v !== undefined) meta[k] = String(v);
-            });
-            if (Object.keys(meta).length) (payload as any).metadata = meta;
-          }
-        }
-      } catch (e) {
-        // ignore
-      }
+      // Do not send free-form metadata from client (prevents server validation errors)
 
       const endpoint = API_BASE_URL
         ? `${API_BASE_URL}/payments/create-checkout-session`
