@@ -3,18 +3,26 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-
-const links = [
-  { label: 'Products', href: '#products' },
-  { label: 'Benefits', href: '#benefits' },
-  { label: 'Results', href: '#transformation' },
-  { label: 'Reviews', href: '#testimonials' },
-  { label: 'Pricing', href: '#offer' },
-]
+import { useLocale, useTranslations } from 'next-intl'
+import { usePathname } from 'next/navigation'
+import { useAuth } from '../context/AuthContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const locale = useLocale()
+  const t = useTranslations('nav')
+  const pathname = usePathname() || `/${locale}`
+  const otherLocale = locale === 'es' ? 'en' : 'es'
+  const switchHref = pathname.startsWith(`/${locale}`) ? pathname.replace(`/${locale}`, `/${otherLocale}`) : `/${otherLocale}${pathname}`
+  const auth = useAuth()
+
+  const links = [
+    { label: t('links.system'), href: '#system' },
+    { label: t('links.benefits'), href: '#benefits' },
+    { label: t('links.reviews'), href: '#testimonials' },
+    { label: t('links.plans'), href: '#offer' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -66,13 +74,22 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* CTA */}
+            {/* CTA + language + auth */}
             <div className="hidden lg:flex items-center gap-4">
               <div className="text-right">
                 <a href="#offer" className="btn-primary text-xs py-2.5 px-5">
-                  <span className="relative z-10">Shop the System</span>
+                  <span className="relative z-10">{t('cta')}</span>
                 </a>
                 <div className="text-[9px] text-slate-600 text-center mt-1 tracking-wide">Free shipping · 30-day guarantee</div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <a href={switchHref} className="text-xs text-slate-400 hover:text-white transition">{locale.toUpperCase()}</a>
+                {auth && auth.user ? (
+                  <button onClick={() => auth.logout()} className="text-xs text-slate-300 hover:text-white">{t('logout')}</button>
+                ) : (
+                  <button onClick={() => auth.openModal()} className="text-xs text-slate-300 hover:text-white">{t('login')}</button>
+                )}
               </div>
             </div>
 

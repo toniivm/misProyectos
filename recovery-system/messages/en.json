@@ -17,6 +17,21 @@
     "login": "Sign in",
     "logout": "Log out"
   },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "createAccount": "Create account",
+    "createSubtitle": "Join thousands of customers",
+    "signInToAccount": "Sign in to your account",
+    "continueWithGoogle": "Continue with Google",
+    "or": "or",
+    "emailPlaceholder": "Email address",
+    "passwordPlaceholder": "Password",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signUp": "Sign up",
+    "signIn": "Sign in",
+    "loading": "Loading…"
+  },
   "hero": {
     "kicker": "Premium wellness technology",
     "line1": "Recover better.",

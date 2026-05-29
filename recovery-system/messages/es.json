@@ -17,6 +17,21 @@
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
   },
+  "auth": {
+    "welcomeBack": "Bienvenido",
+    "createAccount": "Crear cuenta",
+    "createSubtitle": "Únete a miles de clientes",
+    "signInToAccount": "Inicia sesión en tu cuenta",
+    "continueWithGoogle": "Continuar con Google",
+    "or": "o",
+    "emailPlaceholder": "Correo electrónico",
+    "passwordPlaceholder": "Contraseña",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "signUp": "Regístrate",
+    "signIn": "Iniciar sesión",
+    "loading": "Cargando…"
+  },
   "hero": {
     "kicker": "Tecnología premium de bienestar",
     "line1": "Recupérate mejor.",

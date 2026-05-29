@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTranslations } from 'next-intl';
 
 export default function AuthModal() {
   const {
@@ -14,6 +15,8 @@ export default function AuthModal() {
     signUpWithEmail,
     error,
   } = useAuth();
+
+  const t = useTranslations('auth');
 
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
@@ -112,12 +115,10 @@ export default function AuthModal() {
                 RECOVER™
               </span>
               <h2 id="auth-modal-title" className="mt-2 font-display text-2xl font-bold text-gray-900">
-                {mode === 'login' ? 'Welcome back' : 'Create account'}
+                {mode === 'login' ? t('welcomeBack') : t('createAccount')}
               </h2>
               <p className="mt-1 text-sm text-gray-500">
-                {mode === 'login'
-                  ? 'Sign in to your account'
-                  : 'Join thousands of customers'}
+                {mode === 'login' ? t('signInToAccount') : t('createSubtitle')}
               </p>
             </div>
 
@@ -145,12 +146,12 @@ export default function AuthModal() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Continue with Google
+              {t('continueWithGoogle')}
             </button>
 
             <div className="mb-4 flex items-center gap-3">
               <div className="h-px flex-1 bg-gray-100" />
-              <span className="text-xs text-gray-400">or</span>
+              <span className="text-xs text-gray-400">{t('or')}</span>
               <div className="h-px flex-1 bg-gray-100" />
             </div>
 
@@ -165,7 +166,7 @@ export default function AuthModal() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email address"
+                  placeholder={t('emailPlaceholder')}
                   required
                   autoComplete="email"
                   className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-sm text-gray-900 outline-none transition focus:border-gray-400 focus:bg-white"
@@ -181,7 +182,7 @@ export default function AuthModal() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
+                  placeholder={t('passwordPlaceholder')}
                   required
                   minLength={6}
                   autoComplete={
@@ -210,23 +211,14 @@ export default function AuthModal() {
                 disabled={loading}
                 className="btn-primary w-full py-3 disabled:opacity-60"
               >
-                {loading
-                  ? 'Loading…'
-                  : mode === 'login'
-                    ? 'Sign in'
-                    : 'Create account'}
+                {loading ? t('loading') : mode === 'login' ? t('signIn') : t('createAccount')}
               </button>
             </form>
 
             <p className="mt-4 text-center text-xs text-gray-500">
-              {mode === 'login'
-                ? "Don't have an account? "
-                : 'Already have an account? '}
-              <button
-                onClick={switchMode}
-                className="font-semibold text-gray-900 hover:underline"
-              >
-                {mode === 'login' ? 'Sign up' : 'Sign in'}
+              {mode === 'login' ? t('dontHaveAccount') : t('alreadyHaveAccount')}{' '}
+              <button onClick={switchMode} className="font-semibold text-gray-900 hover:underline">
+                {mode === 'login' ? t('signUp') : t('signIn')}
               </button>
             </p>
           </motion.div>
