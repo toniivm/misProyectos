@@ -573,8 +573,8 @@ export const CATALOG: CatalogProduct[] = [
 
   // ─── AliExpress imports (merchant provided) ─────────────────────────
   {
-    slug: 'ali-1005006125125031',
-    name: 'Sleep Headband (AliExpress)',
+    slug: 'sleep-headband',
+    name: 'Sleep Headband',
     name_en: 'Sleep Headband',
     name_es: 'Cinta para dormir',
     category: 'sleep-audio',
@@ -596,8 +596,8 @@ export const CATALOG: CatalogProduct[] = [
     color: '#101828',
   },
   {
-    slug: 'ali-1005006678112450',
-    name: 'Neck Massager (AliExpress)',
+    slug: 'neck-massager',
+    name: 'Neck Massager',
     name_en: 'Neck Massager',
     name_es: 'Masajeador de cuello',
     category: 'neck-recovery',

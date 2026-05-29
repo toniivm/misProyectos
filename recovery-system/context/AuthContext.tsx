@@ -33,7 +33,11 @@ const firebaseEnabled = !!(
   process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
   process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
 );
-const devAuthEnabled = !firebaseEnabled && process.env.NEXT_PUBLIC_ALLOW_DEV_AUTH === 'true';
+// Enable dev/local auth when Firebase is not configured and we're on localhost
+const devAuthEnabled = !firebaseEnabled && (
+  process.env.NEXT_PUBLIC_ALLOW_DEV_AUTH === 'true' ||
+  (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+);
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 

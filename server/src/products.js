@@ -1,38 +1,6 @@
 // Server catalog kept in sync with the Recovery System frontend.
+// Removed entries that referenced missing image assets to avoid 404s.
 const PRODUCTS = [
-  {
-    id: 'pulse-pro-x',
-    slug: 'pulse-pro-x',
-    title: 'Pulse Pro X',
-    description: 'Massage gun for deep tissue recovery and post-workout relief.',
-    price: 89,
-    images: ['/img/products/pulse-pro-x.jpg'],
-    category: 'recovery',
-    brand: 'RECOVERY SYSTEM',
-    stock: 20,
-  },
-  {
-    id: 'cerviflex',
-    slug: 'cerviflex',
-    title: 'CerviFlex',
-    description: 'Neck massager designed to release daily tension and stiffness.',
-    price: 59,
-    images: ['/img/products/cerviflex.jpg'],
-    category: 'recovery',
-    brand: 'RECOVERY SYSTEM',
-    stock: 20,
-  },
-  {
-    id: 'sleepseal',
-    slug: 'sleepseal',
-    title: 'SleepSeal',
-    description: 'Sleep tape to support calmer breathing and deeper rest.',
-    price: 29,
-    images: ['/img/products/sleepseal.jpg'],
-    category: 'sleep',
-    brand: 'RECOVERY SYSTEM',
-    stock: 20,
-  },
   {
     id: 'sleepband-pro',
     slug: 'sleepband-pro',
