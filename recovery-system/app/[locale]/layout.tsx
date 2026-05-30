@@ -66,6 +66,7 @@ export default async function LocaleLayout({children, params}: Props) {
     <NextIntlClientProvider messages={messages}>
       <CartProvider>
         <AuthProvider>
+          <div id="rs-login-static" data-rs-login-static="true" style={{ display: 'none' }} />
           {children}
           <CartSidebar />
           <AuthModal />
