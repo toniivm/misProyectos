@@ -178,6 +178,8 @@ export default function CartSidebar() {
                   onClick={(e) => {
                     if (!user) {
                       e.preventDefault();
+                      // close cart first to avoid stacked backdrops/modal ordering
+                      close();
                       openModal();
                       return;
                     }

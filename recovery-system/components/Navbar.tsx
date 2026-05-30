@@ -143,6 +143,13 @@ export default function Navbar() {
               <a href="#offer" className="btn-primary text-xs w-full justify-center" onClick={() => setMenuOpen(false)}>
                 <span className="relative z-10">Start Recovering</span>
               </a>
+              <a
+                href={switchHref}
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-medium tracking-[0.12em] uppercase text-slate-300 hover:text-electric-400 transition-colors"
+              >
+                {locale.toUpperCase()}
+              </a>
               <button
                 onClick={() => {
                   if (auth && auth.user) {

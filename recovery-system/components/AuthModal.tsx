@@ -89,7 +89,7 @@ export default function AuthModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
-            className="fixed inset-0 z-60 bg-black/30 backdrop-blur-sm"
+            className="fixed inset-0 z-70 bg-black/30 backdrop-blur-sm"
           />
 
           <motion.div
@@ -100,7 +100,7 @@ export default function AuthModal() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="auth-modal-title"
-            className="fixed left-1/2 top-1/2 z-70 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-8 shadow-2xl"
+            className="fixed left-1/2 top-1/2 z-80 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-8 shadow-2xl"
           >
             <button
               onClick={closeModal}
