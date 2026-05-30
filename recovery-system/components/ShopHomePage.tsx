@@ -247,16 +247,18 @@ export default function ShopHomePage() {
   const t = useTranslations()
   const { totalItems, open: openCart } = useCart()
   const rawPathname = usePathname() || '/'
-  const otherLocale = locale === 'es' ? 'en' : 'es'
   const buildSwitchHref = (p: string) => {
     if (!p.startsWith('/')) p = '/' + p
     const hasTrailing = p !== '/' && p.endsWith('/')
     const parts = p.split('/').filter(Boolean)
-    if (parts.length > 0 && parts[0] === locale) {
-      parts[0] = otherLocale
+    const pathLocale = parts.length > 0 && (parts[0] === 'en' || parts[0] === 'es') ? parts[0] : null
+    const currentLocale = pathLocale || locale
+    const otherLocaleLocal = currentLocale === 'es' ? 'en' : 'es'
+    if (parts.length > 0 && pathLocale) {
+      parts[0] = otherLocaleLocal
       return '/' + parts.join('/') + (hasTrailing ? '/' : '')
     }
-    return `/${otherLocale}${p === '/' ? '/' : p}`
+    return `/${otherLocaleLocal}${p === '/' ? '/' : p}`
   }
   const switchHref = buildSwitchHref(rawPathname)
   const auth = useAuth()
