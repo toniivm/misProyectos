@@ -14,7 +14,7 @@ export default function Navbar() {
   const t = useTranslations('nav')
   const rawPathname = usePathname() || '/'
   const otherLocale = locale === 'es' ? 'en' : 'es'
-  const buildSwitchHref = (p) => {
+  const buildSwitchHref = (p: string) => {
     if (!p.startsWith('/')) p = '/' + p
     const hasTrailing = p !== '/' && p.endsWith('/')
     const parts = p.split('/').filter(Boolean)

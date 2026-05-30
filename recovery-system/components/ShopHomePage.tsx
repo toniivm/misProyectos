@@ -248,7 +248,7 @@ export default function ShopHomePage() {
   const { totalItems, open: openCart } = useCart()
   const rawPathname = usePathname() || '/'
   const otherLocale = locale === 'es' ? 'en' : 'es'
-  const buildSwitchHref = (p) => {
+  const buildSwitchHref = (p: string) => {
     if (!p.startsWith('/')) p = '/' + p
     const hasTrailing = p !== '/' && p.endsWith('/')
     const parts = p.split('/').filter(Boolean)
