@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
+import { useAuth } from '../context/AuthContext';
 import { MODULES, SYSTEMS, getSystemByStressLevel } from '../lib/modules';
 import { MODULE_VISUALS } from './ModuleVisuals';
 
@@ -104,6 +106,19 @@ function EntryGate({ onComplete }: { onComplete: (level: StressLevel) => void })
 function RecoveryNavbar({ locale }: { locale: string }) {
   const [scrolled, setScrolled] = useState(false);
 
+  const localeHook = useLocale();
+  const rawPathname = usePathname() || '/';
+  const auth = useAuth();
+
+  const switchHref = (() => {
+    let p = rawPathname;
+    if (!p.startsWith('/')) p = '/' + p;
+    if (/^\/es(\/|$)/.test(p)) return p.replace(/^\/es/, '/en');
+    if (/^\/en(\/|$)/.test(p)) return p.replace(/^\/en/, '/es');
+    const other = (localeHook === 'es' ? 'en' : 'es');
+    return `/${other}${p === '/' ? '/' : p}`;
+  })();
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -148,6 +163,19 @@ function RecoveryNavbar({ locale }: { locale: string }) {
       >
         Begin Protocol
       </a>
+
+      <div className="flex items-center gap-3">
+        <a href={switchHref} className="hidden md:inline-flex text-[#8A8580] text-xs hover:text-[#E8E4DF]">{(localeHook||locale).toUpperCase()}</a>
+        <button
+          onClick={() => {
+            if (auth && auth.user) auth.logout();
+            else auth.openModal();
+          }}
+          className="text-xs text-[#8A8580] hover:text-[#E8E4DF] ml-2"
+        >
+          {auth && auth.user ? 'Logout' : 'Login'}
+        </button>
+      </div>
     </motion.nav>
   );
 }
