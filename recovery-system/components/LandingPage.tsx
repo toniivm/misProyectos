@@ -165,8 +165,10 @@ function RecoveryNavbar({ locale }: { locale: string }) {
       </a>
 
       <div className="flex items-center gap-3">
-        <a href={switchHref} className="hidden md:inline-flex text-[#8A8580] text-xs hover:text-[#E8E4DF]">{(localeHook||locale).toUpperCase()}</a>
+        <a href={switchHref} className="inline-flex items-center text-[#8A8580] text-xs hover:text-[#E8E4DF]">{(localeHook||locale).toUpperCase()}</a>
         <button
+          data-rs-login="true"
+          aria-label={auth && auth.user ? 'Cerrar sesión' : 'Abrir inicio de sesión'}
           onClick={() => {
             if (auth && auth.user) auth.logout();
             else auth.openModal();
