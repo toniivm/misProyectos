@@ -246,9 +246,19 @@ export default function ShopHomePage() {
   const locale = useLocale()
   const t = useTranslations()
   const { totalItems, open: openCart } = useCart()
-  const pathname = usePathname() || `/${locale}`
+  const rawPathname = usePathname() || '/'
   const otherLocale = locale === 'es' ? 'en' : 'es'
-  const switchHref = pathname.startsWith(`/${locale}`) ? pathname.replace(`/${locale}`, `/${otherLocale}`) : `/${otherLocale}${pathname}`
+  const buildSwitchHref = (p) => {
+    if (!p.startsWith('/')) p = '/' + p
+    const hasTrailing = p !== '/' && p.endsWith('/')
+    const parts = p.split('/').filter(Boolean)
+    if (parts.length > 0 && parts[0] === locale) {
+      parts[0] = otherLocale
+      return '/' + parts.join('/') + (hasTrailing ? '/' : '')
+    }
+    return `/${otherLocale}${p === '/' ? '/' : p}`
+  }
+  const switchHref = buildSwitchHref(rawPathname)
   const auth = useAuth()
   const bestSellers = getBestSellers()
   const deals = getDeals()
