@@ -35,6 +35,10 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
         en: '/en'
       }
     },
+    icons: {
+      icon: '/favicon.svg',
+      shortcut: '/favicon.svg'
+    },
     openGraph: {
       title: isEs
         ? 'RECOVERY SYSTEM™ | Recuperacion premium en casa'
