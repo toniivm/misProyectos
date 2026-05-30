@@ -4,7 +4,8 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
+import { useAuth } from '../context/AuthContext'
 import {
   ShoppingCart,
   Search,
@@ -245,6 +246,10 @@ export default function ShopHomePage() {
   const locale = useLocale()
   const t = useTranslations()
   const { totalItems, open: openCart } = useCart()
+  const pathname = usePathname() || `/${locale}`
+  const otherLocale = locale === 'es' ? 'en' : 'es'
+  const switchHref = pathname.startsWith(`/${locale}`) ? pathname.replace(`/${locale}`, `/${otherLocale}`) : `/${otherLocale}${pathname}`
+  const auth = useAuth()
   const bestSellers = getBestSellers()
   const deals = getDeals()
   const allProducts = CATALOG
@@ -343,6 +348,23 @@ export default function ShopHomePage() {
 
             {/* Actions */}
             <div className="flex shrink-0 items-center gap-2">
+              <a
+                href={switchHref}
+                className="inline-flex items-center text-xs text-[#9aa7b9] hover:text-white px-2 py-1 rounded-md"
+              >
+                {locale.toUpperCase()}
+              </a>
+
+              <button
+                onClick={() => {
+                  if (auth && auth.user) auth.logout()
+                  else auth.openModal()
+                }}
+                className="inline-flex items-center gap-2 text-sm text-[#c8d4e2] hover:text-white px-3 py-2 rounded-md border border-white/[0.04] bg-white/[0.02] transition"
+              >
+                {auth && auth.user ? 'Logout' : 'Login'}
+              </button>
+
               <button
                 onClick={openCart}
                 aria-label={`Cart — ${totalItems} items`}
