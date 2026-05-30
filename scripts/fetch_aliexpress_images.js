@@ -26,8 +26,8 @@ function downloadImage(url, dest){
 
 async function main(){
   const items = [
-    { url: 'https://es.aliexpress.com/item/1005006125125031.html', slug: 'aliexpress-item-1005006125125031' },
-    { url: 'https://es.aliexpress.com/item/1005006678112450.html', slug: 'aliexpress-item-1005006678112450' },
+    { url: 'https://es.aliexpress.com/item/1005006125125031.html', slug: 'sleep-headband' },
+    { url: 'https://es.aliexpress.com/item/1005006678112450.html', slug: 'neck-massager' },
   ];
 
   const outDir = path.join(__dirname, '..', 'recovery-system', 'public', 'images', 'products');
