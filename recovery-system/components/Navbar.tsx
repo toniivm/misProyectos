@@ -13,21 +13,16 @@ export default function Navbar() {
   const locale = useLocale()
   const t = useTranslations('nav')
   const rawPathname = usePathname() || '/'
-  const buildSwitchHref = (p: string) => {
+  const switchHref = (() => {
+    let p = rawPathname
     if (!p.startsWith('/')) p = '/' + p
-    const hasTrailing = p !== '/' && p.endsWith('/')
-    const parts = p.split('/').filter(Boolean)
-    // Derive locale from path if present, else fall back to provider locale
-    const pathLocale = parts.length > 0 && (parts[0] === 'en' || parts[0] === 'es') ? parts[0] : null
-    const currentLocale = pathLocale || locale
-    const otherLocaleLocal = currentLocale === 'es' ? 'en' : 'es'
-    if (parts.length > 0 && pathLocale) {
-      parts[0] = otherLocaleLocal
-      return '/' + parts.join('/') + (hasTrailing ? '/' : '')
-    }
-    return `/${otherLocaleLocal}${p === '/' ? '/' : p}`
-  }
-  const switchHref = buildSwitchHref(rawPathname)
+    // If path already starts with /es or /en, swap that prefix
+    if (/^\/es(\/|$)/.test(p)) return p.replace(/^\/es/, '/en')
+    if (/^\/en(\/|$)/.test(p)) return p.replace(/^\/en/, '/es')
+    // Fallback: prefix with the opposite of provider locale
+    const other = locale === 'es' ? 'en' : 'es'
+    return `/${other}${p === '/' ? '/' : p}`
+  })()
   const auth = useAuth()
 
   const links = [
