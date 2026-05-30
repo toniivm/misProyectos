@@ -93,6 +93,17 @@ export default function Navbar() {
               </div>
             </div>
 
+            {/* Desktop quick auth button (always visible on large screens) */}
+            <button
+              onClick={() => {
+                if (auth && auth.user) auth.logout()
+                else auth.openModal()
+              }}
+              className="hidden lg:inline-flex items-center gap-2 text-xs text-slate-300 hover:text-white px-3 py-2 rounded-md border border-white/[0.04] hover:bg-white/5"
+            >
+              {auth && auth.user ? t('logout') : (t('login') || 'Iniciar sesión')}
+            </button>
+
             {/* Mobile menu toggle */}
             <button
               className="lg:hidden text-slate-400 hover:text-white p-1"
@@ -132,6 +143,20 @@ export default function Navbar() {
               <a href="#offer" className="btn-primary text-xs w-full justify-center" onClick={() => setMenuOpen(false)}>
                 <span className="relative z-10">Start Recovering</span>
               </a>
+              <button
+                onClick={() => {
+                  if (auth && auth.user) {
+                    auth.logout();
+                    setMenuOpen(false);
+                  } else {
+                    auth.openModal();
+                    setMenuOpen(false);
+                  }
+                }}
+                className="text-sm font-medium tracking-[0.12em] uppercase text-slate-300 hover:text-electric-400 transition-colors"
+              >
+                {auth && auth.user ? t('logout') : (t('login') || 'Iniciar sesión')}
+              </button>
             </div>
           </motion.div>
         )}
