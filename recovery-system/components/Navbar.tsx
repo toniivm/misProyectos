@@ -94,15 +94,16 @@ export default function Navbar() {
               <div className="flex items-center gap-3">
                 <a href={switchHref} className="text-xs text-slate-400 hover:text-white transition">{locale.toUpperCase()}</a>
                 {auth && auth.user ? (
-                  <button onClick={() => auth.logout()} className="text-xs text-slate-300 hover:text-white">{t('logout')}</button>
+                  <button data-rs-login="true" onClick={() => auth.logout()} className="text-xs text-slate-300 hover:text-white">{t('logout')}</button>
                 ) : (
-                  <button onClick={() => auth.openModal()} className="text-xs text-slate-300 hover:text-white">{t('login')}</button>
+                  <button data-rs-login="true" onClick={() => auth.openModal()} className="text-xs text-slate-300 hover:text-white">{t('login')}</button>
                 )}
               </div>
             </div>
 
             {/* Desktop quick auth button (always visible on large screens) */}
             <button
+              data-rs-login="true"
               onClick={() => {
                 if (auth && auth.user) auth.logout()
                 else auth.openModal()
@@ -159,6 +160,7 @@ export default function Navbar() {
                 {locale.toUpperCase()}
               </a>
               <button
+                data-rs-login="true"
                 onClick={() => {
                   if (auth && auth.user) {
                     auth.logout();
