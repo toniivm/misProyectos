@@ -2,8 +2,12 @@ export type Category = {
   id: string
   slug: string
   name: string
+  name_en?: string
+  name_es?: string
   icon: string
   description: string
+  description_en?: string
+  description_es?: string
 }
 
 export type CatalogProduct = {
@@ -36,36 +40,56 @@ export const CATEGORIES: Category[] = [
     id: 'sleep-audio',
     slug: 'sleep-audio',
     name: 'Sleep & Audio',
+    name_en: 'Sleep & Audio',
+    name_es: 'Sueño y audio',
     icon: '🎧',
     description: 'Headbands, sound machines and accessories designed for better sleep audio.',
+    description_en: 'Headbands, sound machines and accessories designed for better sleep audio.',
+    description_es: 'Cintas, máquinas de sonido y accesorios pensados para mejorar el descanso con audio.',
   },
   {
     id: 'neck-recovery',
     slug: 'neck-recovery',
     name: 'Neck & Recovery',
+    name_en: 'Neck & Recovery',
+    name_es: 'Cuello y recuperación',
     icon: '🧘',
     description: 'Cervical decompressors, neck massagers and posture correctors.',
+    description_en: 'Cervical decompressors, neck massagers and posture correctors.',
+    description_es: 'Descompresores cervicales, masajeadores de cuello y correctores posturales.',
   },
   {
     id: 'muscle-recovery',
     slug: 'muscle-recovery',
     name: 'Muscle Recovery',
+    name_en: 'Muscle Recovery',
+    name_es: 'Recuperación muscular',
     icon: '💆',
     description: 'Percussion guns, vibration tools and heat therapy devices.',
+    description_en: 'Percussion guns, vibration tools and heat therapy devices.',
+    description_es: 'Pistolas de percusión, herramientas de vibración y dispositivos de calor terapéutico.',
   },
   {
     id: 'sensory',
     slug: 'sensory',
     name: 'Sensory & Relaxation',
+    name_en: 'Sensory & Relaxation',
+    name_es: 'Sensorial y relajación',
     icon: '🌙',
     description: 'Eye masks, breathing trainers and sensory relaxation tools.',
+    description_en: 'Eye masks, breathing trainers and sensory relaxation tools.',
+    description_es: 'Antifaces, entrenadores respiratorios y herramientas sensoriales para relajarte.',
   },
   {
     id: 'travel',
     slug: 'travel',
     name: 'Travel & Comfort',
+    name_en: 'Travel & Comfort',
+    name_es: 'Viaje y confort',
     icon: '✈️',
     description: 'Portable sleep aids and compact travel comfort accessories.',
+    description_en: 'Portable sleep aids and compact travel comfort accessories.',
+    description_es: 'Ayudas portátiles para dormir y accesorios compactos de confort para viajar.',
   },
 ]
 
@@ -640,13 +664,49 @@ export function getCategoryById(id: string): Category | undefined {
   return CATEGORIES.find((c) => c.id === id)
 }
 
+export function getLocalizedCategoryName(category: Category, locale: string): string {
+  return locale === 'es'
+    ? category.name_es ?? category.name
+    : category.name_en ?? category.name
+}
+
+export function getLocalizedCategoryDescription(category: Category, locale: string): string {
+  return locale === 'es'
+    ? category.description_es ?? category.description
+    : category.description_en ?? category.description
+}
+
+export function getLocalizedProductName(product: CatalogProduct, locale: string): string {
+  return locale === 'es'
+    ? product.name_es ?? product.name
+    : product.name_en ?? product.name
+}
+
+export function getLocalizedProductShortDescription(product: CatalogProduct, locale: string): string {
+  return locale === 'es'
+    ? product.shortDescription_es ?? product.shortDescription
+    : product.shortDescription_en ?? product.shortDescription
+}
+
 export function searchProducts(query: string): CatalogProduct[] {
   if (!query.trim() || query.length < 2) return []
   const q = query.toLowerCase()
   return CATALOG.filter(
-    (p) =>
-      p.name.toLowerCase().includes(q) ||
-      p.shortDescription.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q),
+    (p) => {
+      const searchableFields = [
+        p.name,
+        p.name_en,
+        p.name_es,
+        p.shortDescription,
+        p.shortDescription_en,
+        p.shortDescription_es,
+        p.description,
+        p.description_en,
+        p.description_es,
+        p.category,
+      ].filter(Boolean) as string[]
+
+      return searchableFields.some((value) => value.toLowerCase().includes(q))
+    },
   ).slice(0, 6)
 }
