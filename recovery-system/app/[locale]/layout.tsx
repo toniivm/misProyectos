@@ -7,6 +7,7 @@ import {CartProvider} from '../../context/CartContext';
 import {AuthProvider} from '../../context/AuthContext';
 import CartSidebar from '../../components/CartSidebar';
 import AuthModal from '../../components/AuthModal';
+import LocalePreferenceSync from '../../components/LocalePreferenceSync';
 
 type Props = {
   children: React.ReactNode;
@@ -63,7 +64,8 @@ export default async function LocaleLayout({children, params}: Props) {
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <LocalePreferenceSync />
       <CartProvider>
         <AuthProvider>
           <div id="rs-login-static" data-rs-login-static="true" style={{ display: 'none' }} />

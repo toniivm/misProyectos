@@ -1,4 +1,4 @@
-# Stage 1: build Next.js app from recovery-system
+# Stage 1: build the exported storefront from recovery-system
 FROM node:20-alpine AS builder
 
 WORKDIR /app/recovery-system
@@ -7,7 +7,7 @@ WORKDIR /app/recovery-system
 COPY recovery-system/package*.json ./
 RUN npm ci
 
-# Copy app source and build standalone output
+# Copy app source and build the static export
 COPY recovery-system/ ./
 RUN npm run build
 
@@ -21,9 +21,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
 
-# Copy Next standalone server and static assets
-COPY --from=builder /app/recovery-system/.next/standalone ./
-COPY --from=builder /app/recovery-system/.next/static ./.next/static
+# Copy the exported site and a lightweight static file server
+COPY --from=builder /app/recovery-system/out ./out
+COPY --from=builder /app/recovery-system/static-server.js ./server.js
 EXPOSE 10000
 
 # Render injects PORT=10000 at runtime

@@ -250,7 +250,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
             </div>
             <button
               onClick={openCart}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:bg-white/[0.08]"
+              className="relative z-40 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:bg-white/[0.08]"
             >
               <ShoppingCart size={15} />
               {totalItems > 0 && (

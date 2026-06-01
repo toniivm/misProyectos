@@ -6,11 +6,16 @@ test('signup and signin via auth modal (dev auth)', async ({ page }) => {
   // Add first product to cart
   await page.locator('text=Add').first().click();
 
-  // Open cart via header button
-  await page.locator('button[aria-label^="Cart"]').click();
+  // Adding an item opens the cart drawer in the current UX.
+  const cartPanel = page.locator('aside.fixed.right-0.top-0');
+  const cartButton = page.locator('button[aria-label^="Cart"]');
+  if (!(await cartPanel.isVisible().catch(() => false))) {
+    await cartButton.click();
+  }
+  await expect(cartPanel).toBeVisible();
 
   // Click proceed to checkout - this will open auth modal if not signed in
-  await page.locator('text=Proceed to checkout').click();
+  await cartPanel.locator('text=Proceed to checkout').click();
 
   // Auth modal should be visible: fill email and password
   await expect(page.locator('input[type="email"]')).toBeVisible();
@@ -18,8 +23,8 @@ test('signup and signin via auth modal (dev auth)', async ({ page }) => {
   await page.locator('input[type="password"]').fill('Password123!');
 
   // Switch to sign up mode and submit
-  await page.locator('text=Sign up').click();
-  await page.locator('button:has-text("Create account")').click();
+  await page.getByRole('button', { name: /Sign up|Regístrate/i }).click();
+  await page.getByRole('button', { name: /Create account|Crear cuenta/i }).click();
 
   // Modal should close and user should be able to access checkout
   await expect(page.locator('#auth-modal-title')).toBeHidden();

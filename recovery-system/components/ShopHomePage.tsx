@@ -374,7 +374,7 @@ export default function ShopHomePage() {
               <button
                 onClick={openCart}
                 aria-label={`Cart — ${totalItems} items`}
-                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]"
+                className="relative z-40 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]"
               >
                 <ShoppingCart size={15} />
                 {totalItems > 0 && (
@@ -1126,7 +1126,7 @@ export default function ShopHomePage() {
         <div className="flex items-center gap-3">
           <button
             onClick={openCart}
-            className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.05] text-[#c8d4e2]"
+            className="relative z-40 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.05] text-[#c8d4e2]"
           >
             <ShoppingCart size={16} />
             {totalItems > 0 && (

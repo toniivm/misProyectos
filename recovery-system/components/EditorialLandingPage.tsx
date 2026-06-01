@@ -496,7 +496,7 @@ export default function EditorialLandingPage() {
               <button
                 onClick={openCart}
                 aria-label="Open cart"
-                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.07] hover:text-[#f4f1ea]"
+                className="relative z-40 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.07] hover:text-[#f4f1ea]"
               >
                 <ShoppingCart size={15} />
                 {totalItems > 0 && (

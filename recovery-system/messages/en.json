@@ -26,11 +26,14 @@
     "or": "or",
     "emailPlaceholder": "Email address",
     "passwordPlaceholder": "Password",
+    "forgotPassword": "Forgot password?",
     "dontHaveAccount": "Don't have an account?",
     "alreadyHaveAccount": "Already have an account?",
     "signUp": "Sign up",
     "signIn": "Sign in",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "resetSent": "If an account exists for that email, a reset link has been sent.",
+    "resetDevHint": "Dev mode: reset email simulated. Use an existing test account or create a new one."
   },
   "hero": {
     "kicker": "Premium wellness technology",

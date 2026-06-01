@@ -26,11 +26,14 @@
     "or": "o",
     "emailPlaceholder": "Correo electrónico",
     "passwordPlaceholder": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
     "dontHaveAccount": "¿No tienes una cuenta?",
     "alreadyHaveAccount": "¿Ya tienes una cuenta?",
     "signUp": "Regístrate",
     "signIn": "Iniciar sesión",
-    "loading": "Cargando…"
+    "loading": "Cargando…",
+    "resetSent": "Si existe una cuenta para ese correo, ya enviamos un enlace de restablecimiento.",
+    "resetDevHint": "Modo desarrollo: simulamos el correo de restablecimiento. Usa una cuenta de prueba existente o crea una nueva."
   },
   "hero": {
     "kicker": "Tecnología premium de bienestar",

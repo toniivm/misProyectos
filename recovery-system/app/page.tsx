@@ -1,10 +1,12 @@
 'use client';
 
 import {useEffect} from 'react';
+import { getPreferredLocale } from '../lib/localePreference';
 
 export default function Home() {
   useEffect(() => {
-    window.location.replace('/es');
+    const locale = getPreferredLocale() || 'es';
+    window.location.replace(`/${locale}/`);
   }, []);
 
   return null;

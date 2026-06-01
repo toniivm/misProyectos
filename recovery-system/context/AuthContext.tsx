@@ -15,6 +15,8 @@ interface SimpleUser {
   uid: string;
 }
 
+export type PasswordResetResult = 'sent' | 'dev-sent';
+
 interface AuthContextValue {
   user: SimpleUser | null;
   loading: boolean;
@@ -24,6 +26,7 @@ interface AuthContextValue {
   signInWithGoogle: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (email: string, password: string) => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<PasswordResetResult | null>;
   logout: () => Promise<void>;
   error: string | null;
   clearError: () => void;
@@ -225,6 +228,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const requestPasswordReset = async (email: string) => {
+    setError(null);
+    const normalizedEmail = email.trim();
+
+    if (!normalizedEmail) {
+      setError('Enter your email first.');
+      return null;
+    }
+
+    if (!firebaseEnabled && !devAuthEnabled) {
+      setError('Auth not configured. Add Firebase environment variables.');
+      return null;
+    }
+
+    if (devAuthEnabled) {
+      return 'dev-sent';
+    }
+
+    try {
+      const auth = await getAuth();
+      const { sendPasswordResetEmail } = await import('firebase/auth');
+      await sendPasswordResetEmail(auth, normalizedEmail);
+      return 'sent';
+    } catch (e: any) {
+      setError(e?.message ?? 'Could not send the reset email. Please try again.');
+      return null;
+    }
+  };
+
   const logout = async () => {
     try {
       if (devAuthEnabled) {
@@ -255,6 +287,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signInWithGoogle,
         signInWithEmail,
         signUpWithEmail,
+        requestPasswordReset,
         logout,
         error,
         clearError: () => setError(null),
