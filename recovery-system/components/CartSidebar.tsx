@@ -128,7 +128,7 @@ export default function CartSidebar() {
                         </div>
 
                         <p className="text-[14px] font-bold text-[#f2eee7]">
-                          EUR{(item.price * item.quantity).toFixed(0)}
+                          €{(item.price * item.quantity).toFixed(2)}
                         </p>
 
                         <div className="mt-1 flex items-center gap-2">
@@ -162,7 +162,7 @@ export default function CartSidebar() {
               <div className="border-t border-white/[0.07] p-5 space-y-3">
                 <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                   <span>Subtotal ({totalItems} {totalItems === 1 ? 'item' : 'items'})</span>
-                  <span className="font-semibold text-[#f2eee7]">EUR{subtotal.toFixed(2)}</span>
+                  <span className="font-semibold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                   <span>Shipping</span>
@@ -170,7 +170,7 @@ export default function CartSidebar() {
                 </div>
                 <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
                   <span className="text-[15px] font-semibold text-[#f2eee7]">Total</span>
-                  <span className="text-[18px] font-bold text-[#f2eee7]">EUR{subtotal.toFixed(2)}</span>
+                  <span className="text-[18px] font-bold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
                 </div>
 
                 <Link

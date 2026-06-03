@@ -7,7 +7,16 @@ import { useState } from 'react';
 import { useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, type CatalogProduct } from '../lib/catalog';
-import { type Product } from '../lib/products';
+
+export interface Product {
+  slug: string;
+  name: string;
+  tag: string;
+  price: number;
+  comparePrice: number;
+  icon: string;
+  bg: string;
+}
 
 const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
 
