@@ -1,5 +1,4 @@
-// Server catalog — MUST stay in sync with frontend catalog (recovery-system/lib/catalog.ts)
-// Every product slug the frontend can send to checkout must exist here.
+// Server catalog — synced with frontend catalog (recovery-system/lib/catalog.ts)
 const PRODUCTS = [
   // ─── Sleep & Audio ───────────────────────────────────────────────
   {
@@ -8,16 +7,6 @@ const PRODUCTS = [
     title: 'Noctive Halo',
     description: 'Ultra-thin acoustic headband engineered for pressure-free, immersive sleep audio.',
     price: 17,
-    category: 'sleep-audio',
-    brand: 'NOCTIVE',
-    stock: 20,
-  },
-  {
-    id: 'sleepseal-plus',
-    slug: 'sleepseal-plus',
-    title: 'SleepSeal+ Pack',
-    description: '60-night nasal breathing strips. Reduces snoring and improves oxygen intake during sleep.',
-    price: 10,
     category: 'sleep-audio',
     brand: 'NOCTIVE',
     stock: 20,
@@ -44,35 +33,6 @@ const PRODUCTS = [
 
   // ─── Neck & Recovery ─────────────────────────────────────────────
   {
-    id: 'cerviflex',
-    slug: 'cerviflex',
-    title: 'CerviFlex',
-    description: 'Cervical massager with 3 modes and optional heat. Reduces neck tension after long desk sessions.',
-    price: 15,
-    category: 'neck-recovery',
-    brand: 'NOCTIVE',
-    stock: 20,
-  },
-  {
-    id: 'neckpulse-pro',
-    slug: 'neckpulse-pro',
-    title: 'NeckPulse Pro',
-    description: 'Cervical traction device. Decompresses vertebral discs. Relieves chronic neck pain at home.',
-    price: 20,
-    category: 'neck-recovery',
-    brand: 'NOCTIVE',
-    stock: 20,
-  },
-  {
-    id: 'posture-band',
-    slug: 'posture-band',
-    title: 'PostureBand',
-    description: 'Upper back posture corrector. Discreet under clothing. Realigns shoulders and spine gently.',
-    price: 11,
-    category: 'neck-recovery',
-    stock: 20,
-  },
-  {
     id: 'neck-massager',
     slug: 'neck-massager',
     title: 'Neck Massager',
@@ -82,94 +42,14 @@ const PRODUCTS = [
     stock: 20,
   },
 
-  // ─── Muscle Recovery ─────────────────────────────────────────────
-  {
-    id: 'pulse-pro-x',
-    slug: 'pulse-pro-x',
-    title: 'Pulse Pro X',
-    description: 'Percussion massage gun. 16mm deep tissue. Under 45dB. 6 speeds. Professional grade at home.',
-    price: 22,
-    category: 'muscle-recovery',
-    brand: 'NOCTIVE',
-    stock: 20,
-  },
-  {
-    id: 'vibrapulse-mini',
-    slug: 'vibrapulse-mini',
-    title: 'VibraPulse Mini',
-    description: 'Compact vibration massager. 4 heads. Quiet motor. Fits in any bag for travel and gym recovery.',
-    price: 14,
-    category: 'muscle-recovery',
-    stock: 20,
-  },
-  {
-    id: 'thermapad-pro',
-    slug: 'thermapad-pro',
-    title: 'ThermaPad Pro',
-    description: 'Heating pad with 6 heat levels. Large 30x50cm coverage. Auto shut-off.',
-    price: 16,
-    category: 'muscle-recovery',
-    stock: 20,
-  },
-
   // ─── Sensory & Relaxation ─────────────────────────────────────────
-  {
-    id: 'sleepseal',
-    slug: 'sleepseal',
-    title: 'SleepSeal Mask',
-    description: '3D contoured sleep mask. 100% blackout. Adjustable strap. Comfortable for side sleepers.',
-    price: 7,
-    category: 'sensory',
-    brand: 'NOCTIVE',
-    stock: 20,
-  },
   {
     id: 'weighted-mask-pro',
     slug: 'weighted-mask-pro',
     title: 'Noctive Calm Mask',
-    description: 'Weighted sleep mask that combines gentle pressure and breathable design for faster relaxation.',
+    description: 'Weighted sleep mask that combines gentle pressure and breathable design.',
     price: 11,
     category: 'sensory',
-    brand: 'NOCTIVE',
-    stock: 20,
-  },
-  {
-    id: 'breathcalm',
-    slug: 'breathcalm',
-    title: 'BreathCalm',
-    description: 'Breathing trainer. Guides you to 6 breaths/min. No app. No battery. Reduces anxiety in minutes.',
-    price: 9,
-    category: 'sensory',
-    stock: 20,
-  },
-
-  // ─── Travel & Comfort ─────────────────────────────────────────────
-  {
-    id: 'travel-pillow-ultra',
-    slug: 'travel-pillow-ultra',
-    title: 'TravelPillow Ultra',
-    description: 'Memory foam travel neck pillow. 360° support. Packs into built-in pouch.',
-    price: 10,
-    category: 'travel',
-    brand: 'NOCTIVE',
-    stock: 20,
-  },
-  {
-    id: 'portable-pulse',
-    slug: 'portable-pulse',
-    title: 'PortablePulse',
-    description: 'Pocket-sized percussive massager. 3 heads. USB-C. TSA carry-on approved.',
-    price: 14,
-    category: 'travel',
-    stock: 20,
-  },
-  {
-    id: 'napkit-pro',
-    slug: 'napkit-pro',
-    title: 'NapKit Pro',
-    description: 'Travel sleep kit: eye mask + ear plugs + neck wrap + carry pouch. Sleep anywhere.',
-    price: 12,
-    category: 'travel',
     brand: 'NOCTIVE',
     stock: 20,
   },
