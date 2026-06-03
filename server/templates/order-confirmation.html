@@ -3,26 +3,68 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Order Confirmation</title>
+    <title>Order Confirmation — Recovery System</title>
     <style>
-      body { font-family: Arial, Helvetica, sans-serif; color:#111; }
-      .container { max-width:600px; margin:0 auto; padding:20px; }
-      h1 { color:#0b4a6f; }
-      .items { margin:16px 0; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color:#1a1a2e; background:#f7f8fa; margin:0; padding:0; }
+      .container { max-width:560px; margin:0 auto; padding:32px 20px; }
+      .card { background:#fff; border-radius:16px; padding:32px; box-shadow:0 2px 16px rgba(0,0,0,0.06); }
+      .logo { font-size:12px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#6b7280; margin-bottom:24px; }
+      h1 { font-size:24px; font-weight:800; color:#0f172a; margin:0 0 8px; }
+      .order-id { font-size:13px; color:#6b7280; margin-bottom:24px; }
+      .items { margin:20px 0; border-top:1px solid #e5e7eb; padding-top:16px; }
+      .items ul { list-style:none; padding:0; margin:0; }
+      .items li { padding:8px 0; border-bottom:1px solid #f3f4f6; font-size:14px; display:flex; justify-content:space-between; }
+      .total { font-size:18px; font-weight:800; color:#0f172a; margin-top:16px; padding-top:16px; border-top:2px solid #e5e7eb; display:flex; justify-content:space-between; }
+      .next-steps { background:#f0f9ff; border:1px solid #bae6fd; border-radius:12px; padding:16px; margin-top:24px; font-size:13px; color:#0369a1; }
+      .footer { margin-top:24px; font-size:11px; color:#9ca3af; text-align:center; }
+      .lang-en { display:none; }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Gracias por tu pedido</h1>
-      <p>Pedido: <strong>{{orderId}}</strong></p>
-      <p>Hola {{customerName}},</p>
-      <p>Hemos recibido tu pedido y lo estamos procesando. Aquí tienes los detalles:</p>
-      <div class="items">
-        {{itemsHtml}}
+    <!-- SPANISH -->
+    <div class="container lang-es">
+      <div class="card">
+        <div class="logo">RECOVERY SYSTEM™</div>
+        <h1>✅ Pedido confirmado</h1>
+        <div class="order-id">Pedido: <strong>#{{orderId}}</strong></div>
+        <p style="font-size:14px;color:#4b5563;">Hola {{customerName}}, hemos recibido tu pedido y lo estamos preparando.</p>
+        <div class="items">
+          <p style="font-size:12px;font-weight:600;text-transform:uppercase;color:#9ca3af;">Artículos</p>
+          {{itemsHtml}}
+        </div>
+        <div class="total"><span>Total</span><span>{{total}}</span></div>
+        <div class="next-steps">
+          <strong>📦 ¿Qué pasa ahora?</strong><br>
+          1. Procesamos tu pedido (24-48h)<br>
+          2. Te enviamos un email con el nº de seguimiento<br>
+          3. Recibes el paquete en 3-5 días hábiles
+        </div>
+        <p style="font-size:13px;color:#6b7280;margin-top:16px;">Si tienes cualquier duda, responde a este email.</p>
       </div>
-      <p><strong>Total:</strong> {{total}}</p>
-      <p>Te enviaremos un email cuando tu pedido tenga número de seguimiento.</p>
-      <p>Gracias por confiar en CALMA.</p>
+      <div class="footer">Recovery System™ · Envío gratis · Garantía 30 días</div>
+    </div>
+
+    <!-- ENGLISH (shown when locale=en) -->
+    <div class="container lang-en" style="display:{{#isEn}}block{{/isEn}}{{^isEn}}none{{/isEn}}">
+      <div class="card">
+        <div class="logo">RECOVERY SYSTEM™</div>
+        <h1>✅ Order confirmed</h1>
+        <div class="order-id">Order: <strong>#{{orderId}}</strong></div>
+        <p style="font-size:14px;color:#4b5563;">Hi {{customerName}}, we've received your order and we're getting it ready.</p>
+        <div class="items">
+          <p style="font-size:12px;font-weight:600;text-transform:uppercase;color:#9ca3af;">Items</p>
+          {{itemsHtml}}
+        </div>
+        <div class="total"><span>Total</span><span>{{total}}</span></div>
+        <div class="next-steps">
+          <strong>📦 What happens next?</strong><br>
+          1. We process your order (24-48h)<br>
+          2. We send you a tracking number email<br>
+          3. You receive your package in 3-5 business days
+        </div>
+        <p style="font-size:13px;color:#6b7280;margin-top:16px;">If you have any questions, just reply to this email.</p>
+      </div>
+      <div class="footer">Recovery System™ · Free shipping · 30-day guarantee</div>
     </div>
   </body>
 </html>

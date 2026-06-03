@@ -1,19 +1,25 @@
 version: '3.8'
 
 services:
-  flagvibe-app:
+  recovery-app:
     build: .
-    container_name: flagvibe-app
+    container_name: recovery-system
     ports:
       - "3000:3000"
-    networks:
-      - flagvibe-network
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-    networks:
-      - valtrex-network
 
-networks:
-  flagvibe-network:
-    driver: bridge
+  recovery-backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: recovery-backend
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    env_file:
+      - ./server/.env
