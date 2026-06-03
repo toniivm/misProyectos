@@ -59,8 +59,7 @@ const SHOP_HOME_COPY = {
     heroQuickLinks: [
       { emoji: '😴', label: "Can't switch off", slug: 'sleep-audio' },
       { emoji: '🦴', label: 'Desk neck tension', slug: 'neck-recovery' },
-      { emoji: '💆', label: 'Heavy legs and sore muscles', slug: 'muscle-recovery' },
-      { emoji: '✈️', label: 'Flights and hotel nights', slug: 'travel' },
+      { emoji: '🌙', label: 'Need deeper calm', slug: 'sensory' },
     ],
     heroPrimary: 'Shop all products',
     heroSecondaryPrefix: 'Explore',
@@ -166,7 +165,7 @@ const SHOP_HOME_COPY = {
         step: '01',
         icon: '🎯',
         title: 'Pick your problem',
-        text: 'Browse by category: sleep, pain relief, muscle recovery or travel. Every product targets a specific daily issue.',
+        text: 'Browse by category: sleep, neck relief or sensory relaxation. Every product targets a specific daily issue.',
       },
       {
         step: '02',
@@ -196,7 +195,7 @@ const SHOP_HOME_COPY = {
       },
       {
         title: 'Built around specific problems',
-        copy: 'Each category is organized by what you feel first: poor sleep, stiff neck, sore muscles or travel fatigue.',
+        copy: 'Each category is organized by what you feel first: poor sleep, stiff neck or accumulated stress.',
       },
     ],
     recoveryCta: 'See flagship routine',
@@ -245,11 +244,11 @@ const SHOP_HOME_COPY = {
         product: 'Noctive Calm Mask',
       },
       {
-        text: 'I travel a lot for work and this pillow is a game changer. Packs down tiny and gives proper neck support on long flights.',
+        text: 'I travel a lot for work and the sleep headband lets me rest anywhere. Very portable and comfortable.',
         author: 'David R.',
         role: 'Consultant',
         stars: 5,
-        product: 'Noctive Wave',
+        product: 'Sleep Headband',
       },
       {
         text: 'I live on a ground floor and street noise was a problem. This white noise machine masks everything. My sleep has improved dramatically.',
@@ -334,8 +333,7 @@ const SHOP_HOME_COPY = {
     heroQuickLinks: [
       { emoji: '😴', label: 'No consigues desconectar', slug: 'sleep-audio' },
       { emoji: '🦴', label: 'Tensión de cuello por escritorio', slug: 'neck-recovery' },
-      { emoji: '💆', label: 'Piernas pesadas y músculos cargados', slug: 'muscle-recovery' },
-      { emoji: '✈️', label: 'Vuelos y noches de hotel', slug: 'travel' },
+      { emoji: '🌙', label: 'Necesitas más calma', slug: 'sensory' },
     ],
     heroPrimary: 'Ver todos los productos',
     heroSecondaryPrefix: 'Explorar',
