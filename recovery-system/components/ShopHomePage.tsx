@@ -54,6 +54,9 @@ const SHOP_HOME_COPY = {
       'Secure checkout via Stripe',
       'Ships within 24 hours',
     ],
+    heroKicker: 'Premium wellness technology',
+    heroLine1: 'Recover better.',
+    heroLine2: 'Sleep deeper. Perform more.',
     heroSubtitle:
       'A sleep and recovery store built around what people actually feel every day: poor sleep, neck tension, sore muscles and travel fatigue. Premium hardware, cleaner routines and less guesswork.',
     heroQuickLinks: [
@@ -328,6 +331,9 @@ const SHOP_HOME_COPY = {
       'Pago seguro con Stripe',
       'Envío en 24 horas',
     ],
+    heroKicker: 'Tecnología premium de bienestar',
+    heroLine1: 'Recupérate mejor.',
+    heroLine2: 'Descansa más. Rinde más.',
     heroSubtitle:
       'Una tienda de sueño y recuperación creada alrededor de lo que la gente siente cada día: mal descanso, tensión cervical, músculos cargados y fatiga de viaje. Herramientas premium, rutinas más limpias y menos improvisación.',
     heroQuickLinks: [
@@ -919,13 +925,13 @@ export default function ShopHomePage() {
               <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
                   <Headphones size={12} className="text-[#8ea7c7]" />
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">{t('hero.kicker')}</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">{copy.heroKicker}</span>
                 </div>
 
                 <h1 className="text-[clamp(2.35rem,5.4vw,4.35rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[#f6f2eb]">
-                  {t('hero.line1')}
+                  {copy.heroLine1}
                   <br />
-                  {t('hero.line2')}
+                  {copy.heroLine2}
                 </h1>
 
                 <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">{copy.heroSubtitle}</p>

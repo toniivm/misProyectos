@@ -1,17 +1,19 @@
 import { test, expect } from '@playwright/test';
 
+const BASE = 'https://valtre-73c7b.web.app';
+
 test('production smoke: homepage loads and add-to-cart updates cart count', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(`${BASE}/es`);
 
   // Basic page sanity
-  await expect(page).toHaveTitle(/RECOVERY SYSTEM/i);
+  await expect(page).toHaveTitle(/NOCTAS/i);
 
-  // Wait for product cards and click the first Add
-  const addBtn = page.locator('text=Add').first();
+  // Wait for product cards and click Añadir
+  const addBtn = page.locator('text=Añadir').first();
   await addBtn.waitFor({ state: 'visible', timeout: 15000 });
   await addBtn.click();
 
-  // Verify cart button updated its aria-label to show 1 item
-  const cartButton = page.locator('button[aria-label^="Cart"]');
-  await expect(cartButton).toHaveAttribute('aria-label', /1 items|1 item/);
+  // Verify cart button shows count
+  const cartButton = page.locator('button[aria-label*="Carrito"]');
+  await expect(cartButton.locator('span').first()).toContainText('1', { timeout: 5000 });
 });
