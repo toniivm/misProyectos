@@ -799,7 +799,7 @@ async function sendEmail(to, subject, html){
   if (process.env.SENDGRID_API_KEY && String(process.env.SENDGRID_API_KEY).trim()){
     try {
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      const from = process.env.SENDER_EMAIL || 'no-reply@recoverysystem.com';
+      const from = process.env.SENDER_EMAIL || 'no-reply@noctas.com';
       await sgMail.send({ to, from, subject, html });
       console.log(`Email sent to ${to} (SendGrid)`);
     } catch (e){
@@ -860,7 +860,7 @@ async function handleOrderPaid(orderId, stripeObj){
     try {
       const itemsList = (order.items || []).map(it => `<li>${it.name} x${it.qty} - €${(it.price * it.qty).toFixed(2)}</li>`).join('');
       const total = ((order.amount || 0) / 100).toFixed(2);
-      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Recovery System`, `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${orderId}</strong></p><ul>${itemsList}</ul><p><strong>Total: €${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`);
+      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Noctas`, `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${orderId}</strong></p><ul>${itemsList}</ul><p><strong>Total: €${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`);
     } catch (e){
       console.error('Failed to send order confirmation email', e?.message || e);
     }
@@ -945,7 +945,7 @@ app.post('/orders/:id/ship', adminAuth, async (req,res) => {
     shipmentHtml = null;
   }
   if (shipmentHtml) {
-    await sendEmail(order.email, `📦 Tu pedido #${req.params.id} ha sido enviado - Recovery System`, shipmentHtml);
+    await sendEmail(order.email, `📦 Tu pedido #${req.params.id} ha sido enviado - Noctas`, shipmentHtml);
   } else {
     await sendEmail(
       order.email,
@@ -968,7 +968,7 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
   await sendEmail(
     order.email,
     `✅ Tu pedido #${req.params.id} ha sido entregado`,
-    `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Recovery System.</p>`
+    `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Noctas.</p>`
   );
   res.json({ ok: true });
 });
@@ -1004,18 +1004,18 @@ app.post('/emails/order-confirmation', async (req,res) => {
       .replace(/{{itemsHtml}}/g, `<ul>${itemsList}</ul>`)
       .replace(/{{total}}/g, `€${total}`);
 
-    await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Recovery System`, html);
+    await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Noctas`, html);
   } else {
     await sendEmail(
       email,
-      `✅ Confirmación de pedido #${orderId} - Recovery System`,
+      `✅ Confirmación de pedido #${orderId} - Noctas`,
       `<h1>¡Gracias por tu pedido!</h1>
       <p>Pedido: <strong>#${orderId}</strong></p>
       <h3>Artículos:</h3>
       <ul>${itemsList}</ul>
       <p><strong>Total: €${total}</strong></p>
       <p>Recibirás un email cuando tu pedido sea enviado.</p>
-      <p>Gracias por confiar en Recovery System.</p>`
+      <p>Gracias por confiar en Noctas.</p>`
     );
   }
 

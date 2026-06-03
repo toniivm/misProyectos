@@ -233,49 +233,49 @@ const SHOP_HOME_COPY = {
     verifiedPurchase: 'Verified purchase',
     reviews: [
       {
-        text: 'The SleepBand Pro is incredible. Fell asleep to audiobooks for the first time without earbuds hurting after an hour.',
-        author: 'Marco R.',
-        role: 'UX Designer',
+        text: 'I bought it because of the price and didn\'t expect much, but the headband is comfortable and the sound is clear. I fall asleep much faster now.',
+        author: 'Andrea L.',
+        role: 'Student',
         stars: 5,
-        product: 'SleepBand Pro',
+        product: 'Noctive Halo',
       },
       {
-        text: 'Pulse Pro X is whisper quiet compared to my old massager. I can actually use it in the living room at night.',
-        author: 'Elena V.',
-        role: 'Night-shift nurse',
+        text: 'I get neck tightness from working on the computer all day. After using CerviFlex 15 min a day, the difference is noticeable. Worth it.',
+        author: 'Miguel Á.',
+        role: 'IT Specialist',
+        stars: 4,
+        product: 'CerviFlex',
+      },
+      {
+        text: 'Pulse Pro X has been a game changer after the gym. It\'s quiet but powerful. My muscle soreness is way less the next day.',
+        author: 'Carla F.',
+        role: 'Fitness enthusiast',
         stars: 5,
         product: 'Pulse Pro X',
       },
       {
-        text: 'CerviFlex genuinely reduces my neck tension after long desk days. Hard to go back to not using it.',
-        author: 'James B.',
-        role: 'Software engineer',
-        stars: 5,
-        product: 'CerviFlex',
-      },
-      {
-        text: 'SleepSeal Mask is the first sleep mask I have not ripped off at 3am. The 3D shape actually works.',
-        author: 'Nora S.',
-        role: 'Strength coach',
-        stars: 5,
+        text: 'I was skeptical but the mask blocks all light. I sleep on my side and it doesn\'t bother me at all. Great value for this price.',
+        author: 'Laura P.',
+        role: 'New mom',
+        stars: 4,
         product: 'SleepSeal Mask',
       },
       {
-        text: 'TravelPillow Ultra gets used every flight. Packs tiny and the memory foam is genuinely supportive.',
-        author: 'Priya M.',
-        role: 'Triathlete',
+        text: 'I travel a lot for work and this pillow is a game changer. Packs down tiny and gives proper neck support on long flights.',
+        author: 'David R.',
+        role: 'Consultant',
         stars: 5,
         product: 'TravelPillow Ultra',
       },
       {
-        text: 'White Noise Pro blocks out street noise completely. Sleep quality went up measurably on my tracker.',
-        author: 'Daniel K.',
-        role: 'Founder',
-        stars: 5,
-        product: 'White Noise Pro',
+        text: 'I live on a ground floor and street noise was a problem. This white noise machine masks everything. My sleep has improved dramatically.',
+        author: 'Sara M.',
+        role: 'Teacher',
+        stars: 4,
+        product: 'Noctive Wave',
       },
     ],
-    galleryAlt: 'Recovery System product scene',
+    galleryAlt: 'Noctas product scene',
     buyerMomentsTag: 'Real-world visuals',
     buyerMomentsHeading: 'A store that shows the routine, not just the product.',
     buyerMomentsBody:
@@ -319,7 +319,7 @@ const SHOP_HOME_COPY = {
     footerPolicies: 'Policies',
     supportLinks: ['Contact us', 'Track your order', 'Return a product', 'Warranty info'],
     policyLinks: ['Shipping policy', 'Return policy', 'Privacy policy', 'Terms of service'],
-    footerRights: '© 2026 Recovery System™. All rights reserved.',
+    footerRights: '© 2026 Noctas™. All rights reserved.',
     footerSecurity: 'SSL Secure · Stripe Payments',
     mobileCta: 'Shop now',
     badgeLabels: {
@@ -527,49 +527,49 @@ const SHOP_HOME_COPY = {
     verifiedPurchase: 'Compra verificada',
     reviews: [
       {
-        text: 'SleepBand Pro es increíble. Me dormí con audiolibros por primera vez sin que me dolieran los auriculares al cabo de una hora.',
-        author: 'Marco R.',
-        role: 'Diseñador UX',
+        text: 'Lo compré por el precio y no esperaba mucho, pero la cinta es cómoda y el sonido se escucha bien. Me duermo mucho más rápido.',
+        author: 'Andrea L.',
+        role: 'Estudiante',
         stars: 5,
-        product: 'SleepBand Pro',
+        product: 'Noctive Halo',
       },
       {
-        text: 'Pulse Pro X es muchísimo más silencioso que mi masajeador anterior. De verdad puedo usarlo en el salón por la noche.',
-        author: 'Elena V.',
-        role: 'Enfermera de turno nocturno',
+        text: 'Tengo contracturas en el cuello por el ordenador. Desde que uso CerviFlex 15 min al día, he notado mucha mejora. Merece la pena.',
+        author: 'Miguel Á.',
+        role: 'Informático',
+        stars: 4,
+        product: 'CerviFlex',
+      },
+      {
+        text: 'El Pulse Pro X me ha salvado después del gimnasio. Es silencioso y tiene fuerza. Lo uso cada noche y las agujetas duran menos.',
+        author: 'Carla F.',
+        role: 'Deportista amateur',
         stars: 5,
         product: 'Pulse Pro X',
       },
       {
-        text: 'CerviFlex reduce de verdad mi tensión cervical después de días largos frente al escritorio. Cuesta volver a estar sin él.',
-        author: 'James B.',
-        role: 'Ingeniero de software',
-        stars: 5,
-        product: 'CerviFlex',
-      },
-      {
-        text: 'SleepSeal Mask es el primer antifaz que no me quito a las 3 de la mañana. La forma 3D sí marca diferencia.',
-        author: 'Nora S.',
-        role: 'Entrenadora de fuerza',
-        stars: 5,
+        text: 'Tenía dudas pero el antifaz tapa toda la luz. Duermo de lado y no me molesta nada. Por este precio, muy bien.',
+        author: 'Laura P.',
+        role: 'Madre primeriza',
+        stars: 4,
         product: 'SleepSeal Mask',
       },
       {
-        text: 'TravelPillow Ultra viaja conmigo en todos los vuelos. Ocupa poco y la espuma de memoria realmente sujeta bien.',
-        author: 'Priya M.',
-        role: 'Triatleta',
+        text: 'Viajo mucho por trabajo y la almohada es un antes y después. Se pliega en nada y sujeta bien el cuello en el avión.',
+        author: 'David R.',
+        role: 'Consultor',
         stars: 5,
         product: 'TravelPillow Ultra',
       },
       {
-        text: 'White Noise Pro bloquea por completo el ruido de la calle. La calidad del sueño subió de forma clara en mi tracker.',
-        author: 'Daniel K.',
-        role: 'Fundador',
-        stars: 5,
-        product: 'White Noise Pro',
+        text: 'Vivo en un bajo y entra ruido de la calle. La máquina de ruido blanco lo tapa todo. Mi sueño ha mejorado un montón.',
+        author: 'Sara M.',
+        role: 'Profesora',
+        stars: 4,
+        product: 'Noctive Wave',
       },
     ],
-    galleryAlt: 'Escena de producto de Recovery System',
+    galleryAlt: 'Escena de producto de Noctas',
     buyerMomentsTag: 'Visuales de uso real',
     buyerMomentsHeading: 'Una tienda que enseña la rutina, no solo el producto.',
     buyerMomentsBody:
@@ -613,7 +613,7 @@ const SHOP_HOME_COPY = {
     footerPolicies: 'Políticas',
     supportLinks: ['Contáctanos', 'Sigue tu pedido', 'Devolver un producto', 'Información de garantía'],
     policyLinks: ['Política de envíos', 'Política de devoluciones', 'Política de privacidad', 'Términos del servicio'],
-    footerRights: '© 2026 Recovery System™. Todos los derechos reservados.',
+    footerRights: '© 2026 Noctas™. Todos los derechos reservados.',
     footerSecurity: 'SSL seguro · Pagos con Stripe',
     mobileCta: 'Comprar ahora',
     badgeLabels: {
@@ -883,7 +883,7 @@ export default function ShopHomePage() {
                 <span className="rounded-[3px] bg-[#7186a4]" />
                 <span className="rounded-[3px] bg-[#d8d0c4]" />
               </div>
-              <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Recovery System</span>
+              <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctas</span>
             </Link>
 
             <div className="mx-auto max-w-2xl flex-1">
@@ -1325,7 +1325,7 @@ export default function ShopHomePage() {
                   <span className="rounded-[2px] bg-[#7186a4]" />
                   <span className="rounded-[2px] bg-[#d8d0c4]" />
                 </div>
-                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">Recovery System</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">Noctas</span>
               </div>
               <p className="text-[12px] leading-6 text-[#5a6678]">{copy.footerTagline}</p>
             </div>

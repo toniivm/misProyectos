@@ -184,7 +184,7 @@ export default function CheckoutPage() {
       <header className="border-b border-white/[0.07] bg-[rgba(8,12,22,0.88)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link href={`/${locale}`} className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#f2eee7]">
-            RECOVERY SYSTEM™
+            NOCTAS™
           </Link>
           <div className="flex items-center gap-1.5 text-[12px] text-[#6b7280]">
             <Lock size={12} />

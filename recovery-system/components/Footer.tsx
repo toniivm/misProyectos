@@ -38,7 +38,7 @@ export default function Footer() {
                 <rect x="18" y="18" width="10" height="10" rx="2" fill="#0ea5e9" />
               </svg>
               <span className="font-display font-bold text-sm tracking-[0.2em] uppercase text-white">
-                Recovery System<span className="text-electric-400">™</span>
+                Noctas<span className="text-electric-400">™</span>
               </span>
             </div>
 
@@ -92,7 +92,7 @@ export default function Footer() {
         {/* Bottom bar */}
           <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-700">
-            © {new Date().getFullYear()} Recovery System™. All rights reserved.
+            © {new Date().getFullYear()} Noctas™. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a href={`/${locale}/legal/privacy`} className="text-xs text-slate-700 hover:text-slate-400 transition-colors">Privacy Policy</a>

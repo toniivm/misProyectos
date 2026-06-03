@@ -18,12 +18,12 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'RECOVERY SYSTEM™',
+  title: 'NOCTAS™',
   description:
     'Premium recovery system for muscle relief, neck tension and sleep optimization.',
   keywords: ['recovery', 'massage gun', 'neck massager', 'sleep optimization', 'wellness', 'biohacking'],
   openGraph: {
-    title: 'RECOVERY SYSTEM™',
+    title: 'NOCTAS™',
     description: 'Your body never fully recovers. Until now.',
     type: 'website',
   },

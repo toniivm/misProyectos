@@ -229,7 +229,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
             <Link href={`/${locale}`} className="flex items-center gap-2 text-[#8791a1] hover:text-[#f2eee7] transition-colors">
               <ArrowLeft size={16} />
               <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">
-                Recovery System™
+                Noctas™
               </span>
             </Link>
             <div className="flex-1" />

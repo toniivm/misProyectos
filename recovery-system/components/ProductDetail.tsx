@@ -140,7 +140,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <span className="rounded-[2px] bg-[#7186a4]" />
               <span className="rounded-[2px] bg-[#d8d0c4]" />
             </div>
-            <span className="hidden sm:block">Recovery System</span>
+            <span className="hidden sm:block">Noctas</span>
           </Link>
           <Link
             href={`/${locale}/checkout`}
