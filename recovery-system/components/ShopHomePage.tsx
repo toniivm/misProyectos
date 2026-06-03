@@ -20,6 +20,9 @@ import {
   TrendingUp,
   Zap,
   Package,
+  User,
+  LogOut,
+  PackageCheck,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import {
@@ -746,6 +749,79 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
   )
 }
 
+function UserMenu({ locale, t }: { locale: string; t: (key: string) => string }) {
+  const auth = useAuth()
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const isEs = locale === 'es'
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
+  if (!auth.user) {
+    return (
+      <button
+        onClick={() => auth.openModal()}
+        className="inline-flex items-center gap-2 rounded-md border border-white/[0.04] bg-white/[0.02] px-3 py-2 text-sm text-[#c8d4e2] transition hover:text-white"
+      >
+        {t('nav.login')}
+      </button>
+    )
+  }
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="inline-flex items-center gap-2 rounded-md border border-white/[0.04] bg-white/[0.02] px-3 py-2 text-sm text-[#c8d4e2] transition hover:text-white"
+      >
+        <User size={14} />
+        <span className="hidden sm:inline max-w-[100px] truncate">
+          {auth.user.displayName || auth.user.email?.split('@')[0] || (isEs ? 'Cuenta' : 'Account')}
+        </span>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.12 }}
+            className="absolute right-0 top-full z-50 mt-2 w-52 overflow-hidden rounded-xl border border-white/[0.1] bg-[#0d1219] shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+          >
+            <Link
+              href={`/${locale}/account/orders`}
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-sm text-[#c8d4e2] transition hover:bg-white/[0.04] hover:text-white"
+            >
+              <PackageCheck size={14} className="text-[#8ea7c7]" />
+              {t('account.myOrders')}
+            </Link>
+            <button
+              onClick={() => {
+                setOpen(false)
+                auth.logout()
+              }}
+              className="flex w-full items-center gap-3 px-4 py-3 text-sm text-[#c8d4e2] transition hover:bg-white/[0.04] hover:text-white border-t border-white/[0.06]"
+            >
+              <LogOut size={14} className="text-[#6b7785]" />
+              {t('nav.logout')}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 function SearchBar({ locale }: { locale: string }) {
   const [query, setQuery] = useState('')
   const [focused, setFocused] = useState(false)
@@ -850,7 +926,6 @@ export default function ShopHomePage() {
     const other = locale === 'es' ? 'en' : 'es'
     return `/${other}${p === '/' ? '/' : p}`
   })()
-  const auth = useAuth()
   const bestSellers = getBestSellers()
   const deals = getDeals()
   const allProducts = CATALOG
@@ -899,15 +974,7 @@ export default function ShopHomePage() {
                 {copy.switchLabel}
               </a>
 
-              <button
-                onClick={() => {
-                  if (auth && auth.user) auth.logout()
-                  else auth.openModal()
-                }}
-                className="inline-flex items-center gap-2 rounded-md border border-white/[0.04] bg-white/[0.02] px-3 py-2 text-sm text-[#c8d4e2] transition hover:text-white"
-              >
-                {auth && auth.user ? t('nav.logout') : t('nav.login')}
-              </button>
+              <UserMenu locale={locale} t={t} />
 
               <button
                 onClick={openCart}

@@ -66,6 +66,11 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'apple_pay' | 'google_pay'>('card');
+  const [promoCode, setPromoCode] = useState('');
+  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [promoLabel, setPromoLabel] = useState('');
+  const [promoLoading, setPromoLoading] = useState(false);
+  const [promoError, setPromoError] = useState('');
 
   const [contact, setContact] = useState({email: '', phone: ''});
   const [shipping, setShipping] = useState({
@@ -78,6 +83,33 @@ export default function CheckoutPage() {
   });
   const checkoutItems = hasHydrated ? items : [];
   const checkoutSubtotal = hasHydrated ? subtotal : 0;
+  const discountAmount = checkoutSubtotal * (promoDiscount / 100);
+  const checkoutTotal = Math.max(0, checkoutSubtotal - discountAmount);
+
+  const applyPromoCode = async () => {
+    if (!promoCode.trim()) return;
+    setPromoLoading(true);
+    setPromoError('');
+    try {
+      const res = await fetch(`${API_BASE_URL}/promo/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: promoCode.trim().toUpperCase(), subtotal: checkoutSubtotal }),
+      });
+      const data = await res.json();
+      if (res.ok && data.valid) {
+        setPromoDiscount(data.discountPercent || 0);
+        setPromoLabel(data.label || promoCode.trim().toUpperCase());
+      } else {
+        setPromoError(data.detail || 'Invalid promo code');
+        setPromoDiscount(0);
+        setPromoLabel('');
+      }
+    } catch {
+      setPromoError('Could not validate code');
+    }
+    setPromoLoading(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,6 +140,8 @@ export default function CheckoutPage() {
         })),
         successUrl: `${window.location.origin}/${locale}/checkout/success`,
         cancelUrl: `${window.location.origin}/${locale}/checkout`,
+        promoCode: promoDiscount > 0 ? promoCode.trim().toUpperCase() : undefined,
+        discountPercent: promoDiscount > 0 ? promoDiscount : undefined,
       };
 
       const endpoint = API_BASE_URL
@@ -147,6 +181,30 @@ export default function CheckoutPage() {
 
       if (!data?.url) {
         throw new Error(data?.detail || data?.error || 'Could not start payment');
+      }
+
+      // Save order to localStorage so it appears in "My Orders"
+      if (data?.orderId && user?.email) {
+        try {
+          const stored = localStorage.getItem('noctas_orders')
+          const orders = stored ? JSON.parse(stored) : {}
+          orders[data.orderId] = {
+            id: data.orderId,
+            status: 'pending',
+            email: user.email,
+            items: checkoutItems.map((item) => ({
+              id: item.slug,
+              name: item.name,
+              qty: item.quantity,
+              price: item.price,
+              icon: PRODUCT_ICON[item.slug] ?? '📦',
+            })),
+            amount: Math.round(checkoutSubtotal * 100),
+            currency: 'eur',
+            createdAt: new Date().toISOString(),
+          }
+          localStorage.setItem('noctas_orders', JSON.stringify(orders))
+        } catch {}
       }
 
       try {
@@ -308,8 +366,34 @@ export default function CheckoutPage() {
               </div>
             </section>
 
+            {/* Promo Code */}
             <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
-              <h2 className="mb-2 text-[17px] font-semibold text-[#f2eee7]">{t('paymentMethod')}</h2>
+              <h2 className="mb-2 text-[17px] font-semibold text-[#f2eee7]">Código promocional</h2>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={promoCode}
+                  onChange={(e) => { setPromoCode(e.target.value); setPromoError(''); }}
+                  placeholder="Ej: NOCTAS10"
+                  className="flex-1 rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] uppercase text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
+                />
+                <button
+                  type="button"
+                  onClick={applyPromoCode}
+                  disabled={promoLoading || !promoCode.trim()}
+                  className="rounded-xl border border-white/[0.1] bg-white/[0.04] px-5 py-3 text-[13px] font-semibold text-[#d1d8e2] transition hover:border-white/20 hover:bg-white/[0.07] disabled:opacity-50"
+                >
+                  {promoLoading ? '...' : 'Aplicar'}
+                </button>
+              </div>
+              {promoError && <p className="mt-2 text-[12px] text-red-400">{promoError}</p>}
+              {promoDiscount > 0 && (
+                <p className="mt-2 text-[12px] text-emerald-400">¡Código {promoLabel} aplicado! — {promoDiscount}% descuento</p>
+              )}
+            </section>
+
+            {/* Payment Methods */}
+            <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
               <p className="mb-5 text-[12px] leading-5 text-[#8791a1]">
                 {t('paymentHint')}
               </p>
@@ -416,7 +500,7 @@ export default function CheckoutPage() {
               ) : (
                 <>
                   <Lock size={15} />
-                  {t('continueToPayment')} — €{checkoutSubtotal.toFixed(2)}
+                  {t('continueToPayment')} — €{checkoutTotal.toFixed(2)}
                 </>
               )}
             </button>
@@ -469,13 +553,19 @@ export default function CheckoutPage() {
                     <span>{t('subtotalLine')}</span>
                     <span className="font-semibold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
+                  {promoDiscount > 0 && (
+                    <div className="flex items-center justify-between text-[13px] text-emerald-400">
+                      <span>Descuento ({promoLabel})</span>
+                      <span className="font-semibold">-€{discountAmount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                     <span>{t('shippingLine')}</span>
                     <span className="font-semibold text-[#5fb07c]">{t('freeShipping')}</span>
                   </div>
                   <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
                     <span className="text-[15px] font-semibold text-[#f2eee7]">{t('totalLine')}</span>
-                    <span className="text-[20px] font-bold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
+                    <span className="text-[20px] font-bold text-[#f2eee7]">€{checkoutTotal.toFixed(2)}</span>
                   </div>
                 </div>
 

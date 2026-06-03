@@ -160,6 +160,11 @@
       {"q": "Can I use CerviFlex if I have chronic neck pain?", "a": "CerviFlex is designed for everyday tension relief, not medical treatment. Please consult your doctor if you have a chronic condition."}
     ]
   },
+  "account": {
+    "myOrders": "My Orders",
+    "myAccount": "My Account",
+    "signOut": "Sign out"
+  },
   "footer": {
     "tagline": "Premium recovery tools for modern performance.",
     "shop": "Shop",

@@ -172,6 +172,11 @@
       {"q": "¿Puedo usar CerviFlex si tengo dolor crónico de cuello?", "a": "CerviFlex está diseñado para el alivio de la tensión cotidiana, no para tratamientos médicos. Consulta a tu médico si tienes una condición crónica."}
     ]
   },
+  "account": {
+    "myOrders": "Mis Pedidos",
+    "myAccount": "Mi Cuenta",
+    "signOut": "Cerrar sesión"
+  },
   "footer": {
     "tagline": "Herramientas de recuperación premium para el rendimiento moderno.",
     "shop": "Tienda",

@@ -457,6 +457,26 @@ async function getStockMap(){
   }
 }
 
+// Promo codes config (add more as needed)
+const PROMO_CODES = {
+  'NOCTAS10': { discountPercent: 10, label: 'NOCTAS10' },
+  'NOCTAS20': { discountPercent: 20, label: 'NOCTAS20' },
+  'BIENVENIDO': { discountPercent: 15, label: 'BIENVENIDO' },
+  'RECUPERA5': { discountPercent: 5, label: 'RECUPERA5' },
+};
+
+app.post('/promo/validate', (req, res) => {
+  const { code } = req.body || {};
+  if (!code || typeof code !== 'string') {
+    return res.status(400).json({ valid: false, detail: 'Missing promo code' });
+  }
+  const promo = PROMO_CODES[code.toUpperCase().trim()];
+  if (promo) {
+    return res.json({ valid: true, discountPercent: promo.discountPercent, label: promo.label });
+  }
+  return res.json({ valid: false, detail: 'Código no válido o caducado' });
+});
+
 app.get('/health', (_req,res) => {
   const uptime = process.uptime();
   const memory = process.memoryUsage();
