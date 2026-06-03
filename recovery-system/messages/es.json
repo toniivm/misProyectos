@@ -35,6 +35,108 @@
     "resetSent": "Si existe una cuenta para ese correo, ya enviamos un enlace de restablecimiento.",
     "resetDevHint": "Modo desarrollo: simulamos el correo de restablecimiento. Usa una cuenta de prueba existente o crea una nueva."
   },
+  "cart": {
+    "title": "Tu carrito",
+    "empty": "Tu carrito está vacío",
+    "emptyHint": "Añade herramientas de recuperación para comenzar tu ritual.",
+    "continueShopping": "Seguir comprando",
+    "subtotal": "Subtotal",
+    "shipping": "Envío",
+    "free": "Gratis",
+    "total": "Total",
+    "checkout": "Ir al pago",
+    "secureCheckout": "Pago seguro - Garantía 30 días",
+    "item": "artículo",
+    "items": "artículos"
+  },
+  "checkout": {
+    "title": "Pago seguro",
+    "backToShop": "Volver a la tienda",
+    "contact": "Contacto",
+    "email": "Correo electrónico",
+    "phone": "Teléfono (opcional)",
+    "shippingAddress": "Dirección de envío",
+    "firstName": "Nombre",
+    "lastName": "Apellidos",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "zip": "Código postal",
+    "country": "País",
+    "paymentMethod": "Método de pago",
+    "paymentHint": "Las tarjetas funcionan en todos los navegadores. Apple Pay y Google Pay aparecen en la página segura de Stripe si el dispositivo es compatible.",
+    "card": "Tarjeta",
+    "cardDesc": "Visa, Mastercard, Amex",
+    "paypal": "PayPal",
+    "paypalDesc": "Disponible donde sea compatible",
+    "applePay": "Apple Pay",
+    "applePayDesc": "Dispositivos Apple compatibles",
+    "googlePay": "Google Pay",
+    "googlePayDesc": "Android y Chrome compatibles",
+    "stripeNote": "Stripe confirma las opciones de pago finales según navegador, dispositivo, ubicación y compatibilidad de wallet.",
+    "signInPrompt": "Inicia sesión o crea una cuenta para completar tu compra.",
+    "signInButton": "Iniciar sesión / Crear cuenta",
+    "continueToPayment": "Ir al pago seguro",
+    "processing": "Procesando…",
+    "guarantee": "Garantía 30 días",
+    "freeShipping": "Envío gratis",
+    "secureCheckout": "Pago seguro",
+    "orderSummary": "Resumen del pedido",
+    "loadingCart": "Cargando tu carrito…",
+    "emptyCart": "Tu carrito está vacío.",
+    "addItems": "Añadir productos",
+    "qty": "Cant.",
+    "subtotalLine": "Subtotal",
+    "shippingLine": "Envío",
+    "totalLine": "Total",
+    "guaranteeBadge": "Garantía de devolución de 30 días"
+  },
+  "category": {
+    "allProducts": "Todos los productos",
+    "filters": "Filtros",
+    "sortBy": "Ordenar por",
+    "featured": "Destacados",
+    "priceAsc": "Precio: menor a mayor",
+    "priceDesc": "Precio: mayor a menor",
+    "topRated": "Mejor valorados",
+    "mostReviews": "Más reseñas",
+    "addToCart": "Añadir",
+    "added": "Añadido",
+    "noProducts": "No se encontraron productos en esta categoría.",
+    "results": "resultados"
+  },
+  "product": {
+    "addToCart": "Añadir al carrito",
+    "addedToCart": "Añadido al carrito",
+    "description": "Descripción",
+    "specs": "Especificaciones",
+    "reviews": "Reseñas",
+    "freeShipping": "Envío gratis",
+    "returns": "Devoluciones 30 días",
+    "secureCheckout": "Pago seguro",
+    "shippingInfo": "Envío y entrega",
+    "shipsIn": "Envío en 24h · llega en 3-5 días · Gratis en todos los pedidos",
+    "faqHeading": "Preguntas frecuentes",
+    "faqSubheading": "Respuestas rápidas antes de añadirlo a tu rutina.",
+    "relatedProducts": "Más de",
+    "ourCatalog": "nuestro catálogo",
+    "checkout": "Pagar",
+    "savePercent": "Ahorra {percent}%",
+    "bestSeller": "Más vendido",
+    "new": "Nuevo",
+    "deal": "Oferta",
+    "trending": "Tendencia",
+    "whyTitle": "Por qué este producto funciona en la vida real",
+    "whyHeading": "Diseñado para uso repetido, no para una novedad pasajera.",
+    "whyBody": "Las mejores tiendas no solo muestran especificaciones. Muestran cómo el producto encaja en la vida diaria. El mismo principio aquí: beneficios claros, configuración sencilla y suficiente confianza para comprar sin dudar."
+  },
+  "success": {
+    "title": "¡Pedido confirmado!",
+    "subtitle": "Gracias por tu compra. Recibirás un email de confirmación en breve.",
+    "ref": "Ref",
+    "delivery": "Entrega estimada",
+    "deliveryDays": "días hábiles",
+    "continueShopping": "Seguir comprando"
+  },
   "hero": {
     "kicker": "Tecnología premium de bienestar",
     "line1": "Recupérate mejor.",
@@ -60,103 +162,13 @@
       "Sensación de no recuperar nunca al 100%"
     ]
   },
-  "system": {
-    "title": "El sistema completo de recuperación.",
-    "description": "Tres herramientas seleccionadas para funcionar como un ritual integrado de recuperación en casa.",
-    "products": [
-      {
-        "name": "Pulse Pro X",
-        "tag": "Massage Gun",
-        "focus": "Percusión de tejido profundo para liberar tensión, acelerar la recuperación muscular y reducir agujetas.",
-        "features": ["8 cabezales", "6 niveles de intensidad", "USB-C", "Motor silencioso"]
-      },
-      {
-        "name": "CerviFlex",
-        "tag": "Neck Massager",
-        "focus": "Relaja cuello y hombros, alivia el estrés postural y mejora el confort tras horas frente a la pantalla.",
-        "features": ["3 modos", "Alivio cervical", "Ligero y portable", "Uso diario"]
-      },
-      {
-        "name": "SleepSeal",
-        "tag": "Sleep Mouth Tape",
-        "focus": "Optimiza la respiración nocturna para favorecer el descanso profundo y la recuperación mientras duermes.",
-        "features": ["Ajuste suave", "Material seguro", "Uso nocturno", "Pack 30 noches"]
-      }
-    ]
-  },
-  "benefits": {
-    "title": "Resultados que se notan en una semana.",
-    "items": [
-      "Recuperación más rápida",
-      "Descanso más profundo",
-      "Menos dolor muscular",
-      "Más energía diaria",
-      "Estrés reducido",
-      "Sin salir de casa"
-    ]
-  },
-  "transformation": {
-    "title": "De sobrevivir el día a rendir al máximo.",
-    "before": ["Estrés constante", "Fatiga acumulada", "Tensión cervical", "Dolor muscular"],
-    "after": ["Calma y control", "Recuperación real", "Sueño profundo", "Energía estable"]
-  },
-  "social": {
-    "title": "Opiniones reales de personas reales.",
-    "testimonials": [
-      {
-        "name": "Sofia M.",
-        "role": "Product Designer",
-        "quote": "Pasé de terminar contracturada cada noche a cerrar el día con alivio real. La combinación de cuello y sueño fue el cambio."
-      },
-      {
-        "name": "Carlos R.",
-        "role": "Entrenamiento funcional",
-        "quote": "El masaje profundo recortó mis tiempos de recuperación. Rindo mejor sin sentirme destruido al día siguiente."
-      },
-      {
-        "name": "Lucia P.",
-        "role": "Founder",
-        "quote": "No es un gadget más. Es una rutina que me devuelve foco, descanso y energía para operar mejor toda la semana."
-      }
-    ]
-  },
-  "plans": {
-    "title": "Elige tu nivel de recuperación.",
-    "cards": [
-      {
-        "name": "Starter",
-        "price": "$89",
-        "description": "Tu entrada al recovery premium.",
-        "items": ["Pulse Pro X", "Guía de rutina", "Envío gratis"]
-      },
-      {
-        "name": "Pro",
-        "price": "$167",
-        "description": "El stack más equilibrado para uso diario.",
-        "items": ["Pulse Pro X", "CerviFlex", "Ahorro de bundle", "Garantía 30 días"]
-      },
-      {
-        "name": "Elite",
-        "price": "$187",
-        "description": "Sistema completo para recuperación 24/7.",
-        "items": ["Pulse Pro X", "CerviFlex", "SleepSeal", "Envío prioritario"]
-      }
-    ],
-    "footnote": "Stock limitado · Envío gratis · Garantía de satisfacción"
-  },
-  "finalCta": {
-    "title": "Tu cuerpo merece recuperarse.",
-    "subtitle": "Convierte la recuperación en tu ventaja competitiva diaria.",
-    "primary": "Empezar ahora",
-    "secondary": "Ver el sistema"
-  },
   "faq": {
     "title": "Preguntas frecuentes",
     "items": [
       {"q": "¿Cuánto tiempo tarda en notarse el resultado?", "a": "La mayoría de clientes notan la diferencia en la primera semana de uso. La tensión muscular suele reducirse en 2-3 días de uso diario."},
       {"q": "¿Se puede usar el Pulse Pro X a diario?", "a": "Sí. El Pulse Pro X está diseñado para rituales de recuperación diaria. Empieza con sesiones de 2-3 minutos por grupo muscular."},
       {"q": "¿Cuál es vuestra política de devoluciones?", "a": "Ofrecemos una garantía de satisfacción de 30 días. Si no estás satisfecho, contáctanos para un reembolso completo sin preguntas."},
-      {"q": "¿Hacéis envíos internacionales?", "a": "Sí, enviamos a todo el mundo. El envío estándar es gratuito en todos los pedidos. Las opciones exprés están disponibles al pagar."},
+      {"q": "¿Hacéis envíos internacionales?", "a": "Sí, enviamos a toda Europa. El envío estándar es gratuito en todos los pedidos. Las opciones exprés están disponibles al pagar."},
       {"q": "¿Puedo usar CerviFlex si tengo dolor crónico de cuello?", "a": "CerviFlex está diseñado para el alivio de la tensión cotidiana, no para tratamientos médicos. Consulta a tu médico si tienes una condición crónica."}
     ]
   },

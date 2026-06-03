@@ -35,6 +35,108 @@
     "resetSent": "If an account exists for that email, a reset link has been sent.",
     "resetDevHint": "Dev mode: reset email simulated. Use an existing test account or create a new one."
   },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "emptyHint": "Add recovery tools to begin your ritual.",
+    "continueShopping": "Continue shopping",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "Free",
+    "total": "Total",
+    "checkout": "Proceed to checkout",
+    "secureCheckout": "Secure checkout - 30-night guarantee",
+    "item": "item",
+    "items": "items"
+  },
+  "checkout": {
+    "title": "Secure checkout",
+    "backToShop": "Back to shop",
+    "contact": "Contact",
+    "email": "Email address",
+    "phone": "Phone (optional)",
+    "shippingAddress": "Shipping address",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "address": "Address",
+    "city": "City",
+    "zip": "ZIP code",
+    "country": "Country",
+    "paymentMethod": "Preferred checkout method",
+    "paymentHint": "Cards work across modern browsers and mobile devices. Apple Pay and Google Pay appear on Stripe's secure page when the device, browser and wallet are compatible.",
+    "card": "Card",
+    "cardDesc": "Visa, Mastercard, Amex",
+    "paypal": "PayPal",
+    "paypalDesc": "Available where supported",
+    "applePay": "Apple Pay",
+    "applePayDesc": "Compatible Apple devices",
+    "googlePay": "Google Pay",
+    "googlePayDesc": "Compatible Android & Chrome",
+    "stripeNote": "Stripe-hosted checkout confirms the final payment options for each shopper based on browser, device, location and wallet availability.",
+    "signInPrompt": "Please sign in or create an account to complete your purchase.",
+    "signInButton": "Sign in / Create account",
+    "continueToPayment": "Continue to secure payment",
+    "processing": "Processing…",
+    "guarantee": "30-day guarantee",
+    "freeShipping": "Free shipping",
+    "secureCheckout": "Secure checkout",
+    "orderSummary": "Order summary",
+    "loadingCart": "Loading your cart…",
+    "emptyCart": "Your cart is empty.",
+    "addItems": "Add items",
+    "qty": "Qty",
+    "subtotalLine": "Subtotal",
+    "shippingLine": "Shipping",
+    "totalLine": "Total",
+    "guaranteeBadge": "30-night money-back guarantee"
+  },
+  "category": {
+    "allProducts": "All products",
+    "filters": "Filters",
+    "sortBy": "Sort by",
+    "featured": "Featured",
+    "priceAsc": "Price: Low to high",
+    "priceDesc": "Price: High to low",
+    "topRated": "Top rated",
+    "mostReviews": "Most reviews",
+    "addToCart": "Add",
+    "added": "Added",
+    "noProducts": "No products found in this category.",
+    "results": "results"
+  },
+  "product": {
+    "addToCart": "Add to cart",
+    "addedToCart": "Added to cart",
+    "description": "Description",
+    "specs": "Specifications",
+    "reviews": "Reviews",
+    "freeShipping": "Free shipping",
+    "returns": "30-day returns",
+    "secureCheckout": "Secure checkout",
+    "shippingInfo": "Shipping & delivery",
+    "shipsIn": "Ships within 24 hours · arrives in 3–5 business days · Free on all orders",
+    "faqHeading": "Frequently asked questions",
+    "faqSubheading": "Quick answers before you add it to your routine.",
+    "relatedProducts": "More from",
+    "ourCatalog": "our catalog",
+    "checkout": "Checkout",
+    "savePercent": "Save {percent}%",
+    "bestSeller": "Best Seller",
+    "new": "New",
+    "deal": "Deal",
+    "trending": "Trending",
+    "whyTitle": "Why this product works in real life",
+    "whyHeading": "Built for repeated use, not one-off novelty.",
+    "whyBody": "The strongest stores do not just show specs. They show how the product fits into daily life. The same principle here: clear benefits, simple setup and enough trust to buy without hesitation."
+  },
+  "success": {
+    "title": "Order confirmed!",
+    "subtitle": "Thank you for your purchase. A confirmation email is on its way.",
+    "ref": "Ref",
+    "delivery": "Estimated delivery",
+    "deliveryDays": "business days",
+    "continueShopping": "Continue shopping"
+  },
   "hero": {
     "kicker": "Premium wellness technology",
     "line1": "Recover better.",
@@ -48,115 +150,13 @@
       "guarantee": "30-day guarantee"
     }
   },
-  "problem": {
-    "title": "Modern life destroys your recovery.",
-    "body": "Screens, stress, poor posture and intense training keep your body in a permanent deficit. RECOVERY SYSTEM™ is built to close that gap every single day.",
-    "items": [
-      "Neck tension from office and screens",
-      "Persistent post-workout muscle soreness",
-      "Shallow sleep and repeated wake-ups",
-      "Mental fatigue and low daytime energy",
-      "No real decompression ritual for stress",
-      "Never feeling fully recovered"
-    ]
-  },
-  "system": {
-    "title": "The complete recovery system.",
-    "description": "Three carefully selected tools designed to work as one integrated at-home recovery ritual.",
-    "products": [
-      {
-        "name": "Pulse Pro X",
-        "tag": "Massage Gun",
-        "focus": "Deep-tissue percussion to release tension, speed up muscle recovery and reduce soreness.",
-        "features": ["8 attachments", "6 intensity levels", "USB-C", "Quiet motor"]
-      },
-      {
-        "name": "CerviFlex",
-        "tag": "Neck Massager",
-        "focus": "Relieves neck and shoulder stress from posture, office work and long screen sessions.",
-        "features": ["3 modes", "Cervical relief", "Lightweight", "Daily use"]
-      },
-      {
-        "name": "SleepSeal",
-        "tag": "Sleep Mouth Tape",
-        "focus": "Supports better nighttime breathing for deeper rest and overnight recovery.",
-        "features": ["Soft fit", "Safe material", "Night use", "30-night pack"]
-      }
-    ]
-  },
-  "benefits": {
-    "title": "Results you can feel within a week.",
-    "items": [
-      "Faster recovery",
-      "Deeper sleep",
-      "Less muscle pain",
-      "More daily energy",
-      "Reduced stress",
-      "At home, every day"
-    ]
-  },
-  "transformation": {
-    "title": "From surviving your day to owning your performance.",
-    "before": ["Constant stress", "Accumulated fatigue", "Neck tension", "Muscle soreness"],
-    "after": ["Calm and control", "Real recovery", "Deep sleep", "Stable energy"]
-  },
-  "social": {
-    "title": "Real reviews from real routines.",
-    "testimonials": [
-      {
-        "name": "Sofia M.",
-        "role": "Product Designer",
-        "quote": "I went from ending every night in neck pain to feeling genuinely reset before bed. The neck and sleep combo changed everything."
-      },
-      {
-        "name": "Carlos R.",
-        "role": "Functional athlete",
-        "quote": "Deep-tissue sessions dramatically cut my recovery time. I perform better without paying for it the next day."
-      },
-      {
-        "name": "Lucia P.",
-        "role": "Founder",
-        "quote": "This is not another gadget. It is a recovery ritual that gives me better focus, sleep and energy every single week."
-      }
-    ]
-  },
-  "plans": {
-    "title": "Choose your recovery level.",
-    "cards": [
-      {
-        "name": "Starter",
-        "price": "$89",
-        "description": "Your entry into premium recovery.",
-        "items": ["Pulse Pro X", "Routine guide", "Free shipping"]
-      },
-      {
-        "name": "Pro",
-        "price": "$167",
-        "description": "The most balanced daily stack.",
-        "items": ["Pulse Pro X", "CerviFlex", "Bundle savings", "30-day guarantee"]
-      },
-      {
-        "name": "Elite",
-        "price": "$187",
-        "description": "Full 24/7 recovery system.",
-        "items": ["Pulse Pro X", "CerviFlex", "SleepSeal", "Priority shipping"]
-      }
-    ],
-    "footnote": "Limited stock · Free shipping · Satisfaction guarantee"
-  },
-  "finalCta": {
-    "title": "Your body deserves recovery.",
-    "subtitle": "Turn recovery into your daily performance edge.",
-    "primary": "Get started",
-    "secondary": "See the system"
-  },
   "faq": {
     "title": "Frequently asked questions",
     "items": [
       {"q": "How long until I notice results?", "a": "Most customers feel a difference within the first week of consistent use. Muscle tension typically reduces within 2–3 days of daily use."},
       {"q": "Is the Pulse Pro X suitable for daily use?", "a": "Yes. The Pulse Pro X is designed for daily recovery rituals. Start with 2–3 minute sessions per muscle group and adjust to your needs."},
       {"q": "What is your return policy?", "a": "We offer a 30-day satisfaction guarantee. If you are not completely satisfied, contact us for a full refund — no questions asked."},
-      {"q": "Do you ship internationally?", "a": "Yes, we ship worldwide. Standard shipping is free on all orders. Express options are available at checkout."},
+      {"q": "Do you ship internationally?", "a": "Yes, we ship across Europe. Standard shipping is free on all orders. Express options are available at checkout."},
       {"q": "Can I use CerviFlex if I have chronic neck pain?", "a": "CerviFlex is designed for everyday tension relief, not medical treatment. Please consult your doctor if you have a chronic condition."}
     ]
   },

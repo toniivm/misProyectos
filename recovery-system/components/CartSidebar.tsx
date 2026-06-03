@@ -11,7 +11,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -20,6 +20,7 @@ export default function CartSidebar() {
   const { isOpen, close, items, remove, updateQty, subtotal, totalItems } =
     useCart();
   const locale = useLocale();
+  const t = useTranslations('cart');
   const { user, openModal } = useAuth();
 
   // Lock body scroll while the cart drawer is open to avoid double scrolling on mobile
@@ -69,7 +70,7 @@ export default function CartSidebar() {
               <div className="flex items-center gap-2.5 text-[#f2eee7]">
                 <ShoppingBag size={17} />
                 <span className="text-[15px] font-semibold">
-                  Your cart
+                  {t('title')}
                   {totalItems > 0 && (
                     <span className="ml-2 rounded-full bg-[#f2eee7] px-2 py-0.5 text-[10px] font-bold text-[#11161d]">
                       {totalItems}
@@ -93,13 +94,13 @@ export default function CartSidebar() {
                   <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03]">
                     <ShoppingBag size={26} className="text-[#3d4a5c]" />
                   </div>
-                  <p className="text-[15px] font-semibold text-[#f2eee7]">Your cart is empty</p>
-                  <p className="mt-1.5 text-[13px] text-[#8791a1]">Add recovery tools to begin your ritual.</p>
+                  <p className="text-[15px] font-semibold text-[#f2eee7]">{t('empty')}</p>
+                  <p className="mt-1.5 text-[13px] text-[#8791a1]">{t('emptyHint')}</p>
                   <button
                     onClick={close}
                     className="mt-7 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.04] px-5 py-2.5 text-[13px] font-medium text-[#d1d8e2] transition hover:border-white/20 hover:bg-white/[0.07]"
                   >
-                    Continue shopping
+                    {t('continueShopping')}
                   </button>
                 </div>
               ) : (
@@ -161,15 +162,15 @@ export default function CartSidebar() {
             {items.length > 0 && (
               <div className="border-t border-white/[0.07] p-5 space-y-3">
                 <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
-                  <span>Subtotal ({totalItems} {totalItems === 1 ? 'item' : 'items'})</span>
+                  <span>{t('subtotal')} ({totalItems} {totalItems === 1 ? t('item') : t('items')})</span>
                   <span className="font-semibold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
-                  <span>Shipping</span>
-                  <span className="font-semibold text-[#5fb07c]">Free</span>
+                  <span>{t('shipping')}</span>
+                  <span className="font-semibold text-[#5fb07c]">{t('free')}</span>
                 </div>
                 <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
-                  <span className="text-[15px] font-semibold text-[#f2eee7]">Total</span>
+                  <span className="text-[15px] font-semibold text-[#f2eee7]">{t('total')}</span>
                   <span className="text-[18px] font-bold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
                 </div>
 
@@ -187,13 +188,13 @@ export default function CartSidebar() {
                   }}
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-5 py-3.5 text-[14px] font-semibold text-[#11161d] transition-transform duration-300 hover:-translate-y-[1px]"
                 >
-                  Proceed to checkout
+                  {t('checkout')}
                   <ArrowRight size={15} />
                 </Link>
 
                 <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#6b7280]">
                   <ShieldCheck size={11} />
-                  Secure checkout - 30-night guarantee
+                  {t('secureCheckout')}
                 </div>
               </div>
             )}

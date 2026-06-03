@@ -58,7 +58,7 @@ const PRODUCT_ICON: Record<string, string> = {
 };
 
 export default function CheckoutPage() {
-  const t = useTranslations();
+  const t = useTranslations('checkout');
   const locale = useLocale();
   const {items, subtotal, hasHydrated} = useCart();
   const { user, openModal, loading: authLoading } = useAuth();
@@ -110,8 +110,6 @@ export default function CheckoutPage() {
         cancelUrl: `${window.location.origin}/${locale}/checkout`,
       };
 
-      // Do not send free-form metadata from client (prevents server validation errors)
-
       const endpoint = API_BASE_URL
         ? `${API_BASE_URL}/payments/create-checkout-session`
         : '/api/payments/create-checkout-session';
@@ -124,7 +122,6 @@ export default function CheckoutPage() {
         body: JSON.stringify(payload),
       });
 
-      // Handle non-OK responses first and try to surface meaningful server messages
       if (!response.ok) {
         let msg = 'Could not start payment';
         try {
@@ -136,12 +133,10 @@ export default function CheckoutPage() {
             msg = text || msg;
           }
         } catch (e) {
-          // ignore parsing errors
         }
         throw new Error(msg);
       }
 
-      // Parse JSON safely
       let data: any = null;
       try {
         data = await response.json();
@@ -154,13 +149,11 @@ export default function CheckoutPage() {
         throw new Error(data?.detail || data?.error || 'Could not start payment');
       }
 
-      // Attempt navigation robustly: prefer top-level navigation, fall back to open/new tab
       try {
         if (window.top && window.top !== window) {
           try {
             window.top.location.href = data.url;
           } catch (e) {
-            // Cross-origin or blocked; open a new tab instead
             const opened = window.open(data.url, '_blank');
             if (!opened) window.location.assign(data.url);
           }
@@ -182,7 +175,6 @@ export default function CheckoutPage() {
     }
   };
 
-  // Prefill email when user is logged in
   useEffect(() => {
     if (user?.email) setContact((c) => ({ ...c, email: user.email }));
   }, [user]);
@@ -196,7 +188,7 @@ export default function CheckoutPage() {
           </Link>
           <div className="flex items-center gap-1.5 text-[12px] text-[#6b7280]">
             <Lock size={12} />
-            Secure checkout
+            {t('title')}
           </div>
         </div>
       </header>
@@ -207,20 +199,18 @@ export default function CheckoutPage() {
           className="mb-8 inline-flex items-center gap-1.5 text-[13px] text-[#6b7280] transition hover:text-[#c4cdd6]"
         >
           <ArrowLeft size={14} />
-          Back to shop
+          {t('backToShop')}
         </Link>
 
         <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
 
-            {/* Contact */}
             <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
-              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Contact</h2>
+              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">{t('contact')}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    Email address
+                    {t('email')}
                   </label>
                   <input
                     type="email"
@@ -233,7 +223,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    Phone (optional)
+                    {t('phone')}
                   </label>
                   <input
                     type="tel"
@@ -246,67 +236,61 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {/* Shipping */}
             <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
-              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Shipping address</h2>
+              <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">{t('shippingAddress')}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">First name</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('firstName')}</label>
                   <input
                     type="text"
                     required
                     value={shipping.firstName}
                     onChange={(e) => setShipping((s) => ({...s, firstName: e.target.value}))}
-                    placeholder="John"
                     className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">Last name</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('lastName')}</label>
                   <input
                     type="text"
                     required
                     value={shipping.lastName}
                     onChange={(e) => setShipping((s) => ({...s, lastName: e.target.value}))}
-                    placeholder="Doe"
                     className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">Address</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('address')}</label>
                   <input
                     type="text"
                     required
                     value={shipping.address}
                     onChange={(e) => setShipping((s) => ({...s, address: e.target.value}))}
-                    placeholder="123 Main Street"
                     className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">City</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('city')}</label>
                   <input
                     type="text"
                     required
                     value={shipping.city}
                     onChange={(e) => setShipping((s) => ({...s, city: e.target.value}))}
-                    placeholder="Madrid"
                     className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">ZIP code</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('zip')}</label>
                   <input
                     type="text"
                     required
                     value={shipping.zip}
                     onChange={(e) => setShipping((s) => ({...s, zip: e.target.value}))}
-                    placeholder="28001"
                     className="w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30 focus:bg-[#141c26]"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">Country</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('country')}</label>
                   <select
                     value={shipping.country}
                     onChange={(e) => setShipping((s) => ({...s, country: e.target.value}))}
@@ -324,11 +308,10 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {/* Payment Methods */}
             <section className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
-              <h2 className="mb-2 text-[17px] font-semibold text-[#f2eee7]">Preferred checkout method</h2>
+              <h2 className="mb-2 text-[17px] font-semibold text-[#f2eee7]">{t('paymentMethod')}</h2>
               <p className="mb-5 text-[12px] leading-5 text-[#8791a1]">
-                Cards work across modern browsers and mobile devices. Apple Pay and Google Pay appear on Stripe's secure page when the device, browser and wallet are compatible.
+                {t('paymentHint')}
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 <button
@@ -342,8 +325,8 @@ export default function CheckoutPage() {
                 >
                   <CreditCard size={18} className="text-[#8ea7c7]" />
                   <div className="text-left">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">Card</div>
-                    <div className="text-[11px] text-[#6b7280]">Visa, Mastercard, Amex</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{t('card')}</div>
+                    <div className="text-[11px] text-[#6b7280]">{t('cardDesc')}</div>
                   </div>
                 </button>
 
@@ -358,8 +341,8 @@ export default function CheckoutPage() {
                 >
                   <div className="text-lg">🅿️</div>
                   <div className="text-left">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">PayPal</div>
-                    <div className="text-[11px] text-[#6b7280]">Available where supported</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{t('paypal')}</div>
+                    <div className="text-[11px] text-[#6b7280]">{t('paypalDesc')}</div>
                   </div>
                 </button>
 
@@ -374,8 +357,8 @@ export default function CheckoutPage() {
                 >
                   <div className="text-lg">🍎</div>
                   <div className="text-left">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">Apple Pay</div>
-                    <div className="text-[11px] text-[#6b7280]">Compatible Apple devices</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{t('applePay')}</div>
+                    <div className="text-[11px] text-[#6b7280]">{t('applePayDesc')}</div>
                   </div>
                 </button>
 
@@ -390,26 +373,26 @@ export default function CheckoutPage() {
                 >
                   <div className="text-lg">🔵</div>
                   <div className="text-left">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">Google Pay</div>
-                    <div className="text-[11px] text-[#6b7280]">Compatible Android & Chrome</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{t('googlePay')}</div>
+                    <div className="text-[11px] text-[#6b7280]">{t('googlePayDesc')}</div>
                   </div>
                 </button>
               </div>
 
               <div className="mt-4 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-[12px] text-[#aab4c2]">
-                Stripe-hosted checkout confirms the final payment options for each shopper based on browser, device, location and wallet availability.
+                {t('stripeNote')}
               </div>
             </section>
 
             {!user && !authLoading && (
               <div className="mb-4 rounded-xl border border-yellow-600/20 bg-yellow-950/10 px-4 py-3 text-[13px] text-yellow-200">
-                Please sign in or create an account to complete your purchase.
+                {t('signInPrompt')}
                 <button
                   type="button"
                   onClick={() => openModal()}
                   className="ml-3 inline-flex items-center rounded-full bg-yellow-200/10 px-3 py-1 text-[13px] font-semibold text-yellow-200"
                 >
-                  Sign in / Create account
+                  {t('signInButton')}
                 </button>
               </div>
             )}
@@ -428,36 +411,35 @@ export default function CheckoutPage() {
               {loading ? (
                 <>
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />
-                  Processing…
+                  {t('processing')}
                 </>
               ) : (
                 <>
                   <Lock size={15} />
-                  Continue to secure payment — €{checkoutSubtotal.toFixed(2)}
+                  {t('continueToPayment')} — €{checkoutSubtotal.toFixed(2)}
                 </>
               )}
             </button>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-[12px] text-[#6b7280]">
-              <span className="flex items-center gap-1"><ShieldCheck size={12} /> 30-day guarantee</span>
-              <span className="flex items-center gap-1"><Truck size={12} /> Free shipping</span>
-              <span className="flex items-center gap-1"><Lock size={12} /> Secure checkout</span>
+              <span className="flex items-center gap-1"><ShieldCheck size={12} /> {t('guarantee')}</span>
+              <span className="flex items-center gap-1"><Truck size={12} /> {t('freeShipping')}</span>
+              <span className="flex items-center gap-1"><Lock size={12} /> {t('secureCheckout')}</span>
             </div>
           </form>
 
-          {/* Order summary */}
           <aside className="h-fit rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6 lg:sticky lg:top-24">
-            <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">Order summary</h2>
+            <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">{t('orderSummary')}</h2>
 
             {!hasHydrated ? (
               <div className="py-8 text-center text-[13px] text-[#6b7280]">
-                Loading your cart...
+                {t('loadingCart')}
               </div>
             ) : checkoutItems.length === 0 ? (
               <div className="py-8 text-center text-[13px] text-[#6b7280]">
-                Your cart is empty.{' '}
+                {t('emptyCart')}{' '}
                 <Link href={`/${locale}`} className="text-[#c4cdd6] underline">
-                  Add items
+                  {t('addItems')}
                 </Link>
               </div>
             ) : (
@@ -473,7 +455,7 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-[#f2eee7] truncate">{item.name}</p>
-                        <p className="text-[12px] text-[#6b7280]">Qty: {item.quantity}</p>
+                        <p className="text-[12px] text-[#6b7280]">{t('qty')}: {item.quantity}</p>
                       </div>
                       <span className="text-[14px] font-semibold text-[#f2eee7]">
                         €{(item.price * item.quantity).toFixed(2)}
@@ -484,22 +466,22 @@ export default function CheckoutPage() {
 
                 <div className="mt-5 space-y-2.5 border-t border-white/[0.07] pt-5">
                   <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
-                    <span>Subtotal</span>
+                    <span>{t('subtotalLine')}</span>
                     <span className="font-semibold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
-                    <span>Shipping</span>
-                    <span className="font-semibold text-[#5fb07c]">Free</span>
+                    <span>{t('shippingLine')}</span>
+                    <span className="font-semibold text-[#5fb07c]">{t('freeShipping')}</span>
                   </div>
                   <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
-                    <span className="text-[15px] font-semibold text-[#f2eee7]">Total</span>
+                    <span className="text-[15px] font-semibold text-[#f2eee7]">{t('totalLine')}</span>
                     <span className="text-[20px] font-bold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
                 </div>
 
                 <div className="mt-4 rounded-xl border border-white/[0.06] bg-white/[0.03] p-3 text-center text-[12px] text-[#6b7280]">
                   <Check size={12} className="mr-1 inline text-[#5fb07c]" />
-                  30-night money-back guarantee
+                  {t('guaranteeBadge')}
                 </div>
               </>
             )}
