@@ -54,6 +54,11 @@ export default function CheckoutPage() {
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState('');
 
+  // Wake up Render backend on mount (avoid cold start delay)
+  useEffect(() => {
+    fetch(API_BASE_URL + '/health', { method: 'GET', mode: 'no-cors' }).catch(() => {});
+  }, []);
+
   const [contact, setContact] = useState({ email: '', phone: '' });
   const [shipping, setShipping] = useState({
     firstName: '', lastName: '', address: '', city: '', country: 'Spain', zip: '',
