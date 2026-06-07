@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import Stripe from 'stripe';
 import admin from 'firebase-admin';
-import sgMail from '@sendgrid/mail';
+import { Resend } from 'resend';
 import fs from 'fs/promises';
 import Joi from 'joi';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,7 +34,7 @@ const externalStatus = {
   skipExternal,
   stripe: { enabled: false, reason: null },
   firebase: { enabled: false, reason: null },
-  sendgrid: { enabled: false, reason: null },
+  email: { enabled: false, reason: null },
 };
 
 function createMockDb() {
@@ -180,12 +180,11 @@ if (!skipExternal) {
     externalStatus.firebase.reason = e?.message || 'Firebase init failed';
   }
 
-  if (process.env.SENDGRID_API_KEY && String(process.env.SENDGRID_API_KEY).trim()) {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    externalStatus.sendgrid.enabled = true;
+  if (process.env.RESEND_API_KEY && String(process.env.RESEND_API_KEY).trim()) {
+    externalStatus.email.enabled = true;
   } else {
-    externalStatus.sendgrid.enabled = false;
-    externalStatus.sendgrid.reason = 'Missing SENDGRID_API_KEY';
+    externalStatus.email.enabled = false;
+    externalStatus.email.reason = 'Missing RESEND_API_KEY';
   }
 } else {
   db = createMockDb();
@@ -193,8 +192,8 @@ if (!skipExternal) {
   admin.FieldValue = { serverTimestamp: () => new Date() };
   externalStatus.firebase.enabled = true;
   externalStatus.firebase.reason = 'SKIP_EXTERNAL enabled';
-  externalStatus.sendgrid.enabled = true;
-  externalStatus.sendgrid.reason = 'SKIP_EXTERNAL enabled';
+  externalStatus.email.enabled = true;
+  externalStatus.email.reason = 'SKIP_EXTERNAL enabled';
 }
 
 function requireDb(res) {
@@ -495,7 +494,7 @@ app.get('/health', (_req,res) => {
     externals: {
       stripe: externalStatus.stripe,
       firebase: externalStatus.firebase,
-      sendgrid: externalStatus.sendgrid,
+      email: externalStatus.email,
     }
   });
 });
@@ -815,15 +814,21 @@ async function sendEmail(to, subject, html){
     return;
   }
 
-  // If SendGrid configured, use it. Otherwise fallback to a console mock.
-  if (process.env.SENDGRID_API_KEY && String(process.env.SENDGRID_API_KEY).trim()){
+  const apiKey = process.env.RESEND_API_KEY;
+  if (apiKey && String(apiKey).trim()){
     try {
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      const from = process.env.SENDER_EMAIL || 'no-reply@noctas.com';
-      await sgMail.send({ to, from, subject, html });
-      console.log(`Email sent to ${to} (SendGrid)`);
+      const resend = new Resend(apiKey);
+      const from = process.env.SENDER_EMAIL ? `Noctas <${process.env.SENDER_EMAIL}>` : 'Noctas <no-reply@noctas.com>';
+      const { data, error } = await resend.emails.send({
+        from,
+        to: [to],
+        subject,
+        html,
+      });
+      if (error) throw error;
+      console.log(`Email sent to ${to} (Resend)`, data?.id || '');
     } catch (e){
-      console.error('SendGrid email error', e);
+      console.error('Resend email error', e);
       console.log(`[MOCK EMAIL][send-error] To: ${to} Subject: ${subject}\n${html}`);
     }
   } else {
