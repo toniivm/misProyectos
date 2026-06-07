@@ -5,22 +5,13 @@
   },
   "nav": {
     "brand": "NOCTAS™",
-    "links": {
-      "system": "Sistema",
-      "benefits": "Beneficios",
-      "reviews": "Opiniones",
-      "plans": "Planes"
-    },
-    "cta": "Empezar ahora",
-    "language": "Idioma",
-    "addToCart": "Añadir al carrito",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
   },
   "auth": {
     "welcomeBack": "Bienvenido",
     "createAccount": "Crear cuenta",
-    "createSubtitle": "Únete a miles de clientes",
+    "createSubtitle": "Únete a miles de clientes satisfechos",
     "signInToAccount": "Inicia sesión en tu cuenta",
     "continueWithGoogle": "Continuar con Google",
     "or": "o",
@@ -88,7 +79,12 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Envío",
     "totalLine": "Total",
-    "guaranteeBadge": "Garantía de devolución de 30 días"
+    "guaranteeBadge": "Garantía de devolución de 30 días",
+    "promoHeading": "Código promocional",
+    "promoPlaceholder": "Ej: NOCTAS10",
+    "promoApply": "Aplicar",
+    "promoApplied": "¡Código {label} aplicado! — {percent}% descuento",
+    "promoError": "Código no válido"
   },
   "category": {
     "allProducts": "Todos los productos",
@@ -150,27 +146,8 @@
       "guarantee": "Garantía 30 días"
     }
   },
-  "problem": {
-    "title": "La vida moderna destruye tu recuperación.",
-    "body": "Pantallas, estrés, sedentarismo y entrenamiento intenso dejan tu cuerpo en déficit constante. NOCTAS™ está diseñado para cerrar esa deuda cada día.",
-    "items": [
-      "Tensión cervical por oficina y pantallas",
-      "Dolor muscular acumulado tras entrenar",
-      "Sueño superficial y despertares nocturnos",
-      "Fatiga mental y baja energía durante el día",
-      "Sin rutina de descarga para el estrés físico",
-      "Sensación de no recuperar nunca al 100%"
-    ]
-  },
   "faq": {
-    "title": "Preguntas frecuentes",
-    "items": [
-      {"q": "¿Cuánto tiempo tarda en notarse el resultado?", "a": "La mayoría de clientes notan la diferencia en la primera semana de uso. La tensión muscular suele reducirse en 2-3 días de uso diario."},
-      {"q": "¿Se puede usar el Pulse Pro X a diario?", "a": "Sí. El Pulse Pro X está diseñado para rituales de recuperación diaria. Empieza con sesiones de 2-3 minutos por grupo muscular."},
-      {"q": "¿Cuál es vuestra política de devoluciones?", "a": "Ofrecemos una garantía de satisfacción de 30 días. Si no estás satisfecho, contáctanos para un reembolso completo sin preguntas."},
-      {"q": "¿Hacéis envíos internacionales?", "a": "Sí, enviamos a toda Europa. El envío estándar es gratuito en todos los pedidos. Las opciones exprés están disponibles al pagar."},
-      {"q": "¿Puedo usar CerviFlex si tengo dolor crónico de cuello?", "a": "CerviFlex está diseñado para el alivio de la tensión cotidiana, no para tratamientos médicos. Consulta a tu médico si tienes una condición crónica."}
-    ]
+    "title": "Preguntas frecuentes"
   },
   "account": {
     "myOrders": "Mis Pedidos",
@@ -178,7 +155,7 @@
     "signOut": "Cerrar sesión"
   },
   "footer": {
-    "tagline": "Herramientas de recuperación premium para el rendimiento moderno.",
+    "tagline": "Herramientas premium de sueño y recuperación para el bienestar diario.",
     "shop": "Tienda",
     "support": "Soporte",
     "returns": "Devoluciones en 30 días",

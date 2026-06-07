@@ -5,22 +5,13 @@
   },
   "nav": {
     "brand": "NOCTAS™",
-    "links": {
-      "system": "System",
-      "benefits": "Benefits",
-      "reviews": "Reviews",
-      "plans": "Plans"
-    },
-    "cta": "Get started",
-    "language": "Language",
-    "addToCart": "Add to cart",
     "login": "Sign in",
     "logout": "Log out"
   },
   "auth": {
     "welcomeBack": "Welcome back",
     "createAccount": "Create account",
-    "createSubtitle": "Join thousands of customers",
+    "createSubtitle": "Join thousands of happy customers",
     "signInToAccount": "Sign in to your account",
     "continueWithGoogle": "Continue with Google",
     "or": "or",
@@ -88,7 +79,12 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Shipping",
     "totalLine": "Total",
-    "guaranteeBadge": "30-night money-back guarantee"
+    "guaranteeBadge": "30-night money-back guarantee",
+    "promoHeading": "Promo code",
+    "promoPlaceholder": "e.g. NOCTAS10",
+    "promoApply": "Apply",
+    "promoApplied": "Code {label} applied! — {percent}% off",
+    "promoError": "Invalid promo code"
   },
   "category": {
     "allProducts": "All products",
@@ -151,14 +147,7 @@
     }
   },
   "faq": {
-    "title": "Frequently asked questions",
-    "items": [
-      {"q": "How long until I notice results?", "a": "Most customers feel a difference within the first week of consistent use. Muscle tension typically reduces within 2–3 days of daily use."},
-      {"q": "Is the Pulse Pro X suitable for daily use?", "a": "Yes. The Pulse Pro X is designed for daily recovery rituals. Start with 2–3 minute sessions per muscle group and adjust to your needs."},
-      {"q": "What is your return policy?", "a": "We offer a 30-day satisfaction guarantee. If you are not completely satisfied, contact us for a full refund — no questions asked."},
-      {"q": "Do you ship internationally?", "a": "Yes, we ship across Europe. Standard shipping is free on all orders. Express options are available at checkout."},
-      {"q": "Can I use CerviFlex if I have chronic neck pain?", "a": "CerviFlex is designed for everyday tension relief, not medical treatment. Please consult your doctor if you have a chronic condition."}
-    ]
+    "title": "Frequently asked questions"
   },
   "account": {
     "myOrders": "My Orders",
@@ -166,7 +155,7 @@
     "signOut": "Sign out"
   },
   "footer": {
-    "tagline": "Premium recovery tools for modern performance.",
+    "tagline": "Premium sleep and recovery tools for daily wellness.",
     "shop": "Shop",
     "support": "Support",
     "returns": "30-day returns",
