@@ -682,8 +682,8 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const paymentMethod = req.body.paymentMethod || 'card';
     
     // Validate payment method
-    if (!['card', 'paypal'].includes(paymentMethod)) {
-      return res.status(400).json({ error: 'INVALID_PAYMENT_METHOD', detail: `Payment method must be one of: card, paypal` });
+    if (!['card'].includes(paymentMethod)) {
+      return res.status(400).json({ error: 'INVALID_PAYMENT_METHOD', detail: `Payment method must be: card` });
     }
 
     // Remove paymentMethod from body before Joi validation
@@ -794,7 +794,6 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     // Stripe shows Apple Pay/Google Pay automatically on capable devices when using 'card'
     const paymentMethodTypes = {
       'card': ['card'],
-      'paypal': ['paypal'],
     };
 
     console.log(`💳 Creating Stripe Checkout session for order ${orderId}... (method: ${paymentMethod})`);
