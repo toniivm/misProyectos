@@ -47,17 +47,12 @@ export default function CheckoutPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal' | 'apple_pay' | 'google_pay'>('card');
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'paypal'>('card');
   const [promoCode, setPromoCode] = useState('');
   const [promoDiscount, setPromoDiscount] = useState(0);
   const [promoLabel, setPromoLabel] = useState('');
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState('');
-
-  // Wake up Render backend on mount (avoid cold start delay)
-  useEffect(() => {
-    fetch(API_BASE_URL + '/health', { method: 'GET', mode: 'no-cors' }).catch(() => {});
-  }, []);
 
   const [contact, setContact] = useState({ email: '', phone: '' });
   const [shipping, setShipping] = useState({
@@ -105,6 +100,7 @@ export default function CheckoutPage() {
         currency: 'eur',
         paymentMethod,
         email: contact.email,
+        phone: contact.phone || undefined,
         shipping: {
           name: `${shipping.firstName} ${shipping.lastName}`.trim(),
           address: {
@@ -209,6 +205,7 @@ export default function CheckoutPage() {
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('email')}</label>
                   <input type="email" required value={contact.email}
+                    autoComplete="email"
                     onChange={(e) => setContact((c) => ({...c, email: e.target.value}))}
                     placeholder="you@example.com"
                     className="input-premium" />
@@ -216,6 +213,7 @@ export default function CheckoutPage() {
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('phone')}</label>
                   <input type="tel" value={contact.phone}
+                    autoComplete="tel"
                     onChange={(e) => setContact((c) => ({...c, phone: e.target.value}))}
                     placeholder="+34 600 000 000"
                     className="input-premium" />
@@ -230,36 +228,42 @@ export default function CheckoutPage() {
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('firstName')}</label>
                   <input type="text" required value={shipping.firstName}
+                    autoComplete="given-name"
                     onChange={(e) => setShipping((s) => ({...s, firstName: e.target.value}))}
                     className="input-premium" />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('lastName')}</label>
                   <input type="text" required value={shipping.lastName}
+                    autoComplete="family-name"
                     onChange={(e) => setShipping((s) => ({...s, lastName: e.target.value}))}
                     className="input-premium" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('address')}</label>
                   <input type="text" required value={shipping.address}
+                    autoComplete="street-address"
                     onChange={(e) => setShipping((s) => ({...s, address: e.target.value}))}
                     className="input-premium" />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('city')}</label>
                   <input type="text" required value={shipping.city}
+                    autoComplete="address-level2"
                     onChange={(e) => setShipping((s) => ({...s, city: e.target.value}))}
                     className="input-premium" />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('zip')}</label>
                   <input type="text" required value={shipping.zip}
+                    autoComplete="postal-code"
                     onChange={(e) => setShipping((s) => ({...s, zip: e.target.value}))}
                     className="input-premium" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('country')}</label>
                   <select value={shipping.country}
+                    autoComplete="country"
                     onChange={(e) => setShipping((s) => ({...s, country: e.target.value}))}
                     className="select-premium">
                     <option>Spain</option>
@@ -301,7 +305,7 @@ export default function CheckoutPage() {
               <h2 className="mb-3 text-[17px] font-semibold text-[#f2eee7]">{t('paymentMethod')}</h2>
               <p className="mb-5 text-[12px] leading-5 text-[#8791a1]">{t('paymentHint')}</p>
               <div className="grid gap-3 sm:grid-cols-2">
-                {/* Card */}
+                {/* Card — incluye Apple Pay y Google Pay automáticamente */}
                 <button type="button" onClick={() => setPaymentMethod('card')}
                   className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
                     paymentMethod === 'card'
@@ -329,42 +333,6 @@ export default function CheckoutPage() {
                   <div className="text-left">
                     <div className="text-[13px] font-semibold text-[#f2eee7]">{t('paypal')}</div>
                     <div className="text-[11px] text-[#6b7280]">{t('paypalDesc')}</div>
-                  </div>
-                </button>
-
-                {/* Apple Pay */}
-                <button type="button" onClick={() => setPaymentMethod('apple_pay')}
-                  className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
-                    paymentMethod === 'apple_pay'
-                      ? 'border-[#8ea7c7] bg-[#8ea7c7]/10'
-                      : 'border-white/[0.08] bg-[#111720] hover:border-white/[0.18]'
-                  }`}>
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0" fill="white">
-                    <path d="M17.056 12.318c-.01-2.282 1.864-3.376 1.944-3.432-1.058-1.546-2.7-1.758-3.284-1.782-1.398-.142-2.73.824-3.44.824-.708 0-1.804-.804-2.966-.782-1.526.022-2.934.888-3.72 2.256-1.586 2.752-.406 6.828 1.14 9.06.756 1.09 1.656 2.316 2.84 2.272 1.138-.044 1.57-.736 2.946-.736s1.766.736 2.968.714c1.226-.022 2.004-1.112 2.754-2.206.868-1.268 1.224-2.498 1.246-2.56-.028-.012-2.388-.916-2.412-3.634"/>
-                    <path d="M14.387 4.128c.628-.758 1.05-1.812.934-2.864-.902.038-1.998.6-2.646 1.358-.58.674-1.09 1.752-.954 2.786.99.076 1.998-.51 2.666-1.28"/>
-                  </svg>
-                  <div className="text-left">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{t('applePay')}</div>
-                    <div className="text-[11px] text-[#6b7280]">{t('applePayDesc')}</div>
-                  </div>
-                </button>
-
-                {/* Google Pay */}
-                <button type="button" onClick={() => setPaymentMethod('google_pay')}
-                  className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
-                    paymentMethod === 'google_pay'
-                      ? 'border-[#8ea7c7] bg-[#8ea7c7]/10'
-                      : 'border-white/[0.08] bg-[#111720] hover:border-white/[0.18]'
-                  }`}>
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                  </svg>
-                  <div className="text-left">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{t('googlePay')}</div>
-                    <div className="text-[11px] text-[#6b7280]">{t('googlePayDesc')}</div>
                   </div>
                 </button>
               </div>
@@ -398,6 +366,18 @@ export default function CheckoutPage() {
                     <path d="M40.5 8.5c0-.8-.3-1.5-.9-2-.6-.5-1.4-.8-2.3-.8h-4V13h4c.9 0 1.7-.3 2.3-.8.6-.5.9-1.2.9-2v-1.7zm-1.8 1.7c0 .4-.2.8-.5 1-.3.3-.7.4-1.2.4h-2V8h2c.5 0 .9.1 1.2.4.3.2.5.6.5 1v1.8z"/>
                     <path d="M48 10.5l-1.5-2L48 6.5h-1.8l-1 1.3-1-1.3h-2.5V13h2.5v-3.2l1 1.3h1.8l-1-1.3.8-1L45.5 10l2.5 3h2l-2-2.5z"/>
                     <path d="M37 3.5h-6V6h5V7h-5v2.5h6V12H29V.5h8v3z"/>
+                  </svg>
+                  {/* Apple Pay */}
+                  <svg viewBox="0 0 24 24" className="h-4 w-5" fill="#000">
+                    <path d="M17.056 12.318c-.01-2.282 1.864-3.376 1.944-3.432-1.058-1.546-2.7-1.758-3.284-1.782-1.398-.142-2.73.824-3.44.824-.708 0-1.804-.804-2.966-.782-1.526.022-2.934.888-3.72 2.256-1.586 2.752-.406 6.828 1.14 9.06.756 1.09 1.656 2.316 2.84 2.272 1.138-.044 1.57-.736 2.946-.736s1.766.736 2.968.714c1.226-.022 2.004-1.112 2.754-2.206.868-1.268 1.224-2.498 1.246-2.56-.028-.012-2.388-.916-2.412-3.634"/>
+                    <path d="M14.387 4.128c.628-.758 1.05-1.812.934-2.864-.902.038-1.998.6-2.646 1.358-.58.674-1.09 1.752-.954 2.786.99.076 1.998-.51 2.666-1.28"/>
+                  </svg>
+                  {/* Google Pay */}
+                  <svg viewBox="0 0 24 24" className="h-4 w-5">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                   </svg>
                 </div>
               </div>

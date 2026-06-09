@@ -319,6 +319,7 @@ const createIntentSchema = Joi.object({
   })).min(1).max(100).required(),
   currency: Joi.string().valid('eur', 'usd', 'gbp', 'jpy').default('eur'),
   email: Joi.string().email().max(100).required(),
+  phone: Joi.string().max(30).optional(),
   shipping: Joi.object({ 
     name: Joi.string().max(100).required(), 
     address: Joi.object({ 
@@ -573,7 +574,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
     }
     
-    const { items, currency, email, shipping } = value;
+    const { items, currency, email, phone, shipping } = value;
     
     // Verify inventory before creating intent
     try {
@@ -598,6 +599,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
     const orderData = {
       status: 'pending',
       email,
+      phone: phone || null,
       items,
       amount,
       currency,
@@ -658,8 +660,8 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const paymentMethod = req.body.paymentMethod || 'card';
     
     // Validate payment method
-    if (!['card', 'paypal', 'apple_pay', 'google_pay'].includes(paymentMethod)) {
-      return res.status(400).json({ error: 'INVALID_PAYMENT_METHOD', detail: `Payment method must be one of: card, paypal, apple_pay, google_pay` });
+    if (!['card', 'paypal'].includes(paymentMethod)) {
+      return res.status(400).json({ error: 'INVALID_PAYMENT_METHOD', detail: `Payment method must be one of: card, paypal` });
     }
 
     // Remove paymentMethod from body before Joi validation
@@ -673,7 +675,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
     }
 
-    const { items, currency, email, shipping, successUrl, cancelUrl } = value;
+    const { items, currency, email, phone, shipping, successUrl, cancelUrl } = value;
 
     if (db) {
       try {
@@ -706,6 +708,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const orderData = {
       status: 'pending',
       email,
+      phone: phone || null,
       items,
       amount,
       currency,
@@ -744,12 +747,10 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const defaultCancel = `${frontendBaseUrl}/checkout?status=cancel&orderId=${orderId}`;
 
     // Map payment method to Stripe payment_method_types
-    // Note: Stripe shows Apple Pay/Google Pay automatically on capable devices when using 'card'
+    // Stripe shows Apple Pay/Google Pay automatically on capable devices when using 'card'
     const paymentMethodTypes = {
       'card': ['card'],
       'paypal': ['paypal'],
-      'apple_pay': ['card'],  // Stripe shows Apple Pay on iOS/Safari when card is enabled
-      'google_pay': ['card']   // Stripe shows Google Pay on Android/Chrome when card is enabled
     };
 
     console.log(`💳 Creating Stripe Checkout session for order ${orderId}... (method: ${paymentMethod})`);
