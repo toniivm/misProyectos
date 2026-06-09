@@ -613,6 +613,28 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
     console.log(`📝 Saving order ${orderRef.id}...`);
     await orderRef.set(orderData);
     console.log(`✓ Order saved: ${orderRef.id}`);
+
+    // Save/update customer data in customers collection
+    if (email) {
+      try {
+        const customerRef = db.collection('customers').doc(email);
+        const customerSnap = await customerRef.get();
+        const existingOrders = customerSnap.exists ? (customerSnap.data().orderIds || []) : [];
+        const customerData = {
+          name: `${shipping?.name || ''}`.trim(),
+          email,
+          phone: phone || null,
+          address: shipping?.address || null,
+          orderIds: [...new Set([...existingOrders, orderRef.id])],
+          lastOrderAt: new Date(),
+          createdAt: customerSnap.exists ? customerSnap.data().createdAt : new Date(),
+        };
+        await customerRef.set(customerData, { merge: true });
+        console.log(`✓ Customer saved: ${email}`);
+      } catch (custErr) {
+        console.error('Failed to save customer data:', custErr?.message || custErr);
+      }
+    }
     
     console.log(`💳 Creating Stripe intent for order ${orderRef.id}...`);
     const paymentIntent = await stripe.paymentIntents.create(
@@ -733,6 +755,28 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       }
     }
 
+    // Save/update customer data in customers collection
+    if (db && email) {
+      try {
+        const customerRef = db.collection('customers').doc(email);
+        const customerSnap = await customerRef.get();
+        const existingOrders = customerSnap.exists ? (customerSnap.data().orderIds || []) : [];
+        const customerData = {
+          name: `${shipping?.name || ''}`.trim(),
+          email,
+          phone: phone || null,
+          address: shipping?.address || null,
+          orderIds: [...new Set([...existingOrders, orderId])],
+          lastOrderAt: new Date(),
+          createdAt: customerSnap.exists ? customerSnap.data().createdAt : new Date(),
+        };
+        await customerRef.set(customerData, { merge: true });
+        console.log(`✓ Customer saved: ${email}`);
+      } catch (custErr) {
+        console.error('Failed to save customer data:', custErr?.message || custErr);
+      }
+    }
+
     const productItems = items.filter((it) => !String(it.id).startsWith('shipping:'));
     const shippingItems = items.filter((it) => String(it.id).startsWith('shipping:'));
     const lineItems = [
@@ -794,6 +838,13 @@ app.get('/orders', adminAuth, async (req,res) => {
   const snap = await db.collection('orders').get();
   const orders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
   res.json({ orders });
+});
+
+app.get('/customers', adminAuth, async (req,res) => {
+  if (!requireDb(res)) return;
+  const snap = await db.collection('customers').get();
+  const customers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  res.json({ customers });
 });
 
 app.patch('/orders/:id', adminAuth, async (req,res) => {
