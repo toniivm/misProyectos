@@ -81,10 +81,11 @@ export default function CheckoutPage() {
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState('');
 
-  const handleAddressSelect = useCallback((addr: { line1: string; city: string; postalCode: string; country: string }) => {
+  const handleAddressSelect = useCallback((addr: { streetName: string; streetNumber: string; city: string; postalCode: string; country: string }) => {
     setShipping((s) => ({
       ...s,
-      address: addr.line1 || s.address,
+      streetName: addr.streetName || s.streetName,
+      streetNumber: addr.streetNumber || s.streetNumber,
       city: addr.city || s.city,
       zip: addr.postalCode || s.zip,
       country: addr.country || s.country,
@@ -93,7 +94,7 @@ export default function CheckoutPage() {
 
   const [contact, setContact] = useState({ email: '', phone: '' });
   const [shipping, setShipping] = useState({
-    firstName: '', lastName: '', address: '', city: '', country: 'Spain', zip: '',
+    firstName: '', lastName: '', streetName: '', streetNumber: '', floor: '', portal: '', city: '', country: 'Spain', zip: '',
   });
   const checkoutItems = hasHydrated ? items : [];
   const checkoutSubtotal = hasHydrated ? subtotal : 0;
@@ -141,8 +142,11 @@ export default function CheckoutPage() {
         shipping: {
           name: `${shipping.firstName} ${shipping.lastName}`.trim(),
           address: {
-            line1: shipping.address, city: shipping.city,
-            postal_code: shipping.zip, country: COUNTRY_CODES[shipping.country] || 'ES',
+            line1: `${shipping.streetName} ${shipping.streetNumber}`.trim(),
+            line2: [shipping.floor, shipping.portal].filter(Boolean).join(', ') || undefined,
+            city: shipping.city,
+            postal_code: shipping.zip,
+            country: COUNTRY_CODES[shipping.country] || 'ES',
           },
         },
         items: checkoutItems.map((item) => ({
@@ -277,14 +281,35 @@ export default function CheckoutPage() {
                     className="input-premium" />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('address')}</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('streetName')}</label>
                   <AddressAutocomplete
-                    value={shipping.address}
-                    onChange={(val) => setShipping((s) => ({...s, address: val}))}
+                    value={shipping.streetName}
+                    onChange={(val) => setShipping((s) => ({...s, streetName: val}))}
                     onAddressSelect={handleAddressSelect}
                     required
                     className="input-premium"
                   />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('streetNumber')}</label>
+                  <input type="text" required value={shipping.streetNumber}
+                    onChange={(e) => setShipping((s) => ({...s, streetNumber: e.target.value}))}
+                    placeholder="Nº"
+                    className="input-premium" />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('floor')}</label>
+                  <input type="text" value={shipping.floor}
+                    onChange={(e) => setShipping((s) => ({...s, floor: e.target.value}))}
+                    placeholder="2ºB"
+                    className="input-premium" />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('portal')}</label>
+                  <input type="text" value={shipping.portal}
+                    onChange={(e) => setShipping((s) => ({...s, portal: e.target.value}))}
+                    placeholder="A"
+                    className="input-premium" />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('city')}</label>

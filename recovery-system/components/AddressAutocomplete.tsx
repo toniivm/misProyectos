@@ -6,7 +6,8 @@ interface AddressAutocompleteProps {
   value: string;
   onChange: (value: string) => void;
   onAddressSelect?: (address: {
-    line1: string;
+    streetName: string;
+    streetNumber: string;
     city: string;
     postalCode: string;
     country: string;
@@ -21,7 +22,8 @@ function extractAddressComponents(components: any[]) {
     components?.find((c: any) => c.types?.includes(type))?.long_name || '';
 
   return {
-    line1: [get('street_number'), get('route')].filter(Boolean).join(' ') || '',
+    streetName: get('route') || '',
+    streetNumber: get('street_number') || '',
     city: get('locality') || get('administrative_area_level_2') || '',
     postalCode: get('postal_code') || '',
     country: get('country') ? get('country').substring(0, 2).toUpperCase() : 'ES',
@@ -56,7 +58,8 @@ export default function AddressAutocomplete({
         const place = autocomplete.getPlace();
         if (place.address_components) {
           const addr = extractAddressComponents(place.address_components);
-          onChange(addr.line1);
+          const full = [addr.streetName, addr.streetNumber].filter(Boolean).join(' ');
+          onChange(full);
           onAddressSelect?.(addr);
         }
       });
@@ -85,7 +88,7 @@ export default function AddressAutocomplete({
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder || 'Calle, número, ciudad...'}
+        placeholder={placeholder || 'Buscar dirección...'}
         className={className || 'input-premium'}
         autoComplete="street-address"
       />

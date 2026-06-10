@@ -374,6 +374,7 @@ function toStripeLineItems(items, currency){
         unit_amount: Math.round(Number(it.price) * 100),
         product_data: {
           name: (it.name || `Item ${it.id || ''}`).toString().slice(0, 200),
+          description: 'NOCTAS™ — Recuperación premium',
         },
       },
       quantity: it.qty,
@@ -831,7 +832,10 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
         success_url: successUrl || defaultSuccess,
         cancel_url: cancelUrl || defaultCancel,
         metadata: { orderId, items: JSON.stringify(items.map((item) => ({ id: item.id, qty: item.qty }))), paymentMethod },
-        payment_intent_data: { metadata: { orderId, paymentMethod } },
+        payment_intent_data: {
+          metadata: { orderId, paymentMethod },
+          description: `Pedido #${orderId} — NOCTAS`,
+        },
       },
       { idempotencyKey }
     );

@@ -211,23 +211,18 @@ body {
 .phone-input-wrapper .PhoneInputCountry {
   background: transparent;
   border: none;
-  padding: 0 8px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  padding: 0 4px;
   cursor: pointer;
   color: #f2eee7;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 .phone-input-wrapper .PhoneInputCountrySelect {
   background: #111720;
   color: #f2eee7;
   border: none;
   outline: none;
-  padding: 8px;
+  padding: 8px 4px;
   font-size: 14px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 .phone-input-wrapper .PhoneInputInput {
   flex: 1;
@@ -235,20 +230,9 @@ body {
   border: none;
   color: #f2eee7;
   font-size: 14px;
-  padding: 12px 14px;
+  padding: 12px 10px;
   outline: none;
   min-width: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-.phone-input-wrapper .PhoneInputInput:focus {
-  border: none;
-  box-shadow: none;
-  outline: none;
-  background: transparent;
 }
 .phone-input-wrapper .PhoneInputInput::placeholder {
   color: #3d4a5c;
@@ -261,18 +245,6 @@ body {
 }
 .phone-input-wrapper .PhoneInputCountrySelectArrow {
   display: none;
-}
-/* Mobile: force dark theme on all phone input elements */
-.phone-input-wrapper input,
-.phone-input-wrapper select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: #f2eee7;
-  outline: none;
 }
 .phone-input-wrapper select option {
   background: #111720;
