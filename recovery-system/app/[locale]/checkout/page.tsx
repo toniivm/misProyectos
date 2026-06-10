@@ -26,6 +26,10 @@ const COUNTRY_CODES: Record<string, string> = {
   Other: 'ES',
 };
 
+const COUNTRY_FROM_CODE: Record<string, string> = Object.fromEntries(
+  Object.entries(COUNTRY_CODES).map(([name, code]) => [code, name])
+);
+
 const PRODUCT_BG: Record<string, string> = {
   'pulse-pro-x': '#0d1f2d', cerviflex: '#0d1f1a', sleepseal: '#1a1028',
   'sleepband-pro': '#101828', 'sleepseal-plus': '#0d1828', 'white-noise-pro': '#131020',
@@ -88,7 +92,7 @@ export default function CheckoutPage() {
       streetNumber: addr.streetNumber || s.streetNumber,
       city: addr.city || s.city,
       zip: addr.postalCode || s.zip,
-      country: addr.country || s.country,
+      country: COUNTRY_FROM_CODE[addr.country] || addr.country || s.country,
     }));
   }, []);
 

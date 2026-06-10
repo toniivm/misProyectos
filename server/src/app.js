@@ -324,6 +324,7 @@ const createIntentSchema = Joi.object({
     name: Joi.string().max(100).required(), 
     address: Joi.object({ 
       line1: Joi.string().max(200).required(), 
+      line2: Joi.string().max(200).optional().allow('', null),
       city: Joi.string().max(100).required(), 
       postal_code: Joi.string().max(20).required(), 
       country: Joi.string().length(2).required() 
