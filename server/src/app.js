@@ -319,7 +319,7 @@ const createIntentSchema = Joi.object({
   })).min(1).max(100).required(),
   currency: Joi.string().valid('eur', 'usd', 'gbp', 'jpy').default('eur'),
   email: Joi.string().email().max(100).required(),
-  phone: Joi.string().max(30).optional(),
+  phone: Joi.string().max(30).required(),
   shipping: Joi.object({ 
     name: Joi.string().max(100).required(), 
     address: Joi.object({ 

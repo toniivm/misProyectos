@@ -211,7 +211,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('phone')}</label>
-                  <input type="tel" value={contact.phone}
+                  <input type="tel" required value={contact.phone}
                     autoComplete="tel"
                     onChange={(e) => setContact((c) => ({...c, phone: e.target.value}))}
                     placeholder="+34 600 000 000"

@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Orders - server writes via Admin SDK, no client writes
+    match /orders/{orderId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    // Customers - server writes via Admin SDK, no client writes
+    match /customers/{email} {
+      allow read: if true;
+      allow write: if false;
+    }
+    // Products - public read
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
