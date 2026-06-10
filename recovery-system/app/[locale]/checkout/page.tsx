@@ -98,7 +98,7 @@ export default function CheckoutPage() {
 
   const [contact, setContact] = useState({ email: '', phone: '' });
   const [shipping, setShipping] = useState({
-    firstName: '', lastName: '', streetName: '', streetNumber: '', floor: '', portal: '', city: '', country: 'Spain', zip: '',
+    firstName: '', lastName: '', streetName: '', streetNumber: '', floor: '', city: '', country: 'Spain', zip: '',
   });
   const checkoutItems = hasHydrated ? items : [];
   const checkoutSubtotal = hasHydrated ? subtotal : 0;
@@ -147,7 +147,7 @@ export default function CheckoutPage() {
           name: `${shipping.firstName} ${shipping.lastName}`.trim(),
           address: {
             line1: `${shipping.streetName} ${shipping.streetNumber}`.trim(),
-            line2: [shipping.floor, shipping.portal].filter(Boolean).join(', ') || undefined,
+            line2: shipping.floor || undefined,
             city: shipping.city,
             postal_code: shipping.zip,
             country: COUNTRY_CODES[shipping.country] || 'ES',
@@ -305,14 +305,7 @@ export default function CheckoutPage() {
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('floor')}</label>
                   <input type="text" value={shipping.floor}
                     onChange={(e) => setShipping((s) => ({...s, floor: e.target.value}))}
-                    placeholder="2ºB"
-                    className="input-premium" />
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('portal')}</label>
-                  <input type="text" value={shipping.portal}
-                    onChange={(e) => setShipping((s) => ({...s, portal: e.target.value}))}
-                    placeholder="A"
+                    placeholder="2ºB, Portal A"
                     className="input-premium" />
                 </div>
                 <div>
