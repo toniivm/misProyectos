@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, ShoppingBag, Plus, Minus, Trash2, ArrowRight, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
-import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { useCart } from '../context/CartContext';
@@ -158,6 +157,7 @@ export default function CartSidebar() {
                       return;
                     }
                     close();
+                    window.location.href = `/${locale}/checkout`;
                   }}
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-5 py-3.5 text-[14px] font-semibold text-[#11161d] transition-all duration-200 hover:bg-white hover:-translate-y-[1px]"
                 >

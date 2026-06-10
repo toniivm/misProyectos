@@ -211,7 +211,6 @@ body {
 .phone-input-wrapper .PhoneInputCountry {
   background: transparent;
   border: none;
-  border-right: 1px solid rgba(255,255,255,0.08);
   padding: 0 8px;
   cursor: pointer;
   color: #f2eee7;
@@ -234,7 +233,6 @@ body {
   flex: 1;
   background: transparent;
   border: none;
-  border-left: none;
   color: #f2eee7;
   font-size: 14px;
   padding: 12px 14px;
@@ -248,7 +246,6 @@ body {
 }
 .phone-input-wrapper .PhoneInputInput:focus {
   border: none;
-  border-left: none;
   box-shadow: none;
   outline: none;
   background: transparent;
@@ -261,21 +258,21 @@ body {
   height: 15px;
   border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
 }
 .phone-input-wrapper .PhoneInputCountrySelectArrow {
   display: none;
 }
-/* Fix mobile: remove any white backgrounds/borders from browser defaults */
+/* Mobile: force dark theme on all phone input elements */
 .phone-input-wrapper input,
 .phone-input-wrapper select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   color: #f2eee7;
+  outline: none;
 }
 .phone-input-wrapper select option {
   background: #111720;

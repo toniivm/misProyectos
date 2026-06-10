@@ -55,7 +55,7 @@ const SPAIN_POSTAL_CITIES: Record<string, string> = {
   '01': 'Álava', '20': 'Gipuzkoa', '47': 'Valladolid', '42': 'Soria',
   '19': 'Guadalajara', '16': 'Cuenca', '45': 'Toledo', '13': 'Ciudad Real',
   '02': 'Albacete', '18': 'Granada', '22': 'Huesca', '44': 'Teruel',
-  '49': 'Zamora', '39': 'Cantabria', '10': 'Cáceres',
+  '49': 'Zamora', '39': 'Cantabria',
 };
 
 function lookupCityFromZip(zip: string, country: string): string | null {
