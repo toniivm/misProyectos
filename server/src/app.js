@@ -926,12 +926,13 @@ app.post('/orders/:id/pack', adminAuth, async (req,res) => {
 
 // Stripe webhook handler — verifies signature and marks orders as paid
 async function handleOrderPaid(orderId, stripeObj){
+  console.log(`\n📧 handleOrderPaid called: orderId=${orderId}`);
   if (!orderId) {
-    console.warn('handleOrderPaid: missing orderId');
+    console.warn('❌ handleOrderPaid: missing orderId');
     return;
   }
   if (!db) {
-    console.warn('handleOrderPaid: no DB configured - skipping order update');
+    console.warn('❌ handleOrderPaid: no DB configured - skipping order update');
     return;
   }
 
@@ -939,31 +940,59 @@ async function handleOrderPaid(orderId, stripeObj){
     const ref = db.collection('orders').doc(orderId);
     const snap = await ref.get();
     if (!snap.exists) {
-      console.warn(`Order ${orderId} not found in DB`);
+      console.warn(`❌ Order ${orderId} not found in DB`);
       return;
     }
     const order = snap.data();
+    console.log(`  Order ${orderId} current status: ${order.status}, email: ${order.email}`);
     if (['paid','processing','packed','shipped','delivered'].includes(order.status)){
-      console.log(`Order ${orderId} already in status ${order.status}`);
+      console.log(`  ℹ Order ${orderId} already in status ${order.status} — skipping`);
       return;
     }
 
     await ref.set({ status: 'paid', paidAt: new Date(), paymentInfo: { stripe: stripeObj?.id || null } }, { merge: true });
+    console.log(`  ✅ Order ${orderId} marked as PAID in Firestore`);
 
     // Attempt to decrement inventory (best-effort)
     try {
       await decrementInventory(order.items || []);
+      console.log(`  ✅ Inventory decremented for order ${orderId}`);
     } catch (e){
-      console.error(`Failed to decrement inventory for order ${orderId}`, e?.message || e);
+      console.error(`❌ Failed to decrement inventory for order ${orderId}`, e?.message || e);
     }
 
-    // Send confirmation email to customer
+    // Send confirmation email to customer using HTML template
     try {
-      const itemsList = (order.items || []).map(it => `<li>${it.name} x${it.qty} - €${(it.price * it.qty).toFixed(2)}</li>`).join('');
-      const total = ((order.amount || 0) / 100).toFixed(2);
-      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Noctas`, `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${orderId}</strong></p><ul>${itemsList}</ul><p><strong>Total: €${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`);
+      console.log(`  📧 Sending confirmation email to ${order.email}...`);
+      const customerName = order.shipping?.name || '';
+      const itemsList = (order.items || []).map(it => `<li style="padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:14px;display:flex;justify-content:space-between;"><span>${it.name} x${it.qty}</span><span style="font-weight:600;">€${(it.price * it.qty).toFixed(2)}</span></li>`).join('');
+      const itemsHtml = `<ul style="list-style:none;padding:0;margin:0;">${itemsList}</ul>`;
+      const total = `€${((order.amount || 0) / 100).toFixed(2)}`;
+
+      let tpl = null;
+      try {
+        const tplPath = new URL('../templates/order-confirmation.html', import.meta.url);
+        tpl = await fs.readFile(tplPath, 'utf8');
+      } catch (e) {
+        console.warn(`  ⚠ Template not found, using inline HTML: ${e.message}`);
+        tpl = null;
+      }
+
+      let html;
+      if (tpl) {
+        html = tpl
+          .replace(/{{orderId}}/g, orderId)
+          .replace(/{{customerName}}/g, customerName)
+          .replace(/{{itemsHtml}}/g, itemsHtml)
+          .replace(/{{total}}/g, total);
+      } else {
+        html = `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${orderId}</strong></p><ul>${itemsList}</ul><p><strong>Total: ${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`;
+      }
+
+      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Noctas`, html);
+      console.log(`  ✅ Confirmation email sent to ${order.email}`);
     } catch (e){
-      console.error('Failed to send order confirmation email', e?.message || e);
+      console.error(`❌ Failed to send order confirmation email for ${orderId}:`, e?.message || e);
     }
   } catch (e){
     console.error('handleOrderPaid error', e?.message || e);
@@ -971,21 +1000,24 @@ async function handleOrderPaid(orderId, stripeObj){
 }
 
 app.post('/stripe/webhook', async (req, res) => {
-  let event;
   const sig = req.headers['stripe-signature'] || req.headers['stripe_signature'];
+  console.log(`\n🔔 Stripe webhook received at ${new Date().toISOString()}`);
+  console.log(`  Headers: stripe-signature=${sig ? 'present' : 'MISSING'}, content-type=${req.headers['content-type']}`);
+  console.log(`  Body type: ${typeof req.body}, isBuffer: ${Buffer.isBuffer(req.body)}, length: ${Buffer.isBuffer(req.body) ? req.body.length : 'N/A'}`);
+
+  let event;
   try {
     if (stripe && stripe.webhooks && process.env.STRIPE_WEBHOOK_SECRET) {
-      // Verify signature when secret available
       event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+      console.log(`  ✅ Signature verified OK`);
     } else if (stripe && stripe.webhooks && typeof stripe.webhooks.constructEvent === 'function') {
-      // Dev/mock path: try constructEvent without secret
       try {
         event = stripe.webhooks.constructEvent(req.body);
       } catch (e) {
+        console.warn(`  ⚠ constructEvent without secret failed: ${e.message}`);
         event = req.body;
       }
     } else {
-      // Fallback: parse raw body
       if (Buffer.isBuffer(req.body)) {
         const s = req.body.toString('utf8') || '{}';
         event = JSON.parse(s);
@@ -994,24 +1026,27 @@ app.post('/stripe/webhook', async (req, res) => {
       }
     }
   } catch (err) {
-    console.error('Webhook signature verification failed.', err?.message || err);
+    console.error(`  ❌ Webhook signature verification FAILED: ${err?.message || err}`);
+    console.error(`  STRIPE_WEBHOOK_SECRET configured: ${!!process.env.STRIPE_WEBHOOK_SECRET}`);
     return res.status(400).send(`Webhook Error: ${err?.message || err}`);
   }
 
-  console.log('Stripe webhook received:', event?.type || 'unknown');
+  console.log(`  Event type: ${event?.type || 'unknown'}`);
 
   try {
     const type = event.type;
     if (type === 'checkout.session.completed') {
       const session = event.data.object;
       const orderId = session?.metadata?.orderId || session?.metadata?.order_id;
+      console.log(`  📦 checkout.session.completed → orderId=${orderId}`);
       await handleOrderPaid(orderId, session);
     } else if (type === 'payment_intent.succeeded') {
       const pi = event.data.object;
       const orderId = pi?.metadata?.orderId || pi?.metadata?.order_id;
+      console.log(`  💰 payment_intent.succeeded → orderId=${orderId}`);
       await handleOrderPaid(orderId, pi);
     } else {
-      console.log('Unhandled stripe event type:', type);
+      console.log(`  ℹ Unhandled event type: ${type}`);
     }
   } catch (e) {
     console.error('Error handling webhook event', e?.message || e);
