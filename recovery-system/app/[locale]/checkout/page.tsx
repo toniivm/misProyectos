@@ -4,9 +4,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, Check, Lock, ShieldCheck, Truck, RotateCcw, Sparkles } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useCart } from '../../../context/CartContext';
 import { useAuth } from '../../../context/AuthContext';
+import PhoneInputField from '../../../components/PhoneInputField';
+import AddressAutocomplete from '../../../components/AddressAutocomplete';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -52,6 +54,16 @@ export default function CheckoutPage() {
   const [promoLabel, setPromoLabel] = useState('');
   const [promoLoading, setPromoLoading] = useState(false);
   const [promoError, setPromoError] = useState('');
+
+  const handleAddressSelect = useCallback((addr: { line1: string; city: string; postalCode: string; country: string }) => {
+    setShipping((s) => ({
+      ...s,
+      address: addr.line1 || s.address,
+      city: addr.city || s.city,
+      zip: addr.postalCode || s.zip,
+      country: addr.country || s.country,
+    }));
+  }, []);
 
   const [contact, setContact] = useState({ email: '', phone: '' });
   const [shipping, setShipping] = useState({
@@ -211,11 +223,11 @@ export default function CheckoutPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('phone')}</label>
-                  <input type="tel" required value={contact.phone}
-                    autoComplete="tel"
-                    onChange={(e) => setContact((c) => ({...c, phone: e.target.value}))}
-                    placeholder="+34 600 000 000"
-                    className="input-premium" />
+                  <PhoneInputField
+                    value={contact.phone}
+                    onChange={(val) => setContact((c) => ({...c, phone: val || ''}))}
+                    required
+                  />
                 </div>
               </div>
             </section>
@@ -240,10 +252,13 @@ export default function CheckoutPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('address')}</label>
-                  <input type="text" required value={shipping.address}
-                    autoComplete="street-address"
-                    onChange={(e) => setShipping((s) => ({...s, address: e.target.value}))}
-                    className="input-premium" />
+                  <AddressAutocomplete
+                    value={shipping.address}
+                    onChange={(val) => setShipping((s) => ({...s, address: val}))}
+                    onAddressSelect={handleAddressSelect}
+                    required
+                    className="input-premium"
+                  />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('city')}</label>
