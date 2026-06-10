@@ -500,6 +500,21 @@ app.get('/health', (_req,res) => {
   });
 });
 
+// Test Firestore write — verifies DB is accessible
+app.get('/test-firestore', async (_req, res) => {
+  if (!db) return res.status(503).json({ error: 'DB not initialized', skipExternal });
+  try {
+    const ts = new Date().toISOString();
+    await db.collection('_test').doc('ping').set({ ts, ok: true });
+    const snap = await db.collection('_test').doc('ping').get();
+    const data = snap.data();
+    await db.collection('_test').doc('ping').delete();
+    res.json({ ok: true, written: ts, readBack: data });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: e?.message, code: e?.code });
+  }
+});
+
 app.get('/products', async (_req,res) => {
   try {
     let stockMap = await getStockMap();
@@ -744,18 +759,24 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     if (orderRef) {
       try {
         console.log(`📝 Saving order ${orderId} (checkout session)...`);
+        console.log(`  db type: ${typeof db}, db null: ${db === null}`);
         await orderRef.set(orderData);
-        console.log(`✓ Order saved: ${orderId}`);
+        console.log(`✓ Order saved to Firestore: ${orderId}`);
       } catch (dbErr) {
+        console.error(`❌ Failed to save order ${orderId}:`, dbErr?.message || dbErr);
+        console.error(`  code: ${dbErr?.code}, details:`, JSON.stringify(dbErr));
         if (isFirestoreRuntimeError(dbErr)) {
           console.warn(`⚠ Order ${orderId} not persisted because Firestore is misconfigured`);
         } else {
           throw dbErr;
         }
       }
+    } else {
+      console.warn(`⚠ orderRef is null — order ${orderId} NOT saved (db=${!!db})`);
     }
 
     // Save/update customer data in customers collection
+    console.log(`👤 Saving customer data: email=${email}, db=${!!db}`);
     if (db && email) {
       try {
         const customerRef = db.collection('customers').doc(email);
@@ -770,11 +791,15 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
           lastOrderAt: new Date(),
           createdAt: customerSnap.exists ? customerSnap.data().createdAt : new Date(),
         };
+        console.log(`  customerData:`, JSON.stringify(customerData));
         await customerRef.set(customerData, { merge: true });
-        console.log(`✓ Customer saved: ${email}`);
+        console.log(`✓ Customer saved to Firestore: ${email}`);
       } catch (custErr) {
-        console.error('Failed to save customer data:', custErr?.message || custErr);
+        console.error(`❌ Failed to save customer ${email}:`, custErr?.message || custErr);
+        console.error(`  code: ${custErr?.code}, details:`, JSON.stringify(custErr));
       }
+    } else {
+      console.warn(`⚠ Customer NOT saved: db=${!!db}, email=${email}`);
     }
 
     const productItems = items.filter((it) => !String(it.id).startsWith('shipping:'));
@@ -1123,3 +1148,18 @@ app.use((err, req, res, next) => {
 });
 
 export { app, db, skipExternal };
+
+// Startup verification: test Firestore connection
+if (db && !skipExternal) {
+  (async () => {
+    try {
+      const testRef = db.collection('_healthcheck').doc('ping');
+      await testRef.set({ ts: new Date() });
+      console.log('✅ Firestore connection OK — writes work');
+      await testRef.delete();
+    } catch (e) {
+      console.error('❌ Firestore connection FAILED:', e?.message || e);
+      console.error('  code:', e?.code);
+    }
+  })();
+}
