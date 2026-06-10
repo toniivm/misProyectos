@@ -15,12 +15,14 @@ const API_BASE_URL =
   'https://misproyectos-neyj.onrender.com';
 
 const COUNTRY_CODES: Record<string, string> = {
-  Spain: 'ES',
-  'United States': 'US',
-  'United Kingdom': 'GB',
-  France: 'FR',
-  Germany: 'DE',
-  Mexico: 'MX',
+  Spain: 'ES', 'United States': 'US', 'United Kingdom': 'GB', France: 'FR',
+  Germany: 'DE', Mexico: 'MX', Portugal: 'PT', Italy: 'IT',
+  Netherlands: 'NL', Belgium: 'BE', Brazil: 'BR', Argentina: 'AR',
+  Colombia: 'CO', Chile: 'CL', Peru: 'PE', Japan: 'JP',
+  'South Korea': 'KR', China: 'CN', Australia: 'AU', Canada: 'CA',
+  Switzerland: 'CH', Austria: 'AT', Poland: 'PL', Sweden: 'SE',
+  Norway: 'NO', Denmark: 'DK', Finland: 'FI', Ireland: 'IE',
+  Greece: 'GR', Turkey: 'TR', Morocco: 'MA', 'Dominican Republic': 'DO',
   Other: 'ES',
 };
 
@@ -39,6 +41,30 @@ const PRODUCT_ICON: Record<string, string> = {
   'thermapad-pro': '🔥', 'weighted-mask-pro': '😴', breathcalm: '🌬️',
   'travel-pillow-ultra': '✈️', 'portable-pulse': '🎒', 'napkit-pro': '🧳',
 };
+
+const SPAIN_POSTAL_CITIES: Record<string, string> = {
+  '28': 'Madrid', '08': 'Barcelona', '46': 'Valencia', '41': 'Sevilla',
+  '30': 'Murcia', '15': 'A Coruña', '36': 'Pontevedra', '33': 'Asturias',
+  '48': 'Bilbao', '31': 'Navarra', '50': 'Zaragoza', '37': 'Salamanca',
+  '06': 'Badajoz', '14': 'Córdoba', '23': 'Jaén', '29': 'Málaga',
+  '11': 'Cádiz', '03': 'Alicante', '12': 'Castellón', '17': 'Girona',
+  '25': 'Lleida', '43': 'Tarragona', '09': 'Burgos', '26': 'La Rioja',
+  '05': 'Ávila', '04': 'Almería', '21': 'Huelva', '35': 'Las Palmas',
+  '38': 'Tenerife', '07': 'Illes Balears', '10': 'Cáceres',
+  '32': 'Ourense', '27': 'Lugo', '24': 'León', '34': 'Palencia',
+  '01': 'Álava', '20': 'Gipuzkoa', '47': 'Valladolid', '42': 'Soria',
+  '19': 'Guadalajara', '16': 'Cuenca', '45': 'Toledo', '13': 'Ciudad Real',
+  '02': 'Albacete', '18': 'Granada', '22': 'Huesca', '44': 'Teruel',
+  '49': 'Zamora', '39': 'Cantabria', '10': 'Cáceres',
+};
+
+function lookupCityFromZip(zip: string, country: string): string | null {
+  if (country !== 'Spain' && country !== 'ES') return null;
+  const cleaned = zip.replace(/\s/g, '');
+  if (!/^\d{5}$/.test(cleaned)) return null;
+  const prefix = cleaned.substring(0, 2);
+  return SPAIN_POSTAL_CITIES[prefix] || null;
+}
 
 export default function CheckoutPage() {
   const t = useTranslations('checkout');
@@ -272,6 +298,12 @@ export default function CheckoutPage() {
                   <input type="text" required value={shipping.zip}
                     autoComplete="postal-code"
                     onChange={(e) => setShipping((s) => ({...s, zip: e.target.value}))}
+                    onBlur={(e) => {
+                      if (!shipping.city) {
+                        const city = lookupCityFromZip(e.target.value, shipping.country);
+                        if (city) setShipping((s) => ({...s, city}));
+                      }
+                    }}
                     className="input-premium" />
                 </div>
                 <div className="sm:col-span-2">
@@ -280,13 +312,39 @@ export default function CheckoutPage() {
                     autoComplete="country"
                     onChange={(e) => setShipping((s) => ({...s, country: e.target.value}))}
                     className="select-premium">
-                    <option>Spain</option>
-                    <option>United States</option>
-                    <option>United Kingdom</option>
-                    <option>France</option>
-                    <option>Germany</option>
-                    <option>Mexico</option>
-                    <option>Other</option>
+                    <option value="Spain">España</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="France">Francia</option>
+                    <option value="Germany">Alemania</option>
+                    <option value="Italy">Italia</option>
+                    <option value="Netherlands">Países Bajos</option>
+                    <option value="Belgium">Bélgica</option>
+                    <option value="United Kingdom">Reino Unido</option>
+                    <option value="United States">Estados Unidos</option>
+                    <option value="Mexico">México</option>
+                    <option value="Brazil">Brasil</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Peru">Perú</option>
+                    <option value="Japan">Japón</option>
+                    <option value="South Korea">Corea del Sur</option>
+                    <option value="China">China</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Canada">Canadá</option>
+                    <option value="Switzerland">Suiza</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Poland">Polonia</option>
+                    <option value="Sweden">Suecia</option>
+                    <option value="Norway">Noruega</option>
+                    <option value="Denmark">Dinamarca</option>
+                    <option value="Finland">Finlandia</option>
+                    <option value="Ireland">Irlanda</option>
+                    <option value="Greece">Grecia</option>
+                    <option value="Turkey">Turquía</option>
+                    <option value="Morocco">Marruecos</option>
+                    <option value="Dominican Republic">República Dominicana</option>
+                    <option value="Other">Otro</option>
                   </select>
                 </div>
               </div>

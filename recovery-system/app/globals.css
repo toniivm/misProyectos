@@ -194,6 +194,60 @@ body {
   background: #141c26;
 }
 
+/* ── Phone input ── */
+.phone-input-wrapper .PhoneInput {
+  display: flex;
+  align-items: center;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #111720;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+.phone-input-wrapper .PhoneInput:focus-within {
+  border-color: rgba(255,255,255,0.3);
+  background: #141c26;
+}
+.phone-input-wrapper .PhoneInputCountry {
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding: 0 8px;
+  cursor: pointer;
+  color: #f2eee7;
+}
+.phone-input-wrapper .PhoneInputCountrySelect {
+  background: #111720;
+  color: #f2eee7;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 14px;
+}
+.phone-input-wrapper .PhoneInputInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #f2eee7;
+  font-size: 14px;
+  padding: 12px 14px;
+  outline: none;
+  min-width: 0;
+}
+.phone-input-wrapper .PhoneInputInput::placeholder {
+  color: #3d4a5c;
+}
+.phone-input-wrapper .PhoneInputCountryIcon {
+  width: 20px;
+  height: 15px;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
+}
+.phone-input-wrapper .PhoneInputCountrySelectArrow {
+  display: none;
+}
+
 /* ── Hide scrollbar ── */
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
