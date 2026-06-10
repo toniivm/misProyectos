@@ -52,7 +52,7 @@
     "address": "Dirección",
     "streetName": "Dirección",
     "streetNumber": "Nº",
-    "floor": "Piso / Portal (opcional)",
+    "floor": "Piso / Portal",
     "portal": "Portal / Edificio",
     "city": "Ciudad",
     "zip": "Código postal",

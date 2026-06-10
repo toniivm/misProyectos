@@ -52,7 +52,7 @@
     "address": "Address",
     "streetName": "Address",
     "streetNumber": "No.",
-    "floor": "Floor / Apt (optional)",
+    "floor": "Floor / Apt",
     "portal": "Building / Portal",
     "city": "City",
     "zip": "ZIP code",

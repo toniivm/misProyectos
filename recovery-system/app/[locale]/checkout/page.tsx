@@ -303,7 +303,7 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('floor')}</label>
-                  <input type="text" value={shipping.floor}
+                  <input type="text" required value={shipping.floor}
                     onChange={(e) => setShipping((s) => ({...s, floor: e.target.value}))}
                     placeholder="2ºB, Portal A"
                     className="input-premium" />
