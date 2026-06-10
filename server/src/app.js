@@ -892,7 +892,7 @@ app.patch('/orders/:id', adminAuth, async (req,res) => {
 async function sendEmail(to, subject, html){
   if (skipExternal) {
     console.log(`[MOCK EMAIL][skipExternal] To: ${to} Subject: ${subject}\n${html}`);
-    return;
+    return { ok: true, mock: true };
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -900,20 +900,26 @@ async function sendEmail(to, subject, html){
     try {
       const resend = new Resend(apiKey);
       const from = process.env.SENDER_EMAIL ? `Noctas <${process.env.SENDER_EMAIL}>` : 'Noctas <onboarding@resend.dev>';
+      console.log(`📧 Sending email from "${from}" to "${to}"...`);
       const { data, error } = await resend.emails.send({
         from,
         to: [to],
         subject,
         html,
       });
-      if (error) throw error;
-      console.log(`Email sent to ${to} (Resend)`, data?.id || '');
+      if (error) {
+        console.error('❌ Resend API error:', JSON.stringify(error));
+        return { ok: false, error: error.message || JSON.stringify(error) };
+      }
+      console.log(`✅ Email sent to ${to} (Resend)`, data?.id || '');
+      return { ok: true, id: data?.id };
     } catch (e){
-      console.error('Resend email error', e);
-      console.log(`[MOCK EMAIL][send-error] To: ${to} Subject: ${subject}\n${html}`);
+      console.error('❌ Resend exception:', e?.message || e);
+      return { ok: false, error: e?.message || 'Unknown error' };
     }
   } else {
-    console.log(`[MOCK EMAIL] To: ${to} Subject: ${subject}\n${html}`);
+    console.log(`⚠️ [NO API KEY] To: ${to} Subject: ${subject}`);
+    return { ok: false, error: 'RESEND_API_KEY not configured' };
   }
 }
 
@@ -1138,6 +1144,7 @@ app.post('/emails/order-confirmation', async (req,res) => {
   }
 
   const customerName = order.shipping?.name || '';
+  let emailResult;
   if (tpl) {
     const html = tpl
       .replace(/{{orderId}}/g, orderId)
@@ -1145,9 +1152,9 @@ app.post('/emails/order-confirmation', async (req,res) => {
       .replace(/{{itemsHtml}}/g, `<ul>${itemsList}</ul>`)
       .replace(/{{total}}/g, `€${total}`);
 
-    await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Noctas`, html);
+    emailResult = await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Noctas`, html);
   } else {
-    await sendEmail(
+    emailResult = await sendEmail(
       email,
       `✅ Confirmación de pedido #${orderId} - Noctas`,
       `<h1>¡Gracias por tu pedido!</h1>
@@ -1160,7 +1167,7 @@ app.post('/emails/order-confirmation', async (req,res) => {
     );
   }
 
-  res.json({ ok: true });
+  res.json({ ok: emailResult?.ok ?? true, email: emailResult });
 });
 
 // 404 handler
