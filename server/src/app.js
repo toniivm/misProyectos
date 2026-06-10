@@ -899,7 +899,7 @@ async function sendEmail(to, subject, html){
   if (apiKey && String(apiKey).trim()){
     try {
       const resend = new Resend(apiKey);
-      const from = process.env.SENDER_EMAIL ? `Noctas <${process.env.SENDER_EMAIL}>` : 'Noctas <no-reply@noctas.com>';
+      const from = process.env.SENDER_EMAIL ? `Noctas <${process.env.SENDER_EMAIL}>` : 'Noctas <onboarding@resend.dev>';
       const { data, error } = await resend.emails.send({
         from,
         to: [to],
