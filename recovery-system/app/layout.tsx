@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   keywords: [
     'noctip', 'sleep technology', 'recovery products', 'sleep headband', 'white noise machine',
     'neck massager', 'weighted sleep mask', 'cervical massager', 'sleep audio', 'wellness products',
-    'premium sleep', 'sleep optimization', 'recovery tools', 'biohacking sleep',
+    'premium sleep', 'sleep optimization', 'recovery tools', 'biohacking sleep', 'noctip.com',
   ],
-  authors: [{ name: 'Noctip' }],
+  authors: [{ name: 'Noctip', url: 'https://noctip.com' }],
   creator: 'Noctip',
   publisher: 'Noctip',
   metadataBase: new URL('https://noctip.com'),
@@ -91,6 +91,13 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
         <meta name="theme-color" content="#080c16" />
+        <meta name="msapplication-TileColor" content="#080c16" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://noctip.com" />
       </head>
       <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden">
         <UtmCapture />
