@@ -8,6 +8,7 @@ import {AuthProvider} from '../../context/AuthContext';
 import CartSidebar from '../../components/CartSidebar';
 import AuthModal from '../../components/AuthModal';
 import Footer from '../../components/Footer';
+import CookieConsent from '../../components/CookieConsent';
 import LocalePreferenceSync from '../../components/LocalePreferenceSync';
 import BackendWarmup from '../../components/BackendWarmup';
 
@@ -304,6 +305,7 @@ export default async function LocaleLayout({children, params}: Props) {
           <Footer />
           <CartSidebar />
           <AuthModal />
+          <CookieConsent />
         </AuthProvider>
       </CartProvider>
     </NextIntlClientProvider>

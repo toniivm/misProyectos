@@ -94,7 +94,8 @@ export default function Footer() {
             </div>
             <ul className="space-y-2.5">
               {[
-                { label: isEs ? 'Contáctanos' : 'Contact us', href: '#' },
+                { label: isEs ? 'Contáctanos' : 'Contact us', href: `/${locale}/contact` },
+                { label: isEs ? 'Sobre nosotros' : 'About us', href: `/${locale}/about` },
                 { label: isEs ? 'Seguir pedido' : 'Track order', href: '#' },
                 { label: isEs ? 'Devoluciones' : 'Returns', href: `/${locale}/legal/returns` },
                 { label: isEs ? 'Envíos' : 'Shipping', href: `/${locale}/legal/shipping` },

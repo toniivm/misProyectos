@@ -3,6 +3,7 @@ import { Inter, Syne } from 'next/font/google'
 import {getLocale} from 'next-intl/server'
 import './globals.css'
 import UtmCapture from '../components/UtmCapture'
+import GoogleAnalytics from '../components/GoogleAnalytics'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -100,6 +101,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://noctip.com" />
       </head>
       <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden">
+        <GoogleAnalytics />
         <UtmCapture />
         {children}
       </body>
