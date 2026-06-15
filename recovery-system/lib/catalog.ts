@@ -43,9 +43,9 @@ export const CATEGORIES: Category[] = [
     name_en: 'Sleep & Audio',
     name_es: 'Sueño y audio',
     icon: '🎧',
-    description: 'Headbands, sound machines and accessories designed for better sleep audio.',
-    description_en: 'Headbands, sound machines and accessories designed for better sleep audio.',
-    description_es: 'Cintas, máquinas de sonido y accesorios pensados para mejorar el descanso con audio.',
+    description: 'Precision-engineered audio devices designed to improve sleep quality through controlled sound environments.',
+    description_en: 'Precision-engineered audio devices designed to improve sleep quality through controlled sound environments.',
+    description_es: 'Dispositivos de audio de precisión diseñados para mejorar la calidad del sueño mediante entornos sonoros controlados.',
   },
   {
     id: 'neck-recovery',
@@ -54,9 +54,9 @@ export const CATEGORIES: Category[] = [
     name_en: 'Neck & Recovery',
     name_es: 'Cuello y recuperación',
     icon: '🧘',
-    description: 'Cervical decompressors, neck massagers and posture correctors.',
-    description_en: 'Cervical decompressors, neck massagers and posture correctors.',
-    description_es: 'Descompresores cervicales, masajeadores de cuello y correctores posturales.',
+    description: 'Professional-grade recovery tools for cervical relief, muscle tension and postural correction.',
+    description_en: 'Professional-grade recovery tools for cervical relief, muscle tension and postural correction.',
+    description_es: 'Herramientas de recuperación profesional para alivio cervical, tensión muscular y corrección postural.',
   },
   {
     id: 'sensory',
@@ -65,9 +65,9 @@ export const CATEGORIES: Category[] = [
     name_en: 'Sensory & Relaxation',
     name_es: 'Sensorial y relajación',
     icon: '🌙',
-    description: 'Eye masks, breathing trainers and sensory relaxation tools.',
-    description_en: 'Eye masks, breathing trainers and sensory relaxation tools.',
-    description_es: 'Antifaces, entrenadores respiratorios y herramientas sensoriales para relajarte.',
+    description: 'Tactile pressure tools and sensory aids engineered to accelerate the transition into deep rest.',
+    description_en: 'Tactile pressure tools and sensory aids engineered to accelerate the transition into deep rest.',
+    description_es: 'Herramientas de presión táctil y ayudas sensoriales diseñadas para acelerar la transición al descanso profundo.',
   },
 ]
 

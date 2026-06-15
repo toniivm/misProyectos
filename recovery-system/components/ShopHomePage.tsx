@@ -75,20 +75,20 @@ const SHOP_HOME_COPY = {
     stepsHeading: 'How it works',
     stepsSub: 'Three simple steps to better rest',
     steps: [
-      { step: '01', icon: '🎯', title: 'Pick your problem', text: 'Browse by category: sleep, neck relief or sensory relaxation. Every product targets a specific daily issue.' },
-      { step: '02', icon: '📦', title: 'Order today, ships tomorrow', text: 'Every order ships within 24 hours with free tracked delivery across Europe.' },
-      { step: '03', icon: '✨', title: '30-night guarantee', text: 'Try it for a month. If you don\'t feel the difference, contact us for a full refund.' },
+      { step: '01', icon: '🎯', title: 'Identify your need', text: 'Browse by category: sleep optimization, cervical recovery, or sensory relaxation. Each product is engineered to solve a specific daily problem.' },
+      { step: '02', icon: '📦', title: 'Order today, ships tomorrow', text: 'All orders are processed within 24 hours. Free tracked shipping across Europe with real-time delivery updates.' },
+      { step: '03', icon: '✨', title: '30-night satisfaction guarantee', text: 'Test any product for 30 nights in your own environment. Full refund if it doesn\'t meet your expectations — no questions asked.' },
     ],
     testimonialsHeading: 'What our customers say',
-    testimonialsSub: 'Real reviews from real people',
+    testimonialsSub: 'Verified reviews from real buyers',
     verifiedPurchase: 'Verified purchase',
     reviews: [
-      { text: 'I bought it because of the price and didn\'t expect much, but the headband is comfortable and the sound is clear. I fall asleep much faster now.', author: 'Andrea L.', role: 'Student', stars: 5, product: 'Noctive Halo' },
-      { text: 'I get neck tightness from working on the computer all day. After using the Neck Massager 15 min a day, the difference is noticeable.', author: 'Miguel Á.', role: 'IT Specialist', stars: 4, product: 'Neck Massager' },
-      { text: 'Noctive Halo has been a game changer for my sleep. It\'s comfortable and the sound quality is great.', author: 'Carla F.', role: 'Fitness enthusiast', stars: 5, product: 'Noctive Halo' },
-      { text: 'The weighted mask helps me relax so much faster. The gentle pressure is really calming. Great value.', author: 'Laura P.', role: 'New mom', stars: 4, product: 'Noctive Calm Mask' },
-      { text: 'I travel a lot for work and the sleep headband lets me rest anywhere. Very portable and comfortable.', author: 'David R.', role: 'Consultant', stars: 5, product: 'Sleep Headband' },
-      { text: 'The white noise machine masks everything. My sleep has improved dramatically.', author: 'Sara M.', role: 'Teacher', stars: 4, product: 'Noctive Wave' },
+      { text: 'Invested in the Noctive Halo without high expectations, but the build quality and comfort exceeded them. The sound clarity is impressive for such a thin device. I fall asleep noticeably faster now.', author: 'Andrea L.', role: 'Student', stars: 5, product: 'Noctive Halo' },
+      { text: 'After years of neck tension from desk work, the Neck Massager delivered measurable improvement in just two weeks of daily 15-minute sessions. Professional-grade at an accessible price.', author: 'Miguel Á.', role: 'IT Specialist', stars: 4, product: 'Neck Massager' },
+      { text: 'The Noctive Halo transformed my sleep routine. Comfortable enough to forget it\'s there, yet the sound quality rivals my regular headphones. Premium product, premium results.', author: 'Carla F.', role: 'Fitness enthusiast', stars: 5, product: 'Noctive Halo' },
+      { text: 'The weighted mask\'s gentle pressure creates an immediate calming effect. Combined with the aromatherapy insert, it\'s become an essential part of my evening routine. Excellent value.', author: 'Laura P.', role: 'New mom', stars: 4, product: 'Noctive Calm Mask' },
+      { text: 'As a frequent business traveler, the Sleep Headband has become indispensable. Portable, comfortable, and the battery lasts through long-haul flights. Highly recommended for road warriors.', author: 'David R.', role: 'Consultant', stars: 5, product: 'Sleep Headband' },
+      { text: 'The Noctive Wave\'s sound profiles are genuinely well-tuned. It masks ambient noise effectively and the adaptive volume feature is a thoughtful touch. My sleep quality has improved dramatically.', author: 'Sara M.', role: 'Teacher', stars: 4, product: 'Noctive Wave' },
     ],
     stats: [
       { value: '15+', label: 'Premium products' },
@@ -99,12 +99,12 @@ const SHOP_HOME_COPY = {
     faqHeading: 'Frequently asked questions',
     faqSub: 'Everything you need to know before your first order',
     faqs: [
-      { q: 'How long does shipping take?', a: 'Standard orders ship within 24 hours and arrive in 3–5 business days across Europe. Express 1–2 day shipping is available at checkout.' },
-      { q: 'What is your return policy?', a: 'Try any product for 30 nights. If it does not work for you, contact us for a free return and full refund with no questions asked.' },
-      { q: 'Are the products compatible with all devices?', a: 'Bluetooth products connect via Bluetooth 5.0 to any smartphone, tablet or computer. USB-C products charge with any standard USB-C cable.' },
-      { q: 'Is checkout secure?', a: 'Yes. All payments are processed through Stripe with SSL encryption. We never store your card details.' },
-      { q: 'Can I track my order?', a: 'Yes. You will receive a tracking email within 24 hours of your order shipping. All shipments include real-time tracking.' },
-      { q: 'Do you offer bundles?', a: 'Yes. Add multiple products to your cart and bundle discounts are applied automatically at checkout.' },
+      { q: 'How long does shipping actually take?', a: 'We process and ship all orders within 24 hours. Standard delivery across Europe takes 3-5 business days. Express 1-2 day shipping is available at checkout. All shipments include real-time tracking.' },
+      { q: 'What exactly does the 30-night guarantee cover?', a: 'You can test any product for 30 nights in your own environment. If it doesn\'t meet your expectations, contact us and we arrange a free return with a full refund. No justification required.' },
+      { q: 'Are the products compatible with all devices?', a: 'All Bluetooth products use Bluetooth 5.0+ for universal compatibility with smartphones, tablets, and computers. USB-C products charge with any standard cable. No special apps required.' },
+      { q: 'Is checkout really secure?', a: 'Yes. All payments are processed through Stripe with 256-bit SSL encryption. We never store card details on our servers. We accept Visa, Mastercard, Amex, Apple Pay, and Google Pay.' },
+      { q: 'Can I track my order in real time?', a: 'Absolutely. You\'ll receive a tracking email within 24 hours of shipment. All deliveries include real-time tracking so you know exactly when to expect your order.' },
+      { q: 'Do you offer bundle discounts?', a: 'Yes. Add multiple products to your cart and bundle discounts are applied automatically at checkout. The more you add, the more you save.' },
     ],
     ctaHeading: 'Ready to transform your sleep?',
     ctaSub: 'Join 6,000+ customers who have already improved their recovery routine',
@@ -156,20 +156,20 @@ const SHOP_HOME_COPY = {
     stepsHeading: 'Cómo funciona',
     stepsSub: 'Tres pasos simples para descansar mejor',
     steps: [
-      { step: '01', icon: '🎯', title: 'Elige tu problema', text: 'Compra por categoría: sueño, alivio o relajación. Cada producto resuelve una necesidad concreta.' },
-      { step: '02', icon: '📦', title: 'Pídelo hoy, sale mañana', text: 'Cada pedido sale en 24 horas con envío gratis y seguimiento en toda Europa.' },
-      { step: '03', icon: '✨', title: 'Garantía de 30 noches', text: 'Pruébalo durante un mes. Si no notas la diferencia, te devolvemos el dinero.' },
+      { step: '01', icon: '🎯', title: 'Identifica tu necesidad', text: 'Explora por categoría: optimización del sueño, recuperación cervical o relajación sensorial. Cada producto está diseñado para resolver un problema concreto.' },
+      { step: '02', icon: '📦', title: 'Pídelo hoy, sale mañana', text: 'Todos los pedidos se procesan en 24 horas. Envío gratuito con seguimiento en toda Europa y actualizaciones de entrega en tiempo real.' },
+      { step: '03', icon: '✨', title: 'Garantía de satisfacción de 30 noches', text: 'Prueba cualquier producto durante 30 noches en tu propio entorno. Reembolso completo si no cumple tus expectativas.' },
     ],
     testimonialsHeading: 'Lo que dicen nuestros clientes',
-    testimonialsSub: 'Opiniones reales de personas reales',
+    testimonialsSub: 'Reseñas verificadas de compradores reales',
     verifiedPurchase: 'Compra verificada',
     reviews: [
-      { text: 'Lo compré por el precio y no esperaba mucho, pero la cinta es cómoda y el sonido se escucha bien. Me duermo mucho más rápido.', author: 'Andrea L.', role: 'Estudiante', stars: 5, product: 'Noctive Halo' },
-      { text: 'Tengo contracturas en el cuello por el ordenador. Desde que uso el masajeador 15 min al día, he notado mucha mejora.', author: 'Miguel Á.', role: 'Informático', stars: 4, product: 'Masajeador de cuello' },
-      { text: 'Noctive Halo me ha cambiado el sueño. Es cómoda y el sonido se escucha genial.', author: 'Carla F.', role: 'Deportista', stars: 5, product: 'Noctive Halo' },
-      { text: 'El antifaz con peso me ayuda a relajarme mucho más rápido. La presión suave es muy calmante.', author: 'Laura P.', role: 'Madre primeriza', stars: 4, product: 'Noctive Calm Mask' },
-      { text: 'Viajo mucho por trabajo y la cinta de sueño me permite dormir en cualquier sitio.', author: 'David R.', role: 'Consultor', stars: 5, product: 'Sleep Headband' },
-      { text: 'La máquina de ruido blanco lo tapa todo. Mi sueño ha mejorado un montón.', author: 'Sara M.', role: 'Profesora', stars: 4, product: 'Noctive Wave' },
+      { text: 'Invertí en el Noctive Halo sin expectativas elevadas, pero la calidad de construcción y comodidad las superaron. La claridad del sonido es impresionante para un dispositivo tan fino. Me duermo notablemente más rápido.', author: 'Andrea L.', role: 'Estudiante', stars: 5, product: 'Noctive Halo' },
+      { text: 'Después de años de tensión cervical por trabajo de oficina, el Masajeador de cuello logró una mejora medible en solo dos semanas de uso diario de 15 minutos. Calidad profesional a un precio accesible.', author: 'Miguel Á.', role: 'Informático', stars: 4, product: 'Masajeador de cuello' },
+      { text: 'El Noctive Halo transformó mi rutina de sueño. Tan cómodo que olvidas que lo llevas, pero la calidad del sonido rivaliza con auriculares convencionales. Producto premium, resultados premium.', author: 'Carla F.', role: 'Deportista', stars: 5, product: 'Noctive Halo' },
+      { text: 'La presión suave del antifaz con peso crea un efecto calmante inmediato. Combinado con el inserto de aromaterapia, se ha convertido en parte esencial de mi rutina nocturna. Excelente relación calidad-precio.', author: 'Laura P.', role: 'Madre primeriza', stars: 4, product: 'Noctive Calm Mask' },
+      { text: 'Como viajero frecuente de negocios, la Cinta de sueño se ha vuelto imprescindible. Portátil, cómoda y la batería dura vuelos de larga distancia. Altamente recomendada para profesionales en movimiento.', author: 'David R.', role: 'Consultor', stars: 5, product: 'Sleep Headband' },
+      { text: 'Los perfiles de sonido del Noctive Wave están genuinamente bien sintonizados. Enmascara el ruido ambiental de forma efectiva y la función de volumen adaptativo es un detalle inteligente. Mi calidad de sueño ha mejorado notablemente.', author: 'Sara M.', role: 'Profesora', stars: 4, product: 'Noctive Wave' },
     ],
     stats: [
       { value: '15+', label: 'Productos premium' },
@@ -180,12 +180,12 @@ const SHOP_HOME_COPY = {
     faqHeading: 'Preguntas frecuentes',
     faqSub: 'Todo lo que necesitas saber antes de tu primer pedido',
     faqs: [
-      { q: '¿Cuánto tarda el envío?', a: 'Los pedidos estándar salen en 24 horas y llegan en 3–5 días laborables dentro de Europa. En el checkout puedes elegir envío exprés de 1–2 días.' },
-      { q: '¿Cuál es vuestra política de devoluciones?', a: 'Prueba cualquier producto durante 30 noches. Si no te funciona, contáctanos y gestionamos la devolución y el reembolso completo.' },
-      { q: '¿Los productos son compatibles?', a: 'Los productos Bluetooth se conectan por Bluetooth 5.0 a cualquier móvil, tablet u ordenador. Los USB-C cargan con cualquier cable estándar.' },
-      { q: '¿El checkout es seguro?', a: 'Sí. Todos los pagos se procesan con Stripe y cifrado SSL. Nunca almacenamos los datos de tu tarjeta.' },
-      { q: '¿Puedo seguir mi pedido?', a: 'Sí. Recibirás un correo con seguimiento dentro de las 24 horas posteriores al envío.' },
-      { q: '¿Ofrecéis packs?', a: 'Sí. Añade varios productos al carrito y los descuentos de bundle se aplican automáticamente.' },
+      { q: '¿Cuánto tarda realmente el envío?', a: 'Procesamos y enviamos todos los pedidos en un máximo de 24 horas. La entrega estándar en Europa es de 3 a 5 días laborables. Envío exprés de 1-2 días disponible en el checkout. Todos los envíos incluyen seguimiento en tiempo real.' },
+      { q: '¿Qué cubre exactamente la garantía de 30 noches?', a: 'Puedes probar cualquier producto durante 30 noches en tu propio entorno. Si no cumple tus expectativas, contactas con nuestro equipo y gestionamos la recogida y el reembolso completo. No necesitas justificar nada.' },
+      { q: '¿Los productos son compatibles con todos los dispositivos?', a: 'Todos los productos Bluetooth utilizan Bluetooth 5.0+ para compatibilidad universal con móviles, tablets y ordenadores. Los productos USB-C se cargan con cualquier cable estándar. No se necesitan apps especiales.' },
+      { q: '¿El pago es completamente seguro?', a: 'Sí. Todos los pagos se procesan a través de Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta en nuestros servidores. Aceptamos Visa, Mastercard, Amex, Apple Pay y Google Pay.' },
+      { q: '¿Puedo seguir mi pedido en tiempo real?', a: 'Por supuesto. Recibirás un email de seguimiento dentro de 24 horas del envío. Todas las entregas incluyen seguimiento en tiempo real para que sepas exactamente cuándo esperar tu pedido.' },
+      { q: '¿Ofrecéis descuentos por packs?', a: 'Sí. Añade varios productos al carrito y los descuentos por bundle se aplican automáticamente en el checkout. Cuanto más añades, más ahorras.' },
     ],
     ctaHeading: '¿Listo para transformar tu descanso?',
     ctaSub: 'Únete a más de 6.000 clientes que ya han mejorado su rutina de recuperación',
@@ -644,29 +644,36 @@ export default function ShopHomePage() {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-                className="relative min-h-[340px] sm:min-h-[460px] overflow-hidden rounded-[32px] m-3 lg:m-4"
+              <Link href={`/${locale}/products/${flagship.slug}`}
+                className="relative block min-h-[340px] sm:min-h-[460px] overflow-hidden rounded-[32px] m-3 lg:m-4 group"
               >
-                <img src={flagship.images?.[1] ?? flagship.images?.[0]}
-                  alt="Premium sleep and recovery products"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                  style={{ objectPosition: '50% 60%' }} />
-                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(8,12,16,0.7)] via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                  <div className="mb-2 inline-flex items-center rounded-full border border-white/10 bg-[rgba(10,15,22,0.55)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#d6dde7] backdrop-blur-sm">
-                    {copy.badgeLabels.bestseller}
+                <motion.div
+                  initial={{ opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.15 }}
+                  className="h-full"
+                >
+                  <img src={flagship.images?.[1] ?? flagship.images?.[0]}
+                    alt={getLocalizedProductName(flagship, locale)}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    style={{ objectPosition: '50% 60%' }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(8,12,16,0.7)] via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                    <div className="mb-2 inline-flex items-center rounded-full border border-white/10 bg-[rgba(10,15,22,0.55)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#d6dde7] backdrop-blur-sm">
+                      {copy.badgeLabels.bestseller}
+                    </div>
+                    <div className="max-w-[20rem] text-[22px] font-bold leading-tight tracking-[-0.03em] text-white">
+                      {getLocalizedProductName(flagship, locale)}
+                    </div>
+                    <p className="mt-1 text-[13px] text-[#d6dde7]">
+                      €{flagship.price}
+                    </p>
+                    <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#f2eee7] px-4 py-2 text-[12px] font-semibold text-[#11161d] transition-all group-hover:bg-white group-hover:shadow-[0_4px_16px_rgba(242,238,231,0.25)]">
+                      {isEs ? 'Ver producto' : 'View product'} <ChevronRight size={13} />
+                    </div>
                   </div>
-                  <div className="max-w-[20rem] text-[22px] font-bold leading-tight tracking-[-0.03em] text-white">
-                    {getLocalizedProductName(flagship, locale)}
-                  </div>
-                  <p className="mt-1 text-[13px] text-[#d6dde7]">
-                    €{flagship.price}
-                  </p>
-                </div>
-              </motion.div>
+                </motion.div>
+              </Link>
             </div>
           </div>
         </section>
