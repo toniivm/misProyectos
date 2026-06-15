@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://valtre-73c7b.web.app';
+const BASE = 'https://noctip.com';
 
 test('prod full flow - TikTok user (non-destructive)', async ({ page }) => {
   // Visit site with TikTok UTM params

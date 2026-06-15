@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://valtre-73c7b.web.app';
+const BASE = 'https://noctip.com';
 
 test('production smoke: homepage loads and add-to-cart updates cart count', async ({ page }) => {
   await page.goto(`${BASE}/es`);

@@ -224,6 +224,8 @@ app.set('trust proxy', 1);
 app.use(compression({ level: 6, threshold: 1024 }));
 
 const defaultOrigins = [
+  'https://noctip.com',
+  'https://www.noctip.com',
   'https://valtre.onrender.com',
   'https://valtre-73c7b.web.app',
   'https://valtre-73c7b.firebaseapp.com',

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE = 'https://valtre-73c7b.web.app';
+const BASE = 'https://noctip.com';
 
 test.describe('User Journey: TikTok ad -> Order Complete', () => {
 
