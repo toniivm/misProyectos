@@ -143,7 +143,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <span className="rounded-[2px] bg-[#7186a4]" />
               <span className="rounded-[2px] bg-[#d8d0c4]" />
             </div>
-            <span className="hidden sm:block">Noctas</span>
+            <span className="hidden sm:block">Noctip</span>
           </Link>
           <div className="flex items-center gap-2">
             <Link href={`/${locale === 'es' ? 'en' : 'es'}${'/'}`}

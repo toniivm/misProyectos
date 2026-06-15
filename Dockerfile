@@ -24,6 +24,7 @@ ENV HOSTNAME=0.0.0.0
 # Copy the exported site and a lightweight static file server
 COPY --from=builder /app/recovery-system/out ./out
 COPY --from=builder /app/recovery-system/static-server.js ./server.js
+COPY server/ ./backend/
 EXPOSE 10000
 
 # Render injects PORT=10000 at runtime

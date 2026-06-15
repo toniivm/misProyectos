@@ -6,8 +6,8 @@ test('prod full flow - TikTok user (non-destructive)', async ({ page }) => {
   // Visit site with TikTok UTM params
   await page.goto(`${BASE}/es?utm_source=tiktok&utm_medium=social&utm_campaign=tt_ad1`);
 
-  // Page title should include NOCTAS
-  await expect(page).toHaveTitle(/NOCTAS/i, { timeout: 15000 });
+  // Page title should include NOCTIP
+  await expect(page).toHaveTitle(/NOCTIP/i, { timeout: 15000 });
 
   // Add first product to cart
   const addBtn = page.locator('text=Añadir').first();

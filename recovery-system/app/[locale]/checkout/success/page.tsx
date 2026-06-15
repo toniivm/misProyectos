@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Shield, Truck, RotateCcw } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
@@ -17,11 +17,12 @@ export default function CheckoutSuccessPage({ params }: Props) {
   const [ref, setRef] = useState<string | null>(null);
   const { clear } = useCart();
   const auth = useAuth();
+  const isEs = locale === 'es';
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const sessionId = params.get('session_id');
-    const orderId = params.get('orderId');
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    const orderId = urlParams.get('orderId');
     setRef(orderId ? orderId.slice(-8).toUpperCase() : (sessionId ? sessionId.slice(-8).toUpperCase() : null));
     
     try {
@@ -35,7 +36,6 @@ export default function CheckoutSuccessPage({ params }: Props) {
       console.warn('Could not remove recover_cart key', e);
     }
 
-    // Mark the most recent pending order for this user as paid
     if (auth.user?.email) {
       try {
         const stored = localStorage.getItem('noctas_orders');
@@ -44,12 +44,10 @@ export default function CheckoutSuccessPage({ params }: Props) {
           const userEmail = auth.user.email.toLowerCase();
           let found = false;
 
-          // If we have an orderId from URL, mark that one as paid
           if (orderId && orders[orderId] && orders[orderId].email?.toLowerCase() === userEmail) {
             orders[orderId].status = 'paid';
             found = true;
           } else {
-            // Otherwise mark the most recent pending order
             const pendingOrders = Object.entries(orders)
               .filter(([_, o]: [string, any]) => o.email?.toLowerCase() === userEmail && o.status === 'pending')
               .sort(([_, a]: [string, any], [__, b]: [string, any]) =>
@@ -72,36 +70,51 @@ export default function CheckoutSuccessPage({ params }: Props) {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-white px-5 text-center">
-      <CheckCircle2 size={64} className="mb-6 text-green-500" strokeWidth={1.5} />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#080c16] px-5 text-center">
+      <div className="mx-auto max-w-md">
+        {/* Success icon */}
+        <div className="mb-6 flex justify-center">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[rgba(16,191,216,0.1)] border border-[rgba(16,191,216,0.2)]">
+            <CheckCircle2 size={40} className="text-[#10BFD8]" strokeWidth={1.5} />
+          </div>
+        </div>
 
-      <h1 className="font-display text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">
-        {t('title')}
-      </h1>
+        <h1 className="text-[28px] font-bold tracking-tight text-[#f6f2eb] sm:text-[32px]">
+          {t('title')}
+        </h1>
 
-      <p className="mt-4 max-w-sm text-gray-500">
-        {t('subtitle')}
-      </p>
-
-      {ref && (
-        <p className="mt-4 rounded-xl bg-gray-50 px-5 py-2.5 font-mono text-sm font-semibold text-gray-600">
-          {t('ref')}: {ref}
+        <p className="mt-4 text-[15px] text-[#8791a1]">
+          {t('subtitle')}
         </p>
-      )}
 
-      <div className="mt-6 flex flex-col items-center gap-1 text-sm text-gray-400">
-        <span>
-          {t('delivery')}:{' '}
-          <strong className="text-gray-700">3–5 {t('deliveryDays')}</strong>
-        </span>
+        {ref && (
+          <div className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-5 py-3">
+            <span className="text-[12px] text-[#6b7280]">{t('ref')}</span>
+            <span className="font-mono text-[14px] font-bold text-[#f2eee7]">{ref}</span>
+          </div>
+        )}
+
+        <div className="mt-6 flex flex-col items-center gap-1 text-[14px] text-[#8791a1]">
+          <span>
+            {t('delivery')}:{' '}
+            <strong className="text-[#f2eee7]">3–5 {t('deliveryDays')}</strong>
+          </span>
+        </div>
+
+        {/* Trust badges */}
+        <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#5a6678]">
+          <span className="flex items-center gap-1"><Shield size={11} className="text-[#10BFD8]" />{isEs ? 'Pago seguro' : 'Secure'}</span>
+          <span className="flex items-center gap-1"><Truck size={11} className="text-[#10BFD8]" />{isEs ? 'Envío gratis' : 'Free shipping'}</span>
+          <span className="flex items-center gap-1"><RotateCcw size={11} className="text-[#10BFD8]" />30 {isEs ? 'días' : 'days'}</span>
+        </div>
+
+        <Link
+          href={`/${locale}`}
+          className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-8 py-4 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px] hover:shadow-[0_8px_24px_rgba(242,238,231,0.2)]"
+        >
+          {t('continueShopping')} <ArrowRight size={15} />
+        </Link>
       </div>
-
-      <Link
-        href={`/${locale}`}
-        className="mt-10 rounded-xl bg-gray-900 px-8 py-3.5 text-sm font-bold text-white transition hover:bg-gray-800"
-      >
-        {t('continueShopping')}
-      </Link>
     </div>
   );
 }

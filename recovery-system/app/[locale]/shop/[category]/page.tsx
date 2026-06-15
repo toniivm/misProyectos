@@ -16,8 +16,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = CATEGORIES.find((c) => c.slug === params.category)
   const title = cat
-    ? `${cat.name} — Noctas™`
-    : 'All Products — Noctas™'
+    ? `${cat.name} — Noctip™`
+    : 'All Products — Noctip™'
   return {
     title,
     description: cat?.description ?? 'Browse all premium sleep and recovery products.',

@@ -75,7 +75,7 @@ export default function AdminPage(){
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03]">
               <Lock size={24} className="text-[#8ea7c7]" />
             </div>
-            <h1 className="text-[20px] font-bold text-[#f2eee7]">Admin — Noctas</h1>
+            <h1 className="text-[20px] font-bold text-[#f2eee7]">Admin — Noctip</h1>
             <p className="mt-2 text-[13px] text-[#6b7280]">Acceso restringido a administradores</p>
           </div>
           <input
@@ -113,7 +113,7 @@ export default function AdminPage(){
       <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <div>
-            <h1 className="text-[16px] font-bold text-[#f2eee7]">Noctas — Admin</h1>
+            <h1 className="text-[16px] font-bold text-[#f2eee7]">Noctip — Admin</h1>
             <p className="text-[12px] text-[#6b7280]">Gestión de pedidos</p>
           </div>
           <div className="flex items-center gap-3">

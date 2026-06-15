@@ -6,7 +6,7 @@ test('production smoke: homepage loads and add-to-cart updates cart count', asyn
   await page.goto(`${BASE}/es`);
 
   // Basic page sanity
-  await expect(page).toHaveTitle(/NOCTAS/i);
+  await expect(page).toHaveTitle(/NOCTIP/i);
 
   // Wait for product cards and click Añadir
   const addBtn = page.locator('text=Añadir').first();

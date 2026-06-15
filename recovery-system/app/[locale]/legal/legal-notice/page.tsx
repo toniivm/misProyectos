@@ -22,11 +22,11 @@ export default function LegalNoticePage() {
       <div className="mt-3 space-y-2 text-sm text-[#8791a1]">
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Titular:' : 'Owner:'}</span>
-          <span>NOCTAS</span>
+          <span>NOCTIP</span>
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Denominación comercial:' : 'Trading name:'}</span>
-          <span>Noctas™</span>
+          <span>Noctip™</span>
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'CIF/NIF:' : 'Tax ID:'}</span>

@@ -18,13 +18,13 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'NOCTAS™',
+  title: 'Noctip™ — Premium Sleep & Recovery',
   description:
-    'Premium recovery system for muscle relief, neck tension and sleep optimization.',
-  keywords: ['recovery', 'massage gun', 'neck massager', 'sleep optimization', 'wellness', 'biohacking'],
+    'Herramientas premium de sueño y recuperación para el bienestar diario. Bandas Bluetooth, masajeadores y antifaces.',
+  keywords: ['sleep', 'recovery', 'massage gun', 'neck massager', 'sleep optimization', 'wellness', 'biohacking', 'noctip'],
   openGraph: {
-    title: 'NOCTAS™',
-    description: 'Your body never fully recovers. Until now.',
+    title: 'Noctip™ — Premium Sleep & Recovery',
+    description: 'Duerme más profundo. Recupérate mejor. Vive mejor.',
     type: 'website',
   },
 }

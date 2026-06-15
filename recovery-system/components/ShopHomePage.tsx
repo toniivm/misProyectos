@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '../context/AuthContext'
 import {
-  ShoppingCart, Star, Check, ChevronRight, ChevronDown,
+  ShoppingCart, Star, Check, ChevronRight, ChevronDown, Menu, X,
   Shield, Truck, RotateCcw, User, LogOut,
   PackageCheck, Moon, Sparkles, ArrowRight, Heart, Leaf,
 } from 'lucide-react'
@@ -239,6 +239,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     add({ slug: product.slug, name, price: product.price, icon: product.cartIcon })
     setAdded(true)
     openCart()
@@ -254,12 +255,12 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.5 }}
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-white/[0.14] hover:shadow-card-hover"
+        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-[rgba(16,191,216,0.25)] hover:shadow-[0_8px_32px_rgba(16,191,216,0.12)]"
       >
-        <div className="relative flex h-44 items-center justify-center overflow-hidden" style={{ background: product.color }}>
+        <div className="relative flex h-48 items-center justify-center overflow-hidden" style={{ background: product.color }}>
           {product.images ? (
             <img src={product.images[0]} alt={name} loading="lazy"
-              className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
+              className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110"
               style={{ objectPosition: '50% 5%' }} />
           ) : (
             <span className="text-5xl opacity-60 transition-transform duration-500 group-hover:scale-110">{product.icon}</span>
@@ -267,7 +268,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           {product.badge && (
             <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} locale={locale} /></div>
           )}
-          <div className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#0c1016]/60 px-2 py-0.5 text-[11px] font-medium text-white/70 backdrop-blur-sm">
+          <div className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#0c1016]/70 px-2.5 py-1 text-[11px] font-bold text-white/80 backdrop-blur-md">
             -{savings}%
           </div>
         </div>
@@ -287,10 +288,10 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
               <span className="ml-2 text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>
             </div>
             <button onClick={handleAdd}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[12px] font-semibold transition-all duration-200 ${
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[12px] font-semibold transition-all duration-300 ${
                 added
-                  ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300'
-                  : 'btn-light !px-3.5 !py-2 !text-[12px]'
+                  ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300 scale-95'
+                  : 'btn-light !px-4 !py-2.5 !text-[12px] shadow-[0_4px_12px_rgba(242,238,231,0.15)] hover:shadow-[0_6px_20px_rgba(242,238,231,0.25)]'
               }`}>
               {added ? (<><Check size={12} />{copy.addedLabel}</>) : (<><ShoppingCart size={12} />{copy.addLabel}</>)}
             </button>
@@ -344,62 +345,100 @@ const EN_FLAG = (
 function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; switchHref: string }) {
   const { totalItems, open: openCart } = useCart()
   const t = useTranslations()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] backdrop-blur-xl">
-      <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-        <div className="flex h-16 items-center gap-4">
-          <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group">
-            <div className="grid h-7 w-7 grid-cols-2 gap-[3px] rounded-lg border border-white/10 bg-white/[0.04] p-1 transition-all group-hover:border-white/20">
-              <span className="rounded-[3px] bg-[#cfd8e6]" />
-              <span className="rounded-[3px] bg-[#8da3c4]" />
-              <span className="rounded-[3px] bg-[#7186a4]" />
-              <span className="rounded-[3px] bg-[#d8d0c4]" />
-            </div>
-            <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctas</span>
-          </Link>
+    <>
+      <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] backdrop-blur-xl">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+          <div className="flex h-16 items-center gap-4">
+            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group">
+              <div className="grid h-7 w-7 grid-cols-2 gap-[3px] rounded-lg border border-white/10 bg-white/[0.04] p-1 transition-all group-hover:border-white/20">
+                <span className="rounded-[3px] bg-[#cfd8e6]" />
+                <span className="rounded-[3px] bg-[#8da3c4]" />
+                <span className="rounded-[3px] bg-[#7186a4]" />
+                <span className="rounded-[3px] bg-[#d8d0c4]" />
+              </div>
+              <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctip</span>
+            </Link>
 
-          <nav className="hidden md:flex items-center gap-1 ml-6">
-            {CATEGORIES.map((cat) => (
-              <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
-                className="rounded-full px-3 py-1.5 text-[12px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] transition-colors">
-                {getLocalizedCategoryName(cat, locale)}
+            <nav className="hidden md:flex items-center gap-1 ml-6">
+              {CATEGORIES.map((cat) => (
+                <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
+                  className="rounded-full px-3 py-1.5 text-[12px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-all">
+                  {getLocalizedCategoryName(cat, locale)}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="flex-1" />
+
+            <div className="flex shrink-0 items-center gap-1.5">
+              {/* Language switcher with flags */}
+              <Link href={switchHref}
+                className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
+                aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
+                {locale === 'es' ? EN_FLAG : ES_FLAG}
+                <span>{locale === 'es' ? 'EN' : 'ES'}</span>
               </Link>
-            ))}
-          </nav>
 
-          <div className="flex-1" />
+              <Link href={`/${locale}/shop/all`}
+                className="hidden sm:inline-flex items-center rounded-full bg-white/[0.04] border border-white/10 px-4 py-2 text-[12px] font-medium text-[#c8d4e2] hover:bg-white/[0.08] transition-all">
+                {copy.heroPrimary}
+              </Link>
 
-          <div className="flex shrink-0 items-center gap-1.5">
-            {/* Language switcher with flags */}
-            <Link href={switchHref}
-              className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
-              aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
-              {locale === 'es' ? EN_FLAG : ES_FLAG}
-              <span>{locale === 'es' ? 'EN' : 'ES'}</span>
-            </Link>
+              <UserMenu locale={locale} t={t} />
 
-            <Link href={`/${locale}/shop/all`}
-              className="hidden sm:inline-flex items-center rounded-full bg-white/[0.04] border border-white/10 px-4 py-2 text-[12px] font-medium text-[#c8d4e2] hover:bg-white/[0.08] transition-all">
-              {copy.heroPrimary}
-            </Link>
+              <button onClick={openCart}
+                aria-label={`${copy.cartLabel} - ${totalItems} items`}
+                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]">
+                <ShoppingCart size={15} />
+                {totalItems > 0 && (
+                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#f2eee7] text-[9px] font-bold text-[#11161d]">
+                    {totalItems > 9 ? '9+' : totalItems}
+                  </span>
+                )}
+              </button>
 
-            <UserMenu locale={locale} t={t} />
-
-            <button onClick={openCart}
-              aria-label={`${copy.cartLabel} - ${totalItems} items`}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]">
-              <ShoppingCart size={15} />
-              {totalItems > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#f2eee7] text-[9px] font-bold text-[#11161d]">
-                  {totalItems > 9 ? '9+' : totalItems}
-                </span>
-              )}
-            </button>
+              {/* Mobile menu button */}
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="flex md:hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]">
+                {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-16 left-0 right-0 z-40 border-b border-white/[0.07] bg-[rgba(12,16,22,0.98)] backdrop-blur-xl md:hidden overflow-hidden"
+          >
+            <nav className="mx-auto max-w-[1280px] px-4 py-4 space-y-1">
+              {CATEGORIES.map((cat) => (
+                <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between rounded-xl px-4 py-3 text-[14px] font-medium text-[#c8d4e2] hover:bg-white/[0.04] transition-all">
+                  {getLocalizedCategoryName(cat, locale)}
+                  <ChevronRight size={14} className="text-[#4a5568]" />
+                </Link>
+              ))}
+              <Link href={`/${locale}/shop/all`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-3 text-[13px] font-semibold text-[#f2eee7] mt-2">
+                {copy.heroPrimary}
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
@@ -532,6 +571,7 @@ function Testimonials({ reviews, copy }: { reviews: CopyType['reviews']; copy: C
 
 export default function ShopHomePage() {
   const locale = useLocale()
+  const isEs = locale === 'es'
   const t = useTranslations()
   const copy = getCopy(locale)
   const { open: openCart, totalItems } = useCart()
@@ -635,18 +675,24 @@ export default function ShopHomePage() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16 grid grid-cols-2 gap-3 sm:grid-cols-4"
+          className="mb-16"
         >
-          {copy.trustItems.map((item) => (
-            <div key={item.label}
-              className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.025] px-4 py-3 transition-all hover:border-white/[0.12] hover:bg-white/[0.04]">
-              <item.icon size={16} className="shrink-0 text-[#8ea7c7]" />
-              <div>
-                <div className="text-[12px] font-semibold text-[#f2eee7]">{item.label}</div>
-                <div className="text-[11px] text-[#6b7785]">{item.sub}</div>
-              </div>
+          <div className="rounded-2xl border border-white/[0.08] bg-gradient-to-r from-[rgba(16,191,216,0.04)] via-[rgba(13,18,25,0.98)] to-[rgba(158,146,255,0.04)] p-6 sm:p-8">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {copy.trustItems.map((item) => (
+                <div key={item.label}
+                  className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] px-4 py-4 transition-all hover:border-[rgba(16,191,216,0.2)] hover:bg-white/[0.04]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.1)]">
+                    <item.icon size={18} className="text-[#10BFD8]" />
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{item.label}</div>
+                    <div className="text-[11px] text-[#6b7785]">{item.sub}</div>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </motion.section>
 
         {/* ── Categories ── */}
@@ -848,15 +894,20 @@ export default function ShopHomePage() {
             className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.05] text-[#c8d4e2]">
             <ShoppingCart size={16} />
             {totalItems > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#f2eee7] text-[9px] font-bold text-[#11161d]">
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#10BFD8] text-[9px] font-bold text-[#080c16]">
                 {totalItems}
               </span>
             )}
           </button>
-          <Link href={`/${locale}/shop/sleep-audio`}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3 text-[14px] font-semibold text-[#11161d]">
+          <Link href={`/${locale}/shop/all`}
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3 text-[14px] font-semibold text-[#11161d] shadow-[0_4px_16px_rgba(242,238,231,0.2)]">
             {copy.mobileCta} <ChevronRight size={15} />
           </Link>
+        </div>
+        <div className="mt-2 flex items-center justify-center gap-3 text-[10px] text-[#5a6678]">
+          <span className="flex items-center gap-1"><Shield size={10} className="text-[#10BFD8]" />{isEs ? 'Pago seguro' : 'Secure'}</span>
+          <span className="flex items-center gap-1"><Truck size={10} className="text-[#10BFD8]" />{isEs ? 'Envío gratis' : 'Free shipping'}</span>
+          <span className="flex items-center gap-1"><RotateCcw size={10} className="text-[#10BFD8]" />30 {isEs ? 'días' : 'days'}</span>
         </div>
       </div>
     </div>

@@ -28,10 +28,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!cp) return {};
   const product = catalogToProduct(cp);
   return {
-    title: `${product.name} — NOCTAS™`,
+      title: `${product.name} — Noctip™`,
     description: product.tag,
     openGraph: {
-      title: `${product.name} — NOCTAS™`,
+    title: `${product.name} — Noctip™`,
       description: product.tag,
       type: 'website',
     },

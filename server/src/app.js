@@ -375,7 +375,7 @@ function toStripeLineItems(items, currency){
         unit_amount: Math.round(Number(it.price) * 100),
         product_data: {
           name: (it.name || `Item ${it.id || ''}`).toString().slice(0, 200),
-          description: 'NOCTAS™ — Recuperación premium',
+          description: 'Noctip™ — Recuperación premium',
         },
       },
       quantity: it.qty,
@@ -461,8 +461,8 @@ async function getStockMap(){
 
 // Promo codes config (add more as needed)
 const PROMO_CODES = {
-  'NOCTAS10': { discountPercent: 10, label: 'NOCTAS10' },
-  'NOCTAS20': { discountPercent: 20, label: 'NOCTAS20' },
+  'NOCTIP10': { discountPercent: 10, label: 'NOCTIP10' },
+  'NOCTIP20': { discountPercent: 20, label: 'NOCTIP20' },
   'BIENVENIDO': { discountPercent: 15, label: 'BIENVENIDO' },
   'RECUPERA5': { discountPercent: 5, label: 'RECUPERA5' },
 };
@@ -835,7 +835,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
         metadata: { orderId, items: JSON.stringify(items.map((item) => ({ id: item.id, qty: item.qty }))), paymentMethod },
         payment_intent_data: {
           metadata: { orderId, paymentMethod },
-          description: `Pedido #${orderId} — NOCTAS`,
+          description: `Pedido #${orderId} — Noctip`,
         },
       },
       { idempotencyKey }
@@ -888,38 +888,48 @@ app.patch('/orders/:id', adminAuth, async (req,res) => {
   res.json({ order: { id: req.params.id, ...updated.data() } });
 });
 
-// Email helpers
+// Email helpers — singleton Resend client
+let resendClient = null;
+function getResendClient() {
+  if (resendClient) return resendClient;
+  const apiKey = process.env.RESEND_API_KEY;
+  if (apiKey && String(apiKey).trim()) {
+    resendClient = new Resend(apiKey);
+    return resendClient;
+  }
+  return null;
+}
+
 async function sendEmail(to, subject, html){
   if (skipExternal) {
     console.log(`[MOCK EMAIL][skipExternal] To: ${to} Subject: ${subject}\n${html}`);
     return { ok: true, mock: true };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (apiKey && String(apiKey).trim()){
-    try {
-      const resend = new Resend(apiKey);
-      const from = process.env.SENDER_EMAIL ? `Noctas <${process.env.SENDER_EMAIL}>` : 'Noctas <onboarding@resend.dev>';
-      console.log(`📧 Sending email from "${from}" to "${to}"...`);
-      const { data, error } = await resend.emails.send({
-        from,
-        to: [to],
-        subject,
-        html,
-      });
-      if (error) {
-        console.error('❌ Resend API error:', JSON.stringify(error));
-        return { ok: false, error: error.message || JSON.stringify(error) };
-      }
-      console.log(`✅ Email sent to ${to} (Resend)`, data?.id || '');
-      return { ok: true, id: data?.id };
-    } catch (e){
-      console.error('❌ Resend exception:', e?.message || e);
-      return { ok: false, error: e?.message || 'Unknown error' };
-    }
-  } else {
+  const client = getResendClient();
+  if (!client) {
     console.log(`⚠️ [NO API KEY] To: ${to} Subject: ${subject}`);
     return { ok: false, error: 'RESEND_API_KEY not configured' };
+  }
+
+  try {
+    const from = process.env.SENDER_EMAIL ? `Noctip <${process.env.SENDER_EMAIL}>` : 'Noctip <onboarding@resend.dev>';
+    console.log(`📧 Sending email from "${from}" to "${to}"...`);
+    const { data, error } = await client.emails.send({
+      from,
+      to: [to],
+      subject,
+      html,
+    });
+    if (error) {
+      console.error('❌ Resend API error:', JSON.stringify(error));
+      return { ok: false, error: error.message || JSON.stringify(error) };
+    }
+    console.log(`✅ Email sent to ${to} (Resend)`, data?.id || '');
+    return { ok: true, id: data?.id };
+  } catch (e){
+    console.error('❌ Resend exception:', e?.message || e);
+    return { ok: false, error: e?.message || 'Unknown error' };
   }
 }
 
@@ -1000,7 +1010,7 @@ async function handleOrderPaid(orderId, stripeObj){
         html = `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${orderId}</strong></p><ul>${itemsList}</ul><p><strong>Total: ${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`;
       }
 
-      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Noctas`, html);
+      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Noctip`, html);
       console.log(`  ✅ Confirmation email sent to ${order.email}`);
     } catch (e){
       console.error(`❌ Failed to send order confirmation email for ${orderId}:`, e?.message || e);
@@ -1092,7 +1102,7 @@ app.post('/orders/:id/ship', adminAuth, async (req,res) => {
     shipmentHtml = null;
   }
   if (shipmentHtml) {
-    await sendEmail(order.email, `📦 Tu pedido #${req.params.id} ha sido enviado - Noctas`, shipmentHtml);
+    await sendEmail(order.email, `📦 Tu pedido #${req.params.id} ha sido enviado - Noctip`, shipmentHtml);
   } else {
     await sendEmail(
       order.email,
@@ -1115,7 +1125,7 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
   await sendEmail(
     order.email,
     `✅ Tu pedido #${req.params.id} ha sido entregado`,
-    `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Noctas.</p>`
+    `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Noctip.</p>`
   );
   res.json({ ok: true });
 });
@@ -1152,18 +1162,18 @@ app.post('/emails/order-confirmation', async (req,res) => {
       .replace(/{{itemsHtml}}/g, `<ul>${itemsList}</ul>`)
       .replace(/{{total}}/g, `€${total}`);
 
-    emailResult = await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Noctas`, html);
+    emailResult = await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Noctip`, html);
   } else {
     emailResult = await sendEmail(
       email,
-      `✅ Confirmación de pedido #${orderId} - Noctas`,
+      `✅ Confirmación de pedido #${orderId} - Noctip`,
       `<h1>¡Gracias por tu pedido!</h1>
       <p>Pedido: <strong>#${orderId}</strong></p>
       <h3>Artículos:</h3>
       <ul>${itemsList}</ul>
       <p><strong>Total: €${total}</strong></p>
       <p>Recibirás un email cuando tu pedido sea enviado.</p>
-      <p>Gracias por confiar en Noctas.</p>`
+      <p>Gracias por confiar en Noctip.</p>`
     );
   }
 

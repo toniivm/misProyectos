@@ -7,7 +7,7 @@ test.describe('User Journey: TikTok ad -> Order Complete', () => {
   test('complete purchase flow (ES)', async ({ page }) => {
     // 1. User arrives from TikTok ad to the Spanish store
     await page.goto(`${BASE}/es?utm_source=tiktok&utm_medium=social&utm_campaign=tt_ad1`);
-    await expect(page).toHaveTitle(/NOCTAS/);
+    await expect(page).toHaveTitle(/NOCTIP/i);
     
     // 2. Verify homepage loaded with products
     await expect(page.locator('text=Noctive Halo').first()).toBeVisible({ timeout: 15000 });

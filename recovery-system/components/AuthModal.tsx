@@ -113,7 +113,7 @@ export default function AuthModal() {
               <div className="relative mb-6 mt-8 text-center px-6">
                 <div className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-[#8ea7c7] uppercase">
                   <Sparkles size={10} />
-                  NOCTAS
+                   NOCTIP
                 </div>
                 <h2 id="auth-modal-title" className="mt-4 text-[22px] font-bold text-[#f6f2eb]">
                   {mode === 'login' ? t('welcomeBack') : t('createAccount')}

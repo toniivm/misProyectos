@@ -225,7 +225,7 @@ export default function CheckoutPage() {
               <span className="rounded-[2px] bg-[#7186a4]" />
               <span className="rounded-[2px] bg-[#d8d0c4]" />
             </div>
-            NOCTAS
+            NOCTIP
           </Link>
           <div className="flex items-center gap-1.5 text-[12px] text-[#6b7280]">
             <Lock size={12} />
@@ -378,7 +378,7 @@ export default function CheckoutPage() {
               <div className="flex gap-2">
                 <input type="text" value={promoCode}
                   onChange={(e) => { setPromoCode(e.target.value); setPromoError(''); }}
-                  placeholder={isEs ? 'Ej: NOCTAS10' : 'e.g. NOCTAS10'}
+                  placeholder={isEs ? 'Ej: NOCTIP10' : 'e.g. NOCTIP10'}
                   className="input-premium flex-1 uppercase" />
                 <button type="button" onClick={applyPromoCode}
                   disabled={promoLoading || !promoCode.trim()}
@@ -400,8 +400,8 @@ export default function CheckoutPage() {
               <p className="mb-5 text-[12px] leading-5 text-[#8791a1]">{t('paymentHint')}</p>
 
               {/* Stripe secure payment badge */}
-              <div className="flex items-center gap-3 rounded-xl border-2 border-[#8ea7c7] bg-[#8ea7c7]/10 px-4 py-4">
-                <Lock size={22} className="text-[#8ea7c7]" />
+              <div className="flex items-center gap-3 rounded-xl border-2 border-[rgba(16,191,216,0.3)] bg-[rgba(16,191,216,0.05)] px-4 py-4">
+                <Lock size={22} className="text-[#10BFD8]" />
                 <div className="flex-1">
                   <div className="text-[14px] font-semibold text-[#f2eee7]">{t('payWithCard')}</div>
                   <div className="text-[11px] text-[#6b7280]">{t('payWithCardDesc')}</div>
@@ -412,8 +412,9 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              <div className="mt-3 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-[12px] text-[#aab4c2] text-center">
-                {t('stripeNote')}
+              <div className="mt-3 flex items-center justify-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-[11px] text-[#6b7280]">
+                <span className="flex items-center gap-1"><Lock size={10} className="text-[#10BFD8]" />{isEs ? 'Cifrado SSL 256-bit' : '256-bit SSL encryption'}</span>
+                <span className="flex items-center gap-1"><ShieldCheck size={10} className="text-[#10BFD8]" />{isEs ? 'Datos protegidos' : 'Data protected'}</span>
               </div>
             </section>
 

@@ -142,6 +142,7 @@ export default function CartSidebar() {
                 <div className="flex items-center justify-center gap-4 text-[11px] text-[#5a6678] pt-1">
                   <span className="flex items-center gap-1"><RotateCcw size={11} />30-day returns</span>
                   <span className="flex items-center gap-1"><ShieldCheck size={11} />Secure</span>
+                  <span className="flex items-center gap-1"><Truck size={11} />Free shipping</span>
                 </div>
 
                 <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">

@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "NOCTAS™ | Premium at-home recovery",
+    "title": "Noctip™ | Premium at-home recovery",
     "description": "Deep muscle relief, better sleep and high-performance recovery in one premium daily ritual."
   },
   "nav": {
-    "brand": "NOCTAS™",
+    "brand": "NOCTIP™",
     "login": "Sign in",
     "logout": "Log out"
   },
@@ -79,7 +79,7 @@
     "totalLine": "Total",
     "guaranteeBadge": "30-night money-back guarantee",
     "promoHeading": "Promo code",
-    "promoPlaceholder": "e.g. NOCTAS10",
+    "promoPlaceholder": "e.g. NOCTIP10",
     "promoApply": "Apply",
     "promoApplied": "Code {label} applied! — {percent}% off",
     "promoError": "Invalid promo code"

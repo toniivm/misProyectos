@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "NOCTAS™ | Recuperación premium en casa",
+    "title": "Noctip™ | Recuperación premium en casa",
     "description": "Alivio muscular profundo, mejor descanso y recuperación de alto rendimiento. El sistema premium diseñado para tu rutina diaria."
   },
   "nav": {
-    "brand": "NOCTAS™",
+    "brand": "NOCTIP™",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
   },
@@ -79,7 +79,7 @@
     "totalLine": "Total",
     "guaranteeBadge": "Garantía de devolución de 30 días",
     "promoHeading": "Código promocional",
-    "promoPlaceholder": "Ej: NOCTAS10",
+    "promoPlaceholder": "Ej: NOCTIP10",
     "promoApply": "Aplicar",
     "promoApplied": "¡Código {label} aplicado! — {percent}% descuento",
     "promoError": "Código no válido"

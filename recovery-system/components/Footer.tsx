@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, Instagram, Twitter, Youtube } from 'lucide-react'
+import { Shield, Instagram, Twitter, Youtube, CreditCard, Truck, RotateCcw } from 'lucide-react'
 
 export default function Footer() {
   const locale = useLocale()
@@ -13,6 +13,26 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/[0.06] bg-[#080c10]">
       <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6">
+        {/* Trust bar */}
+        <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+          {[
+            { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
+            { icon: RotateCcw, label: isEs ? 'Devolución 30 días' : '30-day returns', sub: isEs ? 'Sin preguntas' : 'No questions asked' },
+            { icon: CreditCard, label: isEs ? 'Pago seguro' : 'Secure payment', sub: 'SSL + Stripe' },
+            { icon: Shield, label: isEs ? 'Garantía 30 noches' : '30-night guarantee', sub: isEs ? 'Devolución completa' : 'Full refund' },
+          ].map(({ icon: Icon, label, sub }) => (
+            <div key={label} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3 transition-all hover:border-[rgba(16,191,216,0.15)]">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
+                <Icon size={16} className="text-[#10BFD8]" />
+              </div>
+              <div>
+                <div className="text-[12px] font-semibold text-[#f2eee7]">{label}</div>
+                <div className="text-[10px] text-[#5a6678]">{sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand column */}
           <div className="lg:col-span-2 space-y-5">
@@ -23,12 +43,12 @@ export default function Footer() {
                 <span className="rounded-[3px] bg-[#7186a4]" />
                 <span className="rounded-[3px] bg-[#d8d0c4]" />
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">Noctas</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">Noctip</span>
             </div>
             <p className="max-w-xs text-[13px] leading-6 text-[#5a6678]">
               {isEs
-                ? 'Productos premium de sueño y recuperación para el bienestar diario. Herramientas limpias, rutinas más inteligentes.'
-                : 'Premium sleep and recovery products for daily wellness. Cleaner tools, smarter routines.'}
+                ? 'Herramientas premium de sueño y recuperación para el bienestar diario. Bandas Bluetooth, masajeadores y antifaces de alta gama.'
+                : 'Premium sleep and recovery tools for daily wellness. Bluetooth headbands, massagers and weighted masks.'}
             </p>
             <div className="flex gap-3 pt-1">
               {[
@@ -37,7 +57,7 @@ export default function Footer() {
                 { Icon: Youtube, href: '#' },
               ].map(({ Icon, href }, i) => (
                 <a key={i} href={href}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-[#5a6678] transition hover:border-white/[0.15] hover:text-[#f2eee7]">
+                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-[#5a6678] transition hover:border-[rgba(16,191,216,0.2)] hover:text-[#10BFD8]">
                   <Icon size={15} />
                 </a>
               ))}
@@ -111,15 +131,23 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/[0.06] pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/[0.06] pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[11px] text-[#3d4a5c]">
-            &copy; {new Date().getFullYear()} Noctas&trade;. {isEs ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+            &copy; {new Date().getFullYear()} Noctip&trade;. {isEs ? 'Todos los derechos reservados.' : 'All rights reserved.'}
           </p>
-          <div className="flex items-center gap-3">
-            <Shield size={11} className="text-[#3d4a5c]" />
-            <span className="text-[11px] text-[#3d4a5c]">
-              {isEs ? 'SSL Secure · Pagos Stripe' : 'SSL Secure · Stripe Payments'}
-            </span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5">
+              <Shield size={11} className="text-[#10BFD8]" />
+              <span className="text-[10px] font-medium text-[#5a6678]">
+                {isEs ? 'SSL Seguro' : 'SSL Secure'}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-1.5">
+              <CreditCard size={11} className="text-[#10BFD8]" />
+              <span className="text-[10px] font-medium text-[#5a6678]">
+                Stripe Payments
+              </span>
+            </div>
           </div>
         </div>
       </div>

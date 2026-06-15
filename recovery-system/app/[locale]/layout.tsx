@@ -26,8 +26,8 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
   return {
     title: isEs
-      ? 'NOCTAS™ | Recuperacion premium en casa'
-      : 'NOCTAS™ | Premium at-home recovery',
+      ? 'Noctip™ | Recuperacion premium en casa'
+      : 'Noctip™ | Premium at-home recovery',
     description: isEs
       ? 'Alivio muscular profundo, descanso optimizado y recuperacion de alto rendimiento con una experiencia premium diseñada para tu rutina diaria.'
       : 'Deep muscle relief, better sleep and high-performance recovery in one premium daily ritual.',
@@ -44,8 +44,8 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     },
     openGraph: {
       title: isEs
-        ? 'NOCTAS™ | Recuperacion premium en casa'
-        : 'NOCTAS™ | Premium at-home recovery',
+        ? 'Noctip™ | Recuperacion premium en casa'
+        : 'Noctip™ | Premium at-home recovery',
       description: isEs
         ? 'Tu cuerpo no se recupera solo. Crea tu ritual premium de recuperacion.'
         : 'Your body does not recover by itself. Build your premium recovery ritual.',

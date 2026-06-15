@@ -273,7 +273,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
           <div className="flex h-14 items-center gap-4">
             <Link href={`/${locale}`} className="flex items-center gap-2 text-[#8791a1] hover:text-[#f2eee7] transition-colors">
               <ArrowLeft size={16} />
-              <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctas™</span>
+              <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctip™</span>
             </Link>
             <div className="flex-1" />
             <nav className="hidden items-center gap-1 overflow-x-auto sm:flex">
