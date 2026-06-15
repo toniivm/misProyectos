@@ -110,22 +110,42 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   };
 
   const reviews = [
-    { author: isEs ? 'Elena V.' : 'Elena V.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, text: isEs ? `Tal como se describe. El ${displayName} funciona bien y llegó rápido.` : `Exactly as described. The ${displayName} works well and arrived quickly.` },
-    { author: isEs ? 'Marco R.' : 'Marco R.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, text: isEs ? 'Llevo dos semanas usándolo a diario. Diferencia notable. Volvería a comprarlo.' : 'Been using it every day for two weeks. Genuinely noticeable difference. Would buy again.' },
-    { author: isEs ? 'Nora S.' : 'Nora S.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 4, text: isEs ? 'Buena calidad de construcción, mejor de lo esperado por el precio.' : 'Good product. Build quality is better than I expected at this price point.' },
+    { author: 'Elena V.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, text: isEs
+      ? `Invertí en el ${displayName} hace tres semanas y la diferencia es notable. La calidad de materiales supera lo que esperaba por este precio. El envío fue rápido y bien empaquetado. Sin duda, una compra que recomiendo.`
+      : `I invested in the ${displayName} three weeks ago and the difference is noticeable. Material quality exceeds what I expected at this price. Shipping was fast and well-packaged. A purchase I definitely recommend.` },
+    { author: 'Marco R.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, text: isEs
+      ? 'Lo uso todas las noches desde que llegó. Mi rutina de descanso ha mejorado significativamente. El producto es tal como se describe — sin exageraciones, simplemente funciona. Ya lo he recomendado a varios compañeros.'
+      : 'I use it every night since it arrived. My rest routine has improved significantly. The product is exactly as described — no exaggerations, it simply works. I\'ve already recommended it to several colleagues.' },
+    { author: 'Nora S.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 4, text: isEs
+      ? 'Buen producto con acabados cuidados. La relación calidad-precio es excelente. El único detalle es que me hubiera gustado más opciones de color, pero en cuanto a funcionalidad, cumple sobradamente.'
+      : 'Well-made product with careful finishes. Excellent value for money. The only detail is I would have liked more color options, but in terms of functionality, it more than delivers.' },
   ];
 
   const routineHighlights = [
-    { title: isEs ? 'Fácil de usar' : 'Low-friction to use', text: isEs ? 'Diseñado para encajar en tu rutina nocturna sin sentirse como trabajo extra.' : 'Designed to fit into a nightly or post-workout routine without feeling like extra work.' },
-    { title: isEs ? 'Portátil por diseño' : 'Portable by design', text: isEs ? 'Fácil de llevar a casa, de viaje o usar en pequeños descansos.' : 'Easy to keep at home, pack for travel, or use during short reset windows.' },
-    { title: isEs ? 'Respaldado por garantía' : 'Backed by a guarantee', text: isEs ? 'Pruébalo 30 noches. Quédatelo solo si se gana un lugar en tu rutina.' : 'Try it for 30 nights and keep it only if it earns a place in your routine.' },
+    { title: isEs ? 'Diseño de bajo mantenimiento' : 'Low-maintenance design', text: isEs
+      ? 'Creado para integrarse en tu rutina sin complicaciones. Sin configuraciones complejas, sin baterías difíciles de recargar. Funciona desde el primer momento.'
+      : 'Built to slot into your routine without friction. No complex settings, no hard-to-recharge batteries. Works from the moment you unbox it.' },
+    { title: isEs ? 'Portabilidad profesional' : 'Travel-ready portability', text: isEs
+      ? 'Compacto y ligero para llevar a casa, al gimnasio o de viaje. Empaquetado pensado para que no ocupe espacio en tu equipaje.'
+      : 'Compact and lightweight for home, gym, or travel use. Packaging designed to take up minimal space in your luggage.' },
+    { title: isEs ? 'Garantía de satisfacción' : 'Satisfaction guarantee', text: isEs
+      ? 'Pruébalo durante 30 noches sin compromiso. Si no cumple tus expectativas, gestionamos la devolución y el reembolso completo. Sin preguntas.'
+      : 'Try it for 30 nights with no commitment. If it doesn\'t meet your expectations, we handle the return and full refund. No questions asked.' },
   ];
 
   const productFaqs = [
-    { q: isEs ? `¿Cuánto tarda en llegar ${displayName}?` : `How quickly will my ${displayName} arrive?`, a: isEs ? 'Los pedidos salen en 24h y llegan en 3-5 días laborables con seguimiento incluido.' : 'Orders ship within 24 hours and arrive in 3-5 business days with tracking.' },
-    { q: isEs ? '¿Puedo devolverlo?' : 'Can I return it?', a: isEs ? 'Sí. Tienes 30 días para probarlo. Si no te funciona, lo devuelves.' : 'Yes. You have a 30-day window to test it at home.' },
-    { q: isEs ? '¿El pago es seguro?' : 'Is checkout secure?', a: isEs ? 'Sí. Todos los pagos se procesan con Stripe y cifrado SSL.' : 'Yes. Payments are processed through Stripe with SSL encryption.' },
-    { q: isEs ? '¿Para quién es este producto?' : 'Who is this product for?', a: getLocalizedField(product, 'shortDescription') ?? product?.shortDescription ?? `${displayName} is built for people who want better sleep or recovery at home.` },
+    { q: isEs ? `¿Cuál es el tiempo de entrega real?` : `What is the actual delivery time?`, a: isEs
+      ? 'Procesamos y enviamos todos los pedidos en un plazo máximo de 24 horas. La entrega estándar en España peninsular es de 3 a 5 días laborables. Ofrecemos envío exprés de 1-2 días en el checkout. Todos los envíos incluyen número de seguimiento.'
+      : 'We process and ship all orders within 24 hours. Standard delivery in the EU takes 3-5 business days. Express 1-2 day shipping is available at checkout. All shipments include tracking.' },
+    { q: isEs ? '¿Cómo funciona la garantía de 30 noches?' : 'How does the 30-night guarantee work?', a: isEs
+      ? 'Recibes el producto, lo pruebas en tu entorno real durante 30 días. Si no estás satisfecho, contactas con nuestro equipo y gestionamos la recogida y el reembolso completo. No necesitas justificar nada.'
+      : 'You receive the product, test it in your real environment for 30 days. If you\'re not satisfied, contact our team and we arrange pickup and a full refund. No justification needed.' },
+    { q: isEs ? '¿El pago es completamente seguro?' : 'Is checkout completely secure?', a: isEs
+      ? 'Sí. Utilizamos Stripe como procesador de pagos con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta en nuestros servidores. Admite Visa, Mastercard, Amex, Apple Pay y Google Pay.'
+      : 'Yes. We use Stripe as our payment processor with 256-bit SSL encryption. We never store card data on our servers. Supports Visa, Mastercard, Amex, Apple Pay, and Google Pay.' },
+    { q: isEs ? '¿Qué exactamente incluye el producto?' : 'What exactly does the product include?', a: isEs
+      ? `El ${displayName} incluye el producto, manual de instrucciones en español e inglés, y cable de carga. Todo empaquetado en una caja premium lista para regalo si lo necesitas.`
+      : `The ${displayName} includes the product, instruction manual in Spanish and English, and charging cable. All packaged in a premium gift-ready box if needed.` },
   ];
 
   const allImages = product?.images ?? [];
@@ -324,13 +344,16 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-2">
               {[
-                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping' },
-                { icon: RotateCcw, label: isEs ? '30 días devolución' : '30-day returns' },
-                { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout' },
+                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
+                { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee', sub: isEs ? 'Devolución completa' : 'Full refund' },
+                { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL + Stripe' },
               ].map((item) => (
-                <div key={item.label} className="flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3 text-center">
-                  <item.icon size={16} className="text-[#8ea7c7]" />
-                  <span className="text-[10px] font-medium text-[#8791a1]">{item.label}</span>
+                <div key={item.label} className="flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3 text-center transition-all hover:border-[rgba(16,191,216,0.15)]">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
+                    <item.icon size={14} className="text-[#10BFD8]" />
+                  </div>
+                  <span className="text-[10px] font-semibold text-[#f2eee7]">{item.label}</span>
+                  <span className="text-[9px] text-[#5a6678]">{item.sub}</span>
                 </div>
               ))}
             </div>
@@ -338,12 +361,27 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Shipping info */}
             <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-4 text-[12px] leading-6 text-[#8791a1]">
               <div className="flex items-center gap-2 font-medium text-[#f2eee7]">
-                <Package size={13} />
-                {isEs ? 'Envío y entrega' : 'Shipping & delivery'}
+                <Package size={13} className="text-[#10BFD8]" />
+                {isEs ? 'Logística y entrega' : 'Logistics & delivery'}
               </div>
-              <p className="mt-1.5">
-                {isEs ? 'Envío en 24h · llega en 3–5 días · Gratis en todos los pedidos' : 'Ships within 24h · arrives in 3–5 days · Free on all orders'}
-              </p>
+              <div className="mt-2 space-y-1.5">
+                <p className="flex items-center gap-2">
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-[#10BFD8]" />
+                  {isEs ? 'Preparación del pedido: 24h máximo' : 'Order processing: within 24h'}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-[#10BFD8]" />
+                  {isEs ? 'Entrega estándar: 3-5 días laborables' : 'Standard delivery: 3-5 business days'}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-[#10BFD8]" />
+                  {isEs ? 'Envío exprés disponible (1-2 días)' : 'Express shipping available (1-2 days)'}
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-[#10BFD8]" />
+                  {isEs ? 'Seguimiento incluido en todos los pedidos' : 'Tracking included on all orders'}
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -426,15 +464,15 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
           <div className="rounded-[28px] border border-white/[0.07] bg-[linear-gradient(180deg,#101722,#0c1118)] p-7 sm:p-8">
             <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8ea7c7]">
-              {isEs ? 'Por qué funciona' : 'Why this product works'}
+              {isEs ? 'Ingeniería aplicada' : 'Applied engineering'}
             </span>
             <h2 className="mt-4 text-[clamp(1.6rem,3vw,2.25rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
-              {isEs ? 'Diseñado para uso diario' : 'Built for repeated use'}
+              {isEs ? 'Diseñado para rendir, no para decorar' : 'Engineered for performance, not decoration'}
             </h2>
             <p className="mt-4 text-[14px] leading-7 text-[#8791a1]">
               {isEs
-                ? 'Las mejores tiendas no solo muestran especificaciones. Muestran cómo el producto encaja en la vida diaria. Beneficios claros, configuración sencilla y suficiente confianza para comprar sin dudar.'
-                : 'The strongest stores do not just show specs. They show how the product fits into daily life. Clear benefits, simple setup and enough trust to buy without hesitation.'}
+                ? 'Cada producto Noctip pasa por un proceso de desarrollo centrado en un solo objetivo: que funcione mejor de lo esperado. Sin marketing excesivo, sin promesas vacías. Especificaciones reales, resultados medibles.'
+                : 'Every Noctip product goes through a development process focused on one single goal: outperform expectations. No excessive marketing, no empty promises. Real specifications, measurable results.'}
             </p>
 
             <div className="mt-7 grid gap-3">

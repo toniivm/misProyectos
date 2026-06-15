@@ -458,8 +458,9 @@ function UserMenu({ locale, t }: { locale: string; t: (key: string) => string })
   if (!auth.user) {
     return (
       <button onClick={() => auth.openModal()}
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]">
+        className="flex h-9 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]">
         <User size={14} />
+        <span className="text-[11px] font-medium">{locale === 'es' ? 'Entrar' : 'Sign in'}</span>
       </button>
     )
   }
@@ -467,9 +468,9 @@ function UserMenu({ locale, t }: { locale: string; t: (key: string) => string })
   return (
     <div ref={ref} className="relative">
       <button onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 rounded-full border border-white/[0.04] bg-white/[0.02] px-3 py-2 text-sm text-[#c8d4e2] transition hover:text-white">
+        className="flex items-center gap-2 rounded-full border border-white/[0.04] bg-white/[0.02] px-3 py-2 text-[#c8d4e2] transition hover:text-white">
         <User size={14} />
-        <span className="hidden sm:inline max-w-[100px] truncate">
+        <span className="max-w-[80px] truncate text-[12px] font-medium">
           {auth.user.displayName || auth.user.email?.split('@')[0] || 'Account'}
         </span>
       </button>
