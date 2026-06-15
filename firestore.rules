@@ -1,20 +1,28 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Orders - server writes via Admin SDK, no client writes
+    // Orders - only server (Admin SDK) can read/write
     match /orders/{orderId} {
-      allow read: if true;
+      allow read: if false;
       allow write: if false;
     }
-    // Customers - server writes via Admin SDK, no client writes
+    // Customers - only server (Admin SDK) can read/write
     match /customers/{email} {
-      allow read: if true;
+      allow read: if false;
       allow write: if false;
     }
-    // Products - public read
+    // Products - public read, no client writes
     match /products/{productId} {
       allow read: if true;
       allow write: if false;
+    }
+    // Test collection - server only
+    match /_test/{docId} {
+      allow read, write: if false;
+    }
+    // Healthcheck collection - server only
+    match /_healthcheck/{docId} {
+      allow read, write: if false;
     }
   }
 }

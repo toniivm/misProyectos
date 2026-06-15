@@ -1133,7 +1133,7 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
 });
 
 // Order confirmation email (called by frontend after successful payment)
-app.post('/emails/order-confirmation', async (req,res) => {
+app.post('/emails/order-confirmation', adminAuth, async (req,res) => {
   if (!requireDb(res)) return;
   const { orderId, email } = req.body;
   if (!orderId || !email) return res.status(400).json({ error: 'MISSING_FIELDS' });
