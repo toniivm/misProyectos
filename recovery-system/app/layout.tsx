@@ -18,14 +18,63 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'Noctip™ — Premium Sleep & Recovery',
+  title: {
+    default: 'Noctip™ — Premium Sleep & Recovery Technology',
+    template: '%s | Noctip™',
+  },
   description:
-    'Herramientas premium de sueño y recuperación para el bienestar diario. Bandas Bluetooth, masajeadores y antifaces.',
-  keywords: ['sleep', 'recovery', 'massage gun', 'neck massager', 'sleep optimization', 'wellness', 'biohacking', 'noctip'],
+    'Noctip designs premium sleep and recovery technology. Acoustic headbands, white noise machines, cervical massagers and weighted masks. Free shipping, 30-night guarantee.',
+  keywords: [
+    'noctip', 'sleep technology', 'recovery products', 'sleep headband', 'white noise machine',
+    'neck massager', 'weighted sleep mask', 'cervical massager', 'sleep audio', 'wellness products',
+    'premium sleep', 'sleep optimization', 'recovery tools', 'biohacking sleep',
+  ],
+  authors: [{ name: 'Noctip' }],
+  creator: 'Noctip',
+  publisher: 'Noctip',
+  metadataBase: new URL('https://noctip.com'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'es': '/es',
+      'en': '/en',
+    },
+  },
   openGraph: {
-    title: 'Noctip™ — Premium Sleep & Recovery',
-    description: 'Duerme más profundo. Recupérate mejor. Vive mejor.',
+    title: 'Noctip™ — Premium Sleep & Recovery Technology',
+    description: 'Duerme más profundo. Recupérate mejor. Vive mejor. Tecnología premium de sueño y recuperación.',
+    url: 'https://noctip.com',
+    siteName: 'Noctip',
+    locale: 'es_ES',
     type: 'website',
+    images: [
+      {
+        url: '/images/sleepband-pro-1.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Noctip — Premium Sleep & Recovery Technology',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Noctip™ — Premium Sleep & Recovery Technology',
+    description: 'Tecnología premium de sueño y recuperación. Envío gratis y garantía de 30 noches.',
+    images: ['/images/sleepband-pro-1.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
   },
 }
 
@@ -38,6 +87,11 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${inter.variable} ${syne.variable}`}>
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <meta name="theme-color" content="#080c16" />
+      </head>
       <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden">
         <UtmCapture />
         {children}
