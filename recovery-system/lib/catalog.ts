@@ -84,15 +84,15 @@ export const CATALOG: CatalogProduct[] = [
     rating: 4.9,
     reviewCount: 1578,
     badge: 'bestseller',
-    shortDescription: 'Ultra-thin acoustic headband engineered for pressure-free, immersive sleep audio.',
-    shortDescription_en: 'Ultra-thin acoustic headband engineered for pressure-free, immersive sleep audio.',
-    shortDescription_es: 'Cinta acústica ultrafina diseñada para audio de sueño inmersivo sin presión en los oídos.',
+    shortDescription: 'Ultra-thin acoustic headband — studio sound without ear pressure.',
+    shortDescription_en: 'Ultra-thin acoustic headband — studio sound without ear pressure.',
+    shortDescription_es: 'Banda acústica ultrafina — sonido de estudio sin presión en los oídos.',
     description:
-      'Noctip Halo fuses textile engineering with precision acoustic drivers to deliver rich, immersive sleep audio without the discomfort of in-ear devices. Designed for side sleepers and crafted from breathable, moisture-wicking knit, Halo stays comfortable all night. Removable modules allow safe machine washing and USB‑C fast charging ensures quick top-ups between nights.',
+      'You put on Halo. You stop hearing the world. Weighing just 55g, it feels like a normal headband — but the audio clarity rivals studio headphones. Designed for side sleepers, machine washable, USB-C fast charging. No cables, no pressure, no excuses. Fall asleep faster tonight.',
     description_en:
-      'Noctip Halo fuses textile engineering with precision acoustic drivers to deliver rich, immersive sleep audio without the discomfort of in-ear devices. Designed for side sleepers and crafted from breathable, moisture-wicking knit, Halo stays comfortable all night. Removable modules allow safe machine washing and USB‑C fast charging ensures quick top-ups between nights.',
+      'You put on Halo. You stop hearing the world. Weighing just 55g, it feels like a normal headband — but the audio clarity rivals studio headphones. Designed for side sleepers, machine washable, USB-C fast charging. No cables, no pressure, no excuses. Fall asleep faster tonight.',
     description_es:
-      'Noctip Halo combina ingeniería textil con drivers acústicos de precisión para ofrecer audio nocturno inmersivo sin la molestia de los auriculares intrauditivos. Diseñada para quienes duermen de lado, su tejido transpirable y que evacua la humedad permanece cómoda toda la noche. Los módulos son extraíbles para lavado y la carga rápida USB‑C permite recargas rápidas.',
+      'Te pones la Halo. Dejas de oír el mundo. Pesa 55g, se siente como una cinta normal — pero la claridad del sonido rivaliza con auriculares de estudio. Diseñada para dormir de lado, lavable a máquina, carga rápida USB-C. Sin cables, sin presión, sin excusas. Duérmete más rápido esta noche.',
     features: [
       'Precision acoustic film drivers — studio-tuned for sleep',
       'Ergonomic wrap designed for side sleepers',
@@ -130,15 +130,15 @@ export const CATALOG: CatalogProduct[] = [
     rating: 4.8,
     reviewCount: 812,
     badge: 'new',
-    shortDescription: 'Compact ambient sound system with studio‑tuned sleep profiles and adaptive soft light.',
-    shortDescription_en: 'Compact ambient sound system with studio‑tuned sleep profiles and adaptive soft light.',
-    shortDescription_es: 'Sistema de sonido ambiental compacto con perfiles de sueño y luz suave adaptativa.',
+    shortDescription: 'Compact sound machine — 20 sleep profiles that shut off your brain.',
+    shortDescription_en: 'Compact sound machine — 20 sleep profiles that shut off your brain.',
+    shortDescription_es: 'Máquina de sonido compacta — 20 perfiles que apagan tu cerebro.',
     description:
-      'Noctip Wave is a compact ambient sound system engineered to mask disruptive noise and guide the brain into deeper sleep states. Wave includes a library of studio‑tuned profiles (white, brown, ocean, rain, and bespoke blends), adaptive volume sensing and a gentle night light that fades as you fall asleep.',
+      'Turn it on. Street noise disappears. 20 sound profiles tuned by audio engineers — not algorithms. Adaptive volume sensing adjusts to your room in real time. Soft amber night light fades automatically as you drift off. This is not a speaker. It is a switch for your brain.',
     description_en:
-      'Noctip Wave is a compact ambient sound system engineered to mask disruptive noise and guide the brain into deeper sleep states. Wave includes a library of studio‑tuned profiles (white, brown, ocean, rain, and bespoke blends), adaptive volume sensing and a gentle night light that fades as you fall asleep.',
+      'Turn it on. Street noise disappears. 20 sound profiles tuned by audio engineers — not algorithms. Adaptive volume sensing adjusts to your room in real time. Soft amber night light fades automatically as you drift off. This is not a speaker. It is a switch for your brain.',
     description_es:
-      'Noctip Wave es un sistema de sonido ambiental compacto diseñado para enmascarar ruidos molestos y guiar al cerebro hacia un sueño más profundo. Incluye una biblioteca de perfiles (blanco, marrón, océano, lluvia) y una luz nocturna suave que se atenúa al dormirte.',
+      'Lo enciendes. El ruido de la calle desaparece. 20 perfiles de sonido sintonizados por ingenieros de audio — no por algoritmos. Detección adaptativa de volumen que se ajusta a tu habitación en tiempo real. Luz ámbar suave que se apaga sola cuando te quedas dormido. No es un altavoz. Es un interruptor para tu cerebro.',
     features: [
       'Studio‑tuned sleep profiles — curated for restorative rest',
       'Adaptive noise-level sensing — adjusts volume subtly',
@@ -175,15 +175,15 @@ export const CATALOG: CatalogProduct[] = [
     comparePrice: 22,
     rating: 4.4,
     reviewCount: 120,
-    shortDescription: 'Essential Bluetooth sleep headband with ultra-thin speakers for everyday rest.',
-    shortDescription_en: 'Essential Bluetooth sleep headband with ultra-thin speakers for everyday rest.',
-    shortDescription_es: 'Cinta Bluetooth esencial para dormir con altavoces ultrafinos para el descanso diario.',
+    shortDescription: 'The perfect entry to sleep audio — 45g, 10 hours, zero complications.',
+    shortDescription_en: 'The perfect entry to sleep audio — 45g, 10 hours, zero complications.',
+    shortDescription_es: 'La entrada perfecta al audio de sueño — 45g, 10 horas, cero complicaciones.',
     description:
-      'Noctip Rest is the essential entry to sleep audio. A lightweight, washable headband with integrated Bluetooth speakers that deliver clear, balanced sound without ear pressure. Ideal for sleep, meditation and focus sessions. Simple setup, long battery life and a soft fabric that disappears once you put it on.',
+      'If you have never tried a sleep headband, start here. 45 grams. Machine washable. 10 hours of battery. No apps, no cables, no learning curve. You put it on and it works. Simple as that. The soft fabric disappears once you wear it — and you wake up wondering why you did not try this sooner.',
     description_en:
-      'Noctip Rest is the essential entry to sleep audio. A lightweight, washable headband with integrated Bluetooth speakers that deliver clear, balanced sound without ear pressure. Ideal for sleep, meditation and focus sessions. Simple setup, long battery life and a soft fabric that disappears once you put it on.',
+      'If you have never tried a sleep headband, start here. 45 grams. Machine washable. 10 hours of battery. No apps, no cables, no learning curve. You put it on and it works. Simple as that. The soft fabric disappears once you wear it — and you wake up wondering why you did not try this sooner.',
     description_es:
-      'Noctip Rest es la entrada esencial al audio de sueño. Una cinta ligera y lavable con altavoces Bluetooth integrados que ofrecen sonido claro y equilibrado sin presión en los oídos. Ideal para dormir, meditación y sesiones de concentración. Configuración sencilla, larga duración de batería y una tela suave que desaparece al ponértela.',
+      'Si nunca has probado una banda de sueño, empieza aquí. 45 gramos. Lavable a máquina. 10 horas de batería. Sin apps, sin cables, sin curva de aprendizaje. Te la pones y funciona. Así de simple. La tela suave desaparece al ponértela — y despiertas preguntándote por qué no lo intentaste antes.',
     features: [
       'Bluetooth 5.0 — universal device compatibility',
       'Ultra-thin speakers — no ear pressure',
@@ -217,15 +217,15 @@ export const CATALOG: CatalogProduct[] = [
     comparePrice: 25,
     rating: 4.5,
     reviewCount: 210,
-    shortDescription: 'Portable cervical massager with heat therapy and multiple intensity modes.',
-    shortDescription_en: 'Portable cervical massager with heat therapy and multiple intensity modes.',
-    shortDescription_es: 'Masajeador cervical portátil con terapia de calor y múltiples modos de intensidad.',
+    shortDescription: '15 minutes. 3 modes. Heat up to 45°C. Your neck remembers tomorrow.',
+    shortDescription_en: '15 minutes. 3 modes. Heat up to 45°C. Your neck remembers tomorrow.',
+    shortDescription_es: '15 minutos. 3 modos. Calor hasta 45°C. Tu cuello lo recordará mañana.',
     description:
-      'Noctip Relief combines ergonomic design with deep-kneading massage nodes and optional heat therapy to relieve cervical tension, desk fatigue and muscle stiffness. Three massage modes and adjustable intensity let you customize each session. Compact, rechargeable via USB‑C and ready to use anywhere — at your desk, on the couch or while traveling.',
+      'Your neck goes from "I cannot turn my head" to "all good" in 15 minutes. Three massage modes — knead, pulse, combination — plus heat therapy up to 45°C. Designed to use at your desk while you work. USB-C rechargeable. No cables. Automatic shut-off for safety. Your cervical tension does not stand a chance.',
     description_en:
-      'Noctip Relief combines ergonomic design with deep-kneading massage nodes and optional heat therapy to relieve cervical tension, desk fatigue and muscle stiffness. Three massage modes and adjustable intensity let you customize each session. Compact, rechargeable via USB‑C and ready to use anywhere — at your desk, on the couch or while traveling.',
+      'Your neck goes from "I cannot turn my head" to "all good" in 15 minutes. Three massage modes — knead, pulse, combination — plus heat therapy up to 45°C. Designed to use at your desk while you work. USB-C rechargeable. No cables. Automatic shut-off for safety. Your cervical tension does not stand a chance.',
     description_es:
-      'Noctip Relief combina un diseño ergonómico con nodos de masaje profundo y terapia de calor opcional para aliviar la tensión cervical, el cansancio de escritorio y la rigidez muscular. Tres modos de masaje e intensidad ajustable te permiten personalizar cada sesión. Compacto, recargable vía USB‑C y listo para usar en cualquier lugar.',
+      'Tu cuello pasa de "no puedo girar la cabeza" a "todo bien" en 15 minutos. Tres modos de masaje — knead, pulse, combinación — más terapia de calor hasta 45°C. Diseñado para ponerte frente al ordenador y usarlo mientras trabajas. Recargable por USB-C. Sin cables. Apagado automático por seguridad. Tu tensión cervical no tiene ninguna posibilidad.',
     features: [
       'Deep-kneading massage nodes — 3 intensity levels',
       'Optional heat therapy — up to 45°C',
@@ -260,15 +260,15 @@ export const CATALOG: CatalogProduct[] = [
     rating: 4.7,
     reviewCount: 512,
     badge: 'new',
-    shortDescription: 'Weighted sleep mask with aromatherapy insert and 100% blackout seal.',
-    shortDescription_en: 'Weighted sleep mask with aromatherapy insert and 100% blackout seal.',
-    shortDescription_es: 'Antifaz con peso con inserto de aromaterapia y sello de blackout 100%.',
+    shortDescription: '150g of gentle pressure + real lavender. Your body gets the message.',
+    shortDescription_en: '150g of gentle pressure + real lavender. Your body gets the message.',
+    shortDescription_es: '150g de presión suave + lavanda real. Tu cuerpo entiende el mensaje.',
     description:
-      'Noctip Calm combines evenly distributed 150g of gentle weight with breathable velvet fabric and an optional lavender aromatherapy insert to reduce eye tension and accelerate sleep onset. The contoured nose bridge seal ensures complete blackout while the hypoallergenic fill stays comfortable against all skin types. Machine washable outer shell for easy maintenance.',
+      '150g of evenly distributed gentle pressure that your body interprets as "it is time to sleep." Real lavender aromatherapy that activates your nervous system for rest. Total blackout — not a single ray of light. Contoured nose bridge seal. Hypoallergenic fill. Machine washable outer shell. Try it for one night. If you do not feel the difference, we refund every cent.',
     description_en:
-      'Noctip Calm combines evenly distributed 150g of gentle weight with breathable velvet fabric and an optional lavender aromatherapy insert to reduce eye tension and accelerate sleep onset. The contoured nose bridge seal ensures complete blackout while the hypoallergenic fill stays comfortable against all skin types. Machine washable outer shell for easy maintenance.',
+      '150g of evenly distributed gentle pressure that your body interprets as "it is time to sleep." Real lavender aromatherapy that activates your nervous system for rest. Total blackout — not a single ray of light. Contoured nose bridge seal. Hypoallergenic fill. Machine washable outer shell. Try it for one night. If you do not feel the difference, we refund every cent.',
     description_es:
-      'Noctip Calm combina 150g de peso suave distribuido uniformemente con tejido de terciopelo transpirable y un inserto de aromaterapia de lavanda opcional para reducir la tensión ocular y acelerar el inicio del sueño. El sello contour del puente nasal garantiza un blackout completo mientras el relleno hipoalergénico se mantiene cómodo.',
+      '150g de presión suave distribuida uniformemente que tu cuerpo interpreta como "ya es hora de dormir". Aromaterapia de lavanda real que activa tu sistema nervioso para el descanso. Blackout total — ni un rayo de luz. Sello contour del puente nasal. Relleno hipoalergénico. Funda exterior lavable a máquina. Pruébalo una noche. Si no notas la diferencia, te devolvemos cada euro.',
     features: [
       'Evenly distributed 150g gentle weight',
       'Replaceable aromatherapy insert — lavender included',

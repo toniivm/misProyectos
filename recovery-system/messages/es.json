@@ -1,7 +1,7 @@
 {
   "seo": {
-    "title": "Noctip™ | Recuperación premium en casa",
-    "description": "Alivio muscular profundo, mejor descanso y recuperación de alto rendimiento. El sistema premium diseñado para tu rutina diaria."
+    "title": "Noctip™ | Herramientas que te hacen dormir mejor desde mañana",
+    "description": "Bandas de sueño, ruido blanco, antifaces con peso y masajeadores cervicales. Envío gratis. 30 noches de garantía. Tu cuerpo nota la diferencia desde la primera noche."
   },
   "nav": {
     "brand": "NOCTIP™",
@@ -29,14 +29,14 @@
   "cart": {
     "title": "Tu carrito",
     "empty": "Tu carrito está vacío",
-    "emptyHint": "Añade herramientas de recuperación para comenzar tu ritual.",
+    "emptyHint": "Tu cuerpo te está pidiendo algo. Añádelo aquí.",
     "continueShopping": "Seguir comprando",
     "subtotal": "Subtotal",
     "shipping": "Envío",
     "free": "Gratis",
     "total": "Total",
     "checkout": "Ir al pago",
-    "secureCheckout": "Pago seguro - Garantía 30 días",
+    "secureCheckout": "Pago 100% seguro · 30 noches de garantía",
     "item": "artículo",
     "items": "artículos"
   },
@@ -77,7 +77,7 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Envío",
     "totalLine": "Total",
-    "guaranteeBadge": "Garantía de devolución de 30 días",
+    "guaranteeBadge": "30 noches de prueba — o te devolvemos todo",
     "promoHeading": "Código promocional",
     "promoPlaceholder": "Ej: NOCTIP10",
     "promoApply": "Aplicar",
@@ -108,7 +108,7 @@
     "returns": "Devoluciones 30 días",
     "secureCheckout": "Pago seguro",
     "shippingInfo": "Envío y entrega",
-    "shipsIn": "Envío en 24h · llega en 3-5 días · Gratis en todos los pedidos",
+    "shipsIn": "Envío en 24h · llega en 3-5 días · gratis en todos los pedidos",
     "faqHeading": "Preguntas frecuentes",
     "faqSubheading": "Respuestas rápidas antes de añadirlo a tu rutina.",
     "relatedProducts": "Más de",
@@ -119,9 +119,9 @@
     "new": "Nuevo",
     "deal": "Oferta",
     "trending": "Tendencia",
-    "whyTitle": "Por qué este producto funciona en la vida real",
-    "whyHeading": "Diseñado para uso repetido, no para una novedad pasajera.",
-    "whyBody": "Las mejores tiendas no solo muestran especificaciones. Muestran cómo el producto encaja en la vida diaria. El mismo principio aquí: beneficios claros, configuración sencilla y suficiente confianza para comprar sin dudar."
+    "whyTitle": "Por qué funciona de verdad",
+    "whyHeading": "No es marketing. Es ingeniería aplicada al descanso.",
+    "whyBody": "Cada producto está diseñado con un único objetivo: que duermas mejor, te recovery faster, y lo notes desde la primera noche. Sin promesas vacías. Solo resultados que tu cuerpo puede sentir."
   },
   "success": {
     "title": "¡Pedido confirmado!",
@@ -132,16 +132,16 @@
     "continueShopping": "Seguir comprando"
   },
   "hero": {
-    "kicker": "Tecnología premium de bienestar",
-    "line1": "Recupérate mejor.",
-    "line2": "Descansa más. Rinde más.",
-    "subtitle": "Alivio muscular profundo, descanso optimizado y recuperación de alto rendimiento — todo en un ritual premium para casa.",
-    "primary": "Empezar ahora",
-    "secondary": "Ver el sistema",
+    "kicker": "Ciencia del sueño, resultado real",
+    "line1": "Duérmete en minutos, no en horas.",
+    "line2": "Despierta como si hubieras dormido 10 horas.",
+    "subtitle": "Productos que tu cuerpo nota desde la primera noche. Diseñados para gente que no puede permitirse dormir mal.",
+    "primary": "Descubrir qué me falta",
+    "secondary": "Ver más vendidos",
     "metrics": {
-      "users": "10.000+ rutinas activas",
-      "rating": "4.9 promedio verificado",
-      "guarantee": "Garantía 30 días"
+      "users": "10.000+ personas duermen mejor",
+      "rating": "4,9 ★ verificado por clientes reales",
+      "guarantee": "30 noches para decidir"
     }
   },
   "faq": {
@@ -153,13 +153,13 @@
     "signOut": "Cerrar sesión"
   },
   "footer": {
-    "tagline": "Herramientas premium de sueño y recuperación para el bienestar diario.",
+    "tagline": "Dormimos mejor para que vivas mejor.",
     "shop": "Tienda",
     "support": "Soporte",
-    "returns": "Devoluciones en 30 días",
-    "shipping": "Envío gratis",
+    "returns": "30 noches para devolver",
+    "shipping": "Envío gratis siempre",
     "rights": "Todos los derechos reservados.",
-    "securePayments": "Pagos seguros de 256 bits",
-    "trustBadge": "Pago seguro · Garantía 30 días · Envío gratis"
+    "securePayments": "Pago 100% seguro (Stripe + SSL)",
+    "trustBadge": "Envío gratis · 30 noches de garantía · Pago seguro"
   }
 }

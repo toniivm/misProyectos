@@ -1,7 +1,7 @@
 {
   "seo": {
-    "title": "Noctip™ | Premium at-home recovery",
-    "description": "Deep muscle relief, better sleep and high-performance recovery in one premium daily ritual."
+    "title": "Noctip™ | Sleep tools that work from night one",
+    "description": "Sleep headbands, white noise, weighted masks and neck massagers. Free shipping. 30-night guarantee. Your body feels the difference from the first night."
   },
   "nav": {
     "brand": "NOCTIP™",
@@ -29,14 +29,14 @@
   "cart": {
     "title": "Your cart",
     "empty": "Your cart is empty",
-    "emptyHint": "Add recovery tools to begin your ritual.",
+    "emptyHint": "Your body is asking for something. Add it here.",
     "continueShopping": "Continue shopping",
     "subtotal": "Subtotal",
     "shipping": "Shipping",
     "free": "Free",
     "total": "Total",
     "checkout": "Proceed to checkout",
-    "secureCheckout": "Secure checkout - 30-night guarantee",
+    "secureCheckout": "100% secure payment · 30-night guarantee",
     "item": "item",
     "items": "items"
   },
@@ -77,7 +77,7 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Shipping",
     "totalLine": "Total",
-    "guaranteeBadge": "30-night money-back guarantee",
+    "guaranteeBadge": "30-night trial — or we refund everything",
     "promoHeading": "Promo code",
     "promoPlaceholder": "e.g. NOCTIP10",
     "promoApply": "Apply",
@@ -119,9 +119,9 @@
     "new": "New",
     "deal": "Deal",
     "trending": "Trending",
-    "whyTitle": "Why this product works in real life",
-    "whyHeading": "Built for repeated use, not one-off novelty.",
-    "whyBody": "The strongest stores do not just show specs. They show how the product fits into daily life. The same principle here: clear benefits, simple setup and enough trust to buy without hesitation."
+    "whyTitle": "Why it actually works",
+    "whyHeading": "Not marketing. Engineered for better sleep.",
+    "whyBody": "Every product is designed with one goal: you sleep better, recover faster, and feel it from the first night. No empty promises. Only results your body can feel."
   },
   "success": {
     "title": "Order confirmed!",
@@ -132,16 +132,16 @@
     "continueShopping": "Continue shopping"
   },
   "hero": {
-    "kicker": "Premium wellness technology",
-    "line1": "Recover better.",
-    "line2": "Sleep deeper. Perform more.",
-    "subtitle": "Deep muscle relief, optimized sleep and high-performance recovery — one premium ritual for home.",
-    "primary": "Get started",
-    "secondary": "See the system",
+    "kicker": "Sleep science, real results",
+    "line1": "Fall asleep in minutes, not hours.",
+    "line2": "Wake up like you slept 10 hours.",
+    "subtitle": "Products your body feels from night one. Built for people who can't afford to sleep badly.",
+    "primary": "Find what I'm missing",
+    "secondary": "See best sellers",
     "metrics": {
-      "users": "10,000+ active routines",
-      "rating": "4.9 verified average",
-      "guarantee": "30-day guarantee"
+      "users": "10,000+ people sleeping better",
+      "rating": "4.9 ★ verified by real customers",
+      "guarantee": "30 nights to decide"
     }
   },
   "faq": {
@@ -153,13 +153,13 @@
     "signOut": "Sign out"
   },
   "footer": {
-    "tagline": "Premium sleep and recovery tools for daily wellness.",
+    "tagline": "We sleep better so you live better.",
     "shop": "Shop",
     "support": "Support",
-    "returns": "30-day returns",
-    "shipping": "Free shipping",
+    "returns": "30 nights to return",
+    "shipping": "Free shipping always",
     "rights": "All rights reserved.",
-    "securePayments": "Secure 256-bit payments",
-    "trustBadge": "Secure checkout · 30-day guarantee · Free shipping"
+    "securePayments": "100% secure payment (Stripe + SSL)",
+    "trustBadge": "Free shipping · 30-night guarantee · Secure checkout"
   }
 }
