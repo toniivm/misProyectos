@@ -111,9 +111,7 @@ export const CATALOG: CatalogProduct[] = [
       'Reutilizable': 'Sí — lavable y duradera',
     },
     images: [
-      '/images/sleepband-pro-1.jpg',
-      '/images/sleepband-pro-2.jpg',
-      '/images/sleepband-pro-3.jpg',
+      '/images/productos-reales/sleepband-pro.jpg',
     ],
     icon: '😴',
     cartIcon: '😴',
@@ -157,9 +155,7 @@ export const CATALOG: CatalogProduct[] = [
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
     images: [
-      '/images/white-noise-pro-1.jpg',
-      '/images/white-noise-pro-2.jpg',
-      '/images/white-noise-pro-3.jpg',
+      '/images/productos-reales/white-noise-pro.jpg',
     ],
     icon: '🧘',
     cartIcon: '🧘',
@@ -200,12 +196,14 @@ export const CATALOG: CatalogProduct[] = [
       'Tallas': 'Talla única — elástica',
       'Peso': '≈45g',
     },
-    images: ['/images/products/sleep-headband.jpg'],
+    images: [
+      '/images/productos-reales/sleep-headband.jpg',
+    ],
     icon: '🎧',
     cartIcon: '🎧',
     color: '#101828',
   },
-
+ 
   // ─── Neck & Recovery ─────────────────────────────────────────────
   {
     slug: 'neck-massager',
@@ -242,7 +240,7 @@ export const CATALOG: CatalogProduct[] = [
       'Material': 'Silicona suave + ABS',
       'Peso': '≈180g',
     },
-    images: ['/images/products/neck-massager.jpg'],
+    images: ['/images/productos-reales/neck-massager.jpg'],
     icon: '🧘',
     cartIcon: '🧘',
     color: '#121a24',
@@ -287,9 +285,7 @@ export const CATALOG: CatalogProduct[] = [
       'Material': 'ABS + silicona suave',
     },
     images: [
-      '/images/weighted-mask-pro-1.jpg',
-      '/images/weighted-mask-pro-2.jpg',
-      '/images/weighted-mask-pro-3.jpg',
+      '/images/productos-reales/weighted-mask-pro.jpg',
     ],
     icon: '😴',
     cartIcon: '😴',
