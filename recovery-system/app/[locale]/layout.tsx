@@ -11,7 +11,8 @@ import Footer from '../../components/Footer';
 import CookieConsent from '../../components/CookieConsent';
 import LocalePreferenceSync from '../../components/LocalePreferenceSync';
 import BackendWarmup from '../../components/BackendWarmup';
-import NewsletterPopup from '../../components/NewsletterPopup';
+import NewsletterPopup from '../../components/NewsletterPopup'
+import WhatsAppButton from '../../components/WhatsAppButton';
 
 type Props = {
   children: React.ReactNode;
@@ -308,6 +309,7 @@ export default async function LocaleLayout({children, params}: Props) {
           <AuthModal />
           <CookieConsent />
           <NewsletterPopup />
+          <WhatsAppButton />
         </AuthProvider>
       </CartProvider>
     </NextIntlClientProvider>

@@ -12,31 +12,31 @@ export default function AboutPage() {
   const values = [
     {
       icon: Target,
-      title: isEs ? 'Ingeniería centrada en resultados' : 'Results-driven engineering',
+      title: isEs ? 'Productos que funcionan' : 'Products that work',
       text: isEs
-        ? 'Cada producto pasa por un proceso de desarrollo riguroso. Sin atajos, sin promesas vacías. Solo especificaciones reales y resultados medibles.'
-        : 'Every product goes through a rigorous development process. No shortcuts, no empty promises. Only real specifications and measurable results.',
+        ? 'No vendemos humo. Cada producto está probado por nosotros antes de ponerlo a la venta. Si no nos convence, no lo vendemos.'
+        : 'We don\'t sell hype. Every product is tested by us before we sell it. If it doesn\'t convince us, we don\'t sell it.',
     },
     {
       icon: Shield,
-      title: isEs ? 'Calidad sin compromiso' : 'Uncompromised quality',
+      title: isEs ? 'Sin letra pequeña' : 'No fine print',
       text: isEs
-        ? 'Seleccionamos materiales premium y componentes de última generación. Cada detalle está pensado para durar.'
-        : 'We select premium materials and cutting-edge components. Every detail is designed to last.',
+        ? '30 noches de prueba. Si no te gusta, lo recogemos y te devolvemos el dinero. Sin preguntas, sin formularios interminables.'
+        : '30-night trial. If you don\'t like it, we pick it up and refund you. No questions, no endless forms.',
     },
     {
       icon: Heart,
-      title: isEs ? 'Diseño centrado en el usuario' : 'User-centered design',
+      title: isEs ? 'Atención real' : 'Real support',
       text: isEs
-        ? 'No diseñamos para impresionar. Diseñamos para que encaje perfecto en tu rutina diaria sin complicaciones.'
-        : 'We don\'t design to impress. We design to fit perfectly into your daily routine without complications.',
+        ? 'Cuando escribes a soporte, te contesta una persona, no un bot. Respuesta en menos de 24 horas. Siempre.'
+        : 'When you write to support, a real person answers, not a bot. Response within 24 hours. Always.',
     },
     {
       icon: Zap,
-      title: isEs ? 'Innovación accesible' : 'Accessible innovation',
+      title: isEs ? 'Precios justos' : 'Fair prices',
       text: isEs
-        ? 'Tecnología premium no debería costar una fortuna. Ofrecemos productos de alta gama a precios justos.'
-        : 'Premium technology shouldn\'t cost a fortune. We offer high-end products at fair prices.',
+        ? 'Sin intermediarios. Traemos los productos directamente y aplicamos el margen mínimo. Pagas el producto, no la marca.'
+        : 'No middlemen. We source products directly and apply minimal margins. You pay for the product, not the brand.',
     },
   ]
 
@@ -80,13 +80,13 @@ export default function AboutPage() {
           </span>
           <h1 className="mt-4 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
             {isEs
-              ? 'Tecnología que mejora tu descanso'
-              : 'Technology that improves your rest'}
+              ? 'Dormir bien no debería ser un lujo'
+              : 'Sleeping well shouldn\'t be a luxury'}
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-[#8791a1]">
             {isEs
-              ? 'Noctip nació de una idea simple: la tecnología debería hacer tu vida mejor, no más complicada. Diseñamos productos de sueño y recuperación que realmente funcionan, sin marketing excesivo ni promesas vacías.'
-              : 'Noctip was born from a simple idea: technology should make your life better, not more complicated. We design sleep and recovery products that actually work, without excessive marketing or empty promises.'}
+              ? 'Somos una marca pequeña, independiente, con una idea clara: crear productos de descanso que funcionen de verdad y cuesten lo justo. Sin inversores, sin juntas directivas, sin márgenes inflados. Solo productos que nos gustan y que usamos nosotros mismos.'
+              : 'We are a small, independent brand with one clear idea: create rest products that actually work and cost what they should. No investors, no board meetings, no inflated margins. Just products we like and use ourselves.'}
           </p>
         </motion.div>
 
@@ -136,17 +136,22 @@ export default function AboutPage() {
           className="mt-16 rounded-[28px] border border-white/[0.07] bg-[linear-gradient(180deg,#101722,#0c1118)] p-8 text-center sm:p-12"
         >
           <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f6f2eb]">
-            {isEs ? 'Nuestra misión' : 'Our mission'}
+            {isEs ? '¿Hablamos?' : 'Let\'s talk'}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-7 text-[#8791a1]">
             {isEs
-              ? 'Hacer que la tecnología de sueño y recuperación de alta gama sea accesible para todos. Productos que realmente funcionan, a precios justos, con una garantía que elimina el riesgo.'
-              : 'Make high-end sleep and recovery technology accessible to everyone. Products that actually work, at fair prices, with a guarantee that eliminates risk.'}
+              ? 'Si tienes cualquier duda antes de comprar, escríbenos. Preferimos que compres seguro a que compres con dudas. Respondemos en menos de 24 horas.'
+              : 'If you have any questions before buying, write to us. We\'d rather you buy confident than buy with doubts. We reply within 24 hours.'}
           </p>
-          <Link href={`/${locale}/shop/all`}
-            className="mt-8 inline-flex items-center rounded-full bg-[#f2eee7] px-8 py-4 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px]">
-            {isEs ? 'Ver productos' : 'View products'}
-          </Link>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <a href="mailto:support@noctip.com"
+              className="inline-flex items-center rounded-full bg-[#f2eee7] px-8 py-4 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px]">
+              ✉️ {isEs ? 'support@noctip.com' : 'support@noctip.com'}
+            </a>
+          </div>
+          <p className="mt-4 text-[12px] text-[#6b7785]">
+            {isEs ? 'También por WhatsApp en el botón verde de la web' : 'Also via WhatsApp using the green button on the site'}
+          </p>
         </motion.div>
 
         {/* Trust */}
