@@ -11,6 +11,7 @@ type Props = {
   images?: string[]
   alt?: string
   className?: string
+  activeIndex?: number
 }
 
 const PRODUCT_GRAPHICS: Record<ProductType, {
@@ -226,12 +227,12 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
   }
 }
 
-export default function ProductImage({ slug, color, icon, images, alt, className = '' }: Props) {
+export default function ProductImage({ slug, color, icon, images, alt, className = '', activeIndex = 0 }: Props) {
   const [imgError, setImgError] = useState(false)
   const [imgLoaded, setImgLoaded] = useState(false)
   
   const config = PRODUCT_GRAPHICS[slug] || PRODUCT_GRAPHICS['sleepband-pro']
-  const hasRealImage = images && images.length > 0 && !imgError
+  const hasRealImage = images && images.length > activeIndex && !imgError
 
   return (
     <div className={`relative overflow-hidden ${className}`} style={{ background: color }}>
@@ -246,7 +247,7 @@ export default function ProductImage({ slug, color, icon, images, alt, className
       {/* Real image on top if available */}
       {hasRealImage && (
         <img 
-          src={images![0]} 
+          src={images![activeIndex]} 
           alt={alt || 'Product'} 
           onError={() => setImgError(true)}
           onLoad={() => setImgLoaded(true)}

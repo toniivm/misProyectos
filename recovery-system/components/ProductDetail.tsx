@@ -80,7 +80,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'reviews'>('description');
-  const [showMobileGallery, setShowMobileGallery] = useState(false);
 
   const product = getCatalogProductBySlug(legacyProduct.slug);
   const category = product ? CATEGORIES.find((c) => c.id === product.category) : null;
@@ -219,6 +218,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 icon={product?.icon ?? legacyProduct.icon}
                 images={product?.images ?? []}
                 alt={displayName}
+                activeIndex={activeImg}
                 className="h-full w-full"
               />
               <div className="absolute top-4 left-4 flex gap-2">
@@ -235,6 +235,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                       activeImg === idx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
                     }`}>
                     <img src={src} alt="" className="h-20 w-full object-cover" loading="lazy"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                       style={{ objectPosition: idx === 0 ? '50% 10%' : idx === 1 ? '50% 70%' : '50% 40%' }} />
                   </button>
                 ))}
@@ -489,7 +490,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
         {/* Why this product section */}
         <section className="mt-4 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
-          {product?.images ? (
+          {product?.images && product.images.length > 0 ? (
             <div className="grid gap-3 sm:grid-cols-2">
               {product.images.slice(0, 3).map((src, idx) => (
                 <div key={src}
@@ -497,6 +498,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                     idx === 0 ? 'sm:col-span-2 min-h-[280px]' : 'min-h-[200px]'
                   }`}>
                   <img src={src} alt={`${displayName} in use`} loading="lazy"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                     className="h-full w-full object-cover" />
                 </div>
               ))}
@@ -556,8 +558,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   <Link key={p.slug} href={`/${locale}/products/${p.slug}`} className="group block">
                     <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all hover:border-white/[0.14] hover:shadow-card">
                       <div className="flex h-32 items-center justify-center overflow-hidden" style={{ background: p.color }}>
-                        {p.images ? (
+                        {p.images && p.images.length > 0 ? (
                           <img src={p.images[0]} alt={rName} loading="lazy"
+                            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                             style={{ objectPosition: '50% 5%' }} />
                         ) : (
@@ -584,8 +587,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       <div className="fixed bottom-0 left-0 right-0 z-40 hidden border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] backdrop-blur-xl lg:block">
         <div className="mx-auto flex max-w-[1280px] items-center gap-4 px-4 py-3">
           <div className="flex min-w-0 items-center gap-3">
-            {product?.images ? (
+            {product?.images && product.images.length > 0 ? (
               <img src={product.images[0]} alt={displayName} loading="lazy"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                 className="h-14 w-14 shrink-0 rounded-2xl border border-white/[0.08] object-cover" />
             ) : (
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#111720] text-2xl">

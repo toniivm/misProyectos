@@ -79,9 +79,13 @@ export function SocialProofNotification() {
 export function StockUrgency({ slug }: { slug: string }) {
   const locale = useLocale()
   const isEs = locale === 'es'
-  const [stock] = useState(() => Math.floor(Math.random() * 8) + 3)
+  const [stock, setStock] = useState<number | null>(null)
 
-  if (stock > 7) return null
+  useEffect(() => {
+    setStock(Math.floor(Math.random() * 8) + 3)
+  }, [])
+
+  if (stock === null || stock > 7) return null
 
   return (
     <div className="flex items-center gap-1.5 text-[11px]">
@@ -100,7 +104,13 @@ export function StockUrgency({ slug }: { slug: string }) {
 export function ViewingNow({ slug }: { slug: string }) {
   const locale = useLocale()
   const isEs = locale === 'es'
-  const [viewers] = useState(() => Math.floor(Math.random() * 30) + 12)
+  const [viewers, setViewers] = useState<number | null>(null)
+
+  useEffect(() => {
+    setViewers(Math.floor(Math.random() * 30) + 12)
+  }, [])
+
+  if (viewers === null) return null
 
   return (
     <div className="flex items-center gap-1.5 text-[11px] text-[#8791a1]">

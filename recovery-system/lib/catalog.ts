@@ -58,17 +58,6 @@ export const CATEGORIES: Category[] = [
     description_en: 'Posture correction and cervical massage tools for pain relief and muscle recovery.',
     description_es: 'Herramientas de corrección postural y masaje cervical para alivio del dolor y recuperación muscular.',
   },
-  {
-    id: 'sensory',
-    slug: 'sensory',
-    name: 'Sensory & Relaxation',
-    name_en: 'Sensory & Relaxation',
-    name_es: 'Sensorial y relajación',
-    icon: '🌙',
-    description: 'Cervical pulse massagers and relaxation technology for tension relief.',
-    description_en: 'Cervical pulse massagers and relaxation technology for tension relief.',
-    description_es: 'Masajeadores cervicales por pulsos y tecnología de relajación para alivio de tensión.',
-  },
 ]
 
 export const CATALOG: CatalogProduct[] = [

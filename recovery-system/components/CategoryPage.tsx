@@ -111,8 +111,9 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
     <Link href={`/${locale}/products/${product.slug}`} className="group block">
       <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-white/[0.14] hover:shadow-card-hover">
         <div className="relative flex h-48 items-center justify-center overflow-hidden" style={{ background: product.color }}>
-          {product.images ? (
+          {product.images && product.images.length > 0 ? (
             <img src={product.images[0]} alt={name} loading="lazy"
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               style={{ objectPosition: '50% 5%' }} />
           ) : (
@@ -376,9 +377,10 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
             </div>
 
             <div className="relative min-h-[300px] sm:min-h-[400px] overflow-hidden rounded-[30px] m-3 lg:m-4">
-              {featuredProduct.images ? (
+              {featuredProduct.images && featuredProduct.images.length > 0 ? (
                 <img src={featuredProduct.images[1] ?? featuredProduct.images[0]}
                   alt={getLocalizedProductName(featuredProduct, locale)}
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                   style={{ objectPosition: featuredProduct.slug === 'sleepband-pro' ? '50% 100%' : '50% 30%' }} />
               ) : (

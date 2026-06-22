@@ -31,19 +31,19 @@ const COUNTRY_FROM_CODE: Record<string, string> = Object.fromEntries(
 );
 
 const PRODUCT_BG: Record<string, string> = {
-  'pulse-pro-x': '#0d1f2d', cerviflex: '#0d1f1a', sleepseal: '#1a1028',
-  'sleepband-pro': '#101828', 'sleepseal-plus': '#0d1828', 'white-noise-pro': '#131020',
-  'neckpulse-pro': '#101c28', 'posture-band': '#0e1a20', 'vibrapulse-mini': '#0f1824',
-  'thermapad-pro': '#1a1010', 'weighted-mask-pro': '#12101e', breathcalm: '#0d1820',
-  'travel-pillow-ultra': '#101822', 'portable-pulse': '#10181e', 'napkit-pro': '#141020',
+  'sleepband-pro': '#0b0f14',
+  'white-noise-pro': '#131020',
+  'sleep-headband': '#101828',
+  'neck-massager': '#121a24',
+  'weighted-mask-pro': '#12101e',
 };
 
 const PRODUCT_ICON: Record<string, string> = {
-  'pulse-pro-x': '💆', cerviflex: '🧘', sleepseal: '🌙',
-  'sleepband-pro': '🎧', 'sleepseal-plus': '🌛', 'white-noise-pro': '🔊',
-  'neckpulse-pro': '🦴', 'posture-band': '🏋️', 'vibrapulse-mini': '⚡',
-  'thermapad-pro': '🔥', 'weighted-mask-pro': '😴', breathcalm: '🌬️',
-  'travel-pillow-ultra': '✈️', 'portable-pulse': '🎒', 'napkit-pro': '🧳',
+  'sleepband-pro': '😴',
+  'white-noise-pro': '🧘',
+  'sleep-headband': '🎧',
+  'neck-massager': '🧘',
+  'weighted-mask-pro': '😴',
 };
 
 const SPAIN_POSTAL_CITIES: Record<string, string> = {
@@ -303,7 +303,7 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('floor')}</label>
-                  <input type="text" required value={shipping.floor}
+                  <input type="text" value={shipping.floor}
                     onChange={(e) => setShipping((s) => ({...s, floor: e.target.value}))}
                     placeholder="2ºB, Portal A"
                     className="input-premium" />

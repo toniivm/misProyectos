@@ -42,8 +42,8 @@ const SHOP_HOME_COPY = {
     heroSubtitle: 'Products your body feels from night one. Anti-snoring, posture correction, and cervical relief — built for people who can\'t afford to sleep badly.',
     heroQuickLinks: [
       { emoji: '😴', label: 'I snore every night', slug: 'sleep-audio' },
+      { emoji: '🧘', label: 'My neck is always tense', slug: 'neck-recovery' },
       { emoji: '🦴', label: 'My posture is getting worse', slug: 'neck-recovery' },
-      { emoji: '🧘', label: 'My neck is always tense', slug: 'sensory' },
     ],
     heroPrimary: 'Find my solution',
     heroSecondary: 'See best sellers',
@@ -62,14 +62,14 @@ const SHOP_HOME_COPY = {
         slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520',
       },
       {
+        emoji: '🧘', problem: 'Chronic neck pain?', solution: 'Pulse therapy that adapts to you.',
+        description: 'Cervical massagers with floating electrodes that conform to your neck curves. Relief at your desk, at home, anywhere.',
+        slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520',
+      },
+      {
         emoji: '🦴', problem: 'Bad posture from desk work?', solution: 'Fix your posture. Free your neck.',
         description: 'Posture corrector braces that realign your spine and relieve chronic back pain. Visible results in 2 weeks.',
         slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520',
-      },
-      {
-        emoji: '🧘', problem: 'Chronic neck pain?', solution: 'Pulse therapy that adapts to you.',
-        description: 'Cervical massagers with floating electrodes that conform to your neck curves. Relief at your desk, at home, anywhere.',
-        slug: 'sensory', colorFrom: '#1a1020', colorTo: '#0c1520',
       },
     ],
     bestSellersHeading: 'Best sellers',
@@ -135,8 +135,8 @@ const SHOP_HOME_COPY = {
     heroSubtitle: 'Productos que tu cuerpo nota desde la primera noche. Anti-ronquidos, corrección postural y alivio cervical — para gente que no puede permitirse dormir mal.',
     heroQuickLinks: [
       { emoji: '😴', label: 'Rono todas las noches', slug: 'sleep-audio' },
+      { emoji: '🧘', label: 'Tengo el cuello siempre tenso', slug: 'neck-recovery' },
       { emoji: '🦴', label: 'Mi postura está empeorando', slug: 'neck-recovery' },
-      { emoji: '🧘', label: 'Tengo el cuello siempre tenso', slug: 'sensory' },
     ],
     heroPrimary: 'Encontrar mi solución',
     heroSecondary: 'Ver más vendidos',
@@ -150,8 +150,8 @@ const SHOP_HOME_COPY = {
     categoriesSub: 'Elige lo que más te molesta — te mostramos la solución',
     problemCards: [
       { emoji: '😴', problem: '¿Roncas todas las noches?', solution: 'Deja de roncar. Empieza a dormir.', description: 'Férulas de avanzamiento mandibular que abren tu vía aérea y eliminan los ronquidos en su origen. Tu pareja también duerme mejor.', slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520' },
+      { emoji: '🧘', problem: '¿Dolor cervical crónico?', solution: 'Terapia por pulsos que se adapta a ti.', description: 'Masajeadores cervicales con electrodos flotantes que se adaptan a las curvas de tu cuello. Alivio en el trabajo, en casa, en cualquier lugar.', slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520' },
       { emoji: '🦴', problem: '¿Mala postura por trabajar sentado?', solution: 'Mejora tu postura. Libera tu cuello.', description: 'Correctores posturales que realinean tu columna y alivian el dolor crónico de espalda. Resultados visibles en 2 semanas.', slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520' },
-      { emoji: '🧘', problem: '¿Dolor cervical crónico?', solution: 'Terapia por pulsos que se adapta a ti.', description: 'Masajeadores cervicales con electrodos flotantes que se adaptan a las curvas de tu cuello. Alivio en el trabajo, en casa, en cualquier lugar.', slug: 'sensory', colorFrom: '#1a1020', colorTo: '#0c1520' },
     ],
     bestSellersHeading: 'Más vendidos',
     bestSellersSub: 'Productos que 6.000+ personas ya usan cada noche',
@@ -251,7 +251,6 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
   }
 
   const savings = Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
-  const viewers = Math.floor(Math.random() * 30) + 12
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group block"
@@ -713,6 +712,7 @@ export default function ShopHomePage() {
                     <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
                       <img src={flagship.images?.[1] ?? flagship.images?.[0]}
                         alt={getLocalizedProductName(flagship, locale)}
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
                         style={{ objectPosition: '50% 30%' }} />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent" />

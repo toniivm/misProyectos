@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://noctip.com/${params.locale}/products/${params.slug}`,
       siteName: 'Noctip',
       type: 'website',
-      images: cp.images?.[0] ? [{ url: cp.images[0], width: 1200, height: 630, alt: product.name }] : [],
+      images: cp.images?.[0] ? [{ url: `https://noctip.com${cp.images[0]}`, width: 1200, height: 630, alt: product.name }] : [],
     },
     twitter: {
       card: 'summary_large_image',
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: isEs
         ? (cp.shortDescription_es ?? cp.shortDescription ?? product.tag)
         : (cp.shortDescription_en ?? cp.shortDescription ?? product.tag),
-      images: cp.images?.[0] ? [cp.images[0]] : [],
+      images: cp.images?.[0] ? [`https://noctip.com${cp.images[0]}`] : [],
     },
   };
 }
