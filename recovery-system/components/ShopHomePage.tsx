@@ -257,78 +257,69 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.5 }}
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-[rgba(16,191,216,0.25)] hover:shadow-[0_8px_32px_rgba(16,191,216,0.12)]"
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219] transition-all duration-700 hover:border-[rgba(16,191,216,0.3)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(16,191,216,0.08)]"
       >
-        {/* Image area */}
-        <div className="relative flex h-48 items-center justify-center overflow-hidden" style={{ background: product.color }}>
+        {/* Image area - taller, more premium */}
+        <div className="relative flex h-56 sm:h-64 items-center justify-center overflow-hidden" style={{ background: product.color }}>
           {product.images ? (
             <img src={product.images[0]} alt={name} loading="lazy"
-              className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110"
+              className="h-full w-full object-cover transition-all duration-1000 group-hover:scale-110"
               style={{ objectPosition: '50% 5%' }} />
           ) : (
             <div className="flex h-full w-full items-center justify-center" style={{ background: product.color }}>
-              <span className="text-5xl opacity-60 transition-transform duration-500 group-hover:scale-110">{product.icon}</span>
+              <span className="text-6xl opacity-50 transition-transform duration-700 group-hover:scale-110">{product.icon}</span>
             </div>
           )}
+          
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0d1219] via-transparent to-transparent opacity-60" />
           
           {/* Badge */}
           {product.badge && (
-            <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} locale={locale} /></div>
+            <div className="absolute left-4 top-4 z-10"><Badge type={product.badge} locale={locale} /></div>
           )}
           
           {/* Savings badge */}
-          <div className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#0c1016]/80 px-2.5 py-1 text-[11px] font-bold text-white/90 backdrop-blur-md">
+          <div className="absolute right-4 top-4 z-10 rounded-full bg-[#10BFD8] px-3 py-1 text-[11px] font-bold text-[#080c16]">
             -{savings}%
           </div>
           
-          {/* Urgency badge */}
-          {product.reviewCount > 100 && (
-            <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1 rounded-full bg-orange-500/90 px-2 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
-              <Flame size={10} />
-              {locale === 'es' ? 'Más vendido' : 'Bestseller'}
-            </div>
-          )}
-        </div>
-
-        {/* Content */}
-        <div className="flex flex-1 flex-col gap-2 p-4">
-          {/* Rating + viewers */}
-          <div className="flex items-center justify-between">
+          {/* Bottom overlay info */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 pt-8 bg-gradient-to-t from-[#0d1219] via-[#0d1219]/80 to-transparent">
             <div className="flex items-center gap-1.5">
               <Stars rating={product.rating} />
               <span className="text-[11px] text-[#8791a1]">
                 {product.rating} ({product.reviewCount.toLocaleString(localeStr)})
               </span>
             </div>
-            <span className="flex items-center gap-1 text-[10px] text-[#6b7785]">
-              <Eye size={10} className="text-[#10BFD8]" />
-              {viewers}
-            </span>
           </div>
-          
-          {/* Name - more prominent */}
-          <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-1 flex-col gap-2.5 p-5">
+          {/* Name */}
+          <h3 className="text-[16px] font-bold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
           
           {/* Description */}
-          <p className="line-clamp-2 text-[12px] leading-5 text-[#8791a1]">{desc}</p>
+          <p className="line-clamp-2 text-[13px] leading-5 text-[#8791a1]">{desc}</p>
           
           {/* Price + CTA */}
-          <div className="mt-auto flex items-end justify-between gap-2 pt-3">
+          <div className="mt-auto flex items-end justify-between gap-3 pt-4 border-t border-white/[0.06]">
             <div>
-              <span className="text-[18px] font-bold text-[#f2eee7]">€{product.price}</span>
-              <span className="ml-2 text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>
+              <span className="text-[22px] font-bold text-[#f2eee7]">€{product.price}</span>
+              <span className="ml-2 text-[13px] text-[#4a5568] line-through">€{product.comparePrice}</span>
             </div>
             <button onClick={handleAdd}
-              className={`flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[12px] font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[12px] font-semibold transition-all duration-300 ${
                 added
                   ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300 scale-95'
-                  : 'btn-light !px-4 !py-2.5 !text-[12px] shadow-[0_4px_12px_rgba(242,238,231,0.15)] hover:shadow-[0_6px_20px_rgba(242,238,231,0.25)]'
+                  : 'bg-[#f2eee7] text-[#11161d] hover:bg-white hover:shadow-[0_4px_20px_rgba(242,238,231,0.3)] hover:-translate-y-0.5'
               }`}>
-              {added ? (<><Check size={12} />{copy.addedLabel}</>) : (<><ShoppingCart size={12} />{copy.addLabel}</>)}
+              {added ? (<><Check size={13} />{copy.addedLabel}</>) : (<><ShoppingCart size={13} />{copy.addLabel}</>)}
             </button>
           </div>
         </div>
@@ -626,109 +617,185 @@ export default function ShopHomePage() {
   const flagship = CATALOG.find(p => p.slug === 'sleepband-pro') ?? bestSellers[0]
 
   return (
-    <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
       <LimitedOffer />
       <AnnouncementBar copy={copy} />
       <Header locale={locale} copy={copy} switchHref={switchHref} />
 
-      <main className="mx-auto max-w-[1280px] px-4 sm:px-6 pb-32">
-        {/* ── Hero ── */}
-        <section className="relative overflow-hidden pb-6 pt-6 sm:pt-10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_50%_0%,rgba(16,191,216,0.08),transparent_60%)]" />
-          <div className="relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(13,18,25,0.98),rgba(10,15,22,0.94))] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
-            <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
+      <main className="pb-0">
+        {/* ═══════════════════════════════════════════════════════
+            HERO — Full-width, cinematic
+        ═══════════════════════════════════════════════════════ */}
+        <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center overflow-hidden">
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#080c12] to-[#0d0a1a]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,191,216,0.12),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(158,146,255,0.08),transparent_50%)]" />
+          
+          {/* Floating orbs */}
+          <div className="absolute top-20 right-[10%] w-[400px] h-[400px] rounded-full bg-[#10BFD8]/5 blur-[120px] animate-breathe" />
+          <div className="absolute bottom-20 left-[5%] w-[300px] h-[300px] rounded-full bg-[#9E92FF]/5 blur-[100px] animate-breathe" style={{ animationDelay: '2s' }} />
+
+          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 py-16 sm:py-20 w-full">
+            <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
+              {/* Left — Text */}
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="flex flex-col justify-center p-8 sm:p-10 lg:p-12"
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
-                  <Sparkles size={12} className="text-[#8ea7c7]" />
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">{copy.heroKicker}</span>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/5 px-4 py-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#10BFD8] opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#10BFD8]" />
+                  </span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#10BFD8]">{copy.heroKicker}</span>
                 </div>
 
-                <h1 className="text-[clamp(2.35rem,5.4vw,4.35rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[#f6f2eb]">
+                <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[0.95] tracking-[-0.05em] text-white">
                   {copy.heroLine1}
                   <br />
-                  {copy.heroLine2}
+                  <span className="bg-gradient-to-r from-[#10BFD8] to-[#9E92FF] bg-clip-text text-transparent">
+                    {copy.heroLine2}
+                  </span>
                 </h1>
 
-                <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">{copy.heroSubtitle}</p>
+                <p className="mt-6 max-w-lg text-[16px] leading-8 text-[#8791a1]">{copy.heroSubtitle}</p>
 
-                <div className="mt-6 flex flex-wrap gap-2">
+                {/* Quick links */}
+                <div className="mt-8 flex flex-wrap gap-3">
                   {copy.heroQuickLinks.map((item) => (
                     <Link key={item.slug} href={`/${locale}/shop/${item.slug}`}
-                      className="group inline-flex items-center gap-1.5 rounded-full border border-white/[0.09] bg-white/[0.03] px-3.5 py-2 text-[12px] font-medium text-[#b8c4d0] transition hover:border-white/[0.18] hover:bg-white/[0.07] hover:text-white">
-                      <span>{item.emoji}</span>
+                      className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-[13px] font-medium text-[#b8c4d0] transition-all hover:border-[#10BFD8]/40 hover:bg-[#10BFD8]/10 hover:text-white hover:shadow-[0_0_20px_rgba(16,191,216,0.15)]">
+                      <span className="text-lg">{item.emoji}</span>
                       {item.label}
-                      <ChevronRight size={12} className="opacity-30 transition-opacity group-hover:opacity-70" />
+                      <ChevronRight size={14} className="opacity-30 transition-all group-hover:opacity-100 group-hover:translate-x-0.5" />
                     </Link>
                   ))}
                 </div>
 
-                <div className="mt-7 flex flex-wrap items-center gap-3">
+                {/* CTAs */}
+                <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link href={`/${locale}/shop/all`}
-                    className="btn-light !rounded-full">
-                    <ShoppingCart size={14} />
+                    className="group relative inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:-translate-y-0.5">
+                    <ShoppingCart size={16} />
                     {copy.heroPrimary}
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                   </Link>
                   <a href="#all-products"
-                    className="btn-dark !rounded-full">
+                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-8 py-4 text-[15px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:bg-white/[0.08] hover:text-white">
                     {copy.heroSecondary}
                   </a>
                 </div>
+
+                {/* Social proof */}
+                <div className="mt-10 flex items-center gap-6">
+                  <div className="flex -space-x-2">
+                    {['👩', '👨', '👩‍🦰', '🧑', '👴'].map((emoji, i) => (
+                      <div key={i} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#080c12] bg-[#1a2332] text-sm">
+                        {emoji}
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-semibold text-white">6.000+ personas</div>
+                    <div className="text-[11px] text-[#6b7785]">{isEs ? 'ya duermen mejor' : 'sleeping better already'}</div>
+                  </div>
+                </div>
               </motion.div>
 
-              <Link href={`/${locale}/products/${flagship.slug}`}
-                className="relative block min-h-[340px] sm:min-h-[460px] overflow-hidden rounded-[32px] m-3 lg:m-4 group"
+              {/* Right — Product showcase */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, x: 40 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="relative"
               >
+                <div className="relative rounded-[40px] overflow-hidden border border-white/[0.08] bg-gradient-to-br from-[#0d1828] to-[#0a0f18] shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
+                  <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
+                    <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
+                      <img src={flagship.images?.[1] ?? flagship.images?.[0]}
+                        alt={getLocalizedProductName(flagship, locale)}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        style={{ objectPosition: '50% 30%' }} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent" />
+                      
+                      {/* Product info overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                        <div className="mb-3 inline-flex items-center rounded-full bg-[#10BFD8] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#080c12]">
+                          {copy.badgeLabels.bestseller}
+                        </div>
+                        <h2 className="text-[28px] sm:text-[32px] font-bold leading-tight text-white">
+                          {getLocalizedProductName(flagship, locale)}
+                        </h2>
+                        <p className="mt-2 text-[14px] text-[#d6dde7] line-clamp-2">
+                          {getLocalizedProductShortDescription(flagship, locale)}
+                        </p>
+                        <div className="mt-4 flex items-center gap-4">
+                          <span className="text-[28px] font-bold text-white">€{flagship.price}</span>
+                          <span className="text-[16px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
+                          <span className="rounded-full bg-[#10BFD8]/20 px-3 py-1 text-[12px] font-bold text-[#10BFD8]">
+                            -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
+                          </span>
+                        </div>
+                        <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-bold text-[#080c12] transition-all group-hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                          {isEs ? 'Ver producto' : 'View product'} <ChevronRight size={16} />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* Floating badge */}
                 <motion.div
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.15 }}
-                  className="h-full"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                  className="absolute -bottom-4 -left-4 sm:left-4 rounded-2xl border border-white/[0.1] bg-[#0d1219]/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
                 >
-                  <img src={flagship.images?.[1] ?? flagship.images?.[0]}
-                    alt={getLocalizedProductName(flagship, locale)}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    style={{ objectPosition: '50% 60%' }} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(8,12,16,0.7)] via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                    <div className="mb-2 inline-flex items-center rounded-full border border-white/10 bg-[rgba(10,15,22,0.55)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#d6dde7] backdrop-blur-sm">
-                      {copy.badgeLabels.bestseller}
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20">
+                      <Check size={18} className="text-emerald-400" />
                     </div>
-                    <div className="max-w-[20rem] text-[22px] font-bold leading-tight tracking-[-0.03em] text-white">
-                      {getLocalizedProductName(flagship, locale)}
-                    </div>
-                    <p className="mt-1 text-[13px] text-[#d6dde7]">
-                      €{flagship.price}
-                    </p>
-                    <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#f2eee7] px-4 py-2 text-[12px] font-semibold text-[#11161d] transition-all group-hover:bg-white group-hover:shadow-[0_4px_16px_rgba(242,238,231,0.25)]">
-                      {isEs ? 'Ver producto' : 'View product'} <ChevronRight size={13} />
+                    <div>
+                      <div className="text-[12px] font-bold text-white">{isEs ? 'Envío gratis' : 'Free shipping'}</div>
+                      <div className="text-[10px] text-[#6b7785]">{isEs ? 'Entrega en 24-48h' : 'Delivery in 24-48h'}</div>
                     </div>
                   </div>
                 </motion.div>
-              </Link>
+
+                {/* Floating rating */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                  className="absolute -top-4 -right-4 sm:right-4 rounded-2xl border border-white/[0.1] bg-[#0d1219]/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-0.5">
+                      {[1,2,3,4,5].map(i => (
+                        <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <span className="text-[12px] font-bold text-white">4.9</span>
+                    <span className="text-[10px] text-[#6b7785]">(1.578)</span>
+                  </div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </section>
 
-        {/* ── Trust strip ── */}
-        <motion.section
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <div className="rounded-2xl border border-white/[0.08] bg-gradient-to-r from-[rgba(16,191,216,0.04)] via-[rgba(13,18,25,0.98)] to-[rgba(158,146,255,0.04)] p-4 sm:p-5">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {/* ═══════════════════════════════════════════════════════
+            TRUST BAR — Compact, below hero
+        ═══════════════════════════════════════════════════════ */}
+        <section className="border-y border-white/[0.06] bg-[#0a0f18]">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.06]">
               {copy.trustItems.map((item) => (
                 <div key={item.label}
-                  className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3 transition-all hover:border-[rgba(16,191,216,0.2)] hover:bg-white/[0.04]">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.1)]">
-                    <item.icon size={16} className="text-[#10BFD8]" />
-                  </div>
+                  className="flex items-center justify-center gap-3 py-5 transition-colors hover:bg-white/[0.02]">
+                  <item.icon size={18} className="text-[#10BFD8]" />
                   <div>
                     <div className="text-[12px] font-semibold text-[#f2eee7]">{item.label}</div>
                     <div className="text-[10px] text-[#6b7785]">{item.sub}</div>
@@ -737,186 +804,205 @@ export default function ShopHomePage() {
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
-        {/* ── ALL PRODUCTS — Grid principal ── */}
-        <section id="all-products" className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8"
-          >
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <span className="section-tag mb-3 inline-flex">
-                  {isEs ? 'Todos los productos' : 'All products'}
+        {/* ═══════════════════════════════════════════════════════
+            ALL PRODUCTS — Premium grid
+        ═══════════════════════════════════════════════════════ */}
+        <section id="all-products" className="py-20 sm:py-28">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <span className="section-tag mb-4 inline-flex">
+                {isEs ? 'Catálogo completo' : 'Full catalog'}
+              </span>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">
+                {isEs ? 'Elige tu solución' : 'Pick your solution'}
+              </h2>
+              <p className="mt-3 text-[15px] text-[#6b7785] max-w-md mx-auto">
+                {isEs ? 'Cada producto resuelve un problema específico. Sin distracciones.' : 'Each product solves one specific problem. No distractions.'}
+              </p>
+            </motion.div>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              {allProducts.map((product) => (
+                <ProductCard key={product.slug} product={product} locale={locale} />
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link href={`/${locale}/shop/all`} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-8 py-4 text-[14px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:bg-white/[0.08] hover:text-white">
+                {isEs ? 'Ver catálogo completo' : 'View full catalog'} <ArrowRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            WHY NOCTIP — Brand story
+        ═══════════════════════════════════════════════════════ */}
+        <section className="py-20 sm:py-28 bg-gradient-to-b from-[#080c12] via-[#0a1020] to-[#080c12]">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-14"
+            >
+              <span className="section-tag mb-4 inline-flex">
+                {isEs ? 'La diferencia Noctip' : 'The Noctip difference'}
+              </span>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">
+                {isEs ? 'No somos una marketplace.' : 'We\'re not a marketplace.'}
+                <br />
+                <span className="bg-gradient-to-r from-[#10BFD8] to-[#9E92FF] bg-clip-text text-transparent">
+                  {isEs ? 'Somos una marca.' : 'We\'re a brand.'}
                 </span>
-                <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">
-                  {isEs ? 'Elige tu solución' : 'Pick your solution'}
-                </h2>
-                <p className="mt-2 text-[14px] text-[#6b7785]">
-                  {isEs ? 'Cada producto resuelve un problema específico. Elige el tuyo.' : 'Each product solves one specific problem. Pick yours.'}
-                </p>
+              </h2>
+            </motion.div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                {
+                  icon: '🎯',
+                  title: isEs ? 'Un problema, un producto' : 'One problem, one product',
+                  text: isEs ? 'Cada producto resuelve UN problema específico. Sin distracciones, sin compromisos.' : 'Each product solves ONE specific problem. No distractions, no compromises.',
+                  stat: '5',
+                  statLabel: isEs ? 'Productos' : 'Products',
+                },
+                {
+                  icon: '🔬',
+                  title: isEs ? 'Probado, no prometido' : 'Tested, not promised',
+                  text: isEs ? '6.000+ clientes reales. Resultados que hablan por sí solos.' : '6,000+ real customers. Results that speak for themselves.',
+                  stat: '4.9',
+                  statLabel: isEs ? 'Estrellas media' : 'Avg rating',
+                },
+                {
+                  icon: '🛡️',
+                  title: isEs ? 'Sin riesgo' : 'Zero risk',
+                  text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro.' : '30 nights to try it. If it doesn\'t work, we refund every cent.',
+                  stat: '30',
+                  statLabel: isEs ? 'Noches garantía' : 'Night guarantee',
+                },
+                {
+                  icon: '⚡',
+                  title: isEs ? 'Envío inmediato' : 'Instant shipping',
+                  text: isEs ? 'Enviamos en 24 horas. Mañana en tu puerta.' : 'We ship within 24 hours. At your door tomorrow.',
+                  stat: '24h',
+                  statLabel: isEs ? 'Procesamiento' : 'Processing',
+                },
+              ].map((item, idx) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  className="group relative rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-500 hover:border-[#10BFD8]/20 hover:bg-[#10BFD8]/[0.03] hover:shadow-[0_0_40px_rgba(16,191,216,0.05)]"
+                >
+                  <span className="text-4xl">{item.icon}</span>
+                  <h3 className="mt-4 text-[15px] font-bold text-white">{item.title}</h3>
+                  <p className="mt-2 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
+                  <div className="mt-4 pt-4 border-t border-white/[0.06]">
+                    <span className="text-[24px] font-bold text-[#10BFD8]">{item.stat}</span>
+                    <span className="ml-2 text-[11px] text-[#6b7785] uppercase tracking-wider">{item.statLabel}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            TESTIMONIALS — Premium carousel
+        ═══════════════════════════════════════════════════════ */}
+        <section className="py-20 sm:py-28">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <span className="section-tag mb-4 inline-flex">
+                <Heart size={11} />
+                {copy.testimonialsHeading}
+              </span>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">{copy.testimonialsHeading}</h2>
+              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.testimonialsSub}</p>
+            </motion.div>
+
+            <Testimonials reviews={copy.reviews} copy={copy} />
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            FAQ — Clean, centered
+        ═══════════════════════════════════════════════════════ */}
+        <section id="faq" className="py-20 sm:py-28 bg-gradient-to-b from-[#080c12] to-[#0a0f18]">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <span className="section-tag mb-4 inline-flex">
+                <Leaf size={11} />
+                FAQ
+              </span>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">{copy.faqHeading}</h2>
+              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.faqSub}</p>
+            </motion.div>
+
+            <div className="max-w-2xl mx-auto">
+              <FAQ items={copy.faqs} />
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            FINAL CTA — Full-width, cinematic
+        ═══════════════════════════════════════════════════════ */}
+        <section className="relative py-20 sm:py-28 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#080c12] to-[#0d0a1a]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,191,216,0.1),transparent_60%)]" />
+          
+          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-white">
+                {copy.ctaHeading}
+              </h2>
+              <p className="mt-5 max-w-lg mx-auto text-[16px] leading-7 text-[#8791a1]">{copy.ctaSub}</p>
+              
+              <div className="mt-6 flex items-center justify-center">
+                <CountdownTimer />
               </div>
-              <Link href={`/${locale}/shop/all`} className="hidden sm:inline-flex btn-dark !rounded-full !text-[12px]">
-                {isEs ? 'Ver todos' : 'View all'} <ArrowRight size={13} />
-              </Link>
-            </div>
-          </motion.div>
+              
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+                <Link href={`/${locale}/shop/all`} className="group relative inline-flex items-center gap-2 rounded-full bg-white px-10 py-5 text-[16px] font-bold text-[#080c12] transition-all hover:shadow-[0_0_60px_rgba(255,255,255,0.25)] hover:-translate-y-1">
+                  {copy.ctaPrimary}
+                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link href={`/${locale}/shop/all?sort=rating`} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-10 py-5 text-[16px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:bg-white/[0.08] hover:text-white">
+                  {copy.ctaSecondary}
+                </Link>
+              </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {allProducts.map((product, idx) => (
-              <ProductCard key={product.slug} product={product} locale={locale} />
-            ))}
-          </div>
-
-          <div className="mt-6 text-center sm:hidden">
-            <Link href={`/${locale}/shop/all`} className="btn-dark !rounded-full">
-              {isEs ? 'Ver todos los productos' : 'View all products'} <ArrowRight size={13} />
-            </Link>
-          </div>
-        </section>
-
-        {/* ── Why Noctip ── */}
-        <section className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8 text-center"
-          >
-            <span className="section-tag mb-3 inline-flex">
-              {isEs ? '¿Por qué Noctip?' : 'Why Noctip?'}
-            </span>
-            <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">
-              {isEs ? 'No somos una marketplace. Somos una marca.' : 'We\'re not a marketplace. We\'re a brand.'}
-            </h2>
-          </motion.div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: '🎯',
-                title: isEs ? 'Un problema, un producto' : 'One problem, one product',
-                text: isEs ? 'Cada producto Noctip está diseñado para resolver UN problema específico. Sin distracciones, sin compromisos.' : 'Every Noctip product is designed to solve ONE specific problem. No distractions, no compromises.',
-              },
-              {
-                icon: '🔬',
-                title: isEs ? 'Probado, no prometido' : 'Tested, not promised',
-                text: isEs ? '6.000+ clientes reales. 4.9 estrellas de media. Resultados que hablan por sí solos.' : '6,000+ real customers. 4.9 average rating. Results that speak for themselves.',
-              },
-              {
-                icon: '🛡️',
-                title: isEs ? 'Sin riesgo' : 'Zero risk',
-                text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro. Sin preguntas, sin formularios.' : '30 nights to try it. If it doesn\'t work, we refund every cent. No questions, no forms.',
-              },
-              {
-                icon: '⚡',
-                title: isEs ? 'Envío inmediato' : 'Instant shipping',
-                text: isEs ? 'Procesamos y enviamos en 24 horas. Mañana en tu puerta. Seguimiento en tiempo real incluido.' : 'We process and ship within 24 hours. At your door tomorrow. Real-time tracking included.',
-              },
-            ].map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 text-center transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
-              >
-                <span className="text-3xl">{item.icon}</span>
-                <h3 className="mt-3 text-[14px] font-bold text-[#f2eee7]">{item.title}</h3>
-                <p className="mt-2 text-[12px] leading-5 text-[#6b7785]">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── Stats ── */}
-        <section className="mb-16">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {copy.stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5"
-              >
-                <div className="text-[clamp(1.6rem,3.5vw,2.5rem)] font-bold tracking-[-0.04em] text-[#f6f2eb]">{stat.value}</div>
-                <div className="mt-1 text-[11px] text-[#6b7785] uppercase tracking-[0.08em]">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── Testimonials ── */}
-        <section className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8 text-center"
-          >
-            <span className="section-tag mb-3 inline-flex">
-              <Heart size={11} />
-              {copy.testimonialsHeading}
-            </span>
-            <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">{copy.testimonialsHeading}</h2>
-            <p className="mt-2 text-[14px] text-[#6b7785]">{copy.testimonialsSub}</p>
-          </motion.div>
-
-          <Testimonials reviews={copy.reviews} copy={copy} />
-        </section>
-
-        {/* ── FAQ ── */}
-        <section id="faq" className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8 text-center"
-          >
-            <span className="section-tag mb-3 inline-flex">
-              <Leaf size={11} />
-              FAQ
-            </span>
-            <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">{copy.faqHeading}</h2>
-            <p className="mt-2 text-[14px] text-[#6b7785]">{copy.faqSub}</p>
-          </motion.div>
-
-          <div className="max-w-2xl mx-auto">
-            <FAQ items={copy.faqs} />
-          </div>
-        </section>
-
-        {/* ── Final CTA ── */}
-        <section className="relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-[linear-gradient(135deg,#111c2e,#0d1219)] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(16,191,216,0.06),transparent)]" />
-          <div className="relative px-8 py-14 sm:px-14 sm:py-20 text-center">
-            <h2 className="text-[clamp(1.8rem,4vw,3.2rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f2eb]">
-              {copy.ctaHeading}
-            </h2>
-            <p className="mt-4 max-w-lg mx-auto text-[15px] leading-7 text-[#8791a1]">{copy.ctaSub}</p>
-            
-            <div className="mt-6 flex items-center justify-center">
-              <CountdownTimer />
-            </div>
-            
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link href={`/${locale}/shop/all`} className="btn-light !rounded-full !px-8 !py-4">
-                {copy.ctaPrimary} <ArrowRight size={16} />
-              </Link>
-              <Link href={`/${locale}/shop/all?sort=rating`} className="btn-dark !rounded-full !px-8 !py-4">
-                {copy.ctaSecondary}
-              </Link>
-            </div>
-            <div className="mt-8 flex items-center justify-center gap-6 text-[12px] text-[#6b7785]">
-              <span className="flex items-center gap-1.5"><Shield size={12} className="text-[#8ea7c7]" /> {isEs ? 'Pago seguro' : 'Secure checkout'}</span>
-              <span className="flex items-center gap-1.5"><Truck size={12} className="text-[#8ea7c7]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
-              <span className="flex items-center gap-1.5"><RotateCcw size={12} className="text-[#8ea7c7]" /> {isEs ? '30 noches' : '30-night trial'}</span>
-            </div>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-8 text-[13px] text-[#6b7785]">
+                <span className="flex items-center gap-2"><Shield size={14} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro SSL' : 'SSL secure checkout'}</span>
+                <span className="flex items-center gap-2"><Truck size={14} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis siempre' : 'Free shipping always'}</span>
+                <span className="flex items-center gap-2"><RotateCcw size={14} className="text-[#10BFD8]" /> {isEs ? '30 noches sin riesgo' : '30-night risk-free trial'}</span>
+              </div>
+            </motion.div>
           </div>
         </section>
       </main>
