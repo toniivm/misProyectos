@@ -111,7 +111,8 @@ export const CATALOG: CatalogProduct[] = [
       'Reutilizable': 'Sí — lavable y duradera',
     },
     images: [
-      '/images/sleepband-pro-1.jpg',
+      '/images/productos-reales/sleepband-pro.jpg',
+      '/images/productos-reales/sleepband-pro-2.jpg',
     ],
     icon: '😴',
     cartIcon: '😴',
@@ -196,7 +197,10 @@ export const CATALOG: CatalogProduct[] = [
       'Tallas': 'Talla única — elástica',
       'Peso': '≈45g',
     },
-    images: ['/images/sleepband-lifestyle-clean.png'],
+    images: [
+      '/images/productos-reales/sleep-headband.jpg',
+      '/images/productos-reales/sleep-headband-2.jpg',
+    ],
     icon: '🎧',
     cartIcon: '🎧',
     color: '#101828',
