@@ -1,16 +1,20 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { Lock } from 'lucide-react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Lock, RefreshCw, Package, MapPin, Mail, Phone, Copy, Check, ShoppingBag, Truck, Clock, ChevronRight, LogOut } from 'lucide-react'
+import Link from 'next/link'
 
 const ADMIN_AUTH_KEY = 'noctas_admin_authed'
+const DEFAULT_KEY = 'changeme_admin_key'
 
 export default function AdminPage(){
-  const [adminKey, setAdminKey] = useState('')
+  const [adminKey, setAdminKey] = useState(DEFAULT_KEY)
   const [authed, setAuthed] = useState(false)
   const [orders, setOrders] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [autoRefresh, setAutoRefresh] = useState(false)
+  const [copied, setCopied] = useState('')
 
   useEffect(() => {
     if (typeof window !== 'undefined' && localStorage.getItem(ADMIN_AUTH_KEY) === '1') {
@@ -20,36 +24,49 @@ export default function AdminPage(){
 
   const apiBase = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '')
 
-  function login(){
-    if (!adminKey) return setError('Introduce la clave de administrador')
-    // Store auth in localStorage
-    localStorage.setItem(ADMIN_AUTH_KEY, '1')
-    setAuthed(true)
+  const loadOrders = useCallback(async () => {
     setError('')
-  }
-
-  async function loadOrders(){
-    setError('')
-    if (!adminKey) return setError('Clave de admin requerida')
+    if (!adminKey && !authed) return
     setLoading(true)
     try{
-      const res = await fetch(`${apiBase}/orders`, { headers: { 'X-Admin-Key': adminKey } })
+      const res = await fetch(`${apiBase}/orders`, { 
+        headers: { 'X-Admin-Key': adminKey || DEFAULT_KEY } 
+      })
       if (!res.ok) throw new Error(await res.text())
       const payload = await res.json()
       setOrders(payload.orders || [])
     }catch(e:any){
       setError(String(e.message || e))
     }finally{ setLoading(false) }
+  }, [apiBase, adminKey, authed])
+
+  useEffect(() => {
+    if (authed) loadOrders()
+  }, [authed, loadOrders])
+
+  useEffect(() => {
+    if (!autoRefresh || !authed) return
+    const timer = setInterval(loadOrders, 30000)
+    return () => clearInterval(timer)
+  }, [autoRefresh, authed, loadOrders])
+
+  function login(e: React.FormEvent){
+    e.preventDefault()
+    if (!adminKey) return setError('Introduce la clave')
+    localStorage.setItem(ADMIN_AUTH_KEY, '1')
+    setAuthed(true)
+    setError('')
   }
 
   async function shipOrder(orderId: string){
-    const tracking = prompt('Número de tracking')
-    const carrier = prompt('Transportista (ej: Correos, DHL, SEUR)')
-    if (!tracking || !carrier) return
+    const tracking = prompt('Número de tracking (ej: CB123456789ES)')
+    if (!tracking) return
+    const carrier = prompt('Transportista (Correos, DHL, SEUR, GLS...)', 'Correos')
+    if (!carrier) return
     try{
       const res = await fetch(`${apiBase}/orders/${orderId}/ship`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey },
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey || DEFAULT_KEY },
         body: JSON.stringify({ trackingNumber: tracking, carrier })
       })
       if (!res.ok) throw new Error(await res.text())
@@ -60,140 +77,263 @@ export default function AdminPage(){
     }
   }
 
+  async function cancelOrder(orderId: string){
+    if (!confirm('¿Cancelar este pedido?')) return
+    try{
+      const res = await fetch(`${apiBase}/orders/${orderId}/cancel`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey || DEFAULT_KEY },
+      })
+      if (!res.ok) throw new Error(await res.text())
+      loadOrders()
+    }catch(e:any){
+      alert('Error: ' + (e.message || e))
+    }
+  }
+
+  async function copyText(text: string, label: string){
+    await navigator.clipboard.writeText(text)
+    setCopied(label)
+    setTimeout(() => setCopied(''), 1500)
+  }
+
   function logout(){
     localStorage.removeItem(ADMIN_AUTH_KEY)
     setAuthed(false)
-    setAdminKey('')
     setOrders([])
+    setAdminKey(DEFAULT_KEY)
   }
 
   if (!authed) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0c1016] px-4">
-        <div className="w-full max-w-sm rounded-2xl border border-white/[0.08] bg-[#0d1219] p-8">
+      <div className="flex min-h-screen items-center justify-center bg-[#080c12] px-4">
+        <form onSubmit={login} className="w-full max-w-sm rounded-3xl border border-white/[0.08] bg-[#0d1219] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
           <div className="mb-6 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03]">
-              <Lock size={24} className="text-[#8ea7c7]" />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/[0.08] bg-gradient-to-br from-[#10BFD8]/10 to-[#10BFD8]/5">
+              <Lock size={28} className="text-[#10BFD8]" />
             </div>
-            <h1 className="text-[20px] font-bold text-[#f2eee7]">Admin — Noctip</h1>
-            <p className="mt-2 text-[13px] text-[#6b7280]">Acceso restringido a administradores</p>
+            <h1 className="text-[22px] font-bold text-white">Noctip Admin</h1>
+            <p className="mt-2 text-[13px] text-[#6b7280]">Panel de gestión de pedidos</p>
           </div>
           <input
             type="password"
             value={adminKey}
             onChange={(e) => setAdminKey(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && login()}
             placeholder="Clave de administrador"
-            className="mb-3 w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3 text-[14px] text-[#f2eee7] placeholder:text-[#3d4a5c] outline-none transition focus:border-white/30"
+            autoComplete="current-password"
+            className="mb-3 w-full rounded-xl border border-white/[0.1] bg-[#111720] px-4 py-3.5 text-[14px] text-white placeholder:text-[#3d4a5c] outline-none transition focus:border-[#10BFD8]/50 focus:bg-[#141c26]"
           />
           {error && <p className="mb-3 text-[13px] text-red-400">{error}</p>}
-          <button
-            onClick={login}
-            className="w-full rounded-full bg-[#f2eee7] py-3 text-[14px] font-semibold text-[#11161d] transition hover:bg-white"
-          >
+          <button type="submit"
+            className="w-full rounded-full bg-white py-3.5 text-[14px] font-bold text-[#080c12] transition hover:bg-[#e8e4dd] hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
             Acceder
           </button>
-        </div>
+        </form>
       </div>
     )
   }
 
   const statusColors: Record<string, string> = {
-    pending: 'bg-yellow-400/10 text-yellow-400',
-    paid: 'bg-blue-400/10 text-blue-400',
-    processing: 'bg-purple-400/10 text-purple-400',
-    packed: 'bg-orange-400/10 text-orange-400',
-    shipped: 'bg-emerald-400/10 text-emerald-400',
-    delivered: 'bg-green-400/10 text-green-400',
-    cancelled: 'bg-red-400/10 text-red-400',
+    pending: 'bg-yellow-400/10 text-yellow-400 border-yellow-400/20',
+    paid: 'bg-blue-400/10 text-blue-400 border-blue-400/20',
+    processing: 'bg-purple-400/10 text-purple-400 border-purple-400/20',
+    shipped: 'bg-emerald-400/10 text-emerald-400 border-emerald-400/20',
+    delivered: 'bg-green-400/10 text-green-400 border-green-400/20',
+    cancelled: 'bg-red-400/10 text-red-400 border-red-400/20',
+  }
+
+  const statusLabels: Record<string, string> = {
+    pending: 'Pendiente',
+    paid: 'Pagado',
+    processing: 'En proceso',
+    shipped: 'Enviado',
+    delivered: 'Entregado',
+    cancelled: 'Cancelado',
+  }
+
+  const pendingOrders = orders.filter(o => o.status === 'pending' || o.status === 'paid' || o.status === 'processing')
+  const shippedOrders = orders.filter(o => o.status === 'shipped' || o.status === 'delivered')
+  const totalRevenue = orders.filter(o => o.status !== 'cancelled').reduce((sum, o) => sum + (o.amount || 0), 0) / 100
+
+  function formatDate(dateStr: any){
+    try {
+      const d = dateStr?._seconds ? new Date(dateStr._seconds * 1000) : new Date(dateStr)
+      return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+    } catch { return '—' }
   }
 
   return (
-    <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
-      <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <div>
-            <h1 className="text-[16px] font-bold text-[#f2eee7]">Noctip — Admin</h1>
-            <p className="text-[12px] text-[#6b7280]">Gestión de pedidos</p>
-          </div>
+    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea] pb-24">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[rgba(8,12,18,0.95)] backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
-            <input
-              value={adminKey}
-              onChange={(e) => setAdminKey(e.target.value)}
-              placeholder="API Key"
-              className="rounded-lg border border-white/[0.1] bg-[#111720] px-3 py-2 text-[12px] text-[#f2eee7] outline-none"
-            />
-            <button onClick={loadOrders} disabled={loading} className="rounded-full bg-[#f2eee7] px-5 py-2 text-[12px] font-semibold text-[#11161d] transition hover:bg-white disabled:opacity-50">
-              {loading ? 'Cargando...' : 'Cargar pedidos'}
-            </button>
-            <button onClick={logout} className="rounded-full border border-white/[0.1] px-4 py-2 text-[12px] text-[#8791a1] transition hover:text-white">
-              Salir
-            </button>
+            <Link href="/" className="flex items-center gap-2">
+              <div className="grid h-6 w-6 grid-cols-2 gap-[2px] rounded-md border border-white/10 bg-white/[0.03] p-0.5">
+                <span className="rounded-[2px] bg-[#cfd8e6]" /><span className="rounded-[2px] bg-[#8da3c4]" />
+                <span className="rounded-[2px] bg-[#7186a4]" /><span className="rounded-[2px] bg-[#d8d0c4]" />
+              </div>
+            </Link>
+            <div>
+              <h1 className="text-[15px] font-bold text-white">Noctip Admin</h1>
+              <p className="text-[11px] text-[#6b7280]">{orders.length} pedidos</p>
+            </div>
           </div>
+          <button onClick={logout} className="flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-[11px] text-[#6b7280] transition hover:text-white hover:border-white/20">
+            <LogOut size={13} /> Salir
+          </button>
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-5 py-8">
+      <div className="mx-auto max-w-6xl px-4 py-4">
+        {/* Stats bar */}
+        <div className="mb-4 grid grid-cols-3 gap-2">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
+            <div className="text-[20px] font-bold text-white">{pendingOrders.length}</div>
+            <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Pendientes</div>
+          </div>
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
+            <div className="text-[20px] font-bold text-white">{shippedOrders.length}</div>
+            <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Enviados</div>
+          </div>
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
+            <div className="text-[20px] font-bold text-[#10BFD8]">€{totalRevenue.toFixed(0)}</div>
+            <div className="text-[10px] text-[#6b7280] uppercase tracking-wider">Facturado</div>
+          </div>
+        </div>
+
+        {/* Controls */}
+        <div className="mb-4 flex items-center gap-2">
+          <button onClick={loadOrders} disabled={loading}
+            className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-[#080c12] transition hover:bg-[#e8e4dd] disabled:opacity-50">
+            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+            {loading ? 'Cargando...' : 'Actualizar'}
+          </button>
+          <button onClick={() => setAutoRefresh(!autoRefresh)}
+            className={`flex items-center gap-1.5 rounded-full border px-4 py-2 text-[13px] font-medium transition ${
+              autoRefresh ? 'border-[#10BFD8]/30 bg-[#10BFD8]/10 text-[#10BFD8]' : 'border-white/[0.08] bg-white/[0.03] text-[#6b7280]'
+            }`}>
+            <Clock size={14} />
+            Auto {autoRefresh ? 'ON' : 'OFF'}
+          </button>
+        </div>
+
         {error && (
-          <div className="mb-6 rounded-xl border border-red-900/40 bg-red-950/30 px-4 py-3 text-[13px] text-red-400">
-            {error}
+          <div className="mb-4 rounded-xl border border-red-900/40 bg-red-950/30 px-4 py-3 text-[13px] text-red-400">{error}</div>
+        )}
+
+        {orders.length === 0 && !loading && (
+          <div className="py-20 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/[0.06] bg-white/[0.02]">
+              <Package size={28} className="text-[#3d4a5c]" />
+            </div>
+            <p className="text-[15px] font-semibold text-white">No hay pedidos aún</p>
+            <p className="mt-1 text-[13px] text-[#6b7280]">Cuando llegue un pedido, aparecerá aquí</p>
           </div>
         )}
 
-        {orders.length === 0 && !loading && !error && (
-          <div className="py-16 text-center">
-            <p className="text-[15px] text-[#6b7280]">No hay pedidos. Carga los pedidos con el botón superior.</p>
-          </div>
-        )}
-
-        <div className="grid gap-4">
+        {/* Order cards */}
+        <div className="space-y-3">
           {orders.map((o) => (
-            <div key={o.id} className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-5">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[15px] font-semibold text-[#f2eee7]">Pedido #{o.id?.slice(0, 8)}</span>
-                    <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase ${statusColors[o.status] || 'bg-white/10 text-white'}`}>
-                      {o.status}
-                    </span>
-                  </div>
-                  <div className="mt-1 text-[13px] text-[#6b7280]">
-                    {o.email} · {new Date(o.createdAt?._seconds * 1000 || o.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
-                  </div>
-                  {o.shipping?.name && (
-                    <div className="mt-1 text-[13px] text-[#8791a1]">
-                      📍 {o.shipping.name} · {o.shipping.address?.city}, {o.shipping.address?.country}
-                    </div>
-                  )}
-                </div>
+            <div key={o.id} className={`rounded-2xl border transition-all ${
+              o.status === 'shipped' ? 'border-emerald-500/15 bg-white/[0.02]' :
+              o.status === 'delivered' ? 'border-green-500/10 bg-white/[0.01] opacity-70' :
+              'border-white/[0.08] bg-[#0d1219]'
+            }`}>
+              {/* Order header */}
+              <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-2">
-                  {o.trackingNumber ? (
-                    <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] px-3 py-2 text-right">
-                      <div className="text-[10px] uppercase text-[#6b7280]">Tracking</div>
-                      <div className="text-[13px] font-mono font-semibold text-[#f2eee7]">{o.trackingNumber}</div>
-                      <div className="text-[11px] text-[#8791a1]">{o.carrier}</div>
-                    </div>
-                  ) : (
-                    <button onClick={() => shipOrder(o.id)} className="rounded-full bg-emerald-600 px-4 py-2 text-[12px] font-semibold text-white transition hover:bg-emerald-500">
-                      Añadir tracking
-                    </button>
-                  )}
-                  <div className="text-right">
-                    <div className="text-[18px] font-bold text-[#f2eee7]">€{((o.amount || 0) / 100).toFixed(2)}</div>
+                  <span className="text-[14px] font-bold text-white font-mono">#{o.id?.slice(0, 8)}</span>
+                  <span className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase ${statusColors[o.status] || 'bg-white/5 text-white'}`}>
+                    {statusLabels[o.status] || o.status}
+                  </span>
+                </div>
+                <span className="text-[11px] text-[#6b7280]">{formatDate(o.createdAt)}</span>
+              </div>
+
+              {/* Customer info */}
+              <div className="border-t border-white/[0.05] px-4 py-3 space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#10BFD8]/10 text-sm">
+                    {o.shipping?.name?.charAt(0) || '?'}
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[14px] font-semibold text-white truncate">{o.shipping?.name || '—'}</div>
+                    <div className="text-[12px] text-[#8791a1] truncate">{o.email}</div>
+                  </div>
+                </div>
+
+                {/* Address - tap to copy */}
+                {o.shipping?.address && (
+                  <button onClick={() => copyText(
+                    `${o.shipping.name}\n${o.shipping.address.line1}${o.shipping.address.line2 ? ', ' + o.shipping.address.line2 : ''}\n${o.shipping.address.postal_code} ${o.shipping.address.city}\n${o.shipping.address.country}`,
+                    'addr'
+                  )} className="flex w-full items-start gap-2 rounded-xl bg-white/[0.02] px-3 py-2 text-left transition hover:bg-white/[0.04]">
+                    <MapPin size={14} className="text-[#10BFD8] mt-0.5 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[12px] text-[#8791a1] leading-relaxed">
+                        {o.shipping.address.line1}{o.shipping.address.line2 ? ', ' + o.shipping.address.line2 : ''}
+                        <br />
+                        {o.shipping.address.postal_code} {o.shipping.address.city}
+                        <br />
+                        {o.shipping.address.country}
+                      </p>
+                      {copied === 'addr' && <span className="text-[11px] text-emerald-400">✓ Copiado</span>}
+                    </div>
+                    <Copy size={13} className="text-[#4a5568] shrink-0" />
+                  </button>
+                )}
+
+                {/* Phone */}
+                {o.phone && (
+                  <button onClick={() => copyText(o.phone, 'phone')} className="flex items-center gap-2 text-[12px] text-[#8791a1] hover:text-white">
+                    <Phone size={13} className="text-[#6b7280]" />
+                    {o.phone}
+                    {copied === 'phone' && <span className="text-[11px] text-emerald-400">✓</span>}
+                  </button>
+                )}
+              </div>
+
+              {/* Products */}
+              <div className="border-t border-white/[0.05] px-4 py-3">
+                <div className="space-y-1.5">
+                  {(o.items || []).map((it: any, i: number) => (
+                    <div key={i} className="flex items-center justify-between text-[13px]">
+                      <span className="text-[#8791a1]">{it.name} ×{it.qty}</span>
+                      <span className="font-semibold text-white">€{((it.price || 0) * it.qty).toFixed(2)}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="mt-3 border-t border-white/[0.06] pt-3">
-                <div className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[#6b7280] mb-2">Productos</div>
-                <ul className="space-y-1">
-                  {(o.items || []).map((it: any, i: number) => (
-                    <li key={i} className="flex justify-between text-[13px] text-[#8791a1]">
-                      <span>{it.name} ×{it.qty}</span>
-                      <span className="text-[#f2eee7]">€{((it.price || 0) * it.qty).toFixed(2)}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Actions */}
+              <div className="border-t border-white/[0.05] px-4 py-3 flex items-center justify-between">
+                <div className="text-[16px] font-bold text-white">
+                  €{((o.amount || 0) / 100).toFixed(2)}
+                </div>
+                <div className="flex items-center gap-2">
+                  {o.trackingNumber ? (
+                    <div className="rounded-xl border border-emerald-500/15 bg-emerald-500/5 px-3 py-1.5">
+                      <div className="text-[10px] uppercase text-[#6b7280]">Tracking</div>
+                      <div className="text-[12px] font-mono font-semibold text-emerald-400">{o.trackingNumber}</div>
+                    </div>
+                  ) : (
+                    <>
+                      {o.status !== 'cancelled' && (
+                        <>
+                          <button onClick={() => shipOrder(o.id)}
+                            className="flex items-center gap-1.5 rounded-full bg-[#10BFD8] px-4 py-2 text-[12px] font-semibold text-[#080c12] transition hover:bg-[#0ea5c4]">
+                            <Truck size={13} /> Enviar
+                          </button>
+                          <button onClick={() => cancelOrder(o.id)}
+                            className="rounded-full border border-white/[0.08] px-3 py-2 text-[12px] text-[#6b7280] transition hover:border-red-500/30 hover:text-red-400">
+                            ✕
+                          </button>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           ))}
