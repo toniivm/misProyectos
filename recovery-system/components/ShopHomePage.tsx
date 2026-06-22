@@ -19,6 +19,7 @@ import {
   type CatalogProduct,
 } from '../lib/catalog'
 import { SocialProofNotification, StockUrgency, ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
+import ProductImage from './ProductImage'
 
 const SHOP_HOME_COPY = {
   en: {
@@ -263,20 +264,16 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219] transition-all duration-700 hover:border-[rgba(16,191,216,0.3)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(16,191,216,0.08)]"
       >
-        {/* Image area - taller, more premium */}
-        <div className="relative flex h-56 sm:h-64 items-center justify-center overflow-hidden" style={{ background: product.color }}>
-          {product.images ? (
-            <img src={product.images[0]} alt={name} loading="lazy"
-              className="h-full w-full object-cover transition-all duration-1000 group-hover:scale-110"
-              style={{ objectPosition: '50% 5%' }} />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center" style={{ background: product.color }}>
-              <span className="text-6xl opacity-50 transition-transform duration-700 group-hover:scale-110">{product.icon}</span>
-            </div>
-          )}
-          
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0d1219] via-transparent to-transparent opacity-60" />
+        {/* Image area - premium visual */}
+        <div className="relative flex h-56 sm:h-64 items-center justify-center overflow-hidden">
+          <ProductImage 
+            slug={product.slug as any} 
+            color={product.color}
+            icon={product.icon}
+            images={product.images}
+            alt={name}
+            className="h-full w-full"
+          />
           
           {/* Badge */}
           {product.badge && (

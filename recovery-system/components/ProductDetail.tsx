@@ -8,6 +8,7 @@ import { useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
 import { StockUrgency, ViewingNow, CountdownTimer } from './ConversionBoosters';
+import ProductImage from './ProductImage';
 
 export interface Product {
   slug: string;
@@ -211,15 +212,15 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           >
             {/* Main image */}
             <div className="relative flex min-h-[360px] sm:min-h-[500px] items-center justify-center overflow-hidden rounded-2xl border border-white/[0.08] cursor-pointer"
-              style={{ background: product?.color ?? '#111720' }}
               onClick={() => allImages.length > 1 && setShowMobileGallery(true)}>
-              {product?.images ? (
-                <img src={product.images[activeImg]} alt={displayName} loading="lazy"
-                  className="h-full w-full object-cover transition-all duration-500"
-                  style={{ objectPosition: activeImg === 0 ? '50% 10%' : activeImg === 1 ? '50% 70%' : '50% 40%' }} />
-              ) : (
-                <span className="text-[80px] opacity-40 select-none">{product?.icon ?? '📦'}</span>
-              )}
+              <ProductImage 
+                slug={product?.slug as any ?? legacyProduct.slug as any}
+                color={product?.color ?? legacyProduct.bg}
+                icon={product?.icon ?? legacyProduct.icon}
+                images={product?.images ?? []}
+                alt={displayName}
+                className="h-full w-full"
+              />
               <div className="absolute top-4 left-4 flex gap-2">
                 {product?.badge && <Badge type={product.badge} />}
               </div>
