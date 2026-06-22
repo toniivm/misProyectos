@@ -235,37 +235,32 @@ export default function ProductImage({ slug, color, icon, images, alt, className
 
   return (
     <div className={`relative overflow-hidden ${className}`} style={{ background: color }}>
-      {/* Background gradient */}
+      {/* Background gradient always visible */}
       <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient}`} />
       
-      {/* Real image if available */}
+      {/* SVG illustration always visible as background */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        {config.elements}
+      </div>
+      
+      {/* Real image on top if available */}
       {hasRealImage && (
         <img 
           src={images![0]} 
           alt={alt || 'Product'} 
           onError={() => setImgError(true)}
           onLoad={() => setImgLoaded(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
             imgLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           style={{ objectPosition: '50% 5%' }}
         />
       )}
       
-      {/* SVG illustration (always visible, blends with image if loaded) */}
-      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ${
-        imgLoaded ? 'opacity-0' : 'opacity-100'
-      }`}>
-        {config.elements}
-      </div>
-      
       {/* Top-left icon badge */}
       <div className="absolute top-4 left-4 z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm text-xl">
         {icon}
       </div>
-      
-      {/* Bottom gradient overlay for text readability */}
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
     </div>
   )
 }

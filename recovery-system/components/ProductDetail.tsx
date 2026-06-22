@@ -211,8 +211,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             transition={{ duration: 0.5, ease: EASE_OUT }}
           >
             {/* Main image */}
-            <div className="relative flex min-h-[360px] sm:min-h-[500px] items-center justify-center overflow-hidden rounded-2xl border border-white/[0.08] cursor-pointer"
-              onClick={() => allImages.length > 1 && setShowMobileGallery(true)}>
+            <div className="relative flex min-h-[360px] sm:min-h-[500px] items-center justify-center overflow-hidden rounded-2xl border border-white/[0.08]"
+              style={{ background: product?.color ?? '#111720' }}>
               <ProductImage 
                 slug={product?.slug as any ?? legacyProduct.slug as any}
                 color={product?.color ?? legacyProduct.bg}
@@ -224,16 +224,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <div className="absolute top-4 left-4 flex gap-2">
                 {product?.badge && <Badge type={product.badge} />}
               </div>
-              {allImages.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                  {allImages.map((_, idx) => (
-                    <button key={idx} onClick={(e) => { e.stopPropagation(); setActiveImg(idx); }}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        idx === activeImg ? 'w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/60'
-                      }`} />
-                  ))}
-                </div>
-              )}
             </div>
 
             {/* Thumbnails */}
