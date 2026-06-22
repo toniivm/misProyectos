@@ -633,7 +633,7 @@ export default function ShopHomePage() {
 
       <main className="mx-auto max-w-[1280px] px-4 sm:px-6 pb-32">
         {/* ── Hero ── */}
-        <section className="relative overflow-hidden pb-8 pt-6 sm:pt-10">
+        <section className="relative overflow-hidden pb-6 pt-6 sm:pt-10">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_50%_0%,rgba(16,191,216,0.08),transparent_60%)]" />
           <div className="relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(13,18,25,0.98),rgba(10,15,22,0.94))] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
             <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
@@ -673,7 +673,7 @@ export default function ShopHomePage() {
                     <ShoppingCart size={14} />
                     {copy.heroPrimary}
                   </Link>
-                  <a href="#best-sellers"
+                  <a href="#all-products"
                     className="btn-dark !rounded-full">
                     {copy.heroSecondary}
                   </a>
@@ -719,19 +719,19 @@ export default function ShopHomePage() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12"
         >
-          <div className="rounded-2xl border border-white/[0.08] bg-gradient-to-r from-[rgba(16,191,216,0.04)] via-[rgba(13,18,25,0.98)] to-[rgba(158,146,255,0.04)] p-6 sm:p-8">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="rounded-2xl border border-white/[0.08] bg-gradient-to-r from-[rgba(16,191,216,0.04)] via-[rgba(13,18,25,0.98)] to-[rgba(158,146,255,0.04)] p-4 sm:p-5">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {copy.trustItems.map((item) => (
                 <div key={item.label}
-                  className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] px-4 py-4 transition-all hover:border-[rgba(16,191,216,0.2)] hover:bg-white/[0.04]">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.1)]">
-                    <item.icon size={18} className="text-[#10BFD8]" />
+                  className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] px-3 py-3 transition-all hover:border-[rgba(16,191,216,0.2)] hover:bg-white/[0.04]">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.1)]">
+                    <item.icon size={16} className="text-[#10BFD8]" />
                   </div>
                   <div>
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{item.label}</div>
-                    <div className="text-[11px] text-[#6b7785]">{item.sub}</div>
+                    <div className="text-[12px] font-semibold text-[#f2eee7]">{item.label}</div>
+                    <div className="text-[10px] text-[#6b7785]">{item.sub}</div>
                   </div>
                 </div>
               ))}
@@ -739,96 +739,47 @@ export default function ShopHomePage() {
           </div>
         </motion.section>
 
-        {/* ── Categories ── */}
-        <section className="mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8 text-center"
-          >
-            <span className="section-tag mb-3 inline-flex">{copy.categoriesHeading}</span>
-            <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">{copy.categoriesHeading}</h2>
-            <p className="mt-2 text-[14px] text-[#6b7785]">{copy.categoriesSub}</p>
-          </motion.div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {copy.problemCards.map((item, idx) => (
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                key={item.slug}
-              >
-                <Link href={`/${locale}/shop/${item.slug}`} className="group block h-full">
-                  <div
-                    className="flex h-full flex-col rounded-2xl border p-6 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:-translate-y-1"
-                    style={{ background: `linear-gradient(160deg, ${item.colorFrom}, ${item.colorTo})`, borderColor: 'rgba(255,255,255,0.08)' }}
-                  >
-                    <span className="mb-4 text-3xl">{item.emoji}</span>
-                    <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#5a6878]">{item.problem}</div>
-                    <h3 className="mb-2.5 text-[15px] font-bold text-[#f2eee7] transition-colors group-hover:text-white">{item.solution}</h3>
-                    <p className="flex-1 text-[12px] leading-[1.6] text-[#6b7a8a]">{item.description}</p>
-                    <div className="mt-5 flex items-center gap-1 text-[12px] font-semibold text-[#7a9ab8] transition-colors group-hover:text-[#a8c0d8]">
-                      Shop now <ChevronRight size={13} className="transition-transform group-hover:translate-x-0.5" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── Best Sellers ── */}
-        <section id="best-sellers" className="mb-20">
+        {/* ── ALL PRODUCTS — Grid principal ── */}
+        <section id="all-products" className="mb-16">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mb-8"
           >
-            <span className="section-tag mb-3 inline-flex">
-              <Star size={11} className="text-amber-400" />
-              {copy.bestSellersHeading}
-            </span>
-            <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">{copy.bestSellersHeading}</h2>
-            <p className="mt-2 text-[14px] text-[#6b7785]">{copy.bestSellersSub}</p>
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <span className="section-tag mb-3 inline-flex">
+                  {isEs ? 'Todos los productos' : 'All products'}
+                </span>
+                <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">
+                  {isEs ? 'Elige tu solución' : 'Pick your solution'}
+                </h2>
+                <p className="mt-2 text-[14px] text-[#6b7785]">
+                  {isEs ? 'Cada producto resuelve un problema específico. Elige el tuyo.' : 'Each product solves one specific problem. Pick yours.'}
+                </p>
+              </div>
+              <Link href={`/${locale}/shop/all`} className="hidden sm:inline-flex btn-dark !rounded-full !text-[12px]">
+                {isEs ? 'Ver todos' : 'View all'} <ArrowRight size={13} />
+              </Link>
+            </div>
           </motion.div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {bestSellers.map((product, idx) => (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {allProducts.map((product, idx) => (
               <ProductCard key={product.slug} product={product} locale={locale} />
             ))}
           </div>
 
-          <div className="mt-8 text-center">
+          <div className="mt-6 text-center sm:hidden">
             <Link href={`/${locale}/shop/all`} className="btn-dark !rounded-full">
-              {copy.heroPrimary} <ArrowRight size={14} />
+              {isEs ? 'Ver todos los productos' : 'View all products'} <ArrowRight size={13} />
             </Link>
           </div>
         </section>
 
-        {/* ── Stats ── */}
-        <section className="mb-20">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {copy.stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center rounded-2xl border border-white/[0.07] bg-white/[0.025] p-6"
-              >
-                <div className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-[-0.04em] text-[#f6f2eb]">{stat.value}</div>
-                <div className="mt-1 text-[12px] text-[#6b7785] uppercase tracking-[0.08em]">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── How it works ── */}
-        <section className="mb-20">
+        {/* ── Why Noctip ── */}
+        <section className="mb-16">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -836,38 +787,72 @@ export default function ShopHomePage() {
             className="mb-8 text-center"
           >
             <span className="section-tag mb-3 inline-flex">
-              <Moon size={11} />
-              {copy.stepsHeading}
+              {isEs ? '¿Por qué Noctip?' : 'Why Noctip?'}
             </span>
-            <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">{copy.stepsHeading}</h2>
-            <p className="mt-2 text-[14px] text-[#6b7785]">{copy.stepsSub}</p>
+            <h2 className="text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.04em] text-[#f2eee7] mt-3">
+              {isEs ? 'No somos una marketplace. Somos una marca.' : 'We\'re not a marketplace. We\'re a brand.'}
+            </h2>
           </motion.div>
 
-          <div className="grid gap-6 sm:grid-cols-3">
-            {copy.steps.map((item, idx) => (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: '🎯',
+                title: isEs ? 'Un problema, un producto' : 'One problem, one product',
+                text: isEs ? 'Cada producto Noctip está diseñado para resolver UN problema específico. Sin distracciones, sin compromisos.' : 'Every Noctip product is designed to solve ONE specific problem. No distractions, no compromises.',
+              },
+              {
+                icon: '🔬',
+                title: isEs ? 'Probado, no prometido' : 'Tested, not promised',
+                text: isEs ? '6.000+ clientes reales. 4.9 estrellas de media. Resultados que hablan por sí solos.' : '6,000+ real customers. 4.9 average rating. Results that speak for themselves.',
+              },
+              {
+                icon: '🛡️',
+                title: isEs ? 'Sin riesgo' : 'Zero risk',
+                text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro. Sin preguntas, sin formularios.' : '30 nights to try it. If it doesn\'t work, we refund every cent. No questions, no forms.',
+              },
+              {
+                icon: '⚡',
+                title: isEs ? 'Envío inmediato' : 'Instant shipping',
+                text: isEs ? 'Procesamos y enviamos en 24 horas. Mañana en tu puerta. Seguimiento en tiempo real incluido.' : 'We process and ship within 24 hours. At your door tomorrow. Real-time tracking included.',
+              },
+            ].map((item, idx) => (
               <motion.div
-                key={item.step}
+                key={item.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="relative rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 text-center sm:text-left"
+                className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 text-center transition-all hover:border-white/[0.12] hover:bg-white/[0.04]"
               >
-                <div className="flex items-center gap-3 mb-4 sm:justify-start justify-center">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.04] text-[22px]">
-                    {item.icon}
-                  </span>
-                  <span className="font-mono text-[12px] font-semibold tracking-[0.2em] text-[#4a5568]">{item.step}</span>
-                </div>
-                <h3 className="mb-2 text-[16px] font-bold text-[#f2eee7]">{item.title}</h3>
-                <p className="text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
+                <span className="text-3xl">{item.icon}</span>
+                <h3 className="mt-3 text-[14px] font-bold text-[#f2eee7]">{item.title}</h3>
+                <p className="mt-2 text-[12px] leading-5 text-[#6b7785]">{item.text}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Stats ── */}
+        <section className="mb-16">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {copy.stats.map((stat) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5"
+              >
+                <div className="text-[clamp(1.6rem,3.5vw,2.5rem)] font-bold tracking-[-0.04em] text-[#f6f2eb]">{stat.value}</div>
+                <div className="mt-1 text-[11px] text-[#6b7785] uppercase tracking-[0.08em]">{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </section>
 
         {/* ── Testimonials ── */}
-        <section className="mb-20">
+        <section className="mb-16">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -886,7 +871,7 @@ export default function ShopHomePage() {
         </section>
 
         {/* ── FAQ ── */}
-        <section id="faq" className="mb-20">
+        <section id="faq" className="mb-16">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -914,6 +899,11 @@ export default function ShopHomePage() {
               {copy.ctaHeading}
             </h2>
             <p className="mt-4 max-w-lg mx-auto text-[15px] leading-7 text-[#8791a1]">{copy.ctaSub}</p>
+            
+            <div className="mt-6 flex items-center justify-center">
+              <CountdownTimer />
+            </div>
+            
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link href={`/${locale}/shop/all`} className="btn-light !rounded-full !px-8 !py-4">
                 {copy.ctaPrimary} <ArrowRight size={16} />
@@ -923,9 +913,9 @@ export default function ShopHomePage() {
               </Link>
             </div>
             <div className="mt-8 flex items-center justify-center gap-6 text-[12px] text-[#6b7785]">
-              <span className="flex items-center gap-1.5"><Shield size={12} className="text-[#8ea7c7]" /> Secure checkout</span>
-              <span className="flex items-center gap-1.5"><Truck size={12} className="text-[#8ea7c7]" /> Free shipping</span>
-              <span className="flex items-center gap-1.5"><RotateCcw size={12} className="text-[#8ea7c7]" /> 30-day returns</span>
+              <span className="flex items-center gap-1.5"><Shield size={12} className="text-[#8ea7c7]" /> {isEs ? 'Pago seguro' : 'Secure checkout'}</span>
+              <span className="flex items-center gap-1.5"><Truck size={12} className="text-[#8ea7c7]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
+              <span className="flex items-center gap-1.5"><RotateCcw size={12} className="text-[#8ea7c7]" /> {isEs ? '30 noches' : '30-night trial'}</span>
             </div>
           </div>
         </section>
