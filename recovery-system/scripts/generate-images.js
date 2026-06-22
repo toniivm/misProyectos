@@ -1,192 +1,197 @@
 #!/usr/bin/env node
 
 /**
- * Script para generar imágenes de productos Noctip con DALL-E 3
+ * Generador de imágenes Noctip con Bing Image Creator (GRATIS)
  * 
- * Requiere: npm install openai
  * Uso: node scripts/generate-images.js
  * 
- * Configura OPENAI_API_KEY en tu .env antes de ejecutar.
+ * Abre Bing Image Creator y copia los prompts al portapapeles.
+ * Solo tienes pegar y dar a "Create".
  */
 
-const OpenAI = require('openai');
-const fs = require('fs');
-const path = require('path');
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'images', 'generated');
+const { exec } = require('child_process');
+const platform = process.platform;
 
 const PRODUCTS = [
   {
-    slug: 'sleepband-pro',
-    name: 'Noctip Halo',
-    hero: {
-      prompt: 'Product photography of a transparent blue anti-snoring mouthpiece on a dark matte surface (#0c1016), dramatic side lighting with soft blue accent light, shallow depth of field, premium wellness product aesthetic, minimalist, no text, no overlays, studio quality, 4K, product photography, clean background',
-      size: '1792x1024',
-    },
-    lifestyle: {
-      prompt: 'A couple sleeping peacefully in a modern minimalist bedroom, soft morning light through curtains, warm tones, the woman is smiling in her sleep, peaceful atmosphere, premium lifestyle photography, 4K, no text, no product visible, wellness brand aesthetic',
-      size: '1792x1024',
-    },
-    detail: {
-      prompt: 'Close-up macro photography of a transparent blue anti-snoring mouthpiece showing the dual-layer adjustment mechanism and silicone texture, dramatic lighting on dark background, shallow depth of field, premium product photography, 4K, no text',
-      size: '1792x1024',
-    },
+    name: 'Noctip Halo (Anti-ronquidos)',
+    files: [
+      {
+        type: 'HERO',
+        filename: 'sleepband-pro-hero.jpg',
+        prompt: 'Product photography of a transparent blue anti-snoring mouthpiece on a dark matte black surface, dramatic side lighting with soft blue accent light, shallow depth of field, premium wellness product aesthetic, minimalist, no text, no overlays, studio quality, 4K'
+      },
+      {
+        type: 'LIFESTYLE',
+        filename: 'sleepband-pro-lifestyle.jpg',
+        prompt: 'A couple sleeping peacefully in a modern minimalist bedroom, soft morning light through curtains, warm tones, the woman is smiling in her sleep, peaceful atmosphere, premium lifestyle photography, 4K, no text'
+      },
+      {
+        type: 'DETALLE',
+        filename: 'sleepband-pro-detail.jpg',
+        prompt: 'Close-up macro photography of a transparent blue anti-snoring mouthpiece showing the dual-layer adjustment mechanism and silicone texture, dramatic lighting on dark background, shallow depth of field, premium product photography, 4K'
+      }
+    ]
   },
   {
-    slug: 'white-noise-pro',
-    name: 'Noctip Wave',
-    hero: {
-      prompt: 'Product photography of a black Y-shaped posture corrector brace laid flat on dark matte surface (#0c1016), dramatic overhead lighting, premium wellness product aesthetic, minimalist, no text, no overlays, studio quality, 4K, product photography',
-      size: '1792x1024',
-    },
-    lifestyle: {
-      prompt: 'A professional person sitting at a clean modern desk with good posture, wearing a black posture corrector under a white shirt barely visible, natural light from window, home office setting, premium lifestyle photography, 4K, no text, wellness brand aesthetic',
-      size: '1792x1024',
-    },
-    detail: {
-      prompt: 'Close-up of the Y-shaped back support of a posture corrector, showing the ergonomic design and breathable mesh material, dark background, dramatic lighting, premium product photography, 4K, no text',
-      size: '1792x1024',
-    },
+    name: 'Noctip Wave (Corrector Postural)',
+    files: [
+      {
+        type: 'HERO',
+        filename: 'white-noise-pro-hero.jpg',
+        prompt: 'Product photography of a black Y-shaped posture corrector brace laid flat on dark matte black surface, dramatic overhead lighting, premium wellness product aesthetic, minimalist, no text, studio quality, 4K'
+      },
+      {
+        type: 'LIFESTYLE',
+        filename: 'white-noise-pro-lifestyle.jpg',
+        prompt: 'A professional person sitting at a clean modern desk with good posture, wearing a black posture corrector under a white shirt barely visible, natural light from window, home office setting, premium lifestyle photography, 4K, no text'
+      },
+      {
+        type: 'DETALLE',
+        filename: 'white-noise-pro-detail.jpg',
+        prompt: 'Close-up of the Y-shaped back support of a posture corrector, showing the ergonomic design and breathable mesh material, dark background, dramatic lighting, premium product photography, 4K'
+      }
+    ]
   },
   {
-    slug: 'sleep-headband',
-    name: 'Noctip Rest',
-    hero: {
-      prompt: 'Product photography of a sleek black sleep headband with ultra-thin speakers on dark matte surface (#0c1016), dramatic side lighting, premium wellness product aesthetic, minimalist, no text, no overlays, studio quality, 4K, product photography',
-      size: '1792x1024',
-    },
-    lifestyle: {
-      prompt: 'A person lying in bed wearing a sleek black sleep headband, soft ambient lighting, peaceful expression, modern bedroom, premium lifestyle photography, 4K, no text, wellness brand aesthetic',
-      size: '1792x1024',
-    },
-    detail: {
-      prompt: 'Close-up of the ultra-thin speaker inside a sleep headband, showing how thin and flexible it is, dramatic lighting on dark background, premium product photography, 4K, no text',
-      size: '1792x1024',
-    },
+    name: 'Noctip Rest (Banda de Sueño)',
+    files: [
+      {
+        type: 'HERO',
+        filename: 'sleep-headband-hero.jpg',
+        prompt: 'Product photography of a sleek black sleep headband with ultra-thin speakers on dark matte black surface, dramatic side lighting, premium wellness product aesthetic, minimalist, no text, studio quality, 4K'
+      },
+      {
+        type: 'LIFESTYLE',
+        filename: 'sleep-headband-lifestyle.jpg',
+        prompt: 'A person lying in bed wearing a sleek black sleep headband, soft ambient lighting, peaceful expression, modern bedroom, premium lifestyle photography, 4K, no text'
+      },
+      {
+        type: 'DETALLE',
+        filename: 'sleep-headband-detail.jpg',
+        prompt: 'Close-up of the ultra-thin speaker inside a sleep headband, showing how thin and flexible it is, dramatic lighting on dark background, premium product photography, 4K'
+      }
+    ]
   },
   {
-    slug: 'neck-massager',
-    name: 'Noctip Relief',
-    hero: {
-      prompt: 'Product photography of a white U-shaped cervical massager on dark matte surface (#0c1016), dramatic lighting with soft glow on electrode pads, premium wellness product aesthetic, minimalist, no text, studio quality, 4K, product photography',
-      size: '1792x1024',
-    },
-    lifestyle: {
-      prompt: 'A person using a U-shaped cervical massager while working at a laptop, modern home office, natural light, relaxed expression, premium lifestyle photography, 4K, no text, wellness brand aesthetic',
-      size: '1792x1024',
-    },
-    detail: {
-      prompt: 'Close-up of the electrode pads on a cervical massager, showing the metallic surface and ergonomic curve, dramatic lighting on dark background, premium product photography, 4K, no text',
-      size: '1792x1024',
-    },
+    name: 'Noctip Relief (Masajeador Cervical)',
+    files: [
+      {
+        type: 'HERO',
+        filename: 'neck-massager-hero.jpg',
+        prompt: 'Product photography of a white U-shaped cervical massager on dark matte black surface, dramatic lighting with soft glow on electrode pads, premium wellness product aesthetic, minimalist, no text, studio quality, 4K'
+      },
+      {
+        type: 'LIFESTYLE',
+        filename: 'neck-massager-lifestyle.jpg',
+        prompt: 'A person using a U-shaped cervical massager while working at a laptop, modern home office, natural light, relaxed expression, premium lifestyle photography, 4K, no text'
+      },
+      {
+        type: 'DETALLE',
+        filename: 'neck-massager-detail.jpg',
+        prompt: 'Close-up of the electrode pads on a cervical massager, showing the metallic surface and ergonomic curve, dramatic lighting on dark background, premium product photography, 4K'
+      }
+    ]
   },
   {
-    slug: 'weighted-mask-pro',
-    name: 'Noctip Calm',
-    hero: {
-      prompt: 'Product photography of a compact white cervical pulse massager on dark matte surface (#0c1016), dramatic lighting, premium wellness product aesthetic, minimalist, no text, studio quality, 4K, product photography',
-      size: '1792x1024',
-    },
-    lifestyle: {
-      prompt: 'A person wearing a compact cervical massager while reading on a couch, warm ambient lighting, cozy modern interior, premium lifestyle photography, 4K, no text, wellness brand aesthetic',
-      size: '1792x1024',
-    },
-    detail: {
-      prompt: 'Close-up of the floating electrode plates on a pulse massager, showing the auto-adapting design, dramatic lighting on dark background, premium product photography, 4K, no text',
-      size: '1792x1024',
-    },
-  },
+    name: 'Noctip Calm (Masajeador por Pulsos)',
+    files: [
+      {
+        type: 'HERO',
+        filename: 'weighted-mask-pro-hero.jpg',
+        prompt: 'Product photography of a compact white cervical pulse massager on dark matte black surface, dramatic lighting, premium wellness product aesthetic, minimalist, no text, studio quality, 4K'
+      },
+      {
+        type: 'LIFESTYLE',
+        filename: 'weighted-mask-pro-lifestyle.jpg',
+        prompt: 'A person wearing a compact cervical massager while reading on a couch, warm ambient lighting, cozy modern interior, premium lifestyle photography, 4K, no text'
+      },
+      {
+        type: 'DETALLE',
+        filename: 'weighted-mask-pro-detail.jpg',
+        prompt: 'Close-up of the floating electrode plates on a pulse massager, showing the auto-adapting design, dramatic lighting on dark background, premium product photography, 4K'
+      }
+    ]
+  }
 ];
 
-async function generateImage(prompt, size, outputPath) {
-  console.log(`  Generating: ${path.basename(outputPath)}...`);
-  
-  try {
-    const response = await openai.images.generate({
-      model: 'dall-e-3',
-      prompt: prompt,
-      n: 1,
-      size: size,
-      quality: 'hd',
-      response_format: 'url',
-    });
-
-    const imageUrl = response.data[0].url;
-    
-    // Download the image
-    const imageResponse = await fetch(imageUrl);
-    const buffer = await imageResponse.arrayBuffer();
-    
-    fs.writeFileSync(outputPath, Buffer.from(buffer));
-    console.log(`  ✓ Saved: ${path.basename(outputPath)}`);
-    return true;
-  } catch (error) {
-    console.error(`  ✗ Error: ${error.message}`);
-    return false;
+function copyToClipboard(text) {
+  if (platform === 'win32') {
+    exec(`echo ${text.replace(/"/g, '\\"')} | clip`);
+  } else if (platform === 'darwin') {
+    exec(`echo "${text.replace(/"/g, '\\"')}" | pbcopy`);
+  } else {
+    exec(`echo "${text.replace(/"/g, '\\"')}" | xclip -selection clipboard`);
   }
 }
 
-async function main() {
-  console.log('=== Noctip Image Generator ===\n');
-  
-  if (!process.env.OPENAI_API_KEY) {
-    console.error('Error: OPENAI_API_KEY not set in environment');
-    console.log('Set it with: export OPENAI_API_KEY=your-key-here');
-    process.exit(1);
-  }
-
-  // Create output directory
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  }
-
-  let totalGenerated = 0;
-  let totalErrors = 0;
-
-  for (const product of PRODUCTS) {
-    console.log(`\n${product.name} (${product.slug}):`);
-    
-    const types = ['hero', 'lifestyle', 'detail'];
-    
-    for (const type of types) {
-      const filename = `${product.slug}-${type}.png`;
-      const outputPath = path.join(OUTPUT_DIR, filename);
-      
-      // Skip if already exists
-      if (fs.existsSync(outputPath)) {
-        console.log(`  ⊘ Skipping ${filename} (already exists)`);
-        continue;
-      }
-      
-      const success = await generateImage(
-        product[type].prompt,
-        product[type].size,
-        outputPath
-      );
-      
-      if (success) totalGenerated++;
-      else totalErrors++;
-      
-      // Rate limit: wait 10 seconds between requests
-      await new Promise(r => setTimeout(r, 10000));
-    }
-  }
-
-  console.log(`\n=== Complete ===`);
-  console.log(`Generated: ${totalGenerated} images`);
-  console.log(`Errors: ${totalErrors}`);
-  console.log(`Output: ${OUTPUT_DIR}`);
-  
-  if (totalGenerated > 0) {
-    console.log('\nNext steps:');
-    console.log('1. Review generated images in public/images/generated/');
-    console.log('2. Copy the best ones to public/images/ replacing old ones');
-    console.log('3. Update catalog.ts image paths if needed');
+function openUrl(url) {
+  if (platform === 'win32') {
+    exec(`start ${url}`);
+  } else if (platform === 'darwin') {
+    exec(`open ${url}`);
+  } else {
+    exec(`xdg-open ${url}`);
   }
 }
 
-main().catch(console.error);
+console.log('\n╔══════════════════════════════════════════════════════════╗');
+console.log('║  GENERADOR DE IMÁGENES NOCTIP — Bing Image Creator     ║');
+console.log('║  GRATIS con DALL-E 3                                   ║');
+console.log('╚══════════════════════════════════════════════════════════╝\n');
+
+console.log('📋 INSTRUCCIONES:\n');
+console.log('1. Se abrirá Bing Image Creator en tu navegador');
+console.log('2. El prompt se copiará al portapapeles automáticamente');
+console.log('3. Pégalo en Bing y haz clic en "Create"');
+console.log('4. Descarga la imagen que más te guste');
+console.log('5. Guarda en: recovery-system/public/images/\n');
+
+console.log('─'.repeat(60));
+
+let currentIndex = 0;
+
+function showNext() {
+  if (currentIndex >= PRODUCTS.length) {
+    console.log('\n✅ ¡TODOS LOS PROMPTS COMPLETADOS!\n');
+    console.log('📁 Guarda las imágenes en: recovery-system/public/images/');
+    console.log('🔄 Reemplaza las imágenes antiguas con los nuevos nombres');
+    console.log('❌ Elimina: sleep-headband.jpg (muestra marca "Enjoying")\n');
+    return;
+  }
+
+  const product = PRODUCTS[currentIndex];
+  console.log(`\n🖼️  [${currentIndex + 1}/${PRODUCTS.length}] ${product.name}\n`);
+
+  product.files.forEach((file, idx) => {
+    console.log(`  ${idx + 1}. ${file.type} → ${file.filename}`);
+  });
+
+  console.log('\n📝 PROMPTS PARA COPIAR:\n');
+
+  product.files.forEach((file, idx) => {
+    console.log(`  --- ${file.type} ---`);
+    console.log(`  Archivo: ${file.filename}`);
+    console.log(`  Prompt: ${file.prompt}\n`);
+  });
+
+  // Copy first prompt to clipboard
+  const firstPrompt = product.files[0].prompt;
+  copyToClipboard(firstPrompt);
+  console.log(`  📋 Primer prompt copiado al portapapeles: "${product.files[0].type}"`);
+
+  // Open Bing Image Creator
+  openUrl('https://www.bing.com/images/create');
+  console.log('  🌐 Abriendo Bing Image Creator...\n');
+
+  console.log('─'.repeat(60));
+  console.log('Presiona ENTER para el siguiente producto...');
+  
+  process.stdin.once('data', () => {
+    currentIndex++;
+    showNext();
+  });
+}
+
+// Start
+showNext();
