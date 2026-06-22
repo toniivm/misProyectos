@@ -254,7 +254,7 @@ export default function ProductImage({ slug, color, icon, images, alt, className
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
             imgLoaded ? 'opacity-100' : 'opacity-0'
           }`}
-          style={{ objectPosition: '50% 5%' }}
+          style={{ objectPosition: 'center' }}
         />
       )}
       

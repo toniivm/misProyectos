@@ -115,7 +115,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
             <img src={product.images[0]} alt={name} loading="lazy"
               onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ objectPosition: '50% 5%' }} />
+              style={{ objectPosition: 'center' }} />
           ) : (
             <span className="text-5xl opacity-60 transition-transform duration-500 group-hover:scale-110">{product.icon}</span>
           )}
@@ -382,7 +382,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
                   alt={getLocalizedProductName(featuredProduct, locale)}
                   onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                  style={{ objectPosition: featuredProduct.slug === 'sleepband-pro' ? '50% 100%' : '50% 30%' }} />
+                  style={{ objectPosition: 'center' }} />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-[96px]" style={{ background: featuredProduct.color }}>
                   {featuredProduct.icon}

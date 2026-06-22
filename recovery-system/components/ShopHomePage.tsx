@@ -714,7 +714,7 @@ export default function ShopHomePage() {
                         alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                        style={{ objectPosition: '50% 30%' }} />
+                        style={{ objectPosition: 'center' }} />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent" />
                       
                       {/* Product info overlay */}

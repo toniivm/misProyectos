@@ -562,7 +562,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                           <img src={p.images[0]} alt={rName} loading="lazy"
                             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            style={{ objectPosition: '50% 5%' }} />
+                            style={{ objectPosition: 'center' }} />
                         ) : (
                           <span className="text-3xl opacity-50">{p.icon}</span>
                         )}

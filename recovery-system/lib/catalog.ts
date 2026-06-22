@@ -187,7 +187,7 @@ export const CATALOG: CatalogProduct[] = [
       'Tallas': 'Talla única — elástica',
       'Peso': '≈45g',
     },
-    images: ['/images/sleepband-product-clean.png'],
+    images: ['/images/sleepband-product-clean.png', '/images/products/sleep-headband.jpg'],
     icon: '🎧',
     cartIcon: '🎧',
     color: '#101828',
