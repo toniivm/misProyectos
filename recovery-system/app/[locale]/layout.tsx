@@ -60,7 +60,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       locale: isEs ? 'es_ES' : 'en_US',
       images: [
         {
-          url: '/images/productos-reales/sleepband-pro.jpg',
+          url: '/images/sleepband-pro-1.jpg',
           width: 1200,
           height: 630,
           alt: 'Noctip — Premium Sleep & Recovery Technology',
@@ -71,7 +71,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: 'Noctip™ — Premium Sleep & Recovery Technology',
       description: 'Tecnología premium de sueño y recuperación. Envío gratis y garantía de 30 noches.',
-      images: ['/images/productos-reales/sleepband-pro.jpg'],
+      images: ['/images/sleepband-pro-1.jpg'],
     },
     other: {
       'apple-mobile-web-app-capable': 'yes',
