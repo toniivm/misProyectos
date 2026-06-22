@@ -8,7 +8,7 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
 export default function CartSidebar() {
-  const { isOpen, close, items, remove, updateQty, subtotal, totalItems } = useCart();
+  const { isOpen, close, items, remove, updateQty, subtotal, totalItems, activeBundle, bundleDiscount, totalWithDiscount } = useCart();
   const locale = useLocale();
   const t = useTranslations('cart');
   const { user, openModal } = useAuth();
@@ -138,6 +138,21 @@ export default function CartSidebar() {
                   <span className="font-semibold text-[#5fb07c]">{t('free')}</span>
                 </div>
 
+                {activeBundle && bundleDiscount > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3"
+                  >
+                    <div className="flex items-center justify-between text-[13px]">
+                      <span className="font-semibold text-emerald-300">
+                        🎉 Bundle: {activeBundle.name_en || activeBundle.name} (-{activeBundle.discountPercent}%)
+                      </span>
+                      <span className="font-bold text-emerald-300">-€{bundleDiscount.toFixed(2)}</span>
+                    </div>
+                  </motion.div>
+                )}
+
                 {/* Trust badges */}
                 <div className="flex items-center justify-center gap-4 text-[11px] text-[#5a6678] pt-1">
                   <span className="flex items-center gap-1"><RotateCcw size={11} />30-day returns</span>
@@ -147,7 +162,12 @@ export default function CartSidebar() {
 
                 <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">
                   <span className="text-[15px] font-semibold text-[#f2eee7]">{t('total')}</span>
-                  <span className="text-[20px] font-bold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>
+                  <div className="text-right">
+                    {bundleDiscount > 0 && (
+                      <span className="block text-[12px] text-[#4a5568] line-through">€{subtotal.toFixed(2)}</span>
+                    )}
+                    <span className="text-[20px] font-bold text-[#f2eee7]">€{totalWithDiscount.toFixed(2)}</span>
+                  </div>
                 </div>
 
                 <button

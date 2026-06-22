@@ -47,8 +47,8 @@ export default function Footer() {
             </div>
             <p className="max-w-xs text-[13px] leading-6 text-[#5a6678]">
               {isEs
-                ? 'Herramientas premium de sueño y recuperación para el bienestar diario. Bandas Bluetooth, masajeadores y antifaces de alta gama.'
-                : 'Premium sleep and recovery tools for daily wellness. Bluetooth headbands, massagers and weighted masks.'}
+                ? 'Herramientas de sueño y recuperación que funcionan. Anti-ronquidos, corrección postural y masaje cervical — diseñados para gente que no puede dormir mal.'
+                : 'Sleep and recovery tools that work. Anti-snoring, posture correction, and cervical massage — designed for people who can\'t afford to sleep badly.'}
             </p>
             <div className="flex gap-3 pt-1">
               {[

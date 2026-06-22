@@ -14,7 +14,7 @@ export default function AboutPage() {
       icon: Target,
       title: isEs ? 'Ingeniería centrada en resultados' : 'Results-driven engineering',
       text: isEs
-        ? 'Cada producto pasa por un proceso de desarrollo riguroso. Sin atajos, sin promesas vacías. Solo specificationes reales y resultados medibles.'
+        ? 'Cada producto pasa por un proceso de desarrollo riguroso. Sin atajos, sin promesas vacías. Solo especificaciones reales y resultados medibles.'
         : 'Every product goes through a rigorous development process. No shortcuts, no empty promises. Only real specifications and measurable results.',
     },
     {

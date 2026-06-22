@@ -42,10 +42,10 @@ export const CATEGORIES: Category[] = [
     name: 'Sleep & Audio',
     name_en: 'Sleep & Audio',
     name_es: 'Sueño y audio',
-    icon: '🎧',
-    description: 'Precision-engineered audio devices designed to improve sleep quality through controlled sound environments.',
-    description_en: 'Precision-engineered audio devices designed to improve sleep quality through controlled sound environments.',
-    description_es: 'Dispositivos de audio de precisión diseñados para mejorar la calidad del sueño mediante entornos sonoros controlados.',
+    icon: '😴',
+    description: 'Anti-snoring devices and sleep audio technology for deeper, quieter rest.',
+    description_en: 'Anti-snoring devices and sleep audio technology for deeper, quieter rest.',
+    description_es: 'Dispositivos anti-ronquidos y tecnología de audio para dormir para un descanso más profundo y silencioso.',
   },
   {
     id: 'neck-recovery',
@@ -54,9 +54,9 @@ export const CATEGORIES: Category[] = [
     name_en: 'Neck & Recovery',
     name_es: 'Cuello y recuperación',
     icon: '🧘',
-    description: 'Professional-grade recovery tools for cervical relief, muscle tension and postural correction.',
-    description_en: 'Professional-grade recovery tools for cervical relief, muscle tension and postural correction.',
-    description_es: 'Herramientas de recuperación profesional para alivio cervical, tensión muscular y corrección postural.',
+    description: 'Posture correction and cervical massage tools for pain relief and muscle recovery.',
+    description_en: 'Posture correction and cervical massage tools for pain relief and muscle recovery.',
+    description_es: 'Herramientas de corrección postural y masaje cervical para alivio del dolor y recuperación muscular.',
   },
   {
     id: 'sensory',
@@ -65,9 +65,9 @@ export const CATEGORIES: Category[] = [
     name_en: 'Sensory & Relaxation',
     name_es: 'Sensorial y relajación',
     icon: '🌙',
-    description: 'Tactile pressure tools and sensory aids engineered to accelerate the transition into deep rest.',
-    description_en: 'Tactile pressure tools and sensory aids engineered to accelerate the transition into deep rest.',
-    description_es: 'Herramientas de presión táctil y ayudas sensoriales diseñadas para acelerar la transición al descanso profundo.',
+    description: 'Cervical pulse massagers and relaxation technology for tension relief.',
+    description_en: 'Cervical pulse massagers and relaxation technology for tension relief.',
+    description_es: 'Masajeadores cervicales por pulsos y tecnología de relajación para alivio de tensión.',
   },
 ]
 
@@ -84,39 +84,39 @@ export const CATALOG: CatalogProduct[] = [
     rating: 4.9,
     reviewCount: 1578,
     badge: 'bestseller',
-    shortDescription: 'Ultra-thin acoustic headband — studio sound without ear pressure.',
-    shortDescription_en: 'Ultra-thin acoustic headband — studio sound without ear pressure.',
-    shortDescription_es: 'Banda acústica ultrafina — sonido de estudio sin presión en los oídos.',
+    shortDescription: 'Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor.',
+    shortDescription_en: 'Stop snoring from night one. Your partner sleeps better too.',
+    shortDescription_es: 'Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor.',
     description:
-      'You put on Halo. You stop hearing the world. Weighing just 55g, it feels like a normal headband — but the audio clarity rivals studio headphones. Designed for side sleepers, machine washable, USB-C fast charging. No cables, no pressure, no excuses. Fall asleep faster tonight.',
+      'Cada noche que roncas, arruinas tu descanso y el de tu pareja. El Noctip Halo resuelve el problema en su origen: avanza suavemente la mandíbula para abrir la vía aérea, eliminando los ronquidos antes de que empiecen.\n\nEl diseño ajustable de doble capa se adapta perfectamente a tu boca con 10mm de micro-ajustes. Silicona de grado médico, hipoalergénica, suave y segura para uso nocturno. Incluye estuche de viaje compacto.\n\nDesde la primera noche notarás la diferencia. Despiertas descansado, sin fatiga, sin dolor de garganta. Y tu pareja endulza por fin en silencio.',
     description_en:
-      'You put on Halo. You stop hearing the world. Weighing just 55g, it feels like a normal headband — but the audio clarity rivals studio headphones. Designed for side sleepers, machine washable, USB-C fast charging. No cables, no pressure, no excuses. Fall asleep faster tonight.',
+      'Every night you snore, you ruin your rest — and your partner\'s. The Noctip Halo fixes the problem at its source: it gently advances your jaw to open your airway, stopping snoring before it starts.\n\nThe adjustable dual-layer design fits your mouth perfectly with 10mm of micro-adjustments. Medical-grade silicone, hypoallergenic, soft and safe for nightly use. Includes compact travel case.\n\nFrom night one you\'ll feel the difference. You wake up rested, no fatigue, no sore throat. And your partner finally sleeps in silence.',
     description_es:
-      'Te pones la Halo. Dejas de oír el mundo. Pesa 55g, se siente como una cinta normal — pero la claridad del sonido rivaliza con auriculares de estudio. Diseñada para dormir de lado, lavable a máquina, carga rápida USB-C. Sin cables, sin presión, sin excusas. Duérmete más rápido esta noche.',
+      'Cada noche que roncas, arruinas tu descanso y el de tu pareja. El Noctip Halo resuelve el problema en su origen: avanza suavemente la mandíbula para abrir la vía aérea, eliminando los ronquidos antes de que empiecen.\n\nEl diseño ajustable de doble capa se adapta perfectamente a tu boca con 10mm de micro-ajustes. Silicona de grado médico, hipoalergénica, suave y segura para uso nocturno. Incluye estuche de viaje compacto.\n\nDesde la primera noche notarás la diferencia. Despiertas descansado, sin fatiga, sin dolor de garganta. Y tu pareja duerme por fin en silencio.',
     features: [
-      'Precision acoustic film drivers — studio-tuned for sleep',
-      'Ergonomic wrap designed for side sleepers',
-      'Breathable, moisture-wicking knit — machine washable',
-      'Bluetooth Low Energy 5.x — stable + low power',
-      'USB‑C fast charge — ~2 hours',
-      'Featherlight: ~55g — unobtrusive all-night wear',
+      'Elimina ronquidos desde la primera noche — abre tu vía aérea',
+      'Ajuste personalizado — 10mm de micro-ajustes para tu boca',
+      'Silicona de grado médico — suave, hipoalergénica, segura',
+      'Diseño de doble capa — sujeta la mandíbula en posición natural',
+      'Estuche de viaje incluido — compacto y discreto',
+      'Reutilizable y fácil de limpiar — moldeado hervir y morder',
     ],
     specs: {
-      'Battery life': '10 hours',
-      'Charge time': '≈2 hours (USB‑C)',
-      'Connectivity': 'Bluetooth LE 5.x',
-      'Speaker type': 'Flat acoustic film drivers',
-      'Material': 'Breathable microfiber knit',
-      'Sizes': 'One size — stretch fit',
-      'Weight': '≈55g',
+      'Tipo': 'Férula de avanzamiento mandibular anti-ronquidos',
+      'Ajuste': 'Rango de 10mm — micro-ajustes individuales',
+      'Material': 'Silicona médica libre de BPA',
+      'Diseño': 'Doble capa — bandejas superior e inferior',
+      'Moldeado': 'Hervir y morder — ajuste personalizado',
+      'Incluye': 'Férula + estuche de viaje',
+      'Reutilizable': 'Sí — lavable y duradera',
     },
     images: [
       '/images/sleepband-pro-1.jpg',
       '/images/sleepband-pro-2.jpg',
       '/images/sleepband-pro-3.jpg',
     ],
-    icon: '🎧',
-    cartIcon: '🎧',
+    icon: '😴',
+    cartIcon: '😴',
     color: '#0b0f14',
   },
   {
@@ -124,45 +124,45 @@ export const CATALOG: CatalogProduct[] = [
     name: 'Noctip Wave',
     name_en: 'Noctip Wave',
     name_es: 'Noctip Wave',
-    category: 'sleep-audio',
+    category: 'neck-recovery',
     price: 20,
     comparePrice: 32,
     rating: 4.8,
     reviewCount: 812,
     badge: 'new',
-    shortDescription: 'Compact sound machine — 20 sleep profiles that shut off your brain.',
-    shortDescription_en: 'Compact sound machine — 20 sleep profiles that shut off your brain.',
-    shortDescription_es: 'Máquina de sonido compacta — 20 perfiles que apagan tu cerebro.',
+    shortDescription: 'Corrige tu postura en 2 semanas. Adiós al dolor de espalda del escritorio.',
+    shortDescription_en: 'Fix your posture in 2 weeks. Goodbye desk back pain.',
+    shortDescription_es: 'Corrige tu postura en 2 semanas. Adiós al dolor de espalda del escritorio.',
     description:
-      'Turn it on. Street noise disappears. 20 sound profiles tuned by audio engineers — not algorithms. Adaptive volume sensing adjusts to your room in real time. Soft amber night light fades automatically as you drift off. This is not a speaker. It is a switch for your brain.',
+      'Tu columna recuerda la mala postura. Cada hora encorvado frente al ordenador se acumula y termina en dolor crónico. El Noctip Wave reentrena tu postura con soporte ergonómico en forma de Y que jala tus hombros hacia atrás suavemente.\n\nCorreas ajustables de XS a XL, se adapta a cualquier cuerpo. Úsalo debajo de la ropa — nadie lo notará. Solo 15 minutos al día son suficientes para reconstruir el hábito.\n\nEn dos semanas, tu cuerpo recuerda solo. Sin dolor, sin esfuerzo consciente. Tu quiropráctico notará la diferencia.',
     description_en:
-      'Turn it on. Street noise disappears. 20 sound profiles tuned by audio engineers — not algorithms. Adaptive volume sensing adjusts to your room in real time. Soft amber night light fades automatically as you drift off. This is not a speaker. It is a switch for your brain.',
+      'Your spine remembers bad posture. Every hour hunched over your desk accumulates into chronic pain. The Noctip Wave retrains your posture with ergonomic Y-shaped support that gently pulls your shoulders back.\n\nAdjustable straps from XS to XL, fits any body. Wear it under your clothes — nobody will notice. Just 15 minutes a day is enough to rebuild the habit.\n\nIn two weeks, your body remembers on its own. No pain, no conscious effort. Your chiropractor will notice the difference.',
     description_es:
-      'Lo enciendes. El ruido de la calle desaparece. 20 perfiles de sonido sintonizados por ingenieros de audio — no por algoritmos. Detección adaptativa de volumen que se ajusta a tu habitación en tiempo real. Luz ámbar suave que se apaga sola cuando te quedas dormido. No es un altavoz. Es un interruptor para tu cerebro.',
+      'Tu columna recuerda la mala postura. Cada hora encorvado frente al ordenador se acumula y termina en dolor crónico. El Noctip Wave reentrena tu postura con soporte ergonómico en forma de Y que jala tus hombros hacia atrás suavemente.\n\nCorreas ajustables de XS a XL, se adapta a cualquier cuerpo. Úsalo debajo de la ropa — nadie lo notará. Solo 15 minutos al día son suficientes para reconstruir el hábito.\n\nEn dos semanas, tu cuerpo recuerda solo. Sin dolor, sin esfuerzo consciente. Tu quiropráctico notará la diferencia.',
     features: [
-      'Studio‑tuned sleep profiles — curated for restorative rest',
-      'Adaptive noise-level sensing — adjusts volume subtly',
-      'Soft amber night light — 3 brightness modes',
-      'USB‑C powered',
-      'Compact 360° driver — balanced room fill',
-      'Memory recall — last used profile + volume',
+      'Corrige la postura naturalmente — soporte en forma de Y',
+      'Se adapta a tu cuerpo — correas ajustables de XS a XL',
+      'Invisible bajo la ropa — nadie lo notará',
+      'Malla transpirable — comodidad todo el día',
+      'Resultados visibles en 2 semanas — antes y después real',
+      'Ligero y portátil — llévalo a cualquier parte',
     ],
     specs: {
-      'Sound options': '20 curated profiles',
-      'Timer': '30 / 60 / 90 min or continuous',
-      'Power': 'USB‑C',
-      'Speaker': '5W full-range driver',
-      'Night light': 'Amber LED — 3 levels',
-      'Dimensions': '9 × 9 × 8 cm',
-      'Weight': '210g',
+      'Tipo': 'Corrector postural en forma de Y',
+      'Tallas': 'XS / S / M / L / XL',
+      'Material': 'Malla transpirable + correas reforzadas',
+      'Ajuste': 'Correas de velcro — posiciones ilimitadas',
+      'Peso': '≈120g',
+      'Cuidado': 'Lavar a mano — secar al aire',
+      'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
     images: [
       '/images/white-noise-pro-1.jpg',
       '/images/white-noise-pro-2.jpg',
       '/images/white-noise-pro-3.jpg',
     ],
-    icon: '🔊',
-    cartIcon: '🔊',
+    icon: '🧘',
+    cartIcon: '🧘',
     color: '#131020',
   },
   {
@@ -175,30 +175,30 @@ export const CATALOG: CatalogProduct[] = [
     comparePrice: 22,
     rating: 4.4,
     reviewCount: 120,
-    shortDescription: 'The perfect entry to sleep audio — 45g, 10 hours, zero complications.',
-    shortDescription_en: 'The perfect entry to sleep audio — 45g, 10 hours, zero complications.',
-    shortDescription_es: 'La entrada perfecta al audio de sueño — 45g, 10 horas, cero complicaciones.',
+    shortDescription: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
+    shortDescription_en: 'Sleep audio without earbuds. 45 grams that disappear when you wear them.',
+    shortDescription_es: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
     description:
-      'If you have never tried a sleep headband, start here. 45 grams. Machine washable. 10 hours of battery. No apps, no cables, no learning curve. You put it on and it works. Simple as that. The soft fabric disappears once you wear it — and you wake up wondering why you did not try this sooner.',
+      'Si nunca has probado una banda de sueño, empieza aquí. 45 gramos que no sientes. Lavable a máquina. 10 horas de batería. Sin apps, sin cables, sin curva de aprendizaje.\n\nTe la pones y funciona. Así de simple. Los altavoces ultrafinos no presionan tus orejas — la tela suave desaparece al ponértela. Conecta por Bluetooth a tu móvil y duerme con tu podcast, música o ruido blanco favorito.\n\nDespiertas preguntándote por qué no lo intentaste antes.',
     description_en:
-      'If you have never tried a sleep headband, start here. 45 grams. Machine washable. 10 hours of battery. No apps, no cables, no learning curve. You put it on and it works. Simple as that. The soft fabric disappears once you wear it — and you wake up wondering why you did not try this sooner.',
+      'If you\'ve never tried a sleep headband, start here. 45 grams you won\'t feel. Machine washable. 10 hours of battery. No apps, no cables, no learning curve.\n\nYou put it on and it works. That simple. Ultra-thin speakers don\'t press your ears — the soft fabric disappears when you wear it. Bluetooth connects to your phone and you sleep with your favorite podcast, music, or white noise.\n\nYou wake up wondering why you didn\'t try this sooner.',
     description_es:
-      'Si nunca has probado una banda de sueño, empieza aquí. 45 gramos. Lavable a máquina. 10 horas de batería. Sin apps, sin cables, sin curva de aprendizaje. Te la pones y funciona. Así de simple. La tela suave desaparece al ponértela — y despiertas preguntándote por qué no lo intentaste antes.',
+      'Si nunca has probado una banda de sueño, empieza aquí. 45 gramos que no sientes. Lavable a máquina. 10 horas de batería. Sin apps, sin cables, sin curva de aprendizaje.\n\nTe la pones y funciona. Así de simple. Los altavoces ultrafinos no presionan tus orejas — la tela suave desaparece al ponértela. Conecta por Bluetooth a tu móvil y duerme con tu podcast, música o ruido blanco favorito.\n\nDespiertas preguntándote por qué no lo intentaste antes.',
     features: [
-      'Bluetooth 5.0 — universal device compatibility',
-      'Ultra-thin speakers — no ear pressure',
-      'Machine washable — remove speakers in seconds',
-      '8–10 hour battery — covers full night',
-      'Moisture-wicking fabric — cool and breathable',
-      'One-size stretch fit — adapts to any head shape',
+      'Bluetooth 5.0 — se conecta a cualquier dispositivo',
+      'Altavoces ultrafinos — sin presión en las orejas',
+      'Lavable a máquina — retira los altavoces en segundos',
+      '8–10 horas de batería — cubre toda la noche',
+      'Tela transpirable — fresca y cómoda',
+      'Talla única elástica — se adapta a cualquier forma de cabeza',
     ],
     specs: {
-      'Battery life': '8–10 hours',
-      'Charge time': '≈1.5 hours (Micro-USB)',
-      'Connectivity': 'Bluetooth 5.0',
-      'Material': 'Polyester blend — moisture-wicking',
-      'Sizes': 'One size — stretch fit',
-      'Weight': '≈45g',
+      'Batería': '8–10 horas',
+      'Carga': '≈1.5 horas (Micro-USB)',
+      'Conectividad': 'Bluetooth 5.0',
+      'Material': 'Mezcla de poliéster — transpirable',
+      'Tallas': 'Talla única — elástica',
+      'Peso': '≈45g',
     },
     images: ['/images/products/sleep-headband.jpg'],
     icon: '🎧',
@@ -217,30 +217,30 @@ export const CATALOG: CatalogProduct[] = [
     comparePrice: 25,
     rating: 4.5,
     reviewCount: 210,
-    shortDescription: '15 minutes. 3 modes. Heat up to 45°C. Your neck remembers tomorrow.',
-    shortDescription_en: '15 minutes. 3 modes. Heat up to 45°C. Your neck remembers tomorrow.',
-    shortDescription_es: '15 minutos. 3 modos. Calor hasta 45°C. Tu cuello lo recordará mañana.',
+    shortDescription: 'De "no puedo girar la cabeza" a "todo bien" en 15 minutos.',
+    shortDescription_en: 'From "I can\'t turn my head" to "all good" in 15 minutes.',
+    shortDescription_es: 'De "no puedo girar la cabeza" a "todo bien" en 15 minutos.',
     description:
-      'Your neck goes from "I cannot turn my head" to "all good" in 15 minutes. Three massage modes — knead, pulse, combination — plus heat therapy up to 45°C. Designed to use at your desk while you work. USB-C rechargeable. No cables. Automatic shut-off for safety. Your cervical tension does not stand a chance.',
+      'Tu tensión cervical no tiene posibilidad. Tres modos de masaje — amasado, pulsación, combinación — más terapia de calor hasta 45°C. Diseñado para usarlo en tu escritorio mientras trabajas.\n\nLa forma U ergonómica se adapta a la curva de tu cuello. Los nodos de masaje profundo liberan la tensión en cada uso. Recargable por USB-C, sin cables. Apagado automático por seguridad.\n\nEn 15 minutos pasas de dolor intenso a movilidad completa. Usa una vez al día y notarás la diferencia en una semana.',
     description_en:
-      'Your neck goes from "I cannot turn my head" to "all good" in 15 minutes. Three massage modes — knead, pulse, combination — plus heat therapy up to 45°C. Designed to use at your desk while you work. USB-C rechargeable. No cables. Automatic shut-off for safety. Your cervical tension does not stand a chance.',
+      'Your cervical tension doesn\'t stand a chance. Three massage modes — knead, pulse, combination — plus heat therapy up to 45°C. Designed to use at your desk while you work.\n\nThe ergonomic U-shape conforms to your neck curve. Deep-kneading nodes release tension with every use. USB-C rechargeable, no cables. Automatic shut-off for safety.\n\nIn 15 minutes you go from intense pain to full mobility. Use once a day and you\'ll feel the difference in a week.',
     description_es:
-      'Tu cuello pasa de "no puedo girar la cabeza" a "todo bien" en 15 minutos. Tres modos de masaje — knead, pulse, combinación — más terapia de calor hasta 45°C. Diseñado para ponerte frente al ordenador y usarlo mientras trabajas. Recargable por USB-C. Sin cables. Apagado automático por seguridad. Tu tensión cervical no tiene ninguna posibilidad.',
+      'Tu tensión cervical no tiene posibilidad. Tres modos de masaje — amasado, pulsación, combinación — más terapia de calor hasta 45°C. Diseñado para usarlo en tu escritorio mientras trabajas.\n\nLa forma U ergonómica se adapta a la curva de tu cuello. Los nodos de masaje profundo liberan la tensión en cada uso. Recargable por USB-C, sin cables. Apagado automático por seguridad.\n\nEn 15 minutos pasas de dolor intenso a movilidad completa. Usa una vez al día y notarás la diferencia en una semana.',
     features: [
-      'Deep-kneading massage nodes — 3 intensity levels',
-      'Optional heat therapy — up to 45°C',
-      'Ergonomic U-shape — conforms to cervical curve',
-      'USB‑C rechargeable — 90 min per charge',
-      'Automatic shut-off — 15 min safety timer',
-      'Lightweight & portable — travel-ready',
+      'Alivia tensión en 15 minutos — nodos de masaje profundo',
+      'Terapia de calor opcional — hasta 45°C',
+      'Forma U ergonómica — se adapta a la curva cervical',
+      'Recargable por USB-C — 90 minutos por carga',
+      'Apagado automático — temporizador de seguridad de 15 min',
+      'Ligero y portátil — listo para viajar',
     ],
     specs: {
-      'Battery life': '90 minutes',
-      'Heat levels': 'Up to 45°C',
-      'Massage modes': '3 (knead, pulse, combinations)',
-      'Charge': 'USB‑C',
-      'Material': 'Soft-touch silicone + ABS',
-      'Weight': '≈180g',
+      'Batería': '90 minutos',
+      'Niveles de calor': 'Hasta 45°C',
+      'Modos de masaje': '3 (amasado, pulsación, combinación)',
+      'Carga': 'USB-C',
+      'Material': 'Silicona suave + ABS',
+      'Peso': '≈180g',
     },
     images: ['/images/products/neck-massager.jpg'],
     icon: '🧘',
@@ -254,36 +254,37 @@ export const CATALOG: CatalogProduct[] = [
     name: 'Noctip Calm',
     name_en: 'Noctip Calm',
     name_es: 'Noctip Calm',
-    category: 'sensory',
+    category: 'neck-recovery',
     price: 11,
     comparePrice: 17,
     rating: 4.7,
     reviewCount: 512,
     badge: 'new',
-    shortDescription: '150g of gentle pressure + real lavender. Your body gets the message.',
-    shortDescription_en: '150g of gentle pressure + real lavender. Your body gets the message.',
-    shortDescription_es: '150g de presión suave + lavanda real. Tu cuerpo entiende el mensaje.',
+    shortDescription: 'Electrodos flotantes que se adaptan a tu cuello. Alivio en cualquier lugar.',
+    shortDescription_en: 'Floating electrodes that adapt to your neck. Relief anywhere.',
+    shortDescription_es: 'Electrodos flotantes que se adaptan a tu cuello. Alivio en cualquier lugar.',
     description:
-      '150g of evenly distributed gentle pressure that your body interprets as "it is time to sleep." Real lavender aromatherapy that activates your nervous system for rest. Total blackout — not a single ray of light. Contoured nose bridge seal. Hypoallergenic fill. Machine washable outer shell. Try it for one night. If you do not feel the difference, we refund every cent.',
+      'El masajeador cervical más inteligente que probarás. Los electrodos flotantes se adaptan automáticamente a las curvas de tu cuello, maximizando el contacto con la piel sin ajustes manuales.\n\nUn solo botón para empezar. Temporización automática — no tienes que pensar en ello. Diseño elástico con buena recuperación, se adapta a cualquier tamaño de cuello.\n\nPeso de solo 150g. Usa en tu escritorio, en casa o de viaje. Resultados desde el primer uso.',
     description_en:
-      '150g of evenly distributed gentle pressure that your body interprets as "it is time to sleep." Real lavender aromatherapy that activates your nervous system for rest. Total blackout — not a single ray of light. Contoured nose bridge seal. Hypoallergenic fill. Machine washable outer shell. Try it for one night. If you do not feel the difference, we refund every cent.',
+      'The smartest cervical massager you\'ll ever try. Floating electrodes automatically adapt to your neck curves, maximizing skin contact without manual adjustments.\n\nOne button to start. Automatic timing — you don\'t have to think about it. Elastic design with strong rebound, fits any neck size.\n\nOnly 150g. Use at your desk, at home, or traveling. Results from the first use.',
     description_es:
-      '150g de presión suave distribuida uniformemente que tu cuerpo interpreta como "ya es hora de dormir". Aromaterapia de lavanda real que activa tu sistema nervioso para el descanso. Blackout total — ni un rayo de luz. Sello contour del puente nasal. Relleno hipoalergénico. Funda exterior lavable a máquina. Pruébalo una noche. Si no notas la diferencia, te devolvemos cada euro.',
+      'El masajeador cervical más inteligente que probarás. Los electrodos flotantes se adaptan automáticamente a las curvas de tu cuello, maximizando el contacto con la piel sin ajustes manuales.\n\nUn solo botón para empezar. Temporización automática — no tienes que pensar en ello. Diseño elástico con buena recuperación, se adapta a cualquier tamaño de cuello.\n\nPeso de solo 150g. Usa en tu escritorio, en casa o de viaje. Resultados desde el primer uso.',
     features: [
-      'Evenly distributed 150g gentle weight',
-      'Replaceable aromatherapy insert — lavender included',
-      '100% blackout contoured nose bridge seal',
-      'Breathable velvet outer — hypoallergenic fill',
-      'Machine washable outer shell — remove insert',
-      'Adjustable elastic strap — fits all head sizes',
+      'Electrodos flotantes — se adaptan a las curvas de tu cuello',
+      'Brazo elástico — buena recuperación, construcción duradera',
+      'Inicio con un botón — sin controles complicados',
+      'Diseño curvo — máximo contacto con la piel',
+      'Ligero y portátil — en el trabajo, en casa o viajando',
+      'Forma U ergonómica — se adapta a todos los tamaños',
     ],
     specs: {
-      'Weight': '150g',
-      'Insert': 'Aromatherapy sachet — dried lavender',
-      'Outer': 'Breathable velvet — 100% polyester',
-      'Fill': 'Hypoallergenic microbeads',
-      'Washable': 'Outer shell — 30°C machine wash',
-      'Strap': 'Elastic — adjustable 26–58 cm',
+      'Tipo': 'Masajeador cervical por pulsos',
+      'Electrodos': 'Placas curvas flotantes — auto-adaptantes',
+      'Diseño': 'Brazo elástico — buena recuperación, resistencia',
+      'Controles': 'Inicio con botón — temporización automática',
+      'Alimentación': 'Batería recargable',
+      'Peso': '≈150g',
+      'Material': 'ABS + silicona suave',
     },
     images: [
       '/images/weighted-mask-pro-1.jpg',
@@ -338,6 +339,62 @@ export function getLocalizedProductShortDescription(product: CatalogProduct, loc
   return locale === 'es'
     ? product.shortDescription_es ?? product.shortDescription
     : product.shortDescription_en ?? product.shortDescription
+}
+
+export type Bundle = {
+  id: string
+  name: string
+  name_en?: string
+  name_es?: string
+  slugs: string[]
+  discountPercent: number
+}
+
+export const BUNDLES: Bundle[] = [
+  {
+    id: 'full-sleep-pack',
+    name: 'Full Sleep Pack',
+    name_en: 'Full Sleep Pack',
+    name_es: 'Pack Sueño Completo',
+    slugs: ['sleepband-pro', 'sleep-headband'],
+    discountPercent: 15,
+  },
+  {
+    id: 'anti-snore-pack',
+    name: 'Anti-Snore Pack',
+    name_en: 'Anti-Snore Pack',
+    name_es: 'Pack Anti-Ronquidos',
+    slugs: ['sleepband-pro', 'weighted-mask-pro'],
+    discountPercent: 10,
+  },
+  {
+    id: 'recovery-pack',
+    name: 'Recovery Pack',
+    name_en: 'Recovery Pack',
+    name_es: 'Pack Recuperación',
+    slugs: ['white-noise-pro', 'neck-massager', 'weighted-mask-pro'],
+    discountPercent: 15,
+  },
+  {
+    id: 'complete-pack',
+    name: 'Everything Pack',
+    name_en: 'Everything Pack',
+    name_es: 'Pack Todo Noctip',
+    slugs: ['sleepband-pro', 'white-noise-pro', 'sleep-headband', 'neck-massager', 'weighted-mask-pro'],
+    discountPercent: 20,
+  },
+]
+
+export function getActiveBundle(cartSlugs: string[]): Bundle | null {
+  const unique = [...new Set(cartSlugs)]
+  let best: Bundle | null = null
+  for (const bundle of BUNDLES) {
+    const hasAll = bundle.slugs.every((s) => unique.includes(s))
+    if (hasAll && (!best || bundle.discountPercent > best.discountPercent)) {
+      best = bundle
+    }
+  }
+  return best
 }
 
 export function searchProducts(query: string): CatalogProduct[] {

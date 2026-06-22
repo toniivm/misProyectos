@@ -95,22 +95,64 @@ body {
   background: #f2eee7;
   color: #11161d;
   transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(242,238,231,0.15);
 }
 .btn-light:hover {
   background: #ffffff;
-  box-shadow: 0 4px 16px rgba(242,238,231,0.2);
+  box-shadow: 0 6px 24px rgba(242,238,231,0.3);
+  transform: translateY(-1px);
 }
 
 .btn-dark {
   @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-medium;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
   color: #d0d8e4;
   transition: all 0.2s;
 }
 .btn-dark:hover {
-  border-color: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.1);
   color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ── Product card image placeholder ── */
+.product-image-placeholder {
+  background: linear-gradient(135deg, #0d1219 0%, #111827 50%, #0d1219 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.product-image-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(16,191,216,0.08) 0%, transparent 70%);
+}
+
+/* ── CTA pulse animation for mobile sticky ── */
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(242,238,231,0.2); }
+  50% { box-shadow: 0 4px 24px rgba(242,238,231,0.35); }
+}
+.btn-cta-pulse {
+  animation: cta-pulse 2s ease-in-out infinite;
+}
+
+/* ── Price emphasis ── */
+.price-highlight {
+  color: #f2eee7;
+  text-shadow: 0 0 20px rgba(242,238,231,0.15);
+}
+
+/* ── Savings badge ── */
+.savings-badge {
+  background: linear-gradient(135deg, rgba(16,191,216,0.15), rgba(16,191,216,0.08));
+  border: 1px solid rgba(16,191,216,0.25);
+  color: #10BFD8;
 }
 
 /* ── Glass card ── */

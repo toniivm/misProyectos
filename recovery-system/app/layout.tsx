@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     template: '%s | Noctip™',
   },
   description:
-    'Noctip designs premium sleep and recovery technology. Acoustic headbands, white noise machines, cervical massagers and weighted masks. Free shipping, 30-night guarantee.',
+    'Noctip designs sleep and recovery technology. Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping, 30-night guarantee.',
   keywords: [
-    'noctip', 'sleep technology', 'recovery products', 'sleep headband', 'white noise machine',
-    'neck massager', 'weighted sleep mask', 'cervical massager', 'sleep audio', 'wellness products',
+    'noctip', 'sleep technology', 'recovery products', 'anti-snoring mouthpiece', 'posture corrector',
+    'sleep headband', 'neck massager', 'cervical massager', 'jaw advancement', 'wellness products',
     'premium sleep', 'sleep optimization', 'recovery tools', 'biohacking sleep', 'noctip.com',
   ],
   authors: [{ name: 'Noctip', url: 'https://noctip.com' }],

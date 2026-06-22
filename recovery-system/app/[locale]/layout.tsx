@@ -11,6 +11,7 @@ import Footer from '../../components/Footer';
 import CookieConsent from '../../components/CookieConsent';
 import LocalePreferenceSync from '../../components/LocalePreferenceSync';
 import BackendWarmup from '../../components/BackendWarmup';
+import NewsletterPopup from '../../components/NewsletterPopup';
 
 type Props = {
   children: React.ReactNode;
@@ -30,11 +31,11 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       ? 'Noctip™ — Tecnología Premium de Sueño y Recuperación'
       : 'Noctip™ — Premium Sleep & Recovery Technology',
     description: isEs
-      ? 'Noctip diseña tecnología premium de sueño y recuperación. Cintas acústicas, máquinas de ruido blanco, masajeadores cervicales y antifaces con peso. Envío gratis, garantía de 30 noches.'
-      : 'Noctip designs premium sleep and recovery technology. Acoustic headbands, white noise machines, cervical massagers and weighted masks. Free shipping, 30-night guarantee.',
+      ? 'Noctip diseña tecnología de sueño y recuperación. Férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales. Envío gratis, garantía de 30 noches.'
+      : 'Noctip designs sleep and recovery technology. Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping, 30-night guarantee.',
     keywords: isEs
-      ? 'noctip, sueño, recuperación, banda de sueño, ruido blanco, masajeador cuello, antifaz con peso, tecnología sueño, bienestar, envío gratis'
-      : 'noctip, sleep, recovery, sleep headband, white noise, neck massager, weighted mask, sleep technology, wellness, free shipping',
+      ? 'noctip, sueño, recuperación, anti-ronquidos, corrector postural, banda de sueño, masajeador cuello, tecnología sueño, bienestar, envío gratis'
+      : 'noctip, sleep, recovery, anti-snoring, posture corrector, sleep headband, neck massager, sleep technology, wellness, free shipping',
     alternates: {
       canonical: `https://noctip.com/${locale}`,
       languages: {
@@ -100,8 +101,8 @@ export default async function LocaleLayout({children, params}: Props) {
     url: 'https://noctip.com',
     logo: 'https://noctip.com/favicon.svg',
     description: isEs
-      ? 'Noctip diseña tecnología premium de sueño y recuperación. Cintas acústicas, máquinas de ruido blanco, masajeadores cervicales y antifaces con peso.'
-      : 'Noctip designs premium sleep and recovery technology. Acoustic headbands, white noise machines, cervical massagers and weighted masks.',
+      ? 'Noctip diseña tecnología de sueño y recuperación: férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales.'
+      : 'Noctip designs sleep and recovery technology: anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers.',
     sameAs: [],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -148,18 +149,18 @@ export default async function LocaleLayout({children, params}: Props) {
       itemListElement: [
         {
           '@type': 'OfferCatalog',
-          name: isEs ? 'Sueño y audio' : 'Sleep & Audio',
-          numberOfItems: 3,
+          name: isEs ? 'Sueño y anti-ronquidos' : 'Sleep & Anti-Snoring',
+          numberOfItems: 2,
         },
         {
           '@type': 'OfferCatalog',
-          name: isEs ? 'Cuello y recuperación' : 'Neck & Recovery',
+          name: isEs ? 'Postura y recuperación' : 'Posture & Recovery',
           numberOfItems: 1,
         },
         {
           '@type': 'OfferCatalog',
-          name: isEs ? 'Sensorial y relajación' : 'Sensory & Relaxation',
-          numberOfItems: 1,
+          name: isEs ? 'Masaje cervical' : 'Cervical Massage',
+          numberOfItems: 2,
         },
       ],
     },
@@ -180,10 +181,18 @@ export default async function LocaleLayout({children, params}: Props) {
       },
       {
         '@type': 'Question',
-        name: '¿Qué es el Noctip Halo?',
+        name: '¿Cómo funciona la férula anti-ronquidos Noctip Halo?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El Noctip Halo es una cinta acústica ultrafina con drivers de precisión que ofrece audio de sueño inmersivo sin presión en los oídos. Diseñada para quienes duermen de lado, con tejido transpirable y carga USB-C.',
+          text: 'El Noctip Halo usa tecnología de avanzamiento mandibular para mover suavemente la mandíbula hacia adelante, abriendo la vía aérea y reduciendo los ronquidos. Tiene diseño ajustable de doble capa con 10mm de micro-ajustes y se moldea a tus dientes.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: '¿Qué hace el corrector postural Noctip Wave?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'El Noctip Wave es un corrector postural con soporte ergonómico en forma de Y que jorra los hombros hacia atrás y alinea la columna. Viene en 5 tallas (XS a XL) con correas ajustables. Se puede usar debajo de la ropa.',
         },
       },
       {
@@ -196,18 +205,10 @@ export default async function LocaleLayout({children, params}: Props) {
       },
       {
         '@type': 'Question',
-        name: '¿El pago en Noctip es seguro?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Sí. Todos los pagos se procesan a través de Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta. Aceptamos Visa, Mastercard, Amex, Apple Pay y Google Pay.',
-        },
-      },
-      {
-        '@type': 'Question',
         name: '¿Qué productos vende Noctip?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Noctip vende tecnología premium de sueño y recuperación: cintas acústicas (Noctip Halo, Noctip Rest), máquinas de ruido blanco (Noctip Wave), masajeadores cervicales (Noctip Relief) y antifaces con peso (Noctip Calm).',
+          text: 'Noctip vende tecnología de sueño y recuperación: férulas anti-ronquidos (Noctip Halo), correctores posturales (Noctip Wave), bandas de audio para dormir (Noctip Rest), masajeadores cervicales (Noctip Relief y Noctip Calm).',
         },
       },
     ] : [
@@ -221,10 +222,18 @@ export default async function LocaleLayout({children, params}: Props) {
       },
       {
         '@type': 'Question',
-        name: 'What is the Noctip Halo?',
+        name: 'How does the Noctip Halo anti-snoring mouthpiece work?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The Noctip Halo is an ultra-thin acoustic headband with precision drivers that delivers immersive sleep audio without ear pressure. Designed for side sleepers, with breathable fabric and USB-C charging.',
+          text: 'The Noctip Halo uses jaw advancement technology to gently move your lower jaw forward, opening your airway and reducing snoring. The dual-layer design is adjustable with 10mm of micro-settings and molds to your teeth.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What does the Noctip Wave posture corrector do?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The Noctip Wave is a posture corrector with ergonomic Y-shaped support that pulls your shoulders back and aligns your spine. It comes in 5 sizes (XS to XL) with adjustable straps and can be worn under clothing.',
         },
       },
       {
@@ -237,18 +246,10 @@ export default async function LocaleLayout({children, params}: Props) {
       },
       {
         '@type': 'Question',
-        name: 'Is Noctip checkout secure?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes. All payments are processed through Stripe with 256-bit SSL encryption. We never store card data. We accept Visa, Mastercard, Amex, Apple Pay, and Google Pay.',
-        },
-      },
-      {
-        '@type': 'Question',
         name: 'What products does Noctip sell?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Noctip sells premium sleep and recovery technology: acoustic headbands (Noctip Halo, Noctip Rest), white noise machines (Noctip Wave), cervical massagers (Noctip Relief), and weighted masks (Noctip Calm).',
+          text: 'Noctip sells sleep and recovery technology: anti-snoring mouthpieces (Noctip Halo), posture correctors (Noctip Wave), sleep audio headbands (Noctip Rest), and cervical massagers (Noctip Relief and Noctip Calm).',
         },
       },
     ],
@@ -306,6 +307,7 @@ export default async function LocaleLayout({children, params}: Props) {
           <CartSidebar />
           <AuthModal />
           <CookieConsent />
+          <NewsletterPopup />
         </AuthProvider>
       </CartProvider>
     </NextIntlClientProvider>

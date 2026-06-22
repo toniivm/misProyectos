@@ -1,12 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, Check, ChevronDown, ChevronRight, Minus, Package, Plus, RotateCcw, Shield, ShoppingCart, Star, Truck } from 'lucide-react';
+import { ArrowLeft, Check, ChevronDown, ChevronRight, Minus, Package, Plus, RotateCcw, Shield, ShoppingCart, Star, Truck, Eye, Flame } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';
-import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
+import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
+import { StockUrgency, ViewingNow, CountdownTimer } from './ConversionBoosters';
 
 export interface Product {
   slug: string;
@@ -122,30 +123,30 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   ];
 
   const routineHighlights = [
-    { title: isEs ? 'Diseño de bajo mantenimiento' : 'Low-maintenance design', text: isEs
-      ? 'Creado para integrarse en tu rutina sin complicaciones. Sin configuraciones complejas, sin baterías difíciles de recargar. Funciona desde el primer momento.'
-      : 'Built to slot into your routine without friction. No complex settings, no hard-to-recharge batteries. Works from the moment you unbox it.' },
-    { title: isEs ? 'Portabilidad profesional' : 'Travel-ready portability', text: isEs
-      ? 'Compacto y ligero para llevar a casa, al gimnasio o de viaje. Empaquetado pensado para que no ocupe espacio en tu equipaje.'
-      : 'Compact and lightweight for home, gym, or travel use. Packaging designed to take up minimal space in your luggage.' },
-    { title: isEs ? 'Garantía de satisfacción' : 'Satisfaction guarantee', text: isEs
-      ? 'Pruébalo durante 30 noches sin compromiso. Si no cumple tus expectativas, gestionamos la devolución y el reembolso completo. Sin preguntas.'
-      : 'Try it for 30 nights with no commitment. If it doesn\'t meet your expectations, we handle the return and full refund. No questions asked.' },
+    { title: isEs ? 'Sin complicaciones' : 'Zero friction', text: isEs
+      ? 'Sin configuraciones complejas, sin apps que instalar. Funciona desde el primer momento. Solo ábrelo y úsalo.'
+      : 'No complex settings, no apps to install. Works from the moment you open it. Just unbox and use.' },
+    { title: isEs ? 'Llévalo a cualquier parte' : 'Take it anywhere', text: isEs
+      ? 'Compacto y ligero. Diseñado para casa, oficina o viaje. No ocupa espacio en tu equipaje.'
+      : 'Compact and lightweight. Designed for home, office, or travel. Takes up zero space in your luggage.' },
+    { title: isEs ? '30 noches sin riesgo' : '30 nights risk-free', text: isEs
+      ? 'Pruébalo una noche. Si no notas la diferencia, te devolvemos cada euro. Sin preguntas, sin formularios.'
+      : 'Try it one night. If you don\'t feel the difference, we refund every cent. No questions, no forms.' },
   ];
 
   const productFaqs = [
-    { q: isEs ? `¿Cuál es el tiempo de entrega real?` : `What is the actual delivery time?`, a: isEs
-      ? 'Procesamos y enviamos todos los pedidos en un plazo máximo de 24 horas. La entrega estándar en España peninsular es de 3 a 5 días laborables. Ofrecemos envío exprés de 1-2 días en el checkout. Todos los envíos incluyen número de seguimiento.'
-      : 'We process and ship all orders within 24 hours. Standard delivery in the EU takes 3-5 business days. Express 1-2 day shipping is available at checkout. All shipments include tracking.' },
-    { q: isEs ? '¿Cómo funciona la garantía de 30 noches?' : 'How does the 30-night guarantee work?', a: isEs
-      ? 'Recibes el producto, lo pruebas en tu entorno real durante 30 días. Si no estás satisfecho, contactas con nuestro equipo y gestionamos la recogida y el reembolso completo. No necesitas justificar nada.'
-      : 'You receive the product, test it in your real environment for 30 days. If you\'re not satisfied, contact our team and we arrange pickup and a full refund. No justification needed.' },
-    { q: isEs ? '¿El pago es completamente seguro?' : 'Is checkout completely secure?', a: isEs
-      ? 'Sí. Utilizamos Stripe como procesador de pagos con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta en nuestros servidores. Admite Visa, Mastercard, Amex, Apple Pay y Google Pay.'
-      : 'Yes. We use Stripe as our payment processor with 256-bit SSL encryption. We never store card data on our servers. Supports Visa, Mastercard, Amex, Apple Pay, and Google Pay.' },
-    { q: isEs ? '¿Qué exactamente incluye el producto?' : 'What exactly does the product include?', a: isEs
-      ? `El ${displayName} incluye el producto, manual de instrucciones en español e inglés, y cable de carga. Todo empaquetado en una caja premium lista para regalo si lo necesitas.`
-      : `The ${displayName} includes the product, instruction manual in Spanish and English, and charging cable. All packaged in a premium gift-ready box if needed.` },
+    { q: isEs ? `¿Cuándo llega?` : `When does it arrive?`, a: isEs
+      ? 'Procesamos y enviamos en 24 horas. Entrega estándar: 3-5 días laborables. Exprés de 1-2 días disponible en el checkout. Seguimiento incluido en todos los envíos.'
+      : 'We process and ship within 24 hours. Standard delivery: 3-5 business days. Express 1-2 day shipping available at checkout. Tracking included on all orders.' },
+    { q: isEs ? '¿Y si no me gusta?' : 'What if I don\'t like it?', a: isEs
+      ? 'Pruébalo 30 noches en tu entorno real. Si no cumple tus expectativas, contactas y gestionamos la recogida y el reembolso completo. Sin preguntas, sin formularios.'
+      : 'Try it for 30 nights in your real environment. If it doesn\'t meet your expectations, contact us and we arrange pickup and a full refund. No questions, no forms.' },
+    { q: isEs ? '¿El pago es seguro?' : 'Is payment secure?', a: isEs
+      ? 'Sí. Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta. Visa, Mastercard, Amex, Apple Pay y Google Pay.'
+      : 'Yes. Stripe with 256-bit SSL encryption. We never store card data. Visa, Mastercard, Amex, Apple Pay, and Google Pay.' },
+    { q: isEs ? '¿Qué incluye exactamente?' : 'What exactly is included?', a: isEs
+      ? `El ${displayName} incluye el producto, manual de instrucciones en español e inglés, y todo lo necesario para empezar a usarlo inmediatamente. Empaquetado premium, listo para regalo.`
+      : `The ${displayName} includes the product, instruction manual in Spanish and English, and everything you need to start using it immediately. Premium gift-ready packaging.` },
   ];
 
   const allImages = product?.images ?? [];
@@ -284,6 +285,14 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             )}
 
+            {/* Social proof + urgency */}
+            {product && (
+              <div className="flex flex-wrap items-center gap-4">
+                <ViewingNow slug={product.slug} />
+                <StockUrgency slug={product.slug} />
+              </div>
+            )}
+
             {/* Short description */}
             {product && (
               <p className="text-[14px] leading-7 text-[#9aa7b9]">
@@ -299,6 +308,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 {isEs ? 'Ahorra' : 'Save'} {savings}%
               </span>
             </div>
+
+            {/* Countdown timer */}
+            <CountdownTimer />
 
             {/* Features */}
             {product?.features && (
@@ -383,6 +395,44 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 </p>
               </div>
             </div>
+
+            {/* Bundle suggestion */}
+            {product && (
+              (() => {
+                const matchingBundle = BUNDLES.find(b => b.slugs.includes(product.slug) && b.slugs.length > 1);
+                if (!matchingBundle) return null;
+                const bundleProducts = matchingBundle.slugs
+                  .filter(s => s !== product.slug)
+                  .map(s => getCatalogProductBySlug(s))
+                  .filter(Boolean) as CatalogProduct[];
+                if (bundleProducts.length === 0) return null;
+                return (
+                  <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[13px] font-semibold text-emerald-300">
+                        🎉 {isEs ? 'Combina y ahorra' : 'Bundle & save'} — -{matchingBundle.discountPercent}%
+                      </span>
+                    </div>
+                    <p className="text-[12px] text-[#8791a1] mb-3">
+                      {isEs
+                        ? `Añade ${bundleProducts.map(p => getLocalizedField(p, 'name') ?? p.name).join(' y ')} y obtén ${matchingBundle.discountPercent}% de descuento automático.`
+                        : `Add ${bundleProducts.map(p => getLocalizedField(p, 'name') ?? p.name).join(' and ')} and get ${matchingBundle.discountPercent}% off automatically.`}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {bundleProducts.map(bp => {
+                        const bpName = getLocalizedField(bp, 'name') ?? bp.name;
+                        return (
+                          <Link key={bp.slug} href={`/${locale}/products/${bp.slug}`}
+                            className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-medium text-emerald-300 transition hover:bg-emerald-500/20">
+                            {bp.cartIcon} {bpName} +€{bp.price}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })()
+            )}
           </motion.div>
         </div>
 
@@ -464,15 +514,15 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
           <div className="rounded-[28px] border border-white/[0.07] bg-[linear-gradient(180deg,#101722,#0c1118)] p-7 sm:p-8">
             <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8ea7c7]">
-              {isEs ? 'Ingeniería aplicada' : 'Applied engineering'}
+              {isEs ? 'Por qué funciona' : 'Why it works'}
             </span>
             <h2 className="mt-4 text-[clamp(1.6rem,3vw,2.25rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
-              {isEs ? 'Diseñado para rendir, no para decorar' : 'Engineered for performance, not decoration'}
+              {isEs ? 'Diseñado para que funcione, no para vender' : 'Designed to work, not to sell'}
             </h2>
             <p className="mt-4 text-[14px] leading-7 text-[#8791a1]">
               {isEs
-                ? 'Cada producto Noctip pasa por un proceso de desarrollo centrado en un solo objetivo: que funcione mejor de lo esperado. Sin marketing excesivo, sin promesas vacías. Especificaciones reales, resultados medibles.'
-                : 'Every Noctip product goes through a development process focused on one single goal: outperform expectations. No excessive marketing, no empty promises. Real specifications, measurable results.'}
+                ? 'Cada producto Noctip pasa por un desarrollo centrado en un solo objetivo: que sea mejor de lo que esperas. Sin promesas vacías. Sin marketing excesivo. Resultados que tu cuerpo nota desde la primera noche.'
+                : 'Every Noctip product goes through development focused on one goal: being better than you expect. No empty promises. No excessive marketing. Results your body feels from night one.'}
             </p>
 
             <div className="mt-7 grid gap-3">

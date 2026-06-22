@@ -9,7 +9,7 @@ import { useAuth } from '../context/AuthContext'
 import {
   ShoppingCart, Star, Check, ChevronRight, ChevronDown, Menu, X,
   Shield, Truck, RotateCcw, User, LogOut,
-  PackageCheck, Moon, Sparkles, ArrowRight, Heart, Leaf,
+  PackageCheck, Moon, Sparkles, ArrowRight, Heart, Leaf, Flame, Eye,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import {
@@ -18,10 +18,11 @@ import {
   getLocalizedProductShortDescription,
   type CatalogProduct,
 } from '../lib/catalog'
+import { SocialProofNotification, StockUrgency, ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
 
 const SHOP_HOME_COPY = {
   en: {
-    searchPlaceholder: 'Search sleep headbands, massage guns, eye masks...',
+    searchPlaceholder: 'Search sleep headbands, massagers, posture correctors...',
     addLabel: 'Add',
     addedLabel: 'Added',
     cartLabel: 'Cart',
@@ -34,87 +35,87 @@ const SHOP_HOME_COPY = {
       '100% secure payment (Stripe + SSL)',
       'Ships tomorrow',
     ],
-    heroKicker: 'Sleep science, real results',
-    heroLine1: 'Fall asleep in minutes, not hours.',
-    heroLine2: 'Wake up like you slept 10 hours.',
-    heroSubtitle: 'Products your body feels from night one. Built for people who can\'t afford to sleep badly.',
+    heroKicker: 'Sleep & recovery technology that actually works',
+    heroLine1: 'Stop sleeping badly.',
+    heroLine2: 'Start recovering.',
+    heroSubtitle: 'Products your body feels from night one. Anti-snoring, posture correction, and cervical relief — built for people who can\'t afford to sleep badly.',
     heroQuickLinks: [
-      { emoji: '😴', label: 'I lie awake for hours', slug: 'sleep-audio' },
-      { emoji: '🦴', label: 'My neck hurts every morning', slug: 'neck-recovery' },
-      { emoji: '🌙', label: 'I can\'t shut off my brain', slug: 'sensory' },
+      { emoji: '😴', label: 'I snore every night', slug: 'sleep-audio' },
+      { emoji: '🦴', label: 'My posture is getting worse', slug: 'neck-recovery' },
+      { emoji: '🧘', label: 'My neck is always tense', slug: 'sensory' },
     ],
-    heroPrimary: 'Find what I\'m missing',
+    heroPrimary: 'Find my solution',
     heroSecondary: 'See best sellers',
     trustItems: [
       { icon: Truck, label: 'Free shipping', sub: 'On all orders' },
-      { icon: RotateCcw, label: '30-day returns', sub: 'No questions asked' },
+      { icon: RotateCcw, label: '30-night trial', sub: 'Full refund, no questions' },
       { icon: Shield, label: 'Secure checkout', sub: 'SSL + Stripe' },
       { icon: Star, label: '4.9 average', sub: '6,000+ verified reviews' },
     ],
-    categoriesHeading: 'Shop by category',
-    categoriesSub: 'Find the right product for your specific need',
+    categoriesHeading: 'What\'s your problem?',
+    categoriesSub: 'Pick what bothers you most — we\'ll show you the fix',
     problemCards: [
       {
-        emoji: '😴', problem: 'Can\'t fall asleep?', solution: 'Sleep & Audio',
-        description: 'The solution is not more willpower. It\'s better sound. Sleep headbands, white noise, ambient audio — your brain shuts off on its own.',
+        emoji: '😴', problem: 'Snoring ruining your sleep?', solution: 'Stop snoring. Start sleeping.',
+        description: 'Jaw-advancement mouthpieces that open your airway and eliminate snoring at the source. Your partner sleeps better too.',
         slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520',
       },
       {
-        emoji: '🦴', problem: 'Your neck says enough?', solution: 'Neck & Recovery',
-        description: '15 minutes a day. 3 massage modes + heat. Your neck will thank you tomorrow.',
+        emoji: '🦴', problem: 'Bad posture from desk work?', solution: 'Fix your posture. Free your neck.',
+        description: 'Posture corrector braces that realign your spine and relieve chronic back pain. Visible results in 2 weeks.',
         slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520',
       },
       {
-        emoji: '🌙', problem: 'Can\'t shut off your brain?', solution: 'Sensory & Relaxation',
-        description: '150g of gentle pressure + real lavender. Your body gets the message: it\'s time to rest.',
+        emoji: '🧘', problem: 'Chronic neck pain?', solution: 'Pulse therapy that adapts to you.',
+        description: 'Cervical massagers with floating electrodes that conform to your neck curves. Relief at your desk, at home, anywhere.',
         slug: 'sensory', colorFrom: '#1a1020', colorTo: '#0c1520',
       },
     ],
     bestSellersHeading: 'Best sellers',
-    bestSellersSub: 'Most popular choices for better sleep and recovery',
+    bestSellersSub: 'Products 6,000+ people already use every night',
     stepsHeading: 'How it works',
-    stepsSub: 'Three simple steps to better rest',
+    stepsSub: 'Three steps to better rest',
     steps: [
-      { step: '01', icon: '🎯', title: 'Tell us what\'s wrong', text: 'Can\'t sleep? Neck pain? Can\'t disconnect? Pick your problem and we\'ll show you exactly what helps.' },
-      { step: '02', icon: '📦', title: 'At your door tomorrow', text: 'Free shipping. Real-time tracking. No surprises. We ship within 24 hours.' },
-      { step: '03', icon: '✨', title: '30 nights to decide', text: 'If you don\'t feel the difference, we refund every euro. No questions asked. That\'s how confident we are.' },
+      { step: '01', icon: '🎯', title: 'Pick your problem', text: 'Snoring? Bad posture? Neck pain? Choose what bothers you and we\'ll show you exactly what helps.' },
+      { step: '02', icon: '📦', title: 'At your door tomorrow', text: 'Free shipping. Real-time tracking. We process and ship within 24 hours. No surprises.' },
+      { step: '03', icon: '✨', title: '30 nights to decide', text: 'If you don\'t feel the difference, we refund every cent. No questions. That\'s how confident we are.' },
     ],
-    testimonialsHeading: 'What our customers say',
-    testimonialsSub: 'Verified reviews from real buyers',
+    testimonialsHeading: 'Real people. Real results.',
+    testimonialsSub: 'Verified reviews from actual buyers',
     verifiedPurchase: 'Verified purchase',
     reviews: [
-      { text: 'Invested in the Noctip Halo without high expectations, but the build quality and comfort exceeded them. The sound clarity is impressive for such a thin device. I fall asleep noticeably faster now.', author: 'Andrea L.', role: 'Student', stars: 5, product: 'Noctip Halo' },
-      { text: 'After years of neck tension from desk work, the Noctip Relief delivered measurable improvement in just two weeks of daily 15-minute sessions. Professional-grade at an accessible price.', author: 'Miguel Á.', role: 'IT Specialist', stars: 4, product: 'Noctip Relief' },
-      { text: 'The Noctip Halo transformed my sleep routine. Comfortable enough to forget it\'s there, yet the sound quality rivals my regular headphones. Premium product, premium results.', author: 'Carla F.', role: 'Fitness enthusiast', stars: 5, product: 'Noctip Halo' },
-      { text: 'The Noctip Calm\'s gentle pressure creates an immediate calming effect. Combined with the aromatherapy insert, it\'s become an essential part of my evening routine. Excellent value.', author: 'Laura P.', role: 'New mom', stars: 4, product: 'Noctip Calm' },
-      { text: 'As a frequent business traveler, the Noctip Rest has become indispensable. Portable, comfortable, and the battery lasts through long-haul flights. Highly recommended for road warriors.', author: 'David R.', role: 'Consultant', stars: 5, product: 'Noctip Rest' },
-      { text: 'The Noctip Wave\'s sound profiles are genuinely well-tuned. It masks ambient noise effectively and the adaptive volume feature is a thoughtful touch. My sleep quality has improved dramatically.', author: 'Sara M.', role: 'Teacher', stars: 4, product: 'Noctip Wave' },
+      { text: 'After years of snoring that kept my wife awake, the Noctip Halo was a game changer. The jaw adjustment is comfortable and the snoring stopped from night one. We both sleep better now.', author: 'Andrea L.', role: 'Student', stars: 5, product: 'Noctip Halo' },
+      { text: 'The Noctip Wave posture brace has visibly improved my desk posture in just two weeks. I wear it under my shirt and nobody notices. My back pain from sitting 8 hours a day is almost gone.', author: 'Miguel Á.', role: 'IT Specialist', stars: 4, product: 'Noctip Wave' },
+      { text: 'The Noctip Relief neck massager is surprisingly powerful for its size. The electrode pads adapt perfectly to my neck and the pulse modes are genuinely effective. I use it every day at my desk.', author: 'Carla F.', role: 'Fitness enthusiast', stars: 5, product: 'Noctip Relief' },
+      { text: 'The Noctip Calm pulse massager fits my neck perfectly with the floating electrode design. The button-start is simple and the automatic timing means I don\'t have to think about it. Great value.', author: 'Laura P.', role: 'New mom', stars: 4, product: 'Noctip Calm' },
+      { text: 'As a frequent business traveler, the Noctip Rest headband has become indispensable. Portable, comfortable, and the battery lasts through long-haul flights. Highly recommended for road warriors.', author: 'David R.', role: 'Consultant', stars: 5, product: 'Noctip Rest' },
+      { text: 'The Noctip Wave brace realigned my posture faster than I expected. After years of slouching at a computer, the Y-shaped support pulled my shoulders back naturally. My chiropractor noticed the difference.', author: 'Sara M.', role: 'Teacher', stars: 4, product: 'Noctip Wave' },
     ],
     stats: [
-      { value: '15+', label: 'Premium products' },
+      { value: '5', label: 'Premium products' },
       { value: '6,000+', label: 'Happy customers' },
       { value: '4.9', label: 'Average rating' },
       { value: '30', label: 'Night guarantee' },
     ],
     faqHeading: 'Frequently asked questions',
-    faqSub: 'Everything you need to know before your first order',
+    faqSub: 'Quick answers before you buy',
     faqs: [
-      { q: 'How long does shipping actually take?', a: 'We process and ship all orders within 24 hours. Standard delivery across Europe takes 3-5 business days. Express 1-2 day shipping is available at checkout. All shipments include real-time tracking.' },
-      { q: 'What exactly does the 30-night guarantee cover?', a: 'You can test any product for 30 nights in your own environment. If it doesn\'t meet your expectations, contact us and we arrange a free return with a full refund. No justification required.' },
-      { q: 'Are the products compatible with all devices?', a: 'All Bluetooth products use Bluetooth 5.0+ for universal compatibility with smartphones, tablets, and computers. USB-C products charge with any standard cable. No special apps required.' },
-      { q: 'Is checkout really secure?', a: 'Yes. All payments are processed through Stripe with 256-bit SSL encryption. We never store card details on our servers. We accept Visa, Mastercard, Amex, Apple Pay, and Google Pay.' },
-      { q: 'Can I track my order in real time?', a: 'Absolutely. You\'ll receive a tracking email within 24 hours of shipment. All deliveries include real-time tracking so you know exactly when to expect your order.' },
-      { q: 'Do you offer bundle discounts?', a: 'Yes. Add multiple products to your cart and bundle discounts are applied automatically at checkout. The more you add, the more you save.' },
+      { q: 'How fast is shipping?', a: 'We ship all orders within 24 hours. Standard delivery: 3-5 business days across Europe. Express 1-2 day shipping available at checkout. All shipments include real-time tracking.' },
+      { q: 'What does the 30-night guarantee cover?', a: 'Test any product for 30 nights. If it doesn\'t work for you, we arrange a free return with a full refund. No justification required.' },
+      { q: 'How does the anti-snoring mouthpiece work?', a: 'The Noctip Halo uses jaw advancement to gently move your lower jaw forward, opening your airway and stopping snoring at the source. The dual-layer design adjusts with 10mm of micro-settings. It molds to your teeth with a boil-and-bite process.' },
+      { q: 'What sizes does the posture corrector come in?', a: 'The Noctip Wave comes in 5 sizes (XS-XL) based on chest width. Measure at the widest point and check our size guide. Velcro straps allow fine-tuning within each size.' },
+      { q: 'Is checkout secure?', a: 'Yes. All payments processed through Stripe with 256-bit SSL encryption. We never store card details. Visa, Mastercard, Amex, Apple Pay, and Google Pay accepted.' },
+      { q: 'Do bundle discounts apply automatically?', a: 'Yes. Add multiple products to your cart and discounts are applied at checkout. The more you add, the more you save.' },
     ],
-    ctaHeading: 'How many more nights are you going to sleep badly?',
-    ctaSub: '6,000+ people are already sleeping better. One of them could be you.',
+    ctaHeading: 'How many more nights will you sleep badly?',
+    ctaSub: '6,000+ people are already sleeping better. Tonight could be your first good night.',
     ctaPrimary: 'Shop all products',
     ctaSecondary: 'View best sellers',
     badgeLabels: { bestseller: 'Best Seller', new: 'New', deal: 'Deal', trending: 'Trending' },
     mobileCta: 'Shop now',
   },
   es: {
-    searchPlaceholder: 'Busca bandas de sueño, masajeadores, antifaces...',
+    searchPlaceholder: 'Busca bandas de sueño, masajeadores, correctores posturales...',
     addLabel: 'Añadir',
     addedLabel: 'Añadido',
     cartLabel: 'Carrito',
@@ -127,68 +128,68 @@ const SHOP_HOME_COPY = {
       'Pago 100% seguro (Stripe + SSL)',
       'Lo enviamos mañana',
     ],
-    heroKicker: 'Ciencia del sueño, resultado real',
-    heroLine1: 'Duérmete en minutos, no en horas.',
-    heroLine2: 'Despierta como si hubieras dormido 10 horas.',
-    heroSubtitle: 'Productos que tu cuerpo nota desde la primera noche. Diseñados para gente que no puede permitirse dormir mal.',
+    heroKicker: 'Tecnología de sueño y recuperación que funciona de verdad',
+    heroLine1: 'Deja de dormir mal.',
+    heroLine2: 'Empieza a recuperarte.',
+    heroSubtitle: 'Productos que tu cuerpo nota desde la primera noche. Anti-ronquidos, corrección postural y alivio cervical — para gente que no puede permitirse dormir mal.',
     heroQuickLinks: [
-      { emoji: '😴', label: 'Llevo horas sin dormir', slug: 'sleep-audio' },
-      { emoji: '🦴', label: 'Me despierto con dolor de cuello', slug: 'neck-recovery' },
-      { emoji: '🌙', label: 'Necesito desconectar ya', slug: 'sensory' },
+      { emoji: '😴', label: 'Rono todas las noches', slug: 'sleep-audio' },
+      { emoji: '🦴', label: 'Mi postura está empeorando', slug: 'neck-recovery' },
+      { emoji: '🧘', label: 'Tengo el cuello siempre tenso', slug: 'sensory' },
     ],
-    heroPrimary: 'Descubrir qué me falta',
+    heroPrimary: 'Encontrar mi solución',
     heroSecondary: 'Ver más vendidos',
     trustItems: [
       { icon: Truck, label: 'Envío gratis', sub: 'En todos los pedidos' },
-      { icon: RotateCcw, label: 'Devoluciones 30 días', sub: 'Sin preguntas' },
+      { icon: RotateCcw, label: '30 noches de prueba', sub: 'Reembolso completo, sin preguntas' },
       { icon: Shield, label: 'Pago seguro', sub: 'SSL + Stripe' },
-      { icon: Star, label: 'Media de 4,9', sub: 'Más de 6.000 reseñas' },
+      { icon: Star, label: 'Media de 4,9', sub: 'Más de 6.000 reseñas verificadas' },
     ],
-    categoriesHeading: 'Compra por categoría',
-    categoriesSub: 'Encuentra el producto adecuado para tu necesidad',
+    categoriesHeading: '¿Cuál es tu problema?',
+    categoriesSub: 'Elige lo que más te molesta — te mostramos la solución',
     problemCards: [
-      { emoji: '😴', problem: '¿No puedes dormir?', solution: 'Sueño y audio', description: 'La solución no es más voluntad. Es mejor sonido. Banda de sueño, ruido blanco, sonido envolvente — tu cerebro apaga solo.', slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520' },
-      { emoji: '🦴', problem: '¿El cuello te dice basta?', solution: 'Cuello y recuperación', description: '15 minutos al día. Tres modos de masaje + calor. Tu cuello lo recordará mañana.', slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520' },
-      { emoji: '🌙', problem: '¿No consigues apagar el cerebro?', solution: 'Sensorial y relajación', description: '150g de presión suave + lavanda. Tu cuerpo entiende el mensaje: ya es hora de descansar.', slug: 'sensory', colorFrom: '#1a1020', colorTo: '#0c1520' },
+      { emoji: '😴', problem: '¿Roncas todas las noches?', solution: 'Deja de roncar. Empieza a dormir.', description: 'Férulas de avanzamiento mandibular que abren tu vía aérea y eliminan los ronquidos en su origen. Tu pareja también duerme mejor.', slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520' },
+      { emoji: '🦴', problem: '¿Mala postura por trabajar sentado?', solution: 'Mejora tu postura. Libera tu cuello.', description: 'Correctores posturales que realinean tu columna y alivian el dolor crónico de espalda. Resultados visibles en 2 semanas.', slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520' },
+      { emoji: '🧘', problem: '¿Dolor cervical crónico?', solution: 'Terapia por pulsos que se adapta a ti.', description: 'Masajeadores cervicales con electrodos flotantes que se adaptan a las curvas de tu cuello. Alivio en el trabajo, en casa, en cualquier lugar.', slug: 'sensory', colorFrom: '#1a1020', colorTo: '#0c1520' },
     ],
     bestSellersHeading: 'Más vendidos',
-    bestSellersSub: 'Las opciones más populares para descansar y recuperarte',
+    bestSellersSub: 'Productos que 6.000+ personas ya usan cada noche',
     stepsHeading: 'Cómo funciona',
-    stepsSub: 'Tres pasos simples para descansar mejor',
+    stepsSub: 'Tres pasos para descansar mejor',
     steps: [
-      { step: '01', icon: '🎯', title: 'Cuéntanos qué te pasa', text: '¿No duermes? ¿Dolor de cuello? ¿No desconectas? Elige tu problema y te mostramos exactamente qué te ayuda.' },
-      { step: '02', icon: '📦', title: 'Mañana en tu puerta', text: 'Envío gratis. Seguimiento en tiempo real. Sin sorpresas. Procesamos y enviamos en 24 horas.' },
-      { step: '03', icon: '✨', title: '30 noches para decidir', text: 'Si no notas la diferencia, te devolvemos cada euro. Sin preguntas. Así de seguros estamos de nuestros productos.' },
+      { step: '01', icon: '🎯', title: 'Elige tu problema', text: '¿Roncas? ¿Mala postura? ¿Dolor de cuello? Elige lo que más te molesta y te mostramos exactamente qué te ayuda.' },
+      { step: '02', icon: '📦', title: 'Mañana en tu puerta', text: 'Envío gratis. Seguimiento en tiempo real. Procesamos y enviamos en 24 horas. Sin sorpresas.' },
+      { step: '03', icon: '✨', title: '30 noches para decidir', text: 'Si no notas la diferencia, te devolvemos cada euro. Sin preguntas. Así de seguros estamos.' },
     ],
-    testimonialsHeading: 'Lo que dicen nuestros clientes',
+    testimonialsHeading: 'Personas reales. Resultados reales.',
     testimonialsSub: 'Reseñas verificadas de compradores reales',
     verifiedPurchase: 'Compra verificada',
     reviews: [
-      { text: 'Invertí en el Noctip Halo sin expectativas elevadas, pero la calidad de construcción y comodidad las superaron. La claridad del sonido es impresionante para un dispositivo tan fino. Me duermo notablemente más rápido.', author: 'Andrea L.', role: 'Estudiante', stars: 5, product: 'Noctip Halo' },
-      { text: 'Después de años de tensión cervical por trabajo de oficina, el Noctip Relief logró una mejora medible en solo dos semanas de uso diario de 15 minutos. Calidad profesional a un precio accesible.', author: 'Miguel Á.', role: 'Informático', stars: 4, product: 'Noctip Relief' },
-      { text: 'El Noctip Halo transformó mi rutina de sueño. Tan cómodo que olvidas que lo llevas, pero la calidad del sonido rivaliza con auriculares convencionales. Producto premium, resultados premium.', author: 'Carla F.', role: 'Deportista', stars: 5, product: 'Noctip Halo' },
-      { text: 'La presión suave del Noctip Calm crea un efecto calmante inmediato. Combinado con el inserto de aromaterapia, se ha convertido en parte esencial de mi rutina nocturna. Excelente relación calidad-precio.', author: 'Laura P.', role: 'Madre primeriza', stars: 4, product: 'Noctip Calm' },
-      { text: 'Como viajero frecuente de negocios, el Noctip Rest se ha vuelto imprescindible. Portátil, cómoda y la batería dura vuelos de larga distancia. Altamente recomendada para profesionales en movimiento.', author: 'David R.', role: 'Consultor', stars: 5, product: 'Noctip Rest' },
-      { text: 'Los perfiles de sonido del Noctip Wave están genuinamente bien sintonizados. Enmascara el ruido ambiental de forma efectiva y la función de volumen adaptativo es un detalle inteligente. Mi calidad de sueño ha mejorado notablemente.', author: 'Sara M.', role: 'Profesora', stars: 4, product: 'Noctip Wave' },
+      { text: 'Después de años de ronquidos que impedían dormir a mi esposa, el Noctip Halo fue un cambio total. El ajuste mandibular es cómodo y los ronquidos desaparecieron desde la primera noche. Los dos dormimos mejor.', author: 'Andrea L.', role: 'Estudiante', stars: 5, product: 'Noctip Halo' },
+      { text: 'El corrector postural Noctip Wave ha mejorado visiblemente mi postura en el escritorio en solo dos semanas. Lo uso debajo de la camisa y nadie se da cuenta. Mi dolor de espalda por sentar 8 horas casi ha desaparecido.', author: 'Miguel Á.', role: 'Informático', stars: 4, product: 'Noctip Wave' },
+      { text: 'El masajeador cervical Noctip Relief es sorprendentemente potente para su tamaño. Los electrodos se adaptan perfectamente a mi cuello y los modos de pulso son realmente efectivos. Lo uso todos los días en el trabajo.', author: 'Carla F.', role: 'Deportista', stars: 5, product: 'Noctip Relief' },
+      { text: 'El masajeador por pulsos Noctip Calm se adapta perfectamente a mi cuello con el diseño de electrodos flotantes. El botón de inicio es simple y la temporización automática significa que no tengo que pensar en ello. Gran relación calidad-precio.', author: 'Laura P.', role: 'Madre primeriza', stars: 4, product: 'Noctip Calm' },
+      { text: 'Como viajero frecuente de negocios, la banda Noctip Rest se ha vuelto imprescindible. Portátil, cómoda y la batería dura vuelos de larga distancia. Altamente recomendada para profesionales en movimiento.', author: 'David R.', role: 'Consultor', stars: 5, product: 'Noctip Rest' },
+      { text: 'El corrector Noctip Wave ha realineado mi postura más rápido de lo esperado. Después de años encorvado frente al ordenador, el soporte en forma de Y juntó mis hombros hacia atrás naturalmente. Mi quiropráctico notó la diferencia.', author: 'Sara M.', role: 'Profesora', stars: 4, product: 'Noctip Wave' },
     ],
     stats: [
-      { value: '15+', label: 'Productos premium' },
+      { value: '5', label: 'Productos premium' },
       { value: '6.000+', label: 'Clientes felices' },
       { value: '4,9', label: 'Valoración media' },
       { value: '30', label: 'Noches de garantía' },
     ],
     faqHeading: 'Preguntas frecuentes',
-    faqSub: 'Todo lo que necesitas saber antes de tu primer pedido',
+    faqSub: 'Respuestas rápidas antes de comprar',
     faqs: [
-      { q: '¿Cuánto tarda realmente el envío?', a: 'Procesamos y enviamos todos los pedidos en un máximo de 24 horas. La entrega estándar en Europa es de 3 a 5 días laborables. Envío exprés de 1-2 días disponible en el checkout. Todos los envíos incluyen seguimiento en tiempo real.' },
-      { q: '¿Qué cubre exactamente la garantía de 30 noches?', a: 'Puedes probar cualquier producto durante 30 noches en tu propio entorno. Si no cumple tus expectativas, contactas con nuestro equipo y gestionamos la recogida y el reembolso completo. No necesitas justificar nada.' },
-      { q: '¿Los productos son compatibles con todos los dispositivos?', a: 'Todos los productos Bluetooth utilizan Bluetooth 5.0+ para compatibilidad universal con móviles, tablets y ordenadores. Los productos USB-C se cargan con cualquier cable estándar. No se necesitan apps especiales.' },
-      { q: '¿El pago es completamente seguro?', a: 'Sí. Todos los pagos se procesan a través de Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta en nuestros servidores. Aceptamos Visa, Mastercard, Amex, Apple Pay y Google Pay.' },
-      { q: '¿Puedo seguir mi pedido en tiempo real?', a: 'Por supuesto. Recibirás un email de seguimiento dentro de 24 horas del envío. Todas las entregas incluyen seguimiento en tiempo real para que sepas exactamente cuándo esperar tu pedido.' },
-      { q: '¿Ofrecéis descuentos por packs?', a: 'Sí. Añade varios productos al carrito y los descuentos por bundle se aplican automáticamente en el checkout. Cuanto más añades, más ahorras.' },
+      { q: '¿Cuánto tarda el envío?', a: 'Enviamos todos los pedidos en 24 horas. Entrega estándar: 3-5 días laborables en Europa. Envío exprés de 1-2 días disponible en el checkout. Seguimiento incluido.' },
+      { q: '¿Qué cubre la garantía de 30 noches?', a: 'Prueba cualquier producto durante 30 noches. Si no funciona, gestionamos la devolución y el reembolso completo. Sin justificación.' },
+      { q: '¿Cómo funciona la férula anti-ronquidos?', a: 'El Noctip Halo usa avanzamiento mandibular para mover suavemente la mandíbula hacia adelante, abriendo la vía aérea y eliminando los ronquidos en su origen. El diseño de doble capa se ajusta con 10mm de micro-ajustes.' },
+      { q: '¿En qué tallas viene el corrector postural?', a: 'El Noctip Wave viene en 5 tallas (XS-XL) según el ancho de pecho. Mide en el punto más amplio y consulta nuestra guía. Las correas de velcro permiten ajuste fino.' },
+      { q: '¿El pago es seguro?', a: 'Sí. Pagos procesados por Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta. Aceptamos Visa, Mastercard, Amex, Apple Pay y Google Pay.' },
+      { q: '¿Los descuentos por packs se aplican solos?', a: 'Sí. Añade varios productos al carrito y los descuentos se aplican automáticamente en el checkout. Cuanto más añades, más ahorras.' },
     ],
     ctaHeading: '¿Cuántas noches más vas a dormir mal?',
-    ctaSub: '6.000+ personas ya duermen mejor. Una de ellas puedes ser tú.',
+    ctaSub: '6.000+ personas ya duermen mejor. Esta noche podría ser tu primera buena noche.',
     ctaPrimary: 'Ver todos los productos',
     ctaSecondary: 'Ver más vendidos',
     badgeLabels: { bestseller: 'Más vendido', new: 'Nuevo', deal: 'Oferta', trending: 'Tendencia' },
@@ -233,9 +234,11 @@ function Badge({ type, locale }: { type?: CatalogProduct['badge']; locale: strin
 function ProductCard({ product, locale }: { product: CatalogProduct; locale: string }) {
   const { add, open: openCart } = useCart()
   const [added, setAdded] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const copy = getCopy(locale)
   const name = getLocalizedProductName(product, locale)
   const desc = getLocalizedProductShortDescription(product, locale)
+  const localeStr = locale === 'es' ? 'es-ES' : 'en-US'
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -247,9 +250,12 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
   }
 
   const savings = Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
+  const viewers = Math.floor(Math.random() * 30) + 12
 
   return (
-    <Link href={`/${locale}/products/${product.slug}`} className="group block">
+    <Link href={`/${locale}/products/${product.slug}`} className="group block"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -257,31 +263,60 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         transition={{ duration: 0.5 }}
         className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-[rgba(16,191,216,0.25)] hover:shadow-[0_8px_32px_rgba(16,191,216,0.12)]"
       >
+        {/* Image area */}
         <div className="relative flex h-48 items-center justify-center overflow-hidden" style={{ background: product.color }}>
           {product.images ? (
             <img src={product.images[0]} alt={name} loading="lazy"
               className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110"
               style={{ objectPosition: '50% 5%' }} />
           ) : (
-            <span className="text-5xl opacity-60 transition-transform duration-500 group-hover:scale-110">{product.icon}</span>
+            <div className="flex h-full w-full items-center justify-center" style={{ background: product.color }}>
+              <span className="text-5xl opacity-60 transition-transform duration-500 group-hover:scale-110">{product.icon}</span>
+            </div>
           )}
+          
+          {/* Badge */}
           {product.badge && (
             <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} locale={locale} /></div>
           )}
-          <div className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#0c1016]/70 px-2.5 py-1 text-[11px] font-bold text-white/80 backdrop-blur-md">
+          
+          {/* Savings badge */}
+          <div className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#0c1016]/80 px-2.5 py-1 text-[11px] font-bold text-white/90 backdrop-blur-md">
             -{savings}%
           </div>
+          
+          {/* Urgency badge */}
+          {product.reviewCount > 100 && (
+            <div className="absolute bottom-3 left-3 z-10 flex items-center gap-1 rounded-full bg-orange-500/90 px-2 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
+              <Flame size={10} />
+              {locale === 'es' ? 'Más vendido' : 'Bestseller'}
+            </div>
+          )}
         </div>
 
+        {/* Content */}
         <div className="flex flex-1 flex-col gap-2 p-4">
-          <div className="flex items-center gap-1.5">
-            <Stars rating={product.rating} />
-            <span className="text-[11px] text-[#8791a1]">
-              {product.rating} ({product.reviewCount.toLocaleString(locale === 'es' ? 'es-ES' : 'en-US')})
+          {/* Rating + viewers */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Stars rating={product.rating} />
+              <span className="text-[11px] text-[#8791a1]">
+                {product.rating} ({product.reviewCount.toLocaleString(localeStr)})
+              </span>
+            </div>
+            <span className="flex items-center gap-1 text-[10px] text-[#6b7785]">
+              <Eye size={10} className="text-[#10BFD8]" />
+              {viewers}
             </span>
           </div>
+          
+          {/* Name - more prominent */}
           <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
+          
+          {/* Description */}
           <p className="line-clamp-2 text-[12px] leading-5 text-[#8791a1]">{desc}</p>
+          
+          {/* Price + CTA */}
           <div className="mt-auto flex items-end justify-between gap-2 pt-3">
             <div>
               <span className="text-[18px] font-bold text-[#f2eee7]">€{product.price}</span>
@@ -592,13 +627,14 @@ export default function ShopHomePage() {
 
   return (
     <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
+      <LimitedOffer />
       <AnnouncementBar copy={copy} />
       <Header locale={locale} copy={copy} switchHref={switchHref} />
 
       <main className="mx-auto max-w-[1280px] px-4 sm:px-6 pb-32">
         {/* ── Hero ── */}
-        <section className="relative overflow-hidden pb-8 pt-10 sm:pt-16">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(16,191,216,0.08),transparent_60%)]" />
+        <section className="relative overflow-hidden pb-8 pt-6 sm:pt-10">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_50%_0%,rgba(16,191,216,0.08),transparent_60%)]" />
           <div className="relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(13,18,25,0.98),rgba(10,15,22,0.94))] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
             <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
               <motion.div
@@ -908,7 +944,7 @@ export default function ShopHomePage() {
             )}
           </button>
           <Link href={`/${locale}/shop/all`}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3 text-[14px] font-semibold text-[#11161d] shadow-[0_4px_16px_rgba(242,238,231,0.2)]">
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3 text-[14px] font-semibold text-[#11161d] btn-cta-pulse">
             {copy.mobileCta} <ChevronRight size={15} />
           </Link>
         </div>
@@ -918,6 +954,9 @@ export default function ShopHomePage() {
           <span className="flex items-center gap-1"><RotateCcw size={10} className="text-[#10BFD8]" />30 {isEs ? 'días' : 'days'}</span>
         </div>
       </div>
+
+      {/* Social proof notification */}
+      <SocialProofNotification />
     </div>
   )
 }

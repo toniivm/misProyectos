@@ -8,6 +8,7 @@ import {
   useState,
   ReactNode,
 } from 'react';
+import { getActiveBundle, type Bundle } from '../lib/catalog';
 
 export interface CartItem {
   slug: string;
@@ -90,6 +91,9 @@ interface CartContextValue {
   hasHydrated: boolean;
   totalItems: number;
   subtotal: number;
+  activeBundle: Bundle | null;
+  bundleDiscount: number;
+  totalWithDiscount: number;
   add: (item: Omit<CartItem, 'quantity'>) => void;
   remove: (slug: string) => void;
   updateQty: (slug: string, quantity: number) => void;
@@ -157,6 +161,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     0,
   );
 
+  const activeBundle = getActiveBundle(state.items.map((i) => i.slug));
+  const bundleDiscount = activeBundle
+    ? Math.round(subtotal * (activeBundle.discountPercent / 100) * 100) / 100
+    : 0;
+  const totalWithDiscount = Math.max(0, subtotal - bundleDiscount);
+
   return (
     <CartContext.Provider
       value={{
@@ -165,6 +175,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
         hasHydrated,
         totalItems,
         subtotal,
+        activeBundle,
+        bundleDiscount,
+        totalWithDiscount,
         add: (item) => dispatch({ type: 'ADD', item }),
         remove: (slug) => dispatch({ type: 'REMOVE', slug }),
         updateQty: (slug, quantity) =>
