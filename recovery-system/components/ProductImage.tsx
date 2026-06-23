@@ -247,6 +247,7 @@ export default function ProductImage({ slug, color, icon, images, alt, className
       {/* Real image on top if available */}
       {hasRealImage && (
         <img 
+          key={`${slug}-${activeIndex}`}
           src={images![activeIndex]} 
           alt={alt || 'Product'} 
           onError={() => setImgError(true)}
