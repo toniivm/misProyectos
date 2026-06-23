@@ -328,10 +328,13 @@ const createIntentSchema = Joi.object({
       line1: Joi.string().max(200).required(), 
       line2: Joi.string().max(200).optional().allow('', null),
       city: Joi.string().max(100).required(), 
+      state: Joi.string().max(100).optional().allow('', null),
       postal_code: Joi.string().max(20).required(), 
       country: Joi.string().length(2).required() 
     }).required() 
-  }).required()
+  }).required(),
+  promoCode: Joi.string().max(50).optional().allow('', null),
+  discountPercent: Joi.number().min(0).max(100).optional()
 });
 
 const checkoutUrlSchema = Joi.string().custom((value, helpers) => {
@@ -364,8 +367,12 @@ function adminAuth(req,res,next){
   next();
 }
 
-function calcAmount(items){
-  return items.reduce((sum, it) => sum + Math.round(it.price * 100) * it.qty, 0);
+function calcAmount(items, discountPercent = 0){
+  const subtotal = items.reduce((sum, it) => sum + Math.round(it.price * 100) * it.qty, 0);
+  if (discountPercent > 0 && discountPercent <= 100) {
+    return Math.max(0, Math.round(subtotal * (1 - discountPercent / 100)));
+  }
+  return subtotal;
 }
 
 function toStripeLineItems(items, currency){
@@ -593,7 +600,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
     }
     
-    const { items, currency, email, phone, shipping } = value;
+    const { items, currency, email, phone, shipping, promoCode, discountPercent } = value;
     
     // Verify inventory before creating intent
     try {
@@ -609,7 +616,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       throw invErr;
     }
     
-    const amount = calcAmount(items);
+    const amount = calcAmount(items, discountPercent);
     if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
     
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
@@ -623,6 +630,8 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       amount,
       currency,
       shipping,
+      promoCode: promoCode || null,
+      discountPercent: discountPercent || 0,
       ip: req.ip,
       userAgent: req.get('user-agent') || null,
       createdAt: new Date(),
@@ -716,7 +725,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
     }
 
-    const { items, currency, email, phone, shipping, successUrl, cancelUrl } = value;
+    const { items, currency, email, phone, shipping, successUrl, cancelUrl, promoCode, discountPercent } = value;
 
     if (db) {
       try {
@@ -739,7 +748,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       console.warn('⚠ Firestore unavailable, skipping inventory verification for checkout session');
     }
 
-    const amount = calcAmount(items);
+    const amount = calcAmount(items, discountPercent);
     if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
 
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
@@ -754,6 +763,8 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       amount,
       currency,
       shipping,
+      promoCode: promoCode || null,
+      discountPercent: discountPercent || 0,
       ip: req.ip,
       userAgent: req.get('user-agent') || null,
       createdAt: new Date(),
@@ -839,6 +850,14 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
           metadata: { orderId, paymentMethod },
           description: `Pedido #${orderId} — Noctip`,
         },
+        // Minimize friction: auto-redirect after payment
+        after_expiration: {
+          recovery: { enabled: false },
+        },
+        // Billing address collection for better fraud prevention
+        billing_address_collection: 'auto',
+        // Phone collection is optional - already collected in form
+        phone_number_collection: { enabled: false },
       },
       { idempotencyKey }
     );
@@ -1132,7 +1151,69 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
   res.json({ ok: true });
 });
 
-// Order confirmation email (called by frontend after successful payment)
+// Public endpoint: request order confirmation email (used by frontend after Stripe redirect)
+app.post('/orders/:id/send-confirmation', async (req, res) => {
+  const { id } = req.params;
+  if (!id) return res.status(400).json({ error: 'MISSING_ORDER_ID' });
+  if (!db) return res.status(503).json({ error: 'DB_NOT_AVAILABLE' });
+
+  try {
+    const ref = db.collection('orders').doc(id);
+    const snap = await ref.get();
+    if (!snap.exists) return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
+
+    const order = snap.data();
+    if (!order.email) return res.status(400).json({ error: 'NO_EMAIL_ON_ORDER' });
+
+    // Only send if order is paid and email hasn't been sent yet
+    if (order.status !== 'paid' && order.status !== 'processing' && order.status !== 'packed' && order.status !== 'shipped') {
+      return res.status(409).json({ error: 'ORDER_NOT_PAID', detail: `Order status is ${order.status}` });
+    }
+
+    if (order.confirmationEmailSent) {
+      return res.json({ ok: true, alreadySent: true });
+    }
+
+    // Send confirmation email
+    const customerName = order.shipping?.name || '';
+    const itemsList = (order.items || []).map(it => `<li style="padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:14px;display:flex;justify-content:space-between;"><span>${it.name} x${it.qty}</span><span style="font-weight:600;">€${(it.price * it.qty).toFixed(2)}</span></li>`).join('');
+    const itemsHtml = `<ul style="list-style:none;padding:0;margin:0;">${itemsList}</ul>`;
+    const total = `€${((order.amount || 0) / 100).toFixed(2)}`;
+
+    let tpl = null;
+    try {
+      const tplPath = new URL('../templates/order-confirmation.html', import.meta.url);
+      tpl = await fs.readFile(tplPath, 'utf8');
+    } catch (e) {
+      tpl = null;
+    }
+
+    let html;
+    if (tpl) {
+      html = tpl
+        .replace(/{{orderId}}/g, id)
+        .replace(/{{customerName}}/g, customerName)
+        .replace(/{{itemsHtml}}/g, itemsHtml)
+        .replace(/{{total}}/g, total);
+    } else {
+      html = `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${id}</strong></p><ul>${itemsList}</ul><p><strong>Total: ${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`;
+    }
+
+    const result = await sendEmail(order.email, `✅ Confirmación de pedido #${id} - Noctip`, html);
+
+    // Mark email as sent to avoid duplicates
+    if (result?.ok) {
+      await ref.set({ confirmationEmailSent: true, confirmationEmailSentAt: new Date() }, { merge: true });
+    }
+
+    res.json({ ok: result?.ok ?? true, email: result });
+  } catch (e) {
+    console.error('Error sending confirmation email:', e?.message || e);
+    res.status(500).json({ error: 'EMAIL_SEND_FAILED' });
+  }
+});
+
+// Order confirmation email (called by admin)
 app.post('/emails/order-confirmation', adminAuth, async (req,res) => {
   if (!requireDb(res)) return;
   const { orderId, email } = req.body;

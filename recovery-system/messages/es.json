@@ -55,6 +55,7 @@
     "floor": "Piso / Portal",
     "portal": "Portal / Edificio",
     "city": "Ciudad",
+    "province": "Provincia",
     "zip": "Código postal",
     "country": "País",
     "paymentMethod": "Método de pago",

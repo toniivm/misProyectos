@@ -10,6 +10,7 @@ import { useAuth } from '../context/AuthContext';
 export default function CartSidebar() {
   const { isOpen, close, items, remove, updateQty, subtotal, totalItems, activeBundle, bundleDiscount, totalWithDiscount } = useCart();
   const locale = useLocale();
+  const isEs = locale === 'es';
   const t = useTranslations('cart');
   const { user, openModal } = useAuth();
 
@@ -155,9 +156,9 @@ export default function CartSidebar() {
 
                 {/* Trust badges */}
                 <div className="flex items-center justify-center gap-4 text-[11px] text-[#5a6678] pt-1">
-                  <span className="flex items-center gap-1"><RotateCcw size={11} />30-day returns</span>
-                  <span className="flex items-center gap-1"><ShieldCheck size={11} />Secure</span>
-                  <span className="flex items-center gap-1"><Truck size={11} />Free shipping</span>
+                  <span className="flex items-center gap-1"><RotateCcw size={11} />{isEs ? '30 días devolución' : '30-day returns'}</span>
+                  <span className="flex items-center gap-1"><ShieldCheck size={11} />{isEs ? 'Seguro' : 'Secure'}</span>
+                  <span className="flex items-center gap-1"><Truck size={11} />{isEs ? 'Envío gratis' : 'Free shipping'}</span>
                 </div>
 
                 <div className="flex items-center justify-between border-t border-white/[0.07] pt-3">

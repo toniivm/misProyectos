@@ -55,6 +55,7 @@
     "floor": "Floor / Apt",
     "portal": "Building / Portal",
     "city": "City",
+    "province": "State / Province",
     "zip": "ZIP code",
     "country": "Country",
     "paymentMethod": "Payment method",

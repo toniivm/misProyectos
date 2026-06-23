@@ -98,7 +98,7 @@ export default function CheckoutPage() {
 
   const [contact, setContact] = useState({ email: '', phone: '' });
   const [shipping, setShipping] = useState({
-    firstName: '', lastName: '', streetName: '', streetNumber: '', floor: '', city: '', country: 'Spain', zip: '',
+    firstName: '', lastName: '', streetName: '', streetNumber: '', floor: '', city: '', province: '', country: 'Spain', zip: '',
   });
   const checkoutItems = hasHydrated ? items : [];
   const checkoutSubtotal = hasHydrated ? subtotal : 0;
@@ -120,12 +120,12 @@ export default function CheckoutPage() {
         setPromoDiscount(data.discountPercent || 0);
         setPromoLabel(data.label || promoCode.trim().toUpperCase());
       } else {
-        setPromoError(data.detail || (isEs ? 'Código no válido' : 'Invalid promo code'));
+        setPromoError(data.detail || (isEs ? 'Este código no es válido o ha caducado' : 'This code is invalid or has expired'));
         setPromoDiscount(0);
         setPromoLabel('');
       }
     } catch {
-      setPromoError(isEs ? 'No se pudo validar el código' : 'Could not validate code');
+      setPromoError(isEs ? 'No se pudo verificar el código. Inténtalo de nuevo.' : 'Could not verify code. Please try again.');
     }
     setPromoLoading(false);
   };
@@ -149,6 +149,7 @@ export default function CheckoutPage() {
             line1: `${shipping.streetName} ${shipping.streetNumber}`.trim(),
             line2: shipping.floor || undefined,
             city: shipping.city,
+            state: shipping.province || undefined,
             postal_code: shipping.zip,
             country: COUNTRY_CODES[shipping.country] || 'ES',
           },
@@ -173,10 +174,21 @@ export default function CheckoutPage() {
       });
 
       if (!response.ok) {
-        let msg = isEs ? 'No se pudo iniciar el pago' : 'Could not start payment';
+        let msg = isEs 
+          ? 'No se pudo iniciar el pago. Por favor, inténtalo de nuevo.' 
+          : 'Could not start payment. Please try again.';
         try {
           const text = await response.text();
-          try { const parsed = JSON.parse(text); msg = parsed?.detail || parsed?.error || text || msg; }
+          try { 
+            const parsed = JSON.parse(text); 
+            if (parsed?.error === 'OUT_OF_STOCK') {
+              msg = isEs ? 'Lo sentimos, uno de los productos se ha agotado.' : 'Sorry, one of the products is out of stock.';
+            } else if (parsed?.error === 'INVALID_AMOUNT') {
+              msg = isEs ? 'El importe no es válido. Revisa tu carrito.' : 'Invalid amount. Please check your cart.';
+            } else {
+              msg = parsed?.detail || parsed?.error || text || msg;
+            }
+          }
           catch { msg = text || msg; }
         } catch {}
         throw new Error(msg);
@@ -316,6 +328,14 @@ export default function CheckoutPage() {
                     className="input-premium" />
                 </div>
                 <div>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{isEs ? 'Provincia' : 'State / Province'}</label>
+                  <input type="text" required value={shipping.province}
+                    autoComplete="address-level1"
+                    onChange={(e) => setShipping((s) => ({...s, province: e.target.value}))}
+                    placeholder={isEs ? 'Ej: Madrid, Barcelona, Valencia' : 'e.g. Madrid, California, London'}
+                    className="input-premium" />
+                </div>
+                <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('zip')}</label>
                   <input type="text" required value={shipping.zip}
                     autoComplete="postal-code"
@@ -431,7 +451,18 @@ export default function CheckoutPage() {
 
             {error && (
               <div className="rounded-xl border border-red-900/40 bg-red-950/30 px-4 py-3 text-[13px] text-red-400">
-                {error}
+                <div className="flex items-start gap-2">
+                  <span className="mt-0.5 text-red-400">⚠</span>
+                  <div>
+                    <p className="font-semibold">{isEs ? 'Error en el pago' : 'Payment error'}</p>
+                    <p className="mt-1 text-[12px] text-red-300/80">{error}</p>
+                    <p className="mt-2 text-[11px] text-red-300/60">
+                      {isEs 
+                        ? 'Si el problema persiste, contacta con nosotros en soporte@noctip.com' 
+                        : 'If the problem persists, contact us at support@noctip.com'}
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
 
@@ -452,11 +483,34 @@ export default function CheckoutPage() {
               <span className="flex items-center gap-1"><Truck size={12} /> {t('freeShipping')}</span>
               <span className="flex items-center gap-1"><Lock size={12} /> {t('secureCheckout')}</span>
             </div>
+
+            {/* Additional trust signals */}
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-[11px] text-[#5a6678]">
+              <span className="flex items-center gap-1 rounded-full border border-white/[0.06] bg-white/[0.03] px-3 py-1.5">
+                <RotateCcw size={10} /> {isEs ? 'Devolución 30 días' : '30-day returns'}
+              </span>
+              <span className="flex items-center gap-1 rounded-full border border-white/[0.06] bg-white/[0.03] px-3 py-1.5">
+                <Truck size={10} /> {isEs ? 'Envío 24-48h' : 'Ships 24-48h'}
+              </span>
+              <span className="flex items-center gap-1 rounded-full border border-white/[0.06] bg-white/[0.03] px-3 py-1.5">
+                <ShieldCheck size={10} /> {isEs ? 'Datos 100% protegidos' : '100% data protected'}
+              </span>
+            </div>
           </form>
 
           {/* Order summary */}
           <aside className="h-fit rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6 lg:sticky lg:top-24">
             <h2 className="mb-5 text-[17px] font-semibold text-[#f2eee7]">{t('orderSummary')}</h2>
+
+            {/* Social proof */}
+            <div className="mb-4 flex items-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2.5 text-[11px] text-[#6b7280]">
+              <div className="flex -space-x-1.5">
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8]/20 text-[8px]">😊</div>
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8]/15 text-[8px]">😴</div>
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[8px]">🧘</div>
+              </div>
+              <span>{isEs ? '10.000+ clientes satisfechos' : '10,000+ happy customers'}</span>
+            </div>
 
             {!hasHydrated ? (
               <div className="py-8 text-center text-[13px] text-[#6b7280]">{t('loadingCart')}</div>

@@ -1,11 +1,15 @@
 "use client";
 
-import { CheckCircle2, ArrowRight, Shield, Truck, RotateCcw } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Shield, Truck, RotateCcw, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useCart } from '../../../../context/CartContext';
 import { useAuth } from '../../../../context/AuthContext';
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
+  'https://misproyectos-neyj.onrender.com';
 
 interface Props {
   params: { locale: string };
@@ -15,6 +19,7 @@ export default function CheckoutSuccessPage({ params }: Props) {
   const { locale } = params;
   const t = useTranslations('success');
   const [ref, setRef] = useState<string | null>(null);
+  const [emailSent, setEmailSent] = useState<boolean | null>(null);
   const { clear } = useCart();
   const auth = useAuth();
   const isEs = locale === 'es';
@@ -67,6 +72,27 @@ export default function CheckoutSuccessPage({ params }: Props) {
         console.warn('Could not update order status', e);
       }
     }
+
+    // Request confirmation email from backend
+    if (orderId) {
+      fetch(`${API_BASE_URL}/orders/${orderId}/send-confirmation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setEmailSent(data?.ok ?? false);
+          if (data?.ok) {
+            console.log('✅ Confirmation email requested successfully');
+          } else {
+            console.warn('⚠ Confirmation email request failed:', data);
+          }
+        })
+        .catch((err) => {
+          console.warn('⚠ Could not request confirmation email:', err);
+          setEmailSent(false);
+        });
+    }
   }, []);
 
   return (
@@ -100,6 +126,20 @@ export default function CheckoutSuccessPage({ params }: Props) {
             <strong className="text-[#f2eee7]">3–5 {t('deliveryDays')}</strong>
           </span>
         </div>
+
+        {/* Email confirmation status */}
+        {emailSent === true && (
+          <div className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-[13px] text-emerald-300">
+            <Mail size={14} />
+            {isEs ? 'Email de confirmación enviado' : 'Confirmation email sent'}
+          </div>
+        )}
+        {emailSent === false && (
+          <div className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-yellow-500/20 bg-yellow-500/10 px-4 py-3 text-[13px] text-yellow-300">
+            <Mail size={14} />
+            {isEs ? 'Recibirás tu confirmación por email en breve' : 'You will receive your confirmation email shortly'}
+          </div>
+        )}
 
         {/* Trust badges */}
         <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#5a6678]">
