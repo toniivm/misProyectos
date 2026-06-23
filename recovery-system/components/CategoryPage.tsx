@@ -38,13 +38,13 @@ function Stars({ rating }: { rating: number }) {
   )
 }
 
-function Badge({ type }: { type: CatalogProduct['badge'] }) {
+function Badge({ type, isEs }: { type: CatalogProduct['badge']; isEs?: boolean }) {
   if (!type) return null
   const map = {
-    bestseller: { label: 'Best Seller', cls: 'bg-amber-400/15 text-amber-300 border-amber-400/25' },
-    new: { label: 'New', cls: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25' },
-    deal: { label: 'Deal', cls: 'bg-rose-400/15 text-rose-300 border-rose-400/25' },
-    trending: { label: 'Trending', cls: 'bg-violet-400/15 text-violet-300 border-violet-400/25' },
+    bestseller: { label: isEs ? 'Más vendido' : 'Best Seller', cls: 'bg-amber-400/15 text-amber-300 border-amber-400/25' },
+    new: { label: isEs ? 'Nuevo' : 'New', cls: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25' },
+    deal: { label: isEs ? 'Oferta' : 'Deal', cls: 'bg-rose-400/15 text-rose-300 border-rose-400/25' },
+    trending: { label: isEs ? 'Tendencia' : 'Trending', cls: 'bg-violet-400/15 text-violet-300 border-violet-400/25' },
   }
   const b = map[type]
   return (
@@ -120,7 +120,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
             <span className="text-5xl opacity-60 transition-transform duration-500 group-hover:scale-110">{product.icon}</span>
           )}
           {product.badge && (
-            <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} /></div>
+            <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} isEs={locale === 'es'} /></div>
           )}
           <div className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#0c1016]/60 px-2 py-0.5 text-[11px] font-medium text-white/70 backdrop-blur-sm">
             -{savings}%
@@ -222,6 +222,7 @@ function FilterPanel({
 export default function CategoryPage({ categorySlug }: { categorySlug: string }) {
   const locale = useLocale()
   const isEs = locale === 'es'
+  const pathname = usePathname()
   const { totalItems, open: openCart } = useCart()
   const [sort, setSort] = useState<SortOption>('featured')
   const [maxPrice, setMaxPrice] = useState<number>(200)
@@ -290,7 +291,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
               ))}
             </nav>
             {/* Language switcher with flag */}
-            <Link href={`/${locale === 'es' ? 'en' : 'es'}${usePathname()?.replace(/^\/(es|en)/, '') || '/'}`}
+            <Link href={`/${locale === 'es' ? 'en' : 'es'}${pathname?.replace(/^\/(es|en)/, '') || '/'}`}
               className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
               aria-label={isEs ? 'Switch to English' : 'Cambiar a español'}>
               <svg className="w-5 h-3.5 rounded-sm" viewBox="0 0 50 30">

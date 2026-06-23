@@ -12,7 +12,6 @@ import CookieConsent from '../../components/CookieConsent';
 import LocalePreferenceSync from '../../components/LocalePreferenceSync';
 import BackendWarmup from '../../components/BackendWarmup';
 import NewsletterPopup from '../../components/NewsletterPopup'
-import WhatsAppButton from '../../components/WhatsAppButton';
 
 type Props = {
   children: React.ReactNode;
@@ -61,7 +60,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       locale: isEs ? 'es_ES' : 'en_US',
       images: [
         {
-          url: '/images/sleepband-pro-1.jpg',
+          url: 'https://noctip.com/images/sleepband-pro-1.jpg',
           width: 1200,
           height: 630,
           alt: 'Noctip — Premium Sleep & Recovery Technology',
@@ -70,9 +69,13 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Noctip™ — Premium Sleep & Recovery Technology',
-      description: 'Tecnología premium de sueño y recuperación. Envío gratis y garantía de 30 noches.',
-      images: ['/images/sleepband-pro-1.jpg'],
+      title: isEs
+        ? 'Noctip™ — Tecnología Premium de Sueño y Recuperación'
+        : 'Noctip™ — Premium Sleep & Recovery Technology',
+      description: isEs
+        ? 'Duerme más profundo. Recupérate mejor. Vive mejor. Envío gratis y garantía de 30 noches.'
+        : 'Sleep deeper. Recover better. Live better. Free shipping and 30-night guarantee.',
+      images: ['https://noctip.com/images/sleepband-pro-1.jpg'],
     },
     other: {
       'apple-mobile-web-app-capable': 'yes',
@@ -120,7 +123,7 @@ export default async function LocaleLayout({children, params}: Props) {
     url: 'https://noctip.com',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://noctip.com/{locale}/shop/all?q={search_term_string}',
+      target: `https://noctip.com/${locale}/shop/all?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };
@@ -193,7 +196,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: '¿Qué hace el corrector postural Noctip Wave?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El Noctip Wave es un corrector postural con soporte ergonómico en forma de Y que jorra los hombros hacia atrás y alinea la columna. Viene en 5 tallas (XS a XL) con correas ajustables. Se puede usar debajo de la ropa.',
+          text: 'El Noctip Wave es un corrector postural con soporte ergonómico en forma de Y que jala los hombros hacia atrás y alinea la columna. Viene en 5 tallas (XS a XL) con correas ajustables. Se puede usar debajo de la ropa.',
         },
       },
       {
@@ -271,7 +274,7 @@ export default async function LocaleLayout({children, params}: Props) {
         '@type': 'ListItem',
         position: 2,
         name: isEs ? 'Tienda' : 'Shop',
-        item: 'https://noctip.com/shop/all',
+        item: `https://noctip.com/${locale}/shop/all`,
       },
     ],
   };
@@ -309,7 +312,6 @@ export default async function LocaleLayout({children, params}: Props) {
           <AuthModal />
           <CookieConsent />
           <NewsletterPopup />
-          <WhatsAppButton />
         </AuthProvider>
       </CartProvider>
     </NextIntlClientProvider>

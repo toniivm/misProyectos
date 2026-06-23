@@ -509,7 +509,7 @@ export default function CheckoutPage() {
                 <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8]/15 text-[8px]">😴</div>
                 <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[8px]">🧘</div>
               </div>
-              <span>{isEs ? '10.000+ clientes satisfechos' : '10,000+ happy customers'}</span>
+              <span>{isEs ? '6.000+ clientes satisfechos' : '6,000+ happy customers'}</span>
             </div>
 
             {!hasHydrated ? (

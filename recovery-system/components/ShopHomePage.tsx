@@ -18,7 +18,7 @@ import {
   getLocalizedProductShortDescription,
   type CatalogProduct,
 } from '../lib/catalog'
-import { SocialProofNotification, StockUrgency, ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
+import { StockUrgency, ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
 import ProductImage from './ProductImage'
 
 const SHOP_HOME_COPY = {
@@ -694,7 +694,7 @@ export default function ShopHomePage() {
                     ))}
                   </div>
                   <div>
-                    <div className="text-[13px] font-semibold text-white">6.000+ personas</div>
+                    <div className="text-[13px] font-semibold text-white">{isEs ? '6.000+ personas' : '6,000+ people'}</div>
                     <div className="text-[11px] text-[#6b7785]">{isEs ? 'ya duermen mejor' : 'sleeping better already'}</div>
                   </div>
                 </div>
@@ -1027,9 +1027,6 @@ export default function ShopHomePage() {
           <span className="flex items-center gap-1"><RotateCcw size={10} className="text-[#10BFD8]" />30 {isEs ? 'días' : 'days'}</span>
         </div>
       </div>
-
-      {/* Social proof notification */}
-      <SocialProofNotification />
     </div>
   )
 }

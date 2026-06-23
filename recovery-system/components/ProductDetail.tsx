@@ -5,6 +5,7 @@ import { ArrowLeft, Check, ChevronDown, ChevronRight, Minus, Package, Plus, Rota
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useLocale } from 'next-intl';
+import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
 import { StockUrgency, ViewingNow, CountdownTimer } from './ConversionBoosters';
@@ -33,13 +34,13 @@ function Stars({ rating, size = 14 }: { rating: number; size?: number }) {
   );
 }
 
-function Badge({ type }: { type: CatalogProduct['badge'] }) {
+function Badge({ type, isEs }: { type: CatalogProduct['badge']; isEs?: boolean }) {
   if (!type) return null;
   const map = {
-    bestseller: { label: 'Best Seller', cls: 'bg-amber-400/15 text-amber-300 border-amber-400/25' },
-    new: { label: 'New', cls: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25' },
-    deal: { label: 'Deal', cls: 'bg-rose-400/15 text-rose-300 border-rose-400/25' },
-    trending: { label: 'Trending', cls: 'bg-violet-400/15 text-violet-300 border-violet-400/25' },
+    bestseller: { label: isEs ? 'Más vendido' : 'Best Seller', cls: 'bg-amber-400/15 text-amber-300 border-amber-400/25' },
+    new: { label: isEs ? 'Nuevo' : 'New', cls: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25' },
+    deal: { label: isEs ? 'Oferta' : 'Deal', cls: 'bg-rose-400/15 text-rose-300 border-rose-400/25' },
+    trending: { label: isEs ? 'Tendencia' : 'Trending', cls: 'bg-violet-400/15 text-violet-300 border-violet-400/25' },
   };
   const b = map[type];
   return (
@@ -75,6 +76,7 @@ function FAQ({ items }: { items: { q: string; a: string }[] }) {
 export default function ProductDetail({ product: legacyProduct }: { product: Product }) {
   const locale = useLocale();
   const isEs = locale === 'es';
+  const pathname = usePathname();
   const { add, open: openCart } = useCart();
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
@@ -167,7 +169,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <span className="hidden sm:block">Noctip</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Link href={`/${locale === 'es' ? 'en' : 'es'}${'/'}`}
+            <Link href={`/${locale === 'es' ? 'en' : 'es'}${pathname?.replace(/^\/(es|en)/, '') || '/'}`}
               className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
               aria-label={isEs ? 'Switch to English' : 'Cambiar a español'}>
               <svg className="w-5 h-3.5 rounded-sm" viewBox="0 0 50 30">
@@ -222,7 +224,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 className="h-full w-full"
               />
               <div className="absolute top-4 left-4 flex gap-2">
-                {product?.badge && <Badge type={product.badge} />}
+                {product?.badge && <Badge type={product.badge} isEs={isEs} />}
               </div>
             </div>
 
@@ -258,7 +260,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   {category.icon} {isEs ? (category as any).name_es ?? category.name : (category as any).name_en ?? category.name}
                 </Link>
               )}
-              {product?.badge && <Badge type={product.badge} />}
+              {product?.badge && <Badge type={product.badge} isEs={isEs} />}
             </div>
 
             {/* Title */}
