@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 type ProductType = 'halo' | 'wave' | 'sleep-headband' | 'neck-massager' | 'calm'
 
@@ -230,9 +230,20 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
 export default function ProductImage({ slug, color, icon, images, alt, className = '', activeIndex = 0 }: Props) {
   const [imgError, setImgError] = useState<Record<number, boolean>>({})
   const [imgLoaded, setImgLoaded] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
   
   const config = PRODUCT_GRAPHICS[slug] || PRODUCT_GRAPHICS['halo']
   const hasRealImage = images && images.length > activeIndex && !imgError[activeIndex]
+  const currentSrc = images?.[activeIndex]
+
+  useEffect(() => {
+    if (!currentSrc) return
+    const img = new Image()
+    img.src = currentSrc
+    if (img.complete && img.naturalWidth > 0) {
+      setImgLoaded(true)
+    }
+  }, [currentSrc])
 
   return (
     <div className={`relative overflow-hidden ${className}`} style={{ background: color }}>
@@ -248,6 +259,11 @@ export default function ProductImage({ slug, color, icon, images, alt, className
       {hasRealImage && (
         <img 
           key={`${slug}-${activeIndex}`}
+          ref={(el) => {
+            if (el && el.complete && el.naturalWidth > 0) {
+              setImgLoaded(true)
+            }
+          }}
           src={images![activeIndex]} 
           alt={alt || 'Product'} 
           onError={() => setImgError(prev => ({ ...prev, [activeIndex]: true }))}
