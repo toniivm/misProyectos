@@ -2,8 +2,8 @@
 const PRODUCTS = [
   // ─── Sleep & Anti-Snoring ──────────────────────────────────────────
   {
-    id: 'sleepband-pro',
-    slug: 'sleepband-pro',
+    id: 'halo',
+    slug: 'halo',
     title: 'Noctip Halo',
     description: 'Anti-snoring mouthpiece with precision jaw advancement to open airway and stop snoring.',
     price: 17,
@@ -24,8 +24,8 @@ const PRODUCTS = [
 
   // ─── Posture & Recovery ────────────────────────────────────────────
   {
-    id: 'white-noise-pro',
-    slug: 'white-noise-pro',
+    id: 'wave',
+    slug: 'wave',
     title: 'Noctip Wave',
     description: 'Posture corrector brace with ergonomic Y-shaped support for spine realignment.',
     price: 20,
@@ -46,8 +46,8 @@ const PRODUCTS = [
     stock: 20,
   },
   {
-    id: 'weighted-mask-pro',
-    slug: 'weighted-mask-pro',
+    id: 'calm',
+    slug: 'calm',
     title: 'Noctip Calm',
     description: 'Cervical pulse massager with floating electrode plates that adapt to neck curves.',
     price: 11,

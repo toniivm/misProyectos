@@ -850,6 +850,14 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
           metadata: { orderId, paymentMethod },
           description: `Pedido #${orderId} — Noctip`,
         },
+        // 3D Secure — obligatorio para máxima seguridad
+        // El banco del cliente solicitará verificación (código SMS, huella, etc.)
+        // Esto NO es un hackeo — es tu banco protegiendo tu compra
+        payment_method_options: {
+          card: {
+            request_three_d_secure: 'any',
+          },
+        },
         // Minimize friction: auto-redirect after payment
         after_expiration: {
           recovery: { enabled: false },

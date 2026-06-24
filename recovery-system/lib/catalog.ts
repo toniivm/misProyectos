@@ -63,7 +63,7 @@ export const CATEGORIES: Category[] = [
 export const CATALOG: CatalogProduct[] = [
   // ─── Sleep & Audio ───────────────────────────────────────────────
   {
-    slug: 'sleepband-pro',
+    slug: 'halo',
     name: 'Noctip Halo',
     name_en: 'Noctip Halo',
     name_es: 'Noctip Halo',
@@ -100,15 +100,15 @@ export const CATALOG: CatalogProduct[] = [
       'Reutilizable': 'Sí — lavable y duradera',
     },
     images: [
-      '/images/sleepband-pro-2.jpg',
-      '/images/sleepband-pro-1.jpg',
+      '/images/productos-reales/sleepband-pro.avif',
+      '/images/productos-reales/sleepband-pro-2.avif',
     ],
     icon: '😴',
     cartIcon: '😴',
     color: '#0b0f14',
   },
   {
-    slug: 'white-noise-pro',
+    slug: 'wave',
     name: 'Noctip Wave',
     name_en: 'Noctip Wave',
     name_es: 'Noctip Wave',
@@ -145,8 +145,9 @@ export const CATALOG: CatalogProduct[] = [
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
     images: [
-      '/images/white-noise-pro-1.jpg',
+      '/images/productos-reales/white-noise-pro.jpg',
       '/images/white-noise-pro-2.jpg',
+      '/images/white-noise-pro-3.jpg',
     ],
     icon: '🧘',
     cartIcon: '🧘',
@@ -187,7 +188,14 @@ export const CATALOG: CatalogProduct[] = [
       'Tallas': 'Talla única — elástica',
       'Peso': '≈45g',
     },
-    images: ['/images/sleepband-product-clean.png', '/images/products/sleep-headband.jpg'],
+    images: [
+      '/images/products/sleep-headband.jpg',
+      '/images/sleepband-lifestyle.avif',
+      '/images/sleepband-detail-clean.png',
+      '/images/productos-reales/sleep-headband.avif',
+      '/images/productos-reales/sleep-headband-2.avif',
+      '/images/sleepband-battery.avif',
+    ],
     icon: '🎧',
     cartIcon: '🎧',
     color: '#101828',
@@ -229,7 +237,10 @@ export const CATALOG: CatalogProduct[] = [
       'Material': 'Silicona suave + ABS',
       'Peso': '≈180g',
     },
-    images: ['/images/products/neck-massager.jpg'],
+    images: [
+      '/images/products/neck-massager.jpg',
+      '/images/productos-reales/neck-massager.jpg',
+    ],
     icon: '🧘',
     cartIcon: '🧘',
     color: '#121a24',
@@ -237,7 +248,7 @@ export const CATALOG: CatalogProduct[] = [
 
   // ─── Sensory & Relaxation ─────────────────────────────────────────
   {
-    slug: 'weighted-mask-pro',
+    slug: 'calm',
     name: 'Noctip Calm',
     name_en: 'Noctip Calm',
     name_es: 'Noctip Calm',
@@ -275,6 +286,8 @@ export const CATALOG: CatalogProduct[] = [
     },
     images: [
       '/images/weighted-mask-pro-1.jpg',
+      '/images/weighted-mask-pro-2.jpg',
+      '/images/weighted-mask-pro-3.jpg',
     ],
     icon: '😴',
     cartIcon: '😴',
@@ -341,7 +354,7 @@ export const BUNDLES: Bundle[] = [
     name: 'Full Sleep Pack',
     name_en: 'Full Sleep Pack',
     name_es: 'Pack Sueño Completo',
-    slugs: ['sleepband-pro', 'sleep-headband'],
+    slugs: ['halo', 'sleep-headband'],
     discountPercent: 15,
   },
   {
@@ -349,7 +362,7 @@ export const BUNDLES: Bundle[] = [
     name: 'Anti-Snore Pack',
     name_en: 'Anti-Snore Pack',
     name_es: 'Pack Anti-Ronquidos',
-    slugs: ['sleepband-pro', 'weighted-mask-pro'],
+    slugs: ['halo', 'calm'],
     discountPercent: 10,
   },
   {
@@ -357,7 +370,7 @@ export const BUNDLES: Bundle[] = [
     name: 'Recovery Pack',
     name_en: 'Recovery Pack',
     name_es: 'Pack Recuperación',
-    slugs: ['white-noise-pro', 'neck-massager', 'weighted-mask-pro'],
+    slugs: ['wave', 'neck-massager', 'calm'],
     discountPercent: 15,
   },
   {
@@ -365,7 +378,7 @@ export const BUNDLES: Bundle[] = [
     name: 'Everything Pack',
     name_en: 'Everything Pack',
     name_es: 'Pack Todo Noctip',
-    slugs: ['sleepband-pro', 'white-noise-pro', 'sleep-headband', 'neck-massager', 'weighted-mask-pro'],
+    slugs: ['halo', 'wave', 'sleep-headband', 'neck-massager', 'calm'],
     discountPercent: 20,
   },
 ]

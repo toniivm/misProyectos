@@ -31,19 +31,19 @@ const COUNTRY_FROM_CODE: Record<string, string> = Object.fromEntries(
 );
 
 const PRODUCT_BG: Record<string, string> = {
-  'sleepband-pro': '#0b0f14',
-  'white-noise-pro': '#131020',
+  'halo': '#0b0f14',
+  'wave': '#131020',
   'sleep-headband': '#101828',
   'neck-massager': '#121a24',
-  'weighted-mask-pro': '#12101e',
+  'calm': '#12101e',
 };
 
 const PRODUCT_ICON: Record<string, string> = {
-  'sleepband-pro': '😴',
-  'white-noise-pro': '🧘',
+  'halo': '😴',
+  'wave': '🧘',
   'sleep-headband': '🎧',
   'neck-massager': '🧘',
-  'weighted-mask-pro': '😴',
+  'calm': '😴',
 };
 
 const SPAIN_POSTAL_CITIES: Record<string, string> = {
@@ -435,6 +435,13 @@ export default function CheckoutPage() {
               <div className="mt-3 flex items-center justify-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-[11px] text-[#6b7280]">
                 <span className="flex items-center gap-1"><Lock size={10} className="text-[#10BFD8]" />{isEs ? 'Cifrado SSL 256-bit' : '256-bit SSL encryption'}</span>
                 <span className="flex items-center gap-1"><ShieldCheck size={10} className="text-[#10BFD8]" />{isEs ? 'Datos protegidos' : 'Data protected'}</span>
+              </div>
+
+              <div className="mt-2 rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2.5 text-[11px] leading-5 text-[#c8d0da]">
+                <span className="font-semibold text-amber-300">{isEs ? '🔐 Verificación bancaria' : '🔐 Bank verification'}</span>
+                {isEs
+                  ? ' — Tu banco te pedirá un código por SMS o desde su app para confirmar el pago. Es normal y seguro, es tu banco protegiendo tu compra.'
+                  : ' — Your bank will ask for a code via SMS or app to confirm the payment. This is normal and secure — your bank is protecting your purchase.'}
               </div>
             </section>
 

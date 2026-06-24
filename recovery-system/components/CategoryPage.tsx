@@ -16,6 +16,7 @@ import {
   getLocalizedProductShortDescription,
   type CatalogProduct,
 } from '../lib/catalog'
+import ProductImage from './ProductImage'
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating' | 'reviews'
 
@@ -111,14 +112,14 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
     <Link href={`/${locale}/products/${product.slug}`} className="group block">
       <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-white/[0.14] hover:shadow-card-hover">
         <div className="relative flex h-48 items-center justify-center overflow-hidden" style={{ background: product.color }}>
-          {product.images && product.images.length > 0 ? (
-            <img src={product.images[0]} alt={name} loading="lazy"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ objectPosition: 'center' }} />
-          ) : (
-            <span className="text-5xl opacity-60 transition-transform duration-500 group-hover:scale-110">{product.icon}</span>
-          )}
+          <ProductImage
+            slug={product.slug as any}
+            color={product.color}
+            icon={product.icon}
+            images={product.images}
+            alt={name}
+            className="h-full w-full"
+          />
           {product.badge && (
             <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} isEs={locale === 'es'} /></div>
           )}

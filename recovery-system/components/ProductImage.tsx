@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-type ProductType = 'sleepband-pro' | 'white-noise-pro' | 'sleep-headband' | 'neck-massager' | 'weighted-mask-pro'
+type ProductType = 'halo' | 'wave' | 'sleep-headband' | 'neck-massager' | 'calm'
 
 type Props = {
   slug: ProductType
@@ -18,7 +18,7 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
   gradient: string
   elements: JSX.Element
 }> = {
-  'sleepband-pro': {
+  'halo': {
     gradient: 'from-[#0d1828] via-[#0a1a2e] to-[#0d1828]',
     elements: (
       <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
@@ -58,7 +58,7 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
       </svg>
     )
   },
-  'white-noise-pro': {
+  'wave': {
     gradient: 'from-[#0d1f1a] via-[#0a1a15] to-[#0d1f1a]',
     elements: (
       <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
@@ -179,7 +179,7 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
       </svg>
     )
   },
-  'weighted-mask-pro': {
+  'calm': {
     gradient: 'from-[#12101e] via-[#0e0c18] to-[#12101e]',
     elements: (
       <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
@@ -228,11 +228,11 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
 }
 
 export default function ProductImage({ slug, color, icon, images, alt, className = '', activeIndex = 0 }: Props) {
-  const [imgError, setImgError] = useState(false)
+  const [imgError, setImgError] = useState<Record<number, boolean>>({})
   const [imgLoaded, setImgLoaded] = useState(false)
   
-  const config = PRODUCT_GRAPHICS[slug] || PRODUCT_GRAPHICS['sleepband-pro']
-  const hasRealImage = images && images.length > activeIndex && !imgError
+  const config = PRODUCT_GRAPHICS[slug] || PRODUCT_GRAPHICS['halo']
+  const hasRealImage = images && images.length > activeIndex && !imgError[activeIndex]
 
   return (
     <div className={`relative overflow-hidden ${className}`} style={{ background: color }}>
@@ -250,7 +250,7 @@ export default function ProductImage({ slug, color, icon, images, alt, className
           key={`${slug}-${activeIndex}`}
           src={images![activeIndex]} 
           alt={alt || 'Product'} 
-          onError={() => setImgError(true)}
+          onError={() => setImgError(prev => ({ ...prev, [activeIndex]: true }))}
           onLoad={() => setImgLoaded(true)}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
             imgLoaded ? 'opacity-100' : 'opacity-0'

@@ -610,7 +610,7 @@ export default function ShopHomePage() {
 
   const bestSellers = getBestSellers()
   const allProducts = CATALOG
-  const flagship = CATALOG.find(p => p.slug === 'sleepband-pro') ?? bestSellers[0]
+  const flagship = CATALOG.find(p => p.slug === 'halo') ?? bestSellers[0]
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
