@@ -35,7 +35,6 @@ const PRODUCT_BG: Record<string, string> = {
   'wave': '#131020',
   'sleep-headband': '#101828',
   'neck-massager': '#121a24',
-  'calm': '#12101e',
 };
 
 const PRODUCT_ICON: Record<string, string> = {
@@ -43,7 +42,6 @@ const PRODUCT_ICON: Record<string, string> = {
   'wave': '🧘',
   'sleep-headband': '🎧',
   'neck-massager': '🧘',
-  'calm': '😴',
 };
 
 const SPAIN_POSTAL_CITIES: Record<string, string> = {

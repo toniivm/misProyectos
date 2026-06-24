@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 
-type ProductType = 'halo' | 'wave' | 'sleep-headband' | 'neck-massager' | 'calm'
+type ProductType = 'halo' | 'wave' | 'sleep-headband' | 'neck-massager'
 
 type Props = {
   slug: ProductType
@@ -176,52 +176,6 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
         {/* USB-C indicator */}
         <rect x="185" y="295" width="30" height="12" rx="4" fill="#f2eee7" opacity="0.2" />
         <rect x="193" y="299" width="14" height="4" rx="1" fill="#10BFD8" opacity="0.4" />
-      </svg>
-    )
-  },
-  'calm': {
-    gradient: 'from-[#12101e] via-[#0e0c18] to-[#12101e]',
-    elements: (
-      <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
-        <defs>
-          <radialGradient id="calm-glow">
-            <stop offset="0%" stopColor="#9E92FF" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#9E92FF" stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id="calm-body" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#f2eee7" stopOpacity="0.2" />
-            <stop offset="50%" stopColor="#ffffff" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#f2eee7" stopOpacity="0.2" />
-          </linearGradient>
-        </defs>
-        <circle cx="200" cy="180" r="130" fill="url(#calm-glow)" />
-        
-        {/* Compact massager shape */}
-        <ellipse cx="200" cy="200" rx="70" ry="80" stroke="url(#calm-body)" strokeWidth="12" strokeOpacity="0.5" fill="none" />
-        <ellipse cx="200" cy="200" rx="70" ry="80" stroke="#f2eee7" strokeWidth="8" strokeOpacity="0.3" fill="none" />
-        
-        {/* Floating electrodes */}
-        {[
-          {cx: 165, cy: 190, r: 14},
-          {cx: 235, cy: 190, r: 14},
-          {cx: 200, cy: 245, r: 12},
-        ].map((p, i) => (
-          <g key={i}>
-            <circle cx={p.cx} cy={p.cy} r={p.r} fill="#9E92FF" opacity="0.1" />
-            <circle cx={p.cx} cy={p.cy} r={p.r/2} fill="#9E92FF" opacity="0.2" />
-            <circle cx={p.cx} cy={p.cy} r={p.r/3} fill="#C4B5FD" opacity="0.4" />
-          </g>
-        ))}
-        
-        {/* Pulse lines */}
-        {[1,2,3,4].map(i => (
-          <path key={i} d={`M${160 + i*10} ${170 - i*5} Q${200} ${160 - i*8} ${240 - i*10} ${170 - i*5}`}
-            stroke="#9E92FF" strokeWidth="1" strokeOpacity="0.15" fill="none" />
-        ))}
-        
-        {/* One-button indicator */}
-        <circle cx="200" cy="150" r="10" fill="#9E92FF" opacity="0.2" />
-        <circle cx="200" cy="150" r="5" fill="#9E92FF" opacity="0.4" />
       </svg>
     )
   }

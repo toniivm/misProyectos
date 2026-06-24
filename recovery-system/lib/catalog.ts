@@ -210,32 +210,36 @@ export const CATALOG: CatalogProduct[] = [
     category: 'neck-recovery',
     price: 15,
     comparePrice: 25,
-    rating: 4.5,
-    reviewCount: 210,
+    rating: 4.6,
+    reviewCount: 722,
+    badge: 'bestseller',
     shortDescription: 'De "no puedo girar la cabeza" a "todo bien" en 15 minutos.',
     shortDescription_en: 'From "I can\'t turn my head" to "all good" in 15 minutes.',
     shortDescription_es: 'De "no puedo girar la cabeza" a "todo bien" en 15 minutos.',
     description:
-      'Tu tensión cervical no tiene posibilidad. Tres modos de masaje — amasado, pulsación, combinación — más terapia de calor hasta 45°C. Diseñado para usarlo en tu escritorio mientras trabajas.\n\nLa forma U ergonómica se adapta a la curva de tu cuello. Los nodos de masaje profundo liberan la tensión en cada uso. Recargable por USB-C, sin cables. Apagado automático por seguridad.\n\nEn 15 minutos pasas de dolor intenso a movilidad completa. Usa una vez al día y notarás la diferencia en una semana.',
+      'Tu tensión cervical no tiene posibilidad. Tres modos de masaje — amasado, pulsación, combinación — más terapia de calor hasta 45°C. Los electrodos flotantes se adaptan automáticamente a las curvas de tu cuello, maximizando el contacto con la piel.\n\nLa forma U ergonómica se adapta a la curva de tu cuello. Un solo botón para empezar, temporización automática. Recargable por USB-C, sin cables. Apagado automático por seguridad.\n\nEn 15 minutos pasas de dolor intenso a movilidad completa. Usa una vez al día y notarás la diferencia en una semana.',
     description_en:
-      'Your cervical tension doesn\'t stand a chance. Three massage modes — knead, pulse, combination — plus heat therapy up to 45°C. Designed to use at your desk while you work.\n\nThe ergonomic U-shape conforms to your neck curve. Deep-kneading nodes release tension with every use. USB-C rechargeable, no cables. Automatic shut-off for safety.\n\nIn 15 minutes you go from intense pain to full mobility. Use once a day and you\'ll feel the difference in a week.',
+      'Your cervical tension doesn\'t stand a chance. Three massage modes — knead, pulse, combination — plus heat therapy up to 45°C. Floating electrodes automatically adapt to your neck curves, maximizing skin contact.\n\nThe ergonomic U-shape conforms to your neck curve. One button to start, automatic timing. USB-C rechargeable, no cables. Automatic shut-off for safety.\n\nIn 15 minutes you go from intense pain to full mobility. Use once a day and you\'ll feel the difference in a week.',
     description_es:
-      'Tu tensión cervical no tiene posibilidad. Tres modos de masaje — amasado, pulsación, combinación — más terapia de calor hasta 45°C. Diseñado para usarlo en tu escritorio mientras trabajas.\n\nLa forma U ergonómica se adapta a la curva de tu cuello. Los nodos de masaje profundo liberan la tensión en cada uso. Recargable por USB-C, sin cables. Apagado automático por seguridad.\n\nEn 15 minutos pasas de dolor intenso a movilidad completa. Usa una vez al día y notarás la diferencia en una semana.',
+      'Tu tensión cervical no tiene posibilidad. Tres modos de masaje — amasado, pulsación, combinación — más terapia de calor hasta 45°C. Los electrodos flotantes se adaptan automáticamente a las curvas de tu cuello, maximizando el contacto con la piel.\n\nLa forma U ergonómica se adapta a la curva de tu cuello. Un solo botón para empezar, temporización automática. Recargable por USB-C, sin cables. Apagado automático por seguridad.\n\nEn 15 minutos pasas de dolor intenso a movilidad completa. Usa una vez al día y notarás la diferencia en una semana.',
     features: [
       'Alivia tensión en 15 minutos — nodos de masaje profundo',
       'Terapia de calor opcional — hasta 45°C',
-      'Forma U ergonómica — se adapta a la curva cervical',
+      'Electrodos flotantes — se adaptan a las curvas de tu cuello',
+      'Forma U ergonómica — máximo contacto con la piel',
+      'Inicio con un botón — temporización automática',
       'Recargable por USB-C — 90 minutos por carga',
-      'Apagado automático — temporizador de seguridad de 15 min',
-      'Ligero y portátil — listo para viajar',
     ],
     specs: {
-      'Batería': '90 minutos',
-      'Niveles de calor': 'Hasta 45°C',
+      'Tipo': 'Masajeador cervical U con electrodos',
       'Modos de masaje': '3 (amasado, pulsación, combinación)',
+      'Niveles de calor': 'Hasta 45°C',
+      'Electrodos': 'Placas curvas flotantes — auto-adaptantes',
+      'Controles': 'Inicio con botón — temporización automática',
+      'Batería': '90 minutos',
       'Carga': 'USB-C',
       'Material': 'Silicona suave + ABS',
-      'Peso': '≈180g',
+      'Peso': '≈165g',
     },
     images: [
       '/images/products/neck-massager.jpg',
@@ -244,54 +248,6 @@ export const CATALOG: CatalogProduct[] = [
     icon: '🧘',
     cartIcon: '🧘',
     color: '#121a24',
-  },
-
-  // ─── Sensory & Relaxation ─────────────────────────────────────────
-  {
-    slug: 'calm',
-    name: 'Noctip Calm',
-    name_en: 'Noctip Calm',
-    name_es: 'Noctip Calm',
-    category: 'neck-recovery',
-    price: 11,
-    comparePrice: 17,
-    rating: 4.7,
-    reviewCount: 512,
-    badge: 'new',
-    shortDescription: 'Electrodos flotantes que se adaptan a tu cuello. Alivio en cualquier lugar.',
-    shortDescription_en: 'Floating electrodes that adapt to your neck. Relief anywhere.',
-    shortDescription_es: 'Electrodos flotantes que se adaptan a tu cuello. Alivio en cualquier lugar.',
-    description:
-      'El masajeador cervical más inteligente que probarás. Los electrodos flotantes se adaptan automáticamente a las curvas de tu cuello, maximizando el contacto con la piel sin ajustes manuales.\n\nUn solo botón para empezar. Temporización automática — no tienes que pensar en ello. Diseño elástico con buena recuperación, se adapta a cualquier tamaño de cuello.\n\nPeso de solo 150g. Usa en tu escritorio, en casa o de viaje. Resultados desde el primer uso.',
-    description_en:
-      'The smartest cervical massager you\'ll ever try. Floating electrodes automatically adapt to your neck curves, maximizing skin contact without manual adjustments.\n\nOne button to start. Automatic timing — you don\'t have to think about it. Elastic design with strong rebound, fits any neck size.\n\nOnly 150g. Use at your desk, at home, or traveling. Results from the first use.',
-    description_es:
-      'El masajeador cervical más inteligente que probarás. Los electrodos flotantes se adaptan automáticamente a las curvas de tu cuello, maximizando el contacto con la piel sin ajustes manuales.\n\nUn solo botón para empezar. Temporización automática — no tienes que pensar en ello. Diseño elástico con buena recuperación, se adapta a cualquier tamaño de cuello.\n\nPeso de solo 150g. Usa en tu escritorio, en casa o de viaje. Resultados desde el primer uso.',
-    features: [
-      'Electrodos flotantes — se adaptan a las curvas de tu cuello',
-      'Brazo elástico — buena recuperación, construcción duradera',
-      'Inicio con un botón — sin controles complicados',
-      'Diseño curvo — máximo contacto con la piel',
-      'Ligero y portátil — en el trabajo, en casa o viajando',
-      'Forma U ergonómica — se adapta a todos los tamaños',
-    ],
-    specs: {
-      'Tipo': 'Masajeador cervical por pulsos',
-      'Electrodos': 'Placas curvas flotantes — auto-adaptantes',
-      'Diseño': 'Brazo elástico — buena recuperación, resistencia',
-      'Controles': 'Inicio con botón — temporización automática',
-      'Alimentación': 'Batería recargable',
-      'Peso': '≈150g',
-      'Material': 'ABS + silicona suave',
-    },
-    images: [
-      '/images/weighted-mask-pro-1.webp',
-      '/images/weighted-mask-pro-2.webp',
-      '/images/weighted-mask-pro-3.webp',
-    ],
-    icon: '😴',
-    cartIcon: '😴',
-    color: '#12101e',
   },
 ]
 
@@ -302,7 +258,8 @@ export function getProductsByCategory(categoryId: string): CatalogProduct[] {
 const OLD_SLUGS: Record<string, string> = {
   'sleepband-pro': 'halo',
   'white-noise-pro': 'wave',
-  'weighted-mask-pro': 'calm',
+  'weighted-mask-pro': 'neck-massager',
+  'calm': 'neck-massager',
 }
 
 export function getCatalogProductBySlug(slug: string): CatalogProduct | undefined {
@@ -365,19 +322,11 @@ export const BUNDLES: Bundle[] = [
     discountPercent: 15,
   },
   {
-    id: 'anti-snore-pack',
-    name: 'Anti-Snore Pack',
-    name_en: 'Anti-Snore Pack',
-    name_es: 'Pack Anti-Ronquidos',
-    slugs: ['halo', 'calm'],
-    discountPercent: 10,
-  },
-  {
     id: 'recovery-pack',
     name: 'Recovery Pack',
     name_en: 'Recovery Pack',
     name_es: 'Pack Recuperación',
-    slugs: ['wave', 'neck-massager', 'calm'],
+    slugs: ['wave', 'neck-massager'],
     discountPercent: 15,
   },
   {
@@ -385,7 +334,7 @@ export const BUNDLES: Bundle[] = [
     name: 'Everything Pack',
     name_en: 'Everything Pack',
     name_es: 'Pack Todo Noctip',
-    slugs: ['halo', 'wave', 'sleep-headband', 'neck-massager', 'calm'],
+    slugs: ['halo', 'wave', 'sleep-headband', 'neck-massager'],
     discountPercent: 20,
   },
 ]
