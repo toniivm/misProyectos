@@ -299,8 +299,15 @@ export function getProductsByCategory(categoryId: string): CatalogProduct[] {
   return CATALOG.filter((p) => p.category === categoryId)
 }
 
+const OLD_SLUGS: Record<string, string> = {
+  'sleepband-pro': 'halo',
+  'white-noise-pro': 'wave',
+  'weighted-mask-pro': 'calm',
+}
+
 export function getCatalogProductBySlug(slug: string): CatalogProduct | undefined {
-  return CATALOG.find((p) => p.slug === slug)
+  const resolved = OLD_SLUGS[slug] ?? slug
+  return CATALOG.find((p) => p.slug === resolved)
 }
 
 export function getBestSellers(): CatalogProduct[] {

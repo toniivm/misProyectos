@@ -6,8 +6,10 @@ import type { Metadata } from 'next';
 
 type Props = { params: { locale: string; slug: string } };
 
+const OLD_SLUGS = ['sleepband-pro', 'white-noise-pro', 'weighted-mask-pro']
+
 export function generateStaticParams() {
-  const slugs = [...new Set(CATALOG.map((c) => c.slug))];
+  const slugs = [...new Set([...CATALOG.map((c) => c.slug), ...OLD_SLUGS])];
   return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
