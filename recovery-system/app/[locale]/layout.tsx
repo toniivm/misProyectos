@@ -60,7 +60,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       locale: isEs ? 'es_ES' : 'en_US',
       images: [
         {
-          url: 'https://noctip.com/images/sleepband-pro-1.jpg',
+          url: 'https://noctip.com/images/products/sleep-headband.jpg',
           width: 1200,
           height: 630,
           alt: 'Noctip — Premium Sleep & Recovery Technology',
@@ -75,7 +75,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       description: isEs
         ? 'Duerme más profundo. Recupérate mejor. Vive mejor. Envío gratis y garantía de 30 noches.'
         : 'Sleep deeper. Recover better. Live better. Free shipping and 30-night guarantee.',
-      images: ['https://noctip.com/images/sleepband-pro-1.jpg'],
+      images: ['https://noctip.com/images/products/sleep-headband.jpg'],
     },
     other: {
       'apple-mobile-web-app-capable': 'yes',
