@@ -18,7 +18,7 @@ import {
   getLocalizedProductShortDescription,
   type CatalogProduct,
 } from '../lib/catalog'
-import { StockUrgency, ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
+import { ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
 import ProductImage from './ProductImage'
 
 const SHOP_HOME_COPY = {

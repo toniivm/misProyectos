@@ -8,7 +8,7 @@ import { useLocale } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
-import { StockUrgency, ViewingNow, CountdownTimer } from './ConversionBoosters';
+import { ViewingNow, CountdownTimer } from './ConversionBoosters';
 import ProductImage from './ProductImage';
 
 export interface Product {
@@ -82,6 +82,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'reviews'>('description');
+  const [selectedSize, setSelectedSize] = useState('');
 
   const product = getCatalogProductBySlug(legacyProduct.slug);
   const category = product ? CATEGORIES.find((c) => c.id === product.category) : null;
@@ -104,8 +105,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
   const handleAdd = () => {
     const icon = product?.cartIcon ?? legacyProduct.icon;
+    const sizeSuffix = selectedSize ? ` (${selectedSize})` : '';
     for (let q = 0; q < qty; q++) {
-      add({ slug: legacyProduct.slug, name: displayName, price: displayPrice, icon });
+      add({ slug: legacyProduct.slug, name: displayName + sizeSuffix, price: displayPrice, icon });
     }
     setAdded(true);
     openCart();
@@ -279,11 +281,10 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             )}
 
-            {/* Social proof + urgency */}
+            {/* Social proof */}
             {product && (
               <div className="flex flex-wrap items-center gap-4">
                 <ViewingNow slug={product.slug} />
-                <StockUrgency slug={product.slug} />
               </div>
             )}
 
@@ -318,6 +319,30 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   </li>
                 ))}
               </ul>
+            )}
+
+            {/* Size selector (for products with sizes like Wave) */}
+            {product?.specs?.['Tallas'] && (
+              <div>
+                <span className="text-[13px] font-medium text-[#c8d0da] mb-2 block">
+                  {isEs ? 'Seleccionar talla' : 'Select size'}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {product.specs['Tallas'].split(' / ').map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`rounded-full border px-4 py-2 text-[12px] font-medium transition-all ${
+                        selectedSize === size
+                          ? 'border-[#10BFD8] bg-[#10BFD8]/10 text-[#10BFD8]'
+                          : 'border-white/10 bg-white/[0.03] text-[#8791a1] hover:border-white/20 hover:text-[#c8d0da]'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
 
             {/* Qty + Add to cart */}
