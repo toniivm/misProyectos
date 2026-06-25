@@ -216,15 +216,17 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Main image */}
             <div className="relative min-h-[360px] sm:min-h-[500px] overflow-hidden rounded-2xl border border-white/[0.08]"
               style={{ background: product?.color ?? '#111720' }}>
-              <ProductImage 
-                slug={product?.slug as any ?? legacyProduct.slug as any}
-                color={product?.color ?? legacyProduct.bg}
-                icon={product?.icon ?? legacyProduct.icon}
-                images={product?.images ?? []}
-                alt={displayName}
-                activeIndex={activeImg}
-                className="absolute inset-0"
-              />
+              <div className="absolute inset-0">
+                <ProductImage 
+                  slug={product?.slug as any ?? legacyProduct.slug as any}
+                  color={product?.color ?? legacyProduct.bg}
+                  icon={product?.icon ?? legacyProduct.icon}
+                  images={product?.images ?? []}
+                  alt={displayName}
+                  activeIndex={activeImg}
+                  className="h-full w-full"
+                />
+              </div>
               <div className="absolute top-4 left-4 flex gap-2">
                 {product?.badge && <Badge type={product.badge} isEs={isEs} />}
               </div>
