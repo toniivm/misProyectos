@@ -101,7 +101,6 @@ export const CATALOG: CatalogProduct[] = [
     },
     images: [
       '/images/productos-reales/sleepband-pro.avif',
-      '/images/productos-reales/sleepband-pro-2.avif',
     ],
     icon: '😴',
     cartIcon: '😴',
@@ -190,11 +189,7 @@ export const CATALOG: CatalogProduct[] = [
     },
     images: [
       '/images/products/sleep-headband.jpg',
-      '/images/sleepband-lifestyle.avif',
       '/images/sleepband-detail-clean.png',
-      '/images/productos-reales/sleep-headband.avif',
-      '/images/productos-reales/sleep-headband-2.avif',
-      '/images/sleepband-battery.avif',
     ],
     icon: '🎧',
     cartIcon: '🎧',
