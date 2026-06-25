@@ -100,7 +100,10 @@ export const CATALOG: CatalogProduct[] = [
       'Reutilizable': 'Sí — lavable y duradera',
     },
     images: [
-      '/images/productos-reales/sleepband-pro.avif',
+      '/images/sleepband-pro-1.webp',
+      '/images/sleepband-pro-2.webp',
+      '/images/sleepband-pro-3.webp',
+      '/images/sleepband-product-clean.png',
     ],
     icon: '😴',
     cartIcon: '😴',
@@ -190,6 +193,8 @@ export const CATALOG: CatalogProduct[] = [
     images: [
       '/images/products/sleep-headband.jpg',
       '/images/sleepband-detail-clean.png',
+      '/images/sleepband-lifestyle-clean.png',
+      '/images/sleepband-sport-clean.png',
     ],
     icon: '🎧',
     cartIcon: '🎧',
