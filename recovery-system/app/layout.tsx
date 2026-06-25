@@ -87,7 +87,7 @@ export default async function RootLayout({
   const locale = await getLocale()
 
   return (
-    <html lang={locale} className={`${inter.variable} ${syne.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${syne.variable}`} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -100,7 +100,7 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://noctip.com" />
       </head>
-      <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden">
+      <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <GoogleAnalytics />
         <UtmCapture />
         {children}

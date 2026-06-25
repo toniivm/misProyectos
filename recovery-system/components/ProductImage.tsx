@@ -192,7 +192,9 @@ export default function ProductImage({ slug, color, icon, images, alt, className
 
   useEffect(() => {
     if (!currentSrc) return
+    setImgLoaded(false)
     const img = new Image()
+    img.onload = () => setImgLoaded(true)
     img.src = currentSrc
     if (img.complete && img.naturalWidth > 0) {
       setImgLoaded(true)
