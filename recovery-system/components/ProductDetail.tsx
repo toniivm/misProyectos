@@ -214,7 +214,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             transition={{ duration: 0.5, ease: EASE_OUT }}
           >
             {/* Main image */}
-            <div className="relative flex min-h-[360px] sm:min-h-[500px] items-center justify-center overflow-hidden rounded-2xl border border-white/[0.08]"
+            <div className="relative min-h-[360px] sm:min-h-[500px] overflow-hidden rounded-2xl border border-white/[0.08]"
               style={{ background: product?.color ?? '#111720' }}>
               <ProductImage 
                 slug={product?.slug as any ?? legacyProduct.slug as any}
@@ -223,7 +223,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 images={product?.images ?? []}
                 alt={displayName}
                 activeIndex={activeImg}
-                className="h-full w-full"
+                className="absolute inset-0"
               />
               <div className="absolute top-4 left-4 flex gap-2">
                 {product?.badge && <Badge type={product.badge} isEs={isEs} />}
