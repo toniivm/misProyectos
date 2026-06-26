@@ -214,9 +214,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             transition={{ duration: 0.5, ease: EASE_OUT }}
           >
             {/* Main image */}
-            <div className="relative min-h-[360px] sm:min-h-[500px] overflow-hidden rounded-2xl border border-white/[0.08]"
+            <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl border border-white/[0.08]"
               style={{ background: product?.color ?? '#111720' }}>
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 flex items-center justify-center">
                 <ProductImage 
                   slug={product?.slug as any ?? legacyProduct.slug as any}
                   color={product?.color ?? legacyProduct.bg}
@@ -227,7 +227,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   className="h-full w-full"
                 />
               </div>
-              <div className="absolute top-4 left-4 flex gap-2">
+              <div className="absolute top-4 left-4 flex gap-2 z-10">
                 {product?.badge && <Badge type={product.badge} isEs={isEs} />}
               </div>
             </div>
@@ -237,12 +237,11 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {allImages.map((src, idx) => (
                   <button key={idx} onClick={() => setActiveImg(idx)}
-                    className={`overflow-hidden rounded-xl border-2 transition-all ${
+                    className={`overflow-hidden rounded-xl border-2 transition-all aspect-square ${
                       activeImg === idx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
                     }`}>
-                    <img src={src} alt="" className="h-20 w-full object-cover" loading="lazy"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                      style={{ objectPosition: idx === 0 ? '50% 10%' : idx === 1 ? '50% 70%' : '50% 40%' }} />
+                    <img src={src} alt="" className="h-full w-full object-contain p-1" loading="lazy"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
                   </button>
                 ))}
               </div>
@@ -524,11 +523,11 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               {product.images.slice(0, 3).map((src, idx) => (
                 <div key={src}
                   className={`overflow-hidden rounded-[26px] border border-white/[0.07] bg-[#10161f] ${
-                    idx === 0 ? 'sm:col-span-2 min-h-[280px]' : 'min-h-[200px]'
+                    idx === 0 ? 'sm:col-span-2 aspect-[16/9]' : 'aspect-square'
                   }`}>
                   <img src={src} alt={`${displayName} in use`} loading="lazy"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                    className="h-full w-full object-cover" />
+                    className="h-full w-full object-contain p-4" />
                 </div>
               ))}
             </div>
@@ -586,12 +585,11 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 return (
                   <Link key={p.slug} href={`/${locale}/products/${p.slug}`} className="group block">
                     <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all hover:border-white/[0.14] hover:shadow-card">
-                      <div className="flex h-32 items-center justify-center overflow-hidden" style={{ background: p.color }}>
+                      <div className="flex aspect-square items-center justify-center overflow-hidden p-4" style={{ background: p.color }}>
                         {p.images && p.images.length > 0 ? (
                           <img src={p.images[0]} alt={rName} loading="lazy"
                             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            style={{ objectPosition: 'center' }} />
+                            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" />
                         ) : (
                           <span className="text-3xl opacity-50">{p.icon}</span>
                         )}
@@ -619,7 +617,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {product?.images && product.images.length > 0 ? (
               <img src={product.images[0]} alt={displayName} loading="lazy"
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                className="h-14 w-14 shrink-0 rounded-2xl border border-white/[0.08] object-cover" />
+                className="h-14 w-14 shrink-0 rounded-2xl border border-white/[0.08] object-contain bg-[#111720] p-1" />
             ) : (
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#111720] text-2xl">
                 {product?.icon ?? legacyProduct.icon}

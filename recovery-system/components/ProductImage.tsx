@@ -204,8 +204,8 @@ export default function ProductImage({ slug, color, icon, images, alt, className
           src={images![activeIndex]} 
           alt={alt || 'Product'} 
           onError={() => setImgError(prev => ({ ...prev, [activeIndex]: true }))}
-          className="absolute inset-0 z-10 h-full w-full object-cover"
-          style={{ objectPosition: 'center' }}
+          className="absolute inset-0 h-full w-full object-contain p-4"
+          style={{ objectPosition: 'center center' }}
         />
       )}
       

@@ -264,7 +264,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219] transition-all duration-700 hover:border-[rgba(16,191,216,0.3)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(16,191,216,0.08)]"
       >
         {/* Image area - premium visual */}
-        <div className="relative flex h-56 sm:h-64 items-center justify-center overflow-hidden">
+        <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden" style={{ background: product.color }}>
           <ProductImage 
             slug={product.slug as any} 
             color={product.color}
@@ -709,12 +709,11 @@ export default function ShopHomePage() {
               >
                 <div className="relative rounded-[40px] overflow-hidden border border-white/[0.08] bg-gradient-to-br from-[#0d1828] to-[#0a0f18] shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
                   <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
-                    <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
+                    <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden">
                       <img src={flagship.images?.[1] ?? flagship.images?.[0]}
                         alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                        style={{ objectPosition: 'center' }} />
+                        className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-1000 group-hover:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent" />
                       
                       {/* Product info overlay */}
