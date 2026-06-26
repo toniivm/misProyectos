@@ -195,6 +195,7 @@ export const CATALOG: CatalogProduct[] = [
       '/images/sleepband-detail-clean.png',
       '/images/sleepband-lifestyle-clean.png',
       '/images/sleepband-sport-clean.png',
+      '/images/sleepband-lifestyle-tech.png',
     ],
     icon: '🎧',
     cartIcon: '🎧',
