@@ -30,6 +30,7 @@ export type CatalogProduct = {
   features: string[]
   specs: Record<string, string>
   images?: string[]
+  video?: string
   icon: string
   cartIcon: string
   color: string
@@ -151,6 +152,7 @@ export const CATALOG: CatalogProduct[] = [
       '/images/white-noise-pro-2.webp',
       '/images/white-noise-pro-3.webp',
     ],
+    video: '/images/pomelli_creative_video_9_16_0626MasajeEspalda.mp4',
     icon: '🧘',
     cartIcon: '🧘',
     color: '#131020',
@@ -245,6 +247,8 @@ export const CATALOG: CatalogProduct[] = [
     images: [
       '/images/products/neck-massager.jpg',
       '/images/productos-reales/neck-massager.jpg',
+      '/images/pomelli_creative_image_9_16_0626Masaje1.png',
+      '/images/pomelli_creative_image_9_16_0626Masaje2.png',
     ],
     icon: '🧘',
     cartIcon: '🧘',
