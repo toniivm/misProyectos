@@ -1016,7 +1016,7 @@ export default function ShopHomePage() {
                 <Link href={`/${locale}/products/wave`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
                     <img 
-                      src="/images/pomelli_creative_image_9_16_0626Masaje2.png" 
+                      src="/images/productos-reales/white-noise-pro.webp" 
                       alt={isEs ? 'Corrector postural Noctip Wave - alivia el dolor de espalda' : 'Noctip Wave posture corrector - relieves back pain'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />

@@ -148,7 +148,6 @@ export const CATALOG: CatalogProduct[] = [
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
     images: [
-      '/images/pomelli_creative_image_9_16_0626Masaje2.png',
       '/images/productos-reales/white-noise-pro.webp',
       '/images/white-noise-pro-2.webp',
       '/images/white-noise-pro-3.webp',
@@ -247,9 +246,9 @@ export const CATALOG: CatalogProduct[] = [
     },
     images: [
       '/images/pomelli_creative_image_9_16_0626Masaje1.png',
+      '/images/pomelli_creative_image_9_16_0626Masaje2.png',
       '/images/products/neck-massager.jpg',
       '/images/productos-reales/neck-massager.jpg',
-      '/images/pomelli_creative_image_9_16_0626Masaje2.png',
     ],
     icon: '🧘',
     cartIcon: '🧘',
