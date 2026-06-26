@@ -148,6 +148,7 @@ export const CATALOG: CatalogProduct[] = [
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
     images: [
+      '/images/pomelli_creative_image_9_16_0626Masaje2.png',
       '/images/productos-reales/white-noise-pro.webp',
       '/images/white-noise-pro-2.webp',
       '/images/white-noise-pro-3.webp',
@@ -193,11 +194,11 @@ export const CATALOG: CatalogProduct[] = [
       'Peso': '≈45g',
     },
     images: [
+      '/images/sleepband-lifestyle-tech.png',
       '/images/products/sleep-headband.jpg',
       '/images/sleepband-detail-clean.png',
       '/images/sleepband-lifestyle-clean.png',
       '/images/sleepband-sport-clean.png',
-      '/images/sleepband-lifestyle-tech.png',
     ],
     icon: '🎧',
     cartIcon: '🎧',
@@ -245,9 +246,9 @@ export const CATALOG: CatalogProduct[] = [
       'Peso': '≈165g',
     },
     images: [
+      '/images/pomelli_creative_image_9_16_0626Masaje1.png',
       '/images/products/neck-massager.jpg',
       '/images/productos-reales/neck-massager.jpg',
-      '/images/pomelli_creative_image_9_16_0626Masaje1.png',
       '/images/pomelli_creative_image_9_16_0626Masaje2.png',
     ],
     icon: '🧘',
