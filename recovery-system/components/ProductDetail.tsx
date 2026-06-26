@@ -81,6 +81,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
+  const [showVideo, setShowVideo] = useState(false);
   const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'reviews'>('description');
   const [selectedSize, setSelectedSize] = useState('');
 
@@ -214,18 +215,29 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             transition={{ duration: 0.5, ease: EASE_OUT }}
           >
             {/* Main image */}
-            <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl border border-white/[0.08]"
+            <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden"
               style={{ background: product?.color ?? '#111720' }}>
               <div className="absolute inset-0 flex items-center justify-center">
-                <ProductImage 
-                  slug={product?.slug as any ?? legacyProduct.slug as any}
-                  color={product?.color ?? legacyProduct.bg}
-                  icon={product?.icon ?? legacyProduct.icon}
-                  images={product?.images ?? []}
-                  alt={displayName}
-                  activeIndex={activeImg}
-                  className="h-full w-full"
-                />
+                {showVideo && product?.video ? (
+                  <video 
+                    src={product.video} 
+                    controls 
+                    autoPlay 
+                    loop
+                    muted
+                    className="h-full w-full object-contain"
+                  />
+                ) : (
+                  <ProductImage 
+                    slug={product?.slug as any ?? legacyProduct.slug as any}
+                    color={product?.color ?? legacyProduct.bg}
+                    icon={product?.icon ?? legacyProduct.icon}
+                    images={product?.images ?? []}
+                    alt={displayName}
+                    activeIndex={activeImg}
+                    className="h-full w-full"
+                  />
+                )}
               </div>
               <div className="absolute top-4 left-4 flex gap-2 z-10">
                 {product?.badge && <Badge type={product.badge} isEs={isEs} />}
@@ -233,19 +245,31 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
 
             {/* Thumbnails */}
-            {allImages.length > 1 && (
-              <div className="mt-3 grid grid-cols-3 gap-2">
-                {allImages.map((src, idx) => (
-                  <button key={idx} onClick={() => setActiveImg(idx)}
-                    className={`overflow-hidden rounded-xl border-2 transition-all aspect-square ${
-                      activeImg === idx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
-                    }`}>
-                    <img src={src} alt="" className="h-full w-full object-contain p-1" loading="lazy"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="mt-3 grid grid-cols-3 gap-2">
+              {allImages.map((src, idx) => (
+                <button key={idx} onClick={() => { setActiveImg(idx); setShowVideo(false); }}
+                  className={`overflow-hidden rounded-xl border-2 transition-all aspect-square ${
+                    !showVideo && activeImg === idx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
+                  }`}>
+                  <img src={src} alt="" className="h-full w-full object-contain p-1" loading="lazy"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+                </button>
+              ))}
+              {product?.video && (
+                <button onClick={() => setShowVideo(true)}
+                  className={`overflow-hidden rounded-xl border-2 transition-all aspect-square relative ${
+                    showVideo ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
+                  }`}>
+                  <div className="h-full w-full bg-[#111720] flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-[#10BFD8] flex items-center justify-center">
+                      <svg className="w-4 h-4 text-[#080c12] ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+              )}
+            </div>
           </motion.div>
 
           {/* Right — Product info */}
