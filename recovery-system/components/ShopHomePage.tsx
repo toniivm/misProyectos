@@ -914,6 +914,141 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
+            CREATIVE SHOWCASE — AI-generated social proof images
+        ═══════════════════════════════════════════════════════ */}
+        <section className="py-20 sm:py-28 overflow-hidden">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <span className="section-tag mb-4 inline-flex">
+                <Sparkles size={11} />
+                {isEs ? 'Resultados reales' : 'Real results'}
+              </span>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">
+                {isEs ? 'Erase el dolor. Recupera tu cuerpo.' : 'Erase the pain. Recover your body.'}
+              </h2>
+              <p className="mt-3 text-[15px] text-[#6b7785] max-w-lg mx-auto">
+                {isEs 
+                  ? 'Tecnología que tu cuerpo nota desde la primera noche. Diseñada para personas que no pueden permitirse dormir mal.'
+                  : 'Technology your body feels from night one. Built for people who can\'t afford to sleep badly.'}
+              </p>
+            </motion.div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+              {/* Creative 1 — Sleep Headband */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219]"
+              >
+                <Link href={`/${locale}/products/sleep-headband`} className="block">
+                  <div className="relative aspect-[9/16] overflow-hidden">
+                    <img 
+                      src="/images/sleepband-lifestyle-tech.png" 
+                      alt={isEs ? 'Banda de sueño Noctip Rest - alivia el dolor de cuello' : 'Noctip Rest sleep headband - relieves neck pain'}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <div className="inline-flex items-center rounded-full bg-[#10BFD8] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#080c12] mb-3">
+                        {isEs ? 'Más vendido' : 'Best Seller'}
+                      </div>
+                      <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Rest</h3>
+                      <p className="mt-1 text-[13px] text-[#b8c4d0]">
+                        {isEs ? 'Audio para dormir sin auriculares' : 'Sleep audio without earbuds'}
+                      </p>
+                      <div className="mt-3 flex items-center gap-2">
+                        <span className="text-[20px] font-bold text-white">€12</span>
+                        <span className="text-[13px] text-[#6b7785] line-through">€22</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* Creative 2 — Neck Massager */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219]"
+              >
+                <Link href={`/${locale}/products/neck-massager`} className="block">
+                  <div className="relative aspect-[9/16] overflow-hidden">
+                    <img 
+                      src="/images/pomelli_creative_image_9_16_0626Masaje1.png" 
+                      alt={isEs ? 'Masajeador cervical Noctip Relief - terapia de calor y pulsos' : 'Noctip Relief neck massager - heat and pulse therapy'}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <div className="inline-flex items-center rounded-full bg-amber-400/15 border border-amber-400/25 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-300 mb-3">
+                        {isEs ? 'Más vendido' : 'Best Seller'}
+                      </div>
+                      <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Relief</h3>
+                      <p className="mt-1 text-[13px] text-[#b8c4d0]">
+                        {isEs ? 'Masaje cervical con electrodos flotantes' : 'Cervical massage with floating electrodes'}
+                      </p>
+                      <div className="mt-3 flex items-center gap-2">
+                        <span className="text-[20px] font-bold text-white">€15</span>
+                        <span className="text-[13px] text-[#6b7785] line-through">€25</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+
+              {/* Creative 3 — Posture Corrector */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219]"
+              >
+                <Link href={`/${locale}/products/wave`} className="block">
+                  <div className="relative aspect-[9/16] overflow-hidden">
+                    <img 
+                      src="/images/pomelli_creative_image_9_16_0626Masaje2.png" 
+                      alt={isEs ? 'Corrector postural Noctip Wave - alivia el dolor de espalda' : 'Noctip Wave posture corrector - relieves back pain'}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <div className="inline-flex items-center rounded-full bg-emerald-400/15 border border-emerald-400/25 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 mb-3">
+                        {isEs ? 'Nuevo' : 'New'}
+                      </div>
+                      <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Wave</h3>
+                      <p className="mt-1 text-[13px] text-[#b8c4d0]">
+                        {isEs ? 'Corrige tu postura en 2 semanas' : 'Fix your posture in 2 weeks'}
+                      </p>
+                      <div className="mt-3 flex items-center gap-2">
+                        <span className="text-[20px] font-bold text-white">€20</span>
+                        <span className="text-[13px] text-[#6b7785] line-through">€32</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link href={`/${locale}/shop/all`} 
+                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[14px] font-bold text-[#080c12] transition-all hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:-translate-y-0.5">
+                {isEs ? 'Ver todos los productos' : 'View all products'} <ArrowRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
             TESTIMONIALS — Premium carousel
         ═══════════════════════════════════════════════════════ */}
         <section className="py-20 sm:py-28">
