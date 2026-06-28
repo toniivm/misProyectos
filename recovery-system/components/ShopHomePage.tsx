@@ -41,9 +41,9 @@ const SHOP_HOME_COPY = {
     heroLine2: 'Start recovering.',
     heroSubtitle: 'Products your body feels from night one. Anti-snoring, posture correction, and cervical relief — built for people who can\'t afford to sleep badly.',
     heroQuickLinks: [
-      { emoji: '😴', label: 'I snore every night', slug: 'sleep-audio' },
-      { emoji: '🧘', label: 'My neck is always tense', slug: 'neck-recovery' },
-      { emoji: '🦴', label: 'My posture is getting worse', slug: 'neck-recovery' },
+      { emoji: '', label: 'I snore every night', slug: 'sleep-audio' },
+      { emoji: '', label: 'My neck is always tense', slug: 'neck-recovery' },
+      { emoji: '', label: 'My posture is getting worse', slug: 'neck-recovery' },
     ],
     heroPrimary: 'Find my solution',
     heroSecondary: 'See best sellers',
@@ -57,17 +57,17 @@ const SHOP_HOME_COPY = {
     categoriesSub: 'Pick what bothers you most — we\'ll show you the fix',
     problemCards: [
       {
-        emoji: '😴', problem: 'Snoring ruining your sleep?', solution: 'Stop snoring. Start sleeping.',
+        emoji: '', problem: 'Snoring ruining your sleep?', solution: 'Stop snoring. Start sleeping.',
         description: 'Jaw-advancement mouthpieces that open your airway and eliminate snoring at the source. Your partner sleeps better too.',
         slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520',
       },
       {
-        emoji: '🧘', problem: 'Chronic neck pain?', solution: 'Pulse therapy that adapts to you.',
+        emoji: '', problem: 'Chronic neck pain?', solution: 'Pulse therapy that adapts to you.',
         description: 'Cervical massagers with floating electrodes that conform to your neck curves. Relief at your desk, at home, anywhere.',
         slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520',
       },
       {
-        emoji: '🦴', problem: 'Bad posture from desk work?', solution: 'Fix your posture. Free your neck.',
+        emoji: '', problem: 'Bad posture from desk work?', solution: 'Fix your posture. Free your neck.',
         description: 'Posture corrector braces that realign your spine and relieve chronic back pain. Visible results in 2 weeks.',
         slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520',
       },
@@ -77,9 +77,9 @@ const SHOP_HOME_COPY = {
     stepsHeading: 'How it works',
     stepsSub: 'Three steps to better rest',
     steps: [
-      { step: '01', icon: '🎯', title: 'Pick your problem', text: 'Snoring? Bad posture? Neck pain? Choose what bothers you and we\'ll show you exactly what helps.' },
-      { step: '02', icon: '📦', title: 'At your door tomorrow', text: 'Free shipping. Real-time tracking. We process and ship within 24 hours. No surprises.' },
-      { step: '03', icon: '✨', title: '30 nights to decide', text: 'If you don\'t feel the difference, we refund every cent. No questions. That\'s how confident we are.' },
+      { step: '01', icon: '01', title: 'Pick your problem', text: 'Snoring? Bad posture? Neck pain? Choose what bothers you and we\'ll show you exactly what helps.' },
+      { step: '02', icon: '02', title: 'At your door tomorrow', text: 'Free shipping. Real-time tracking. We process and ship within 24 hours. No surprises.' },
+      { step: '03', icon: '03', title: '30 nights to decide', text: 'If you don\'t feel the difference, we refund every cent. No questions. That\'s how confident we are.' },
     ],
     testimonialsHeading: 'Real people. Real results.',
     testimonialsSub: 'Verified reviews from actual buyers',
@@ -134,9 +134,9 @@ const SHOP_HOME_COPY = {
     heroLine2: 'Empieza a recuperarte.',
     heroSubtitle: 'Productos que tu cuerpo nota desde la primera noche. Anti-ronquidos, corrección postural y alivio cervical — para gente que no puede permitirse dormir mal.',
     heroQuickLinks: [
-      { emoji: '😴', label: 'Rono todas las noches', slug: 'sleep-audio' },
-      { emoji: '🧘', label: 'Tengo el cuello siempre tenso', slug: 'neck-recovery' },
-      { emoji: '🦴', label: 'Mi postura está empeorando', slug: 'neck-recovery' },
+      { emoji: '', label: 'Rono todas las noches', slug: 'sleep-audio' },
+      { emoji: '', label: 'Tengo el cuello siempre tenso', slug: 'neck-recovery' },
+      { emoji: '', label: 'Mi postura está empeorando', slug: 'neck-recovery' },
     ],
     heroPrimary: 'Encontrar mi solución',
     heroSecondary: 'Ver más vendidos',
@@ -149,18 +149,18 @@ const SHOP_HOME_COPY = {
     categoriesHeading: '¿Cuál es tu problema?',
     categoriesSub: 'Elige lo que más te molesta — te mostramos la solución',
     problemCards: [
-      { emoji: '😴', problem: '¿Roncas todas las noches?', solution: 'Deja de roncar. Empieza a dormir.', description: 'Férulas de avanzamiento mandibular que abren tu vía aérea y eliminan los ronquidos en su origen. Tu pareja también duerme mejor.', slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520' },
-      { emoji: '🧘', problem: '¿Dolor cervical crónico?', solution: 'Terapia por pulsos que se adapta a ti.', description: 'Masajeadores cervicales con electrodos flotantes que se adaptan a las curvas de tu cuello. Alivio en el trabajo, en casa, en cualquier lugar.', slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520' },
-      { emoji: '🦴', problem: '¿Mala postura por trabajar sentado?', solution: 'Mejora tu postura. Libera tu cuello.', description: 'Correctores posturales que realinean tu columna y alivian el dolor crónico de espalda. Resultados visibles en 2 semanas.', slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520' },
+      { emoji: '', problem: '¿Roncas todas las noches?', solution: 'Deja de roncar. Empieza a dormir.', description: 'Férulas de avanzamiento mandibular que abren tu vía aérea y eliminan los ronquidos en su origen. Tu pareja también duerme mejor.', slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520' },
+      { emoji: '', problem: '¿Dolor cervical crónico?', solution: 'Terapia por pulsos que se adapta a ti.', description: 'Masajeadores cervicales con electrodos flotantes que se adaptan a las curvas de tu cuello. Alivio en el trabajo, en casa, en cualquier lugar.', slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520' },
+      { emoji: '', problem: '¿Mala postura por trabajar sentado?', solution: 'Mejora tu postura. Libera tu cuello.', description: 'Correctores posturales que realinean tu columna y alivian el dolor crónico de espalda. Resultados visibles en 2 semanas.', slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520' },
     ],
     bestSellersHeading: 'Más vendidos',
     bestSellersSub: 'Productos que 6.000+ personas ya usan cada noche',
     stepsHeading: 'Cómo funciona',
     stepsSub: 'Tres pasos para descansar mejor',
     steps: [
-      { step: '01', icon: '🎯', title: 'Elige tu problema', text: '¿Roncas? ¿Mala postura? ¿Dolor de cuello? Elige lo que más te molesta y te mostramos exactamente qué te ayuda.' },
-      { step: '02', icon: '📦', title: 'Mañana en tu puerta', text: 'Envío gratis. Seguimiento en tiempo real. Procesamos y enviamos en 24 horas. Sin sorpresas.' },
-      { step: '03', icon: '✨', title: '30 noches para decidir', text: 'Si no notas la diferencia, te devolvemos cada euro. Sin preguntas. Así de seguros estamos.' },
+      { step: '01', icon: '01', title: 'Elige tu problema', text: '¿Roncas? ¿Mala postura? ¿Dolor de cuello? Elige lo que más te molesta y te mostramos exactamente qué te ayuda.' },
+      { step: '02', icon: '02', title: 'Mañana en tu puerta', text: 'Envío gratis. Seguimiento en tiempo real. Procesamos y enviamos en 24 horas. Sin sorpresas.' },
+      { step: '03', icon: '03', title: '30 noches para decidir', text: 'Si no notas la diferencia, te devolvemos cada euro. Sin preguntas. Así de seguros estamos.' },
     ],
     testimonialsHeading: 'Personas reales. Resultados reales.',
     testimonialsSub: 'Reseñas verificadas de compradores reales',
@@ -687,9 +687,9 @@ export default function ShopHomePage() {
                 {/* Social proof */}
                 <div className="mt-10 flex items-center gap-6">
                   <div className="flex -space-x-2">
-                    {['👩', '👨', '👩‍🦰', '🧑', '👴'].map((emoji, i) => (
-                      <div key={i} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#080c12] bg-[#1a2332] text-sm">
-                        {emoji}
+                    {['A', 'M', 'C', 'L', 'D'].map((letter, i) => (
+                      <div key={i} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#080c12] bg-[#1a2332] text-[11px] font-semibold text-[#9aa7b9]">
+                        {letter}
                       </div>
                     ))}
                   </div>
@@ -864,28 +864,28 @@ export default function ShopHomePage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
-                  icon: '🎯',
+                  icon: '',
                   title: isEs ? 'Un problema, un producto' : 'One problem, one product',
                   text: isEs ? 'Cada producto resuelve UN problema específico. Sin distracciones, sin compromisos.' : 'Each product solves ONE specific problem. No distractions, no compromises.',
                   stat: '5',
                   statLabel: isEs ? 'Productos' : 'Products',
                 },
                 {
-                  icon: '🔬',
+                  icon: '',
                   title: isEs ? 'Probado, no prometido' : 'Tested, not promised',
                   text: isEs ? '6.000+ clientes reales. Resultados que hablan por sí solos.' : '6,000+ real customers. Results that speak for themselves.',
                   stat: '4.9',
                   statLabel: isEs ? 'Estrellas media' : 'Avg rating',
                 },
                 {
-                  icon: '🛡️',
+                  icon: '',
                   title: isEs ? 'Sin riesgo' : 'Zero risk',
                   text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro.' : '30 nights to try it. If it doesn\'t work, we refund every cent.',
                   stat: '30',
                   statLabel: isEs ? 'Noches garantía' : 'Night guarantee',
                 },
                 {
-                  icon: '⚡',
+                  icon: '',
                   title: isEs ? 'Envío inmediato' : 'Instant shipping',
                   text: isEs ? 'Enviamos en 24 horas. Mañana en tu puerta.' : 'We ship within 24 hours. At your door tomorrow.',
                   stat: '24h',
@@ -982,13 +982,9 @@ export default function ShopHomePage() {
               >
                 <Link href={`/${locale}/products/neck-massager`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
-                    <video 
-                      src="/images/pomelli_creative_video_9_16_0626MasajeEspalda.mp4"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
+                    <img 
+                      src="/images/masajeadorbuenoo1.png" 
+                      alt={isEs ? 'Noctip Cervical - alivio cervical profesional' : 'Noctip Cervical - professional cervical relief'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />

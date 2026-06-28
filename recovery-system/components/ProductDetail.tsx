@@ -454,7 +454,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-[13px] font-semibold text-emerald-300">
-                        🎉 {isEs ? 'Combina y ahorra' : 'Bundle & save'} — -{matchingBundle.discountPercent}%
+                        {isEs ? 'Combina y ahorra' : 'Bundle & save'} — -{matchingBundle.discountPercent}%
                       </span>
                     </div>
                     <p className="text-[12px] text-[#8791a1] mb-3">

@@ -147,7 +147,7 @@ export default function CartSidebar() {
                   >
                     <div className="flex items-center justify-between text-[13px]">
                       <span className="font-semibold text-emerald-300">
-                        🎉 Bundle: {isEs ? activeBundle.name_es ?? activeBundle.name : activeBundle.name_en || activeBundle.name} (-{activeBundle.discountPercent}%)
+                        Bundle: {isEs ? activeBundle.name_es ?? activeBundle.name : activeBundle.name_en || activeBundle.name} (-{activeBundle.discountPercent}%)
                       </span>
                       <span className="font-bold text-emerald-300">-€{bundleDiscount.toFixed(2)}</span>
                     </div>
