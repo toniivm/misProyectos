@@ -62,15 +62,15 @@ export const CATEGORIES: Category[] = [
 ]
 
 export const CATALOG: CatalogProduct[] = [
-  // ─── Sleep & Audio ───────────────────────────────────────────────
+  // ─── Sleep & Anti-Snoring ──────────────────────────────────────────
   {
     slug: 'halo',
     name: 'Noctip Halo',
     name_en: 'Noctip Halo',
     name_es: 'Noctip Halo',
     category: 'sleep-audio',
-    price: 17,
-    comparePrice: 30,
+    price: 17.99,
+    comparePrice: 29.99,
     rating: 4.9,
     reviewCount: 1578,
     badge: 'bestseller',
@@ -78,7 +78,7 @@ export const CATALOG: CatalogProduct[] = [
     shortDescription_en: 'Stop snoring from night one. Your partner sleeps better too.',
     shortDescription_es: 'Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor.',
     description:
-      'Cada noche que roncas, arruinas tu descanso y el de tu pareja. El Noctip Halo resuelve el problema en su origen: avanza suavemente la mandíbula para abrir la vía aérea, eliminando los ronquidos antes de que empiecen.\n\nEl diseño ajustable de doble capa se adapta perfectamente a tu boca con 10mm de micro-ajustes. Silicona de grado médico, hipoalergénica, suave y segura para uso nocturno. Incluye estuche de viaje compacto.\n\nDesde la primera noche notarás la diferencia. Despiertas descansado, sin fatiga, sin dolor de garganta. Y tu pareja endulza por fin en silencio.',
+      'Cada noche que roncas, arruinas tu descanso y el de tu pareja. El Noctip Halo resuelve el problema en su origen: avanza suavemente la mandíbula para abrir la vía aérea, eliminando los ronquidos antes de que empiecen.\n\nEl diseño ajustable de doble capa se adapta perfectamente a tu boca con 10mm de micro-ajustes. Silicona de grado médico, hipoalergénica, suave y segura para uso nocturno. Incluye estuche de viaje compacto.\n\nDesde la primera noche notarás la diferencia. Despiertas descansado, sin fatiga, sin dolor de garganta. Y tu pareja duerme por fin en silencio.',
     description_en:
       'Every night you snore, you ruin your rest — and your partner\'s. The Noctip Halo fixes the problem at its source: it gently advances your jaw to open your airway, stopping snoring before it starts.\n\nThe adjustable dual-layer design fits your mouth perfectly with 10mm of micro-adjustments. Medical-grade silicone, hypoallergenic, soft and safe for nightly use. Includes compact travel case.\n\nFrom night one you\'ll feel the difference. You wake up rested, no fatigue, no sore throat. And your partner finally sleeps in silence.',
     description_es:
@@ -116,8 +116,8 @@ export const CATALOG: CatalogProduct[] = [
     name_en: 'Noctip Wave',
     name_es: 'Noctip Wave',
     category: 'neck-recovery',
-    price: 20,
-    comparePrice: 32,
+    price: 19.99,
+    comparePrice: 31.99,
     rating: 4.8,
     reviewCount: 812,
     badge: 'new',
@@ -163,8 +163,8 @@ export const CATALOG: CatalogProduct[] = [
     name_en: 'Noctip Rest',
     name_es: 'Noctip Rest',
     category: 'sleep-audio',
-    price: 12,
-    comparePrice: 22,
+    price: 11.99,
+    comparePrice: 21.99,
     rating: 4.4,
     reviewCount: 120,
     shortDescription: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
@@ -204,15 +204,15 @@ export const CATALOG: CatalogProduct[] = [
     color: '#101828',
   },
  
-  // ─── Neck & Recovery ─────────────────────────────────────────────
+  // ─── Posture & Recovery ────────────────────────────────────────────
   {
     slug: 'neck-massager',
     name: 'Noctip Cervical',
     name_en: 'Noctip Cervical',
     name_es: 'Noctip Cervical',
     category: 'neck-recovery',
-    price: 15,
-    comparePrice: 25,
+    price: 14.99,
+    comparePrice: 24.99,
     rating: 4.6,
     reviewCount: 722,
     badge: 'bestseller',
