@@ -299,7 +299,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </ul>
             )}
 
-            {/* Size selector (for products with sizes like Wave) */}
+            {/* Size selector (for products with sizes like Back) */}
             {product?.specs?.['Tallas'] && (
               <div>
                 <span className="text-[13px] font-medium text-[#c8d0da] mb-2 block">

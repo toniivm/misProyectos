@@ -193,10 +193,10 @@ export default async function LocaleLayout({children, params}: Props) {
       },
       {
         '@type': 'Question',
-        name: '¿Qué hace el corrector postural Noctip Wave?',
+        name: '¿Qué hace el corrector postural Noctip Back?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El Noctip Wave es un corrector postural con soporte ergonómico en forma de Y que jala los hombros hacia atrás y alinea la columna. Viene en 5 tallas (XS a XL) con correas ajustables. Se puede usar debajo de la ropa.',
+          text: 'El Noctip Back es un corrector postural con soporte ergonómico en forma de Y que jala los hombros hacia atrás y alinea la columna. Viene en 5 tallas (XS a XL) con correas ajustables. Se puede usar debajo de la ropa.',
         },
       },
       {
@@ -212,7 +212,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: '¿Qué productos vende Noctip?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Noctip vende tecnología de sueño y recuperación: férulas anti-ronquidos (Noctip Halo), correctores posturales (Noctip Wave), bandas de audio para dormir (Noctip Rest) y masajeadores cervicales (Noctip Cervical).',
+          text: 'Noctip vende tecnología de sueño y recuperación: férulas anti-ronquidos (Noctip Halo), correctores posturales (Noctip Back), bandas de audio para dormir (Noctip Rest) y masajeadores cervicales (Noctip Cervical).',
         },
       },
     ] : [
@@ -234,10 +234,10 @@ export default async function LocaleLayout({children, params}: Props) {
       },
       {
         '@type': 'Question',
-        name: 'What does the Noctip Wave posture corrector do?',
+        name: 'What does the Noctip Back posture corrector do?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The Noctip Wave is a posture corrector with ergonomic Y-shaped support that pulls your shoulders back and aligns your spine. It comes in 5 sizes (XS to XL) with adjustable straps and can be worn under clothing.',
+          text: 'The Noctip Back is a posture corrector with ergonomic Y-shaped support that pulls your shoulders back and aligns your spine. It comes in 5 sizes (XS to XL) with adjustable straps and can be worn under clothing.',
         },
       },
       {
@@ -253,7 +253,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: 'What products does Noctip sell?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Noctip sells sleep and recovery technology: anti-snoring mouthpieces (Noctip Halo), posture correctors (Noctip Wave), sleep audio headbands (Noctip Rest), and cervical massagers (Noctip Cervical).',
+          text: 'Noctip sells sleep and recovery technology: anti-snoring mouthpieces (Noctip Halo), posture correctors (Noctip Back), sleep audio headbands (Noctip Rest), and cervical massagers (Noctip Cervical).',
         },
       },
     ],
