@@ -20,6 +20,9 @@ import {
 } from '../lib/catalog'
 import { ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
 import ProductImage from './ProductImage'
+import Stars from './ui/Stars'
+import Badge from './ui/Badge'
+import FAQ from './ui/FAQ'
 
 const SHOP_HOME_COPY = {
   en: {
@@ -204,34 +207,6 @@ function getCopy(locale: string): CopyType {
   return locale === 'es' ? SHOP_HOME_COPY.es as CopyType : SHOP_HOME_COPY.en
 }
 
-function Stars({ rating, size = 12 }: { rating: number; size?: number }) {
-  return (
-    <span className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <Star key={i} size={size}
-          className={i <= Math.round(rating) ? 'fill-amber-400 text-amber-400' : 'fill-transparent text-white/20'} />
-      ))}
-    </span>
-  )
-}
-
-function Badge({ type, locale }: { type?: CatalogProduct['badge']; locale: string }) {
-  if (!type) return null
-  const c = getCopy(locale)
-  const map = {
-    bestseller: { label: c.badgeLabels.bestseller, cls: 'bg-amber-400/15 text-amber-300 border-amber-400/25' },
-    new: { label: c.badgeLabels.new, cls: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25' },
-    deal: { label: c.badgeLabels.deal, cls: 'bg-rose-400/15 text-rose-300 border-rose-400/25' },
-    trending: { label: c.badgeLabels.trending, cls: 'bg-violet-400/15 text-violet-300 border-violet-400/25' },
-  }
-  const b = map[type]
-  return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] ${b.cls}`}>
-      {b.label}
-    </span>
-  )
-}
-
 function ProductCard({ product, locale }: { product: CatalogProduct; locale: string }) {
   const { add, open: openCart } = useCart()
   const [added, setAdded] = useState(false)
@@ -261,7 +236,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219] transition-all duration-700 hover:border-[rgba(16,191,216,0.3)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(16,191,216,0.08)]"
+        className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card card-elevated transition-all duration-700 hover:border-[rgba(16,191,216,0.3)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(16,191,216,0.08)]"
       >
         {/* Image area - premium visual */}
         <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden" style={{ background: product.color }}>
@@ -288,7 +263,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           <div className="absolute bottom-0 left-0 right-0 p-4 pt-8 bg-gradient-to-t from-[#0d1219] via-[#0d1219]/80 to-transparent">
             <div className="flex items-center gap-1.5">
               <Stars rating={product.rating} />
-              <span className="text-[11px] text-[#8791a1]">
+              <span className="text-[11px] text-[#9aa7b9]">
                 {product.rating} ({product.reviewCount.toLocaleString(localeStr)})
               </span>
             </div>
@@ -301,7 +276,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           <h3 className="text-[16px] font-bold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
           
           {/* Description */}
-          <p className="line-clamp-2 text-[13px] leading-5 text-[#8791a1]">{desc}</p>
+          <p className="line-clamp-2 text-[13px] leading-5 text-[#9aa7b9]">{desc}</p>
           
           {/* Price + CTA */}
           <div className="mt-auto flex items-end justify-between gap-3 pt-4 border-t border-white/[0.06]">
@@ -333,7 +308,7 @@ function AnnouncementBar({ copy }: { copy: CopyType }) {
         className="flex w-max items-center gap-10"
       >
         {[...copy.announcement, ...copy.announcement].map((msg, i) => (
-          <span key={`${msg}-${i}`} className="shrink-0 text-[11px] font-medium uppercase tracking-[0.14em] text-[#8791a1]">
+          <span key={`${msg}-${i}`} className="shrink-0 text-[11px] font-medium uppercase tracking-[0.14em] text-[#9aa7b9]">
             {msg}
           </span>
         ))}
@@ -501,7 +476,7 @@ function UserMenu({ locale, t }: { locale: string; t: (key: string) => string })
           <motion.div
             initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.12 }}
-            className="absolute right-0 top-full z-50 mt-2 w-52 overflow-hidden rounded-xl border border-white/[0.1] bg-[#0d1219] shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
+            className="absolute right-0 top-full z-50 mt-2 w-52 overflow-hidden rounded-xl border border-white/[0.1] bg-base-card shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
             <Link href={`/${locale}/account/orders`} onClick={() => setOpen(false)}
               className="flex items-center gap-3 px-4 py-3 text-sm text-[#c8d4e2] transition hover:bg-white/[0.04] hover:text-white">
               <PackageCheck size={14} className="text-[#8ea7c7]" />
@@ -519,36 +494,6 @@ function UserMenu({ locale, t }: { locale: string; t: (key: string) => string })
   )
 }
 
-function FAQ({ items }: { items: { q: string; a: string }[] }) {
-  const [openIdx, setOpenIdx] = useState<number | null>(null)
-
-  return (
-    <div className="grid gap-3">
-      {items.map((faq, idx) => (
-        <div key={idx}
-          className={`rounded-2xl border border-white/[0.07] bg-white/[0.02] transition-all duration-300 ${
-            openIdx === idx ? 'border-white/[0.15] bg-white/[0.04]' : ''
-          }`}>
-          <button
-            onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-            className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
-            <span className="text-[14px] font-semibold text-[#f2eee7]">{faq.q}</span>
-            <ChevronDown size={16}
-              className={`shrink-0 text-[#6b7785] transition-transform duration-300 ${
-                openIdx === idx ? 'rotate-180' : ''
-              }`} />
-          </button>
-          <div className={`overflow-hidden transition-all duration-300 ${
-            openIdx === idx ? 'max-h-48' : 'max-h-0'
-          }`}>
-            <p className="px-5 pb-4 text-[13px] leading-6 text-[#8791a1]">{faq.a}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 function Testimonials({ reviews, copy }: { reviews: CopyType['reviews']; copy: CopyType }) {
   const [active, setActive] = useState(0)
   const max = Math.ceil(reviews.length / 2)
@@ -561,7 +506,7 @@ function Testimonials({ reviews, copy }: { reviews: CopyType['reviews']; copy: C
             key={`${review.author}-${review.product}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 transition-all hover:border-white/[0.12]"
+            className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 transition-all hover:border-white/[0.12]"
           >
             <div className="flex items-center gap-2 mb-2">
               <Stars rating={review.stars} />
@@ -573,7 +518,7 @@ function Testimonials({ reviews, copy }: { reviews: CopyType['reviews']; copy: C
                 <div className="text-[12px] font-semibold text-[#f2eee7]">{review.author}</div>
                 <div className="text-[11px] text-[#6b7785]">{review.role}</div>
               </div>
-              <span className="rounded-full border border-white/[0.07] bg-white/[0.03] px-2.5 py-1 text-[10px] text-[#8791a1]">{review.product}</span>
+              <span className="rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-1 text-[10px] text-[#9aa7b9]">{review.product}</span>
             </div>
           </motion.div>
         ))}
@@ -656,7 +601,7 @@ export default function ShopHomePage() {
                   </span>
                 </h1>
 
-                <p className="mt-6 max-w-lg text-[16px] leading-8 text-[#8791a1]">{copy.heroSubtitle}</p>
+                <p className="mt-6 max-w-lg text-[16px] leading-8 text-[#9aa7b9]">{copy.heroSubtitle}</p>
 
                 {/* Quick links */}
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -747,7 +692,7 @@ export default function ShopHomePage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.5 }}
-                  className="absolute -bottom-3 left-3 sm:-bottom-4 sm:left-4 rounded-2xl border border-white/[0.1] bg-[#0d1219]/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                  className="absolute -bottom-3 left-3 sm:-bottom-4 sm:left-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20">
@@ -765,7 +710,7 @@ export default function ShopHomePage() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8, duration: 0.5 }}
-                  className="absolute -top-3 right-3 sm:-top-4 sm:right-4 rounded-2xl border border-white/[0.1] bg-[#0d1219]/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                  className="absolute -top-3 right-3 sm:-top-4 sm:right-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
                 >
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-0.5">
@@ -900,7 +845,9 @@ export default function ShopHomePage() {
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
                   className="group relative rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-500 hover:border-[#10BFD8]/20 hover:bg-[#10BFD8]/[0.03] hover:shadow-[0_0_40px_rgba(16,191,216,0.05)]"
                 >
-                  <span className="text-4xl">{item.icon}</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[13px] font-bold text-[#10BFD8]">
+                    {idx + 1}
+                  </div>
                   <h3 className="mt-4 text-[15px] font-bold text-white">{item.title}</h3>
                   <p className="mt-2 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
                   <div className="mt-4 pt-4 border-t border-white/[0.06]">
@@ -945,7 +892,7 @@ export default function ShopHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219]"
+                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/sleep-headband`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
@@ -964,7 +911,7 @@ export default function ShopHomePage() {
                         {isEs ? 'Audio para dormir sin auriculares' : 'Sleep audio without earbuds'}
                       </p>
                       <div className="mt-3 flex items-center gap-2">
-                        <span className="text-[20px] font-bold text-white">€12</span>
+                        <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'sleep-headband')?.price}</span>
                         <span className="text-[13px] text-[#6b7785] line-through">€22</span>
                       </div>
                     </div>
@@ -978,7 +925,7 @@ export default function ShopHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219]"
+                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/neck-massager`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
@@ -997,7 +944,7 @@ export default function ShopHomePage() {
                         {isEs ? 'Alivio cervical profesional en 15 minutos' : 'Professional cervical relief in 15 minutes'}
                       </p>
                       <div className="mt-3 flex items-center gap-2">
-                        <span className="text-[20px] font-bold text-white">€15</span>
+                        <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'neck-massager')?.price}</span>
                         <span className="text-[13px] text-[#6b7785] line-through">€25</span>
                       </div>
                     </div>
@@ -1011,7 +958,7 @@ export default function ShopHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0d1219]"
+                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/wave`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
@@ -1030,7 +977,7 @@ export default function ShopHomePage() {
                         {isEs ? 'Corrige tu postura en 2 semanas' : 'Fix your posture in 2 weeks'}
                       </p>
                       <div className="mt-3 flex items-center gap-2">
-                        <span className="text-[20px] font-bold text-white">€20</span>
+                        <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'wave')?.price}</span>
                         <span className="text-[13px] text-[#6b7785] line-through">€32</span>
                       </div>
                     </div>
@@ -1112,7 +1059,7 @@ export default function ShopHomePage() {
               <h2 className="text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-white">
                 {copy.ctaHeading}
               </h2>
-              <p className="mt-5 max-w-lg mx-auto text-[16px] leading-7 text-[#8791a1]">{copy.ctaSub}</p>
+              <p className="mt-5 max-w-lg mx-auto text-[16px] leading-7 text-[#9aa7b9]">{copy.ctaSub}</p>
               
               <div className="mt-6 flex items-center justify-center">
                 <CountdownTimer />

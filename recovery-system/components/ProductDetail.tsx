@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, Check, ChevronDown, ChevronRight, Minus, Package, Plus, RotateCcw, Shield, ShoppingCart, Star, Truck, Eye, Flame } from 'lucide-react';
+import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, RotateCcw, Shield, ShoppingCart, Truck } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useLocale } from 'next-intl';
@@ -10,6 +10,9 @@ import { useCart } from '../context/CartContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
 import { ViewingNow, CountdownTimer } from './ConversionBoosters';
 import ProductImage from './ProductImage';
+import Stars from './ui/Stars';
+import Badge from './ui/Badge';
+import FAQ from './ui/FAQ';
 
 export interface Product {
   slug: string;
@@ -22,56 +25,6 @@ export interface Product {
 }
 
 const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
-
-function Stars({ rating, size = 14 }: { rating: number; size?: number }) {
-  return (
-    <span className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <Star key={i} size={size}
-          className={i <= Math.round(rating) ? 'fill-amber-400 text-amber-400' : 'fill-transparent text-white/20'} />
-      ))}
-    </span>
-  );
-}
-
-function Badge({ type, isEs }: { type: CatalogProduct['badge']; isEs?: boolean }) {
-  if (!type) return null;
-  const map = {
-    bestseller: { label: isEs ? 'Más vendido' : 'Best Seller', cls: 'bg-amber-400/15 text-amber-300 border-amber-400/25' },
-    new: { label: isEs ? 'Nuevo' : 'New', cls: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25' },
-    deal: { label: isEs ? 'Oferta' : 'Deal', cls: 'bg-rose-400/15 text-rose-300 border-rose-400/25' },
-    trending: { label: isEs ? 'Tendencia' : 'Trending', cls: 'bg-violet-400/15 text-violet-300 border-violet-400/25' },
-  };
-  const b = map[type];
-  return (
-    <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] ${b.cls}`}>
-      {b.label}
-    </span>
-  );
-}
-
-function FAQ({ items }: { items: { q: string; a: string }[] }) {
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
-  return (
-    <div className="grid gap-3">
-      {items.map((faq, idx) => (
-        <div key={idx} className={`rounded-2xl border border-white/[0.07] bg-white/[0.02] transition-all duration-300 ${
-          openIdx === idx ? 'border-white/[0.15] bg-white/[0.04]' : ''
-        }`}>
-          <button onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-            className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left">
-            <span className="text-[14px] font-semibold text-[#f2eee7]">{faq.q}</span>
-            <ChevronDown size={16}
-              className={`shrink-0 text-[#6b7785] transition-transform duration-300 ${openIdx === idx ? 'rotate-180' : ''}`} />
-          </button>
-          <div className={`overflow-hidden transition-all duration-300 ${openIdx === idx ? 'max-h-48' : 'max-h-0'}`}>
-            <p className="px-5 pb-4 text-[13px] leading-6 text-[#8791a1]">{faq.a}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export default function ProductDetail({ product: legacyProduct }: { product: Product }) {
   const locale = useLocale();
@@ -175,7 +128,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <Link href={`/${locale === 'es' ? 'en' : 'es'}${pathname?.replace(/^\/(es|en)/, '') || '/'}`}
               className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
               aria-label={isEs ? 'Switch to English' : 'Cambiar a español'}>
-              <svg className="w-5 h-3.5 rounded-sm" viewBox="0 0 50 30">
+              <svg className="w-5 h-3.5 rounded-sm" viewBox="0 0 60 30">
                 {isEs ? (
                   <><rect width="50" height="30" fill="#c60b1e"/><rect y="3" width="50" height="24" fill="#ffc400"/><rect y="3" width="50" height="4" fill="#c60b1e"/><rect y="23" width="50" height="4" fill="#c60b1e"/></>
                 ) : (
@@ -185,7 +138,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <span>{isEs ? 'EN' : 'ES'}</span>
             </Link>
             <Link href={`/${locale}/checkout`}
-              className="btn-light !rounded-full !px-5 !py-2 !text-[12px]">
+              className="btn-secondary">
               {isEs ? 'Pagar' : 'Checkout'}
             </Link>
           </div>
@@ -240,7 +193,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 )}
               </div>
               <div className="absolute top-4 left-4 flex gap-2 z-10">
-                {product?.badge && <Badge type={product.badge} isEs={isEs} />}
+                {product?.badge && <Badge type={product.badge} locale={locale} />}
               </div>
             </div>
 
@@ -287,7 +240,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   {category.icon} {isEs ? (category as any).name_es ?? category.name : (category as any).name_en ?? category.name}
                 </Link>
               )}
-              {product?.badge && <Badge type={product.badge} isEs={isEs} />}
+              {product?.badge && <Badge type={product.badge} locale={locale} />}
             </div>
 
             {/* Title */}
@@ -387,7 +340,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3 text-[14px] font-semibold transition-all duration-200 ${
                   added
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                    : 'btn-light !rounded-full'
+                    : 'btn-secondary'
                 }`}>
                 {added ? (
                   <><Check size={15} /> {isEs ? 'Añadido' : 'Added to cart'}</>
@@ -608,7 +561,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 const rName = getLocalizedProductName(p, locale);
                 return (
                   <Link key={p.slug} href={`/${locale}/products/${p.slug}`} className="group block">
-                    <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all hover:border-white/[0.14] hover:shadow-card">
+                    <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] card-elevated transition-all hover:border-white/[0.14] hover:shadow-card">
                       <div className="flex aspect-square items-center justify-center overflow-hidden p-4" style={{ background: p.color }}>
                         {p.images && p.images.length > 0 ? (
                           <img src={p.images[0]} alt={rName} loading="lazy"
@@ -681,7 +634,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               className={`inline-flex min-w-[200px] items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold transition-all duration-200 ${
                 added
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                  : 'btn-light !rounded-full'
+                  : 'btn-secondary'
               }`}>
               {added ? <><Check size={15} /> {isEs ? 'Añadido' : 'Added to cart'}</> : <><ShoppingCart size={15} /> {isEs ? 'Añadir' : 'Add to cart'}</>}
             </button>
@@ -710,7 +663,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
           <button onClick={handleAdd}
             className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3 text-[14px] font-semibold transition ${
-              added ? 'bg-emerald-500/20 text-emerald-300' : 'btn-light !rounded-full'
+              added ? 'bg-emerald-500/20 text-emerald-300' : 'btn-secondary'
             }`}>
             {added ? <><Check size={14} /> {isEs ? 'Añadido' : 'Added!'}</> : <><ShoppingCart size={14} /> {isEs ? 'Añadir' : 'Add to cart'} — €{displayPrice * qty}</>}
           </button>

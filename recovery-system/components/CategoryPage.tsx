@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import {
-  ShoppingCart, ChevronRight, Star, Check, Search,
+  ShoppingCart, ChevronRight, Check, Search,
   Truck, RotateCcw, Shield, X, ArrowLeft, SlidersHorizontal,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
@@ -17,6 +17,8 @@ import {
   type CatalogProduct,
 } from '../lib/catalog'
 import ProductImage from './ProductImage'
+import Stars from './ui/Stars'
+import Badge from './ui/Badge'
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating' | 'reviews'
 
@@ -26,33 +28,6 @@ const SORT_LABELS: Record<string, { en: string; es: string }> = {
   'price-desc': { en: 'Price: High to Low', es: 'Precio: mayor a menor' },
   rating: { en: 'Top Rated', es: 'Mejor valorados' },
   reviews: { en: 'Most Reviews', es: 'Más reseñas' },
-}
-
-function Stars({ rating }: { rating: number }) {
-  return (
-    <span className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <Star key={i} size={11}
-          className={i <= Math.round(rating) ? 'fill-amber-400 text-amber-400' : 'fill-transparent text-white/20'} />
-      ))}
-    </span>
-  )
-}
-
-function Badge({ type, isEs }: { type: CatalogProduct['badge']; isEs?: boolean }) {
-  if (!type) return null
-  const map = {
-    bestseller: { label: isEs ? 'Más vendido' : 'Best Seller', cls: 'bg-amber-400/15 text-amber-300 border-amber-400/25' },
-    new: { label: isEs ? 'Nuevo' : 'New', cls: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25' },
-    deal: { label: isEs ? 'Oferta' : 'Deal', cls: 'bg-rose-400/15 text-rose-300 border-rose-400/25' },
-    trending: { label: isEs ? 'Tendencia' : 'Trending', cls: 'bg-violet-400/15 text-violet-300 border-violet-400/25' },
-  }
-  const b = map[type]
-  return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] ${b.cls}`}>
-      {b.label}
-    </span>
-  )
 }
 
 const CATEGORY_EDITORIAL: Record<string, {
@@ -121,7 +96,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
             className="h-full w-full"
           />
           {product.badge && (
-            <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} isEs={locale === 'es'} /></div>
+            <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} locale={locale} /></div>
           )}
           <div className="absolute right-3 top-3 z-10 rounded-full border border-white/10 bg-[#0c1016]/60 px-2 py-0.5 text-[11px] font-medium text-white/70 backdrop-blur-sm">
             -{savings}%
@@ -146,7 +121,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
               className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[12px] font-semibold transition-all duration-200 ${
                 added
                   ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300'
-                  : 'btn-light !px-3.5 !py-2 !text-[12px]'
+                  : 'btn-secondary'
               }`}>
               {added ? <><Check size={12} />{locale === 'es' ? 'Añadido' : 'Added'}</> : <><ShoppingCart size={12} />{locale === 'es' ? 'Añadir' : 'Add'}</>}
             </button>
@@ -367,12 +342,12 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
 
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <Link href={`/${locale}/products/${featuredProduct.slug}`}
-                  className="btn-light !rounded-full">
+                  className="btn-secondary">
                   {isEs ? 'Ver producto destacado' : 'View featured pick'}
                   <ChevronRight size={14} />
                 </Link>
                 <a href="#products"
-                  className="btn-dark !rounded-full">
+                  className="btn-secondary">
                   {isEs ? 'Ver todos' : 'Browse all'}
                 </a>
               </div>
@@ -492,7 +467,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
                   {isEs ? 'No hay productos con estos filtros' : 'No products match your filters'}
                 </div>
                 <button onClick={() => setMaxPrice(200)}
-                  className="mt-4 btn-light !rounded-full">
+                  className="mt-4 btn-secondary">
                   {isEs ? 'Restablecer filtros' : 'Reset filters'}
                 </button>
               </div>
@@ -511,7 +486,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
       {/* Mobile sticky cart */}
       <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] p-3 backdrop-blur-xl sm:hidden">
         <button onClick={openCart}
-          className="flex w-full items-center justify-center gap-2 btn-light !rounded-full">
+          className="flex w-full items-center justify-center gap-2 btn-secondary">
           <ShoppingCart size={15} />
           {totalItems > 0
             ? `${isEs ? 'Ver carrito' : 'View cart'} (${totalItems})`

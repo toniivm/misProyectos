@@ -148,7 +148,7 @@ export default function AuthModal() {
                     <input ref={emailRef} type="email" value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder={t('emailPlaceholder')} required autoComplete="email"
-                      className="input-premium !pl-10" />
+                      className="input !pl-10" />
                   </div>
 
                   <div className="relative">
@@ -157,7 +157,7 @@ export default function AuthModal() {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder={t('passwordPlaceholder')} required minLength={6}
                       autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                      className="input-premium !pl-10 !pr-10" />
+                      className="input !pl-10 !pr-10" />
                     <button type="button" onClick={() => setShowPassword((v) => !v)}
                       className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#5a6678] hover:text-[#c8d4e2]"
                       aria-label={showPassword ? 'Hide password' : 'Show password'}>

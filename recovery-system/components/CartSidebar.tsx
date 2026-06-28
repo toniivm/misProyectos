@@ -83,7 +83,7 @@ export default function CartSidebar() {
                   <p className="text-[15px] font-semibold text-[#f2eee7]">{t('empty')}</p>
                   <p className="mt-1.5 text-[13px] text-[#8791a1]">{t('emptyHint')}</p>
                   <button onClick={close}
-                    className="mt-7 btn-dark !rounded-full">
+                    className="mt-7 btn-secondary">
                     {t('continueShopping')}
                   </button>
                 </div>
