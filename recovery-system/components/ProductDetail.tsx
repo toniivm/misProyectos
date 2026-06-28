@@ -192,7 +192,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         </div>
       </header>
 
-      <div className="mx-auto max-w-[1280px] px-4 pb-28 sm:px-6 lg:pb-40">
+      <div className="mx-auto max-w-[1280px] px-4 pb-32 sm:px-6 lg:pb-44">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 py-4 text-[12px] text-[#6b7785]">
           <Link href={`/${locale}`} className="hover:text-[#f2eee7] transition-colors">{isEs ? 'Inicio' : 'Home'}</Link>
