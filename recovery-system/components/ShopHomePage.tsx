@@ -556,7 +556,7 @@ export default function ShopHomePage() {
   const bestSellers = getBestSellers()
   const allProducts = CATALOG
   const flagship = CATALOG.find(p => p.slug === 'halo') ?? bestSellers[0]
-  const flagshipImage = flagship.images?.[0] ?? '/images/productos-reales/sleep-headband.avif'
+  const flagshipImage = flagship.images?.[0] ?? '/images/productoenmanoBOCAL7ff06e72e080402ab77f9caff42355d4G.jpg_960x960q75.jpg_.avif'
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
@@ -898,7 +898,7 @@ export default function ShopHomePage() {
                 <Link href={`/${locale}/products/sleep-headband`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
                     <img 
-                      src="/images/productos-reales/sleep-headband.avif" 
+                      src="/images/sleepband-pro-1.webp" 
                       alt={isEs ? 'Banda de sueño Noctip Rest - alivia el dolor de cuello' : 'Noctip Rest sleep headband - relieves neck pain'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -964,7 +964,7 @@ export default function ShopHomePage() {
                 <Link href={`/${locale}/products/wave`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
                     <img 
-                      src="/images/white-noise-pro-2.webp" 
+                      src="/images/weighted-mask-pro-1.webp" 
                       alt={isEs ? 'Corrector postural Noctip Wave - alivia el dolor de espalda' : 'Noctip Wave posture corrector - relieves back pain'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
