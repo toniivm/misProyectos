@@ -212,7 +212,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: '¿Qué productos vende Noctip?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Noctip vende tecnología de sueño y recuperación: férulas anti-ronquidos (Noctip Halo), correctores posturales (Noctip Wave), bandas de audio para dormir (Noctip Rest), masajeadores cervicales (Noctip Relief y Noctip Calm).',
+          text: 'Noctip vende tecnología de sueño y recuperación: férulas anti-ronquidos (Noctip Halo), correctores posturales (Noctip Wave), bandas de audio para dormir (Noctip Rest) y masajeadores cervicales (Noctip Cervical).',
         },
       },
     ] : [
@@ -253,7 +253,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: 'What products does Noctip sell?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Noctip sells sleep and recovery technology: anti-snoring mouthpieces (Noctip Halo), posture correctors (Noctip Wave), sleep audio headbands (Noctip Rest), and cervical massagers (Noctip Relief and Noctip Calm).',
+          text: 'Noctip sells sleep and recovery technology: anti-snoring mouthpieces (Noctip Halo), posture correctors (Noctip Wave), sleep audio headbands (Noctip Rest), and cervical massagers (Noctip Cervical).',
         },
       },
     ],

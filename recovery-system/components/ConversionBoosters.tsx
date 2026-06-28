@@ -93,7 +93,7 @@ export function LimitedOffer() {
       <div className="mx-auto flex max-w-[1280px] items-center justify-center gap-3 px-4 py-2.5">
         <Flame size={14} className="text-orange-400" />
         <span className="text-[12px] font-semibold text-[#f2eee7]">
-          {isEs ? '🔥 OFERTA ESPECIAL: -10% extra con código' : '🔥 SPECIAL OFFER: -10% extra with code'}{' '}
+          {isEs ? 'OFERTA ESPECIAL: -10% extra con código' : 'SPECIAL OFFER: -10% extra with code'}{' '}
           <span className="rounded-full bg-[#f2eee7] px-2 py-0.5 text-[11px] font-bold text-[#11161d]">
             NOCTIP10
           </span>

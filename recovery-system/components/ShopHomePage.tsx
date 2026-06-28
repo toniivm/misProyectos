@@ -91,7 +91,7 @@ const SHOP_HOME_COPY = {
       { text: 'After years of snoring that kept my wife awake, the Noctip Halo was a game changer. The jaw adjustment is comfortable and the snoring stopped from night one. We both sleep better now.', author: 'Andrea L.', role: 'Student', stars: 5, product: 'Noctip Halo' },
       { text: 'The Noctip Wave posture brace has visibly improved my desk posture in just two weeks. I wear it under my shirt and nobody notices. My back pain from sitting 8 hours a day is almost gone.', author: 'Miguel Á.', role: 'IT Specialist', stars: 4, product: 'Noctip Wave' },
       { text: 'The Noctip Cervical neck massager is surprisingly powerful for its size. The electrode pads adapt perfectly to my neck and the pulse modes are genuinely effective. I use it every day at my desk.', author: 'Carla F.', role: 'Fitness enthusiast', stars: 5, product: 'Noctip Cervical' },
-      { text: 'The Noctip Calm pulse massager fits my neck perfectly with the floating electrode design. The button-start is simple and the automatic timing means I don\'t have to think about it. Great value.', author: 'Laura P.', role: 'New mom', stars: 4, product: 'Noctip Calm' },
+      { text: 'The Noctip Cervical massager fits my neck perfectly with the floating electrode design. The button-start is simple and the automatic timing means I don\'t have to think about it. Great value.', author: 'Laura P.', role: 'New mom', stars: 4, product: 'Noctip Cervical' },
       { text: 'As a frequent business traveler, the Noctip Rest headband has become indispensable. Portable, comfortable, and the battery lasts through long-haul flights. Highly recommended for road warriors.', author: 'David R.', role: 'Consultant', stars: 5, product: 'Noctip Rest' },
       { text: 'The Noctip Wave brace realigned my posture faster than I expected. After years of slouching at a computer, the Y-shaped support pulled my shoulders back naturally. My chiropractor noticed the difference.', author: 'Sara M.', role: 'Teacher', stars: 4, product: 'Noctip Wave' },
     ],
@@ -172,7 +172,7 @@ const SHOP_HOME_COPY = {
       { text: 'Después de años de ronquidos que impedían dormir a mi esposa, el Noctip Halo fue un cambio total. El ajuste mandibular es cómodo y los ronquidos desaparecieron desde la primera noche. Los dos dormimos mejor.', author: 'Andrea L.', role: 'Estudiante', stars: 5, product: 'Noctip Halo' },
       { text: 'El corrector postural Noctip Wave ha mejorado visiblemente mi postura en el escritorio en solo dos semanas. Lo uso debajo de la camisa y nadie se da cuenta. Mi dolor de espalda por sentar 8 horas casi ha desaparecido.', author: 'Miguel Á.', role: 'Informático', stars: 4, product: 'Noctip Wave' },
       { text: 'El masajeador cervical Noctip Cervical es sorprendentemente potente para su tamaño. Los electrodos se adaptan perfectamente a mi cuello y los modos de pulso son realmente efectivos. Lo uso todos los días en el trabajo.', author: 'Carla F.', role: 'Deportista', stars: 5, product: 'Noctip Cervical' },
-      { text: 'El masajeador por pulsos Noctip Calm se adapta perfectamente a mi cuello con el diseño de electrodos flotantes. El botón de inicio es simple y la temporización automática significa que no tengo que pensar en ello. Gran relación calidad-precio.', author: 'Laura P.', role: 'Madre primeriza', stars: 4, product: 'Noctip Calm' },
+      { text: 'El masajeador Noctip Cervical se adapta perfectamente a mi cuello con el diseño de electrodos flotantes. El botón de inicio es simple y la temporización automática significa que no tengo que pensar en ello. Gran relación calidad-precio.', author: 'Laura P.', role: 'Madre primeriza', stars: 4, product: 'Noctip Cervical' },
       { text: 'Como viajero frecuente de negocios, la banda Noctip Rest se ha vuelto imprescindible. Portátil, cómoda y la batería dura vuelos de larga distancia. Altamente recomendada para profesionales en movimiento.', author: 'David R.', role: 'Consultor', stars: 5, product: 'Noctip Rest' },
       { text: 'El corrector Noctip Wave ha realineado mi postura más rápido de lo esperado. Después de años encorvado frente al ordenador, el soporte en forma de Y juntó mis hombros hacia atrás naturalmente. Mi quiropráctico notó la diferencia.', author: 'Sara M.', role: 'Profesora', stars: 4, product: 'Noctip Wave' },
     ],
@@ -556,6 +556,7 @@ export default function ShopHomePage() {
   const bestSellers = getBestSellers()
   const allProducts = CATALOG
   const flagship = CATALOG.find(p => p.slug === 'halo') ?? bestSellers[0]
+  const flagshipImage = flagship.images?.[0] ?? '/images/productos-reales/sleep-headband.avif'
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
@@ -655,7 +656,7 @@ export default function ShopHomePage() {
                 <div className="relative rounded-[40px] overflow-hidden border border-white/[0.08] bg-gradient-to-br from-[#0d1828] to-[#0a0f18] shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
                   <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
                     <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden">
-                      <img src={flagship.images?.[1] ?? flagship.images?.[0]}
+                      <img src={flagshipImage}
                         alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                         className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-1000 group-hover:scale-105" />
@@ -812,7 +813,7 @@ export default function ShopHomePage() {
                   icon: '',
                   title: isEs ? 'Un problema, un producto' : 'One problem, one product',
                   text: isEs ? 'Cada producto resuelve UN problema específico. Sin distracciones, sin compromisos.' : 'Each product solves ONE specific problem. No distractions, no compromises.',
-                  stat: '5',
+                  stat: String(CATALOG.length),
                   statLabel: isEs ? 'Productos' : 'Products',
                 },
                 {
@@ -897,7 +898,7 @@ export default function ShopHomePage() {
                 <Link href={`/${locale}/products/sleep-headband`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
                     <img 
-                      src="/images/sleepband-lifestyle-tech.png" 
+                      src="/images/productos-reales/sleep-headband.avif" 
                       alt={isEs ? 'Banda de sueño Noctip Rest - alivia el dolor de cuello' : 'Noctip Rest sleep headband - relieves neck pain'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -912,7 +913,7 @@ export default function ShopHomePage() {
                       </p>
                       <div className="mt-3 flex items-center gap-2">
                         <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'sleep-headband')?.price}</span>
-                        <span className="text-[13px] text-[#6b7785] line-through">€22</span>
+                        <span className="text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'sleep-headband')?.comparePrice}</span>
                       </div>
                     </div>
                   </div>
@@ -945,7 +946,7 @@ export default function ShopHomePage() {
                       </p>
                       <div className="mt-3 flex items-center gap-2">
                         <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'neck-massager')?.price}</span>
-                        <span className="text-[13px] text-[#6b7785] line-through">€25</span>
+                        <span className="text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'neck-massager')?.comparePrice}</span>
                       </div>
                     </div>
                   </div>
@@ -963,7 +964,7 @@ export default function ShopHomePage() {
                 <Link href={`/${locale}/products/wave`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
                     <img 
-                      src="/images/pomelli_creative_image_9_16_0626Masaje2.png" 
+                      src="/images/white-noise-pro-2.webp" 
                       alt={isEs ? 'Corrector postural Noctip Wave - alivia el dolor de espalda' : 'Noctip Wave posture corrector - relieves back pain'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -978,7 +979,7 @@ export default function ShopHomePage() {
                       </p>
                       <div className="mt-3 flex items-center gap-2">
                         <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'wave')?.price}</span>
-                        <span className="text-[13px] text-[#6b7785] line-through">€32</span>
+                        <span className="text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'wave')?.comparePrice}</span>
                       </div>
                     </div>
                   </div>
