@@ -904,8 +904,8 @@ export default function ShopHomePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="inline-flex items-center rounded-full bg-[#10BFD8] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#080c12] mb-3">
-                        {isEs ? 'Más vendido' : 'Best Seller'}
+                      <div className="mb-3">
+                        <Badge type={CATALOG.find(p => p.slug === 'sleep-headband')?.badge} locale={locale} />
                       </div>
                       <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Rest</h3>
                       <p className="mt-1 text-[13px] text-[#b8c4d0]">
@@ -937,8 +937,8 @@ export default function ShopHomePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="inline-flex items-center rounded-full bg-amber-400/15 border border-amber-400/25 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-300 mb-3">
-                        {isEs ? 'Más vendido' : 'Best Seller'}
+                      <div className="mb-3">
+                        <Badge type={CATALOG.find(p => p.slug === 'neck-massager')?.badge} locale={locale} />
                       </div>
                       <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Cervical</h3>
                       <p className="mt-1 text-[13px] text-[#b8c4d0]">
@@ -970,8 +970,8 @@ export default function ShopHomePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="inline-flex items-center rounded-full bg-emerald-400/15 border border-emerald-400/25 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-300 mb-3">
-                        {isEs ? 'Nuevo' : 'New'}
+                      <div className="mb-3">
+                        <Badge type={CATALOG.find(p => p.slug === 'wave')?.badge} locale={locale} />
                       </div>
                       <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Back</h3>
                       <p className="mt-1 text-[13px] text-[#b8c4d0]">
