@@ -571,59 +571,79 @@ export default function ShopHomePage() {
         {/* ═══════════════════════════════════════════════════════
             HERO — Full-width, cinematic
         ═══════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[70dvh] sm:min-h-[80dvh] flex items-center">
-          <div className="absolute inset-0 bg-[#080c12]" />
+        <section className="relative min-h-[85dvh] sm:min-h-[90dvh] flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0b1120] via-[#080c12] to-[#080c12]" />
 
-          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 py-16 sm:py-20 w-full">
-            <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
+          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 py-20 sm:py-24 w-full">
+            <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
-                <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[0.95] tracking-[-0.05em] text-white">
+                <p className="mb-5 text-[12px] font-semibold uppercase tracking-[0.18em] text-[#10BFD8]">{copy.heroKicker}</p>
+
+                <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
                   {copy.heroLine1}
                   <br />
-                  <span className="text-[#10BFD8]">
-                    {copy.heroLine2}
-                  </span>
+                  <span className="text-[#10BFD8]">{copy.heroLine2}</span>
                 </h1>
 
-                <p className="mt-6 max-w-lg text-[16px] leading-8 text-[#9aa7b9]">{copy.heroSubtitle}</p>
+                <p className="mt-7 max-w-md text-[17px] leading-[1.7] text-[#8791a1]">{copy.heroSubtitle}</p>
 
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link href={`/${locale}/shop/all`}
-                    className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all hover:-translate-y-0.5">
+                    className="group inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,255,255,0.12)]">
                     {copy.heroPrimary}
-                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                   <a href="#all-products"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-[15px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:text-white">
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white">
                     {copy.heroSecondary}
                   </a>
+                </div>
+
+                <div className="mt-10 flex items-center gap-5 text-[13px] text-[#6b7785]">
+                  <span className="flex items-center gap-1.5"><Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
+                  <span className="w-px h-3 bg-white/10" />
+                  <span className="flex items-center gap-1.5"><RotateCcw size={14} className="text-[#10BFD8]/60" /> {isEs ? '30 noches' : '30-night trial'}</span>
+                  <span className="w-px h-3 bg-white/10" />
+                  <span className="flex items-center gap-1.5"><Shield size={14} className="text-[#10BFD8]/60" /> SSL + Stripe</span>
                 </div>
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
+                initial={{ opacity: 0, x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
-                  <div className="relative rounded-[32px] overflow-hidden border border-white/[0.08] bg-[#0d1828]">
+                  <div className="relative rounded-[28px] overflow-hidden bg-[#0d1828] border border-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
                     <div className="relative aspect-[4/5] overflow-hidden">
                       <img src={flagshipImage}
                         alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
-                      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                        <h2 className="text-[24px] sm:text-[28px] font-bold text-white">
+                        className="absolute inset-0 h-full w-full object-contain p-10 transition-transform duration-700 group-hover:scale-[1.03]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/90 via-transparent to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
+                        <div className="flex items-center gap-2 mb-3">
+                          {[1,2,3,4,5].map(i => (
+                            <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                          ))}
+                          <span className="ml-1 text-[12px] font-medium text-white/70">4.9</span>
+                        </div>
+                        <h2 className="text-[26px] sm:text-[30px] font-bold text-white leading-tight">
                           {getLocalizedProductName(flagship, locale)}
                         </h2>
-                        <div className="mt-3 flex items-center gap-3">
-                          <span className="text-[24px] font-bold text-white">€{flagship.price}</span>
-                          <span className="text-[14px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
+                        <p className="mt-2 text-[14px] text-[#9aa7b9] line-clamp-1">
+                          {getLocalizedProductShortDescription(flagship, locale)}
+                        </p>
+                        <div className="mt-4 flex items-baseline gap-3">
+                          <span className="text-[28px] font-bold text-white">€{flagship.price}</span>
+                          <span className="text-[15px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
+                          <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">
+                            -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
+                          </span>
                         </div>
                       </div>
                     </div>
