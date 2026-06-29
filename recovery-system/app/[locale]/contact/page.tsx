@@ -22,7 +22,7 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: isEs ? 'Email' : 'Email',
-      value: 'support@noctip.com',
+      value: 'noctip95@gmail.com',
       description: isEs ? 'Respuesta en menos de 24h' : 'Response within 24h',
     },
     {
@@ -48,10 +48,10 @@ export default function ContactPage() {
             <Image
               src="/images/logo/logo.png"
               alt="Noctip"
-              width={28}
-              height={28}
+              width={36}
+              height={36}
               className="object-contain"
-              sizes="28px"
+              sizes="36px"
             />
             <span className="hidden sm:block">Noctip</span>
           </Link>

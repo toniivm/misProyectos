@@ -57,10 +57,10 @@ export default function AboutPage() {
             <Image
               src="/images/logo/logo.png"
               alt="Noctip"
-              width={28}
-              height={28}
+              width={36}
+              height={36}
               className="object-contain"
-              sizes="28px"
+              sizes="36px"
             />
             <span className="hidden sm:block">Noctip</span>
           </Link>
@@ -147,9 +147,9 @@ export default function AboutPage() {
               : 'If you have any questions before buying, write to us. We\'d rather you buy confident than buy with doubts. We reply within 24 hours.'}
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a href="mailto:support@noctip.com"
+            <a href="mailto:noctip95@gmail.com"
               className="inline-flex items-center rounded-full bg-[#f2eee7] px-8 py-4 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px]">
-              ✉️ {isEs ? 'support@noctip.com' : 'support@noctip.com'}
+              ✉️ {isEs ? 'noctip95@gmail.com' : 'noctip95@gmail.com'}
             </a>
           </div>
           <p className="mt-4 text-[12px] text-[#6b7785]">

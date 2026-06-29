@@ -39,8 +39,8 @@ export default function ReturnsPage(){
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? 'Cómo devolver' : 'How to Return'}</h2>
             <ol className="list-decimal ml-5 space-y-3">
               <li>{isEs
-                ? 'Escríbenos a support@noctip.com con tu número de pedido y el motivo de la devolución.'
-                : 'Write to support@noctip.com with your order number and the reason for the return.'}</li>
+                ? 'Escríbenos a noctip95@gmail.com con tu número de pedido y el motivo de la devolución.'
+                : 'Write to noctip95@gmail.com with your order number and the reason for the return.'}</li>
               <li>{isEs
                 ? 'Te enviaremos las instrucciones para la recogida del producto.'
                 : 'We will send you instructions for product pickup.'}</li>

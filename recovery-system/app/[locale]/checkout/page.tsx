@@ -233,10 +233,10 @@ export default function CheckoutPage() {
             <Image
               src="/images/logo/logo.png"
               alt="Noctip"
-              width={28}
-              height={28}
+              width={36}
+              height={36}
               className="object-contain"
-              sizes="28px"
+              sizes="36px"
             />
             NOCTIP
           </Link>
@@ -466,8 +466,8 @@ export default function CheckoutPage() {
                     <p className="mt-1 text-[12px] text-red-300/80">{error}</p>
                     <p className="mt-2 text-[11px] text-red-300/60">
                       {isEs 
-                        ? 'Si el problema persiste, contacta con nosotros en soporte@noctip.com' 
-                        : 'If the problem persists, contact us at support@noctip.com'}
+                        ? 'Si el problema persiste, contacta con nosotros en noctip95@gmail.com' 
+                        : 'If the problem persists, contact us at noctip95@gmail.com'}
                     </p>
                   </div>
                 </div>

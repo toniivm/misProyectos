@@ -38,7 +38,7 @@ export default function LegalNoticePage() {
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Correo electrónico:' : 'Email:'}</span>
-          <span>support@noctip.com</span>
+          <span>noctip95@gmail.com</span>
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Actividad:' : 'Activity:'}</span>

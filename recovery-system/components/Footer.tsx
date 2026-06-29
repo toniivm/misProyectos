@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, Instagram, Twitter, Youtube, CreditCard, Truck, RotateCcw } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw } from 'lucide-react'
 
 export default function Footer() {
   const locale = useLocale()
@@ -41,30 +41,18 @@ export default function Footer() {
               <Image
                 src="/images/logo/logo.png"
                 alt="Noctip"
-                width={36}
-                height={36}
+                width={44}
+                height={44}
                 className="object-contain"
-                sizes="36px"
+                sizes="44px"
               />
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">Noctip</span>
+              <span className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#f2eee7]">Noctip</span>
             </div>
             <p className="max-w-xs text-[13px] leading-6 text-[#5a6678]">
               {isEs
                 ? 'Herramientas de sueño y recuperación que funcionan. Anti-ronquidos, corrección postural y masaje cervical — diseñados para gente que no puede dormir mal.'
                 : 'Sleep and recovery tools that work. Anti-snoring, posture correction, and cervical massage — designed for people who can\'t afford to sleep badly.'}
             </p>
-            <div className="flex gap-3 pt-1">
-              {[
-                { Icon: Instagram, href: '#' },
-                { Icon: Twitter, href: '#' },
-                { Icon: Youtube, href: '#' },
-              ].map(({ Icon, href }, i) => (
-                <a key={i} href={href}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.07] bg-white/[0.03] text-[#5a6678] transition hover:border-[rgba(16,191,216,0.2)] hover:text-[#10BFD8]">
-                  <Icon size={15} />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Categories */}
@@ -99,7 +87,6 @@ export default function Footer() {
               {[
                 { label: isEs ? 'Contáctanos' : 'Contact us', href: `/${locale}/contact` },
                 { label: isEs ? 'Sobre nosotros' : 'About us', href: `/${locale}/about` },
-                { label: isEs ? 'Seguir pedido' : 'Track order', href: '#' },
                 { label: isEs ? 'Devoluciones' : 'Returns', href: `/${locale}/legal/returns` },
                 { label: isEs ? 'Envíos' : 'Shipping', href: `/${locale}/legal/shipping` },
               ].map((link) => (

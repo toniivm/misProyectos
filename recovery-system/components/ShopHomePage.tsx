@@ -138,7 +138,7 @@ const SHOP_HOME_COPY = {
     heroLine2: 'bien.',
     heroSubtitle: 'Cuatro productos. Cada uno resuelve un problema específico — ronquidos, dolor de cuello, mala postura. Sin trucos. Solo cosas que funcionan.',
     heroQuickLinks: [
-      { emoji: '', label: 'Rono todas las noches', slug: 'sleep-audio' },
+      { emoji: '', label: 'Ronco todas las noches', slug: 'sleep-audio' },
       { emoji: '', label: 'Tengo el cuello siempre tenso', slug: 'neck-recovery' },
       { emoji: '', label: 'Mi postura está empeorando', slug: 'neck-recovery' },
     ],
@@ -354,13 +354,13 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
               <Image
                 src="/images/logo/logo.png"
                 alt="Noctip"
-                width={36}
-                height={36}
+                width={44}
+                height={44}
                 priority
                 className="object-contain"
-                sizes="36px"
+                sizes="44px"
               />
-              <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctip</span>
+              <span className="hidden text-[13px] font-bold uppercase tracking-[0.15em] text-[#f2eee7] sm:block">Noctip</span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-1 ml-6">
@@ -500,12 +500,13 @@ function UserMenu({ locale, t }: { locale: string; t: (key: string) => string })
 
 function Testimonials({ reviews, copy }: { reviews: CopyType['reviews']; copy: CopyType }) {
   const [active, setActive] = useState(0)
-  const max = Math.ceil(reviews.length / 2)
+  const perPage = 3
+  const max = Math.ceil(reviews.length / perPage)
 
   return (
     <div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {reviews.slice(active * 2, active * 2 + 3).map((review) => (
+        {reviews.slice(active * perPage, active * perPage + perPage).map((review) => (
           <motion.div
             key={`${review.author}-${review.product}`}
             initial={{ opacity: 0, y: 12 }}
@@ -600,7 +601,7 @@ export default function ShopHomePage() {
                 <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[0.95] tracking-[-0.05em] text-white">
                   {copy.heroLine1}
                   <br />
-                  <span className="bg-gradient-to-r from-[#10BFD8] to-[#9E92FF] bg-clip-text text-transparent">
+                  <span className="text-[#10BFD8]">
                     {copy.heroLine2}
                   </span>
                 </h1>
@@ -798,7 +799,7 @@ export default function ShopHomePage() {
               <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
                 {isEs ? 'Cuatro productos.' : 'Four products.'}
                 <br />
-                <span className="bg-gradient-to-r from-[#10BFD8] to-[#9E92FF] bg-clip-text text-transparent">
+                <span className="text-[#10BFD8]">
                   {isEs ? 'Cuatro problemas resueltos.' : 'Four problems solved.'}
                 </span>
               </h2>

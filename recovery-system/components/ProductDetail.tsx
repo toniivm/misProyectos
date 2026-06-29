@@ -119,10 +119,10 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <Image
               src="/images/logo/logo.png"
               alt="Noctip"
-              width={28}
-              height={28}
+              width={36}
+              height={36}
               className="object-contain"
-              sizes="28px"
+              sizes="36px"
             />
             <span className="hidden sm:block">Noctip</span>
           </Link>
