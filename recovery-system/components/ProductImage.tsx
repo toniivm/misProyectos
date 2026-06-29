@@ -210,7 +210,7 @@ export default function ProductImage({ slug, color, icon, images, alt, className
       )}
       
       {/* Top-left icon badge */}
-      <div className="absolute top-4 left-4 z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm text-xl">
+      <div className="absolute top-4 left-4 z-10 flex h-10 w-10 items-center justify-center rounded-xl bg-[#0d1219]/70 border border-white/[0.1] backdrop-blur-md text-xl shadow-lg">
         {icon}
       </div>
     </div>

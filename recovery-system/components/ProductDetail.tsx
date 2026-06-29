@@ -647,8 +647,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         </div>
       </div>
 
-      {/* Mobile sticky add to cart */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] p-3 backdrop-blur-xl sm:hidden">
+      {/* Mobile sticky add to cart — visible on all screens below lg */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] p-3 backdrop-blur-xl lg:hidden">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-0 rounded-full border border-white/[0.12] bg-[#111720]">
             <button onClick={() => setQty((q) => Math.max(1, q - 1))}

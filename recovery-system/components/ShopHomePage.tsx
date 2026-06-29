@@ -255,12 +255,12 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           )}
           
           {/* Savings badge */}
-          <div className="absolute right-4 top-4 z-10 rounded-full bg-[#10BFD8] px-3 py-1 text-[11px] font-bold text-[#080c16]">
+          <div className="absolute right-4 top-4 z-10 rounded-full bg-[#10BFD8] px-3 py-1 text-[11px] font-bold text-[#080c16] shadow-lg">
             -{savings}%
           </div>
           
           {/* Bottom overlay info */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 pt-8 bg-gradient-to-t from-[#0d1219] via-[#0d1219]/80 to-transparent">
+          <div className="absolute bottom-0 left-0 right-0 p-4 pt-10 bg-gradient-to-t from-[#0d1219] via-[#0d1219]/90 to-transparent">
             <div className="flex items-center gap-1.5">
               <Stars rating={product.rating} />
               <span className="text-[11px] text-[#9aa7b9]">
@@ -568,7 +568,7 @@ export default function ShopHomePage() {
         {/* ═══════════════════════════════════════════════════════
             HERO — Full-width, cinematic
         ═══════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center overflow-hidden">
+        <section className="relative min-h-[80dvh] sm:min-h-[90dvh] flex items-center overflow-hidden">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#080c12] to-[#0d0a1a]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,191,216,0.12),transparent_50%)]" />
@@ -660,14 +660,14 @@ export default function ShopHomePage() {
                         alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                         className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-1000 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-[#080c12]/40 to-transparent" />
                       
                       {/* Product info overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                        <div className="mb-3 inline-flex items-center rounded-full bg-[#10BFD8] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#080c12]">
+                        <div className="mb-3 inline-flex items-center rounded-full bg-[#10BFD8] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#080c12] shadow-lg">
                           {copy.badgeLabels.bestseller}
                         </div>
-                        <h2 className="text-[28px] sm:text-[32px] font-bold leading-tight text-white">
+                        <h2 className="text-[28px] sm:text-[32px] font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                           {getLocalizedProductName(flagship, locale)}
                         </h2>
                         <p className="mt-2 text-[14px] text-[#d6dde7] line-clamp-2">
@@ -680,7 +680,7 @@ export default function ShopHomePage() {
                             -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
                           </span>
                         </div>
-                        <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-bold text-[#080c12] transition-all group-hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                        <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-bold text-[#080c12] transition-all shadow-lg group-hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
                           {isEs ? 'Ver producto' : 'View product'} <ChevronRight size={16} />
                         </div>
                       </div>

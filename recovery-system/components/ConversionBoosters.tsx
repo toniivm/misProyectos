@@ -77,10 +77,22 @@ export function TrustStrip() {
 }
 
 // Limited time offer banner
+const LIMITED_OFFER_KEY = 'noctip_limited_offer_dismissed'
+
 export function LimitedOffer() {
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   const locale = useLocale()
   const isEs = locale === 'es'
+
+  useEffect(() => {
+    const dismissed = localStorage.getItem(LIMITED_OFFER_KEY)
+    if (!dismissed) setVisible(true)
+  }, [])
+
+  const dismiss = () => {
+    setVisible(false)
+    localStorage.setItem(LIMITED_OFFER_KEY, 'true')
+  }
 
   if (!visible) return null
 
@@ -91,14 +103,14 @@ export function LimitedOffer() {
       className="overflow-hidden bg-gradient-to-r from-[#10BFD8]/20 via-[#0d1219] to-[#9E92FF]/20"
     >
       <div className="mx-auto flex max-w-[1280px] items-center justify-center gap-3 px-4 py-2.5">
-        <Flame size={14} className="text-orange-400" />
+        <Flame size={14} className="shrink-0 text-orange-400" />
         <span className="text-[12px] font-semibold text-[#f2eee7]">
           {isEs ? 'OFERTA ESPECIAL: -10% extra con código' : 'SPECIAL OFFER: -10% extra with code'}{' '}
           <span className="rounded-full bg-[#f2eee7] px-2 py-0.5 text-[11px] font-bold text-[#11161d]">
             NOCTIP10
           </span>
         </span>
-        <button onClick={() => setVisible(false)} className="ml-2 text-[#6b7785] hover:text-white">
+        <button onClick={dismiss} className="ml-2 text-[#6b7785] hover:text-white" aria-label="Close offer">
           ×
         </button>
       </div>
