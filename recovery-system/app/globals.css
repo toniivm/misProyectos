@@ -210,6 +210,29 @@ body {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+.input-premium {
+  @apply w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200;
+  border-color: var(--border-default);
+  background: #111720;
+  color: var(--text-primary);
+}
+.input-premium::placeholder { color: #3d4a5c; }
+.input-premium:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: #141c26;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+}
+
+.select-premium {
+  @apply w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200;
+  border-color: var(--border-default);
+  background: #111720;
+  color: var(--text-primary);
+}
+.select-premium:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
 /* ═══════════════════════════════════════════════════════
    SECTION — Consistent section spacing
 ═══════════════════════════════════════════════════════ */

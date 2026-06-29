@@ -55,7 +55,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const displayName = product ? getLocalizedField(product, 'name') ?? legacyProduct.name : legacyProduct.name;
   const displayPrice = product?.price ?? legacyProduct.price;
   const displayComparePrice = product?.comparePrice ?? legacyProduct.comparePrice;
-  const savings = Math.round(((displayComparePrice - displayPrice) / displayComparePrice) * 100);
+  const savings = displayComparePrice > 0 ? Math.round(((displayComparePrice - displayPrice) / displayComparePrice) * 100) : 0;
 
   const handleAdd = () => {
     const icon = product?.cartIcon ?? legacyProduct.icon;

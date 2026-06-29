@@ -226,7 +226,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
     setTimeout(() => setAdded(false), 2500)
   }
 
-  const savings = Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
+  const savings = product.comparePrice > 0 ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100) : 0
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group block"
@@ -771,7 +771,7 @@ export default function ShopHomePage() {
               </p>
             </motion.div>
 
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {allProducts.map((product) => (
                 <ProductCard key={product.slug} product={product} locale={locale} />
               ))}

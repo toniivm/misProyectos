@@ -34,7 +34,7 @@ export default function Logo({ variant = 'full', className = '', priority = fals
   return (
     <Image
       src="/images/logo/logo.png"
-      alt="Noctip — Descansa. Renueva. Rinde."
+      alt="Noctip"
       width={120}
       height={40}
       priority={priority}

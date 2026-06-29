@@ -29,8 +29,6 @@ export default function CookieConsent() {
     setShow(false)
   }
 
-  if (!show) return null
-
   return (
     <AnimatePresence>
       {show && (
