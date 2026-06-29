@@ -302,18 +302,17 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
 
 function AnnouncementBar({ copy }: { copy: CopyType }) {
   return (
-    <div className="overflow-hidden border-b border-white/[0.05] bg-[#0d1520] py-2.5">
-      <motion.div
-        animate={{ x: ['0%', '-50%'] }}
-        transition={{ duration: 28, ease: 'linear', repeat: Infinity }}
-        className="flex w-max items-center gap-10"
-      >
-        {[...copy.announcement, ...copy.announcement].map((msg, i) => (
-          <span key={`${msg}-${i}`} className="shrink-0 text-[11px] font-medium uppercase tracking-[0.14em] text-[#9aa7b9]">
+    <div className="border-b border-white/[0.06] bg-[#0a0f18]">
+      <div className="mx-auto flex max-w-[1280px] items-center justify-center gap-6 px-4 py-2">
+        {copy.announcement.slice(0, 3).map((msg, i) => (
+          <span key={`${msg}-${i}`} className="hidden sm:block shrink-0 text-[11px] font-medium text-[#6b7785]">
             {msg}
           </span>
         ))}
-      </motion.div>
+        <span className="sm:hidden shrink-0 text-[11px] font-medium text-[#6b7785]">
+          {copy.announcement[0]}
+        </span>
+      </div>
     </div>
   )
 }
@@ -572,32 +571,16 @@ export default function ShopHomePage() {
         {/* ═══════════════════════════════════════════════════════
             HERO — Full-width, cinematic
         ═══════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[80dvh] sm:min-h-[90dvh] flex items-center overflow-hidden">
-          {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#080c12] to-[#0d0a1a]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,191,216,0.12),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(158,146,255,0.08),transparent_50%)]" />
-          
-          {/* Floating orbs */}
-          <div className="absolute top-20 right-[10%] w-[400px] h-[400px] rounded-full bg-[#10BFD8]/5 blur-[120px] animate-breathe" />
-          <div className="absolute bottom-20 left-[5%] w-[300px] h-[300px] rounded-full bg-[#9E92FF]/5 blur-[100px] animate-breathe" style={{ animationDelay: '2s' }} />
+        <section className="relative min-h-[70dvh] sm:min-h-[80dvh] flex items-center">
+          <div className="absolute inset-0 bg-[#080c12]" />
 
           <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 py-16 sm:py-20 w-full">
             <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
-              {/* Left — Text */}
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/5 px-4 py-2">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#10BFD8] opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#10BFD8]" />
-                  </span>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#10BFD8]">{copy.heroKicker}</span>
-                </div>
-
                 <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[0.95] tracking-[-0.05em] text-white">
                   {copy.heroLine1}
                   <br />
@@ -608,125 +591,44 @@ export default function ShopHomePage() {
 
                 <p className="mt-6 max-w-lg text-[16px] leading-8 text-[#9aa7b9]">{copy.heroSubtitle}</p>
 
-                {/* Quick links */}
-                <div className="mt-8 flex flex-wrap gap-3">
-                  {copy.heroQuickLinks.map((item) => (
-                    <Link key={item.slug} href={`/${locale}/shop/${item.slug}`}
-                      className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-[13px] font-medium text-[#b8c4d0] transition-all hover:border-[#10BFD8]/40 hover:bg-[#10BFD8]/10 hover:text-white hover:shadow-[0_0_20px_rgba(16,191,216,0.15)]">
-                      <span className="text-lg">{item.emoji}</span>
-                      {item.label}
-                      <ChevronRight size={14} className="opacity-30 transition-all group-hover:opacity-100 group-hover:translate-x-0.5" />
-                    </Link>
-                  ))}
-                </div>
-
-                {/* CTAs */}
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link href={`/${locale}/shop/all`}
-                    className="group relative inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all hover:-translate-y-0.5">
-                    <ShoppingCart size={16} />
+                    className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all hover:-translate-y-0.5">
                     {copy.heroPrimary}
                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                   </Link>
                   <a href="#all-products"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-8 py-4 text-[15px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:bg-white/[0.08] hover:text-white">
+                    className="inline-flex items-center gap-2 rounded-full border border-white/15 px-8 py-4 text-[15px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:text-white">
                     {copy.heroSecondary}
                   </a>
                 </div>
-
-                {/* Social proof */}
-                <div className="mt-10 flex items-center gap-6">
-                  <div className="flex -space-x-2">
-                    {['A', 'M', 'C', 'L', 'D'].map((letter, i) => (
-                      <div key={i} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#080c12] bg-[#1a2332] text-[11px] font-semibold text-[#9aa7b9]">
-                        {letter}
-                      </div>
-                    ))}
-                  </div>
-                  <div>
-                    <div className="text-[13px] font-semibold text-white">{isEs ? '6.000+ personas' : '6,000+ people'}</div>
-                    <div className="text-[11px] text-[#6b7785]">{isEs ? 'ya duermen mejor' : 'sleeping better already'}</div>
-                  </div>
-                </div>
               </motion.div>
 
-              {/* Right — Product showcase */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, x: 40 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="relative"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="relative rounded-[40px] overflow-hidden border border-white/[0.08] bg-gradient-to-br from-[#0d1828] to-[#0a0f18]">
-                  <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
-                    <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden">
+                <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
+                  <div className="relative rounded-[32px] overflow-hidden border border-white/[0.08] bg-[#0d1828]">
+                    <div className="relative aspect-[4/5] overflow-hidden">
                       <img src={flagshipImage}
                         alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-1000 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-[#080c12]/50 to-transparent opacity-90" />
-                      
-                      {/* Product info overlay */}
+                        className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-700 group-hover:scale-105" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
                       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                        <div className="mb-3 inline-flex items-center rounded-full bg-[#10BFD8] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#080c12] shadow-lg">
-                          {copy.badgeLabels.bestseller}
-                        </div>
-                        <h2 className="text-[28px] sm:text-[32px] font-bold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+                        <h2 className="text-[24px] sm:text-[28px] font-bold text-white">
                           {getLocalizedProductName(flagship, locale)}
                         </h2>
-                        <p className="mt-2 text-[14px] text-[#d6dde7] line-clamp-2">
-                          {getLocalizedProductShortDescription(flagship, locale)}
-                        </p>
-                        <div className="mt-4 flex items-center gap-4">
-                          <span className="text-[28px] font-bold text-white">€{flagship.price}</span>
-                          <span className="text-[16px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
-                          <span className="rounded-full bg-[#10BFD8]/20 px-3 py-1 text-[12px] font-bold text-[#10BFD8]">
-                            -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
-                          </span>
-                        </div>
-                        <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-bold text-[#080c12] transition-all shadow-lg group-hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                          {isEs ? 'Ver producto' : 'View product'} <ChevronRight size={16} />
+                        <div className="mt-3 flex items-center gap-3">
+                          <span className="text-[24px] font-bold text-white">€{flagship.price}</span>
+                          <span className="text-[14px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                </div>
-
-                {/* Floating badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.5 }}
-                  className="absolute -bottom-3 left-3 sm:-bottom-4 sm:left-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20">
-                      <Check size={18} className="text-emerald-400" />
-                    </div>
-                    <div>
-                      <div className="text-[12px] font-bold text-white">{isEs ? 'Envío gratis' : 'Free shipping'}</div>
-                      <div className="text-[10px] text-[#6b7785]">{isEs ? 'Entrega en 24-48h' : 'Delivery in 24-48h'}</div>
-                    </div>
                   </div>
-                </motion.div>
-
-                {/* Floating rating */}
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8, duration: 0.5 }}
-                  className="absolute -top-3 right-3 sm:-top-4 sm:right-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-0.5">
-                      {[1,2,3,4,5].map(i => (
-                        <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                    <span className="text-[12px] font-bold text-white">4.9</span>
-                    <span className="text-[10px] text-[#6b7785]">(1.578)</span>
-                  </div>
-                </motion.div>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -734,26 +636,6 @@ export default function ShopHomePage() {
 
         {/* ═══════════════════════════════════════════════════════
             TRUST BAR — Compact, below hero
-        ═══════════════════════════════════════════════════════ */}
-        <section className="border-y border-white/[0.06] bg-[#0a0f18]">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.06]">
-              {copy.trustItems.map((item) => (
-                <div key={item.label}
-                  className="flex items-center justify-center gap-3 py-5 transition-colors hover:bg-white/[0.02]">
-                  <item.icon size={18} className="text-[#10BFD8]" />
-                  <div>
-                    <div className="text-[12px] font-semibold text-[#f2eee7]">{item.label}</div>
-                    <div className="text-[10px] text-[#6b7785]">{item.sub}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════════════════
-            ALL PRODUCTS — Premium grid
         ═══════════════════════════════════════════════════════ */}
         <section id="all-products" className="py-20 sm:py-28">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
