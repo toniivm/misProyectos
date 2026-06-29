@@ -334,26 +334,26 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] backdrop-blur-xl">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-          <div className="flex h-16 items-center gap-4">
-            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group">
+      <header className="sticky top-0 z-50 border-b border-white/[0.04] bg-[rgba(8,12,18,0.9)] backdrop-blur-xl">
+        <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
+          <div className="flex h-[60px] items-center gap-6">
+            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-3">
               <Image
                 src="/images/logo/logo.png"
                 alt="Noctip"
-                width={56}
-                height={56}
+                width={40}
+                height={40}
                 priority
                 className="object-contain"
-                sizes="56px"
+                sizes="40px"
               />
-              <span className="hidden text-[14px] font-bold uppercase tracking-[0.12em] text-[#f2eee7] sm:block">Noctip</span>
+              <span className="hidden text-[13px] font-semibold uppercase tracking-[0.15em] text-[#f2eee7] sm:block">Noctip</span>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-1 ml-6">
+            <nav className="hidden md:flex items-center gap-1 ml-4">
               {CATEGORIES.map((cat) => (
                 <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
-                  className="rounded-full px-3 py-1.5 text-[12px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-all">
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#8791a1] hover:text-white transition-colors duration-200">
                   {getLocalizedCategoryName(cat, locale)}
                 </Link>
               ))}
@@ -361,37 +361,30 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
 
             <div className="flex-1" />
 
-            <div className="flex shrink-0 items-center gap-1.5">
-              {/* Language switcher with flags */}
+            <div className="flex shrink-0 items-center gap-2">
               <Link href={switchHref}
-                className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
+                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#6b7785] hover:text-white transition-colors duration-200"
                 aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
                 {locale === 'es' ? EN_FLAG : ES_FLAG}
                 <span>{locale === 'es' ? 'EN' : 'ES'}</span>
-              </Link>
-
-              <Link href={`/${locale}/shop/all`}
-                className="hidden sm:inline-flex items-center rounded-full bg-white/[0.04] border border-white/10 px-4 py-2 text-[12px] font-medium text-[#c8d4e2] hover:bg-white/[0.08] transition-all">
-                {copy.heroPrimary}
               </Link>
 
               <UserMenu locale={locale} t={t} />
 
               <button onClick={openCart}
                 aria-label={`${copy.cartLabel} - ${totalItems} items`}
-                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]">
-                <ShoppingCart size={15} />
+                className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-white">
+                <ShoppingCart size={18} />
                 {totalItems > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#f2eee7] text-[9px] font-bold text-[#11161d]">
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#f2eee7] px-1 text-[9px] font-bold text-[#080c12]">
                     {totalItems > 9 ? '9+' : totalItems}
                   </span>
                 )}
               </button>
 
-              {/* Mobile menu button */}
               <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex md:hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:border-white/20 hover:bg-white/[0.08]">
-                {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                className="flex md:hidden h-9 w-9 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-white">
+                {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>

@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════
-   NOCTIP DESIGN SYSTEM
-   Unified colors, typography, spacing, and components
-═══════════════════════════════════════════════════════ */
+   NOCTIP DESIGN SYSTEM — Premium Minimal
+   Clean, calm, confident. Like the products we sell.
+══════════════════════════════════════════════════════ */
 
 :root {
   /* ── Backgrounds ── */
-  --bg-base: #080c16;
+  --bg-base: #080c12;
   --bg-surface: #0c1016;
-  --bg-elevated: #0f1724;
+  --bg-elevated: #111720;
   --bg-card: #0d1219;
 
   /* ── Text ── */
@@ -22,53 +22,19 @@
 
   /* ── Accent ── */
   --accent: #10BFD8;
-  --accent-hover: #0EA5C9;
 
   /* ── Borders ── */
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-default: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.15);
-
-  /* ── Spacing scale ── */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-
-  /* ── Radius ── */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
-  --radius-full: 9999px;
-
-  /* ── Shadows ── */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 20px 50px rgba(4, 9, 20, 0.4);
-  --shadow-xl: 0 32px 80px rgba(0, 0, 0, 0.5);
-  --shadow-card: 0 20px 50px rgba(4, 9, 20, 0.35);
-  --shadow-card-hover: 0 28px 64px rgba(4, 9, 20, 0.45), 0 0 0 1px rgba(16, 191, 216, 0.15);
+  --border-strong: rgba(255, 255, 255, 0.18);
 
   /* ── Transitions ── */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
+  --duration-normal: 200ms;
 
   /* ── Typography ── */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 2rem;
 }
 
 * {
@@ -92,183 +58,88 @@ body {
   line-height: 1.6;
 }
 
+/* ── Selection ── */
+::selection { background: rgba(16, 191, 216, 0.15); color: var(--text-primary); }
+
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg-base); }
-::-webkit-scrollbar-thumb { background: rgba(16, 191, 216, 0.25); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(16, 191, 216, 0.4); }
-::selection { background: rgba(16, 191, 216, 0.18); color: var(--text-primary); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.14); }
 
 /* ═══════════════════════════════════════════════════════
-   BUTTONS — 4 core styles
-═══════════════════════════════════════════════════════ */
+   BUTTONS — Clean, no gradients, no glows
+══════════════════════════════════════════════════════ */
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold;
-  color: #03111a;
-  background: linear-gradient(135deg, #9DE8D7 0%, #10BFD8 55%, #7FD9FF 100%);
-  box-shadow: 0 8px 24px rgba(16, 191, 216, 0.35);
-  transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal);
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold;
+  color: #080c12;
+  background: #f2eee7;
+  transition: all var(--duration-normal) var(--ease-out);
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 36px rgba(16, 191, 216, 0.45);
-}
-.btn-primary:active { transform: translateY(0); }
-
-.btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-[#d0d8e4];
-  border: 1px solid var(--border-default);
-  background: rgba(255, 255, 255, 0.04);
-  transition: border-color var(--duration-normal), background var(--duration-normal), transform var(--duration-normal);
-}
-.btn-secondary:hover {
-  border-color: var(--border-strong);
-  background: rgba(255, 255, 255, 0.08);
+  background: #fff;
   transform: translateY(-1px);
 }
 
-.btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 text-sm font-semibold;
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold;
   color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+  background: transparent;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+.btn-secondary:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 text-[14px] font-medium;
+  color: var(--text-muted);
   transition: color var(--duration-normal);
 }
 .btn-ghost:hover { color: var(--text-primary); }
 
-.btn-icon {
-  @apply flex h-9 w-9 items-center justify-center rounded-full;
-  border: 1px solid var(--border-default);
-  background: rgba(255, 255, 255, 0.04);
-  color: #c8d4e2;
-  transition: background var(--duration-normal), border-color var(--duration-normal);
-}
-.btn-icon:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--border-strong);
-}
-
 /* ═══════════════════════════════════════════════════════
-   CARDS — Unified system
-═══════════════════════════════════════════════════════ */
-
-.card {
-  @apply rounded-2xl border transition-all duration-300;
-  border-color: var(--border-subtle);
-  background: rgba(255, 255, 255, 0.02);
-}
-.card:hover {
-  border-color: var(--border-default);
-}
-
-.card-elevated {
-  @apply rounded-2xl border transition-all duration-300;
-  border-color: var(--border-subtle);
-  background: var(--bg-card);
-}
-.card-elevated:hover {
-  border-color: var(--border-default);
-  box-shadow: var(--shadow-card);
-}
-
-.card-premium {
-  @apply rounded-2xl border transition-all duration-300;
-  border-color: var(--border-subtle);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 100%);
-  box-shadow: var(--shadow-card);
-  backdrop-filter: blur(10px);
-}
-.card-premium:hover {
-  border-color: rgba(16, 191, 216, 0.3);
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-4px);
-}
-
-/* ═══════════════════════════════════════════════════════
-   INPUTS — Unified form elements
-═══════════════════════════════════════════════════════ */
+   INPUTS — Clean, minimal
+══════════════════════════════════════════════════════ */
 
 .input {
-  @apply w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200;
+  @apply w-full rounded-xl border px-4 py-3 text-[14px] outline-none transition-all duration-200;
   border-color: var(--border-default);
-  background: #111720;
+  background: var(--bg-elevated);
   color: var(--text-primary);
 }
-.input::placeholder { color: #3d4a5c; }
+.input::placeholder { color: var(--text-faint); }
 .input:focus {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: #141c26;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
-}
-
-.select {
-  @apply w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200;
-  border-color: var(--border-default);
-  background: #111720;
-  color: var(--text-primary);
-}
-.select:focus {
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .input-premium {
-  @apply w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200;
+  @apply w-full rounded-xl border px-4 py-3 text-[14px] outline-none transition-all duration-200;
   border-color: var(--border-default);
-  background: #111720;
+  background: var(--bg-elevated);
   color: var(--text-primary);
 }
-.input-premium::placeholder { color: #3d4a5c; }
+.input-premium::placeholder { color: var(--text-faint); }
 .input-premium:focus {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: #141c26;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-.select-premium {
-  @apply w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200;
+.select, .select-premium {
+  @apply w-full rounded-xl border px-4 py-3 text-[14px] outline-none transition-all duration-200;
   border-color: var(--border-default);
-  background: #111720;
+  background: var(--bg-elevated);
   color: var(--text-primary);
 }
-.select-premium:focus {
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-/* ═══════════════════════════════════════════════════════
-   SECTION — Consistent section spacing
-═══════════════════════════════════════════════════════ */
-
-.section {
-  @apply py-20 sm:py-28;
-}
-
-.section-title {
-  @apply text-center mb-12;
+.select:focus, .select-premium:focus {
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 /* ═══════════════════════════════════════════════════════
    UTILITIES
-═══════════════════════════════════════════════════════ */
-
-.gradient-text {
-  background: linear-gradient(135deg, #9E92FF 0%, #10BFD8 50%, #9DE8D7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-blue {
-  background: linear-gradient(135deg, #7FD9FF 0%, #10BFD8 55%, #9DE8D7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.section-tag {
-  @apply inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase;
-  color: #7FD9FF;
-  border-color: rgba(127, 217, 255, 0.22);
-  background: rgba(16, 191, 216, 0.07);
-}
+══════════════════════════════════════════════════════ */
 
 /* ── Scrollbar hide ── */
 .scrollbar-none::-webkit-scrollbar { display: none; }
@@ -282,22 +153,20 @@ body {
   overflow: hidden;
 }
 
-/* ── Range slider ── */
-input[type="range"] { accent-color: #f2eee7; }
-
-/* ── Focus visible — global accessibility ── */
+/* ── Focus visible — accessibility ── */
 *:focus-visible {
-  outline: 2px solid rgba(16, 191, 216, 0.6);
+  outline: 2px solid rgba(16, 191, 216, 0.5);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
-/* ── CTA pulse ── */
-@keyframes cta-pulse {
-  0%, 100% { box-shadow: 0 4px 16px rgba(242, 238, 231, 0.2); }
-  50% { box-shadow: 0 4px 24px rgba(242, 238, 231, 0.35); }
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
-.btn-cta-pulse { animation: cta-pulse 2s ease-in-out infinite; }
 
 /* ── Phone input ── */
 .phone-input-wrapper .PhoneInput {
@@ -305,13 +174,12 @@ input[type="range"] { accent-color: #f2eee7; }
   align-items: center;
   border-radius: 0.75rem;
   border: 1px solid var(--border-default);
-  background: #111720;
+  background: var(--bg-elevated);
   overflow: hidden;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s;
 }
 .phone-input-wrapper .PhoneInput:focus-within {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: #141c26;
+  border-color: rgba(255, 255, 255, 0.25);
 }
 .phone-input-wrapper .PhoneInputCountry {
   background: transparent;
@@ -322,7 +190,7 @@ input[type="range"] { accent-color: #f2eee7; }
   color: var(--text-primary);
 }
 .phone-input-wrapper .PhoneInputCountrySelect {
-  background: #111720;
+  background: var(--bg-elevated);
   color: var(--text-primary);
   border: none;
   outline: none;
@@ -339,7 +207,7 @@ input[type="range"] { accent-color: #f2eee7; }
   outline: none;
   min-width: 0;
 }
-.phone-input-wrapper .PhoneInputInput::placeholder { color: #3d4a5c; }
+.phone-input-wrapper .PhoneInputInput::placeholder { color: var(--text-faint); }
 .phone-input-wrapper .PhoneInputCountryIcon {
   width: 20px;
   height: 15px;
@@ -348,6 +216,6 @@ input[type="range"] { accent-color: #f2eee7; }
 }
 .phone-input-wrapper .PhoneInputCountrySelectArrow { display: none; }
 .phone-input-wrapper select option {
-  background: #111720;
+  background: var(--bg-elevated);
   color: var(--text-primary);
 }
