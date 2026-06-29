@@ -234,9 +234,9 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.12]"
+        className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.04] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.1]"
       >
-        <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden" style={{ background: product.color }}>
+        <div className="relative flex aspect-square items-center justify-center overflow-hidden" style={{ background: product.color }}>
           <ProductImage 
             slug={product.slug as any} 
             color={product.color}
@@ -247,30 +247,24 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           />
           
           {product.badge && (
-            <div className="absolute left-4 top-4 z-10"><Badge type={product.badge} locale={locale} /></div>
+            <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} locale={locale} /></div>
           )}
-          
-          <div className="absolute right-4 top-4 z-10 rounded-full bg-[#080c12]/80 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-bold text-white border border-white/[0.1]">
-            -{savings}%
-          </div>
-
-          <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#0d1219] via-[#0d1219]/80 to-transparent">
-            <div className="flex items-center gap-1.5">
-              <Stars rating={product.rating} />
-              <span className="text-[11px] text-[#9aa7b9]">
-                {product.rating} ({product.reviewCount.toLocaleString(localeStr)})
-              </span>
-            </div>
-          </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-2 p-5">
-          <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
-          <p className="line-clamp-2 text-[13px] leading-5 text-[#6b7785]">{desc}</p>
+        <div className="flex flex-1 flex-col gap-1.5 p-4">
+          <h3 className="text-[14px] font-semibold leading-snug text-[#f2eee7]">{name}</h3>
+          <p className="line-clamp-2 text-[12px] leading-5 text-[#6b7785]">{desc}</p>
           
-          <div className="mt-auto flex items-end justify-between pt-3">
+          <div className="mt-auto flex items-center gap-2 pt-2">
+            <Stars rating={product.rating} />
+            <span className="text-[11px] text-[#6b7785]">
+              {product.rating} ({product.reviewCount.toLocaleString(localeStr)})
+            </span>
+          </div>
+          
+          <div className="flex items-center justify-between pt-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-[20px] font-bold text-white">€{product.price}</span>
+              <span className="text-[18px] font-bold text-white">€{product.price}</span>
               <span className="text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>
             </div>
             <button onClick={handleAdd}
