@@ -211,7 +211,6 @@ function getCopy(locale: string): CopyType {
 function ProductCard({ product, locale }: { product: CatalogProduct; locale: string }) {
   const { add, open: openCart } = useCart()
   const [added, setAdded] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
   const copy = getCopy(locale)
   const name = getLocalizedProductName(product, locale)
   const desc = getLocalizedProductShortDescription(product, locale)
@@ -229,17 +228,14 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
   const savings = product.comparePrice > 0 ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100) : 0
 
   return (
-    <Link href={`/${locale}/products/${product.slug}`} className="group block"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}>
+    <Link href={`/${locale}/products/${product.slug}`} className="group block">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card card-elevated transition-all duration-500 hover:border-[rgba(16,191,216,0.25)]"
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.12]"
       >
-        {/* Image area - premium visual */}
         <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden" style={{ background: product.color }}>
           <ProductImage 
             slug={product.slug as any} 
@@ -250,18 +246,15 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
             className="h-full w-full"
           />
           
-          {/* Badge */}
           {product.badge && (
             <div className="absolute left-4 top-4 z-10"><Badge type={product.badge} locale={locale} /></div>
           )}
           
-          {/* Savings badge */}
-          <div className="absolute right-4 top-4 z-10 rounded-full bg-[#10BFD8] px-3 py-1 text-[11px] font-bold text-[#080c16] shadow-lg">
+          <div className="absolute right-4 top-4 z-10 rounded-full bg-[#080c12]/80 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-bold text-white border border-white/[0.1]">
             -{savings}%
           </div>
-          
-          {/* Bottom overlay info */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 pt-10 bg-gradient-to-t from-[#0d1219] via-[#0d1219]/90 to-transparent">
+
+          <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#0d1219] via-[#0d1219]/80 to-transparent">
             <div className="flex items-center gap-1.5">
               <Stars rating={product.rating} />
               <span className="text-[11px] text-[#9aa7b9]">
@@ -271,27 +264,22 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex flex-1 flex-col gap-2.5 p-5">
-          {/* Name */}
-          <h3 className="text-[16px] font-bold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
+        <div className="flex flex-1 flex-col gap-2 p-5">
+          <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
+          <p className="line-clamp-2 text-[13px] leading-5 text-[#6b7785]">{desc}</p>
           
-          {/* Description */}
-          <p className="line-clamp-2 text-[13px] leading-5 text-[#9aa7b9]">{desc}</p>
-          
-          {/* Price + CTA */}
-          <div className="mt-auto flex items-end justify-between gap-3 pt-4 border-t border-white/[0.06]">
-            <div>
-              <span className="text-[22px] font-bold text-[#f2eee7]">€{product.price}</span>
-              <span className="ml-2 text-[13px] text-[#4a5568] line-through">€{product.comparePrice}</span>
+          <div className="mt-auto flex items-end justify-between pt-3">
+            <div className="flex items-baseline gap-2">
+              <span className="text-[20px] font-bold text-white">€{product.price}</span>
+              <span className="text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>
             </div>
             <button onClick={handleAdd}
-              className={`flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[12px] font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-[12px] font-semibold transition-all duration-200 ${
                 added
-                  ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300 scale-95'
-                  : 'bg-[#f2eee7] text-[#11161d] hover:bg-white hover:shadow-[0_4px_20px_rgba(242,238,231,0.3)] hover:-translate-y-0.5'
+                  ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
+                  : 'bg-white text-[#080c12] hover:bg-white/90'
               }`}>
-              {added ? (<><Check size={13} />{copy.addedLabel}</>) : (<><ShoppingCart size={13} />{copy.addLabel}</>)}
+              {added ? (<><Check size={12} />{copy.addedLabel}</>) : (<><ShoppingCart size={12} />{copy.addLabel}</>)}
             </button>
           </div>
         </div>
@@ -690,7 +678,7 @@ export default function ShopHomePage() {
         {/* ═══════════════════════════════════════════════════════
             WHY NOCTIP — Brand story
         ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 sm:py-28 bg-gradient-to-b from-[#080c12] via-[#0a1020] to-[#080c12]">
+        <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -710,29 +698,25 @@ export default function ShopHomePage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
-                  icon: '',
                   title: isEs ? 'Uno por problema' : 'One per problem',
                   text: isEs ? 'No hacemos 20 productos que hacen lo mismo. Hacemos uno que hace bien lo que necesitas.' : 'We don\'t make 20 products that do the same thing. We make one that does what you need well.',
                   stat: String(CATALOG.length),
                   statLabel: isEs ? 'Productos' : 'Products',
                 },
                 {
-                  icon: '',
                   title: isEs ? 'Gente real lo usa' : 'Real people use it',
                   text: isEs ? '6.000+ personas compraron esto. No son números de marketing — son reseñas verificadas.' : '6,000+ people bought this. Not marketing numbers — verified reviews.',
                   stat: '4.9',
                   statLabel: isEs ? 'Estrellas media' : 'Avg rating',
                 },
                 {
-                  icon: '',
                   title: isEs ? 'Sin riesgo' : 'Zero risk',
-                  text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro. No necesitas justificar nada.' : '30 nights to try it. If it doesn\'t work, we refund every cent. No justification needed.',
+                  text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro.' : '30 nights to try it. If it doesn\'t work, we refund every cent.',
                   stat: '30',
                   statLabel: isEs ? 'Noches garantía' : 'Night guarantee',
                 },
                 {
-                  icon: '',
-                  title: isEs ? 'Mañana en tu puerta' : 'At your door tomorrow',
+                  title: isEs ? 'Envío rápido' : 'Fast shipping',
                   text: isEs ? 'Enviamos en 24 horas. Con seguimiento. Sin excusas.' : 'We ship within 24 hours. With tracking. No excuses.',
                   stat: '24h',
                   statLabel: isEs ? 'Procesamiento' : 'Processing',
@@ -740,21 +724,16 @@ export default function ShopHomePage() {
               ].map((item, idx) => (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  className="group relative rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-500 hover:border-[#10BFD8]/20 hover:bg-[#10BFD8]/[0.03]"
+                  transition={{ delay: idx * 0.08, duration: 0.5 }}
+                  className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/[0.12]"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[13px] font-bold text-[#10BFD8]">
-                    {idx + 1}
-                  </div>
-                  <h3 className="mt-4 text-[15px] font-bold text-white">{item.title}</h3>
-                  <p className="mt-2 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
-                  <div className="mt-4 pt-4 border-t border-white/[0.06]">
-                    <span className="text-[24px] font-bold text-[#10BFD8]">{item.stat}</span>
-                    <span className="ml-2 text-[11px] text-[#6b7785] uppercase tracking-wider">{item.statLabel}</span>
-                  </div>
+                  <span className="text-[28px] font-bold text-[#10BFD8]">{item.stat}</span>
+                  <span className="ml-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b7785]">{item.statLabel}</span>
+                  <h3 className="mt-3 text-[15px] font-semibold text-white">{item.title}</h3>
+                  <p className="mt-1.5 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
                 </motion.div>
               ))}
             </div>
