@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import { ArrowLeft, Mail, MessageCircle, Clock, Shield, Truck, RotateCcw, Send } from 'lucide-react'
 import { useState } from 'react'
@@ -44,12 +45,14 @@ export default function ContactPage() {
       <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <div className="grid h-6 w-6 grid-cols-2 gap-[2px] rounded-md border border-white/10 bg-white/[0.03] p-0.5">
-              <span className="rounded-[2px] bg-[#cfd8e6]" />
-              <span className="rounded-[2px] bg-[#8da3c4]" />
-              <span className="rounded-[2px] bg-[#7186a4]" />
-              <span className="rounded-[2px] bg-[#d8d0c4]" />
-            </div>
+            <Image
+              src="/images/logo/logo.png"
+              alt="Noctip"
+              width={28}
+              height={28}
+              className="object-contain"
+              sizes="28px"
+            />
             <span className="hidden sm:block">Noctip</span>
           </Link>
           <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">

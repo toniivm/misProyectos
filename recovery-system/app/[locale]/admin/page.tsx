@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Lock, RefreshCw, Package, MapPin, Mail, Phone, Copy, Check, ShoppingBag, Truck, Clock, ChevronRight, LogOut } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const ADMIN_AUTH_KEY = 'noctas_admin_authed'
 const DEFAULT_KEY = 'changeme_admin_key'
@@ -169,10 +170,14 @@ export default function AdminPage(){
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2">
-              <div className="grid h-6 w-6 grid-cols-2 gap-[2px] rounded-md border border-white/10 bg-white/[0.03] p-0.5">
-                <span className="rounded-[2px] bg-[#cfd8e6]" /><span className="rounded-[2px] bg-[#8da3c4]" />
-                <span className="rounded-[2px] bg-[#7186a4]" /><span className="rounded-[2px] bg-[#d8d0c4]" />
-              </div>
+              <Image
+                src="/images/logo/logo.png"
+                alt="Noctip"
+                width={28}
+                height={28}
+                className="object-contain"
+                sizes="28px"
+              />
             </Link>
             <div>
               <h1 className="text-[15px] font-bold text-white">Noctip Admin</h1>

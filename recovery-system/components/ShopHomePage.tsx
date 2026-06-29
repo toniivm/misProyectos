@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '../context/AuthContext'
@@ -350,12 +351,15 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
           <div className="flex h-16 items-center gap-4">
             <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group">
-              <div className="grid h-7 w-7 grid-cols-2 gap-[3px] rounded-lg border border-white/10 bg-white/[0.04] p-1 transition-all group-hover:border-white/20">
-                <span className="rounded-[3px] bg-[#cfd8e6]" />
-                <span className="rounded-[3px] bg-[#8da3c4]" />
-                <span className="rounded-[3px] bg-[#7186a4]" />
-                <span className="rounded-[3px] bg-[#d8d0c4]" />
-              </div>
+              <Image
+                src="/images/logo/logo.png"
+                alt="Noctip"
+                width={36}
+                height={36}
+                priority
+                className="object-contain"
+                sizes="36px"
+              />
               <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctip</span>
             </Link>
 

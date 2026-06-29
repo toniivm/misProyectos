@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
 import { Shield, Instagram, Twitter, Youtube, CreditCard, Truck, RotateCcw } from 'lucide-react'
 
@@ -37,12 +38,14 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-2 space-y-5">
             <div className="flex items-center gap-2.5">
-              <div className="grid h-7 w-7 grid-cols-2 gap-[3px] rounded-lg border border-white/10 bg-white/[0.04] p-1">
-                <span className="rounded-[3px] bg-[#cfd8e6]" />
-                <span className="rounded-[3px] bg-[#8da3c4]" />
-                <span className="rounded-[3px] bg-[#7186a4]" />
-                <span className="rounded-[3px] bg-[#d8d0c4]" />
-              </div>
+              <Image
+                src="/images/logo/logo.png"
+                alt="Noctip"
+                width={36}
+                height={36}
+                className="object-contain"
+                sizes="36px"
+              />
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">Noctip</span>
             </div>
             <p className="max-w-xs text-[13px] leading-6 text-[#5a6678]">
