@@ -237,7 +237,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card card-elevated transition-all duration-700 hover:border-[rgba(16,191,216,0.3)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_rgba(16,191,216,0.08)]"
+        className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card card-elevated transition-all duration-500 hover:border-[rgba(16,191,216,0.25)]"
       >
         {/* Image area - premium visual */}
         <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden" style={{ background: product.color }}>
@@ -354,13 +354,13 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
               <Image
                 src="/images/logo/logo.png"
                 alt="Noctip"
-                width={44}
-                height={44}
+                width={56}
+                height={56}
                 priority
                 className="object-contain"
-                sizes="44px"
+                sizes="56px"
               />
-              <span className="hidden text-[13px] font-bold uppercase tracking-[0.15em] text-[#f2eee7] sm:block">Noctip</span>
+              <span className="hidden text-[14px] font-bold uppercase tracking-[0.12em] text-[#f2eee7] sm:block">Noctip</span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-1 ml-6">
@@ -623,7 +623,7 @@ export default function ShopHomePage() {
                 {/* CTAs */}
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link href={`/${locale}/shop/all`}
-                    className="group relative inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:-translate-y-0.5">
+                    className="group relative inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all hover:-translate-y-0.5">
                     <ShoppingCart size={16} />
                     {copy.heroPrimary}
                     <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -657,14 +657,14 @@ export default function ShopHomePage() {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="relative"
               >
-                <div className="relative rounded-[40px] overflow-hidden border border-white/[0.08] bg-gradient-to-br from-[#0d1828] to-[#0a0f18] shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
+                <div className="relative rounded-[40px] overflow-hidden border border-white/[0.08] bg-gradient-to-br from-[#0d1828] to-[#0a0f18]">
                   <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
                     <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden">
                       <img src={flagshipImage}
                         alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                         className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-1000 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-[#080c12]/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-[#080c12]/50 to-transparent opacity-90" />
                       
                       {/* Product info overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
@@ -697,7 +697,7 @@ export default function ShopHomePage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.5 }}
-                  className="absolute -bottom-3 left-3 sm:-bottom-4 sm:left-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                  className="absolute -bottom-3 left-3 sm:-bottom-4 sm:left-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20">
@@ -715,7 +715,7 @@ export default function ShopHomePage() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8, duration: 0.5 }}
-                  className="absolute -top-3 right-3 sm:-top-4 sm:right-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                  className="absolute -top-3 right-3 sm:-top-4 sm:right-4 rounded-2xl border border-white/[0.1] bg-base-card/95 px-4 py-3 backdrop-blur-xl"
                 >
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-0.5">
@@ -842,7 +842,7 @@ export default function ShopHomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  className="group relative rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-500 hover:border-[#10BFD8]/20 hover:bg-[#10BFD8]/[0.03] hover:shadow-[0_0_40px_rgba(16,191,216,0.05)]"
+                  className="group relative rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-500 hover:border-[#10BFD8]/20 hover:bg-[#10BFD8]/[0.03]"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[13px] font-bold text-[#10BFD8]">
                     {idx + 1}
@@ -1049,7 +1049,7 @@ export default function ShopHomePage() {
               <p className="mt-5 max-w-lg mx-auto text-[16px] leading-7 text-[#9aa7b9]">{copy.ctaSub}</p>
               
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <Link href={`/${locale}/shop/all`} className="group relative inline-flex items-center gap-2 rounded-full bg-white px-10 py-5 text-[16px] font-bold text-[#080c12] transition-all hover:shadow-[0_0_60px_rgba(255,255,255,0.25)] hover:-translate-y-1">
+                <Link href={`/${locale}/shop/all`} className="group relative inline-flex items-center gap-2 rounded-full bg-white px-10 py-5 text-[16px] font-bold text-[#080c12] transition-all hover:-translate-y-1">
                   {copy.ctaPrimary}
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                 </Link>

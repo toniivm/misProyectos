@@ -148,9 +148,9 @@ export const CATALOG: CatalogProduct[] = [
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
     images: [
-      '/images/pomelli_creative_image_9_16_0626Masaje2.png',
       '/images/white-noise-pro-2.webp',
       '/images/white-noise-pro-3.webp',
+      '/images/weighted-mask-pro-1.webp',
     ],
     video: '/images/pomelli_creative_video_9_16_0626MasajeEspalda.mp4',
     icon: '',
@@ -245,10 +245,10 @@ export const CATALOG: CatalogProduct[] = [
       'Paquete incluye': 'Masajeador cervical, Cable USB, Manual de usuario',
     },
     images: [
+      '/images/pomelli_creative_image_9_16_0626Masaje2.png',
       '/images/productos-reales/neck-massager.jpg',
       '/images/masajeadorbuenoo1.png',
       '/images/masajeadordeatial2.png',
-      '/images/masajeadordeatils4.png',
     ],
     icon: '',
     cartIcon: '',

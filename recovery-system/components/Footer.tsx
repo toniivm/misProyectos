@@ -41,12 +41,12 @@ export default function Footer() {
               <Image
                 src="/images/logo/logo.png"
                 alt="Noctip"
-                width={44}
-                height={44}
+                width={52}
+                height={52}
                 className="object-contain"
-                sizes="44px"
+                sizes="52px"
               />
-              <span className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#f2eee7]">Noctip</span>
+              <span className="text-[14px] font-bold uppercase tracking-[0.12em] text-[#f2eee7]">Noctip</span>
             </div>
             <p className="max-w-xs text-[13px] leading-6 text-[#5a6678]">
               {isEs
