@@ -9,7 +9,7 @@ import { useAuth } from '../context/AuthContext'
 import {
   ShoppingCart, Star, Check, ChevronRight, ChevronDown, Menu, X,
   Shield, Truck, RotateCcw, User, LogOut,
-  PackageCheck, Moon, Sparkles, ArrowRight, Heart, Leaf, Flame, Eye,
+  PackageCheck, ArrowRight, Eye,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import {
@@ -18,7 +18,7 @@ import {
   getLocalizedProductShortDescription,
   type CatalogProduct,
 } from '../lib/catalog'
-import { ViewingNow, TrustStrip, LimitedOffer, CountdownTimer } from './ConversionBoosters'
+import { TrustStrip } from './ConversionBoosters'
 import ProductImage from './ProductImage'
 import Stars from './ui/Stars'
 import Badge from './ui/Badge'
@@ -34,15 +34,15 @@ const SHOP_HOME_COPY = {
     switchAria: 'Switch to Spanish',
     announcement: [
       'Free shipping — always',
-      '4.9 ★ — 6,000+ people sleeping better',
+      '4.9 ★ — 6,000+ reviews',
       '30 nights to try it — full refund if not',
       '100% secure payment (Stripe + SSL)',
       'Ships tomorrow',
     ],
-    heroKicker: 'Sleep & recovery technology that actually works',
-    heroLine1: 'Stop sleeping badly.',
-    heroLine2: 'Start recovering.',
-    heroSubtitle: 'Products your body feels from night one. Anti-snoring, posture correction, and cervical relief — built for people who can\'t afford to sleep badly.',
+    heroKicker: 'Sleep & recovery that actually works',
+    heroLine1: 'You deserve to',
+    heroLine2: 'sleep well.',
+    heroSubtitle: 'Four products. Each one solves a specific problem — snoring, neck pain, bad posture. No gimmicks. Just things that work.',
     heroQuickLinks: [
       { emoji: '', label: 'I snore every night', slug: 'sleep-audio' },
       { emoji: '', label: 'My neck is always tense', slug: 'neck-recovery' },
@@ -56,17 +56,17 @@ const SHOP_HOME_COPY = {
       { icon: Shield, label: 'Secure checkout', sub: 'SSL + Stripe' },
       { icon: Star, label: '4.9 average', sub: '6,000+ verified reviews' },
     ],
-    categoriesHeading: 'What\'s your problem?',
-    categoriesSub: 'Pick what bothers you most — we\'ll show you the fix',
+    categoriesHeading: 'What\'s bothering you?',
+    categoriesSub: 'Tell us what\'s wrong — we\'ll show you what helps',
     problemCards: [
       {
         emoji: '', problem: 'Snoring ruining your sleep?', solution: 'Stop snoring. Start sleeping.',
-        description: 'Jaw-advancement mouthpieces that open your airway and eliminate snoring at the source. Your partner sleeps better too.',
+        description: 'Jaw-advancement mouthpieces that open your airway and stop snoring at the source. Your partner sleeps better too.',
         slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520',
       },
       {
-        emoji: '', problem: 'Chronic neck pain?', solution: 'Pulse therapy that adapts to you.',
-        description: 'Cervical massagers with floating electrodes that conform to your neck curves. Relief at your desk, at home, anywhere.',
+        emoji: '', problem: 'Chronic neck pain?', solution: 'Relief that travels with you.',
+        description: 'Cervical massagers with floating electrodes that adapt to your neck curves. Relief at your desk, at home, anywhere.',
         slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520',
       },
       {
@@ -75,8 +75,8 @@ const SHOP_HOME_COPY = {
         slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520',
       },
     ],
-    bestSellersHeading: 'Best sellers',
-    bestSellersSub: 'Products 6,000+ people already use every night',
+    bestSellersHeading: 'Our best sellers',
+    bestSellersSub: 'What 6,000+ people already use every night',
     stepsHeading: 'How it works',
     stepsSub: 'Three steps to better rest',
     steps: [
@@ -84,8 +84,8 @@ const SHOP_HOME_COPY = {
       { step: '02', icon: '02', title: 'At your door tomorrow', text: 'Free shipping. Real-time tracking. We process and ship within 24 hours. No surprises.' },
       { step: '03', icon: '03', title: '30 nights to decide', text: 'If you don\'t feel the difference, we refund every cent. No questions. That\'s how confident we are.' },
     ],
-    testimonialsHeading: 'Real people. Real results.',
-    testimonialsSub: 'Verified reviews from actual buyers',
+    testimonialsHeading: 'What our customers say',
+    testimonialsSub: 'Real reviews from real people',
     verifiedPurchase: 'Verified purchase',
     reviews: [
       { text: 'After years of snoring that kept my wife awake, the Noctip Halo was a game changer. The jaw adjustment is comfortable and the snoring stopped from night one. We both sleep better now.', author: 'Andrea L.', role: 'Student', stars: 5, product: 'Noctip Halo' },
@@ -96,12 +96,12 @@ const SHOP_HOME_COPY = {
       { text: 'The Noctip Back brace realigned my posture faster than I expected. After years of slouching at a computer, the Y-shaped support pulled my shoulders back naturally. My chiropractor noticed the difference.', author: 'Sara M.', role: 'Teacher', stars: 4, product: 'Noctip Back' },
     ],
     stats: [
-      { value: '5', label: 'Premium products' },
+      { value: '4', label: 'Products' },
       { value: '6,000+', label: 'Happy customers' },
       { value: '4.9', label: 'Average rating' },
       { value: '30', label: 'Night guarantee' },
     ],
-    faqHeading: 'Frequently asked questions',
+    faqHeading: 'Common questions',
     faqSub: 'Quick answers before you buy',
     faqs: [
       { q: 'How fast is shipping?', a: 'We ship all orders within 24 hours. Standard delivery: 3-5 business days across Europe. Express 1-2 day shipping available at checkout. All shipments include real-time tracking.' },
@@ -111,8 +111,8 @@ const SHOP_HOME_COPY = {
       { q: 'Is checkout secure?', a: 'Yes. All payments processed through Stripe with 256-bit SSL encryption. We never store card details. Visa, Mastercard, Amex, Apple Pay, and Google Pay accepted.' },
       { q: 'Do bundle discounts apply automatically?', a: 'Yes. Add multiple products to your cart and discounts are applied at checkout. The more you add, the more you save.' },
     ],
-    ctaHeading: 'How many more nights will you sleep badly?',
-    ctaSub: '6,000+ people are already sleeping better. Tonight could be your first good night.',
+    ctaHeading: 'Ready to sleep better?',
+    ctaSub: 'Start with one product. If it doesn\'t work, we\'ll refund everything.',
     ctaPrimary: 'Shop all products',
     ctaSecondary: 'View best sellers',
     badgeLabels: { bestseller: 'Best Seller', new: 'New', deal: 'Deal', trending: 'Trending' },
@@ -127,15 +127,15 @@ const SHOP_HOME_COPY = {
     switchAria: 'Switch to English',
     announcement: [
       'Envío gratis — siempre',
-      '4,9 ★ — 6.000+ personas duermen mejor',
+      '4,9 ★ — 6.000+ reseñas',
       '30 noches para probarlo — te devolvemos todo',
       'Pago 100% seguro (Stripe + SSL)',
       'Lo enviamos mañana',
     ],
-    heroKicker: 'Tecnología de sueño y recuperación que funciona de verdad',
-    heroLine1: 'Deja de dormir mal.',
-    heroLine2: 'Empieza a recuperarte.',
-    heroSubtitle: 'Productos que tu cuerpo nota desde la primera noche. Anti-ronquidos, corrección postural y alivio cervical — para gente que no puede permitirse dormir mal.',
+    heroKicker: 'Sueño y recuperación que funciona',
+    heroLine1: 'Mereces dormir',
+    heroLine2: 'bien.',
+    heroSubtitle: 'Cuatro productos. Cada uno resuelve un problema específico — ronquidos, dolor de cuello, mala postura. Sin trucos. Solo cosas que funcionan.',
     heroQuickLinks: [
       { emoji: '', label: 'Rono todas las noches', slug: 'sleep-audio' },
       { emoji: '', label: 'Tengo el cuello siempre tenso', slug: 'neck-recovery' },
@@ -149,15 +149,15 @@ const SHOP_HOME_COPY = {
       { icon: Shield, label: 'Pago seguro', sub: 'SSL + Stripe' },
       { icon: Star, label: 'Media de 4,9', sub: 'Más de 6.000 reseñas verificadas' },
     ],
-    categoriesHeading: '¿Cuál es tu problema?',
-    categoriesSub: 'Elige lo que más te molesta — te mostramos la solución',
+    categoriesHeading: '¿Qué te está molestando?',
+    categoriesSub: 'Cuéntanos qué pasa — te mostramos qué te ayuda',
     problemCards: [
       { emoji: '', problem: '¿Roncas todas las noches?', solution: 'Deja de roncar. Empieza a dormir.', description: 'Férulas de avanzamiento mandibular que abren tu vía aérea y eliminan los ronquidos en su origen. Tu pareja también duerme mejor.', slug: 'sleep-audio', colorFrom: '#0d1828', colorTo: '#0c1520' },
-      { emoji: '', problem: '¿Dolor cervical crónico?', solution: 'Terapia por pulsos que se adapta a ti.', description: 'Masajeadores cervicales con electrodos flotantes que se adaptan a las curvas de tu cuello. Alivio en el trabajo, en casa, en cualquier lugar.', slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520' },
+      { emoji: '', problem: '¿Dolor cervical crónico?', solution: 'Alivio que viaja contigo.', description: 'Masajeadores cervicales con electrodos flotantes que se adaptan a las curvas de tu cuello. Alivio en el trabajo, en casa, en cualquier lugar.', slug: 'neck-recovery', colorFrom: '#1a1020', colorTo: '#0c1520' },
       { emoji: '', problem: '¿Mala postura por trabajar sentado?', solution: 'Mejora tu postura. Libera tu cuello.', description: 'Correctores posturales que realinean tu columna y alivian el dolor crónico de espalda. Resultados visibles en 2 semanas.', slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520' },
     ],
-    bestSellersHeading: 'Más vendidos',
-    bestSellersSub: 'Productos que 6.000+ personas ya usan cada noche',
+    bestSellersHeading: 'Nuestros más vendidos',
+    bestSellersSub: 'Lo que 6.000+ personas ya usan cada noche',
     stepsHeading: 'Cómo funciona',
     stepsSub: 'Tres pasos para descansar mejor',
     steps: [
@@ -165,8 +165,8 @@ const SHOP_HOME_COPY = {
       { step: '02', icon: '02', title: 'Mañana en tu puerta', text: 'Envío gratis. Seguimiento en tiempo real. Procesamos y enviamos en 24 horas. Sin sorpresas.' },
       { step: '03', icon: '03', title: '30 noches para decidir', text: 'Si no notas la diferencia, te devolvemos cada euro. Sin preguntas. Así de seguros estamos.' },
     ],
-    testimonialsHeading: 'Personas reales. Resultados reales.',
-    testimonialsSub: 'Reseñas verificadas de compradores reales',
+    testimonialsHeading: 'Lo que dicen nuestros clientes',
+    testimonialsSub: 'Reseñas reales de personas reales',
     verifiedPurchase: 'Compra verificada',
     reviews: [
       { text: 'Después de años de ronquidos que impedían dormir a mi esposa, el Noctip Halo fue un cambio total. El ajuste mandibular es cómodo y los ronquidos desaparecieron desde la primera noche. Los dos dormimos mejor.', author: 'Andrea L.', role: 'Estudiante', stars: 5, product: 'Noctip Halo' },
@@ -177,7 +177,7 @@ const SHOP_HOME_COPY = {
       { text: 'El corrector Noctip Back ha realineado mi postura más rápido de lo esperado. Después de años encorvado frente al ordenador, el soporte en forma de Y juntó mis hombros hacia atrás naturalmente. Mi quiropráctico notó la diferencia.', author: 'Sara M.', role: 'Profesora', stars: 4, product: 'Noctip Back' },
     ],
     stats: [
-      { value: '5', label: 'Productos premium' },
+      { value: '4', label: 'Productos' },
       { value: '6.000+', label: 'Clientes felices' },
       { value: '4,9', label: 'Valoración media' },
       { value: '30', label: 'Noches de garantía' },
@@ -192,8 +192,8 @@ const SHOP_HOME_COPY = {
       { q: '¿El pago es seguro?', a: 'Sí. Pagos procesados por Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta. Aceptamos Visa, Mastercard, Amex, Apple Pay y Google Pay.' },
       { q: '¿Los descuentos por packs se aplican solos?', a: 'Sí. Añade varios productos al carrito y los descuentos se aplican automáticamente en el checkout. Cuanto más añades, más ahorras.' },
     ],
-    ctaHeading: '¿Cuántas noches más vas a dormir mal?',
-    ctaSub: '6.000+ personas ya duermen mejor. Esta noche podría ser tu primera buena noche.',
+    ctaHeading: '¿Listo para dormir mejor?',
+    ctaSub: 'Empieza con un producto. Si no funciona, te devolvemos todo.',
     ctaPrimary: 'Ver todos los productos',
     ctaSecondary: 'Ver más vendidos',
     badgeLabels: { bestseller: 'Más vendido', new: 'Nuevo', deal: 'Oferta', trending: 'Tendencia' },
@@ -560,7 +560,6 @@ export default function ShopHomePage() {
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
-      <LimitedOffer />
       <AnnouncementBar copy={copy} />
       <Header locale={locale} copy={copy} switchHref={switchHref} />
 
@@ -759,10 +758,7 @@ export default function ShopHomePage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <span className="section-tag mb-4 inline-flex">
-                {isEs ? 'Catálogo completo' : 'Full catalog'}
-              </span>
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
                 {isEs ? 'Elige tu solución' : 'Pick your solution'}
               </h2>
               <p className="mt-3 text-[15px] text-[#6b7785] max-w-md mx-auto">
@@ -795,14 +791,11 @@ export default function ShopHomePage() {
               viewport={{ once: true }}
               className="text-center mb-14"
             >
-              <span className="section-tag mb-4 inline-flex">
-                {isEs ? 'La diferencia Noctip' : 'The Noctip difference'}
-              </span>
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">
-                {isEs ? 'No somos una marketplace.' : 'We\'re not a marketplace.'}
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
+                {isEs ? 'Cuatro productos.' : 'Four products.'}
                 <br />
                 <span className="bg-gradient-to-r from-[#10BFD8] to-[#9E92FF] bg-clip-text text-transparent">
-                  {isEs ? 'Somos una marca.' : 'We\'re a brand.'}
+                  {isEs ? 'Cuatro problemas resueltos.' : 'Four problems solved.'}
                 </span>
               </h2>
             </motion.div>
@@ -811,29 +804,29 @@ export default function ShopHomePage() {
               {[
                 {
                   icon: '',
-                  title: isEs ? 'Un problema, un producto' : 'One problem, one product',
-                  text: isEs ? 'Cada producto resuelve UN problema específico. Sin distracciones, sin compromisos.' : 'Each product solves ONE specific problem. No distractions, no compromises.',
+                  title: isEs ? 'Uno por problema' : 'One per problem',
+                  text: isEs ? 'No hacemos 20 productos que hacen lo mismo. Hacemos uno que hace bien lo que necesitas.' : 'We don\'t make 20 products that do the same thing. We make one that does what you need well.',
                   stat: String(CATALOG.length),
                   statLabel: isEs ? 'Productos' : 'Products',
                 },
                 {
                   icon: '',
-                  title: isEs ? 'Probado, no prometido' : 'Tested, not promised',
-                  text: isEs ? '6.000+ clientes reales. Resultados que hablan por sí solos.' : '6,000+ real customers. Results that speak for themselves.',
+                  title: isEs ? 'Gente real lo usa' : 'Real people use it',
+                  text: isEs ? '6.000+ personas compraron esto. No son números de marketing — son reseñas verificadas.' : '6,000+ people bought this. Not marketing numbers — verified reviews.',
                   stat: '4.9',
                   statLabel: isEs ? 'Estrellas media' : 'Avg rating',
                 },
                 {
                   icon: '',
                   title: isEs ? 'Sin riesgo' : 'Zero risk',
-                  text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro.' : '30 nights to try it. If it doesn\'t work, we refund every cent.',
+                  text: isEs ? '30 noches para probarlo. Si no funciona, te devolvemos cada euro. No necesitas justificar nada.' : '30 nights to try it. If it doesn\'t work, we refund every cent. No justification needed.',
                   stat: '30',
                   statLabel: isEs ? 'Noches garantía' : 'Night guarantee',
                 },
                 {
                   icon: '',
-                  title: isEs ? 'Envío inmediato' : 'Instant shipping',
-                  text: isEs ? 'Enviamos en 24 horas. Mañana en tu puerta.' : 'We ship within 24 hours. At your door tomorrow.',
+                  title: isEs ? 'Mañana en tu puerta' : 'At your door tomorrow',
+                  text: isEs ? 'Enviamos en 24 horas. Con seguimiento. Sin excusas.' : 'We ship within 24 hours. With tracking. No excuses.',
                   stat: '24h',
                   statLabel: isEs ? 'Procesamiento' : 'Processing',
                 },
@@ -872,11 +865,7 @@ export default function ShopHomePage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <span className="section-tag mb-4 inline-flex">
-                <Sparkles size={11} />
-                {isEs ? 'Resultados reales' : 'Real results'}
-              </span>
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
                 {isEs ? 'Erase el dolor. Recupera tu cuerpo.' : 'Erase the pain. Recover your body.'}
               </h2>
               <p className="mt-3 text-[15px] text-[#6b7785] max-w-lg mx-auto">
@@ -1007,11 +996,7 @@ export default function ShopHomePage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <span className="section-tag mb-4 inline-flex">
-                <Heart size={11} />
-                {copy.testimonialsHeading}
-              </span>
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">{copy.testimonialsHeading}</h2>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">{copy.testimonialsHeading}</h2>
               <p className="mt-3 text-[15px] text-[#6b7785]">{copy.testimonialsSub}</p>
             </motion.div>
 
@@ -1030,11 +1015,7 @@ export default function ShopHomePage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <span className="section-tag mb-4 inline-flex">
-                <Leaf size={11} />
-                FAQ
-              </span>
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mt-4">{copy.faqHeading}</h2>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">{copy.faqHeading}</h2>
               <p className="mt-3 text-[15px] text-[#6b7785]">{copy.faqSub}</p>
             </motion.div>
 
@@ -1061,10 +1042,6 @@ export default function ShopHomePage() {
                 {copy.ctaHeading}
               </h2>
               <p className="mt-5 max-w-lg mx-auto text-[16px] leading-7 text-[#9aa7b9]">{copy.ctaSub}</p>
-              
-              <div className="mt-6 flex items-center justify-center">
-                <CountdownTimer />
-              </div>
               
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <Link href={`/${locale}/shop/all`} className="group relative inline-flex items-center gap-2 rounded-full bg-white px-10 py-5 text-[16px] font-bold text-[#080c12] transition-all hover:shadow-[0_0_60px_rgba(255,255,255,0.25)] hover:-translate-y-1">

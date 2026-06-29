@@ -8,7 +8,6 @@ import { useLocale } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
-import { ViewingNow, CountdownTimer } from './ConversionBoosters';
 import ProductImage from './ProductImage';
 import Stars from './ui/Stars';
 import Badge from './ui/Badge';
@@ -259,13 +258,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             )}
 
-            {/* Social proof */}
-            {product && (
-              <div className="flex flex-wrap items-center gap-4">
-                <ViewingNow slug={product.slug} />
-              </div>
-            )}
-
             {/* Short description */}
             {product && (
               <p className="text-[14px] leading-7 text-[#9aa7b9]">
@@ -281,9 +273,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 {isEs ? 'Ahorra' : 'Save'} {savings}%
               </span>
             </div>
-
-            {/* Countdown timer */}
-            <CountdownTimer />
 
             {/* Features */}
             {product?.features && (
