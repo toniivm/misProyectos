@@ -53,3 +53,4 @@ firebase-debug.log
 *.copilot-build.log
 .firebase/
 recovery-system/.env.production
+nul
