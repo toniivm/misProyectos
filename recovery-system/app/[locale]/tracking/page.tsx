@@ -1,0 +1,125 @@
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
+import { ExternalLink, Package, Truck, Clock } from 'lucide-react'
+import { Suspense } from 'react'
+
+function TrackingContent() {
+  const searchParams = useSearchParams()
+  const trackingNumber = searchParams.get('n') || ''
+  const carrier = searchParams.get('carrier') || 'Cainiao'
+  const order = searchParams.get('order') || ''
+  const isEs = true
+
+  if (!trackingNumber) {
+    return (
+      <div className="min-h-screen bg-[#080c16] text-[#f4f1ea] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-[15px] text-[#8791a1]">No tracking number provided.</p>
+          <Link href="/es" className="mt-4 inline-block text-[14px] text-[#10BFD8] underline">Volver a la tienda</Link>
+        </div>
+      </div>
+    )
+  }
+
+  // Build external tracking URL
+  const c = carrier.toLowerCase()
+  let externalUrl = ''
+  if (c.includes('cainiao') || c.includes('aliexpress')) {
+    externalUrl = `https://global.cainiao.com/newDetail.htm?mailNoList=${trackingNumber}`
+  } else if (c.includes('correos')) {
+    externalUrl = `https://www.correos.es/es/es/herramientas/localizador-de-envios/detalle?tracking-number=${trackingNumber}`
+  } else if (c.includes('dhl')) {
+    externalUrl = `https://www.dhl.com/es-es/home/tracking/tracking-express.html?submit=1&tracking-id=${trackingNumber}`
+  } else if (c.includes('seur')) {
+    externalUrl = `https://www.seur.com/livetracking/?segOnlineNum=${trackingNumber}`
+  } else {
+    externalUrl = `https://t.17track.net/en#nums=${trackingNumber}`
+  }
+
+  return (
+    <div className="min-h-screen bg-[#080c16] text-[#f4f1ea]">
+      <header className="border-b border-white/[0.06] bg-[rgba(8,12,22,0.92)] px-5 py-4 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-2xl items-center justify-center">
+          <Link href="/es" className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
+            <Image src="/images/logo/logo.png" alt="Noctip" width={32} height={32} className="object-contain" sizes="32px" />
+            NOCTIP
+          </Link>
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-2xl px-4 py-12">
+        <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-8">
+          <div className="mb-6 flex justify-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#10BFD8]/10 border border-[#10BFD8]/20">
+              <Package size={28} className="text-[#10BFD8]" />
+            </div>
+          </div>
+
+          <h1 className="text-center text-[22px] font-bold text-[#f2eee7]">
+            Seguimiento de tu pedido
+          </h1>
+
+          <div className="mt-8 space-y-4">
+            <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#10BFD8]/10">
+                <Truck size={18} className="text-[#10BFD8]" />
+              </div>
+              <div>
+                <div className="text-[13px] font-semibold text-[#f2eee7]">Estado</div>
+                <div className="text-[12px] text-[#8791a1]">En tránsito hacia tu dirección</div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">Transportista</div>
+              <div className="text-[14px] font-semibold text-[#f2eee7]">{carrier}</div>
+            </div>
+
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">Nº de seguimiento</div>
+              <div className="font-mono text-[16px] font-bold text-[#10BFD8] tracking-wide">{trackingNumber}</div>
+            </div>
+
+            <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#10BFD8]/10">
+                <Clock size={18} className="text-[#10BFD8]" />
+              </div>
+              <div>
+                <div className="text-[13px] font-semibold text-[#f2eee7]">Entrega estimada</div>
+                <div className="text-[12px] text-[#8791a1]">3-5 días hábiles</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <a href={externalUrl} target="_blank" rel="noopener noreferrer"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#10BFD8] py-4 text-[14px] font-bold text-[#080c12] transition hover:bg-[#0ea5c4] hover:-translate-y-[1px]">
+              Ver seguimiento detallado
+              <ExternalLink size={15} />
+            </a>
+          </div>
+
+          <div className="mt-6 text-center text-[12px] text-[#5a6678]">
+            Haz clic arriba para ver el estado actualizado de tu paquete.
+          </div>
+        </div>
+
+        <div className="mt-8 text-center text-[12px] text-[#4a5568]">
+          ¿Problemas con tu pedido?{' '}
+          <a href="mailto:noctip95@gmail.com" className="text-[#10BFD8] underline">noctip95@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function TrackingPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#080c16] flex items-center justify-center text-[#8791a1]">Cargando...</div>}>
+      <TrackingContent />
+    </Suspense>
+  )
+}

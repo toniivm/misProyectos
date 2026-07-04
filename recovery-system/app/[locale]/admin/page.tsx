@@ -9,19 +9,7 @@ const ADMIN_AUTH_KEY = 'noctas_admin_authed'
 const DEFAULT_KEY = 'changeme_admin_key'
 
 function getTrackingUrl(carrier: string, trackingNumber: string): string {
-  const c = carrier.toLowerCase()
-  // AliExpress / Cainiao — tracking directo
-  if (c.includes('cainiao') || c.includes('aliexpress')) return `https://global.cainiao.com/newDetail.htm?mailNoList=${trackingNumber}`
-  // Europeos
-  if (c.includes('correos')) return `https://www.correos.es/es/es/herramientas/localizador-de-envios/detalle?tracking-number=${trackingNumber}`
-  if (c.includes('dhl')) return `https://www.dhl.com/es-es/home/tracking/tracking-express.html?submit=1&tracking-id=${trackingNumber}`
-  if (c.includes('seur')) return `https://www.seur.com/livetracking/?segOnlineNum=${trackingNumber}`
-  if (c.includes('gls')) return `https://www.gls-spain.es/tracking?id=${trackingNumber}`
-  if (c.includes('ups')) return `https://www.ups.com/track?loc=es_ES&tracknum=${trackingNumber}`
-  if (c.includes('mrw')) return `https://www.mrw.es/seguimiento-envios.asp?numero=${trackingNumber}`
-  if (c.includes('ctt')) return `https://www.ctt.pt/tracktrace/detalhe?CTT0=${trackingNumber}`
-  // Universal fallback
-  return `https://t.17track.net/en#nums=${trackingNumber}`
+  return `https://noctip.com/es/tracking?n=${encodeURIComponent(trackingNumber)}&carrier=${encodeURIComponent(carrier)}`
 }
 
 export default function AdminPage(){
