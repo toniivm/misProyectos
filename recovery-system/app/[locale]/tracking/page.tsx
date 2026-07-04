@@ -24,9 +24,10 @@ function TrackingContent() {
     )
   }
 
-  // Build external tracking URL
+  // Build external tracking URL — hidden behind noctip branding
+  // Customer sees noctip.com, never sees Cainiao/AliExpress
   const c = carrier.toLowerCase()
-  let externalUrl = ''
+  let externalUrl = '#'
   if (c.includes('cainiao') || c.includes('aliexpress')) {
     externalUrl = `https://global.cainiao.com/newDetail.htm?mailNoList=${trackingNumber}`
   } else if (c.includes('correos')) {
@@ -89,21 +90,19 @@ function TrackingContent() {
               </div>
               <div>
                 <div className="text-[13px] font-semibold text-[#f2eee7]">Entrega estimada</div>
-                <div className="text-[12px] text-[#8791a1]">3-5 días hábiles</div>
+                <div className="text-[12px] text-[#8791a1]">6-9 días hábiles</div>
               </div>
             </div>
           </div>
 
-          <div className="mt-8">
-            <a href={externalUrl} target="_blank" rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#10BFD8] py-4 text-[14px] font-bold text-[#080c12] transition hover:bg-[#0ea5c4] hover:-translate-y-[1px]">
-              Ver seguimiento detallado
-              <ExternalLink size={15} />
-            </a>
-          </div>
-
-          <div className="mt-6 text-center text-[12px] text-[#5a6678]">
-            Haz clic arriba para ver el estado actualizado de tu paquete.
+          <div className="mt-8 rounded-xl border border-white/[0.06] bg-white/[0.025] p-4 text-center">
+            <p className="text-[13px] text-[#8791a1]">
+              Tu paquete está en camino. Entrega estimada en <strong className="text-[#f2eee7]">6-9 días hábiles</strong>.
+            </p>
+            <p className="mt-2 text-[12px] text-[#5a6678]">
+              Si tienes preguntas, contacta con{' '}
+              <a href="mailto:noctip95@gmail.com" className="text-[#10BFD8] underline">noctip95@gmail.com</a>
+            </p>
           </div>
         </div>
 

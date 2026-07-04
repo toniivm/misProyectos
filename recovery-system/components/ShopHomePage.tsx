@@ -105,7 +105,7 @@ const SHOP_HOME_COPY = {
     faqHeading: 'Common questions',
     faqSub: 'Quick answers before you buy',
     faqs: [
-      { q: 'How fast is shipping?', a: 'We ship all orders within 24 hours. Standard delivery: 3-5 business days across Europe. Express 1-2 day shipping available at checkout. All shipments include real-time tracking.' },
+      { q: 'How fast is shipping?', a: 'We ship all orders within 24 hours. Standard delivery: 6-9 business days across Europe. Express 1-2 day shipping available at checkout. All shipments include real-time tracking.' },
       { q: 'What does the 30-night guarantee cover?', a: 'Test any product for 30 nights. If it doesn\'t work for you, we arrange a free return with a full refund. No justification required.' },
       { q: 'How does the anti-snoring mouthpiece work?', a: 'The Noctip Halo uses jaw advancement to gently move your lower jaw forward, opening your airway and stopping snoring at the source. The dual-layer design adjusts with 10mm of micro-settings. It molds to your teeth with a boil-and-bite process.' },
       { q: 'What sizes does the posture corrector come in?', a: 'The Noctip Back comes in 5 sizes (XS-XL) based on chest width. Measure at the widest point and check our size guide. Velcro straps allow fine-tuning within each size.' },
@@ -186,7 +186,7 @@ const SHOP_HOME_COPY = {
     faqHeading: 'Preguntas frecuentes',
     faqSub: 'Respuestas rápidas antes de comprar',
     faqs: [
-      { q: '¿Cuánto tarda el envío?', a: 'Enviamos todos los pedidos en 24 horas. Entrega estándar: 3-5 días laborables en Europa. Envío exprés de 1-2 días disponible en el checkout. Seguimiento incluido.' },
+      { q: '¿Cuánto tarda el envío?', a: 'Enviamos todos los pedidos en 24 horas. Entrega estándar: 6-9 días laborables en Europa. Envío exprés de 1-2 días disponible en el checkout. Seguimiento incluido.' },
       { q: '¿Qué cubre la garantía de 30 noches?', a: 'Prueba cualquier producto durante 30 noches. Si no funciona, gestionamos la devolución y el reembolso completo. Sin justificación.' },
       { q: '¿Cómo funciona la férula anti-ronquidos?', a: 'El Noctip Halo usa avanzamiento mandibular para mover suavemente la mandíbula hacia adelante, abriendo la vía aérea y eliminando los ronquidos en su origen. El diseño de doble capa se ajusta con 10mm de micro-ajustes.' },
       { q: '¿En qué tallas viene el corrector postural?', a: 'El Noctip Back viene en 5 tallas (XS-XL) según el ancho de pecho. Mide en el punto más amplio y consulta nuestra guía. Las correas de velcro permiten ajuste fino.' },

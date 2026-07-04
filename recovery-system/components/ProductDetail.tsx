@@ -94,8 +94,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
   const productFaqs = [
     { q: isEs ? `¿Cuándo llega?` : `When does it arrive?`, a: isEs
-      ? 'Procesamos y enviamos en 24 horas. Entrega estándar: 3-5 días laborables. Exprés de 1-2 días disponible en el checkout. Seguimiento incluido en todos los envíos.'
-      : 'We process and ship within 24 hours. Standard delivery: 3-5 business days. Express 1-2 day shipping available at checkout. Tracking included on all orders.' },
+      ? 'Procesamos y enviamos en 24 horas. Entrega estándar: 6-9 días laborables. Exprés de 1-2 días disponible en el checkout. Seguimiento incluido en todos los envíos.'
+      : 'We process and ship within 24 hours. Standard delivery: 6-9 business days. Express 1-2 day shipping available at checkout. Tracking included on all orders.' },
     { q: isEs ? '¿Y si no me gusta?' : 'What if I don\'t like it?', a: isEs
       ? 'Pruébalo 30 noches en tu entorno real. Si no cumple tus expectativas, contactas y gestionamos la recogida y el reembolso completo. Sin preguntas, sin formularios.'
       : 'Try it for 30 nights in your real environment. If it doesn\'t meet your expectations, contact us and we arrange pickup and a full refund. No questions, no forms.' },
@@ -383,7 +383,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 </p>
                 <p className="flex items-center gap-2">
                   <span className="h-1 w-1 shrink-0 rounded-full bg-[#10BFD8]" />
-                  {isEs ? 'Entrega estándar: 3-5 días laborables' : 'Standard delivery: 3-5 business days'}
+                  {isEs ? 'Entrega estándar: 6-9 días laborables' : 'Standard delivery: 6-9 business days'}
                 </p>
                 <p className="flex items-center gap-2">
                   <span className="h-1 w-1 shrink-0 rounded-full bg-[#10BFD8]" />

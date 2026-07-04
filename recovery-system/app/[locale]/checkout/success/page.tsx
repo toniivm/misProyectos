@@ -123,7 +123,7 @@ export default function CheckoutSuccessPage({ params }: Props) {
         <div className="mt-6 flex flex-col items-center gap-1 text-[14px] text-[#8791a1]">
           <span>
             {t('delivery')}:{' '}
-            <strong className="text-[#f2eee7]">3–5 {t('deliveryDays')}</strong>
+            <strong className="text-[#f2eee7]">6–9 {t('deliveryDays')}</strong>
           </span>
         </div>
 

@@ -222,7 +222,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: 'How long does Noctip shipping take?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We process and ship all orders within 24 hours. Standard delivery across Europe takes 3-5 business days. Express 1-2 day shipping is available at checkout.',
+          text: 'We process and ship all orders within 24 hours. Standard delivery across Europe takes 6-9 business days. Express 1-2 day shipping is available at checkout.',
         },
       },
       {

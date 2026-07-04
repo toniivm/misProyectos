@@ -52,8 +52,8 @@ export default function TermsPage(){
           <section>
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? '4. Envío' : '4. Shipping'}</h2>
             <p>{isEs
-              ? 'Procesamos y enviamos los pedidos en un máximo de 24 horas. Entrega estándar en Europa: 3-5 días laborables. Envío exprés disponible en el checkout. Seguimiento incluido en todos los envíos.'
-              : 'We process and ship orders within 24 hours. Standard delivery in Europe: 3-5 business days. Express shipping available at checkout. Tracking included on all orders.'}</p>
+              ? 'Procesamos y enviamos los pedidos en un máximo de 24 horas. Entrega estándar en Europa: 6-9 días laborables. Envío exprés disponible en el checkout. Seguimiento incluido en todos los envíos.'
+              : 'We process and ship orders within 24 hours. Standard delivery in Europe: 6-9 business days. Express shipping available at checkout. Tracking included on all orders.'}</p>
           </section>
 
           <section>
