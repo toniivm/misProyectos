@@ -833,14 +833,14 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     // Map payment method to Stripe payment_method_types
     // Stripe shows Apple Pay/Google Pay automatically on capable devices when using 'card'
     const paymentMethodTypes = {
-      'card': ['card'],
+      'card': ['card', 'paypal'],
     };
 
     console.log(`💳 Creating Stripe Checkout session for order ${orderId}... (method: ${paymentMethod})`);
     const session = await stripe.checkout.sessions.create(
       {
         mode: 'payment',
-        payment_method_types: paymentMethodTypes[paymentMethod] || ['card'],
+        payment_method_types: paymentMethodTypes[paymentMethod] || ['card', 'paypal'],
         line_items: lineItems,
         customer_email: email,
         success_url: successUrl || defaultSuccess,
@@ -850,12 +850,10 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
           metadata: { orderId, paymentMethod },
           description: `Pedido #${orderId} — Noctip`,
         },
-        // 3D Secure — obligatorio para máxima seguridad
-        // El banco del cliente solicitará verificación (código SMS, huella, etc.)
-        // Esto NO es un hackeo — es tu banco protegiendo tu compra
+        // 3D Secure: 'automatic' lets Stripe decide when to request it (only when bank requires it)
         payment_method_options: {
           card: {
-            request_three_d_secure: 'any',
+            request_three_d_secure: 'automatic',
           },
         },
         // Minimize friction: auto-redirect after payment

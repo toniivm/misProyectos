@@ -724,11 +724,14 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-amber-500/15 bg-amber-500/[0.03] px-4 py-3 text-[11px] leading-5 text-[#c8d0da]">
-                  <span className="font-semibold text-amber-300">{isEs ? 'Verificación bancaria' : 'Bank verification'}</span>
-                  {isEs
-                    ? ' — Tu banco te pedirá un código por SMS o desde su app para confirmar el pago. Es un paso normal de seguridad.'
-                    : ' — Your bank will ask for a code via SMS or app to confirm the payment. This is a standard security step.'}
+                <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#10BFD8]/10">
+                    <RotateCcw size={16} className="text-[#10BFD8]" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Garantía 30 días' : '30-day guarantee'}</div>
+                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Devolución completa sin preguntas' : 'Full refund, no questions asked'}</div>
+                  </div>
                 </div>
               </div>
 
