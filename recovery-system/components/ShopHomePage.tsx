@@ -212,6 +212,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
   const { add, open: openCart } = useCart()
   const [added, setAdded] = useState(false)
   const copy = getCopy(locale)
+  const isEs = locale === 'es'
   const name = getLocalizedProductName(product, locale)
   const desc = getLocalizedProductShortDescription(product, locale)
   const localeStr = locale === 'es' ? 'es-ES' : 'en-US'
@@ -234,7 +235,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.04] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.1]"
+        className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.04] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.12] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
       >
         <div className="relative flex aspect-square items-center justify-center overflow-hidden" style={{ background: product.color }}>
           <ProductImage 
@@ -246,13 +247,22 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
             className="h-full w-full"
           />
           
-          {product.badge && (
-            <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} locale={locale} /></div>
-          )}
+          {/* Badges */}
+          <div className="absolute left-3 top-3 z-10 flex flex-col gap-2">
+            {product.badge && <Badge type={product.badge} locale={locale} />}
+            {savings > 0 && (
+              <span className="rounded-full bg-[#10BFD8] px-2.5 py-0.5 text-[10px] font-bold text-[#080c12] uppercase tracking-wide">
+                {isEs ? `Ahorra ${savings}%` : `Save ${savings}%`}
+              </span>
+            )}
+          </div>
+
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
 
         <div className="flex flex-1 flex-col gap-1.5 p-4">
-          <h3 className="text-[14px] font-semibold leading-snug text-[#f2eee7]">{name}</h3>
+          <h3 className="text-[14px] font-semibold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
           <p className="line-clamp-2 text-[12px] leading-5 text-[#6b7785]">{desc}</p>
           
           <div className="mt-auto flex items-center gap-2 pt-2">
@@ -271,7 +281,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
               className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-[12px] font-semibold transition-all duration-200 ${
                 added
                   ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
-                  : 'bg-white text-[#080c12] hover:bg-white/90'
+                  : 'bg-white text-[#080c12] hover:bg-white/90 hover:shadow-[0_4px_16px_rgba(255,255,255,0.15)]'
               }`}>
               {added ? (<><Check size={12} />{copy.addedLabel}</>) : (<><ShoppingCart size={12} />{copy.addLabel}</>)}
             </button>
@@ -556,7 +566,11 @@ export default function ShopHomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
-                <p className="mb-5 text-[12px] font-semibold uppercase tracking-[0.18em] text-[#10BFD8]">{copy.heroKicker}</p>
+                {/* Urgency badge */}
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-2">
+                  <span className="text-[13px]">🔥</span>
+                  <span className="text-[12px] font-bold text-amber-300 uppercase tracking-wide">{isEs ? 'Oferta de verano — 40% OFF' : 'Summer sale — 40% OFF'}</span>
+                </div>
 
                 <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
                   {copy.heroLine1}
@@ -568,9 +582,9 @@ export default function ShopHomePage() {
 
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link href={`/${locale}/shop/all`}
-                    className="group inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(255,255,255,0.12)]">
+                    className="group inline-flex items-center gap-2.5 rounded-full bg-white px-10 py-4.5 text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]">
                     {copy.heroPrimary}
-                    <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                   <a href="#all-products"
                     className="inline-flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white">
@@ -578,12 +592,29 @@ export default function ShopHomePage() {
                   </a>
                 </div>
 
-                <div className="mt-10 flex items-center gap-5 text-[13px] text-[#6b7785]">
-                  <span className="flex items-center gap-1.5"><Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
-                  <span className="w-px h-3 bg-white/10" />
-                  <span className="flex items-center gap-1.5"><RotateCcw size={14} className="text-[#10BFD8]/60" /> {isEs ? '30 noches' : '30-night trial'}</span>
-                  <span className="w-px h-3 bg-white/10" />
-                  <span className="flex items-center gap-1.5"><Shield size={14} className="text-[#10BFD8]/60" /> SSL + Stripe</span>
+                {/* Social proof stats — bigger and more prominent */}
+                <div className="mt-10 flex items-center gap-6">
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex -space-x-1">
+                      {[1,2,3,4].map(i => (
+                        <div key={i} className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#080c12] bg-[#1a2436] text-[10px]">
+                          {['😊','😴','🧘','✨'][i-1]}
+                        </div>
+                      ))}
+                    </div>
+                    <span className="text-[13px] font-semibold text-white">6.000+</span>
+                  </div>
+                  <span className="w-px h-4 bg-white/10" />
+                  <div className="flex items-center gap-1.5">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                    ))}
+                    <span className="ml-1 text-[13px] font-semibold text-white">4.9</span>
+                  </div>
+                  <span className="w-px h-4 bg-white/10" />
+                  <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
+                    <Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}
+                  </span>
                 </div>
               </motion.div>
 
@@ -630,7 +661,31 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            TRUST BAR — Compact, below hero
+            TRUST BAR — Premium, below hero
+        ═══════════════════════════════════════════════════════ */}
+        <section className="border-y border-white/[0.06] bg-white/[0.02]">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.06]">
+              {[
+                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
+                { icon: RotateCcw, label: isEs ? '30 noches de prueba' : '30-night trial', sub: isEs ? 'Devolución completa' : 'Full refund' },
+                { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL 256-bit + Stripe' },
+                { icon: Star, label: isEs ? '4.9 media' : '4.9 average', sub: isEs ? '6.000+ reseñas verificadas' : '6,000+ verified reviews' },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center justify-center gap-3 py-5 transition-colors hover:bg-white/[0.02]">
+                  <item.icon size={18} className="text-[#10BFD8]" />
+                  <div>
+                    <div className="text-[12px] font-semibold text-[#f2eee7]">{item.label}</div>
+                    <div className="text-[10px] text-[#6b7785]">{item.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════
+            PRODUCTS — Clean grid with better cards
         ═══════════════════════════════════════════════════════ */}
         <section id="all-products" className="py-20 sm:py-28">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">

@@ -272,9 +272,18 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <div className="flex items-baseline gap-3">
               <span className="text-[2.4rem] font-bold tracking-[-0.04em] text-[#f6f2eb]">€{displayPrice}</span>
               <span className="text-[16px] text-[#4a5568] line-through">€{displayComparePrice}</span>
-              <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-[#9fb1c9]">
+              <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-[#10BFD8]">
                 {isEs ? 'Ahorra' : 'Save'} {savings}%
               </span>
+            </div>
+
+            {/* Shipping badge — prominent */}
+            <div className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
+              <Truck size={16} className="text-emerald-400" />
+              <div>
+                <span className="text-[13px] font-semibold text-emerald-300">{isEs ? 'Envío gratis · Envia en 24h' : 'Free shipping · Ships in 24h'}</span>
+                <span className="ml-2 text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 6-9 días' : 'Arrives in 6-9 days'}</span>
+              </div>
             </div>
 
             {/* Features */}
