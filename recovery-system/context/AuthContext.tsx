@@ -212,6 +212,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(u);
         try { localStorage.setItem('dev_user', JSON.stringify(u)); } catch {}
         setShowModal(false);
+        // Send welcome email
+        try {
+          const apiBase = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
+          if (apiBase) {
+            fetch(`${apiBase}/emails/welcome`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, locale: navigator.language.startsWith('en') ? 'en' : 'es' }),
+            });
+          }
+        } catch {}
         return;
       } catch (e: any) {
         setError(e?.message ?? 'Sign-up failed. Please try again.');
@@ -223,6 +234,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { createUserWithEmailAndPassword } = await import('firebase/auth');
       await createUserWithEmailAndPassword(auth, email, password);
       setShowModal(false);
+      // Send welcome email
+      try {
+        const apiBase = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
+        if (apiBase) {
+          fetch(`${apiBase}/emails/welcome`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, locale: navigator.language.startsWith('en') ? 'en' : 'es' }),
+          });
+        }
+      } catch {}
     } catch (e: any) {
       setError(e?.message ?? 'Sign-up failed. Please try again.');
     }

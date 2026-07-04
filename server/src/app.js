@@ -1190,12 +1190,82 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
   const order = snap.data();
   if (order.status !== 'shipped') return res.status(409).json({ error: 'INVALID_STATE' });
   await ref.set({ status: 'delivered', deliveredAt: new Date() }, { merge: true });
-  // Send delivery confirmation
-  await sendEmail(
-    order.email,
-    `✅ Tu pedido #${req.params.id} ha sido entregado`,
-    `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Noctip.</p>`
-  );
+
+  // Send delivery confirmation with template
+  const customerName = order.shipping?.name || '';
+  const isEn = order.locale === 'en' || order.language === 'en';
+  let deliveryHtml = null;
+  try {
+    const tplPath = new URL('../templates/delivery.html', import.meta.url);
+    const tpl = await fs.readFile(tplPath, 'utf8');
+    deliveryHtml = tpl
+      .replace(/{{orderId}}/g, req.params.id)
+      .replace(/{{customerName}}/g, customerName);
+
+    // Show only correct language
+    if (isEn) {
+      deliveryHtml = deliveryHtml.replace(/<div class="lang-es">[\s\S]*?<\/div>\s*(?=<div class="lang-en">)/, '');
+      deliveryHtml = deliveryHtml.replace(/class="lang-en"/, 'class="lang-en" style="display:block"');
+    } else {
+      deliveryHtml = deliveryHtml.replace(/<div class="lang-en">[\s\S]*?<\/div>/, '');
+      deliveryHtml = deliveryHtml.replace(/class="lang-es"/, 'class="lang-es" style="display:block"');
+    }
+  } catch (e) {
+    deliveryHtml = null;
+  }
+
+  const subject = isEn
+    ? `📦 Your order #${req.params.id} has been delivered — Noctip`
+    : `📦 Tu pedido #${req.params.id} ha sido entregado — Noctip`;
+
+  if (deliveryHtml) {
+    await sendEmail(order.email, subject, deliveryHtml);
+  } else {
+    await sendEmail(order.email, subject,
+      `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Noctip.</p>`
+    );
+  }
+  res.json({ ok: true });
+});
+
+// Welcome email — called by frontend after user registration
+const welcomeEmailLimiter = rateLimit({
+  windowMs: 60*1000,
+  max: 3,
+  message: { error: 'Too many requests' }
+});
+app.post('/emails/welcome', welcomeEmailLimiter, async (req, res) => {
+  const { email, name, locale } = req.body || {};
+  if (!email) return res.status(400).json({ error: 'MISSING_EMAIL' });
+
+  const isEn = locale === 'en';
+  let welcomeHtml = null;
+  try {
+    const tplPath = new URL('../templates/welcome.html', import.meta.url);
+    const tpl = await fs.readFile(tplPath, 'utf8');
+    welcomeHtml = tpl
+      .replace(/{{discountCode}}/g, 'BIENVENIDO10')
+      .replace(/{{discountPercent}}/g, '10')
+      .replace(/{{customerName}}/g, name || '');
+
+    if (isEn) {
+      welcomeHtml = welcomeHtml.replace(/<div class="lang-es">[\s\S]*?<\/div>\s*(?=<div class="lang-en">)/, '');
+      welcomeHtml = welcomeHtml.replace(/class="lang-en"/, 'class="lang-en" style="display:block"');
+    } else {
+      welcomeHtml = welcomeHtml.replace(/<div class="lang-en">[\s\S]*?<\/div>/, '');
+      welcomeHtml = welcomeHtml.replace(/class="lang-es"/, 'class="lang-es" style="display:block"');
+    }
+  } catch (e) {
+    welcomeHtml = null;
+  }
+
+  const subject = isEn
+    ? '👋 Welcome to Noctip — Here\'s 10% off'
+    : '👋 Bienvenido a Noctip — Aquí tienes 10% de descuento';
+
+  if (welcomeHtml) {
+    await sendEmail(email, subject, welcomeHtml);
+  }
   res.json({ ok: true });
 });
 

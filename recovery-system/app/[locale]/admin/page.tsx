@@ -113,6 +113,20 @@ export default function AdminPage(){
     }
   }
 
+  async function deliverOrder(orderId: string){
+    if (!confirm('¿Marcar como entregado? Se enviará un email al cliente.')) return
+    try{
+      const res = await fetch(`${apiBase}/orders/${orderId}/deliver`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey || DEFAULT_KEY },
+      })
+      if (!res.ok) throw new Error(await res.text())
+      loadOrders()
+    }catch(e:any){
+      alert('Error: ' + (e.message || e))
+    }
+  }
+
   async function copyText(text: string, label: string){
     await navigator.clipboard.writeText(text)
     setCopied(label)
@@ -343,6 +357,12 @@ export default function AdminPage(){
                           className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-[#6b7280] transition hover:text-[#10BFD8] hover:border-[#10BFD8]/30">
                           <ExternalLink size={13} />
                         </a>
+                      )}
+                      {o.status === 'shipped' && (
+                        <button onClick={() => deliverOrder(o.id)}
+                          className="flex items-center gap-1.5 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1.5 text-[12px] font-semibold text-green-400 transition hover:bg-green-500/20">
+                          ✓ Entregado
+                        </button>
                       )}
                     </div>
                   ) : (

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Welcome — Noctip</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color:#1a1a2e; background:#f7f8fa; margin:0; padding:0; }
+      .container { max-width:560px; margin:0 auto; padding:32px 20px; }
+      .card { background:#fff; border-radius:16px; padding:32px; box-shadow:0 2px 16px rgba(0,0,0,0.06); }
+      .logo { font-size:12px; font-weight:800; letter-spacing:0.2em; text-transform:uppercase; color:#6b7280; margin-bottom:24px; }
+      h1 { font-size:24px; font-weight:800; color:#0f172a; margin:0 0 8px; }
+      .subtitle { font-size:14px; color:#6b7280; margin-bottom:24px; }
+      .discount-box { background:linear-gradient(135deg,#f0f9ff,#eff6ff); border:2px solid #bae6fd; border-radius:12px; padding:20px; margin:20px 0; text-align:center; }
+      .discount-code { font-size:28px; font-weight:800; color:#0369a1; letter-spacing:0.1em; font-family:monospace; }
+      .discount-label { font-size:12px; color:#6b7280; margin-top:4px; }
+      .steps { margin:20px 0; }
+      .step { display:flex; gap:12px; margin-bottom:16px; }
+      .step-num { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#0369a1; color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+      .step-text { font-size:14px; color:#4b5563; line-height:1.5; }
+      .step-text strong { color:#0f172a; }
+      .btn { display:inline-block; background:#0369a1; color:#fff; text-decoration:none; padding:12px 28px; border-radius:10px; font-weight:600; font-size:14px; margin-top:16px; }
+      .footer { margin-top:24px; font-size:11px; color:#9ca3af; text-align:center; }
+      .lang-en { display:none; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="logo">NOCTIP™</div>
+
+        <!-- Español -->
+        <div class="lang-es">
+          <h1>👋 ¡Bienvenido a Noctip!</h1>
+          <p class="subtitle">Tu cuenta está lista. Aquí tienes un regalo de bienvenida.</p>
+          <div class="discount-box">
+            <p style="font-size:13px;color:#6b7280;margin:0 0 4px;">Tu código de descuento</p>
+            <p class="discount-code">{{discountCode}}</p>
+            <p class="discount-label">{{discountPercent}}% de descuento en tu primera compra</p>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>Explora nuestros productos</strong><br>Cada uno resuelve un problema real: ronquidos, dolor de cuello, mala postura.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-text"><strong>Añade al carrito y usa tu código</strong><br>Envío gratis en todos los pedidos. Pago 100% seguro con Stripe.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-text"><strong>Recibe en 3-5 días</strong><br>Procesamos y enviamos en 24 horas. Seguimiento incluido.</div>
+            </div>
+          </div>
+          <a href="https://noctip.com" class="btn">Ir a la tienda →</a>
+          <p style="font-size:12px;color:#6b7280;margin-top:16px;">Si no solicitaste esta cuenta, puedes ignorar este email.</p>
+        </div>
+
+        <!-- English -->
+        <div class="lang-en">
+          <h1>👋 Welcome to Noctip!</h1>
+          <p class="subtitle">Your account is ready. Here's a welcome gift.</p>
+          <div class="discount-box">
+            <p style="font-size:13px;color:#6b7280;margin:0 0 4px;">Your discount code</p>
+            <p class="discount-code">{{discountCode}}</p>
+            <p class="discount-label">{{discountPercent}}% off your first order</p>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-text"><strong>Explore our products</strong><br>Each one solves a real problem: snoring, neck pain, bad posture.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-text"><strong>Add to cart and use your code</strong><br>Free shipping on all orders. 100% secure payment with Stripe.</div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-text"><strong>Receive in 3-5 days</strong><br>We process and ship within 24 hours. Tracking included.</div>
+            </div>
+          </div>
+          <a href="https://noctip.com/en" class="btn">Go to store →</a>
+          <p style="font-size:12px;color:#6b7280;margin-top:16px;">If you didn't request this account, you can ignore this email.</p>
+        </div>
+
+      </div>
+      <div class="footer">Noctip™ · Free shipping · 30-day guarantee</div>
+    </div>
+  </body>
+</html>
