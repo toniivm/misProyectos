@@ -1138,11 +1138,21 @@ app.post('/orders/:id/ship', adminAuth, async (req,res) => {
     // Build tracking URL if not provided (fallback to carrier search)
     let finalTrackingUrl = trackingUrl || '';
     if (!finalTrackingUrl && carrier) {
-      const carrierLower = carrier.toLowerCase();
-      if (carrierLower.includes('correos') || carrierLower.includes('seur') || carrierLower.includes('mrw')) {
-        finalTrackingUrl = `https://www.google.com/search?q=${encodeURIComponent(carrier + ' tracking ' + trackingNumber)}`;
+      const c = carrier.toLowerCase();
+      if (c.includes('cainiao') || c.includes('aliexpress')) {
+        finalTrackingUrl = `https://global.cainiao.com/newDetail.htm?mailNoList=${trackingNumber}`;
+      } else if (c.includes('correos')) {
+        finalTrackingUrl = `https://www.correos.es/es/es/herramientas/localizador-de-envios/detalle?tracking-number=${trackingNumber}`;
+      } else if (c.includes('dhl')) {
+        finalTrackingUrl = `https://www.dhl.com/es-es/home/tracking/tracking-express.html?submit=1&tracking-id=${trackingNumber}`;
+      } else if (c.includes('seur')) {
+        finalTrackingUrl = `https://www.seur.com/livetracking/?segOnlineNum=${trackingNumber}`;
+      } else if (c.includes('gls')) {
+        finalTrackingUrl = `https://www.gls-spain.es/tracking?id=${trackingNumber}`;
+      } else if (c.includes('mrw')) {
+        finalTrackingUrl = `https://www.mrw.es/seguimiento-envios.asp?numero=${trackingNumber}`;
       } else {
-        finalTrackingUrl = `https://www.google.com/search?q=${encodeURIComponent(carrier + ' tracking ' + trackingNumber)}`;
+        finalTrackingUrl = `https://t.17track.net/en#nums=${trackingNumber}`;
       }
     }
 
