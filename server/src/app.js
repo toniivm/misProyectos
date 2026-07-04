@@ -294,6 +294,11 @@ const checkoutLimiter = rateLimit({
   max: 5,
   message: { error: 'Too many checkout attempts, please slow down' }
 });
+const confirmationEmailLimiter = rateLimit({
+  windowMs: 5*60*1000,
+  max: 3,
+  message: { error: 'Too many email requests. Please wait a few minutes.' }
+});
 
 app.use(morgan(isProd ? ':status :response-time ms' : ':date[iso] :method :url :status :response-time ms'));
 app.use('/stripe/webhook', express.raw({ type: 'application/json' }));
@@ -1039,6 +1044,9 @@ async function handleOrderPaid(orderId, stripeObj){
 
       await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Noctip`, html);
       console.log(`  ✅ Confirmation email sent to ${order.email}`);
+
+      // Mark email as sent to prevent duplicate from frontend
+      await ref.set({ confirmationEmailSent: true, confirmationEmailSentAt: new Date() }, { merge: true });
     } catch (e){
       console.error(`❌ Failed to send order confirmation email for ${orderId}:`, e?.message || e);
     }
@@ -1106,36 +1114,70 @@ app.post('/stripe/webhook', async (req, res) => {
 
 app.post('/orders/:id/ship', adminAuth, async (req,res) => {
   if (!requireDb(res)) return;
-  const { trackingNumber, carrier } = req.body || {};
+  const { trackingNumber, carrier, trackingUrl } = req.body || {};
   if (!trackingNumber || !carrier) return res.status(400).json({ error: 'MISSING_FIELDS' });
   const ref = db.collection('orders').doc(req.params.id);
   const snap = await ref.get();
   if (!snap.exists) return res.status(404).json({ error: 'ORDER_NOT_FOUND' });
   const order = snap.data();
-  if (order.status !== 'packed') return res.status(409).json({ error: 'INVALID_STATE' });
-  await ref.set({ status: 'shipped', trackingNumber, carrier, shippedAt: new Date() }, { merge: true });
+  if (order.status !== 'packed' && order.status !== 'paid' && order.status !== 'processing') {
+    return res.status(409).json({ error: 'INVALID_STATE' });
+  }
+  await ref.set({ status: 'shipped', trackingNumber, carrier, trackingUrl: trackingUrl || null, shippedAt: new Date() }, { merge: true });
+
+  // Determine language from order metadata or default to Spanish
+  const isEn = order.locale === 'en' || order.language === 'en';
+
   // Send shipment notification with template
   const customerName = order.shipping?.name || '';
   let shipmentHtml = null;
   try {
     const tplPath = new URL('../templates/shipment.html', import.meta.url);
     const tpl = await fs.readFile(tplPath, 'utf8');
+
+    // Build tracking URL if not provided (fallback to carrier search)
+    let finalTrackingUrl = trackingUrl || '';
+    if (!finalTrackingUrl && carrier) {
+      const carrierLower = carrier.toLowerCase();
+      if (carrierLower.includes('correos') || carrierLower.includes('seur') || carrierLower.includes('mrw')) {
+        finalTrackingUrl = `https://www.google.com/search?q=${encodeURIComponent(carrier + ' tracking ' + trackingNumber)}`;
+      } else {
+        finalTrackingUrl = `https://www.google.com/search?q=${encodeURIComponent(carrier + ' tracking ' + trackingNumber)}`;
+      }
+    }
+
+    // Replace placeholders
     shipmentHtml = tpl
       .replace(/{{orderId}}/g, req.params.id)
       .replace(/{{customerName}}/g, customerName)
       .replace(/{{carrier}}/g, carrier)
-      .replace(/{{trackingNumber}}/g, trackingNumber);
+      .replace(/{{trackingNumber}}/g, trackingNumber)
+      .replace(/{{#trackingUrl}}.*?{{\/trackingUrl}}/gs, finalTrackingUrl ? `<a href="${finalTrackingUrl}" class="track-btn" target="_blank">${isEn ? 'Track my package' : 'Seguir mi paquete'}</a>` : '')
+      .replace(/\{\{trackingUrl\}\}/g, finalTrackingUrl);
+
+    // Show only the correct language section
+    if (isEn) {
+      shipmentHtml = shipmentHtml.replace(/<div class="lang-es">[\s\S]*?<\/div>\s*(?=<div class="lang-en">)/, '');
+      shipmentHtml = shipmentHtml.replace(/class="lang-en"/, 'class="lang-en" style="display:block"');
+    } else {
+      shipmentHtml = shipmentHtml.replace(/<div class="lang-en">[\s\S]*?<\/div>/, '');
+      shipmentHtml = shipmentHtml.replace(/class="lang-es"/, 'class="lang-es" style="display:block"');
+    }
   } catch (e) {
     shipmentHtml = null;
   }
+
+  const subject = isEn
+    ? `📦 Your order #${req.params.id} has been shipped — Noctip`
+    : `📦 Tu pedido #${req.params.id} ha sido enviado — Noctip`;
+
   if (shipmentHtml) {
-    await sendEmail(order.email, `📦 Tu pedido #${req.params.id} ha sido enviado - Noctip`, shipmentHtml);
+    await sendEmail(order.email, subject, shipmentHtml);
   } else {
-    await sendEmail(
-      order.email,
-      `📦 Tu pedido #${req.params.id} ha sido enviado`,
-      `<h1>¡Tu pedido está en camino!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Transportista: ${carrier}</p><p>Nº seguimiento: <strong>${trackingNumber}</strong></p><p>Recibirás tu pedido pronto.</p>`
-    );
+    const fallbackHtml = isEn
+      ? `<h1>Your order is on its way!</h1><p>Order: <strong>#${req.params.id}</strong></p><p>Carrier: ${carrier}</p><p>Tracking: <strong>${trackingNumber}</strong></p><p>You'll receive your order soon.</p>`
+      : `<h1>¡Tu pedido está en camino!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Transportista: ${carrier}</p><p>Nº seguimiento: <strong>${trackingNumber}</strong></p><p>Recibirás tu pedido pronto.</p>`;
+    await sendEmail(order.email, subject, fallbackHtml);
   }
   res.json({ ok: true });
 });
@@ -1158,7 +1200,7 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
 });
 
 // Public endpoint: request order confirmation email (used by frontend after Stripe redirect)
-app.post('/orders/:id/send-confirmation', async (req, res) => {
+app.post('/orders/:id/send-confirmation', confirmationEmailLimiter, async (req, res) => {
   const { id } = req.params;
   if (!id) return res.status(400).json({ error: 'MISSING_ORDER_ID' });
   if (!db) return res.status(503).json({ error: 'DB_NOT_AVAILABLE' });
