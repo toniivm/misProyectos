@@ -880,10 +880,13 @@ export default function ShopHomePage() {
               >
                 <Link href={`/${locale}/products/wave`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
-                    <img 
-                      src="/images/masajeadorbuenoo1.png" 
+                    <ProductImage 
+                      slug="wave" 
+                      color="#0d1f1a"
+                      icon=""
+                      images={[]}
                       alt={isEs ? 'Corrector postural Noctip Back - alivia el dolor de espalda' : 'Noctip Back posture corrector - relieves back pain'}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
                     <div className="absolute bottom-0 left-0 right-0 p-5">

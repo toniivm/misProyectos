@@ -147,12 +147,7 @@ export const CATALOG: CatalogProduct[] = [
       'Cuidado': 'Lavar a mano — secar al aire',
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
-    images: [
-      '/images/productos-reales/neck-massager.jpg',
-      '/images/masajeadorbuenoo1.png',
-      '/images/masajeadordeatial2.png',
-    ],
-    video: '/images/pomelli_creative_video_9_16_0626MasajeEspalda.mp4',
+    images: [],
     icon: '',
     cartIcon: '',
     color: '#131020',
