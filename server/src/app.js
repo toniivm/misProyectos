@@ -597,7 +597,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
     const { error, value } = createIntentSchema.validate(req.body, { abortEarly: false });
     if (error) {
       console.warn('Validation error in checkout:', error.details.map(e => e.message).join(', '));
-      return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
+      return res.status(400).json({ error: 'INVALID_PAYLOAD', detail: 'Los datos enviados no son válidos. Revisa el formulario e inténtalo de nuevo.', details: error.details.map(e => e.message) });
     }
     
     const { items, currency, email, phone, shipping, promoCode, discountPercent } = value;
@@ -617,7 +617,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
     }
     
     const amount = calcAmount(items, discountPercent);
-    if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
+    if (amount <= 0)       return res.status(400).json({ error: 'INVALID_AMOUNT', detail: 'El importe no es válido. Revisa tu carrito.' });
     
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
     const orderRef = db.collection('orders').doc();
@@ -692,7 +692,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       return res.status(409).json({ error: 'OUT_OF_STOCK', detail: 'Item sold out during processing' });
     }
     
-    res.status(500).json({ error: 'INTENT_ERROR', detail: 'Failed to create payment intent' });
+    res.status(500).json({ error: 'INTENT_ERROR', detail: 'Ha ocurrido un problema al procesar el pago. Por favor, inténtalo de nuevo.' });
   }
 });
 
@@ -722,7 +722,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     const { error, value } = createSessionSchema.validate(bodyForValidation, { abortEarly: false });
     if (error) {
       console.warn('Validation error in checkout session:', error.details.map(e => e.message).join(', '));
-      return res.status(400).json({ error: 'INVALID_PAYLOAD', details: error.details.map(e => e.message) });
+      return res.status(400).json({ error: 'INVALID_PAYLOAD', detail: 'Los datos enviados no son válidos. Revisa el formulario e inténtalo de nuevo.', details: error.details.map(e => e.message) });
     }
 
     const { items, currency, email, phone, shipping, successUrl, cancelUrl, promoCode, discountPercent } = value;
@@ -749,7 +749,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
     }
 
     const amount = calcAmount(items, discountPercent);
-    if (amount <= 0) return res.status(400).json({ error: 'INVALID_AMOUNT' });
+    if (amount <= 0)       return res.status(400).json({ error: 'INVALID_AMOUNT', detail: 'El importe no es válido. Revisa tu carrito.' });
 
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
     const orderRef = db ? db.collection('orders').doc() : null;
@@ -824,7 +824,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       ...toStripeLineItems(shippingItems, currency),
     ];
 
-    if (!lineItems.length) return res.status(400).json({ error: 'INVALID_AMOUNT' });
+    if (!lineItems.length)       return res.status(400).json({ error: 'INVALID_AMOUNT', detail: 'El importe no es válido. Revisa tu carrito.' });
 
     const frontendBaseUrl = resolveFrontendBaseUrl(req);
     const defaultSuccess = `${frontendBaseUrl}/checkout?status=success&orderId=${orderId}&session_id={CHECKOUT_SESSION_ID}`;
@@ -887,7 +887,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       return res.status(409).json({ error: 'OUT_OF_STOCK', detail: 'Item sold out during processing' });
     }
 
-    res.status(500).json({ error: 'CHECKOUT_SESSION_ERROR', detail: e?.message || 'Failed to create checkout session' });
+    res.status(500).json({ error: 'CHECKOUT_SESSION_ERROR', detail: 'No hemos podido preparar el pago. Por favor, inténtalo de nuevo.' });
   }
 });
 

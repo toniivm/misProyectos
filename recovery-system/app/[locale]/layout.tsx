@@ -12,6 +12,7 @@ import CookieConsent from '../../components/CookieConsent';
 import LocalePreferenceSync from '../../components/LocalePreferenceSync';
 import BackendWarmup from '../../components/BackendWarmup';
 import NewsletterPopup from '../../components/NewsletterPopup'
+import ErrorBoundary from '../../components/ErrorBoundary';
 
 type Props = {
   children: React.ReactNode;
@@ -306,7 +307,9 @@ export default async function LocaleLayout({children, params}: Props) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
           />
           <div id="rs-login-static" data-rs-login-static="true" style={{ display: 'none' }} />
-          {children}
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
           <Footer />
           <CartSidebar />
           <AuthModal />

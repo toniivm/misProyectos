@@ -148,9 +148,9 @@ export const CATALOG: CatalogProduct[] = [
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
     images: [
-      '/images/white-noise-pro-2.webp',
-      '/images/white-noise-pro-3.webp',
-      '/images/weighted-mask-pro-1.webp',
+      '/images/productos-reales/neck-massager.jpg',
+      '/images/masajeadorbuenoo1.png',
+      '/images/masajeadordeatial2.png',
     ],
     video: '/images/pomelli_creative_video_9_16_0626MasajeEspalda.mp4',
     icon: '',

@@ -138,8 +138,121 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════
+   INPUT STATES — Error & Success
+═══════════════════════════════════════════════════════ */
+
+.input-error, .select-error {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+.input-error:focus, .select-error:focus {
+  border-color: rgba(239, 68, 68, 0.7) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.input-success, .select-success {
+  border-color: rgba(34, 197, 94, 0.4) !important;
+}
+.input-success:focus, .select-success:focus {
+  border-color: rgba(34, 197, 94, 0.6) !important;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #f87171;
+  animation: errorSlideIn 0.2s ease-out;
+}
+
+@keyframes errorSlideIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.success-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #4ade80;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CHECKOUT SECTION — Premium card style
+═══════════════════════════════════════════════════════ */
+
+.checkout-section {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(13, 18, 25, 0.9), rgba(12, 16, 22, 0.95));
+  padding: 24px;
+  transition: border-color 0.2s ease;
+}
+.checkout-section:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.checkout-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TRUST BADGE — Compact inline badge
+═══════════════════════════════════════════════════════ */
+
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+.trust-badge:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAYMENT ICONS ROW
+═══════════════════════════════════════════════════════ */
+
+.payment-icons-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 0;
+  flex-wrap: wrap;
+}
+
+.payment-icon {
+  height: 22px;
+  width: auto;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+  filter: grayscale(0.2);
+}
+.payment-icon:hover {
+  opacity: 0.8;
+}
+
+/* ═══════════════════════════════════════════════════════
    UTILITIES
-══════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════════ */
 
 /* ── Scrollbar hide ── */
 .scrollbar-none::-webkit-scrollbar { display: none; }

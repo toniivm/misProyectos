@@ -826,7 +826,7 @@ export default function ShopHomePage() {
                 <Link href={`/${locale}/products/wave`} className="block">
                   <div className="relative aspect-[9/16] overflow-hidden">
                     <img 
-                      src="/images/weighted-mask-pro-1.webp" 
+                      src="/images/masajeadorbuenoo1.png" 
                       alt={isEs ? 'Corrector postural Noctip Back - alivia el dolor de espalda' : 'Noctip Back posture corrector - relieves back pain'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />

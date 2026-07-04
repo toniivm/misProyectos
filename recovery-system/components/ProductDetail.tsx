@@ -206,7 +206,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   className={`overflow-hidden rounded-xl border-2 transition-all aspect-square ${
                     !showVideo && activeImg === idx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
                   }`}>
-                  <img src={src} alt="" className="h-full w-full object-contain p-1" loading="lazy"
+                  <img src={src} alt="" className="h-full w-full object-contain p-1" loading={idx === 0 ? 'eager' : 'lazy'} decoding="async"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
                 </button>
               ))}
@@ -359,6 +359,17 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               ))}
             </div>
 
+            {/* Payment methods */}
+            <div className="flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
+              <span className="text-[10px] text-[#5a6678] mr-1">{isEs ? 'Aceptamos:' : 'We accept:'}</span>
+              <svg viewBox="0 0 48 16" className="h-4 w-8 opacity-50" fill="#1A1F71"><path d="M19.5 2.5c-2.8 0-5.2.8-6.9 2.2L13 3.6c1.6-1.3 3.8-2.1 6.5-2.1 3.9 0 6.6 1.7 6.6 4.3v.3c0 1.2-.8 2.1-2.2 2.8-1.3.7-3 1.1-4.4 1.5-1.2.3-2.2.6-2.2 1.3 0 .5.4.8 1.2.8.9 0 2-.3 3.2-.9s2.3-1.3 2.3-1.3l-.3 1.8s-1 .7-2.7 1.2c-1 .3-2.1.5-3.2.5-2.5 0-4.1-1.2-4.1-3.2 0-2 1.6-3.2 4.2-4.1 1.4-.5 3.1-.9 4.4-1.2 1.1-.3 1.8-.6 1.8-1.2 0-.6-.6-1-1.9-1-1.1 0-2.4.2-3.6.7z"/><path d="M37.5 10.6c.6 0 1.2-.1 1.8-.4l-.5 1.6c-.5.2-1.1.4-1.7.4-2.1 0-3.3-1.2-3.3-3.1 0-2.2 1.5-3.8 3.5-3.8 1.1 0 2 .5 2.5 1.2l-.7 1.5c-.4-.5-.9-.8-1.6-.8-1.2 0-2 1-2 2.6 0 1.4.7 2.2 2 2.2z"/><path d="M42 .5h2.2L40.5 12.5h-2.2L42 .5z"/><path d="M2.5 2.5H6c1 0 1.8.1 2.2.3l-.4 1.9c-.3-.2-.8-.3-1.5-.3H4.9l-1.2 6.1H1.2L2.5 2.5z"/><path d="M10.5 2.5l-1.5 9.2h-2L9 .5h2.5l2.2 7.8L15 .5h2l-1.5 9.2h-2l1.2-7-2.2 7h-2L10.5 2.5z"/><path d="M26.5 2.5l-1.5 9.2h-2l1.5-9.2h2z"/><path d="M31 2.5l-1.5 9.2h-1.9l1.5-9.2H31zM31.5.5c0 .8-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4c0-.8.6-1.4 1.4-1.4s1.4.6 1.4 1.4z"/></svg>
+              <svg viewBox="0 0 48 16" className="h-4 w-8 opacity-50"><circle fill="#F79F1A" cx="15.5" cy="8" r="7"/><circle fill="#EB001B" cx="28.5" cy="8" r="7" opacity=".8"/><path fill="#FF5F00" d="M22 2c2.8 2.1 4.2 5.4 4.2 8.9 0 3.5-1.4 6.8-4.2 8.9-2.8-2.1-4.2-5.4-4.2-8.9 0-3.5 1.4-6.8 4.2-8.9z"/></svg>
+              <svg viewBox="0 0 48 16" className="h-4 w-8 opacity-50"><rect width="48" height="16" rx="2" fill="#006FCF"/><text x="24" y="11" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="Arial">AMEX</text></svg>
+              <span className="text-[10px] font-medium text-[#6b7280]">PayPal</span>
+              <span className="text-[10px] font-medium text-[#6b7280]">G Pay</span>
+              <span className="text-[10px] font-medium text-[#6b7280]">Apple Pay</span>
+            </div>
+
             {/* Shipping info */}
             <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-4 text-[12px] leading-6 text-[#8791a1]">
               <div className="flex items-center gap-2 font-medium text-[#f2eee7]">
@@ -494,7 +505,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   className={`overflow-hidden rounded-[26px] border border-white/[0.07] bg-[#10161f] ${
                     idx === 0 ? 'sm:col-span-2 aspect-[16/9]' : 'aspect-square'
                   }`}>
-                  <img src={src} alt={`${displayName} in use`} loading="lazy"
+                  <img src={src} alt={`${displayName} in use`} loading={idx === 0 ? 'eager' : 'lazy'} decoding="async"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                     className="h-full w-full object-contain p-4" />
                 </div>
@@ -555,10 +566,10 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   <Link key={p.slug} href={`/${locale}/products/${p.slug}`} className="group block">
                     <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] card-elevated transition-all hover:border-white/[0.14] hover:shadow-card">
                       <div className="flex aspect-square items-center justify-center overflow-hidden p-4" style={{ background: p.color }}>
-                        {p.images && p.images.length > 0 ? (
-                          <img src={p.images[0]} alt={rName} loading="lazy"
-                            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                    {p.images && p.images.length > 0 ? (
+                      <img src={p.images[0]} alt={rName} loading="lazy" decoding="async"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" />
                         ) : (
                           <span className="text-3xl opacity-50">{p.icon}</span>
                         )}
@@ -584,7 +595,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         <div className="mx-auto flex max-w-[1280px] items-center gap-4 px-4 py-3">
           <div className="flex min-w-0 items-center gap-3">
             {product?.images && product.images.length > 0 ? (
-              <img src={product.images[0]} alt={displayName} loading="lazy"
+              <img src={product.images[0]} alt={displayName} loading="eager" decoding="async"
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                 className="h-14 w-14 shrink-0 rounded-2xl border border-white/[0.08] object-contain bg-[#111720] p-1" />
             ) : (
