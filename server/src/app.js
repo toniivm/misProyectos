@@ -1164,17 +1164,8 @@ app.post('/orders/:id/ship', adminAuth, async (req,res) => {
       .replace(/{{customerName}}/g, customerName)
       .replace(/{{carrier}}/g, carrier)
       .replace(/{{trackingNumber}}/g, trackingNumber)
-      .replace(/{{#trackingUrl}}.*?{{\/trackingUrl}}/gs, finalTrackingUrl ? `<a href="${finalTrackingUrl}" class="track-btn" target="_blank">${isEn ? 'Track my package' : 'Seguir mi paquete'}</a>` : '')
-      .replace(/\{\{trackingUrl\}\}/g, finalTrackingUrl);
-
-    // Show only the correct language section
-    if (isEn) {
-      shipmentHtml = shipmentHtml.replace(/<div class="lang-es">[\s\S]*?<\/div>\s*(?=<div class="lang-en">)/, '');
-      shipmentHtml = shipmentHtml.replace(/class="lang-en"/, 'class="lang-en" style="display:block"');
-    } else {
-      shipmentHtml = shipmentHtml.replace(/<div class="lang-en">[\s\S]*?<\/div>/, '');
-      shipmentHtml = shipmentHtml.replace(/class="lang-es"/, 'class="lang-es" style="display:block"');
-    }
+      .replace(/{{trackingUrl}}/g, finalTrackingUrl)
+      .replace(/{{#trackingUrl}}.*?{{\/trackingUrl}}/gs, finalTrackingUrl ? `<a href="${finalTrackingUrl}" style="display:inline-block;background:#0369a1;color:#fff;text-decoration:none;padding:10px 24px;border-radius:8px;font-weight:600;font-size:14px;margin-top:12px;">${isEn ? 'Track my package' : 'Seguir mi paquete'}</a>` : '');
   } catch (e) {
     shipmentHtml = null;
   }
