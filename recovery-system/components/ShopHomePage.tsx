@@ -556,11 +556,11 @@ export default function ShopHomePage() {
         {/* ═══════════════════════════════════════════════════════
             HERO — Full-width, cinematic
         ═══════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[85dvh] sm:min-h-[90dvh] flex items-center">
+        <section className="relative min-h-[80dvh] sm:min-h-[90dvh] flex items-center">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b1120] via-[#080c12] to-[#080c12]" />
 
-          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 py-20 sm:py-24 w-full">
-            <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
+          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 pt-16 pb-20 sm:py-24 w-full">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -572,28 +572,28 @@ export default function ShopHomePage() {
                   <span className="text-[12px] font-bold text-amber-300 uppercase tracking-wide">{isEs ? 'Oferta de verano — 40% OFF' : 'Summer sale — 40% OFF'}</span>
                 </div>
 
-                <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
+                <h1 className="text-[clamp(2.4rem,8vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
                   {copy.heroLine1}
                   <br />
                   <span className="text-[#10BFD8]">{copy.heroLine2}</span>
                 </h1>
 
-                <p className="mt-7 max-w-md text-[17px] leading-[1.7] text-[#8791a1]">{copy.heroSubtitle}</p>
+                <p className="mt-5 sm:mt-7 max-w-md text-[15px] sm:text-[17px] leading-[1.6] sm:leading-[1.7] text-[#8791a1]">{copy.heroSubtitle}</p>
 
-                <div className="mt-10 flex flex-wrap items-center gap-4">
+                <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
                   <Link href={`/${locale}/shop/all`}
-                    className="group inline-flex items-center gap-2.5 rounded-full bg-white px-10 py-4.5 text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]">
+                    className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-8 sm:px-10 py-4 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)] min-h-[52px]">
                     {copy.heroPrimary}
                     <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                   <a href="#all-products"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white">
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white min-h-[52px]">
                     {copy.heroSecondary}
                   </a>
                 </div>
 
                 {/* Social proof stats — bigger and more prominent */}
-                <div className="mt-10 flex items-center gap-6">
+                <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
                   <div className="flex items-center gap-1.5">
                     <div className="flex -space-x-1">
                       {[1,2,3,4].map(i => (
@@ -604,14 +604,14 @@ export default function ShopHomePage() {
                     </div>
                     <span className="text-[13px] font-semibold text-white">6.000+</span>
                   </div>
-                  <span className="w-px h-4 bg-white/10" />
+                  <span className="hidden sm:block w-px h-4 bg-white/10" />
                   <div className="flex items-center gap-1.5">
                     {[1,2,3,4,5].map(i => (
                       <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
                     ))}
                     <span className="ml-1 text-[13px] font-semibold text-white">4.9</span>
                   </div>
-                  <span className="w-px h-4 bg-white/10" />
+                  <span className="hidden sm:block w-px h-4 bg-white/10" />
                   <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
                     <Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}
                   </span>
@@ -803,7 +803,7 @@ export default function ShopHomePage() {
               </p>
             </motion.div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
               {/* Creative 1 — Sleep Headband */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -813,24 +813,24 @@ export default function ShopHomePage() {
                 className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/sleep-headband`} className="block">
-                  <div className="relative aspect-[9/16] overflow-hidden">
+                  <div className="relative aspect-[4/5] sm:aspect-[9/16] overflow-hidden">
                     <img 
                       src="/images/productos-reales/sleep-headband.avif" 
                       alt={isEs ? 'Banda de sueño Noctip Rest - alivia el dolor de cuello' : 'Noctip Rest sleep headband - relieves neck pain'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="mb-3">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                      <div className="mb-2 sm:mb-3">
                         <Badge type={CATALOG.find(p => p.slug === 'sleep-headband')?.badge} locale={locale} />
                       </div>
-                      <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Rest</h3>
-                      <p className="mt-1 text-[13px] text-[#b8c4d0]">
+                      <h3 className="text-[17px] sm:text-[18px] font-bold text-white leading-tight">Noctip Rest</h3>
+                      <p className="mt-1 text-[12px] sm:text-[13px] text-[#b8c4d0]">
                         {isEs ? 'Audio para dormir sin auriculares' : 'Sleep audio without earbuds'}
                       </p>
-                      <div className="mt-3 flex items-center gap-2">
-                        <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'sleep-headband')?.price}</span>
-                        <span className="text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'sleep-headband')?.comparePrice}</span>
+                      <div className="mt-2 sm:mt-3 flex items-center gap-2">
+                        <span className="text-[18px] sm:text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'sleep-headband')?.price}</span>
+                        <span className="text-[12px] sm:text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'sleep-headband')?.comparePrice}</span>
                       </div>
                     </div>
                   </div>
@@ -846,24 +846,24 @@ export default function ShopHomePage() {
                 className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/neck-massager`} className="block">
-                  <div className="relative aspect-[9/16] overflow-hidden">
+                  <div className="relative aspect-[4/5] sm:aspect-[9/16] overflow-hidden">
                     <img 
                       src="/images/masajeadorbuenoo1.png" 
                       alt={isEs ? 'Noctip Cervical - alivio cervical profesional' : 'Noctip Cervical - professional cervical relief'}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="mb-3">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                      <div className="mb-2 sm:mb-3">
                         <Badge type={CATALOG.find(p => p.slug === 'neck-massager')?.badge} locale={locale} />
                       </div>
-                      <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Cervical</h3>
-                      <p className="mt-1 text-[13px] text-[#b8c4d0]">
+                      <h3 className="text-[17px] sm:text-[18px] font-bold text-white leading-tight">Noctip Cervical</h3>
+                      <p className="mt-1 text-[12px] sm:text-[13px] text-[#b8c4d0]">
                         {isEs ? 'Alivio cervical profesional en 15 minutos' : 'Professional cervical relief in 15 minutes'}
                       </p>
-                      <div className="mt-3 flex items-center gap-2">
-                        <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'neck-massager')?.price}</span>
-                        <span className="text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'neck-massager')?.comparePrice}</span>
+                      <div className="mt-2 sm:mt-3 flex items-center gap-2">
+                        <span className="text-[18px] sm:text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'neck-massager')?.price}</span>
+                        <span className="text-[12px] sm:text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'neck-massager')?.comparePrice}</span>
                       </div>
                     </div>
                   </div>
@@ -879,7 +879,7 @@ export default function ShopHomePage() {
                 className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/wave`} className="block">
-                  <div className="relative aspect-[9/16] overflow-hidden">
+                  <div className="relative aspect-[4/5] sm:aspect-[9/16] overflow-hidden">
                     <img 
                       src="/images/posture-corrector-1.webp" 
                       alt={isEs ? 'Corrector postural Noctip Back - alivia el dolor de espalda' : 'Noctip Back posture corrector - relieves back pain'}
@@ -887,17 +887,17 @@ export default function ShopHomePage() {
                       onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-transparent to-transparent opacity-80" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="mb-3">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                      <div className="mb-2 sm:mb-3">
                         <Badge type={CATALOG.find(p => p.slug === 'wave')?.badge} locale={locale} />
                       </div>
-                      <h3 className="text-[18px] font-bold text-white leading-tight">Noctip Back</h3>
-                      <p className="mt-1 text-[13px] text-[#b8c4d0]">
+                      <h3 className="text-[17px] sm:text-[18px] font-bold text-white leading-tight">Noctip Back</h3>
+                      <p className="mt-1 text-[12px] sm:text-[13px] text-[#b8c4d0]">
                         {isEs ? 'Corrige tu postura en 2 semanas' : 'Fix your posture in 2 weeks'}
                       </p>
-                      <div className="mt-3 flex items-center gap-2">
-                        <span className="text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'wave')?.price}</span>
-                        <span className="text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'wave')?.comparePrice}</span>
+                      <div className="mt-2 sm:mt-3 flex items-center gap-2">
+                        <span className="text-[18px] sm:text-[20px] font-bold text-white">€{CATALOG.find(p => p.slug === 'wave')?.price}</span>
+                        <span className="text-[12px] sm:text-[13px] text-[#6b7785] line-through">€{CATALOG.find(p => p.slug === 'wave')?.comparePrice}</span>
                       </div>
                     </div>
                   </div>
@@ -993,19 +993,19 @@ export default function ShopHomePage() {
       </main>
 
       {/* ── Mobile sticky CTA ── */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] p-3 backdrop-blur-xl sm:hidden">
-        <div className="flex items-center gap-3">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.97)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl sm:hidden">
+        <div className="flex items-center gap-2.5">
           <button onClick={openCart}
-            className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.05] text-[#c8d4e2]">
-            <ShoppingCart size={16} />
+            className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/[0.12] bg-white/[0.05] text-[#c8d4e2] active:bg-white/[0.08]">
+            <ShoppingCart size={17} />
             {totalItems > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#10BFD8] text-[9px] font-bold text-[#080c16]">
-                {totalItems}
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8] text-[10px] font-bold text-[#080c16]">
+                {totalItems > 9 ? '9+' : totalItems}
               </span>
             )}
           </button>
           <Link href={`/${locale}/shop/all`}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3 text-[14px] font-semibold text-[#11161d] btn-cta-pulse">
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3.5 text-[14px] font-semibold text-[#11161d] btn-cta-pulse min-h-[48px]">
             {copy.mobileCta} <ChevronRight size={15} />
           </Link>
         </div>

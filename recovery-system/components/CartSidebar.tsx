@@ -50,7 +50,7 @@ export default function CartSidebar() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 320 }}
-            className="fixed right-0 top-0 z-[60] flex h-full w-full max-w-sm flex-col border-l border-white/[0.07] bg-[#0c1016] shadow-[-20px_0_60px_rgba(0,0,0,0.5)] sm:max-w-md"
+            className="fixed right-0 top-0 z-[60] flex h-full w-full max-w-[85vw] sm:max-w-sm flex-col border-l border-white/[0.07] bg-[#0c1016] shadow-[-20px_0_60px_rgba(0,0,0,0.5)] sm:max-w-md"
             role="dialog"
             aria-modal="true"
             aria-label="Shopping cart"
@@ -93,15 +93,15 @@ export default function CartSidebar() {
                 <ul className="space-y-3">
                   {items.map((item) => (
                     <li key={item.slug}
-                      className="flex gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 transition-all hover:border-white/[0.12]">
-                      <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-[#111720] text-2xl">
+                      className="flex gap-3 sm:gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-3 sm:p-4 transition-all hover:border-white/[0.12]">
+                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-[#111720] text-xl sm:text-2xl">
                         {item.icon}
                       </div>
                       <div className="flex flex-1 flex-col gap-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-[14px] font-semibold text-[#f2eee7] leading-snug line-clamp-2">{item.name}</p>
+                          <p className="text-[13px] sm:text-[14px] font-semibold text-[#f2eee7] leading-snug line-clamp-2">{item.name}</p>
                           <button onClick={() => remove(item.slug)}
-                            className="mt-0.5 flex-shrink-0 rounded-md p-2 text-[#3d4a5c] transition hover:bg-white/[0.06] hover:text-[#e05a5a]"
+                            className="mt-0.5 flex-shrink-0 rounded-md p-2.5 text-[#3d4a5c] transition hover:bg-white/[0.06] hover:text-[#e05a5a] min-h-[44px] min-w-[44px] flex items-center justify-center"
                             aria-label={`Remove ${item.name}`}>
                             <Trash2 size={14} />
                           </button>
@@ -111,15 +111,15 @@ export default function CartSidebar() {
                         </p>
                         <div className="mt-1 flex items-center gap-2">
                           <button onClick={() => updateQty(item.slug, item.quantity - 1)}
-                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7]"
+                            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
                             aria-label="Decrease quantity">
-                            <Minus size={11} />
+                            <Minus size={12} />
                           </button>
-                          <span className="w-6 text-center text-[13px] font-semibold text-[#f2eee7]">{item.quantity}</span>
+                          <span className="w-6 text-center text-[14px] font-semibold text-[#f2eee7]">{item.quantity}</span>
                           <button onClick={() => updateQty(item.slug, item.quantity + 1)}
-                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7]"
+                            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
                             aria-label="Increase quantity">
-                            <Plus size={11} />
+                            <Plus size={12} />
                           </button>
                         </div>
                       </div>
@@ -183,7 +183,7 @@ export default function CartSidebar() {
                     close();
                     router.push(`/${locale}/checkout`);
                   }}
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-5 py-3.5 text-[14px] font-semibold text-[#11161d] transition-all duration-200 hover:bg-white hover:-translate-y-[1px]"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-5 py-4 text-[14px] font-semibold text-[#11161d] transition-all duration-200 hover:bg-white hover:-translate-y-[1px] min-h-[52px]"
                 >
                   {t('checkout')}
                   <ArrowRight size={15} />

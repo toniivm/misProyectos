@@ -386,15 +386,15 @@ export default function CheckoutPage() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-5 py-8 sm:py-10">
+      <div className="mx-auto max-w-6xl px-3 sm:px-5 py-6 sm:py-10">
         <Link href={`/${locale}`}
           className="mb-6 sm:mb-8 inline-flex items-center gap-1.5 text-[13px] text-[#6b7280] transition hover:text-[#c4cdd6]">
           <ArrowLeft size={14} />
           {t('backToShop')}
         </Link>
 
-        <div className="grid gap-8 lg:gap-10 lg:grid-cols-[1fr_380px]">
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="grid gap-6 lg:gap-10 lg:grid-cols-[1fr_380px]">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* ── Contact ── */}
             <section className="checkout-section">
               <div className="mb-5 flex items-center gap-3">
@@ -782,7 +782,7 @@ export default function CheckoutPage() {
             {/* ── Submit ── */}
             <button type="submit"
               disabled={loading || !hasHydrated || checkoutItems.length === 0 || !user}
-              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#f2eee7] py-4 text-[15px] font-semibold text-[#11161d] shadow-[0_4px_20px_rgba(242,238,231,0.08)] transition-all duration-200 hover:bg-white hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(242,238,231,0.12)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0">
+              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#f2eee7] py-4 text-[15px] font-semibold text-[#11161d] shadow-[0_4px_20px_rgba(242,238,231,0.08)] transition-all duration-200 hover:bg-white hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(242,238,231,0.12)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 min-h-[52px]">
               {loading ? (
                 <><span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />{t('processing')}</>
               ) : (
@@ -800,7 +800,7 @@ export default function CheckoutPage() {
           </form>
 
           {/* ── Order Summary ── */}
-          <aside className="h-fit rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#0d1219] to-[#0b1018] p-6 lg:sticky lg:top-24">
+          <aside className="h-fit rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#0d1219] to-[#0b1018] p-4 sm:p-6 lg:sticky lg:top-24 order-first lg:order-last">
             {/* Social proof */}
             <div className="mb-5 flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.025] px-3.5 py-2.5">
               <div className="flex -space-x-1.5">

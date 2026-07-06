@@ -114,7 +114,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       {/* Language flag SVGs */}
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-3 sm:px-6">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
             <Image
               src="/images/logo/logo.png"
@@ -126,9 +126,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             />
             <span className="hidden sm:block">Noctip</span>
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <Link href={`/${locale === 'es' ? 'en' : 'es'}${pathname?.replace(/^\/(es|en)/, '') || '/'}`}
-              className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
+              className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-2 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all min-h-[44px]"
               aria-label={isEs ? 'Switch to English' : 'Cambiar a español'}>
               <svg className="w-5 h-3.5 rounded-sm" viewBox="0 0 60 30">
                 {isEs ? (
@@ -140,14 +140,14 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <span>{isEs ? 'EN' : 'ES'}</span>
             </Link>
             <Link href={`/${locale}/checkout`}
-              className="btn-secondary">
+              className="btn-secondary min-h-[44px] px-4">
               {isEs ? 'Pagar' : 'Checkout'}
             </Link>
           </div>
         </div>
       </header>
 
-      <div className="mx-auto max-w-[1280px] px-4 pb-32 sm:px-6 lg:pb-44">
+      <div className="mx-auto max-w-[1280px] px-3 pb-32 sm:px-6 lg:pb-44">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 py-4 text-[12px] text-[#6b7785]">
           <Link href={`/${locale}`} className="hover:text-[#f2eee7] transition-colors">{isEs ? 'Inicio' : 'Home'}</Link>
@@ -199,11 +199,11 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             </div>
 
-            {/* Thumbnails */}
-            <div className="mt-3 grid grid-cols-3 gap-2">
+            {/* Thumbnails — horizontal scroll on mobile, grid on desktop */}
+            <div className="mt-3 flex gap-2 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-3 sm:overflow-visible pb-1">
               {allImages.map((src, idx) => (
                 <button key={idx} onClick={() => { setActiveImg(idx); setShowVideo(false); }}
-                  className={`overflow-hidden rounded-xl border-2 transition-all aspect-square ${
+                  className={`overflow-hidden rounded-xl border-2 transition-all aspect-square shrink-0 w-[72px] sm:w-auto ${
                     !showVideo && activeImg === idx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
                   }`}>
                   <img src={src} alt="" className="h-full w-full object-contain p-1" loading={idx === 0 ? 'eager' : 'lazy'} decoding="async"
@@ -212,7 +212,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               ))}
               {product?.video && (
                 <button onClick={() => setShowVideo(true)}
-                  className={`overflow-hidden rounded-xl border-2 transition-all aspect-square relative ${
+                  className={`overflow-hidden rounded-xl border-2 transition-all aspect-square relative shrink-0 w-[72px] sm:w-auto ${
                     showVideo ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
                   }`}>
                   <div className="h-full w-full bg-[#111720] flex items-center justify-center">
@@ -445,12 +445,12 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </motion.div>
         </div>
 
-        {/* Tabs */}
-        <div className="mt-12">
+        {/* Tabs — larger touch targets for mobile */}
+        <div className="mt-10 sm:mt-12">
           <div className="flex gap-1 border-b border-white/[0.07] overflow-x-auto scrollbar-none">
             {(['description', 'specs', 'reviews'] as const).map((tab) => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-5 py-3 text-[13px] font-medium capitalize whitespace-nowrap transition-colors ${
+                className={`flex-1 sm:flex-none px-4 sm:px-5 py-4 text-[13px] font-medium capitalize whitespace-nowrap transition-colors min-h-[48px] ${
                   activeTab === tab
                     ? 'border-b-2 border-[#f2eee7] text-[#f2eee7]'
                     : 'text-[#6b7785] hover:text-[#f2eee7]'
@@ -675,24 +675,24 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       </div>
 
       {/* Mobile sticky add to cart — visible on all screens below lg */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] p-3 backdrop-blur-xl lg:hidden">
-        <div className="flex items-center gap-3">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.97)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl lg:hidden">
+        <div className="flex items-center gap-2.5">
           <div className="flex items-center gap-0 rounded-full border border-white/[0.12] bg-[#111720]">
             <button onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="flex h-10 w-10 items-center justify-center text-[#c8d0da]">
-              <Minus size={14} />
+              className="flex h-11 w-11 items-center justify-center text-[#c8d0da] active:bg-white/[0.06]">
+              <Minus size={15} />
             </button>
-            <span className="min-w-[2ch] text-center text-[14px] font-semibold text-[#f2eee7]">{qty}</span>
+            <span className="min-w-[2ch] text-center text-[15px] font-semibold text-[#f2eee7]">{qty}</span>
             <button onClick={() => setQty((q) => q + 1)}
-              className="flex h-10 w-10 items-center justify-center text-[#c8d0da]">
-              <Plus size={14} />
+              className="flex h-11 w-11 items-center justify-center text-[#c8d0da] active:bg-white/[0.06]">
+              <Plus size={15} />
             </button>
           </div>
           <button onClick={handleAdd}
-            className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3 text-[14px] font-semibold transition ${
+            className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3.5 text-[14px] font-semibold transition min-h-[48px] ${
               added ? 'bg-emerald-500/20 text-emerald-300' : 'btn-secondary'
             }`}>
-            {added ? <><Check size={14} /> {isEs ? 'Añadido' : 'Added!'}</> : <><ShoppingCart size={14} /> {isEs ? 'Añadir' : 'Add to cart'} — €{displayPrice * qty}</>}
+            {added ? <><Check size={15} /> {isEs ? 'Añadido' : 'Added!'}</> : <><ShoppingCart size={15} /> {isEs ? 'Añadir' : 'Add'} — €{displayPrice * qty}</>}
           </button>
         </div>
       </div>
