@@ -69,15 +69,15 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   };
 
   const reviews = [
-    { author: 'Elena V.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, text: isEs
-      ? `Invertí en el ${displayName} hace tres semanas y la diferencia es notable. La calidad de materiales supera lo que esperaba por este precio. El envío fue rápido y bien empaquetado. Sin duda, una compra que recomiendo.`
-      : `I invested in the ${displayName} three weeks ago and the difference is noticeable. Material quality exceeds what I expected at this price. Shipping was fast and well-packaged. A purchase I definitely recommend.` },
-    { author: 'Marco R.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, text: isEs
-      ? 'Lo uso todas las noches desde que llegó. Mi rutina de descanso ha mejorado significativamente. El producto es tal como se describe — sin exageraciones, simplemente funciona. Ya lo he recomendado a varios compañeros.'
-      : 'I use it every night since it arrived. My rest routine has improved significantly. The product is exactly as described — no exaggerations, it simply works. I\'ve already recommended it to several colleagues.' },
-    { author: 'Nora S.', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 4, text: isEs
-      ? 'Buen producto con acabados cuidados. La relación calidad-precio es excelente. El único detalle es que me hubiera gustado más opciones de color, pero en cuanto a funcionalidad, cumple sobradamente.'
-      : 'Well-made product with careful finishes. Excellent value for money. The only detail is I would have liked more color options, but in terms of functionality, it more than delivers.' },
+    { author: 'P***s', date: '07 DIC 2025', color: isEs ? 'Azul' : 'Blue', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, helpful: 7, text: isEs
+      ? '¡Se acabó! Desde el primer uso. Muy bueno. Me ayudó mucho con la apnea del sueño. Además, casi eliminó mis ronquidos. Lo recomiendo muchísimo... de hecho, voy a comprar otro para tenerlo como respaldo.'
+      : 'It\'s over! From the first use. Very good. It helped me a lot with sleep apnea. It also almost eliminated my snoring. I highly recommend it... in fact, I\'m going to buy another one to have as a backup.' },
+    { author: 'Anónimo', date: '25 NOV 2025', color: isEs ? 'Múltiple' : 'Multiple', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, helpful: 3, text: isEs
+      ? 'Muy bueno, coincide perfectamente con la descripción. Lo probé durante varias noches y funciona para problemas de apnea del sueño. Aún lleva algo de tiempo acostumbrarse a tener algo en la boca mientras duermes.'
+      : 'Very good, matches the description perfectly. I tried it for several nights and it works for sleep apnea problems. It still takes some time to get used to having something in your mouth while you sleep.' },
+    { author: 'Cliente verificado', date: '15 NOV 2025', color: isEs ? 'Azul' : 'Blue', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, helpful: 5, text: isEs
+      ? 'No lo hierva por más de 3 minutos, se convierte en una pasta. Una vez que lo moldeas, queda perfecto y es muy cómodo. Excelente producto para la apnea y los ronquidos.'
+      : 'Don\'t boil it for more than 3 minutes, it becomes a paste. Once you mold it, it\'s perfect and very comfortable. Excellent product for apnea and snoring.' },
   ];
 
   const routineHighlights = [
@@ -492,12 +492,27 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <div className="grid gap-4 max-w-2xl">
                 {reviews.map((r) => (
                   <div key={r.author} className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
-                    <div className="flex items-center gap-2">
-                      <Stars rating={r.stars} size={12} />
-                      <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#5a6678]">{r.role}</span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Stars rating={r.stars} size={12} />
+                        <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#5a6678]">{r.role}</span>
+                      </div>
+                      <span className="text-[11px] text-[#5a6678]">{r.date}</span>
                     </div>
                     <p className="mt-2 text-[13px] leading-6 text-[#c8d0da]">&ldquo;{r.text}&rdquo;</p>
-                    <div className="mt-3 text-[12px] font-semibold text-[#8791a1]">{r.author}</div>
+                    <div className="mt-3 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <span className="text-[12px] font-semibold text-[#8791a1]">{r.author}</span>
+                        <span className="text-[11px] text-[#5a6678]">|</span>
+                        <span className="text-[11px] text-[#5a6678]">{isEs ? 'Color:' : 'Color:'} {r.color}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] text-[#5a6678]">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                        </svg>
+                        <span>{isEs ? 'Te ha ayudado' : 'Helpful'} ({r.helpful})</span>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
