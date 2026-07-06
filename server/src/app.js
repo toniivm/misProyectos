@@ -1049,6 +1049,41 @@ async function handleOrderPaid(orderId, stripeObj){
 
       // Mark email as sent to prevent duplicate from frontend
       await ref.set({ confirmationEmailSent: true, confirmationEmailSentAt: new Date() }, { merge: true });
+
+      // Send admin notification
+      try {
+        const adminItemsList = (order.items || []).map(it => `<li style="padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:14px;display:flex;justify-content:space-between;"><span>${it.name} x${it.qty}</span><span style="font-weight:600;">€${(it.price * it.qty).toFixed(2)}</span></li>`).join('');
+        const adminItemsHtml = `<ul style="list-style:none;padding:0;margin:0;">${adminItemsList}</ul>`;
+        const shippingAddr = order.shipping ? `${order.shipping.name || ''}<br>${order.shipping.address?.line1 || ''}${order.shipping.address?.line2 ? ', ' + order.shipping.address.line2 : ''}<br>${order.shipping.address?.postal_code || ''} ${order.shipping.address?.city || ''}, ${order.shipping.address?.state || ''}` : 'No disponible';
+
+        let adminTpl = null;
+        try {
+          const adminTplPath = new URL('../templates/admin-new-order.html', import.meta.url);
+          adminTpl = await fs.readFile(adminTplPath, 'utf8');
+        } catch (e) {
+          adminTpl = null;
+        }
+
+        let adminHtml;
+        if (adminTpl) {
+          adminHtml = adminTpl
+            .replace(/{{orderId}}/g, orderId)
+            .replace(/{{customerName}}/g, customerName)
+            .replace(/{{customerEmail}}/g, order.email || 'No disponible')
+            .replace(/{{customerPhone}}/g, order.phone || 'No disponible')
+            .replace(/{{itemsHtml}}/g, adminItemsHtml)
+            .replace(/{{total}}/g, total)
+            .replace(/{{shippingAddress}}/g, shippingAddr);
+        } else {
+          adminHtml = `<h1>Nuevo pedido #${orderId}</h1><p>Cliente: ${customerName} (${order.email})</p><ul>${adminItemsList}</ul><p><strong>Total: ${total}</strong></p><p>Dirección: ${shippingAddr}</p>`;
+        }
+
+        const adminEmail = 'tonivfortnite@gmail.com';
+        await sendEmail(adminEmail, `🛒 Nuevo pedido #${orderId} - €${((order.amount || 0) / 100).toFixed(2)}`, adminHtml);
+        console.log(`  ✅ Admin notification sent for order ${orderId}`);
+      } catch (e) {
+        console.error(`❌ Failed to send admin notification for ${orderId}:`, e?.message || e);
+      }
     } catch (e){
       console.error(`❌ Failed to send order confirmation email for ${orderId}:`, e?.message || e);
     }
