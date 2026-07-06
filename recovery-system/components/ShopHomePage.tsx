@@ -35,7 +35,7 @@ const SHOP_HOME_COPY = {
     switchAria: 'Switch to Spanish',
     announcement: [
       'Free shipping — always',
-      '4.9 ★ — 6,000+ reviews',
+      '4.9 ★ — Reseñas verificadas',
       '30 nights to try it — full refund if not',
       '100% secure payment (Stripe + SSL)',
       'Ships tomorrow',
@@ -55,7 +55,7 @@ const SHOP_HOME_COPY = {
       { icon: Truck, label: 'Free shipping', sub: 'On all orders' },
       { icon: RotateCcw, label: '30-night trial', sub: 'Full refund, no questions' },
       { icon: Shield, label: 'Secure checkout', sub: 'SSL + Stripe' },
-      { icon: Star, label: '4.9 average', sub: '6,000+ verified reviews' },
+      { icon: Star, label: '4.9 average', sub: 'Verified reviews' },
     ],
     categoriesHeading: 'What\'s bothering you?',
     categoriesSub: 'Tell us what\'s wrong — we\'ll show you what helps',
@@ -77,7 +77,7 @@ const SHOP_HOME_COPY = {
       },
     ],
     bestSellersHeading: 'Our best sellers',
-    bestSellersSub: 'What 6,000+ people already use every night',
+    bestSellersSub: 'What our customers already use every night',
     stepsHeading: 'How it works',
     stepsSub: 'Three steps to better rest',
     steps: [
@@ -98,7 +98,7 @@ const SHOP_HOME_COPY = {
     ],
     stats: [
       { value: '4', label: 'Products' },
-      { value: '6,000+', label: 'Happy customers' },
+      { value: '4.9', label: 'Happy customers' },
       { value: '4.9', label: 'Average rating' },
       { value: '30', label: 'Night guarantee' },
     ],
@@ -128,7 +128,7 @@ const SHOP_HOME_COPY = {
     switchAria: 'Switch to English',
     announcement: [
       'Envío gratis — siempre',
-      '4,9 ★ — 6.000+ reseñas',
+      '4,9 ★ — Reseñas verificadas',
       '30 noches para probarlo — te devolvemos todo',
       'Pago 100% seguro (Stripe + SSL)',
       'Lo enviamos mañana',
@@ -148,7 +148,7 @@ const SHOP_HOME_COPY = {
       { icon: Truck, label: 'Envío gratis', sub: 'En todos los pedidos' },
       { icon: RotateCcw, label: '30 noches de prueba', sub: 'Reembolso completo, sin preguntas' },
       { icon: Shield, label: 'Pago seguro', sub: 'SSL + Stripe' },
-      { icon: Star, label: 'Media de 4,9', sub: 'Más de 6.000 reseñas verificadas' },
+      { icon: Star, label: 'Media de 4,9', sub: 'Reseñas verificadas' },
     ],
     categoriesHeading: '¿Qué te está molestando?',
     categoriesSub: 'Cuéntanos qué pasa — te mostramos qué te ayuda',
@@ -158,7 +158,7 @@ const SHOP_HOME_COPY = {
       { emoji: '', problem: '¿Mala postura por trabajar sentado?', solution: 'Mejora tu postura. Libera tu cuello.', description: 'Correctores posturales que realinean tu columna y alivian el dolor crónico de espalda. Resultados visibles en 2 semanas.', slug: 'neck-recovery', colorFrom: '#0d1f1a', colorTo: '#0c1520' },
     ],
     bestSellersHeading: 'Nuestros más vendidos',
-    bestSellersSub: 'Lo que 6.000+ personas ya usan cada noche',
+    bestSellersSub: 'Lo que nuestros clientes ya usan cada noche',
     stepsHeading: 'Cómo funciona',
     stepsSub: 'Tres pasos para descansar mejor',
     steps: [
@@ -179,7 +179,7 @@ const SHOP_HOME_COPY = {
     ],
     stats: [
       { value: '4', label: 'Productos' },
-      { value: '6.000+', label: 'Clientes felices' },
+      { value: '4.9', label: 'Clientes felices' },
       { value: '4,9', label: 'Valoración media' },
       { value: '30', label: 'Noches de garantía' },
     ],
@@ -489,25 +489,26 @@ function Testimonials({ reviews, copy }: { reviews: CopyType['reviews']; copy: C
 
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Mobile: horizontal scroll, Desktop: grid */}
+      <div className="flex gap-3 overflow-x-auto scrollbar-none px-4 sm:px-0 sm:grid sm:gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible pb-2 sm:pb-0">
         {reviews.slice(active * perPage, active * perPage + perPage).map((review) => (
           <motion.div
             key={`${review.author}-${review.product}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 transition-all hover:border-white/[0.12]"
+            className="shrink-0 w-[75vw] sm:w-auto rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4 sm:p-5 transition-all hover:border-white/[0.12]"
           >
             <div className="flex items-center gap-2 mb-2">
               <Stars rating={review.stars} />
               <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#5a6678]">{copy.verifiedPurchase}</span>
             </div>
-            <p className="text-[13px] leading-6 text-[#c8d0da]">&ldquo;{review.text}&rdquo;</p>
-            <div className="mt-4 flex items-center justify-between gap-3">
+            <p className="text-[12px] sm:text-[13px] leading-5 sm:leading-6 text-[#c8d0da]">&ldquo;{review.text}&rdquo;</p>
+            <div className="mt-3 sm:mt-4 flex items-center justify-between gap-3">
               <div>
                 <div className="text-[12px] font-semibold text-[#f2eee7]">{review.author}</div>
-                <div className="text-[11px] text-[#6b7785]">{review.role}</div>
+                <div className="text-[10px] sm:text-[11px] text-[#6b7785]">{review.role}</div>
               </div>
-              <span className="rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-1 text-[10px] text-[#9aa7b9]">{review.product}</span>
+              <span className="shrink-0 rounded-full border border-white/[0.06] bg-white/[0.03] px-2 sm:px-2.5 py-1 text-[9px] sm:text-[10px] text-[#9aa7b9]">{review.product}</span>
             </div>
           </motion.div>
         ))}
@@ -554,33 +555,66 @@ export default function ShopHomePage() {
 
       <main className="pb-24 sm:pb-0">
         {/* ═══════════════════════════════════════════════════════
-            HERO — Full-width, cinematic
+            HERO — Premium mobile-first, cinematic
         ═══════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[80dvh] sm:min-h-[90dvh] flex items-center">
+        <section className="relative min-h-[100dvh] sm:min-h-[90dvh] flex flex-col">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b1120] via-[#080c12] to-[#080c12]" />
 
-          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 pt-16 pb-20 sm:py-24 w-full">
-            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
+          <div className="relative flex-1 flex flex-col justify-end pb-28 sm:pb-0 sm:items-center sm:justify-center">
+            {/* Mobile: product image fills top half */}
+            <div className="absolute inset-0 sm:hidden">
+              <Link href={`/${locale}/products/${flagship.slug}`} className="block h-full">
+                <div className="relative h-full overflow-hidden">
+                  <img src={flagshipImage}
+                    alt={getLocalizedProductName(flagship, locale)}
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                    className="absolute inset-0 h-full w-full object-contain p-8 pt-20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-[#080c12]/60 to-transparent" />
+                  {/* Floating price tag on mobile */}
+                  <div className="absolute top-20 right-4 flex flex-col items-end gap-2 z-10">
+                    <span className="rounded-full bg-[#10BFD8]/20 backdrop-blur-md border border-[#10BFD8]/30 px-3 py-1.5 text-[12px] font-bold text-[#10BFD8]">
+                      -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Mobile: text overlaid on bottom */}
+            <div className="relative z-10 px-4 sm:px-6 sm:text-center sm:max-w-2xl w-full">
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 {/* Urgency badge */}
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-2">
-                  <span className="text-[13px]">🔥</span>
-                  <span className="text-[12px] font-bold text-amber-300 uppercase tracking-wide">{isEs ? 'Oferta de verano — 40% OFF' : 'Summer sale — 40% OFF'}</span>
+                <div className="mb-4 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 sm:px-4 py-1.5 sm:py-2">
+                  <span className="text-[12px] sm:text-[13px]">🔥</span>
+                  <span className="text-[11px] sm:text-[12px] font-bold text-amber-300 uppercase tracking-wide">{isEs ? 'Oferta — 40% OFF' : 'Sale — 40% OFF'}</span>
                 </div>
 
-                <h1 className="text-[clamp(2.4rem,8vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
+                <h1 className="text-[clamp(2.6rem,9vw,5.5rem)] font-bold leading-[0.9] tracking-[-0.04em] text-white">
                   {copy.heroLine1}
                   <br />
                   <span className="text-[#10BFD8]">{copy.heroLine2}</span>
                 </h1>
 
-                <p className="mt-5 sm:mt-7 max-w-md text-[15px] sm:text-[17px] leading-[1.6] sm:leading-[1.7] text-[#8791a1]">{copy.heroSubtitle}</p>
+                <p className="mt-4 sm:mt-6 max-w-md text-[14px] sm:text-[17px] leading-[1.5] sm:leading-[1.7] text-[#8791a1] mx-auto sm:mx-0">{copy.heroSubtitle}</p>
 
-                <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
+                {/* Trust chips — inline on mobile */}
+                <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
+                    <Truck size={12} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
+                    <RotateCcw size={12} className="text-[#10BFD8]" /> 30 {isEs ? 'noches' : 'nights'}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
+                    <Star size={12} className="fill-amber-400 text-amber-400" /> 4.9
+                  </span>
+                </div>
+
+                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
                   <Link href={`/${locale}/shop/all`}
                     className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-8 sm:px-10 py-4 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)] min-h-[52px]">
                     {copy.heroPrimary}
@@ -591,71 +625,87 @@ export default function ShopHomePage() {
                     {copy.heroSecondary}
                   </a>
                 </div>
-
-                {/* Social proof stats — bigger and more prominent */}
-                <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
-                  <div className="flex items-center gap-1.5">
-                    <div className="flex -space-x-1">
-                      {[1,2,3,4].map(i => (
-                        <div key={i} className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#080c12] bg-[#1a2436] text-[10px]">
-                          {['😊','😴','🧘','✨'][i-1]}
-                        </div>
-                      ))}
-                    </div>
-                    <span className="text-[13px] font-semibold text-white">6.000+</span>
-                  </div>
-                  <span className="hidden sm:block w-px h-4 bg-white/10" />
-                  <div className="flex items-center gap-1.5">
-                    {[1,2,3,4,5].map(i => (
-                      <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
-                    ))}
-                    <span className="ml-1 text-[13px] font-semibold text-white">4.9</span>
-                  </div>
-                  <span className="hidden sm:block w-px h-4 bg-white/10" />
-                  <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
-                    <Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}
-                  </span>
-                </div>
               </motion.div>
+            </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
-                  <div className="relative rounded-[28px] overflow-hidden bg-[#0d1828] border border-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-                    <div className="relative aspect-[4/5] overflow-hidden">
-                      <img src={flagshipImage}
-                        alt={getLocalizedProductName(flagship, locale)}
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        className="absolute inset-0 h-full w-full object-contain p-10 transition-transform duration-700 group-hover:scale-[1.03]" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/90 via-transparent to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
-                        <div className="flex items-center gap-2 mb-3">
-                          {[1,2,3,4,5].map(i => (
-                            <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
-                          ))}
-                          <span className="ml-1 text-[12px] font-medium text-white/70">4.9</span>
-                        </div>
-                        <h2 className="text-[26px] sm:text-[30px] font-bold text-white leading-tight">
-                          {getLocalizedProductName(flagship, locale)}
-                        </h2>
-                        <p className="mt-2 text-[14px] text-[#9aa7b9] line-clamp-1">
-                          {getLocalizedProductShortDescription(flagship, locale)}
-                        </p>
-                        <div className="mt-4 flex items-baseline gap-3">
-                          <span className="text-[28px] font-bold text-white">€{flagship.price}</span>
-                          <span className="text-[15px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
-                          <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">
-                            -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
-                          </span>
+            {/* Desktop: side-by-side layout */}
+            <div className="hidden sm:block relative z-10 mx-auto max-w-[1280px] px-6 w-full">
+              <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <h1 className="text-[clamp(2.4rem,5vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
+                    {copy.heroLine1}
+                    <br />
+                    <span className="text-[#10BFD8]">{copy.heroLine2}</span>
+                  </h1>
+                  <p className="mt-6 max-w-md text-[17px] leading-[1.7] text-[#8791a1]">{copy.heroSubtitle}</p>
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <Link href={`/${locale}/shop/all`}
+                      className="group inline-flex items-center gap-2.5 rounded-full bg-white px-10 py-4 text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]">
+                      {copy.heroPrimary}
+                      <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
+                    <a href="#all-products"
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white">
+                      {copy.heroSecondary}
+                    </a>
+                  </div>
+                  <div className="mt-8 flex items-center gap-6">
+                    <div className="flex items-center gap-1.5">
+                      {[1,2,3,4,5].map(i => (
+                        <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                      ))}
+                      <span className="ml-1 text-[13px] font-semibold text-white">4.9</span>
+                    </div>
+                    <span className="w-px h-4 bg-white/10" />
+                    <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
+                      <Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}
+                    </span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
+                    <div className="relative rounded-[28px] overflow-hidden bg-[#0d1828] border border-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+                      <div className="relative aspect-[4/5] overflow-hidden">
+                        <img src={flagshipImage}
+                          alt={getLocalizedProductName(flagship, locale)}
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                          className="absolute inset-0 h-full w-full object-contain p-10 transition-transform duration-700 group-hover:scale-[1.03]" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/90 via-transparent to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-9">
+                          <div className="flex items-center gap-2 mb-3">
+                            {[1,2,3,4,5].map(i => (
+                              <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                            ))}
+                            <span className="ml-1 text-[12px] font-medium text-white/70">4.9</span>
+                          </div>
+                          <h2 className="text-[30px] font-bold text-white leading-tight">
+                            {getLocalizedProductName(flagship, locale)}
+                          </h2>
+                          <p className="mt-2 text-[14px] text-[#9aa7b9] line-clamp-1">
+                            {getLocalizedProductShortDescription(flagship, locale)}
+                          </p>
+                          <div className="mt-4 flex items-baseline gap-3">
+                            <span className="text-[28px] font-bold text-white">€{flagship.price}</span>
+                            <span className="text-[15px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
+                            <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">
+                              -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </motion.div>
+                  </Link>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -670,7 +720,7 @@ export default function ShopHomePage() {
                 { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
                 { icon: RotateCcw, label: isEs ? '30 noches de prueba' : '30-night trial', sub: isEs ? 'Devolución completa' : 'Full refund' },
                 { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL 256-bit + Stripe' },
-                { icon: Star, label: isEs ? '4.9 media' : '4.9 average', sub: isEs ? '6.000+ reseñas verificadas' : '6,000+ verified reviews' },
+                { icon: Star, label: isEs ? '4.9 media' : '4.9 average', sub: isEs ? 'Reseñas verificadas' : 'Verified reviews' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center justify-center gap-3 py-5 transition-colors hover:bg-white/[0.02]">
                   <item.icon size={18} className="text-[#10BFD8]" />
@@ -685,31 +735,34 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            PRODUCTS — Clean grid with better cards
+            PRODUCTS — Horizontal scroll on mobile, grid on desktop
         ═══════════════════════════════════════════════════════ */}
-        <section id="all-products" className="py-20 sm:py-28">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+        <section id="all-products" className="py-16 sm:py-28">
+          <div className="sm:mx-auto sm:max-w-[1280px] sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-8 sm:mb-12 px-4 sm:px-0"
             >
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
+              <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
                 {isEs ? 'Elige tu solución' : 'Pick your solution'}
               </h2>
-              <p className="mt-3 text-[15px] text-[#6b7785] max-w-md mx-auto">
-                {isEs ? 'Cada producto resuelve un problema específico. Sin distracciones.' : 'Each product solves one specific problem. No distractions.'}
+              <p className="mt-2 sm:mt-3 text-[13px] sm:text-[15px] text-[#6b7785] max-w-md mx-auto">
+                {isEs ? 'Cada producto resuelve un problema específico.' : 'Each product solves one specific problem.'}
               </p>
             </motion.div>
 
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {allProducts.map((product) => (
-                <ProductCard key={product.slug} product={product} locale={locale} />
+            {/* Mobile: horizontal scroll carousel */}
+            <div className="flex gap-3 overflow-x-auto scrollbar-none px-4 sm:px-6 pb-4 sm:pb-0 sm:grid sm:gap-5 sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4 sm:px-0">
+              {allProducts.map((product, idx) => (
+                <div key={product.slug} className="shrink-0 w-[72vw] sm:w-auto">
+                  <ProductCard product={product} locale={locale} />
+                </div>
               ))}
             </div>
 
-            <div className="mt-10 text-center">
+            <div className="mt-8 sm:mt-10 text-center px-4 sm:px-0">
               <Link href={`/${locale}/shop/all`} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-8 py-4 text-[14px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:bg-white/[0.08] hover:text-white">
                 {isEs ? 'Ver catálogo completo' : 'View full catalog'} <ArrowRight size={15} />
               </Link>
@@ -718,17 +771,17 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            WHY NOCTIP — Brand story
+            WHY NOCTIP — Horizontal scroll on mobile
         ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+        <section className="py-16 sm:py-28">
+          <div className="sm:mx-auto sm:max-w-[1280px] sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-14"
+              className="text-center mb-8 sm:mb-14 px-4 sm:px-0"
             >
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
+              <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
                 {isEs ? 'Cuatro productos.' : 'Four products.'}
                 <br />
                 <span className="text-[#10BFD8]">
@@ -737,17 +790,18 @@ export default function ShopHomePage() {
               </h2>
             </motion.div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Mobile: horizontal scroll */}
+            <div className="flex gap-3 overflow-x-auto scrollbar-none px-4 sm:px-6 pb-4 sm:pb-0 sm:grid sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 sm:px-0">
               {[
                 {
                   title: isEs ? 'Uno por problema' : 'One per problem',
-                  text: isEs ? 'No hacemos 20 productos que hacen lo mismo. Hacemos uno que hace bien lo que necesitas.' : 'We don\'t make 20 products that do the same thing. We make one that does what you need well.',
+                  text: isEs ? 'No hacemos 20 productos. Hacemos uno que hace bien lo que necesitas.' : 'We don\'t make 20 products. We make one that does what you need well.',
                   stat: String(CATALOG.length),
                   statLabel: isEs ? 'Productos' : 'Products',
                 },
                 {
                   title: isEs ? 'Gente real lo usa' : 'Real people use it',
-                  text: isEs ? '6.000+ personas compraron esto. No son números de marketing — son reseñas verificadas.' : '6,000+ people bought this. Not marketing numbers — verified reviews.',
+                  text: isEs ? 'Nuestros clientes confían en nosotros. Reseñas verificadas de personas reales.' : 'Our customers trust us. Verified reviews from real people.',
                   stat: '4.9',
                   statLabel: isEs ? 'Estrellas media' : 'Avg rating',
                 },
@@ -770,12 +824,12 @@ export default function ShopHomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.08, duration: 0.5 }}
-                  className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/[0.12]"
+                  className="shrink-0 w-[72vw] sm:w-auto group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 sm:p-6 transition-all duration-300 hover:border-white/[0.12]"
                 >
-                  <span className="text-[28px] font-bold text-[#10BFD8]">{item.stat}</span>
-                  <span className="ml-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b7785]">{item.statLabel}</span>
-                  <h3 className="mt-3 text-[15px] font-semibold text-white">{item.title}</h3>
-                  <p className="mt-1.5 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
+                  <span className="text-[24px] sm:text-[28px] font-bold text-[#10BFD8]">{item.stat}</span>
+                  <span className="ml-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b7785]">{item.statLabel}</span>
+                  <h3 className="mt-2 sm:mt-3 text-[14px] sm:text-[15px] font-semibold text-white">{item.title}</h3>
+                  <p className="mt-1 sm:mt-1.5 text-[12px] sm:text-[13px] leading-5 sm:leading-6 text-[#6b7785]">{item.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -783,34 +837,35 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            CREATIVE SHOWCASE — AI-generated social proof images
+            CREATIVE SHOWCASE — Horizontal scroll on mobile
         ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 sm:py-28 overflow-hidden">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+        <section className="py-16 sm:py-28 overflow-hidden">
+          <div className="sm:mx-auto sm:max-w-[1280px] sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-8 sm:mb-12 px-4 sm:px-0"
             >
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
+              <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
                 {isEs ? 'Erase el dolor. Recupera tu cuerpo.' : 'Erase the pain. Recover your body.'}
               </h2>
-              <p className="mt-3 text-[15px] text-[#6b7785] max-w-lg mx-auto">
+              <p className="mt-2 sm:mt-3 text-[13px] sm:text-[15px] text-[#6b7785] max-w-lg mx-auto">
                 {isEs 
-                  ? 'Tecnología que tu cuerpo nota desde la primera noche. Diseñada para personas que no pueden permitirse dormir mal.'
-                  : 'Technology your body feels from night one. Built for people who can\'t afford to sleep badly.'}
+                  ? 'Tecnología que tu cuerpo nota desde la primera noche.'
+                  : 'Technology your body feels from night one.'}
               </p>
             </motion.div>
 
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+            {/* Mobile: horizontal scroll, 2 columns on desktop */}
+            <div className="flex gap-3 overflow-x-auto scrollbar-none px-4 sm:px-6 pb-4 sm:pb-0 sm:grid sm:gap-4 sm:grid-cols-2 sm:overflow-visible sm:px-0 max-w-5xl sm:mx-auto">
               {/* Creative 1 — Sleep Headband */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
+                className="shrink-0 w-[60vw] sm:w-auto group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/sleep-headband`} className="block">
                   <div className="relative aspect-[4/5] sm:aspect-[9/16] overflow-hidden">
@@ -843,7 +898,7 @@ export default function ShopHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
+                className="shrink-0 w-[60vw] sm:w-auto group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/neck-massager`} className="block">
                   <div className="relative aspect-[4/5] sm:aspect-[9/16] overflow-hidden">
@@ -876,7 +931,7 @@ export default function ShopHomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
+                className="shrink-0 w-[60vw] sm:w-auto group relative overflow-hidden rounded-3xl border border-white/[0.06] bg-base-card"
               >
                 <Link href={`/${locale}/products/wave`} className="block">
                   <div className="relative aspect-[4/5] sm:aspect-[9/16] overflow-hidden">
@@ -915,18 +970,18 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            TESTIMONIALS — Premium carousel
+            TESTIMONIALS — Horizontal scroll on mobile
         ═══════════════════════════════════════════════════════ */}
-        <section className="py-20 sm:py-28">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+        <section className="py-16 sm:py-28">
+          <div className="sm:mx-auto sm:max-w-[1280px] sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-8 sm:mb-12 px-4 sm:px-0"
             >
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">{copy.testimonialsHeading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.testimonialsSub}</p>
+              <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">{copy.testimonialsHeading}</h2>
+              <p className="mt-2 sm:mt-3 text-[13px] sm:text-[15px] text-[#6b7785]">{copy.testimonialsSub}</p>
             </motion.div>
 
             <Testimonials reviews={copy.reviews} copy={copy} />
@@ -936,19 +991,19 @@ export default function ShopHomePage() {
         {/* ═══════════════════════════════════════════════════════
             FAQ — Clean, centered
         ═══════════════════════════════════════════════════════ */}
-        <section id="faq" className="py-20 sm:py-28 bg-gradient-to-b from-[#080c12] to-[#0a0f18]">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+        <section id="faq" className="py-16 sm:py-28 bg-gradient-to-b from-[#080c12] to-[#0a0f18]">
+          <div className="sm:mx-auto sm:max-w-[1280px] sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-8 sm:mb-12 px-4 sm:px-0"
             >
-              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">{copy.faqHeading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.faqSub}</p>
+              <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">{copy.faqHeading}</h2>
+              <p className="mt-2 sm:mt-3 text-[13px] sm:text-[15px] text-[#6b7785]">{copy.faqSub}</p>
             </motion.div>
 
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-2xl mx-auto px-4 sm:px-0">
               <FAQ items={copy.faqs} />
             </div>
           </div>
@@ -957,35 +1012,35 @@ export default function ShopHomePage() {
         {/* ═══════════════════════════════════════════════════════
             FINAL CTA — Full-width, cinematic
         ═══════════════════════════════════════════════════════ */}
-        <section className="relative py-20 sm:py-28 overflow-hidden">
+        <section className="relative py-16 sm:py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#080c12] to-[#0d0a1a]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,191,216,0.1),transparent_60%)]" />
           
-          <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 text-center">
+          <div className="relative sm:mx-auto sm:max-w-[1280px] px-4 sm:px-6 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-[clamp(2rem,5vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-white">
+              <h2 className="text-[clamp(1.8rem,5vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-white">
                 {copy.ctaHeading}
               </h2>
-              <p className="mt-5 max-w-lg mx-auto text-[16px] leading-7 text-[#9aa7b9]">{copy.ctaSub}</p>
+              <p className="mt-4 sm:mt-5 max-w-lg mx-auto text-[14px] sm:text-[16px] leading-6 sm:leading-7 text-[#9aa7b9]">{copy.ctaSub}</p>
               
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <Link href={`/${locale}/shop/all`} className="group relative inline-flex items-center gap-2 rounded-full bg-white px-10 py-5 text-[16px] font-bold text-[#080c12] transition-all hover:-translate-y-1">
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
+                <Link href={`/${locale}/shop/all`} className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 sm:px-10 py-4 sm:py-5 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all hover:-translate-y-1 min-h-[52px]">
                   {copy.ctaPrimary}
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                 </Link>
-                <Link href={`/${locale}/shop/all?sort=rating`} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-10 py-5 text-[16px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:bg-white/[0.08] hover:text-white">
+                <Link href={`/${locale}/shop/all?sort=rating`} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-8 sm:px-10 py-4 sm:py-5 text-[15px] sm:text-[16px] font-medium text-[#d0d8e4] transition-all hover:border-white/30 hover:bg-white/[0.08] hover:text-white min-h-[52px]">
                   {copy.ctaSecondary}
                 </Link>
               </div>
 
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-8 text-[13px] text-[#6b7785]">
-                <span className="flex items-center gap-2"><Shield size={14} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro SSL' : 'SSL secure checkout'}</span>
-                <span className="flex items-center gap-2"><Truck size={14} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis siempre' : 'Free shipping always'}</span>
-                <span className="flex items-center gap-2"><RotateCcw size={14} className="text-[#10BFD8]" /> {isEs ? '30 noches sin riesgo' : '30-night risk-free trial'}</span>
+              <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[11px] sm:text-[13px] text-[#6b7785]">
+                <span className="flex items-center gap-1.5 sm:gap-2"><Shield size={13} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro SSL' : 'SSL secure checkout'}</span>
+                <span className="flex items-center gap-1.5 sm:gap-2"><Truck size={13} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
+                <span className="flex items-center gap-1.5 sm:gap-2"><RotateCcw size={13} className="text-[#10BFD8]" /> {isEs ? '30 noches sin riesgo' : '30-night risk-free'}</span>
               </div>
             </motion.div>
           </div>

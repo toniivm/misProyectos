@@ -114,7 +114,7 @@ export default function NewsletterPopup() {
                       {isEs ? 'Consigue un 10% de descuento' : 'Get 10% off your first order'}
                     </h3>
                     <p className="mt-2 text-[13px] leading-6 text-[#8791a1] sm:text-[14px]">
-                      {isEs ? 'Únete a 6.000+ personas que duermen mejor. Sin spam. Cancela cuando quieras.' : 'Join 6,000+ people sleeping better. No spam. Unsubscribe anytime.'}
+                      {isEs ? 'Únete a quienes duermen mejor. Sin spam. Cancela cuando quieras.' : 'Join people sleeping better. No spam. Unsubscribe anytime.'}
                     </p>
 
                     <form onSubmit={handleSubmit} className="mt-5 space-y-3 sm:mt-6">

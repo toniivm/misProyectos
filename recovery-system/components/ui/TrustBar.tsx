@@ -26,7 +26,7 @@ export default function TrustBar({ variant = 'full' }: { variant?: 'full' | 'com
     <section className="border-y border-white/[0.06] bg-base-light">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.06]">
-          {items.concat([{ icon: Star, label: isEs ? '4.9 media' : '4.9 average', sub: isEs ? '6.000+ reseñas verificadas' : '6,000+ verified reviews' }]).map((item) => (
+          {items.concat([{ icon: Star, label: isEs ? '4.9 media' : '4.9 average', sub: isEs ? 'Reseñas verificadas' : 'Verified reviews' }]).map((item) => (
             <div key={item.label} className="flex items-center justify-center gap-3 py-5 transition-colors hover:bg-white/[0.02]">
               <item.icon size={18} className="text-accent" />
               <div>

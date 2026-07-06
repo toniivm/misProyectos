@@ -809,7 +809,7 @@ export default function CheckoutPage() {
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[9px]">🧘</div>
               </div>
               <div>
-                <div className="text-[12px] font-semibold text-[#f2eee7]">{isEs ? '6.000+ clientes satisfechos' : '6,000+ happy customers'}</div>
+                <div className="text-[12px] font-semibold text-[#f2eee7]">{isEs ? 'Clientes satisfechos' : 'Happy customers'}</div>
                 <div className="text-[10px] text-[#5a6678]">{isEs ? 'Valoración media 4.9/5' : 'Average rating 4.9/5'}</div>
               </div>
             </div>
