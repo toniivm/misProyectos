@@ -884,7 +884,7 @@ export default function ShopHomePage() {
                       slug="wave" 
                       color="#0d1f1a"
                       icon=""
-                      images={[]}
+                      images={CATALOG.find(p => p.slug === 'wave')?.images ?? []}
                       alt={isEs ? 'Corrector postural Noctip Back - alivia el dolor de espalda' : 'Noctip Back posture corrector - relieves back pain'}
                       className="h-full w-full"
                     />
