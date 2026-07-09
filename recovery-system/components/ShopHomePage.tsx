@@ -494,182 +494,197 @@ export default function ShopHomePage() {
       <main className="pb-24 sm:pb-0">
 
         {/* ═══════════════════════════════════════════════════════
-            HERO — Product-focused, clear value prop
+            HERO — Clean, Koriderm-inspired layout
         ═══════════════════════════════════════════════════════ */}
-        <section className="relative min-h-[100dvh] sm:min-h-[85dvh] flex flex-col">
+        <section className="relative overflow-hidden bg-[#080c12]">
           <div className="absolute inset-0 bg-gradient-to-b from-[#0b1120] via-[#080c12] to-[#080c12]" />
 
-          <div className="relative flex-1 flex flex-col justify-end pb-28 sm:pb-0 sm:items-center sm:justify-center">
-            {/* Mobile: product image fills top */}
-            <div className="absolute inset-0 sm:hidden">
-              <Link href={`/${locale}/products/${flagship.slug}`} className="block h-full">
-                <div className="relative h-full overflow-hidden">
-                  <img src={flagshipImage}
-                    alt={getLocalizedProductName(flagship, locale)}
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                    className="absolute inset-0 h-full w-full object-contain p-8 pt-24" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080c12] via-[#080c12]/60 to-transparent" />
-                  <div className="absolute top-24 right-4 flex flex-col items-end gap-2 z-10">
-                    <span className="rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-500/30 px-3 py-1.5 text-[12px] font-bold text-amber-300">
-                      -40%
-                    </span>
+          {/* ── MOBILE HERO ── */}
+          <div className="relative sm:hidden px-5 pt-6 pb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="text-center"
+            >
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5">
+                <span className="text-[12px]">🔥</span>
+                <span className="text-[11px] font-bold text-amber-300 uppercase tracking-wide">{isEs ? 'Oferta — 40% OFF' : 'Sale — 40% OFF'}</span>
+              </div>
+
+              <h1 className="text-[clamp(2.4rem,9vw,4rem)] font-bold leading-[0.9] tracking-[-0.04em] text-white">
+                {copy.heroLine1}
+                <br />
+                <span className="text-[#10BFD8]">{copy.heroLine2}</span>
+              </h1>
+
+              <p className="mt-4 max-w-sm mx-auto text-[14px] leading-[1.6] text-[#8791a1]">
+                {copy.heroSubtitle}
+              </p>
+
+              <div className="mt-5 flex items-baseline justify-center gap-3">
+                <span className="text-[32px] font-bold text-white">{copy.heroPrice}</span>
+                <span className="text-[16px] text-[#6b7785] line-through">{copy.heroOldPrice}</span>
+                <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">-40%</span>
+              </div>
+
+              <div className="mt-5 flex flex-wrap justify-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
+                  <Truck size={12} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
+                  <RotateCcw size={12} className="text-[#10BFD8]" /> 30 {isEs ? 'noches' : 'nights'}
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
+                  <Star size={12} className="fill-amber-400 text-amber-400" /> 4.9
+                </span>
+              </div>
+
+              <Link href={`/${locale}/products/${flagship.slug}`}
+                className="mt-6 inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-8 py-4 text-[16px] font-bold text-[#080c12] w-full min-h-[52px]">
+                {copy.heroCta} — {copy.heroPrice}
+                <ArrowRight size={18} />
+              </Link>
+            </motion.div>
+
+            {/* Product image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="mt-6"
+            >
+              <Link href={`/${locale}/products/${flagship.slug}`} className="block">
+                <div className="relative rounded-[24px] overflow-hidden bg-[#0d1828] border border-white/[0.06]">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <img src={flagshipImage}
+                      alt={getLocalizedProductName(flagship, locale)}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                      className="absolute inset-0 h-full w-full object-contain p-6" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <div className="flex items-center gap-2 mb-2">
+                        {[1,2,3,4,5].map(i => (
+                          <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
+                        ))}
+                        <span className="ml-1 text-[11px] font-medium text-white/70">4.9</span>
+                      </div>
+                      <h2 className="text-[22px] font-bold text-white">{getLocalizedProductName(flagship, locale)}</h2>
+                      <p className="mt-1 text-[12px] text-[#9aa7b9] line-clamp-1">{getLocalizedProductShortDescription(flagship, locale)}</p>
+                    </div>
                   </div>
                 </div>
               </Link>
-            </div>
+            </motion.div>
+          </div>
 
-            {/* Mobile: text on bottom */}
-            <div className="relative z-10 px-5 sm:px-6 sm:text-center sm:max-w-2xl w-full">
+          {/* ── DESKTOP HERO ── */}
+          <div className="hidden sm:block relative z-10 mx-auto max-w-[1280px] px-6 py-20 lg:py-28">
+            <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="mb-4 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 sm:px-4 py-1.5 sm:py-2">
-                  <span className="text-[12px] sm:text-[13px]">🔥</span>
-                  <span className="text-[11px] sm:text-[12px] font-bold text-amber-300 uppercase tracking-wide">{isEs ? 'Oferta — 40% OFF' : 'Sale — 40% OFF'}</span>
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-2">
+                  <span className="text-[13px]">🔥</span>
+                  <span className="text-[12px] font-bold text-amber-300 uppercase tracking-wide">{isEs ? 'Oferta — 40% OFF' : 'Sale — 40% OFF'}</span>
                 </div>
 
-                <h1 className="text-[clamp(2.8rem,10vw,5.5rem)] font-bold leading-[0.88] tracking-[-0.04em] text-white">
+                <h1 className="text-[clamp(2.4rem,5vw,5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
                   {copy.heroLine1}
                   <br />
                   <span className="text-[#10BFD8]">{copy.heroLine2}</span>
                 </h1>
 
-                <p className="mt-4 sm:mt-5 max-w-md text-[15px] sm:text-[17px] leading-[1.5] sm:leading-[1.7] text-[#8791a1] mx-auto sm:mx-0">{copy.heroSubtitle}</p>
+                <p className="mt-6 max-w-md text-[17px] leading-[1.7] text-[#8791a1]">{copy.heroSubtitle}</p>
 
-                {/* Price on mobile */}
-                <div className="mt-4 sm:hidden flex items-baseline gap-3">
-                  <span className="text-[28px] font-bold text-white">{copy.heroPrice}</span>
-                  <span className="text-[16px] text-[#6b7785] line-through">{copy.heroOldPrice}</span>
+                <div className="mt-6 flex items-baseline gap-3">
+                  <span className="text-[36px] font-bold text-white">{copy.heroPrice}</span>
+                  <span className="text-[18px] text-[#6b7785] line-through">{copy.heroOldPrice}</span>
+                  <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">-40%</span>
                 </div>
 
-                {/* Trust chips */}
-                <div className="mt-4 sm:mt-5 flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
-                    <Truck size={12} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
-                    <RotateCcw size={12} className="text-[#10BFD8]" /> 30 {isEs ? 'noches' : 'nights'}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
-                    <Star size={12} className="fill-amber-400 text-amber-400" /> 4.9
-                  </span>
-                </div>
-
-                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
+                <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Link href={`/${locale}/products/${flagship.slug}`}
-                    className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-8 sm:px-10 py-4 text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)] min-h-[52px]">
-                    {copy.heroCta} — {copy.heroPrice}
-                    <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                    className="group inline-flex items-center gap-2.5 rounded-full bg-white px-10 py-4 text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)] min-h-[52px]">
+                    {copy.heroCta}
+                    <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                   </Link>
                   <a href="#products"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white min-h-[52px]">
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white min-h-[52px]">
                     {copy.heroSecondary}
                   </a>
                 </div>
+
+                <div className="mt-8 flex items-center gap-6">
+                  <div className="flex items-center gap-1.5">
+                    {[1,2,3,4,5].map(i => (
+                      <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                    ))}
+                    <span className="ml-1 text-[13px] font-semibold text-white">4.9</span>
+                  </div>
+                  <span className="w-px h-4 bg-white/10" />
+                  <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
+                    <Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}
+                  </span>
+                </div>
               </motion.div>
-            </div>
 
-            {/* Desktop: side-by-side */}
-            <div className="hidden sm:block relative z-10 mx-auto max-w-[1280px] px-6 w-full">
-              <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-20">
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <h1 className="text-[clamp(2.4rem,5vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em] text-white">
-                    {copy.heroLine1}
-                    <br />
-                    <span className="text-[#10BFD8]">{copy.heroLine2}</span>
-                  </h1>
-                  <p className="mt-6 max-w-md text-[17px] leading-[1.7] text-[#8791a1]">{copy.heroSubtitle}</p>
-                  <div className="mt-6 flex items-baseline gap-3">
-                    <span className="text-[32px] font-bold text-white">{copy.heroPrice}</span>
-                    <span className="text-[18px] text-[#6b7785] line-through">{copy.heroOldPrice}</span>
-                    <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">-40%</span>
-                  </div>
-                  <div className="mt-8 flex flex-wrap items-center gap-4">
-                    <Link href={`/${locale}/products/${flagship.slug}`}
-                      className="group inline-flex items-center gap-2.5 rounded-full bg-white px-10 py-4 text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)] min-h-[52px]">
-                      {copy.heroCta}
-                      <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-                    </Link>
-                    <a href="#products"
-                      className="inline-flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white min-h-[52px]">
-                      {copy.heroSecondary}
-                    </a>
-                  </div>
-                  <div className="mt-8 flex items-center gap-6">
-                    <div className="flex items-center gap-1.5">
-                      {[1,2,3,4,5].map(i => (
-                        <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
-                      ))}
-                      <span className="ml-1 text-[13px] font-semibold text-white">4.9</span>
-                    </div>
-                    <span className="w-px h-4 bg-white/10" />
-                    <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
-                      <Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}
-                    </span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
-                    <div className="relative rounded-[28px] overflow-hidden bg-[#0d1828] border border-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-                      <div className="relative aspect-[4/5] overflow-hidden">
-                        <img src={flagshipImage}
-                          alt={getLocalizedProductName(flagship, locale)}
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                          className="absolute inset-0 h-full w-full object-contain p-10 transition-transform duration-700 group-hover:scale-[1.03]" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/90 via-transparent to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-9">
-                          <div className="flex items-center gap-2 mb-3">
-                            {[1,2,3,4,5].map(i => (
-                              <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
-                            ))}
-                            <span className="ml-1 text-[12px] font-medium text-white/70">4.9</span>
-                          </div>
-                          <h2 className="text-[30px] font-bold text-white leading-tight">
-                            {getLocalizedProductName(flagship, locale)}
-                          </h2>
-                          <p className="mt-2 text-[14px] text-[#9aa7b9] line-clamp-1">
-                            {getLocalizedProductShortDescription(flagship, locale)}
-                          </p>
-                          <div className="mt-4 flex items-baseline gap-3">
-                            <span className="text-[28px] font-bold text-white">€{flagship.price}</span>
-                            <span className="text-[15px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
-                            <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">
-                              -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
-                            </span>
-                          </div>
+              <motion.div
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
+                  <div className="relative rounded-[28px] overflow-hidden bg-[#0d1828] border border-white/[0.06] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+                    <div className="relative aspect-[4/5] overflow-hidden">
+                      <img src={flagshipImage}
+                        alt={getLocalizedProductName(flagship, locale)}
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        className="absolute inset-0 h-full w-full object-contain p-10 transition-transform duration-700 group-hover:scale-[1.03]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/90 via-transparent to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-9">
+                        <div className="flex items-center gap-2 mb-3">
+                          {[1,2,3,4,5].map(i => (
+                            <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                          ))}
+                          <span className="ml-1 text-[12px] font-medium text-white/70">4.9</span>
+                        </div>
+                        <h2 className="text-[30px] font-bold text-white leading-tight">
+                          {getLocalizedProductName(flagship, locale)}
+                        </h2>
+                        <p className="mt-2 text-[14px] text-[#9aa7b9] line-clamp-1">
+                          {getLocalizedProductShortDescription(flagship, locale)}
+                        </p>
+                        <div className="mt-4 flex items-baseline gap-3">
+                          <span className="text-[28px] font-bold text-white">€{flagship.price}</span>
+                          <span className="text-[15px] text-[#6b7785] line-through">€{flagship.comparePrice}</span>
+                          <span className="rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">
+                            -{Math.round(((flagship.comparePrice - flagship.price) / flagship.comparePrice) * 100)}%
+                          </span>
                         </div>
                       </div>
                     </div>
-                  </Link>
-                </motion.div>
-              </div>
+                  </div>
+                </Link>
+              </motion.div>
             </div>
           </div>
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            TRUST BAR
+            TRUST BAR — Clean, minimal
         ═══════════════════════════════════════════════════════ */}
         <section className="border-y border-white/[0.06] bg-white/[0.02]">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.06]">
-              {copy.trustItems.map((item) => (
-                <div key={item.label} className="flex items-center justify-center gap-3 py-5 transition-colors hover:bg-white/[0.02]">
-                  <item.icon size={18} className="text-[#10BFD8]" />
-                  <div>
-                    <div className="text-[12px] font-semibold text-[#f2eee7]">{item.label}</div>
-                    <div className="text-[10px] text-[#6b7785]">{item.sub}</div>
+            <div className="grid grid-cols-2 sm:grid-cols-4">
+              {copy.trustItems.map((item, idx) => (
+                <div key={item.label} className={`flex items-center justify-center gap-3 py-5 ${idx < 3 ? 'border-r border-white/[0.06] sm:border-r' : ''} ${idx < 2 ? 'border-b sm:border-b-0' : ''} ${idx === 2 ? 'border-b sm:border-b-0' : ''}`}>
+                  <item.icon size={16} className="text-[#10BFD8] shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[12px] font-semibold text-[#f2eee7] truncate">{item.label}</div>
+                    <div className="text-[10px] text-[#6b7785] truncate">{item.sub}</div>
                   </div>
                 </div>
               ))}
