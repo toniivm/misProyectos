@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, Check, Lock, ShieldCheck, Truck, RotateCcw, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Check, Lock, ShieldCheck, Truck, RotateCcw, AlertCircle, CheckCircle2, User } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -387,6 +387,29 @@ export default function CheckoutPage() {
       </header>
 
       <div className="mx-auto max-w-6xl px-3 sm:px-5 py-6 sm:py-10">
+        {/* Progress indicator */}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex items-center justify-center gap-0">
+            {[
+              { num: '1', label: isEs ? 'Contacto' : 'Contact' },
+              { num: '2', label: isEs ? 'Envío' : 'Shipping' },
+              { num: '3', label: isEs ? 'Pago' : 'Payment' },
+            ].map((step, idx) => (
+              <div key={step.num} className="flex items-center">
+                <div className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#10BFD8]/15 text-[12px] font-bold text-[#10BFD8]">
+                    {step.num}
+                  </div>
+                  <span className="text-[12px] font-medium text-[#8791a1] hidden sm:inline">{step.label}</span>
+                </div>
+                {idx < 2 && (
+                  <div className="w-8 sm:w-12 h-px bg-white/10 mx-2 sm:mx-3" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
         <Link href={`/${locale}`}
           className="mb-6 sm:mb-8 inline-flex items-center gap-1.5 text-[13px] text-[#6b7280] transition hover:text-[#c4cdd6]">
           <ArrowLeft size={14} />
@@ -657,10 +680,11 @@ export default function CheckoutPage() {
             <section className="checkout-section">
               <h2 className="mb-3 text-[15px] font-semibold text-[#f2eee7]">{isEs ? 'Código promocional' : 'Promo code'}</h2>
               <div className="flex gap-2">
-                <input type="text" value={promoCode}
+                <input type="text" inputMode="text" autoComplete="off" autoCorrect="off" autoCapitalize="characters" spellCheck={false}
+                  value={promoCode}
                   onChange={(e) => { setPromoCode(e.target.value); setPromoError(''); }}
                   placeholder={isEs ? 'Ej: NOCTIP10' : 'e.g. NOCTIP10'}
-                  className="input-premium flex-1 uppercase" />
+                  className="input-premium flex-1" />
                 <button type="button" onClick={applyPromoCode}
                   disabled={promoLoading || !promoCode.trim()}
                   className="rounded-xl border border-white/[0.1] bg-white/[0.04] px-5 py-3 text-[13px] font-semibold text-[#d1d8e2] transition hover:border-white/20 hover:bg-white/[0.07] disabled:opacity-50">
@@ -742,18 +766,18 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {/* ── Auth prompt ── */}
+            {/* ── Auth prompt (optional) ── */}
             {!user && !authLoading && (
-              <div className="rounded-xl border border-amber-500/20 bg-amber-500/[0.04] px-4 py-3.5 text-[13px] text-amber-200/90">
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5 text-[13px] text-[#c8d4e2]">
                 <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/10">
-                    <Lock size={12} className="text-amber-300" />
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#10BFD8]/10">
+                    <User size={12} className="text-[#10BFD8]" />
                   </div>
-                  <div>
-                    {t('signInPrompt')}
+                  <div className="flex-1">
+                    <span className="text-[#f2eee7] font-medium">{isEs ? '¿Tienes cuenta? ' : 'Have an account? '}</span>
                     <button type="button" onClick={() => openModal()}
-                      className="ml-2 inline-flex items-center rounded-full bg-amber-200/10 px-3 py-1 text-[12px] font-semibold text-amber-200 transition hover:bg-amber-200/15">
-                      {t('signInButton')}
+                      className="inline-flex items-center rounded-full bg-[#10BFD8]/10 px-3 py-1 text-[12px] font-semibold text-[#10BFD8] transition hover:bg-[#10BFD8]/15">
+                      {isEs ? 'Inicia sesión para ir más rápido' : 'Sign in for faster checkout'}
                     </button>
                   </div>
                 </div>
@@ -781,7 +805,7 @@ export default function CheckoutPage() {
 
             {/* ── Submit ── */}
             <button type="submit"
-              disabled={loading || !hasHydrated || checkoutItems.length === 0 || !user}
+              disabled={loading || !hasHydrated || checkoutItems.length === 0}
               className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#f2eee7] py-4 text-[15px] font-semibold text-[#11161d] shadow-[0_4px_20px_rgba(242,238,231,0.08)] transition-all duration-200 hover:bg-white hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(242,238,231,0.12)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 min-h-[52px]">
               {loading ? (
                 <><span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />{t('processing')}</>

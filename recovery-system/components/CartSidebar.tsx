@@ -175,11 +175,6 @@ export default function CartSidebar() {
 
                 <button
                   onClick={() => {
-                    if (!user) {
-                      close();
-                      openModal();
-                      return;
-                    }
                     close();
                     router.push(`/${locale}/checkout`);
                   }}
