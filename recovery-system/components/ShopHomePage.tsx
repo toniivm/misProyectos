@@ -161,7 +161,7 @@ function getCopy(locale: string): CopyType {
   return locale === 'es' ? SHOP_HOME_COPY.es as CopyType : SHOP_HOME_COPY.en
 }
 
-/* ─── Product Card ─── */
+/* ─── Product Card — Clean, Koriderm-inspired ─── */
 function ProductCard({ product, locale }: { product: CatalogProduct; locale: string }) {
   const { add, open: openCart } = useCart()
   const [added, setAdded] = useState(false)
@@ -189,9 +189,10 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.12] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
+        className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.12]"
       >
-        <div className="relative flex aspect-square items-center justify-center overflow-hidden" style={{ background: product.color }}>
+        {/* Image area — clean background */}
+        <div className="relative flex aspect-square items-center justify-center overflow-hidden bg-[#111827]">
           <ProductImage
             slug={product.slug as any}
             color={product.color}
@@ -200,17 +201,18 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
             alt={name}
             className="h-full w-full"
           />
-          <div className="absolute left-3 top-3 z-10 flex flex-col gap-2">
-            {product.badge && <Badge type={product.badge} locale={locale} />}
-            {savings > 0 && (
-              <span className="rounded-full bg-[#10BFD8] px-2.5 py-0.5 text-[10px] font-bold text-[#080c12] uppercase tracking-wide">
-                {isEs ? `Ahorra ${savings}%` : `Save ${savings}%`}
+          {/* Savings badge — only one, top-right */}
+          {savings > 0 && (
+            <div className="absolute top-3 right-3 z-10">
+              <span className="rounded-full bg-[#10BFD8] px-2.5 py-1 text-[10px] font-bold text-[#080c12] uppercase tracking-wide shadow-lg">
+                -{savings}%
               </span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
-        <div className="flex flex-1 flex-col gap-1.5 p-4">
+        {/* Info area — clean, minimal */}
+        <div className="flex flex-1 flex-col gap-2 p-4">
           <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
           <p className="line-clamp-2 text-[13px] leading-5 text-[#6b7785]">{desc}</p>
 
@@ -224,7 +226,9 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-baseline gap-2">
               <span className="text-[20px] font-bold text-white">€{product.price}</span>
-              <span className="text-[13px] text-[#4a5568] line-through">€{product.comparePrice}</span>
+              {savings > 0 && (
+                <span className="text-[13px] text-[#4a5568] line-through">€{product.comparePrice}</span>
+              )}
             </div>
             <button onClick={handleAdd}
               aria-label={`${copy.addLabel} ${name}`}
