@@ -7,7 +7,7 @@ Noctip es una marca premium de productos de sueño y recuperación. Vende 4 prod
 - **Noctip Rest** — Banda de audio para dormir (€11.99, antes €21.99)
 - **Noctip Cervical** — Masajeador cervical (€14.99, antes €24.99)
 
-Mercado: Europa. Idiomas: Español e Inglés.
+Mercado: Europa. Idiomas: Español (`es`) e Inglés (`en`). Locale por defecto: `es`.
 
 ## Stack Técnico
 - **Framework:** Next.js 14 (App Router)
@@ -15,44 +15,80 @@ Mercado: Europa. Idiomas: Español e Inglés.
 - **Estilos:** Tailwind CSS
 - **Animaciones:** Framer Motion
 - **Auth + DB:** Firebase (Auth + Firestore)
-- **Pagos:** Stripe
-- **i18n:** next-intl (useLocale, useTranslations)
-- **Iconos:** Lucide React
+- **Pagos:** Stripe (checkout sessions via API route + backend externo)
+- **i18n:** next-intl (`useLocale`, `useTranslations`, `setRequestLocale`)
+- **Iconos:** Lucide React (NUNCA usar otros iconos)
 - **Tests:** Playwright (E2E)
+- **Analytics:** Google Analytics 4 (`G-HVTC1MN829`)
+
+## Arquitectura de Descuentos
+El sistema de descuentos tiene 3 capas:
+1. **Precios de venta** — Cada producto tiene `price` y `comparePrice` en `lib/catalog.ts`. Son estáticos.
+2. **Descuentos por bundle** — `BUNDLES[]` en `lib/catalog.ts`. Se aplican automáticamente al añadir productos al carrito (15-20% off). Sin código.
+3. **Códigos promocionales** — **DESACTIVADOS**. La validación era externa (`/promo/validate`). Se desactivaron el input en checkout y `allow_promotion_codes: false` en Stripe.
 
 ## Estructura de Directorios
 ```
 recovery-system/
 ├── app/
-│   ├── [locale]/          # Páginas (es/en)
-│   │   ├── page.tsx       # Home → ShopHomePage
-│   │   ├── products/      # Fichas de producto
-│   │   ├── shop/          # Páginas de categoría
-│   │   ├── checkout/      # Checkout
-│   │   ├── about/         # Sobre nosotros
-│   │   ├── contact/       # Contacto
-│   │   ├── account/       # Cuenta de usuario
-│   │   ├── legal/         # Políticas legales
-│   │   └── tracking/      # Seguimiento de pedidos
-│   ├── api/               # API routes
+│   ├── [locale]/              # Páginas (es/en)
+│   │   ├── page.tsx           # Home → ShopHomePage
+│   │   ├── products/[slug]/   # Fichas de producto (generateMetadata + JSON-LD)
+│   │   ├── shop/[category]/   # Páginas de categoría (generateMetadata)
+│   │   ├── checkout/          # Checkout (client component)
+│   │   ├── checkout/success/  # Confirmación de pedido
+│   │   ├── about/             # Sobre nosotros
+│   │   ├── contact/           # Contacto
+│   │   ├── account/orders/    # Pedidos del usuario
+│   │   ├── admin/             # Panel admin
+│   │   ├── tracking/          # Seguimiento de pedidos
+│   │   └── legal/             # Políticas legales
+│   │       ├── privacy/
+│   │       ├── terms/
+│   │       ├── shipping/
+│   │       ├── returns/
+│   │       ├── cookies/
+│   │       └── legal-notice/
+│   ├── api/
+│   │   └── payments/create-checkout-session/route.ts
 │   ├── globals.css
-│   └── layout.tsx
+│   ├── layout.tsx             # Root layout (metadata estático)
+│   ├── sitemap.ts             # Sitemap dinámico
+│   └── robots.ts              # Robots.txt
 ├── components/
-│   ├── ShopHomePage.tsx   # Home page completa
-│   ├── ProductDetail.tsx  # Ficha de producto
-│   ├── CartSidebar.tsx    # Carrito lateral
+│   ├── ShopHomePage.tsx       # Home page completa
+│   ├── ProductDetail.tsx      # Ficha de producto
+│   ├── ProductImage.tsx       # Imágenes SVG + fallback real
+│   ├── CategoryPage.tsx       # Páginas de categoría
+│   ├── CartSidebar.tsx        # Carrito lateral
+│   ├── CartButton.tsx         # Botón del carrito (floating)
 │   ├── Footer.tsx
-│   ├── ConversionBoosters.tsx
-│   ├── ui/                # Componentes UI (Badge, FAQ, Stars)
-│   └── ...
+│   ├── ConversionBoosters.tsx  # TrustStrip, RatingStars, UrgencyBar
+│   ├── NewsletterPopup.tsx    # Popup de newsletter
+│   ├── CookieConsent.tsx      # Banner de cookies
+│   ├── AuthModal.tsx          # Modal de login/registro
+│   ├── PhoneInputField.tsx    # Input de teléfono con banderas
+│   ├── AddressAutocomplete.tsx # Autocompletado de direcciones
+│   ├── ErrorBoundary.tsx      # Error boundary global
+│   ├── UtmCapture.tsx         # Captura de parámetros UTM
+│   ├── GoogleAnalytics.tsx    # GA4 tracking
+│   ├── BackendWarmup.tsx      # Warmup del backend
+│   ├── LocalePreferenceSync.tsx # Sync de preferencia de idioma
+│   └── ui/
+│       ├── Badge.tsx          # Badges de producto
+│       ├── FAQ.tsx            # Sección FAQ
+│       └── Stars.tsx          # Estrellas de valoración
 ├── context/
-│   ├── AuthContext.tsx
-│   └── CartContext.tsx
+│   ├── AuthContext.tsx         # Estado de autenticación
+│   └── CartContext.tsx         # Estado del carrito (useReducer + localStorage)
 ├── lib/
-│   └── catalog.ts         # Catálogo de productos
+│   └── catalog.ts             # Catálogo, categorías, bundles, helpers
 ├── i18n/
-├── messages/              # Traducciones (es.json, en.json)
-└── public/images/         # Imágenes
+│   └── routing.ts             # Locale config (es, en)
+├── messages/
+│   ├── es.json                # Traducciones español
+│   └── en.json                # Traducciones inglés
+└── public/images/             # Imágenes estáticas
 ```
 
 ## Convenciones de Código
@@ -63,6 +99,7 @@ recovery-system/
 5. Iconos exclusivamente de Lucide React
 6. Lazy loading en imágenes: `loading="lazy"` excepto hero
 7. Botones mínimos 44x44px en móvil (accesibilidad)
+8. Server components para páginas con `generateMetadata` (no mezclar con `'use client'`)
 
 ## Paleta de Colores (tema oscuro)
 | Variable | Valor | Uso |
@@ -79,11 +116,20 @@ recovery-system/
 | success | `emerald-400/500` | Éxito, añadido al carrito |
 | warning | `amber-300/400` | Urgencia, ofertas |
 
+## SEO
+- **Metadata:** Root layout (estático) + locale layout (generateMetadata) + product/category pages (generateMetadata dinámico)
+- **Structured Data:** JSON-LD en locale layout (Organization, WebSite, OnlineStore, FAQPage, BreadcrumbList) + product pages (Product con aggregateRating)
+- **Sitemap:** Dinámico en `app/sitemap.ts`, genera URLs para todos los locales × productos × categorías
+- **Robots:** Permite todo excepto `/admin/`, `/checkout/`, `/api/`
+- **Canonical URLs:** Configuradas en cada página con `alternates.languages` para hreflang
+- **OG Images:** Siempre rutas absolutas (`https://noctip.com/...`)
+- **Google Verification:** Configurar en `app/layout.tsx` → `verification.google`
+
 ## Comandos Útiles
 ```bash
 cd recovery-system
 npm run dev          # Desarrollo
-npm run build        # Build producción
+npm run build        # Build producción (SIEMPRE ejecutar después de cambios)
 npm run lint         # Linting
 npm run test:e2e     # Tests E2E con Playwright
 ```
@@ -95,6 +141,9 @@ npm run test:e2e     # Tests E2E con Playwright
 - **SIEMPRE** testear que `npm run build` pase después de cambios
 - Preferir edición de archivos existentes sobre creación de nuevos
 - Seguir el estilo existente del archivo al editar
+- **NUNCA** añadir códigos de promo/descuento — están desactivados intencionalmente
+- **NUNCA** usar `type="number"` en inputs de formulario (causa problemas en Android)
+- **NUNCA** usar `autoCapitalize="characters"` en inputs de promo (causa bugs en Android)
 
 ## Reglas Mobile-First (OBLIGATORIO)
 - **TARGET:** Usuarios de 50-70 años, pocas habilidades digitales
@@ -106,9 +155,54 @@ npm run test:e2e     # Tests E2E con Playwright
 - **INTUICION:** Si alguien de 60 años no entiende algo en 2 segundos, rediseñarlo
 - **CAMPOS FORMULARIO:** Siempre labels visibles, placeholders descriptivos, errores claros
 - **ANDROID:** Inputs tipo `text` NUNCA `type="number"` (evita teclados problemáticos)
-- **PROMO CODE:** Input sin `uppercase` automático (causa bugs en Android), validación suave
 - **CHECKOUT:** Siempre opción "Compra como invitado" visible
 - **FEEDBACK:** Todo botón debe tener estado visual (loading, success, error)
 - **NAVEGACIÓN:** Siempre visible, sin menús ocultos en móvil
 - **STICKY CTA:** En móvil, botón de compra siempre visible abajo
 - **EVITAR:** Zoom al tocar inputs, scroll horizontal accidental, popups que bloqueen
+
+## Diseño de Componentes (ver DESIGN_SYSTEM.md)
+- **Cards:** `rounded-2xl border border-white/[0.06] bg-[#0d1219]`
+- **Botón primario:** `rounded-full bg-white px-8 py-4 text-[15px] font-bold text-[#080c12]`
+- **Botón secundario:** `rounded-full border border-white/10 px-8 py-4`
+- **Badges:** `rounded-full bg-[#10BFD8]/15 px-2.5 py-0.5 text-[10px]`
+- **Breakpoints:** sm:640 md:768 lg:1024 xl:1280 2xl:1536
+
+## Animaciones (Framer Motion)
+```tsx
+// Patrón estándar
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: '-40px' }}
+  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+>
+
+// Staggered elements
+transition={{ delay: idx * 0.08, duration: 0.5 }}
+```
+
+## Variables de Entorno
+- `NEXT_PUBLIC_API_URL` — URL del backend externo (default: `https://misproyectos-neyj.onrender.com`)
+- `STRIPE_SECRET_KEY` / `STRIPE_PRIVATE_KEY` — Clave secreta de Stripe
+- `NEXT_PUBLIC_BASE_URL` / `NEXT_PUBLIC_SITE_URL` — URL del sitio para Stripe callbacks
+- Firebase config en `AuthContext.tsx`
+
+## Archivos Clave por Funcionalidad
+| Funcionalidad | Archivo |
+|---------------|---------|
+| Catálogo productos | `lib/catalog.ts` |
+| Carrito (estado) | `context/CartContext.tsx` |
+| Auth (estado) | `context/AuthContext.tsx` |
+| Home page | `components/ShopHomePage.tsx` |
+| Ficha producto | `components/ProductDetail.tsx` |
+| Checkout | `app/[locale]/checkout/page.tsx` |
+| Pagos Stripe | `app/api/payments/create-checkout-session/route.ts` |
+| SEO (root) | `app/layout.tsx` |
+| SEO (locale) | `app/[locale]/layout.tsx` |
+| SEO (producto) | `app/[locale]/products/[slug]/page.tsx` |
+| Sitemap | `app/sitemap.ts` |
+| Robots | `app/robots.ts` |
+| Traducciones ES | `messages/es.json` |
+| Traducciones EN | `messages/en.json` |
+| Estilos globales | `app/globals.css` |

@@ -145,7 +145,7 @@ export default function NewsletterPopup() {
                     </form>
 
                     <p className="mt-3 text-[11px] text-[#4a5568]">
-                      {isEs ? 'Usa el código' : 'Use code'} <span className="font-semibold text-[#8791a1]">NOCTIP10</span> {isEs ? 'en el checkout' : 'at checkout'}
+                      {isEs ? 'Accede a ofertas exclusivas' : 'Access exclusive offers'}
                     </p>
                   </>
                 ) : (

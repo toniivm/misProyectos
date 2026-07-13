@@ -676,31 +676,7 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {/* ── Promo ── */}
-            <section className="checkout-section">
-              <h2 className="mb-3 text-[15px] font-semibold text-[#f2eee7]">{isEs ? 'Código promocional' : 'Promo code'}</h2>
-              <div className="flex gap-2">
-                <input type="text" inputMode="text" autoComplete="off" autoCorrect="off" autoCapitalize="characters" spellCheck={false}
-                  value={promoCode}
-                  onChange={(e) => { setPromoCode(e.target.value); setPromoError(''); }}
-                  placeholder={isEs ? 'Ej: NOCTIP10' : 'e.g. NOCTIP10'}
-                  className="input-premium flex-1" />
-                <button type="button" onClick={applyPromoCode}
-                  disabled={promoLoading || !promoCode.trim()}
-                  className="rounded-xl border border-white/[0.1] bg-white/[0.04] px-5 py-3 text-[13px] font-semibold text-[#d1d8e2] transition hover:border-white/20 hover:bg-white/[0.07] disabled:opacity-50">
-                  {promoLoading ? '...' : (isEs ? 'Aplicar' : 'Apply')}
-                </button>
-              </div>
-              {promoError && (
-                <div className="error-message"><AlertCircle size={12} />{promoError}</div>
-              )}
-              {promoDiscount > 0 && (
-                <div className="success-hint mt-2">
-                  <CheckCircle2 size={12} />
-                  {isEs ? `¡Código ${promoLabel} aplicado! — ${promoDiscount}% descuento` : `Code ${promoLabel} applied! — ${promoDiscount}% off`}
-                </div>
-              )}
-            </section>
+            {/* ── Promo codes disabled ── */}
 
             {/* ── Payment ── */}
             <section className="checkout-section">
@@ -872,12 +848,7 @@ export default function CheckoutPage() {
                     <span>{t('subtotalLine')}</span>
                     <span className="font-semibold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
-                  {promoDiscount > 0 && (
-                    <div className="flex items-center justify-between text-[13px] text-emerald-400">
-                      <span>{isEs ? `Descuento (${promoLabel})` : `Discount (${promoLabel})`}</span>
-                      <span className="font-semibold">-€{discountAmount.toFixed(2)}</span>
-                    </div>
-                  )}
+
                   <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                     <span>{t('shippingLine')}</span>
                     <span className="font-semibold text-[#5fb07c]">{t('freeShipping')}</span>

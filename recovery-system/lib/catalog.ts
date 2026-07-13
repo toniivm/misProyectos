@@ -204,6 +204,7 @@ export const CATALOG: CatalogProduct[] = [
       '/images/sleep-headband-5.webp',
       '/images/sleep-headband-6.webp',
     ],
+    video: '/videos/uyt0dv-h265-hd.mp4',
     icon: '',
     cartIcon: '',
     color: '#101828',

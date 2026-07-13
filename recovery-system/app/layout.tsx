@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/products/sleep-headband.jpg',
+        url: 'https://noctip.com/images/products/sleep-headband.jpg',
         width: 1200,
         height: 630,
         alt: 'Noctip — Premium Sleep & Recovery Technology',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Noctip™ — Premium Sleep & Recovery Technology',
     description: 'Tecnología premium de sueño y recuperación. Envío gratis y garantía de 30 noches.',
-    images: ['/images/products/sleep-headband.jpg'],
+    images: ['https://noctip.com/images/products/sleep-headband.jpg'],
   },
   robots: {
     index: true,
@@ -74,9 +74,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  verification: {},
 }
 
 export default async function RootLayout({

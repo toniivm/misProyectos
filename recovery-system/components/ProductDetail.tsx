@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, RotateCcw, Shield, ShoppingCart, Truck, Star } from 'lucide-react';
+import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -94,6 +94,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   ];
 
   const allImages = product?.images ?? [];
+  const hasVideo = !!product?.video;
+  const videoIdx = allImages.length;
+  const isVideoActive = hasVideo && activeImg === videoIdx;
 
   return (
     <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
@@ -157,24 +160,34 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           >
             <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden"
               style={{ background: product?.color ?? '#111720' }}>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <ProductImage
-                  slug={product?.slug as any ?? legacyProduct.slug as any}
-                  color={product?.color ?? legacyProduct.bg}
-                  icon={product?.icon ?? legacyProduct.icon}
-                  images={product?.images ?? []}
-                  alt={displayName}
-                  activeIndex={activeImg}
-                  className="h-full w-full"
+              {isVideoActive ? (
+                <video
+                  src={product!.video}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 h-full w-full object-contain"
                 />
-              </div>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <ProductImage
+                    slug={product?.slug as any ?? legacyProduct.slug as any}
+                    color={product?.color ?? legacyProduct.bg}
+                    icon={product?.icon ?? legacyProduct.icon}
+                    images={product?.images ?? []}
+                    alt={displayName}
+                    activeIndex={activeImg}
+                    className="h-full w-full"
+                  />
+                </div>
+              )}
               <div className="absolute top-4 left-4 flex gap-2 z-10">
                 {product?.badge && <Badge type={product.badge} locale={locale} />}
               </div>
             </div>
 
             {/* Thumbnails */}
-            <div className="mt-3 flex gap-2 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-4 sm:overflow-visible pb-1">
+            <div className="mt-3 flex gap-2 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-5 sm:overflow-visible pb-1">
               {allImages.map((src, idx) => (
                 <button key={idx} onClick={() => setActiveImg(idx)}
                   className={`overflow-hidden rounded-xl border-2 transition-all aspect-square shrink-0 w-[72px] sm:w-auto ${
@@ -184,6 +197,25 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
                 </button>
               ))}
+              {hasVideo && (
+                <button onClick={() => setActiveImg(videoIdx)}
+                  className={`relative overflow-hidden rounded-xl border-2 transition-all aspect-square shrink-0 w-[72px] sm:w-auto ${
+                    activeImg === videoIdx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
+                  }`}>
+                  {allImages[0] ? (
+                    <img src={allImages[0]} alt="" className="h-full w-full object-contain p-1" loading="lazy" decoding="async" />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-[#111720] text-[#5a6678]">
+                      <Play size={16} />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90">
+                      <Play size={14} className="ml-0.5 text-[#080c12]" fill="#080c12" />
+                    </div>
+                  </div>
+                </button>
+              )}
             </div>
           </motion.div>
 

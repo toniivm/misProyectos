@@ -45,7 +45,7 @@ export async function POST(req: Request) {
       mode: 'payment',
       success_url: successUrl,
       cancel_url: cancelUrl,
-      allow_promotion_codes: true,
+      allow_promotion_codes: false,
     };
     if (metadata) sessionParams.metadata = metadata;
 
