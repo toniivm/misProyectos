@@ -139,6 +139,7 @@ npm run test:e2e     # Tests E2E con Playwright
 - **NUNCA** modificar el catálogo de productos (`lib/catalog.ts`) sin confirmación
 - **SIEMPRE** mantener compatibilidad i18n (es/en)
 - **SIEMPRE** testear que `npm run build` pase después de cambios
+- **SIEMPRE** hacer `git add . && git commit && git push` después de cada tarea completada — el usuario quiere que los cambios se suban a GitHub automáticamente
 - Preferir edición de archivos existentes sobre creación de nuevos
 - Seguir el estilo existente del archivo al editar
 - **NUNCA** añadir códigos de promo/descuento — están desactivados intencionalmente
