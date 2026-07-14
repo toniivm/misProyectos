@@ -14,6 +14,7 @@ import {
   getProductReviews,
   getProductReviewStats,
   hasUserReviewedProduct,
+  hasUserPurchasedProduct,
   addReview,
   toggleHelpful,
   reportReview,
@@ -67,8 +68,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const reviews = useMemo(() => sortReviews(getProductReviews(slug), reviewSort), [slug, reviewSort]);
   const reviewStats = useMemo(() => getProductReviewStats(slug), [slug]);
   const userHasReviewed = auth.user?.email ? hasUserReviewedProduct(slug, auth.user.email) : false;
-  const displayRating = reviewStats.total > 0 ? reviewStats.average : (product?.rating ?? 0);
-  const displayReviewCount = reviewStats.total > 0 ? reviewStats.total : (product?.reviewCount ?? 0);
+  const userHasPurchased = auth.user?.email ? hasUserPurchasedProduct(auth.user.email, slug) : false;
+  const displayRating = reviewStats.total > 0 ? reviewStats.average : 0;
+  const displayReviewCount = reviewStats.total;
 
   function getLocalizedField(obj: any, field: string) {
     if (!obj) return undefined;
@@ -99,15 +101,15 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const handleSubmitReview = async () => {
     if (!reviewComment.trim() || !auth.user?.email) return;
     setReviewSubmitting(true);
-    // Simulate brief delay
-    await new Promise((r) => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 300));
     addReview({
       productSlug: slug,
       rating: reviewRating,
       title: reviewTitle.trim() || undefined,
       comment: reviewComment.trim(),
       author: reviewAuthor.trim() || auth.user.displayName || auth.user.email.split('@')[0],
-      verified: true,
+      userEmail: auth.user.email,
+      verified: userHasPurchased,
     });
     setReviewSubmitted(true);
     setReviewSubmitting(false);
@@ -508,9 +510,25 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </select>
             </div>
 
-            {auth.user && !userHasReviewed && !reviewSubmitted && (
+            {!auth.user && (
               <button
-                onClick={() => setShowReviewForm(!showReviewForm)}
+                onClick={() => auth.openModal()}
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-[#c8d0da] transition hover:border-white/20 hover:text-white min-h-[36px]"
+              >
+                <Send size={12} />
+                {isEs ? 'Inicia sesión para escribir una reseña' : 'Sign in to write a review'}
+              </button>
+            )}
+
+            {auth.user && !userHasPurchased && !userHasReviewed && !reviewSubmitted && (
+              <div className="text-[12px] text-[#6b7785]">
+                {isEs ? 'Solo los compradores de este producto pueden dejar una reseña.' : 'Only buyers of this product can leave a review.'}
+              </div>
+            )}
+
+            {auth.user && userHasPurchased && !userHasReviewed && !reviewSubmitted && !showReviewForm && (
+              <button
+                onClick={() => setShowReviewForm(true)}
                 className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-[#c8d0da] transition hover:border-white/20 hover:text-white min-h-[36px]"
               >
                 <Send size={12} />
@@ -622,15 +640,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <div className="mb-4 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] px-4 py-3 text-[13px] text-emerald-300">
               <Check size={14} className="mr-1.5 inline" />
               {isEs ? 'Tu reseña ha sido publicada. ¡Gracias!' : 'Your review has been published. Thank you!'}
-            </div>
-          )}
-
-          {/* Not logged in message */}
-          {!auth.user && (
-            <div className="mb-4 rounded-xl border border-white/[0.07] bg-white/[0.025] px-4 py-3 text-[13px] text-[#8791a1]">
-              {isEs
-                ? 'Inicia sesión para dejar una reseña. Solo los compradores verificados pueden opinar.'
-                : 'Sign in to leave a review. Only verified buyers can review.'}
             </div>
           )}
 

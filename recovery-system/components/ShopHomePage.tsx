@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '../context/AuthContext'
 import {
-  ShoppingCart, Star, Check, ChevronRight, ChevronDown, Menu, X,
+  ShoppingCart, Check, ChevronRight, ChevronDown, Menu, X,
   Shield, Truck, RotateCcw, User, LogOut,
   PackageCheck, ArrowRight,
 } from 'lucide-react'
@@ -31,8 +31,8 @@ const SHOP_HOME_COPY = {
     cartLabel: 'Cart',
     announcement: [
       'Free shipping — always',
-      '4.9 ★ — Verified reviews',
       '30 nights to try it — full refund if not',
+      'Secure checkout with Stripe',
     ],
     heroKicker: 'Anti-snoring that works from night one',
     heroLine1: 'Snoring?',
@@ -46,7 +46,6 @@ const SHOP_HOME_COPY = {
       { icon: Truck, label: 'Free shipping', sub: 'On all orders' },
       { icon: RotateCcw, label: '30-night trial', sub: 'Full refund, no questions' },
       { icon: Shield, label: 'Secure checkout', sub: 'SSL + Stripe' },
-      { icon: Star, label: '4.9 average', sub: 'Verified reviews' },
     ],
     productsHeading: 'Our products',
     productsSub: 'Each one solves a specific problem',
@@ -57,22 +56,32 @@ const SHOP_HOME_COPY = {
       { num: '02', title: 'At your door tomorrow', text: 'Free shipping. We process and ship within 24 hours.' },
       { num: '03', title: '30 nights to decide', text: 'If it doesn\'t work, we refund every cent. No questions.' },
     ],
-    socialHeading: 'What our customers say',
-    socialSub: 'Real reviews from real people',
-    verifiedPurchase: 'Verified purchase',
-    reviews: [
-      { text: 'After years of snoring that kept my wife awake, the Noctip Halo was a game changer. The jaw adjustment is comfortable and the snoring stopped from night one.', author: 'Andrea L.', role: 'Student', stars: 5, product: 'Noctip Halo' },
-      { text: 'The Noctip Back posture brace has visibly improved my desk posture in just two weeks. I wear it under my shirt and nobody notices.', author: 'Miguel Á.', role: 'IT Specialist', stars: 4, product: 'Noctip Back' },
-      { text: 'The Noctip Cervical massager is surprisingly powerful for its size. The electrode pads adapt perfectly to my neck. I use it every day at my desk.', author: 'Carla F.', role: 'Fitness enthusiast', stars: 5, product: 'Noctip Cervical' },
+    guaranteesHeading: 'Our guarantees',
+    guaranteesSub: 'Built on trust, not fine print',
+    guarantees: [
+      { title: '30-night trial', text: 'Try any product for 30 nights. If it doesn\'t work for you, we arrange a free return and full refund. No questions asked.' },
+      { title: 'Free shipping', text: 'Every order ships free within Europe. We process and dispatch within 24 hours. Tracking included on all shipments.' },
+      { title: 'Secure payments', text: 'All transactions processed through Stripe with 256-bit SSL encryption. We never store your card details.' },
+      { title: 'Real support', text: 'Have a question? Write to us and a real person answers. No bots, no auto-replies. Response within 24 hours.' },
     ],
     faqHeading: 'Common questions',
     faqSub: 'Quick answers before you buy',
     faqs: [
-      { q: 'How fast is shipping?', a: 'We ship all orders within 24 hours. Standard delivery: 6-9 business days across Europe. Express 1-2 day shipping available at checkout.' },
-      { q: 'What does the 30-night guarantee cover?', a: 'Test any product for 30 nights. If it doesn\'t work, we arrange a free return with a full refund. No justification required.' },
-      { q: 'How does the anti-snoring mouthpiece work?', a: 'The Noctip Halo uses jaw advancement to gently move your lower jaw forward, opening your airway and stopping snoring at the source.' },
-      { q: 'Is checkout secure?', a: 'Yes. All payments processed through Stripe with 256-bit SSL encryption. We never store card details.' },
-      { q: 'Do bundle discounts apply automatically?', a: 'Yes. Add multiple products to your cart and discounts are applied at checkout automatically.' },
+      { q: 'How fast is shipping?', a: 'We ship all orders within 24 hours. Standard delivery: 6-9 business days across Europe. Express 1-2 day shipping available at checkout. Tracking is included on every order.' },
+      { q: 'Where do you ship from?', a: 'We ship from our European warehouse. All orders include tracking and are delivered directly to your door.' },
+      { q: 'When will I receive my order?', a: 'Most orders arrive within 6-9 business days. You\'ll receive a tracking number by email as soon as your order ships.' },
+      { q: 'How can I track my order?', a: 'After your order ships, you\'ll receive an email with a tracking number. You can also track your order anytime on our tracking page using your order reference and email.' },
+      { q: 'What does the 30-night guarantee cover?', a: 'Test any product for 30 nights. If it doesn\'t meet your expectations, we arrange a free return pickup and issue a full refund. No justification required.' },
+      { q: 'How do returns work?', a: 'Contact us within 30 days of delivery. We\'ll arrange a free pickup from your address. Once we receive the product, we process your refund within 5 business days.' },
+      { q: 'What if my product arrives damaged?', a: 'Contact us immediately with a photo. We\'ll send a replacement at no cost to you, no questions asked.' },
+      { q: 'How do I contact support?', a: 'Email us at support@noctip.com. A real person responds within 24 hours. We\'re here to help with orders, returns, or any questions about our products.' },
+      { q: 'How does the anti-snoring mouthpiece work?', a: 'The Noctip Halo uses jaw advancement to gently move your lower jaw forward, opening your airway and stopping snoring at the source. It\'s adjustable, made from medical-grade silicone, and reusable.' },
+      { q: 'How long does the battery last on the sleep headband?', a: 'The Noctip Rest sleep headband lasts 8-10 hours on a single charge — enough for a full night\'s sleep. It charges via Micro-USB in about 1.5 hours.' },
+      { q: 'How do I clean my product?', a: 'The Noctip Halo can be cleaned with warm water and mild soap. The Noctip Rest headband\'s electronics are removable — the fabric part is machine washable. The Noctip Back can be hand-washed. The Noctip Cervical should be wiped with a damp cloth.' },
+      { q: 'Is the anti-snoring mouthpiece comfortable?', a: 'Yes. It\'s made from medical-grade silicone and uses a boil-and-bite fitting process to create a custom mold of your teeth. Most users report it feels natural within 2-3 nights.' },
+      { q: 'Is it suitable for travel?', a: 'All Noctip products are compact and lightweight. The Halo comes with a travel case. The Rest headband weighs only 45g. They\'re designed to go wherever you do.' },
+      { q: 'What payment methods do you accept?', a: 'We accept Visa, Mastercard, American Express, PayPal, Apple Pay, and Google Pay. All payments are processed securely through Stripe.' },
+      { q: 'Do bundle discounts apply automatically?', a: 'Yes. Add multiple products to your cart and discounts are applied automatically at checkout. No codes needed.' },
     ],
     ctaHeading: 'Ready to sleep better?',
     ctaSub: 'Start with one product. If it doesn\'t work, we\'ll refund everything.',
@@ -80,14 +89,6 @@ const SHOP_HOME_COPY = {
     ctaSecondary: 'View best sellers',
     badgeLabels: { bestseller: 'Best Seller', new: 'New', deal: 'Deal', trending: 'Trending' },
     mobileCta: 'Shop now',
-    statsHeading: 'Why Noctip?',
-    statsSub: 'Numbers that speak for themselves',
-    stats: [
-      { value: '2,400+', label: 'Happy customers' },
-      { value: '4.9', label: 'Average rating' },
-      { value: '30', label: 'Night guarantee' },
-      { value: '24h', label: 'Fast processing' },
-    ],
   },
   es: {
     addLabel: 'Añadir',
@@ -95,8 +96,8 @@ const SHOP_HOME_COPY = {
     cartLabel: 'Carrito',
     announcement: [
       'Envío gratis — siempre',
-      '4,9 ★ — Reseñas verificadas',
       '30 noches para probarlo — te devolvemos todo',
+      'Pago seguro con Stripe',
     ],
     heroKicker: 'Anti-ronquidos que funciona desde la primera noche',
     heroLine1: '¿Roncas?',
@@ -110,7 +111,6 @@ const SHOP_HOME_COPY = {
       { icon: Truck, label: 'Envío gratis', sub: 'En todos los pedidos' },
       { icon: RotateCcw, label: '30 noches de prueba', sub: 'Reembolso completo' },
       { icon: Shield, label: 'Pago seguro', sub: 'SSL + Stripe' },
-      { icon: Star, label: 'Media de 4,9', sub: 'Reseñas verificadas' },
     ],
     productsHeading: 'Nuestros productos',
     productsSub: 'Cada uno resuelve un problema específico',
@@ -121,22 +121,32 @@ const SHOP_HOME_COPY = {
       { num: '02', title: 'Mañana en tu puerta', text: 'Envío gratis. Procesamos y enviamos en 24 horas.' },
       { num: '03', title: '30 noches para decidir', text: 'Si no funciona, te devolvemos cada euro. Sin preguntas.' },
     ],
-    socialHeading: 'Lo que dicen nuestros clientes',
-    socialSub: 'Reseñas reales de personas reales',
-    verifiedPurchase: 'Compra verificada',
-    reviews: [
-      { text: 'Después de años de ronquidos que impedían dormir a mi esposa, el Noctip Halo fue un cambio total. El ajuste mandibular es cómodo y los ronquidos desaparecieron desde la primera noche.', author: 'Andrea L.', role: 'Estudiante', stars: 5, product: 'Noctip Halo' },
-      { text: 'El corrector postural Noctip Back ha mejorado visiblemente mi postura en el escritorio en solo dos semanas. Lo uso debajo de la camisa y nadie se da cuenta.', author: 'Miguel Á.', role: 'Informático', stars: 4, product: 'Noctip Back' },
-      { text: 'El masajeador cervical Noctip Cervical es sorprendentemente potente para su tamaño. Los electrodos se adaptan perfectamente a mi cuello. Lo uso todos los días.', author: 'Carla F.', role: 'Deportista', stars: 5, product: 'Noctip Cervical' },
+    guaranteesHeading: 'Nuestras garantías',
+    guaranteesSub: 'Construidas en confianza, sin letra pequeña',
+    guarantees: [
+      { title: '30 noches de prueba', text: 'Prueba cualquier producto durante 30 noches. Si no funciona para ti, gestionamos la devolución y el reembolso completo. Sin preguntas.' },
+      { title: 'Envío gratis', text: 'Todo pedido se envía gratis dentro de Europa. Procesamos y despachamos en 24 horas. Seguimiento incluido en todos los envíos.' },
+      { title: 'Pagos seguros', text: 'Todas las transacciones se procesan a través de Stripe con cifrado SSL de 256 bits. Nunca almacenamos tus datos de tarjeta.' },
+      { title: 'Soporte real', text: '¿Tienes una pregunta? Escríbenos y una persona real responde. Sin bots, sin respuestas automáticas. Respuesta en menos de 24 horas.' },
     ],
     faqHeading: 'Preguntas frecuentes',
     faqSub: 'Respuestas rápidas antes de comprar',
     faqs: [
-      { q: '¿Cuánto tarda el envío?', a: 'Enviamos todos los pedidos en 24 horas. Entrega estándar: 6-9 días laborables en Europa. Envío exprés disponible en el checkout.' },
-      { q: '¿Qué cubre la garantía de 30 noches?', a: 'Prueba cualquier producto durante 30 noches. Si no funciona, gestionamos la devolución y el reembolso completo. Sin justificación.' },
-      { q: '¿Cómo funciona la férula anti-ronquidos?', a: 'El Noctip Halo usa avanzamiento mandibular para mover suavemente la mandíbula hacia adelante, abriendo la vía aérea y eliminando los ronquidos.' },
-      { q: '¿El pago es seguro?', a: 'Sí. Pagos procesados por Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta.' },
-      { q: '¿Los descuentos por packs se aplican solos?', a: 'Sí. Añade varios productos al carrito y los descuentos se aplican automáticamente en el checkout.' },
+      { q: '¿Cuánto tarda el envío?', a: 'Enviamos todos los pedidos en 24 horas. Entrega estándar: 6-9 días laborables en Europa. Envío exprés de 1-2 días disponible en el checkout. Seguimiento incluido en todos los pedidos.' },
+      { q: '¿Desde dónde se envía?', a: 'Enviamos desde nuestro almacén europeo. Todos los pedidos incluyen seguimiento y se entregan directamente en tu puerta.' },
+      { q: '¿Cuándo recibiré mi pedido?', a: 'La mayoría de pedidos llegan en 6-9 días laborables. Recibirás un número de seguimiento por email en cuanto tu pedido salga.' },
+      { q: '¿Cómo puedo hacer el seguimiento?', a: 'Después de que tu pedido salga, recibirás un email con un número de seguimiento. También puedes seguir tu pedido en nuestra página de seguimiento usando tu referencia de pedido y email.' },
+      { q: '¿Qué cubre la garantía de 30 noches?', a: 'Prueba cualquier producto durante 30 noches. Si no cumple tus expectativas, gestionamos la recogida gratis y el reembolso completo. Sin justificación.' },
+      { q: '¿Cómo funcionan las devoluciones?', a: 'Contáctanos en un plazo de 30 días desde la entrega. Gestionaremos la recogida gratis en tu dirección. Una vez recibamos el producto, procesamos tu reembolso en 5 días laborables.' },
+      { q: '¿Qué ocurre si llega defectuoso?', a: 'Contáctanos inmediatamente con una foto. Te enviaremos un reemplazo sin coste, sin preguntas.' },
+      { q: '¿Cómo contacto con soporte?', a: 'Escríbenos a support@noctip.com. Una persona real responde en menos de 24 horas. Estamos aquí para ayudarte con pedidos, devoluciones o cualquier pregunta sobre nuestros productos.' },
+      { q: '¿Cómo funciona la férula anti-ronquidos?', a: 'El Noctip Halo usa avanzamiento mandibular para mover suavemente la mandíbula hacia adelante, abriendo la vía aérea y eliminando los ronquidos. Es ajustable, está hecha de silicona médica y es reutilizable.' },
+      { q: '¿Cuánto dura la batería de la banda de sueño?', a: 'La banda de sueño Noctip Rest dura 8-10 horas con una carga completa — suficiente para una noche completa de sueño. Se carga por Micro-USB en aproximadamente 1.5 horas.' },
+      { q: '¿Cómo limpio mi producto?', a: 'El Noctip Halo se puede limpiar con agua tibia y jabón suave. La banda Noctip Rest tiene electrónica extraíble — la parte de tela es lavable a máquina. El Noctip Back se puede lavar a mano. El Noctip Cervical se limpia con un paño húmedo.' },
+      { q: '¿Es cómoda la férula anti-ronquidos?', a: 'Sí. Está hecha de silicona médica y usa un proceso de moldeado por hervido para crear un molde personalizado de tus dientes. La mayoría de usuarios reporta que se siente natural en 2-3 noches.' },
+      { q: '¿Es apto para viajar?', a: 'Todos los productos Noctip son compactos y ligeros. El Halo incluye estuche de viaje. La banda Rest pesa solo 45g. Están diseñados para ir donde tú vayas.' },
+      { q: '¿Qué métodos de pago aceptáis?', a: 'Aceptamos Visa, Mastercard, American Express, PayPal, Apple Pay y Google Pay. Todos los pagos se procesan de forma segura a través de Stripe.' },
+      { q: '¿Los descuentos por packs se aplican solos?', a: 'Sí. Añade varios productos al carrito y los descuentos se aplican automáticamente en el checkout. Sin códigos.' },
     ],
     ctaHeading: '¿Listo para dormir mejor?',
     ctaSub: 'Empieza con un producto. Si no funciona, te devolvemos todo.',
@@ -144,14 +154,6 @@ const SHOP_HOME_COPY = {
     ctaSecondary: 'Ver más vendidos',
     badgeLabels: { bestseller: 'Más vendido', new: 'Nuevo', deal: 'Oferta', trending: 'Tendencia' },
     mobileCta: 'Comprar ahora',
-    statsHeading: '¿Por qué Noctip?',
-    statsSub: 'Números que hablan por sí solos',
-    stats: [
-      { value: '2.400+', label: 'Clientes felices' },
-      { value: '4,9', label: 'Valoración media' },
-      { value: '30', label: 'Noches de garantía' },
-      { value: '24h', label: 'Procesamiento rápido' },
-    ],
   },
 }
 
@@ -217,10 +219,14 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           <p className="line-clamp-2 text-[13px] leading-5 text-[#6b7785]">{desc}</p>
 
           <div className="mt-auto flex items-center gap-2 pt-2">
-            <Stars rating={product.rating} />
-            <span className="text-[12px] text-[#6b7785]">
-              {product.rating} ({product.reviewCount.toLocaleString(localeStr)})
-            </span>
+            {product.reviewCount > 0 && (
+              <>
+                <Stars rating={product.rating} />
+                <span className="text-[12px] text-[#6b7785]">
+                  {product.rating} ({product.reviewCount.toLocaleString(localeStr)})
+                </span>
+              </>
+            )}
           </div>
 
           <div className="flex items-center justify-between pt-1">
@@ -439,36 +445,6 @@ function UserMenu({ locale }: { locale: string }) {
   )
 }
 
-/* ─── Testimonials ─── */
-function Testimonials({ reviews, copy }: { reviews: CopyType['reviews']; copy: CopyType }) {
-  return (
-    <div className="flex gap-3 overflow-x-auto scrollbar-none px-4 sm:px-0 sm:grid sm:gap-4 sm:grid-cols-3 sm:overflow-visible pb-2 sm:pb-0">
-      {reviews.map((review) => (
-        <motion.div
-          key={`${review.author}-${review.product}`}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="shrink-0 w-[80vw] sm:w-auto rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5 sm:p-6 transition-all hover:border-white/[0.12]"
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <Stars rating={review.stars} />
-            <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#5a6678]">{copy.verifiedPurchase}</span>
-          </div>
-          <p className="text-[13px] sm:text-[14px] leading-6 text-[#c8d0da]">&ldquo;{review.text}&rdquo;</p>
-          <div className="mt-4 flex items-center justify-between gap-3">
-            <div>
-              <div className="text-[13px] font-semibold text-[#f2eee7]">{review.author}</div>
-              <div className="text-[11px] text-[#6b7785]">{review.role}</div>
-            </div>
-            <span className="shrink-0 rounded-full border border-white/[0.06] bg-white/[0.03] px-2.5 py-1 text-[10px] text-[#9aa7b9]">{review.product}</span>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  )
-}
-
 /* ═══════════════════════════════════════════════════════
    MAIN COMPONENT
 ═══════════════════════════════════════════════════════ */
@@ -540,7 +516,7 @@ export default function ShopHomePage() {
                   <RotateCcw size={12} className="text-[#10BFD8]" /> 30 {isEs ? 'noches' : 'nights'}
                 </span>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-[#b8c4d0]">
-                  <Star size={12} className="fill-amber-400 text-amber-400" /> 4.9
+                  <Shield size={12} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro' : 'Secure'}
                 </span>
               </div>
 
@@ -567,10 +543,6 @@ export default function ShopHomePage() {
                       className="absolute inset-0 h-full w-full object-contain p-6" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/80 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Stars rating={flagship.rating} size={12} />
-                        <span className="ml-1 text-[11px] font-medium text-white/70">{flagship.rating}</span>
-                      </div>
                       <h2 className="text-[22px] font-bold text-white">{getLocalizedProductName(flagship, locale)}</h2>
                       <p className="mt-1 text-[12px] text-[#9aa7b9] line-clamp-1">{getLocalizedProductShortDescription(flagship, locale)}</p>
                     </div>
@@ -620,13 +592,12 @@ export default function ShopHomePage() {
                 </div>
 
                 <div className="mt-8 flex items-center gap-6">
-                  <div className="flex items-center gap-1.5">
-                    <Stars rating={flagship.rating} size={14} />
-                    <span className="ml-1 text-[13px] font-semibold text-white">{flagship.rating}</span>
-                  </div>
-                  <span className="w-px h-4 bg-white/10" />
                   <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
                     <Truck size={14} className="text-[#10BFD8]/60" /> {isEs ? 'Envío gratis' : 'Free shipping'}
+                  </span>
+                  <span className="w-px h-4 bg-white/10" />
+                  <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
+                    <RotateCcw size={14} className="text-[#10BFD8]/60" /> {isEs ? '30 noches' : '30 nights'}
                   </span>
                 </div>
               </motion.div>
@@ -645,10 +616,6 @@ export default function ShopHomePage() {
                         className="absolute inset-0 h-full w-full object-contain p-10 transition-transform duration-700 group-hover:scale-[1.03]" />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/90 via-transparent to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-9">
-                        <div className="flex items-center gap-2 mb-3">
-                          <Stars rating={flagship.rating} size={13} />
-                          <span className="ml-1 text-[12px] font-medium text-white/70">{flagship.rating}</span>
-                        </div>
                         <h2 className="text-[30px] font-bold text-white leading-tight">
                           {getLocalizedProductName(flagship, locale)}
                         </h2>
@@ -759,52 +726,40 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            SOCIAL PROOF — Stats + Testimonials
+            GUARANTEES — Real, verifiable claims
         ═══════════════════════════════════════════════════════ */}
         <section className="py-16 sm:py-28">
           <div className="sm:mx-auto sm:max-w-[1280px] sm:px-6">
-            {/* Stats row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mb-12 sm:mb-16"
-            >
-              <h2 className="text-center text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white mb-2">
-                {copy.statsHeading}
-              </h2>
-              <p className="text-center text-[14px] sm:text-[15px] text-[#6b7785] mb-8 sm:mb-12">{copy.statsSub}</p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 px-4 sm:px-0">
-                {copy.stats.map((stat, idx) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.08 }}
-                    className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 sm:p-6 text-center"
-                  >
-                    <div className="text-[28px] sm:text-[32px] font-bold text-[#10BFD8]">{stat.value}</div>
-                    <div className="mt-1 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.1em] text-[#6b7785]">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Testimonials */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center mb-8 sm:mb-12 px-4 sm:px-0"
             >
-              <h2 className="text-[clamp(1.6rem,3vw,2.5rem)] font-bold tracking-[-0.04em] text-white">
-                {copy.socialHeading}
+              <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">
+                {copy.guaranteesHeading}
               </h2>
-              <p className="mt-2 text-[14px] text-[#6b7785]">{copy.socialSub}</p>
+              <p className="mt-2 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.guaranteesSub}</p>
             </motion.div>
 
-            <Testimonials reviews={copy.reviews} copy={copy} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 px-4 sm:px-0">
+              {copy.guarantees.map((item, idx) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 sm:p-8"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#10BFD8]/10 mb-4">
+                    <Check size={18} className="text-[#10BFD8]" />
+                  </div>
+                  <h3 className="text-[16px] sm:text-[17px] font-semibold text-white">{item.title}</h3>
+                  <p className="mt-2 text-[13px] sm:text-[14px] leading-6 text-[#6b7785]">{item.text}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 

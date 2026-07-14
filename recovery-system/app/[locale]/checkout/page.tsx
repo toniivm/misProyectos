@@ -793,19 +793,6 @@ export default function CheckoutPage() {
 
           {/* ── Order Summary ── */}
           <aside className="h-fit rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#0d1219] to-[#0b1018] p-4 sm:p-6 lg:sticky lg:top-24 order-first lg:order-last">
-            {/* Social proof */}
-            <div className="mb-5 flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.025] px-3.5 py-2.5">
-              <div className="flex -space-x-1.5">
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/15 text-[9px]">😊</div>
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[9px]">😴</div>
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/10 text-[9px]">🧘</div>
-              </div>
-              <div>
-                <div className="text-[12px] font-semibold text-[#f2eee7]">{isEs ? 'Clientes satisfechos' : 'Happy customers'}</div>
-                <div className="text-[10px] text-[#5a6678]">{isEs ? 'Valoración media 4.9/5' : 'Average rating 4.9/5'}</div>
-              </div>
-            </div>
-
             <h2 className="mb-4 text-[16px] font-semibold text-[#f2eee7]">{t('orderSummary')}</h2>
 
             {!hasHydrated ? (

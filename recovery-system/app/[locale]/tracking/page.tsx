@@ -2,130 +2,312 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
-import { ExternalLink, Package, Truck, Clock } from 'lucide-react'
-import { Suspense } from 'react'
 import { useLocale } from 'next-intl'
+import { useState } from 'react'
+import { Package, Search, ArrowLeft, Clock, Truck, CheckCircle, AlertCircle } from 'lucide-react'
 
-function TrackingContent() {
-  const searchParams = useSearchParams()
+interface OrderData {
+  id: string
+  status: string
+  email: string
+  items: Array<{ id: string; name: string; qty: number; price: number; icon?: string }>
+  amount: number
+  currency: string
+  createdAt: string
+  trackingNumber?: string
+  carrier?: string
+}
+
+const STATUS_CONFIG: Record<string, { es: string; en: string; icon: React.ReactNode; color: string }> = {
+  pending: {
+    es: 'Pedido recibido',
+    en: 'Order received',
+    icon: <Clock size={18} />,
+    color: 'text-amber-400 border-amber-400/20 bg-amber-400/10',
+  },
+  paid: {
+    es: 'Pago confirmado',
+    en: 'Payment confirmed',
+    icon: <CheckCircle size={18} />,
+    color: 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10',
+  },
+  processing: {
+    es: 'Preparando pedido',
+    en: 'Preparing order',
+    icon: <Package size={18} />,
+    color: 'text-blue-400 border-blue-400/20 bg-blue-400/10',
+  },
+  shipped: {
+    es: 'Enviado',
+    en: 'Shipped',
+    icon: <Truck size={18} />,
+    color: 'text-cyan-400 border-cyan-400/20 bg-cyan-400/10',
+  },
+  delivered: {
+    es: 'Entregado',
+    en: 'Delivered',
+    icon: <CheckCircle size={18} />,
+    color: 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10',
+  },
+  cancelled: {
+    es: 'Cancelado',
+    en: 'Cancelled',
+    icon: <AlertCircle size={18} />,
+    color: 'text-rose-400 border-rose-400/20 bg-rose-400/10',
+  },
+}
+
+function getStatusLabel(status: string, isEs: boolean): string {
+  return STATUS_CONFIG[status]?.[isEs ? 'es' : 'en'] ?? status
+}
+
+function getStatusIcon(status: string) {
+  return STATUS_CONFIG[status]?.icon ?? <Package size={18} />
+}
+
+function getStatusColor(status: string): string {
+  return STATUS_CONFIG[status]?.color ?? 'text-[#8791a1] border-white/[0.1] bg-white/[0.04]'
+}
+
+export default function TrackingPage() {
   const locale = useLocale()
   const isEs = locale === 'es'
-  const trackingNumber = searchParams.get('n') || ''
-  const carrier = searchParams.get('carrier') || 'Cainiao'
-  const order = searchParams.get('order') || ''
+  const [orderId, setOrderId] = useState('')
+  const [email, setEmail] = useState('')
+  const [searching, setSearching] = useState(false)
+  const [result, setResult] = useState<OrderData | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [searched, setSearched] = useState(false)
 
-  if (!trackingNumber) {
-    return (
-      <div className="min-h-screen bg-[#080c16] text-[#f4f1ea] flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-[15px] text-[#8791a1]">
-            {isEs ? 'No se ha proporcionado número de seguimiento.' : 'No tracking number provided.'}
-          </p>
-          <Link href={`/${locale}`} className="mt-4 inline-block text-[14px] text-[#10BFD8] underline">
-            {isEs ? 'Volver a la tienda' : 'Back to shop'}
-          </Link>
-        </div>
-      </div>
-    )
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!orderId.trim() || !email.trim()) return
+
+    setSearching(true)
+    setError(null)
+    setResult(null)
+    setSearched(false)
+
+    // Simulate network delay
+    await new Promise((r) => setTimeout(r, 800))
+
+    try {
+      const stored = localStorage.getItem('noctas_orders')
+      if (!stored) {
+        setError(isEs ? 'No se encontró ningún pedido con esos datos.' : 'No order found with those details.')
+        setSearched(true)
+        setSearching(false)
+        return
+      }
+
+      const orders = JSON.parse(stored) as Record<string, OrderData>
+      const searchId = orderId.trim().toLowerCase()
+      const searchEmail = email.trim().toLowerCase()
+
+      const found = Object.values(orders).find((order) => {
+        const matchesId = order.id?.toLowerCase().includes(searchId)
+        const matchesEmail = order.email?.toLowerCase() === searchEmail
+        return matchesId && matchesEmail
+      })
+
+      if (found) {
+        setResult(found)
+      } else {
+        setError(isEs ? 'No se encontró ningún pedido con esos datos. Verifica tu número de pedido y email.' : 'No order found with those details. Check your order number and email.')
+      }
+    } catch {
+      setError(isEs ? 'Error al buscar el pedido. Inténtalo de nuevo.' : 'Error looking up order. Please try again.')
+    }
+
+    setSearched(true)
+    setSearching(false)
   }
 
-  // Build external tracking URL — hidden behind noctip branding
-  // Customer sees noctip.com, never sees Cainiao/AliExpress
-  const c = carrier.toLowerCase()
-  let externalUrl = '#'
-  if (c.includes('cainiao') || c.includes('aliexpress')) {
-    externalUrl = `https://global.cainiao.com/newDetail.htm?mailNoList=${trackingNumber}`
-  } else if (c.includes('correos')) {
-    externalUrl = `https://www.correos.es/es/es/herramientas/localizador-de-envios/detalle?tracking-number=${trackingNumber}`
-  } else if (c.includes('dhl')) {
-    externalUrl = `https://www.dhl.com/es-es/home/tracking/tracking-express.html?submit=1&tracking-id=${trackingNumber}`
-  } else if (c.includes('seur')) {
-    externalUrl = `https://www.seur.com/livetracking/?segOnlineNum=${trackingNumber}`
-  } else {
-    externalUrl = `https://t.17track.net/en#nums=${trackingNumber}`
-  }
+  const steps = result ? [
+    { key: 'pending', label: isEs ? 'Recibido' : 'Received', done: true },
+    { key: 'paid', label: isEs ? 'Pagado' : 'Paid', done: ['paid', 'processing', 'shipped', 'delivered'].includes(result.status) },
+    { key: 'processing', label: isEs ? 'Preparando' : 'Preparing', done: ['processing', 'shipped', 'delivered'].includes(result.status) },
+    { key: 'shipped', label: isEs ? 'Enviado' : 'Shipped', done: ['shipped', 'delivered'].includes(result.status) },
+    { key: 'delivered', label: isEs ? 'Entregado' : 'Delivered', done: result.status === 'delivered' },
+  ] : []
 
   return (
-    <div className="min-h-screen bg-[#080c16] text-[#f4f1ea]">
-      <header className="border-b border-white/[0.06] bg-[rgba(8,12,22,0.92)] px-5 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-2xl items-center justify-center">
+    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
+      <header className="border-b border-white/[0.06] bg-[rgba(8,12,18,0.92)] px-5 py-4 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-2xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
             <Image src="/images/logo/logo.png" alt="Noctip" width={32} height={32} className="object-contain" sizes="32px" />
             NOCTIP
           </Link>
+          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">
+            <ArrowLeft size={14} />
+            {isEs ? 'Volver' : 'Back'}
+          </Link>
         </div>
       </header>
 
-      <div className="mx-auto max-w-2xl px-4 py-12">
-        <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-8">
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#10BFD8]/10 border border-[#10BFD8]/20">
-              <Package size={28} className="text-[#10BFD8]" />
-            </div>
+      <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
+        <div className="text-center mb-8">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#10BFD8]/10 border border-[#10BFD8]/20">
+            <Package size={24} className="text-[#10BFD8]" />
           </div>
-
-          <h1 className="text-center text-[22px] font-bold text-[#f2eee7]">
+          <h1 className="text-[24px] font-bold text-[#f2eee7]">
             {isEs ? 'Seguimiento de tu pedido' : 'Track your order'}
           </h1>
+          <p className="mt-2 text-[14px] text-[#8791a1]">
+            {isEs ? 'Introduce tu número de pedido y el email de la compra.' : 'Enter your order number and the email used at checkout.'}
+          </p>
+        </div>
 
-          <div className="mt-8 space-y-4">
-            <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                <Truck size={18} className="text-[#10BFD8]" />
-              </div>
+        {/* Search form */}
+        <form onSubmit={handleSearch} className="mb-8 space-y-3">
+          <div>
+            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+              {isEs ? 'Número de pedido' : 'Order number'}
+            </label>
+            <input
+              type="text"
+              value={orderId}
+              onChange={(e) => setOrderId(e.target.value)}
+              placeholder={isEs ? 'Ej: ABC12345' : 'e.g. ABC12345'}
+              required
+              className="input-premium"
+            />
+          </div>
+          <div>
+            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+              {isEs ? 'Email de la compra' : 'Email used at checkout'}
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="tu@email.com"
+              required
+              autoComplete="email"
+              className="input-premium"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={searching || !orderId.trim() || !email.trim()}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3.5 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px]"
+          >
+            {searching ? (
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />
+            ) : (
+              <><Search size={15} /> {isEs ? 'Buscar pedido' : 'Find order'}</>
+            )}
+          </button>
+        </form>
+
+        {/* Error */}
+        {error && searched && (
+          <div className="mb-6 rounded-xl border border-red-500/20 bg-red-500/[0.05] px-4 py-3 text-[13px] text-red-300">
+            <div className="flex items-start gap-3">
+              <AlertCircle size={16} className="mt-0.5 shrink-0 text-red-400" />
               <div>
-                <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Estado' : 'Status'}</div>
-                <div className="text-[12px] text-[#8791a1]">{isEs ? 'En tránsito hacia tu dirección' : 'In transit to your address'}</div>
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
-              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">{isEs ? 'Transportista' : 'Carrier'}</div>
-              <div className="text-[14px] font-semibold text-[#f2eee7]">{carrier}</div>
-            </div>
-
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
-              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">{isEs ? 'Nº de seguimiento' : 'Tracking number'}</div>
-              <div className="font-mono text-[16px] font-bold text-[#10BFD8] tracking-wide">{trackingNumber}</div>
-            </div>
-
-            <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                <Clock size={18} className="text-[#10BFD8]" />
-              </div>
-              <div>
-                <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Entrega estimada' : 'Estimated delivery'}</div>
-                <div className="text-[12px] text-[#8791a1]">{isEs ? '6-9 días hábiles' : '6-9 business days'}</div>
+                <p className="font-medium">{error}</p>
+                <p className="mt-1 text-[11px] text-red-300/60">
+                  {isEs ? 'Si necesitas ayuda, escríbenos a ' : 'If you need help, contact us at '}
+                  <a href="mailto:support@noctip.com" className="underline">support@noctip.com</a>
+                </p>
               </div>
             </div>
           </div>
+        )}
 
-          <div className="mt-8 rounded-xl border border-white/[0.06] bg-white/[0.025] p-4 text-center">
-            <p className="text-[13px] text-[#8791a1]">
-              {isEs ? 'Tu paquete está en camino. Entrega estimada en' : 'Your package is on its way. Estimated delivery in'}{' '}
-              <strong className="text-[#f2eee7]">{isEs ? '6-9 días hábiles' : '6-9 business days'}</strong>.
-            </p>
-            <p className="mt-2 text-[12px] text-[#5a6678]">
-              {isEs ? 'Si tienes preguntas, contacta con' : 'If you have questions, contact'}{' '}
-              <a href="mailto:noctip95@gmail.com" className="text-[#10BFD8] underline">noctip95@gmail.com</a>
+        {/* Result */}
+        {result && (
+          <div className="space-y-4">
+            {/* Status card */}
+            <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7785] mb-1">
+                    {isEs ? 'Estado del pedido' : 'Order status'}
+                  </div>
+                  <div className="text-[13px] font-mono text-[#8791a1]">
+                    #{result.id.slice(-8).toUpperCase()}
+                  </div>
+                </div>
+                <div className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[12px] font-semibold ${getStatusColor(result.status)}`}>
+                  {getStatusIcon(result.status)}
+                  {getStatusLabel(result.status, isEs)}
+                </div>
+              </div>
+
+              {/* Progress steps */}
+              <div className="flex items-center gap-1 mt-4">
+                {steps.map((step, idx) => (
+                  <div key={step.key} className="flex-1">
+                    <div className={`h-1.5 rounded-full transition-all ${step.done ? 'bg-[#10BFD8]' : 'bg-white/[0.06]'}`} />
+                    <div className={`mt-1.5 text-[10px] text-center ${step.done ? 'text-[#10BFD8]' : 'text-[#4a5568]'}`}>
+                      {step.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Order details */}
+            <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-[13px]">
+                  <span className="text-[#8791a1]">{isEs ? 'Fecha' : 'Date'}</span>
+                  <span className="font-medium text-[#f2eee7]">
+                    {new Date(result.createdAt).toLocaleDateString(isEs ? 'es-ES' : 'en-US', {
+                      day: 'numeric', month: 'long', year: 'numeric',
+                    })}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-[13px]">
+                  <span className="text-[#8791a1]">{isEs ? 'Total' : 'Total'}</span>
+                  <span className="font-semibold text-[#f2eee7]">€{(result.amount / 100).toFixed(2)}</span>
+                </div>
+                {result.trackingNumber && (
+                  <div className="flex items-center justify-between text-[13px]">
+                    <span className="text-[#8791a1]">{isEs ? 'Seguimiento' : 'Tracking'}</span>
+                    <span className="font-mono text-[#10BFD8]">{result.trackingNumber}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Items */}
+            <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-5">
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7785] mb-3">
+                {isEs ? 'Productos' : 'Items'}
+              </div>
+              <div className="space-y-2">
+                {result.items.map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between text-[13px]">
+                    <span className="text-[#c8d0da]">{item.name} × {item.qty}</span>
+                    <span className="text-[#f2eee7]">€{(item.price * item.qty).toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Help */}
+            <div className="text-center text-[12px] text-[#5a6678]">
+              {isEs ? '¿Problemas con tu pedido?' : 'Problems with your order?'}{' '}
+              <a href="mailto:support@noctip.com" className="text-[#10BFD8] underline">support@noctip.com</a>
+            </div>
+          </div>
+        )}
+
+        {/* No search yet */}
+        {!searched && !result && (
+          <div className="text-center py-8">
+            <p className="text-[13px] text-[#5a6678]">
+              {isEs
+                ? 'Tu número de pedido aparece en el email de confirmación y en esta página.'
+                : 'Your order number can be found in your confirmation email and on this page.'}
             </p>
           </div>
-        </div>
-
-        <div className="mt-8 text-center text-[12px] text-[#4a5568]">
-          {isEs ? '¿Problemas con tu pedido?' : 'Problems with your order?'}{' '}
-          <a href="mailto:noctip95@gmail.com" className="text-[#10BFD8] underline">noctip95@gmail.com</a>
-        </div>
+        )}
       </div>
     </div>
-  )
-}
-
-export default function TrackingPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#080c16] flex items-center justify-center text-[#8791a1]">Loading...</div>}>
-      <TrackingContent />
-    </Suspense>
   )
 }

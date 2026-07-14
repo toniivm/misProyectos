@@ -6,12 +6,14 @@ export interface Review {
   comment: string;
   date: string;
   author: string;
+  userEmail: string;
   verified: boolean;
   helpful: number;
   reported: boolean;
 }
 
 const STORAGE_KEY = 'noctip_reviews';
+const ORDERS_KEY = 'noctas_orders';
 
 function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -70,8 +72,31 @@ export function getProductReviewStats(productSlug: string): {
 
 export function hasUserReviewedProduct(productSlug: string, userEmail: string): boolean {
   return getAllReviews().some(
-    (r) => r.productSlug === productSlug && r.author === userEmail,
+    (r) => r.productSlug === productSlug && r.userEmail === userEmail,
   );
+}
+
+export function hasUserPurchasedProduct(userEmail: string, productSlug: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    const raw = localStorage.getItem(ORDERS_KEY);
+    if (!raw) return false;
+    const orders = JSON.parse(raw);
+    if (typeof orders !== 'object') return false;
+
+    return Object.values(orders).some((order: any) => {
+      if (!order) return false;
+      const orderEmail = order.email?.toLowerCase();
+      const isPaid = order.status === 'paid' || order.status === 'shipped' || order.status === 'delivered';
+      const hasProduct = order.items?.some((item: any) => {
+        const itemId = item.id || item.slug;
+        return itemId === productSlug;
+      });
+      return orderEmail === userEmail.toLowerCase() && isPaid && hasProduct;
+    });
+  } catch {
+    return false;
+  }
 }
 
 export function addReview(review: Omit<Review, 'id' | 'date' | 'helpful' | 'reported'>): Review {

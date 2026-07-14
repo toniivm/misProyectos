@@ -87,6 +87,7 @@ export default function Footer() {
               {[
                 { label: isEs ? 'Contáctanos' : 'Contact us', href: `/${locale}/contact` },
                 { label: isEs ? 'Sobre nosotros' : 'About us', href: `/${locale}/about` },
+                { label: isEs ? 'Seguimiento de pedido' : 'Track order', href: `/${locale}/tracking` },
                 { label: isEs ? 'Devoluciones' : 'Returns', href: `/${locale}/legal/returns` },
                 { label: isEs ? 'Envíos' : 'Shipping', href: `/${locale}/legal/shipping` },
               ].map((link) => (
