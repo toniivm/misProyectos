@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { getCatalogProductBySlug } from '../lib/catalog';
 
 export default function CartSidebar() {
   const { isOpen, close, items, remove, updateQty, subtotal, totalItems, activeBundle, bundleDiscount, totalWithDiscount } = useCart();
@@ -91,11 +92,18 @@ export default function CartSidebar() {
                 </div>
               ) : (
                 <ul className="space-y-3">
-                  {items.map((item) => (
+                  {items.map((item) => {
+                    const catalogProduct = getCatalogProductBySlug(item.slug);
+                    const productImage = catalogProduct?.images?.[0];
+                    return (
                     <li key={item.slug}
                       className="flex gap-3 sm:gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-3 sm:p-4 transition-all hover:border-white/[0.12]">
-                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-[#111720] text-xl sm:text-2xl">
-                        {item.icon}
+                      <div className="flex h-14 w-14 sm:h-16 sm:w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] bg-[#111720]">
+                        {productImage ? (
+                          <img src={productImage} alt={item.name} className="h-full w-full object-contain p-1" loading="lazy" decoding="async" />
+                        ) : (
+                          <span className="text-xl sm:text-2xl">{item.icon}</span>
+                        )}
                       </div>
                       <div className="flex flex-1 flex-col gap-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
@@ -124,7 +132,8 @@ export default function CartSidebar() {
                         </div>
                       </div>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               )}
             </div>

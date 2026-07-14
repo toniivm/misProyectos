@@ -27,18 +27,10 @@ import FAQ from './ui/FAQ'
 
 const ANNOUNCEMENT_MESSAGES = {
   en: [
-    { icon: Truck, text: 'Free shipping on all orders' },
-    { icon: RotateCcw, text: '30-night risk-free trial' },
-    { icon: ShieldCheck, text: '100% secure checkout' },
-    { icon: Headphones, text: 'Real support — we answer in 24h' },
-    { icon: CreditCard, text: 'Visa, Mastercard, PayPal, Apple Pay' },
+    { icon: Truck, text: 'Free shipping · 30-night trial · Secure checkout' },
   ],
   es: [
-    { icon: Truck, text: 'Envío gratis en todos los pedidos' },
-    { icon: RotateCcw, text: '30 noches de prueba sin riesgo' },
-    { icon: ShieldCheck, text: 'Pago 100% seguro' },
-    { icon: Headphones, text: 'Soporte real — respondemos en 24h' },
-    { icon: CreditCard, text: 'Visa, Mastercard, PayPal, Apple Pay' },
+    { icon: Truck, text: 'Envío gratis · 30 noches de prueba · Pago seguro' },
   ],
 }
 
@@ -227,24 +219,15 @@ function AnnouncementBar({ locale }: { locale: string }) {
   }, [messages.length])
 
   return (
-    <div className="relative overflow-hidden bg-[#10BFD8] py-2 text-[12px] font-medium text-[#080c12]">
+    <div className="relative overflow-hidden border-b border-white/[0.04] bg-[#0a0f15] py-2 text-[11px] font-medium text-[#5a6678]">
       <div className="mx-auto max-w-[1280px] px-4">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="flex items-center justify-center gap-2"
-          >
-            {(() => {
-              const Icon = messages[current].icon
-              return <Icon size={14} className="shrink-0" />
-            })()}
-            <span>{messages[current].text}</span>
-          </motion.div>
-        </AnimatePresence>
+        <div className="flex items-center justify-center gap-2">
+          {(() => {
+            const Icon = messages[0].icon
+            return <Icon size={12} className="shrink-0 text-[#10BFD8]" />
+          })()}
+          <span>{messages[0].text}</span>
+        </div>
       </div>
     </div>
   )
@@ -641,45 +624,33 @@ export default function ShopHomePage() {
           </div>
         </section>
 
-        {/* ═══ COMPARISON ═══ */}
+        {/* ═══ WHY NOCTIP ═══ */}
         <section className="py-16 sm:py-24 bg-[#0d1219]">
-          <div className="mx-auto max-w-[720px] px-4 sm:px-6">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
             <div className="text-center mb-10 sm:mb-14">
               <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.comparison.heading}</h2>
               <p className="mt-3 text-[15px] text-[#6b7785]">{copy.comparison.sub}</p>
             </div>
-            <div className="rounded-2xl border border-white/[0.06] bg-[#111720] overflow-hidden">
-              <div className="grid grid-cols-[1fr_80px_80px] border-b border-white/[0.06] bg-white/[0.02] px-5 py-3">
-                <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#5a6678]">{isEs ? 'Característica' : 'Feature'}</span>
-                <span className="text-center text-[12px] font-semibold uppercase tracking-[0.12em] text-[#10BFD8]">Noctip</span>
-                <span className="text-center text-[12px] font-semibold uppercase tracking-[0.12em] text-[#5a6678]">{isEs ? 'Otros' : 'Others'}</span>
-              </div>
-              {copy.comparison.rows.map((row, idx) => (
-                <div key={row.feature} className={`grid grid-cols-[1fr_80px_80px] items-center px-5 py-3.5 ${idx < copy.comparison.rows.length - 1 ? 'border-b border-white/[0.04]' : ''}`}>
-                  <span className="text-[14px] text-[#c8d0da]">{row.feature}</span>
-                  <div className="flex justify-center">
-                    {row.us ? (
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/15">
-                        <Check size={14} className="text-[#10BFD8]" />
-                      </div>
-                    ) : (
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.04]">
-                        <X size={14} className="text-[#3d4a5c]" />
-                      </div>
-                    )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { icon: ShieldCheck, title: isEs ? 'Grado médico' : 'Medical grade', text: isEs ? 'Silicona de grado médico, hipoalergénica, segura para uso nocturno.' : 'Medical-grade silicone, hypoallergenic, safe for nightly use.' },
+                { icon: RotateCcw, title: isEs ? '30 noches sin riesgo' : '30 nights risk-free', text: isEs ? 'Prueba el producto en tu entorno real. Si no funciona, reembolso completo.' : 'Try it in your real environment. Full refund if it doesn\'t work.' },
+                { icon: Truck, title: isEs ? 'Envío en 24h' : 'Ships in 24h', text: isEs ? 'Procesamos y enviamos en 24 horas. Entrega en 6-9 días con seguimiento.' : 'We ship within 24 hours. Delivery in 6-9 days with tracking.' },
+                { icon: Shield, title: isEs ? 'Pago 100% seguro' : '100% secure', text: isEs ? 'Cifrado SSL de 256 bits. Stripe. Nunca almacenamos datos de tarjeta.' : '256-bit SSL encryption. Stripe. We never store card data.' },
+                { icon: Headphones, title: isEs ? 'Soporte humano' : 'Human support', text: isEs ? 'Una persona real responde en menos de 24 horas. Sin bots.' : 'A real person responds within 24 hours. No bots.' },
+                { icon: CreditCard, title: isEs ? 'Flexibilidad de pago' : 'Flexible payment', text: isEs ? 'Visa, Mastercard, Amex, PayPal, Apple Pay y Google Pay.' : 'Visa, Mastercard, Amex, PayPal, Apple Pay, and Google Pay.' },
+              ].map((item, idx) => (
+                <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: idx * 0.08 }}
+                  className="flex items-start gap-4 rounded-2xl border border-white/[0.06] bg-[#111720] p-6">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
+                    <item.icon size={18} className="text-[#10BFD8]" />
                   </div>
-                  <div className="flex justify-center">
-                    {row.them ? (
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/15">
-                        <Check size={14} className="text-[#10BFD8]" />
-                      </div>
-                    ) : (
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.04]">
-                        <X size={14} className="text-[#3d4a5c]" />
-                      </div>
-                    )}
+                  <div>
+                    <h3 className="text-[15px] font-semibold text-[#f2eee7]">{item.title}</h3>
+                    <p className="mt-1 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>

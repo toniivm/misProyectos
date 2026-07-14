@@ -367,6 +367,23 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             )}
 
+            {/* Trust badges — ABOVE CTA for trust */}
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
+                { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee', sub: isEs ? 'Devolución completa' : 'Full refund' },
+                { icon: ShieldCheck, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL + Stripe' },
+              ].map((item) => (
+                <div key={item.label} className="flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3 text-center transition-all hover:border-[rgba(16,191,216,0.15)]">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
+                    <item.icon size={15} className="text-[#10BFD8]" />
+                  </div>
+                  <span className="text-[11px] font-semibold text-[#f2eee7]">{item.label}</span>
+                  <span className="text-[10px] text-[#5a6678]">{item.sub}</span>
+                </div>
+              ))}
+            </div>
+
             {/* Qty + Add to cart */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-0 rounded-full border border-white/[0.12] bg-[#111720]">
@@ -394,23 +411,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                   <><ShoppingCart size={16} /> {isEs ? 'Añadir al carrito' : 'Add to cart'} — €{displayPrice * qty}</>
                 )}
               </button>
-            </div>
-
-            {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
-                { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee', sub: isEs ? 'Devolución completa' : 'Full refund' },
-                { icon: ShieldCheck, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL + Stripe' },
-              ].map((item) => (
-                <div key={item.label} className="flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3 text-center transition-all hover:border-[rgba(16,191,216,0.15)]">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
-                    <item.icon size={15} className="text-[#10BFD8]" />
-                  </div>
-                  <span className="text-[11px] font-semibold text-[#f2eee7]">{item.label}</span>
-                  <span className="text-[10px] text-[#5a6678]">{item.sub}</span>
-                </div>
-              ))}
             </div>
 
             {/* Payment methods */}
@@ -448,7 +448,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
         </section>
 
-        {/* ═══ REVIEWS ═══ */}
+        {/* ═══ REVIEWS — Only show if reviews exist ═══ */}
+        {displayReviewCount > 0 && (
         <section className="mt-12 sm:mt-16">
           <div className="flex items-center gap-3 mb-6">
             <h2 className="text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7]">
@@ -663,6 +664,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             ))}
           </div>
         </section>
+        )}
 
         {/* ═══ FAQ ═══ */}
         <section className="mt-12 sm:mt-16">
