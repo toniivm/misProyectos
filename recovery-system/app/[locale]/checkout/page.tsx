@@ -9,6 +9,7 @@ import { useCart } from '../../../context/CartContext';
 import { useAuth } from '../../../context/AuthContext';
 import PhoneInputField from '../../../components/PhoneInputField';
 import AddressAutocomplete from '../../../components/AddressAutocomplete';
+import { getActiveBundle } from '../../../lib/catalog';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -54,6 +55,42 @@ const SPAIN_PROVINCES = [
   'Salamanca', 'Santa Cruz de Tenerife', 'Segovia', 'Sevilla', 'Soria',
   'Tarragona', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Zamora',
   'Zaragoza',
+];
+
+const COUNTRIES = [
+  { value: 'Spain', labelEs: '🇪🇸 España', labelEn: '🇪🇸 Spain' },
+  { value: 'Portugal', labelEs: '🇵🇹 Portugal', labelEn: '🇵🇹 Portugal' },
+  { value: 'France', labelEs: '🇫🇷 Francia', labelEn: '🇫🇷 France' },
+  { value: 'Germany', labelEs: '🇩🇪 Alemania', labelEn: '🇩🇪 Germany' },
+  { value: 'Italy', labelEs: '🇮🇹 Italia', labelEn: '🇮🇹 Italy' },
+  { value: 'Netherlands', labelEs: '🇳🇱 Países Bajos', labelEn: '🇳🇱 Netherlands' },
+  { value: 'Belgium', labelEs: '🇧🇪 Bélgica', labelEn: '🇧🇪 Belgium' },
+  { value: 'United Kingdom', labelEs: '🇬🇧 Reino Unido', labelEn: '🇬🇧 United Kingdom' },
+  { value: 'United States', labelEs: '🇺🇸 Estados Unidos', labelEn: '🇺🇸 United States' },
+  { value: 'Mexico', labelEs: '🇲🇽 México', labelEn: '🇲🇽 Mexico' },
+  { value: 'Brazil', labelEs: '🇧🇷 Brasil', labelEn: '🇧🇷 Brazil' },
+  { value: 'Argentina', labelEs: '🇦🇷 Argentina', labelEn: '🇦🇷 Argentina' },
+  { value: 'Colombia', labelEs: '🇨🇴 Colombia', labelEn: '🇨🇴 Colombia' },
+  { value: 'Chile', labelEs: '🇨🇱 Chile', labelEn: '🇨🇱 Chile' },
+  { value: 'Peru', labelEs: '🇵🇪 Perú', labelEn: '🇵🇪 Peru' },
+  { value: 'Japan', labelEs: '🇯🇵 Japón', labelEn: '🇯🇵 Japan' },
+  { value: 'South Korea', labelEs: '🇰🇷 Corea del Sur', labelEn: '🇰🇷 South Korea' },
+  { value: 'China', labelEs: '🇨🇳 China', labelEn: '🇨🇳 China' },
+  { value: 'Australia', labelEs: '🇦🇺 Australia', labelEn: '🇦🇺 Australia' },
+  { value: 'Canada', labelEs: '🇨🇦 Canadá', labelEn: '🇨🇦 Canada' },
+  { value: 'Switzerland', labelEs: '🇨🇭 Suiza', labelEn: '🇨🇭 Switzerland' },
+  { value: 'Austria', labelEs: '🇦🇹 Austria', labelEn: '🇦🇹 Austria' },
+  { value: 'Poland', labelEs: '🇵🇱 Polonia', labelEn: '🇵🇱 Poland' },
+  { value: 'Sweden', labelEs: '🇸🇪 Suecia', labelEn: '🇸🇪 Sweden' },
+  { value: 'Norway', labelEs: '🇳🇴 Noruega', labelEn: '🇳🇴 Norway' },
+  { value: 'Denmark', labelEs: '🇩🇰 Dinamarca', labelEn: '🇩🇰 Denmark' },
+  { value: 'Finland', labelEs: '🇫🇮 Finlandia', labelEn: '🇫🇮 Finland' },
+  { value: 'Ireland', labelEs: '🇮🇪 Irlanda', labelEn: '🇮🇪 Ireland' },
+  { value: 'Greece', labelEs: '🇬🇷 Grecia', labelEn: '🇬🇷 Greece' },
+  { value: 'Turkey', labelEs: '🇹🇷 Turquía', labelEn: '🇹🇷 Turkey' },
+  { value: 'Morocco', labelEs: '🇲🇦 Marruecos', labelEn: '🇲🇦 Morocco' },
+  { value: 'Dominican Republic', labelEs: '🇩🇴 República Dominicana', labelEn: '🇩🇴 Dominican Republic' },
+  { value: 'Other', labelEs: 'Otro', labelEn: 'Other' },
 ];
 
 const SPAIN_POSTAL_CITIES: Record<string, string> = {
@@ -143,11 +180,6 @@ export default function CheckoutPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [promoCode, setPromoCode] = useState('');
-  const [promoDiscount, setPromoDiscount] = useState(0);
-  const [promoLabel, setPromoLabel] = useState('');
-  const [promoLoading, setPromoLoading] = useState(false);
-  const [promoError, setPromoError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
   const [validFields, setValidFields] = useState<Record<string, boolean>>({});
@@ -169,8 +201,11 @@ export default function CheckoutPage() {
   });
   const checkoutItems = hasHydrated ? items : [];
   const checkoutSubtotal = hasHydrated ? subtotal : 0;
-  const discountAmount = checkoutSubtotal * (promoDiscount / 100);
-  const checkoutTotal = Math.max(0, checkoutSubtotal - discountAmount);
+  const activeBundle = hasHydrated ? getActiveBundle(items.map((i) => i.slug)) : null;
+  const bundleDiscount = activeBundle
+    ? Math.round(checkoutSubtotal * (activeBundle.discountPercent / 100) * 100) / 100
+    : 0;
+  const checkoutTotal = Math.max(0, checkoutSubtotal - bundleDiscount);
 
   const validateAndUpdateField = useCallback((name: string, value: string) => {
     const error = validateField(name, value, isEs);
@@ -201,31 +236,6 @@ export default function CheckoutPage() {
       validateAndUpdateField(name, value);
     }
   }, [touchedFields, validateAndUpdateField]);
-
-  const applyPromoCode = async () => {
-    if (!promoCode.trim()) return;
-    setPromoLoading(true);
-    setPromoError('');
-    try {
-      const res = await fetch(`${API_BASE_URL}/promo/validate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: promoCode.trim().toUpperCase(), subtotal: checkoutSubtotal }),
-      });
-      const data = await res.json();
-      if (res.ok && data.valid) {
-        setPromoDiscount(data.discountPercent || 0);
-        setPromoLabel(data.label || promoCode.trim().toUpperCase());
-      } else {
-        setPromoError(data.detail || (isEs ? 'Este código no es válido o ha caducado' : 'This code is invalid or has expired'));
-        setPromoDiscount(0);
-        setPromoLabel('');
-      }
-    } catch {
-      setPromoError(isEs ? 'No se pudo verificar el código. Inténtalo de nuevo.' : 'Could not verify code. Please try again.');
-    }
-    setPromoLoading(false);
-  };
 
   const validateAllFields = useCallback((): boolean => {
     const errors: FieldErrors = {};
@@ -284,8 +294,8 @@ export default function CheckoutPage() {
         })),
         successUrl: `${window.location.origin}/${locale}/checkout/success`,
         cancelUrl: `${window.location.origin}/${locale}/checkout`,
-        promoCode: promoDiscount > 0 ? promoCode.trim().toUpperCase() : undefined,
-        discountPercent: promoDiscount > 0 ? promoDiscount : undefined,
+        bundleId: activeBundle?.id || undefined,
+        discountPercent: activeBundle?.discountPercent || undefined,
       };
 
       const endpoint = API_BASE_URL
@@ -353,6 +363,16 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (user?.email) setContact((c) => ({ ...c, email: user.email }));
+    if (user?.displayName) {
+      const parts = user.displayName.split(' ');
+      const firstName = parts[0] || '';
+      const lastName = parts.slice(1).join(' ') || '';
+      setShipping((s) => ({
+        ...s,
+        firstName: s.firstName || firstName,
+        lastName: s.lastName || lastName,
+      }));
+    }
   }, [user]);
 
   const getFieldClassName = (name: string, hasValue: boolean) => {
@@ -459,6 +479,7 @@ export default function CheckoutPage() {
                       setContact((c) => ({...c, phone: val || ''}));
                       handleFieldChange('phone', val || '');
                     }}
+                    onBlur={() => handleFieldBlur('phone', contact.phone)}
                     required
                   />
                   {fieldErrors.phone && touchedFields.phone && (
@@ -521,6 +542,7 @@ export default function CheckoutPage() {
                     }}
                     onAddressSelect={handleAddressSelect}
                     required
+                    locale={locale}
                     className={getFieldClassName('streetName', !!shipping.streetName)}
                   />
                   {fieldErrors.streetName && touchedFields.streetName && (
@@ -638,39 +660,9 @@ export default function CheckoutPage() {
                     autoComplete="country"
                     onChange={(e) => setShipping((s) => ({...s, country: e.target.value}))}
                     className="select-premium">
-                    <option value="Spain">🇪🇸 España</option>
-                    <option value="Portugal">🇵🇹 Portugal</option>
-                    <option value="France">🇫🇷 Francia</option>
-                    <option value="Germany">🇩🇪 Alemania</option>
-                    <option value="Italy">🇮🇹 Italia</option>
-                    <option value="Netherlands">🇳🇱 Países Bajos</option>
-                    <option value="Belgium">🇧🇪 Bélgica</option>
-                    <option value="United Kingdom">🇬🇧 Reino Unido</option>
-                    <option value="United States">🇺🇸 Estados Unidos</option>
-                    <option value="Mexico">🇲🇽 México</option>
-                    <option value="Brazil">🇧🇷 Brasil</option>
-                    <option value="Argentina">🇦🇷 Argentina</option>
-                    <option value="Colombia">🇨🇴 Colombia</option>
-                    <option value="Chile">🇨🇱 Chile</option>
-                    <option value="Peru">🇵🇪 Perú</option>
-                    <option value="Japan">🇯🇵 Japón</option>
-                    <option value="South Korea">🇰🇷 Corea del Sur</option>
-                    <option value="China">🇨🇳 China</option>
-                    <option value="Australia">🇦🇺 Australia</option>
-                    <option value="Canada">🇨🇦 Canadá</option>
-                    <option value="Switzerland">🇨🇭 Suiza</option>
-                    <option value="Austria">🇦🇹 Austria</option>
-                    <option value="Poland">🇵🇱 Polonia</option>
-                    <option value="Sweden">🇸🇪 Suecia</option>
-                    <option value="Norway">🇳🇴 Noruega</option>
-                    <option value="Denmark">🇩🇰 Dinamarca</option>
-                    <option value="Finland">🇫🇮 Finlandia</option>
-                    <option value="Ireland">🇮🇪 Irlanda</option>
-                    <option value="Greece">🇬🇷 Grecia</option>
-                    <option value="Turkey">🇹🇷 Turquía</option>
-                    <option value="Morocco">🇲🇦 Marruecos</option>
-                    <option value="Dominican Republic">🇩🇴 República Dominicana</option>
-                    <option value="Other">Otro</option>
+                    {COUNTRIES.map((c) => (
+                      <option key={c.value} value={c.value}>{isEs ? c.labelEs : c.labelEn}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -848,6 +840,16 @@ export default function CheckoutPage() {
                     <span>{t('subtotalLine')}</span>
                     <span className="font-semibold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
+
+                  {bundleDiscount > 0 && activeBundle && (
+                    <div className="flex items-center justify-between text-[13px]">
+                      <span className="text-[#5fb07c]">
+                        {isEs ? `Descuento ${activeBundle.name_es || activeBundle.name}` : `Discount ${activeBundle.name}`}
+                        {' '}({activeBundle.discountPercent}%)
+                      </span>
+                      <span className="font-semibold text-[#5fb07c]">-€{bundleDiscount.toFixed(2)}</span>
+                    </div>
+                  )}
 
                   <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                     <span>{t('shippingLine')}</span>

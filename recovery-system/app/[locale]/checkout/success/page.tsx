@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Shield, Truck, RotateCcw, Mail } from 'lucide
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 import { useCart } from '../../../../context/CartContext';
 import { useAuth } from '../../../../context/AuthContext';
 
@@ -11,12 +12,9 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
   'https://misproyectos-neyj.onrender.com';
 
-interface Props {
-  params: { locale: string };
-}
-
-export default function CheckoutSuccessPage({ params }: Props) {
-  const { locale } = params;
+export default function CheckoutSuccessPage() {
+  const urlParams = useParams();
+  const locale = (urlParams?.locale as string) || 'es';
   const t = useTranslations('success');
   const [ref, setRef] = useState<string | null>(null);
   const [emailSent, setEmailSent] = useState<boolean | null>(null);

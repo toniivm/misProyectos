@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/checkout/', '/api/'],
+        disallow: ['/admin/', '/checkout/', '/api/', '/account/', '/tracking/'],
       },
     ],
     sitemap: 'https://noctip.com/sitemap.xml',

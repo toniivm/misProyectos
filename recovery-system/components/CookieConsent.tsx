@@ -12,20 +12,26 @@ export default function CookieConsent() {
   const isEs = locale === 'es'
 
   useEffect(() => {
-    const consent = localStorage.getItem('noctip_cookie_consent')
-    if (!consent) {
+    try {
+      const consent = localStorage.getItem('noctip_cookie_consent')
+      if (!consent) {
+        const timer = setTimeout(() => setShow(true), 2500)
+        return () => clearTimeout(timer)
+      }
+    } catch {
+      // localStorage unavailable
       const timer = setTimeout(() => setShow(true), 2500)
       return () => clearTimeout(timer)
     }
   }, [])
 
   const accept = () => {
-    localStorage.setItem('noctip_cookie_consent', 'accepted')
+    try { localStorage.setItem('noctip_cookie_consent', 'accepted') } catch {}
     setShow(false)
   }
 
   const reject = () => {
-    localStorage.setItem('noctip_cookie_consent', 'rejected')
+    try { localStorage.setItem('noctip_cookie_consent', 'rejected') } catch {}
     setShow(false)
   }
 

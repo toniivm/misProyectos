@@ -8,7 +8,9 @@ import {
   useState,
   ReactNode,
 } from 'react';
-import { getActiveBundle, type Bundle } from '../lib/catalog';
+import { getActiveBundle, getCatalogProductBySlug, type Bundle } from '../lib/catalog';
+
+const MAX_QUANTITY = 10;
 
 export interface CartItem {
   slug: string;
@@ -34,17 +36,29 @@ type Action =
 
 function reducer(state: CartState, action: Action): CartState {
   switch (action.type) {
-    case 'HYDRATE':
-      return { ...state, items: action.items };
+    case 'HYDRATE': {
+      // Validate prices against current catalog and enforce max quantity
+      const validated = action.items.map((item) => {
+        const catalogProduct = getCatalogProductBySlug(item.slug);
+        const currentPrice = catalogProduct?.price ?? item.price;
+        return {
+          ...item,
+          price: currentPrice,
+          quantity: Math.min(item.quantity, MAX_QUANTITY),
+        };
+      });
+      return { ...state, items: validated };
+    }
     case 'ADD': {
       const existing = state.items.find((i) => i.slug === action.item.slug);
       if (existing) {
+        const newQty = Math.min(existing.quantity + 1, MAX_QUANTITY);
         return {
           ...state,
           isOpen: true,
           items: state.items.map((i) =>
             i.slug === action.item.slug
-              ? { ...i, quantity: i.quantity + 1 }
+              ? { ...i, quantity: newQty }
               : i,
           ),
         };
@@ -67,10 +81,11 @@ function reducer(state: CartState, action: Action): CartState {
           items: state.items.filter((i) => i.slug !== action.slug),
         };
       }
+      const cappedQty = Math.min(action.quantity, MAX_QUANTITY);
       return {
         ...state,
         items: state.items.map((i) =>
-          i.slug === action.slug ? { ...i, quantity: action.quantity } : i,
+          i.slug === action.slug ? { ...i, quantity: cappedQty } : i,
         ),
       };
     }

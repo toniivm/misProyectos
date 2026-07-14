@@ -13,7 +13,7 @@ module.exports = {
       },
       colors: {
         base: {
-          DEFAULT: '#080c16',
+          DEFAULT: '#080c12',
           light: '#0c1016',
           surface: '#0f1724',
           elevated: '#162035',
@@ -51,7 +51,7 @@ module.exports = {
           600: '#7C6FF7',
         },
         navy: {
-          900: '#080c16',
+          900: '#080c12',
           800: '#0f1724',
           700: '#162035',
         },

@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+import { BUNDLES } from '../../../../lib/catalog';
 
 const stripeSecret = process.env.STRIPE_SECRET_KEY || process.env.STRIPE_PRIVATE_KEY;
 if (!stripeSecret) {
@@ -11,20 +12,41 @@ const stripe = stripeSecret ? new Stripe(stripeSecret) : null;
 export async function POST(req: Request) {
   try {
     if (!stripe) {
-      return new Response(JSON.stringify({ error: 'Stripe not configured on server' }), { status: 500 });
+      return new Response(JSON.stringify({ error: 'Payment system not configured' }), { status: 500 });
     }
 
     const body = await req.json();
     const items = Array.isArray(body.items) ? body.items : [];
 
-    const line_items = items.map((i: any) => ({
-      price_data: {
-        currency: (body.currency || 'eur').toLowerCase(),
-        product_data: { name: String(i.name || i.id || 'Product') },
-        unit_amount: Math.round(Number(i.price || 0) * 100),
-      },
-      quantity: Number(i.qty || 1),
-    }));
+    // Apply bundle discount if applicable
+    let discountPercent = 0;
+    if (body.bundleId) {
+      const bundle = BUNDLES.find((b) => b.id === body.bundleId);
+      if (bundle) {
+        const allSlugs = items.map((i: any) => String(i.id || ''));
+        const hasAll = bundle.slugs.every((s) => allSlugs.includes(s));
+        if (hasAll) {
+          discountPercent = bundle.discountPercent;
+        }
+      }
+    } else if (body.discountPercent) {
+      discountPercent = Math.min(100, Math.max(0, Number(body.discountPercent) || 0));
+    }
+
+    const line_items = items.map((i: any) => {
+      let unitAmount = Math.round(Number(i.price || 0) * 100);
+      if (discountPercent > 0) {
+        unitAmount = Math.round(unitAmount * (1 - discountPercent / 100));
+      }
+      return {
+        price_data: {
+          currency: (body.currency || 'eur').toLowerCase(),
+          product_data: { name: String(i.name || i.id || 'Product') },
+          unit_amount: unitAmount,
+        },
+        quantity: Number(i.qty || 1),
+      };
+    });
 
     const origin = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || null;
     const defaultBase = origin || `${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}`;
@@ -55,7 +77,9 @@ export async function POST(req: Request) {
   } catch (err: unknown) {
     // eslint-disable-next-line no-console
     console.error('create-checkout-session error', err);
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    return new Response(JSON.stringify({ error: message }), { status: 500 });
+    return new Response(
+      JSON.stringify({ error: 'Could not create checkout session' }),
+      { status: 500 },
+    );
   }
 }

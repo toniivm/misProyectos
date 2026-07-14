@@ -17,15 +17,27 @@ export default function NewsletterPopup() {
   const isEs = locale === 'es'
 
   useEffect(() => {
-    const dismissed = localStorage.getItem(STORAGE_KEY)
-    const alreadySubmitted = localStorage.getItem(SUBMITTED_KEY)
-    if (dismissed || alreadySubmitted) return
+    try {
+      const dismissed = localStorage.getItem(STORAGE_KEY)
+      const alreadySubmitted = localStorage.getItem(SUBMITTED_KEY)
+      if (dismissed || alreadySubmitted) return
+    } catch {
+      // localStorage unavailable
+    }
 
     const timer = setTimeout(() => {
       setVisible(true)
     }, 45000)
 
     return () => clearTimeout(timer)
+  }, [])
+
+  const dismiss = useCallback(() => {
+    setVisible(false)
+    try { localStorage.setItem(STORAGE_KEY, 'true') } catch {}
+    setEmail('')
+    setSubmitted(false)
+    setLoading(false)
   }, [])
 
   useEffect(() => {
@@ -37,15 +49,7 @@ export default function NewsletterPopup() {
 
     window.addEventListener('keydown', handleEscape)
     return () => window.removeEventListener('keydown', handleEscape)
-  }, [visible])
-
-  const dismiss = useCallback(() => {
-    setVisible(false)
-    localStorage.setItem(STORAGE_KEY, 'true')
-    setEmail('')
-    setSubmitted(false)
-    setLoading(false)
-  }, [])
+  }, [visible, dismiss])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,7 +58,7 @@ export default function NewsletterPopup() {
     await new Promise((r) => setTimeout(r, 800))
     setLoading(false)
     setSubmitted(true)
-    localStorage.setItem(SUBMITTED_KEY, 'true')
+    try { localStorage.setItem(SUBMITTED_KEY, 'true') } catch {}
     setTimeout(() => {
       dismiss()
     }, 3000)
@@ -83,11 +87,8 @@ export default function NewsletterPopup() {
             role="dialog"
             aria-modal="true"
             aria-label={isEs ? 'Oferta de newsletter' : 'Newsletter offer'}
-            className="fixed z-[90] w-[calc(100vw-2rem)] max-w-md overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0d1219] shadow-[0_24px_64px_rgba(0,0,0,0.5)] sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2"
+            className="fixed inset-0 z-[90] m-auto flex h-fit w-[calc(100vw-2rem)] max-w-md items-center justify-center overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0d1219] shadow-[0_24px_64px_rgba(0,0,0,0.5)]"
             style={{
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
               maxHeight: 'calc(100dvh - 2rem)',
               overflowY: 'auto',
             }}
@@ -128,7 +129,7 @@ export default function NewsletterPopup() {
                           required
                           autoComplete="email"
                           inputMode="email"
-                          className="w-full rounded-full border border-white/[0.1] bg-white/[0.04] py-3 pl-11 pr-4 text-[13px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.06] sm:py-3.5 sm:text-[14px]"
+                          className="w-full rounded-full border border-white/[0.1] bg-white/[0.04] py-3 pl-11 pr-4 text-[16px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.06] sm:py-3.5 sm:text-[14px]"
                         />
                       </div>
                       <button

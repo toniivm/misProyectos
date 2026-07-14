@@ -5,20 +5,26 @@ import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { ExternalLink, Package, Truck, Clock } from 'lucide-react'
 import { Suspense } from 'react'
+import { useLocale } from 'next-intl'
 
 function TrackingContent() {
   const searchParams = useSearchParams()
+  const locale = useLocale()
+  const isEs = locale === 'es'
   const trackingNumber = searchParams.get('n') || ''
   const carrier = searchParams.get('carrier') || 'Cainiao'
   const order = searchParams.get('order') || ''
-  const isEs = true
 
   if (!trackingNumber) {
     return (
       <div className="min-h-screen bg-[#080c16] text-[#f4f1ea] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-[15px] text-[#8791a1]">No tracking number provided.</p>
-          <Link href="/es" className="mt-4 inline-block text-[14px] text-[#10BFD8] underline">Volver a la tienda</Link>
+          <p className="text-[15px] text-[#8791a1]">
+            {isEs ? 'No se ha proporcionado número de seguimiento.' : 'No tracking number provided.'}
+          </p>
+          <Link href={`/${locale}`} className="mt-4 inline-block text-[14px] text-[#10BFD8] underline">
+            {isEs ? 'Volver a la tienda' : 'Back to shop'}
+          </Link>
         </div>
       </div>
     )
@@ -44,7 +50,7 @@ function TrackingContent() {
     <div className="min-h-screen bg-[#080c16] text-[#f4f1ea]">
       <header className="border-b border-white/[0.06] bg-[rgba(8,12,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-2xl items-center justify-center">
-          <Link href="/es" className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
+          <Link href={`/${locale}`} className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
             <Image src="/images/logo/logo.png" alt="Noctip" width={32} height={32} className="object-contain" sizes="32px" />
             NOCTIP
           </Link>
@@ -60,7 +66,7 @@ function TrackingContent() {
           </div>
 
           <h1 className="text-center text-[22px] font-bold text-[#f2eee7]">
-            Seguimiento de tu pedido
+            {isEs ? 'Seguimiento de tu pedido' : 'Track your order'}
           </h1>
 
           <div className="mt-8 space-y-4">
@@ -69,18 +75,18 @@ function TrackingContent() {
                 <Truck size={18} className="text-[#10BFD8]" />
               </div>
               <div>
-                <div className="text-[13px] font-semibold text-[#f2eee7]">Estado</div>
-                <div className="text-[12px] text-[#8791a1]">En tránsito hacia tu dirección</div>
+                <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Estado' : 'Status'}</div>
+                <div className="text-[12px] text-[#8791a1]">{isEs ? 'En tránsito hacia tu dirección' : 'In transit to your address'}</div>
               </div>
             </div>
 
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
-              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">Transportista</div>
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">{isEs ? 'Transportista' : 'Carrier'}</div>
               <div className="text-[14px] font-semibold text-[#f2eee7]">{carrier}</div>
             </div>
 
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-4">
-              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">Nº de seguimiento</div>
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] mb-1">{isEs ? 'Nº de seguimiento' : 'Tracking number'}</div>
               <div className="font-mono text-[16px] font-bold text-[#10BFD8] tracking-wide">{trackingNumber}</div>
             </div>
 
@@ -89,25 +95,26 @@ function TrackingContent() {
                 <Clock size={18} className="text-[#10BFD8]" />
               </div>
               <div>
-                <div className="text-[13px] font-semibold text-[#f2eee7]">Entrega estimada</div>
-                <div className="text-[12px] text-[#8791a1]">6-9 días hábiles</div>
+                <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Entrega estimada' : 'Estimated delivery'}</div>
+                <div className="text-[12px] text-[#8791a1]">{isEs ? '6-9 días hábiles' : '6-9 business days'}</div>
               </div>
             </div>
           </div>
 
           <div className="mt-8 rounded-xl border border-white/[0.06] bg-white/[0.025] p-4 text-center">
             <p className="text-[13px] text-[#8791a1]">
-              Tu paquete está en camino. Entrega estimada en <strong className="text-[#f2eee7]">6-9 días hábiles</strong>.
+              {isEs ? 'Tu paquete está en camino. Entrega estimada en' : 'Your package is on its way. Estimated delivery in'}{' '}
+              <strong className="text-[#f2eee7]">{isEs ? '6-9 días hábiles' : '6-9 business days'}</strong>.
             </p>
             <p className="mt-2 text-[12px] text-[#5a6678]">
-              Si tienes preguntas, contacta con{' '}
+              {isEs ? 'Si tienes preguntas, contacta con' : 'If you have questions, contact'}{' '}
               <a href="mailto:noctip95@gmail.com" className="text-[#10BFD8] underline">noctip95@gmail.com</a>
             </p>
           </div>
         </div>
 
         <div className="mt-8 text-center text-[12px] text-[#4a5568]">
-          ¿Problemas con tu pedido?{' '}
+          {isEs ? '¿Problemas con tu pedido?' : 'Problems with your order?'}{' '}
           <a href="mailto:noctip95@gmail.com" className="text-[#10BFD8] underline">noctip95@gmail.com</a>
         </div>
       </div>
@@ -117,7 +124,7 @@ function TrackingContent() {
 
 export default function TrackingPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#080c16] flex items-center justify-center text-[#8791a1]">Cargando...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#080c16] flex items-center justify-center text-[#8791a1]">Loading...</div>}>
       <TrackingContent />
     </Suspense>
   )

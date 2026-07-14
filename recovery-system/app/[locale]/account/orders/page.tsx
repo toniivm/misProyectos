@@ -67,7 +67,7 @@ function getStatusColor(status: string): string {
 
 export default function OrdersPage() {
   const locale = useLocale()
-  const isEs = String(locale || '').toLowerCase().startsWith('es')
+  const isEs = locale === 'es'
   const auth = useAuth()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
@@ -97,6 +97,16 @@ export default function OrdersPage() {
     }
     loadOrders()
   }, [auth.user])
+
+  if (auth.loading) {
+    return (
+      <div className="mx-auto max-w-4xl p-8 bg-[#0c1016] text-[#f4f1ea] min-h-screen flex items-center justify-center">
+        <div className="text-sm text-[#8791a1]">
+          {isEs ? 'Cargando…' : 'Loading…'}
+        </div>
+      </div>
+    )
+  }
 
   if (!auth.user) {
     return (

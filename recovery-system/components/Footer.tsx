@@ -12,7 +12,7 @@ export default function Footer() {
   const t = useTranslations('footer')
 
   return (
-    <footer className="relative border-t border-white/[0.06] bg-[#080c10]">
+    <footer className="relative border-t border-white/[0.06] bg-[#080c12]">
       <div className="mx-auto max-w-[1280px] px-4 py-16 sm:px-6">
         {/* Trust bar */}
         <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">

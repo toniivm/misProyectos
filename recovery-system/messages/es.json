@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Noctip™ | Herramientas que te hacen dormir mejor desde mañana",
-    "description": "Bandas de sueño, ruido blanco, antifaces con peso y masajeadores cervicales. Envío gratis. 30 noches de garantía. Tu cuerpo nota la diferencia desde la primera noche."
+    "description": "Férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales. Envío gratis. 30 noches de garantía."
   },
   "nav": {
     "brand": "NOCTIP™",
@@ -78,12 +78,7 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Envío",
     "totalLine": "Total",
-    "guaranteeBadge": "30 noches de prueba — o te devolvemos todo",
-    "promoHeading": "Código promocional",
-    "promoPlaceholder": "Ej: NOCTIP10",
-    "promoApply": "Aplicar",
-    "promoApplied": "¡Código {label} aplicado! — {percent}% descuento",
-    "promoError": "Código no válido"
+    "guaranteeBadge": "30 noches de prueba — o te devolvemos todo"
   },
   "category": {
     "allProducts": "Todos los productos",

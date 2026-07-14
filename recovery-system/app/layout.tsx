@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Syne } from 'next/font/google'
 import {getLocale} from 'next-intl/server'
 import './globals.css'
@@ -18,6 +18,13 @@ const syne = Syne({
   weight: ['400', '500', '600', '700', '800'],
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: '#080c12',
+}
+
 export const metadata: Metadata = {
   title: {
     default: 'Noctip™ — Premium Sleep & Recovery Technology',
@@ -34,19 +41,12 @@ export const metadata: Metadata = {
   creator: 'Noctip',
   publisher: 'Noctip',
   metadataBase: new URL('https://noctip.com'),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'es': '/es',
-      'en': '/en',
-    },
-  },
   openGraph: {
     title: 'Noctip™ — Premium Sleep & Recovery Technology',
-    description: 'Duerme más profundo. Recupérate mejor. Vive mejor. Tecnología premium de sueño y recuperación.',
+    description: 'Premium sleep & recovery technology. Free shipping, 30-night guarantee.',
     url: 'https://noctip.com',
     siteName: 'Noctip',
-    locale: 'es_ES',
+    locale: 'en_US',
     type: 'website',
     images: [
       {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Noctip™ — Premium Sleep & Recovery Technology',
-    description: 'Tecnología premium de sueño y recuperación. Envío gratis y garantía de 30 noches.',
+    description: 'Premium sleep & recovery technology. Free shipping, 30-night guarantee.',
     images: ['https://noctip.com/images/products/sleep-headband.jpg'],
   },
   robots: {
@@ -74,7 +74,12 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {},
+  other: {
+    'msapplication-TileColor': '#080c12',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'mobile-web-app-capable': 'yes',
+  },
 }
 
 export default async function RootLayout({
@@ -88,18 +93,8 @@ export default async function RootLayout({
     <html lang={locale} className={`${inter.variable} ${syne.variable}`} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/favicon.svg" />
-        <meta name="theme-color" content="#080c16" />
-        <meta name="msapplication-TileColor" content="#080c16" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://noctip.com" />
       </head>
-      <body className="bg-[#080c16] text-[#EAF1FF] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
+      <body className="bg-[#080c12] text-[#EAF1FF] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <GoogleAnalytics />
         <UtmCapture />
         {children}

@@ -53,7 +53,7 @@ export default function CartSidebar() {
             className="fixed right-0 top-0 z-[60] flex h-full w-full max-w-[85vw] sm:max-w-sm flex-col border-l border-white/[0.07] bg-[#0c1016] shadow-[-20px_0_60px_rgba(0,0,0,0.5)] sm:max-w-md"
             role="dialog"
             aria-modal="true"
-            aria-label="Shopping cart"
+            aria-label={isEs ? 'Carrito de compra' : 'Shopping cart'}
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/[0.07] px-5 py-4">
@@ -70,7 +70,7 @@ export default function CartSidebar() {
               </div>
               <button onClick={close}
                 className="flex h-10 w-10 items-center justify-center rounded-lg text-[#8791a1] transition hover:bg-white/[0.06] hover:text-[#f2eee7]"
-                aria-label="Close cart">
+                aria-label={isEs ? 'Cerrar carrito' : 'Close cart'}>
                 <X size={17} />
               </button>
             </div>
@@ -102,7 +102,7 @@ export default function CartSidebar() {
                           <p className="text-[13px] sm:text-[14px] font-semibold text-[#f2eee7] leading-snug line-clamp-2">{item.name}</p>
                           <button onClick={() => remove(item.slug)}
                             className="mt-0.5 flex-shrink-0 rounded-md p-2.5 text-[#3d4a5c] transition hover:bg-white/[0.06] hover:text-[#e05a5a] min-h-[44px] min-w-[44px] flex items-center justify-center"
-                            aria-label={`Remove ${item.name}`}>
+                            aria-label={isEs ? `Eliminar ${item.name}` : `Remove ${item.name}`}>
                             <Trash2 size={14} />
                           </button>
                         </div>
@@ -112,13 +112,13 @@ export default function CartSidebar() {
                         <div className="mt-1 flex items-center gap-2">
                           <button onClick={() => updateQty(item.slug, item.quantity - 1)}
                             className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
-                            aria-label="Decrease quantity">
+                            aria-label={isEs ? 'Reducir cantidad' : 'Decrease quantity'}>
                             <Minus size={12} />
                           </button>
                           <span className="w-6 text-center text-[14px] font-semibold text-[#f2eee7]">{item.quantity}</span>
                           <button onClick={() => updateQty(item.slug, item.quantity + 1)}
                             className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
-                            aria-label="Increase quantity">
+                            aria-label={isEs ? 'Aumentar cantidad' : 'Increase quantity'}>
                             <Plus size={12} />
                           </button>
                         </div>

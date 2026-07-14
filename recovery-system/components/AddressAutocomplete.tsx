@@ -15,6 +15,7 @@ interface AddressAutocompleteProps {
   placeholder?: string;
   className?: string;
   required?: boolean;
+  locale?: string;
 }
 
 function extractAddressComponents(components: any[]) {
@@ -37,6 +38,7 @@ export default function AddressAutocomplete({
   placeholder,
   className,
   required,
+  locale = 'es',
 }: AddressAutocompleteProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<any>(null);
@@ -70,7 +72,7 @@ export default function AddressAutocomplete({
 
     if (!(window as any).google?.maps?.places) {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=es`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&language=${locale === 'es' ? 'es' : 'en'}`;
       script.async = true;
       script.defer = true;
       script.onload = () => initAutocomplete();

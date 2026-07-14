@@ -568,10 +568,8 @@ export default function ShopHomePage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/80 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
                       <div className="flex items-center gap-2 mb-2">
-                        {[1,2,3,4,5].map(i => (
-                          <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
-                        ))}
-                        <span className="ml-1 text-[11px] font-medium text-white/70">4.9</span>
+                        <Stars rating={flagship.rating} size={12} />
+                        <span className="ml-1 text-[11px] font-medium text-white/70">{flagship.rating}</span>
                       </div>
                       <h2 className="text-[22px] font-bold text-white">{getLocalizedProductName(flagship, locale)}</h2>
                       <p className="mt-1 text-[12px] text-[#9aa7b9] line-clamp-1">{getLocalizedProductShortDescription(flagship, locale)}</p>
@@ -623,10 +621,8 @@ export default function ShopHomePage() {
 
                 <div className="mt-8 flex items-center gap-6">
                   <div className="flex items-center gap-1.5">
-                    {[1,2,3,4,5].map(i => (
-                      <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
-                    ))}
-                    <span className="ml-1 text-[13px] font-semibold text-white">4.9</span>
+                    <Stars rating={flagship.rating} size={14} />
+                    <span className="ml-1 text-[13px] font-semibold text-white">{flagship.rating}</span>
                   </div>
                   <span className="w-px h-4 bg-white/10" />
                   <span className="flex items-center gap-1.5 text-[13px] text-[#6b7785]">
@@ -650,10 +646,8 @@ export default function ShopHomePage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-[#080c12]/90 via-transparent to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-9">
                         <div className="flex items-center gap-2 mb-3">
-                          {[1,2,3,4,5].map(i => (
-                            <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
-                          ))}
-                          <span className="ml-1 text-[12px] font-medium text-white/70">4.9</span>
+                          <Stars rating={flagship.rating} size={13} />
+                          <span className="ml-1 text-[12px] font-medium text-white/70">{flagship.rating}</span>
                         </div>
                         <h2 className="text-[30px] font-bold text-white leading-tight">
                           {getLocalizedProductName(flagship, locale)}

@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Noctip™ | Sleep tools that work from night one",
-    "description": "Sleep headbands, white noise, weighted masks and neck massagers. Free shipping. 30-night guarantee. Your body feels the difference from the first night."
+    "description": "Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping. 30-night guarantee."
   },
   "nav": {
     "brand": "NOCTIP™",
@@ -78,12 +78,7 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Shipping",
     "totalLine": "Total",
-    "guaranteeBadge": "30-night trial — or we refund everything",
-    "promoHeading": "Promo code",
-    "promoPlaceholder": "e.g. NOCTIP10",
-    "promoApply": "Apply",
-    "promoApplied": "Code {label} applied! — {percent}% off",
-    "promoError": "Invalid promo code"
+    "guaranteeBadge": "30-night trial — or we refund everything"
   },
   "category": {
     "allProducts": "All products",

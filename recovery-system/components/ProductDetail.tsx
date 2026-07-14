@@ -1,14 +1,25 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star, ThumbsUp, Flag, ChevronDown, Send, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useLocale } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
+import {
+  getProductReviews,
+  getProductReviewStats,
+  hasUserReviewedProduct,
+  addReview,
+  toggleHelpful,
+  reportReview,
+  sortReviews,
+  type Review,
+} from '../lib/reviews';
 import ProductImage from './ProductImage';
 import Stars from './ui/Stars';
 import Badge from './ui/Badge';
@@ -31,14 +42,33 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const isEs = locale === 'es';
   const pathname = usePathname();
   const { add, open: openCart } = useCart();
+  const auth = useAuth();
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(0);
   const [selectedSize, setSelectedSize] = useState('');
+  const [reviewSort, setReviewSort] = useState('newest');
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewTitle, setReviewTitle] = useState('');
+  const [reviewComment, setReviewComment] = useState('');
+  const [reviewAuthor, setReviewAuthor] = useState('');
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [helpfulClicked, setHelpfulClicked] = useState<Set<string>>(new Set());
+  const [reportClicked, setReportClicked] = useState<Set<string>>(new Set());
 
   const product = getCatalogProductBySlug(legacyProduct.slug);
   const category = product ? CATEGORIES.find((c) => c.id === product.category) : null;
   const related = product ? getProductsByCategory(product.category).filter((p) => p.slug !== product.slug).slice(0, 3) : [];
+
+  // Reviews from localStorage
+  const slug = legacyProduct.slug;
+  const reviews = useMemo(() => sortReviews(getProductReviews(slug), reviewSort), [slug, reviewSort]);
+  const reviewStats = useMemo(() => getProductReviewStats(slug), [slug]);
+  const userHasReviewed = auth.user?.email ? hasUserReviewedProduct(slug, auth.user.email) : false;
+  const displayRating = reviewStats.total > 0 ? reviewStats.average : (product?.rating ?? 0);
+  const displayReviewCount = reviewStats.total > 0 ? reviewStats.total : (product?.reviewCount ?? 0);
 
   function getLocalizedField(obj: any, field: string) {
     if (!obj) return undefined;
@@ -66,17 +96,37 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     setTimeout(() => setAdded(false), 2500);
   };
 
-  const reviews = [
-    { author: 'Y***a', date: '15 FEB 2026', color: isEs ? 'Gris' : 'Grey', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, helpful: 3, text: isEs
-      ? 'Funciona sorprendentemente bien. Por la noche, enciendo un audiolibro para ayudarme a dormir. Esta diadema es más cómoda para mí que los auriculares. Para conectar al dispositivo, necesitas mantener presionado el botón de reproducción/pausa por más tiempo, el indicador comenzará a parpadear y luego verás el dispositivo para conectar en tu teléfono. Se ajusta bien a una cabeza europea promedio. La desventaja es que no es lavable porque todo está cosido y no se puede quitar. En general, lo recomiendo por el precio, es simplemente genial.'
-      : 'It works surprisingly well. At night, I turn on an audiobook to help me sleep. This headband is more comfortable for me than earphones. To connect to the device, you need to hold the play/pause button longer, the indicator will start flashing and then you\'ll see the device to connect on your phone. It fits well on an average European head. The downside is that it\'s not washable because everything is sewn and can\'t be removed. Overall, I recommend it for the price, it\'s simply great.' },
-    { author: 'Anónimo', date: '26 MAR 2026', color: isEs ? 'Negro' : 'Black', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, helpful: 2, text: isEs
-      ? 'Solía dormir con auriculares en los oídos mientras escuchaba música, pero mis oídos se apretaban y dolían, así que compré estos. No me lastiman los oídos, puedo usarlos como antifaz para dormir y son muy cómodos de usarwhile duermo. La calidad del sonido es similar a la de unos auriculares promedio de AliExpress. Estoy satisfecho porque son para dormir, no para escuchar música. Se pueden usar como una diadema, así que serán buenos para hacer ejercicio, pero creo que será difícil lavarlos.'
-      : 'I used to sleep with earphones in while listening to music, but my ears would hurt, so I bought these. They don\'t hurt my ears, I can use them as a sleep mask and they\'re very comfortable to wear while sleeping. The sound quality is similar to average AliExpress earphones. I\'m satisfied because they\'re for sleeping, not for listening to music. They can be used as a headband, so they\'d be good for exercise, but I think they\'d be hard to wash.' },
-    { author: 'Cliente verificado', date: '08 ABR 2026', color: isEs ? 'Negro' : 'Black', role: isEs ? 'Compra verificada' : 'Verified buyer', stars: 5, helpful: 4, text: isEs
-      ? 'Esto es maravilloso para cualquier momento del día, pero especialmente me encanta usarlo por la noche antes de dormir porque me gusta ver una película antes de quedarme dormida y también escuchar mi aplicación de relajación con sonidos suaves para conciliar el sueño, y es tan cómodo de llevar. Puedes acostarte y no te molesta ni te lastima en absoluto. Es un dispositivo muy bien diseñado y de excelente calidad. Hace años tuve uno sensorial para mi hijo y era prácticamente igual a este, excepto que el sensorial era demasiado caro, mientras que este es muy asequible. Definitivamente lo volvería a comprar para mí o como regalo. Funciona perfectamente, ¡y hasta puedes quitar las piezas para lavarlo en la lavadora!'
-      : 'This is wonderful for any time of day, but I especially love using it at night before bed because I like to watch a movie before falling asleep and also listen to my relaxation app with soft sounds to fall asleep, and it\'s so comfortable to wear. You can lie down and it doesn\'t bother or hurt you at all. It\'s a very well-designed device and excellent quality. Years ago I had a sensory one for my son and it was basically the same as this, except the sensory one was too expensive, while this one is very affordable. I would definitely buy it again for myself or as a gift. It works perfectly, and you can even remove the pieces to wash it in the washing machine!' },
-  ];
+  const handleSubmitReview = async () => {
+    if (!reviewComment.trim() || !auth.user?.email) return;
+    setReviewSubmitting(true);
+    // Simulate brief delay
+    await new Promise((r) => setTimeout(r, 500));
+    addReview({
+      productSlug: slug,
+      rating: reviewRating,
+      title: reviewTitle.trim() || undefined,
+      comment: reviewComment.trim(),
+      author: reviewAuthor.trim() || auth.user.displayName || auth.user.email.split('@')[0],
+      verified: true,
+    });
+    setReviewSubmitted(true);
+    setReviewSubmitting(false);
+    setReviewComment('');
+    setReviewTitle('');
+    setShowReviewForm(false);
+  };
+
+  const handleHelpful = (reviewId: string) => {
+    if (helpfulClicked.has(reviewId)) return;
+    toggleHelpful(reviewId);
+    setHelpfulClicked(new Set([...helpfulClicked, reviewId]));
+  };
+
+  const handleReport = (reviewId: string) => {
+    if (reportClicked.has(reviewId)) return;
+    reportReview(reviewId);
+    setReportClicked(new Set([...reportClicked, reviewId]));
+  };
 
   const productFaqs = [
     { q: isEs ? '¿Cuándo llega?' : 'When does it arrive?', a: isEs
@@ -245,10 +295,10 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Rating */}
             {product && (
               <div className="flex items-center gap-3">
-                <Stars rating={product.rating} />
-                <span className="text-[14px] text-[#f2eee7] font-medium">{product.rating}</span>
+                <Stars rating={displayRating} />
+                <span className="text-[14px] text-[#f2eee7] font-medium">{displayRating}</span>
                 <span className="text-[13px] text-[#8791a1]">
-                  ({product.reviewCount.toLocaleString()} {isEs ? 'reseñas' : 'reviews'})
+                  ({displayReviewCount.toLocaleString()} {isEs ? 'reseñas' : 'reviews'})
                 </span>
               </div>
             )}
@@ -400,7 +450,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         </section>
 
         {/* ═══════════════════════════════════════════════════════
-            REVIEWS — No tabs, just scroll
+            REVIEWS — Dynamic, per-product
         ═══════════════════════════════════════════════════════ */}
         <section className="mt-12 sm:mt-16">
           <div className="flex items-center gap-3 mb-6">
@@ -408,28 +458,236 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               {isEs ? 'Reseñas verificadas' : 'Verified reviews'}
             </h2>
             <span className="rounded-full bg-[#10BFD8]/10 px-2.5 py-0.5 text-[11px] font-bold text-[#10BFD8]">
-              {product?.reviewCount ?? 0}
+              {displayReviewCount}
             </span>
           </div>
+
+          {/* Review summary */}
+          <div className="mb-6 grid gap-6 sm:grid-cols-[200px_1fr]">
+            {/* Average rating */}
+            <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
+              <div className="text-[40px] font-bold text-[#f2eee7]">{displayRating}</div>
+              <Stars rating={displayRating} size={16} />
+              <div className="mt-2 text-[12px] text-[#6b7785]">
+                {displayReviewCount} {isEs ? 'reseñas' : 'reviews'}
+              </div>
+            </div>
+
+            {/* Distribution */}
+            <div className="space-y-2">
+              {[5, 4, 3, 2, 1].map((star) => {
+                const count = reviewStats.distribution[star] || 0;
+                const pct = reviewStats.total > 0 ? (count / reviewStats.total) * 100 : 0;
+                return (
+                  <div key={star} className="flex items-center gap-3">
+                    <span className="w-3 text-[12px] text-[#8791a1]">{star}</span>
+                    <Star size={12} className="fill-amber-400 text-amber-400" />
+                    <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
+                      <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${pct}%` }} />
+                    </div>
+                    <span className="w-6 text-right text-[12px] text-[#6b7785]">{count}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Sort + Write review */}
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[12px] text-[#6b7785]">{isEs ? 'Ordenar por:' : 'Sort by:'}</span>
+              <select
+                value={reviewSort}
+                onChange={(e) => setReviewSort(e.target.value)}
+                className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12px] text-[#c8d0da] focus:border-[#10BFD8] focus:outline-none"
+              >
+                <option value="newest">{isEs ? 'Más recientes' : 'Newest'}</option>
+                <option value="highest">{isEs ? 'Mejor valoradas' : 'Highest rated'}</option>
+                <option value="lowest">{isEs ? 'Peor valoradas' : 'Lowest rated'}</option>
+                <option value="helpful">{isEs ? 'Más útiles' : 'Most helpful'}</option>
+              </select>
+            </div>
+
+            {auth.user && !userHasReviewed && !reviewSubmitted && (
+              <button
+                onClick={() => setShowReviewForm(!showReviewForm)}
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-[#c8d0da] transition hover:border-white/20 hover:text-white min-h-[36px]"
+              >
+                <Send size={12} />
+                {isEs ? 'Escribir reseña' : 'Write a review'}
+              </button>
+            )}
+          </div>
+
+          {/* Review form */}
+          <AnimatePresence>
+            {showReviewForm && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-6 overflow-hidden"
+              >
+                <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-[15px] font-semibold text-[#f2eee7]">
+                      {isEs ? 'Tu reseña' : 'Your review'}
+                    </h3>
+                    <button onClick={() => setShowReviewForm(false)} className="text-[#6b7785] hover:text-white">
+                      <X size={16} />
+                    </button>
+                  </div>
+
+                  {/* Rating selector */}
+                  <div className="mb-4">
+                    <label className="mb-2 block text-[12px] font-medium text-[#8791a1]">
+                      {isEs ? 'Puntuación' : 'Rating'}
+                    </label>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          onClick={() => setReviewRating(star)}
+                          className="p-0.5 transition hover:scale-110"
+                        >
+                          <Star
+                            size={24}
+                            className={star <= reviewRating ? 'fill-amber-400 text-amber-400' : 'text-[#3a4458]'}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Author */}
+                  <div className="mb-3">
+                    <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                      {isEs ? 'Tu nombre' : 'Your name'}
+                    </label>
+                    <input
+                      type="text"
+                      value={reviewAuthor}
+                      onChange={(e) => setReviewAuthor(e.target.value)}
+                      placeholder={auth.user?.displayName || auth.user?.email?.split('@')[0] || ''}
+                      className="input-premium"
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <div className="mb-3">
+                    <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                      {isEs ? 'Título (opcional)' : 'Title (optional)'}
+                    </label>
+                    <input
+                      type="text"
+                      value={reviewTitle}
+                      onChange={(e) => setReviewTitle(e.target.value)}
+                      placeholder={isEs ? 'Resumen breve de tu experiencia' : 'Brief summary of your experience'}
+                      className="input-premium"
+                    />
+                  </div>
+
+                  {/* Comment */}
+                  <div className="mb-4">
+                    <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                      {isEs ? 'Tu reseña' : 'Your review'} <span className="text-[#10BFD8]">*</span>
+                    </label>
+                    <textarea
+                      value={reviewComment}
+                      onChange={(e) => setReviewComment(e.target.value)}
+                      placeholder={isEs ? 'Cuéntanos tu experiencia con este producto...' : 'Tell us about your experience with this product...'}
+                      rows={4}
+                      className="input-premium resize-none"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleSubmitReview}
+                    disabled={!reviewComment.trim() || reviewSubmitting}
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-white py-3 text-[14px] font-semibold text-[#080c12] transition hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px]"
+                  >
+                    {reviewSubmitting ? (
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#080c12] border-t-transparent" />
+                    ) : (
+                      <><Send size={14} /> {isEs ? 'Enviar reseña' : 'Submit review'}</>
+                    )}
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Review submitted message */}
+          {reviewSubmitted && (
+            <div className="mb-4 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] px-4 py-3 text-[13px] text-emerald-300">
+              <Check size={14} className="mr-1.5 inline" />
+              {isEs ? 'Tu reseña ha sido publicada. ¡Gracias!' : 'Your review has been published. Thank you!'}
+            </div>
+          )}
+
+          {/* Not logged in message */}
+          {!auth.user && (
+            <div className="mb-4 rounded-xl border border-white/[0.07] bg-white/[0.025] px-4 py-3 text-[13px] text-[#8791a1]">
+              {isEs
+                ? 'Inicia sesión para dejar una reseña. Solo los compradores verificados pueden opinar.'
+                : 'Sign in to leave a review. Only verified buyers can review.'}
+            </div>
+          )}
+
+          {/* Already reviewed message */}
+          {auth.user && userHasReviewed && !reviewSubmitted && (
+            <div className="mb-4 rounded-xl border border-white/[0.07] bg-white/[0.025] px-4 py-3 text-[13px] text-[#8791a1]">
+              <Check size={14} className="mr-1.5 inline text-[#10BFD8]" />
+              {isEs ? 'Ya has publicado una reseña para este producto.' : 'You have already reviewed this product.'}
+            </div>
+          )}
+
+          {/* Reviews list */}
           <div className="grid gap-4 max-w-2xl">
+            {reviews.length === 0 && (
+              <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-8 text-center">
+                <p className="text-[14px] text-[#6b7785]">
+                  {isEs ? 'Aún no hay reseñas. Sé el primero en opinar.' : 'No reviews yet. Be the first to share your experience.'}
+                </p>
+              </div>
+            )}
             {reviews.map((r) => (
-              <div key={r.author} className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
+              <div key={r.id} className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Stars rating={r.stars} size={12} />
-                    <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#5a6678]">{r.role}</span>
+                    <Stars rating={r.rating} size={12} />
+                    {r.verified && (
+                      <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#10BFD8]">
+                        ✓ {isEs ? 'Compra verificada' : 'Verified purchase'}
+                      </span>
+                    )}
                   </div>
-                  <span className="text-[11px] text-[#5a6678]">{r.date}</span>
+                  <span className="text-[11px] text-[#5a6678]">
+                    {new Date(r.date).toLocaleDateString(isEs ? 'es-ES' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </span>
                 </div>
-                <p className="mt-2 text-[14px] leading-6 text-[#c8d0da]">&ldquo;{r.text}&rdquo;</p>
+                {r.title && (
+                  <p className="mt-2 text-[14px] font-semibold text-[#f2eee7]">{r.title}</p>
+                )}
+                <p className="mt-1 text-[14px] leading-6 text-[#c8d0da]">&ldquo;{r.comment}&rdquo;</p>
                 <div className="mt-3 flex items-center justify-between">
+                  <span className="text-[12px] font-semibold text-[#8791a1]">{r.author}</span>
                   <div className="flex items-center gap-3">
-                    <span className="text-[12px] font-semibold text-[#8791a1]">{r.author}</span>
-                    <span className="text-[11px] text-[#5a6678]">|</span>
-                    <span className="text-[11px] text-[#5a6678]">{isEs ? 'Color:' : 'Color:'} {r.color}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] text-[#5a6678]">
-                    <span>{isEs ? 'Te ha ayudado' : 'Helpful'} ({r.helpful})</span>
+                    <button
+                      onClick={() => handleHelpful(r.id)}
+                      disabled={helpfulClicked.has(r.id)}
+                      className={`flex items-center gap-1.5 text-[11px] transition ${helpfulClicked.has(r.id) ? 'text-[#10BFD8]' : 'text-[#5a6678] hover:text-[#8791a1]'}`}
+                    >
+                      <ThumbsUp size={11} />
+                      {isEs ? 'Útil' : 'Helpful'} ({r.helpful})
+                    </button>
+                    <button
+                      onClick={() => handleReport(r.id)}
+                      disabled={reportClicked.has(r.id)}
+                      className={`flex items-center gap-1 text-[11px] transition ${reportClicked.has(r.id) ? 'text-red-400' : 'text-[#5a6678] hover:text-[#8791a1]'}`}
+                    >
+                      <Flag size={10} />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -509,7 +767,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <div className="truncate text-[14px] font-semibold text-[#f2eee7]">{displayName}</div>
               <div className="mt-1 flex items-center gap-2 text-[12px] text-[#8791a1]">
                 {product ? (
-                  <><Stars rating={product.rating} size={12} /><span>{product.rating} · {product.reviewCount.toLocaleString()} {isEs ? 'reseñas' : 'reviews'}</span></>
+                  <><Stars rating={displayRating} size={12} /><span>{displayRating} · {displayReviewCount.toLocaleString()} {isEs ? 'reseñas' : 'reviews'}</span></>
                 ) : (
                   <span>{legacyProduct.tag}</span>
                 )}
