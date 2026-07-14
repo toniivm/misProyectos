@@ -212,13 +212,24 @@ transition={{ delay: idx * 0.08, duration: 0.5 }}
 ## Sistema de Reseñas
 - **Storage:** localStorage key `noctip_reviews` (array de objetos Review)
 - **Por producto:** Cada reseña está vinculada a `productSlug`
-- **Solo compradores:** El formulario solo se muestra si `auth.user` existe
-- **Una por usuario:** `hasUserReviewedProduct()` verifica duplicados
-- **Campos:** rating (1-5), title (opcional), comment, author, verified, helpful, reported
+- **Login obligatorio:** El formulario solo se muestra si `auth.user` existe. Si no, mostrar botón "Inicia sesión para escribir una reseña"
+- **Compra obligatoria:** `hasUserPurchasedProduct(userEmail, productSlug)` verifica que el usuario tenga un pedido pagado que contenga ese producto exacto
+- **Una por usuario:** `hasUserReviewedProduct()` compara `userEmail` (no display name) para evitar duplicados
+- **Compra verificada:** El campo `verified` se establece según `hasUserPurchasedProduct()`, NUNCA se hardcodea
+- **Campos:** rating (1-5), title (opcional), comment, author, userEmail, verified, helpful, reported
 - **Sorting:** newest, highest, lowest, helpful
 - **Stats:** `getProductReviewStats()` calcula media, total y distribución
 - **NUNCA** reutilizar reseñas entre productos
 - **NUNCA** mostrar reseñas de otro producto
+- **NUNCA** mostrar datos falsos (rating inventado, contador de reseñas falso, testimonials ficticios)
+
+## Datos Falsos — PROHIBIDO en Producción
+- **NUNCA** mostrar "X clientes felices" sin datos reales del backend
+- **NUNCA** mostrar "X.X estrellas" hardcodeadas — solo si `reviewStats.total > 0`
+- **NUNCA** mostrar testimonials ficticios (nombres inventados, roles inventados)
+- **NUNCA** mostrar contadores de reseñas falsos — solo `reviewStats.total` real
+- **NUNCA** mostrar "Compra verificada" sin verificar la compra realmente
+- **MEJOR** no mostrar nada que mostrar datos inventados
 
 ## Reglas de Seguridad
 - **Admin panel:** La clave admin NO debe estar hardcodeada. Usar variable de entorno.
