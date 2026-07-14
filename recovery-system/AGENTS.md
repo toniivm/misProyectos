@@ -120,7 +120,7 @@ recovery-system/
 - **Metadata:** Root layout (estático) + locale layout (generateMetadata) + product/category pages (generateMetadata dinámico)
 - **Structured Data:** JSON-LD en locale layout (Organization, WebSite, OnlineStore, FAQPage, BreadcrumbList) + product pages (Product con aggregateRating)
 - **Sitemap:** Dinámico en `app/sitemap.ts`, genera URLs para todos los locales × productos × categorías
-- **Robots:** Permite todo excepto `/admin/`, `/checkout/`, `/api/`
+- **Robots:** Permite todo excepto `/admin/`, `/checkout/`, `/api/`, `/account/`, `/tracking/`
 - **Canonical URLs:** Configuradas en cada página con `alternates.languages` para hreflang
 - **OG Images:** Siempre rutas absolutas (`https://noctip.com/...`)
 - **Google Verification:** Configurar en `app/layout.tsx` → `verification.google`
@@ -194,6 +194,7 @@ transition={{ delay: idx * 0.08, duration: 0.5 }}
 | Catálogo productos | `lib/catalog.ts` |
 | Carrito (estado) | `context/CartContext.tsx` |
 | Auth (estado) | `context/AuthContext.tsx` |
+| Reseñas (localStorage) | `lib/reviews.ts` |
 | Home page | `components/ShopHomePage.tsx` |
 | Ficha producto | `components/ProductDetail.tsx` |
 | Checkout | `app/[locale]/checkout/page.tsx` |
@@ -203,6 +204,37 @@ transition={{ delay: idx * 0.08, duration: 0.5 }}
 | SEO (producto) | `app/[locale]/products/[slug]/page.tsx` |
 | Sitemap | `app/sitemap.ts` |
 | Robots | `app/robots.ts` |
+| Middleware (i18n) | `middleware.ts` |
 | Traducciones ES | `messages/es.json` |
 | Traducciones EN | `messages/en.json` |
 | Estilos globales | `app/globals.css` |
+
+## Sistema de Reseñas
+- **Storage:** localStorage key `noctip_reviews` (array de objetos Review)
+- **Por producto:** Cada reseña está vinculada a `productSlug`
+- **Solo compradores:** El formulario solo se muestra si `auth.user` existe
+- **Una por usuario:** `hasUserReviewedProduct()` verifica duplicados
+- **Campos:** rating (1-5), title (opcional), comment, author, verified, helpful, reported
+- **Sorting:** newest, highest, lowest, helpful
+- **Stats:** `getProductReviewStats()` calcula media, total y distribución
+- **NUNCA** reutilizar reseñas entre productos
+- **NUNCA** mostrar reseñas de otro producto
+
+## Reglas de Seguridad
+- **Admin panel:** La clave admin NO debe estar hardcodeada. Usar variable de entorno.
+- **Stripe errors:** NUNCA filtrar errores internos de Stripe al cliente. Mensajes genéricos.
+- **localStorage:** SIEMPRE envolver en try/catch (Safari private mode puede fallar)
+- **CSRF:** El endpoint de Stripe no necesita auth pero no debe exponer errores internos
+
+## Arquitectura de Descuentos (Flujo Completo)
+1. CartContext calcula `bundleDiscount` y `totalWithDiscount`
+2. CartSidebar muestra el precio descontado al usuario
+3. Checkout page envía `bundleId` y `discountPercent` al backend
+4. Stripe route aplica el descuento a cada `unit_amount` antes de crear la sesión
+5. **NUNCA** enviar el precio sin descuento a Stripe si hay bundle activo
+
+## Configuración de Build
+- **Static export:** `output: 'export'` en next.config.js (API routes no funcionan en producción)
+- **Backend externo:** Stripe checkout se procesa en `NEXT_PUBLIC_API_URL` (backend en Render)
+- **Middleware:** Compilado pero deshabilitado con static export. Locale routing funciona por URL directa.
+- **Trailing slash:** NO usar `trailingSlash: true` (inconsistente con metadata URLs)
