@@ -119,15 +119,15 @@ export default function CartSidebar() {
                         </p>
                         <div className="mt-1 flex items-center gap-2">
                           <button onClick={() => updateQty(item.slug, item.quantity - 1)}
-                            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
+                            className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
                             aria-label={isEs ? 'Reducir cantidad' : 'Decrease quantity'}>
-                            <Minus size={12} />
+                            <Minus size={14} />
                           </button>
-                          <span className="w-6 text-center text-[14px] font-semibold text-[#f2eee7]">{item.quantity}</span>
+                          <span className="w-6 text-center text-[15px] font-semibold text-[#f2eee7]">{item.quantity}</span>
                           <button onClick={() => updateQty(item.slug, item.quantity + 1)}
-                            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
+                            className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
                             aria-label={isEs ? 'Aumentar cantidad' : 'Increase quantity'}>
-                            <Plus size={12} />
+                            <Plus size={14} />
                           </button>
                         </div>
                       </div>
@@ -140,7 +140,7 @@ export default function CartSidebar() {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-white/[0.07] p-5 space-y-3">
+              <div className="border-t border-white/[0.07] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-3">
                 <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
                   <span>{t('subtotal')} ({totalItems} {totalItems === 1 ? t('item') : t('items')})</span>
                   <span className="font-semibold text-[#f2eee7]">€{subtotal.toFixed(2)}</span>

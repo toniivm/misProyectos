@@ -42,7 +42,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const locale = useLocale();
   const isEs = locale === 'es';
   const pathname = usePathname();
-  const { add, open: openCart } = useCart();
+  const { add, open: openCart, isOpen: isCartOpen } = useCart();
   const auth = useAuth();
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
@@ -153,7 +153,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[rgba(8,12,16,0.95)] backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-3 sm:px-6">
+        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-4 sm:px-6">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
             <Image
               src="/images/logo/logo.png"
@@ -189,7 +189,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
       <div className="mx-auto max-w-[1280px] px-3 pb-32 sm:px-6 lg:pb-20">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 py-4 text-[12px] text-[#6b7785]" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-2 py-4 text-[13px] text-[#6b7785]" aria-label="Breadcrumb">
           <Link href={`/${locale}`} className="hover:text-[#f2eee7] transition-colors">{isEs ? 'Inicio' : 'Home'}</Link>
           {category && (
             <><ChevronRight size={12} />
@@ -321,12 +321,10 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
 
             {/* Shipping badge */}
-            <div className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
-              <Truck size={16} className="text-emerald-400" />
-              <div>
-                <span className="text-[13px] font-semibold text-emerald-300">{isEs ? 'Envío gratis · Envia en 24h' : 'Free shipping · Ships in 24h'}</span>
-                <span className="ml-2 text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 6-9 días' : 'Arrives in 6-9 days'}</span>
-              </div>
+            <div className="flex flex-wrap items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
+              <span className="flex items-center gap-1.5"><Truck size={14} className="text-emerald-400" /><span className="text-[13px] font-semibold text-emerald-300">{isEs ? 'Envío gratis' : 'Free shipping'}</span></span>
+              <span className="text-[12px] text-[#8791a1]">· {isEs ? 'Envía en 24h' : 'Ships in 24h'}</span>
+              <span className="text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 6-9 días' : 'Arrives in 6-9 days'}</span>
             </div>
 
             {/* Features */}
@@ -414,8 +412,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
 
             {/* Payment methods */}
-            <div className="flex items-center justify-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
-              <span className="text-[11px] text-[#5a6678] mr-1">{isEs ? 'Aceptamos:' : 'We accept:'}</span>
+            <div className="flex flex-wrap items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
+              <span className="text-[12px] text-[#5a6678] mr-1">{isEs ? 'Aceptamos:' : 'We accept:'}</span>
               <span className="text-[11px] font-medium text-[#6b7280]">Visa</span>
               <span className="text-[11px] font-medium text-[#6b7280]">MC</span>
               <span className="text-[11px] font-medium text-[#6b7280]">Amex</span>
@@ -491,11 +489,11 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           {/* Sort + Write review */}
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-[12px] text-[#6b7785]">{isEs ? 'Ordenar por:' : 'Sort by:'}</span>
+              <span className="text-[13px] text-[#6b7785]">{isEs ? 'Ordenar por:' : 'Sort by:'}</span>
               <select
                 value={reviewSort}
                 onChange={(e) => setReviewSort(e.target.value)}
-                className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12px] text-[#c8d0da] focus:border-[#10BFD8] focus:outline-none"
+                className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[16px] text-[#c8d0da] focus:border-[#10BFD8] focus:outline-none min-h-[44px]"
               >
                 <option value="newest">{isEs ? 'Más recientes' : 'Newest'}</option>
                 <option value="highest">{isEs ? 'Mejor valoradas' : 'Highest rated'}</option>
@@ -775,7 +773,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       </div>
 
       {/* Mobile sticky add to cart */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.97)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl lg:hidden">
+      <div className={`fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.97)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl lg:hidden transition-transform duration-300 ${isCartOpen ? 'translate-y-full' : ''}`}>
         <div className="flex items-center gap-2.5">
           <div className="flex items-center gap-0 rounded-full border border-white/[0.12] bg-[#111720]">
             <button onClick={() => setQty((q) => Math.max(1, q - 1))}

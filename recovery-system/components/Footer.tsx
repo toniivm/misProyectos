@@ -85,12 +85,12 @@ export default function Footer() {
                       required
                       autoComplete="email"
                       inputMode="email"
-                      className="w-full rounded-xl border border-white/[0.08] bg-white/[0.03] py-2.5 pl-9 pr-3 text-[13px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.05]"
+                      className="w-full rounded-xl border border-white/[0.08] bg-white/[0.03] py-3 pl-9 pr-3 text-[16px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.05]"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8] text-[#080c12] transition-all hover:bg-[#0ea5c7]"
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8] text-[#080c12] transition-all hover:bg-[#0ea5c7] active:scale-95"
                     aria-label={isEs ? 'Suscribirse' : 'Subscribe'}
                   >
                     <ArrowRight size={16} />
@@ -102,17 +102,17 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex items-center gap-3">
               <a href="#" target="_blank" rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8]"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
                 aria-label="Facebook">
                 <Facebook size={15} />
               </a>
               <a href="#" target="_blank" rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8]"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
                 aria-label="Instagram">
                 <Instagram size={15} />
               </a>
               <a href="#" target="_blank" rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8]"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
                 aria-label="Twitter">
                 <Twitter size={15} />
               </a>

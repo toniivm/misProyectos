@@ -320,7 +320,7 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-14 left-0 right-0 z-40 border-b border-white/[0.06] bg-[rgba(8,12,16,0.98)] backdrop-blur-xl md:hidden overflow-hidden"
+            className="fixed top-16 left-0 right-0 z-40 border-b border-white/[0.06] bg-[rgba(8,12,16,0.98)] backdrop-blur-xl md:hidden overflow-hidden"
           >
             <nav className="mx-auto max-w-[1280px] px-4 py-4 space-y-1">
               {CATEGORIES.map((cat) => (
@@ -449,15 +449,15 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
           )}
         </div>
         <div className="flex flex-1 flex-col gap-2 p-4">
-          <h3 className="text-[14px] font-semibold leading-snug text-[#f2eee7] group-hover:text-[#10BFD8] transition-colors">{name}</h3>
-          <p className="line-clamp-2 text-[12px] leading-5 text-[#6b7785]">{desc}</p>
+          <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-[#10BFD8] transition-colors">{name}</h3>
+          <p className="line-clamp-2 text-[13px] leading-5 text-[#6b7785]">{desc}</p>
           <div className="mt-auto flex items-center justify-between pt-2">
             <div className="flex items-baseline gap-2">
               <span className="text-[17px] font-bold text-[#f2eee7]">€{product.price}</span>
               {savings > 0 && <span className="text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>}
             </div>
             <button onClick={handleAdd} aria-label={`${copy.add} ${name}`}
-              className={`flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[12px] font-semibold transition-all duration-200 min-h-[44px] ${
+              className={`flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 min-h-[44px] active:scale-95 ${
                 added ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-[#f2eee7] text-[#080c12] hover:bg-white hover:shadow-[0_4px_16px_rgba(242,238,231,0.15)]'
               }`}>
               {added ? (<><Check size={12} />{copy.added}</>) : (<><ShoppingCart size={12} />{copy.add}</>)}
@@ -476,7 +476,7 @@ export default function ShopHomePage() {
   const locale = useLocale()
   const isEs = locale === 'es'
   const copy = getCopy(locale)
-  const { open: openCart, totalItems } = useCart()
+  const { open: openCart, totalItems, isOpen: isCartOpen } = useCart()
   const rawPathname = usePathname() || '/'
   const switchHref = (() => {
     let p = rawPathname
@@ -520,7 +520,7 @@ export default function ShopHomePage() {
                     {copy.hero.secondary}
                   </a>
                 </div>
-                <div className="mt-6 flex items-center gap-4 text-[13px] text-[#5a6678]">
+                <div className="mt-6 flex flex-wrap items-center gap-3 text-[13px] text-[#5a6678]">
                   <span className="flex items-center gap-1.5"><Truck size={14} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
                   <span className="flex items-center gap-1.5"><RotateCcw size={14} className="text-[#10BFD8]" /> 30 {isEs ? 'noches' : 'nights'}</span>
                   <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro' : 'Secure'}</span>
@@ -546,13 +546,13 @@ export default function ShopHomePage() {
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
             <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.06]">
               {copy.trust.map((item) => (
-                <div key={item.label} className="flex items-center justify-center gap-3 py-5 px-2 sm:px-4">
+                <div key={item.label} className="flex items-center justify-center gap-3 py-5 px-3 sm:px-4">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
                     <item.icon size={16} className="text-[#10BFD8]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[12px] font-semibold text-[#f2eee7] truncate">{item.label}</div>
-                    <div className="text-[10px] text-[#5a6678] truncate">{item.sub}</div>
+                    <div className="text-[11px] text-[#5a6678] truncate">{item.sub}</div>
                   </div>
                 </div>
               ))}
@@ -710,7 +710,7 @@ export default function ShopHomePage() {
       </main>
 
       {/* ── Mobile sticky CTA ── */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.97)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl sm:hidden">
+      <div className={`fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.97)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl sm:hidden transition-transform duration-300 ${isCartOpen ? 'translate-y-full' : ''}`}>
         <div className="flex items-center gap-2.5">
           <button onClick={openCart}
             className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/[0.1] text-[#8791a1]"
