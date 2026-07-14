@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star, ThumbsUp, Flag, ChevronDown, Send, X } from 'lucide-react';
+import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star, ThumbsUp, Flag, ChevronDown, Send, X, CreditCard, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
@@ -63,7 +63,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const category = product ? CATEGORIES.find((c) => c.id === product.category) : null;
   const related = product ? getProductsByCategory(product.category).filter((p) => p.slug !== product.slug).slice(0, 3) : [];
 
-  // Reviews from localStorage
   const slug = legacyProduct.slug;
   const reviews = useMemo(() => sortReviews(getProductReviews(slug), reviewSort), [slug, reviewSort]);
   const reviewStats = useMemo(() => getProductReviewStats(slug), [slug]);
@@ -151,9 +150,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const isVideoActive = hasVideo && activeImg === videoIdx;
 
   return (
-    <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[rgba(8,12,16,0.95)] backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-3 sm:px-6">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
             <Image
@@ -180,7 +179,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <span>{isEs ? 'EN' : 'ES'}</span>
             </Link>
             <button onClick={handleAdd}
-              className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-[12px] font-semibold text-[#080c12] min-h-[44px]">
+              className="flex items-center gap-1.5 rounded-full bg-[#f2eee7] px-4 py-2 text-[12px] font-semibold text-[#080c12] min-h-[44px]">
               <ShoppingCart size={14} />
               <span className="hidden sm:inline">{isEs ? 'Añadir' : 'Add'}</span>
             </button>
@@ -243,7 +242,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               {allImages.map((src, idx) => (
                 <button key={idx} onClick={() => setActiveImg(idx)}
                   className={`overflow-hidden rounded-xl border-2 transition-all aspect-square shrink-0 w-[72px] sm:w-auto ${
-                    activeImg === idx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
+                    activeImg === idx ? 'border-[#10BFD8]/50' : 'border-white/10 opacity-50 hover:opacity-75'
                   }`}>
                   <img src={src} alt="" className="h-full w-full object-contain p-1" loading={idx === 0 ? 'eager' : 'lazy'} decoding="async"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
@@ -252,7 +251,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               {hasVideo && (
                 <button onClick={() => setActiveImg(videoIdx)}
                   className={`relative overflow-hidden rounded-xl border-2 transition-all aspect-square shrink-0 w-[72px] sm:w-auto ${
-                    activeImg === videoIdx ? 'border-[#f2eee7]/50' : 'border-white/10 opacity-50 hover:opacity-75'
+                    activeImg === videoIdx ? 'border-[#10BFD8]/50' : 'border-white/10 opacity-50 hover:opacity-75'
                   }`}>
                   {allImages[0] ? (
                     <img src={allImages[0]} alt="" className="h-full w-full object-contain p-1" loading="lazy" decoding="async" />
@@ -336,7 +335,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 {product.features.map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-[14px] leading-6 text-[#c8d0da]">
                     <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                      <Check size={11} className="text-[#a9b9cc]" />
+                      <Check size={11} className="text-[#10BFD8]" />
                     </span>
                     {f}
                   </li>
@@ -387,7 +386,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-semibold transition-all duration-200 min-h-[52px] ${
                   added
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                    : 'bg-white text-[#080c12] hover:bg-white/90 hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]'
+                    : 'bg-[#f2eee7] text-[#080c12] hover:bg-white hover:shadow-[0_4px_20px_rgba(242,238,231,0.15)]'
                 }`}>
                 {added ? (
                   <><Check size={16} /> {isEs ? 'Añadido' : 'Added to cart'}</>
@@ -402,7 +401,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               {[
                 { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
                 { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee', sub: isEs ? 'Devolución completa' : 'Full refund' },
-                { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL + Stripe' },
+                { icon: ShieldCheck, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL + Stripe' },
               ].map((item) => (
                 <div key={item.label} className="flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.025] p-3 text-center transition-all hover:border-[rgba(16,191,216,0.15)]">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
@@ -427,9 +426,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </motion.div>
         </div>
 
-        {/* ═══════════════════════════════════════════════════════
-            HOW IT WORKS — Product specific
-        ═══════════════════════════════════════════════════════ */}
+        {/* ═══ HOW IT WORKS — Product specific ═══ */}
         <section className="mt-12 sm:mt-16">
           <h2 className="text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7] mb-6">
             {isEs ? 'Cómo funciona' : 'How it works'}
@@ -451,9 +448,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
         </section>
 
-        {/* ═══════════════════════════════════════════════════════
-            REVIEWS — Dynamic, per-product
-        ═══════════════════════════════════════════════════════ */}
+        {/* ═══ REVIEWS ═══ */}
         <section className="mt-12 sm:mt-16">
           <div className="flex items-center gap-3 mb-6">
             <h2 className="text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7]">
@@ -466,7 +461,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
           {/* Review summary */}
           <div className="mb-6 grid gap-6 sm:grid-cols-[200px_1fr]">
-            {/* Average rating */}
             <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
               <div className="text-[40px] font-bold text-[#f2eee7]">{displayRating}</div>
               <Stars rating={displayRating} size={16} />
@@ -475,7 +469,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             </div>
 
-            {/* Distribution */}
             <div className="space-y-2">
               {[5, 4, 3, 2, 1].map((star) => {
                 const count = reviewStats.distribution[star] || 0;
@@ -556,74 +549,49 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                     </button>
                   </div>
 
-                  {/* Rating selector */}
                   <div className="mb-4">
                     <label className="mb-2 block text-[12px] font-medium text-[#8791a1]">
                       {isEs ? 'Puntuación' : 'Rating'}
                     </label>
                     <div className="flex gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          onClick={() => setReviewRating(star)}
-                          className="p-0.5 transition hover:scale-110"
-                        >
-                          <Star
-                            size={24}
-                            className={star <= reviewRating ? 'fill-amber-400 text-amber-400' : 'text-[#3a4458]'}
-                          />
+                        <button key={star} onClick={() => setReviewRating(star)} className="p-0.5 transition hover:scale-110">
+                          <Star size={24} className={star <= reviewRating ? 'fill-amber-400 text-amber-400' : 'text-[#3a4458]'} />
                         </button>
                       ))}
                     </div>
                   </div>
 
-                  {/* Author */}
                   <div className="mb-3">
                     <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                       {isEs ? 'Tu nombre' : 'Your name'}
                     </label>
-                    <input
-                      type="text"
-                      value={reviewAuthor}
-                      onChange={(e) => setReviewAuthor(e.target.value)}
+                    <input type="text" value={reviewAuthor} onChange={(e) => setReviewAuthor(e.target.value)}
                       placeholder={auth.user?.displayName || auth.user?.email?.split('@')[0] || ''}
-                      className="input-premium"
-                    />
+                      className="input-premium" />
                   </div>
 
-                  {/* Title */}
                   <div className="mb-3">
                     <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                       {isEs ? 'Título (opcional)' : 'Title (optional)'}
                     </label>
-                    <input
-                      type="text"
-                      value={reviewTitle}
-                      onChange={(e) => setReviewTitle(e.target.value)}
+                    <input type="text" value={reviewTitle} onChange={(e) => setReviewTitle(e.target.value)}
                       placeholder={isEs ? 'Resumen breve de tu experiencia' : 'Brief summary of your experience'}
-                      className="input-premium"
-                    />
+                      className="input-premium" />
                   </div>
 
-                  {/* Comment */}
                   <div className="mb-4">
                     <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                       {isEs ? 'Tu reseña' : 'Your review'} <span className="text-[#10BFD8]">*</span>
                     </label>
-                    <textarea
-                      value={reviewComment}
-                      onChange={(e) => setReviewComment(e.target.value)}
+                    <textarea value={reviewComment} onChange={(e) => setReviewComment(e.target.value)}
                       placeholder={isEs ? 'Cuéntanos tu experiencia con este producto...' : 'Tell us about your experience with this product...'}
-                      rows={4}
-                      className="input-premium resize-none"
-                    />
+                      rows={4} className="input-premium resize-none" />
                   </div>
 
-                  <button
-                    onClick={handleSubmitReview}
+                  <button onClick={handleSubmitReview}
                     disabled={!reviewComment.trim() || reviewSubmitting}
-                    className="flex w-full items-center justify-center gap-2 rounded-full bg-white py-3 text-[14px] font-semibold text-[#080c12] transition hover:bg-white/90 disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px]"
-                  >
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3 text-[14px] font-semibold text-[#080c12] transition hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px]">
                     {reviewSubmitting ? (
                       <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#080c12] border-t-transparent" />
                     ) : (
@@ -635,7 +603,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             )}
           </AnimatePresence>
 
-          {/* Review submitted message */}
           {reviewSubmitted && (
             <div className="mb-4 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] px-4 py-3 text-[13px] text-emerald-300">
               <Check size={14} className="mr-1.5 inline" />
@@ -643,7 +610,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
           )}
 
-          {/* Already reviewed message */}
           {auth.user && userHasReviewed && !reviewSubmitted && (
             <div className="mb-4 rounded-xl border border-white/[0.07] bg-white/[0.025] px-4 py-3 text-[13px] text-[#8791a1]">
               <Check size={14} className="mr-1.5 inline text-[#10BFD8]" />
@@ -682,19 +648,13 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 <div className="mt-3 flex items-center justify-between">
                   <span className="text-[12px] font-semibold text-[#8791a1]">{r.author}</span>
                   <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => handleHelpful(r.id)}
-                      disabled={helpfulClicked.has(r.id)}
-                      className={`flex items-center gap-1.5 text-[11px] transition ${helpfulClicked.has(r.id) ? 'text-[#10BFD8]' : 'text-[#5a6678] hover:text-[#8791a1]'}`}
-                    >
+                    <button onClick={() => handleHelpful(r.id)} disabled={helpfulClicked.has(r.id)}
+                      className={`flex items-center gap-1.5 text-[11px] transition ${helpfulClicked.has(r.id) ? 'text-[#10BFD8]' : 'text-[#5a6678] hover:text-[#8791a1]'}`}>
                       <ThumbsUp size={11} />
                       {isEs ? 'Útil' : 'Helpful'} ({r.helpful})
                     </button>
-                    <button
-                      onClick={() => handleReport(r.id)}
-                      disabled={reportClicked.has(r.id)}
-                      className={`flex items-center gap-1 text-[11px] transition ${reportClicked.has(r.id) ? 'text-red-400' : 'text-[#5a6678] hover:text-[#8791a1]'}`}
-                    >
+                    <button onClick={() => handleReport(r.id)} disabled={reportClicked.has(r.id)}
+                      className={`flex items-center gap-1 text-[11px] transition ${reportClicked.has(r.id) ? 'text-red-400' : 'text-[#5a6678] hover:text-[#8791a1]'}`}>
                       <Flag size={10} />
                     </button>
                   </div>
@@ -704,9 +664,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
         </section>
 
-        {/* ═══════════════════════════════════════════════════════
-            FAQ — Product specific
-        ═══════════════════════════════════════════════════════ */}
+        {/* ═══ FAQ ═══ */}
         <section className="mt-12 sm:mt-16">
           <h2 className="text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7] mb-2">
             {isEs ? 'Preguntas frecuentes' : 'Frequently asked questions'}
@@ -719,9 +677,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
         </section>
 
-        {/* ═══════════════════════════════════════════════════════
-            RELATED PRODUCTS
-        ═══════════════════════════════════════════════════════ */}
+        {/* ═══ RELATED PRODUCTS ═══ */}
         {related.length > 0 && (
           <div className="mt-12 sm:mt-16">
             <h2 className="mb-5 text-[18px] font-bold tracking-[-0.03em] text-[#f2eee7]">
@@ -808,7 +764,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               className={`inline-flex min-w-[200px] items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-semibold transition-all duration-200 min-h-[48px] ${
                 added
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                  : 'bg-white text-[#080c12] hover:bg-white/90 hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)]'
+                  : 'bg-[#f2eee7] text-[#080c12] hover:bg-white hover:shadow-[0_4px_20px_rgba(242,238,231,0.15)]'
               }`}>
               {added ? <><Check size={15} /> {isEs ? 'Añadido' : 'Added to cart'}</> : <><ShoppingCart size={15} /> {isEs ? 'Añadir' : 'Add to cart'}</>}
             </button>
@@ -834,7 +790,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
           <button onClick={handleAdd}
             className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-semibold transition min-h-[48px] ${
-              added ? 'bg-emerald-500/20 text-emerald-300' : 'bg-white text-[#080c12]'
+              added ? 'bg-emerald-500/20 text-emerald-300' : 'bg-[#f2eee7] text-[#080c12]'
             }`}>
             {added ? <><Check size={15} /> {isEs ? 'Añadido' : 'Added!'}</> : <><ShoppingCart size={15} /> {isEs ? 'Añadir' : 'Add'} — €{displayPrice * qty}</>}
           </button>

@@ -1,15 +1,24 @@
 'use client'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, CreditCard, Truck, RotateCcw } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Facebook, Instagram, Twitter } from 'lucide-react'
 
 export default function Footer() {
   const locale = useLocale()
   const isEs = locale === 'es'
-  const t = useTranslations('footer')
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email.trim() || !email.includes('@')) return
+    setSubscribed(true)
+    setEmail('')
+  }
 
   return (
     <footer className="relative border-t border-white/[0.06] bg-[#080c12]">
@@ -41,10 +50,10 @@ export default function Footer() {
               <Image
                 src="/images/logo/logo.png"
                 alt="Noctip"
-                width={52}
-                height={52}
+                width={48}
+                height={48}
                 className="object-contain"
-                sizes="52px"
+                sizes="48px"
               />
               <span className="text-[14px] font-bold uppercase tracking-[0.12em] text-[#f2eee7]">Noctip</span>
             </div>
@@ -53,6 +62,61 @@ export default function Footer() {
                 ? 'Herramientas de sueño y recuperación que funcionan. Anti-ronquidos, corrección postural y masaje cervical — diseñados para gente que no puede dormir mal.'
                 : 'Sleep and recovery tools that work. Anti-snoring, posture correction, and cervical massage — designed for people who can\'t afford to sleep badly.'}
             </p>
+
+            {/* Newsletter */}
+            <div className="max-w-xs">
+              <div className="mb-2 text-[12px] font-semibold text-[#f2eee7]">
+                {isEs ? 'Suscríbete y obtén 10% de descuento' : 'Subscribe and get 10% off'}
+              </div>
+              {subscribed ? (
+                <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-[13px] text-emerald-300">
+                  <Check size={14} />
+                  {isEs ? '¡Gracias! Revisa tu email.' : 'Thanks! Check your email.'}
+                </div>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#4a5568]" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={isEs ? 'Tu email' : 'Your email'}
+                      required
+                      autoComplete="email"
+                      inputMode="email"
+                      className="w-full rounded-xl border border-white/[0.08] bg-white/[0.03] py-2.5 pl-9 pr-3 text-[13px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.05]"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8] text-[#080c12] transition-all hover:bg-[#0ea5c7]"
+                    aria-label={isEs ? 'Suscribirse' : 'Subscribe'}
+                  >
+                    <ArrowRight size={16} />
+                  </button>
+                </form>
+              )}
+            </div>
+
+            {/* Social links */}
+            <div className="flex items-center gap-3">
+              <a href="#" target="_blank" rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8]"
+                aria-label="Facebook">
+                <Facebook size={15} />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8]"
+                aria-label="Instagram">
+                <Instagram size={15} />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8]"
+                aria-label="Twitter">
+                <Twitter size={15} />
+              </a>
+            </div>
           </div>
 
           {/* Categories */}
@@ -122,8 +186,20 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Payment methods */}
+        <div className="mt-10 flex items-center justify-center gap-3 sm:justify-start">
+          <span className="text-[11px] text-[#3d4a5c]">{isEs ? 'Métodos de pago:' : 'Payment methods:'}</span>
+          <div className="flex items-center gap-2">
+            {['Visa', 'MC', 'Amex', 'PayPal', 'Apple Pay', 'Google Pay'].map((method) => (
+              <span key={method} className="rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-1 text-[10px] font-medium text-[#5a6678]">
+                {method}
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/[0.06] pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-4 border-t border-white/[0.06] pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[11px] text-[#3d4a5c]">
             &copy; {new Date().getFullYear()} Noctip&trade;. {isEs ? 'Todos los derechos reservados.' : 'All rights reserved.'}
           </p>
