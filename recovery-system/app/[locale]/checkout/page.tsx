@@ -406,9 +406,9 @@ export default function CheckoutPage() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-3 sm:px-5 py-6 sm:py-10">
+      <div className="mx-auto max-w-6xl px-3 sm:px-5 py-4 sm:py-8 lg:py-10">
         {/* Progress indicator */}
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center justify-center gap-0">
             {[
               { num: '1', label: isEs ? 'Contacto' : 'Contact' },
@@ -416,14 +416,14 @@ export default function CheckoutPage() {
               { num: '3', label: isEs ? 'Pago' : 'Payment' },
             ].map((step, idx) => (
               <div key={step.num} className="flex items-center">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#10BFD8]/15 text-[12px] font-bold text-[#10BFD8]">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-full bg-[#10BFD8]/15 text-[11px] sm:text-[12px] font-bold text-[#10BFD8]">
                     {step.num}
                   </div>
-                  <span className="text-[12px] font-medium text-[#8791a1] hidden sm:inline">{step.label}</span>
+                  <span className="text-[11px] sm:text-[12px] font-medium text-[#8791a1] hidden sm:inline">{step.label}</span>
                 </div>
                 {idx < 2 && (
-                  <div className="w-8 sm:w-12 h-px bg-white/10 mx-2 sm:mx-3" />
+                  <div className="w-6 sm:w-12 h-px bg-white/10 mx-1.5 sm:mx-3" />
                 )}
               </div>
             ))}
@@ -437,16 +437,16 @@ export default function CheckoutPage() {
         </Link>
 
         <div className="grid gap-6 lg:gap-10 lg:grid-cols-[1fr_380px]">
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-5">
             {/* ── Contact ── */}
-            <section className="checkout-section">
-              <div className="mb-5 flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[13px] font-bold text-[#10BFD8]">1</div>
+            <section className="checkout-section !p-4 sm:!p-6">
+              <div className="mb-4 sm:mb-5 flex items-center gap-2.5 sm:gap-3">
+                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[12px] sm:text-[13px] font-bold text-[#10BFD8]">1</div>
                 <h2 className="checkout-section-title">{t('contact')}</h2>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                  <label className="mb-1 sm:mb-1.5 block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     {t('email')} <span className="text-[#10BFD8]">*</span>
                   </label>
                   <input
@@ -490,14 +490,14 @@ export default function CheckoutPage() {
             </section>
 
             {/* ── Shipping ── */}
-            <section className="checkout-section">
-              <div className="mb-5 flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[13px] font-bold text-[#10BFD8]">2</div>
+            <section className="checkout-section !p-4 sm:!p-6">
+              <div className="mb-4 sm:mb-5 flex items-center gap-2.5 sm:gap-3">
+                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[12px] sm:text-[13px] font-bold text-[#10BFD8]">2</div>
                 <h2 className="checkout-section-title">{t('shippingAddress')}</h2>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                  <label className="mb-1 sm:mb-1.5 block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     {t('firstName')} <span className="text-[#10BFD8]">*</span>
                   </label>
                   <input type="text" required value={shipping.firstName}
@@ -671,9 +671,9 @@ export default function CheckoutPage() {
             {/* ── Promo codes disabled ── */}
 
             {/* ── Payment ── */}
-            <section className="checkout-section">
-              <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[13px] font-bold text-[#10BFD8]">3</div>
+            <section className="checkout-section !p-4 sm:!p-6">
+              <div className="mb-3 sm:mb-4 flex items-center gap-2.5 sm:gap-3">
+                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[12px] sm:text-[13px] font-bold text-[#10BFD8]">3</div>
                 <h2 className="checkout-section-title">{t('paymentMethod')}</h2>
               </div>
 
@@ -792,8 +792,8 @@ export default function CheckoutPage() {
           </form>
 
           {/* ── Order Summary ── */}
-          <aside className="h-fit rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#0d1219] to-[#0b1018] p-4 sm:p-6 lg:sticky lg:top-24 order-first lg:order-last">
-            <h2 className="mb-4 text-[16px] font-semibold text-[#f2eee7]">{t('orderSummary')}</h2>
+          <aside className="h-fit rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#0d1219] to-[#0b1018] p-3.5 sm:p-5 lg:p-6 lg:sticky lg:top-24 order-first lg:order-last">
+            <h2 className="mb-3 sm:mb-4 text-[14px] sm:text-[16px] font-semibold text-[#f2eee7]">{t('orderSummary')}</h2>
 
             {!hasHydrated ? (
               <div className="py-8 text-center text-[13px] text-[#6b7280]">{t('loadingCart')}</div>

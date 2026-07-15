@@ -292,68 +292,68 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
         </div>
       </header>
 
-      <div className="mx-auto max-w-[1280px] px-4 pb-28 sm:px-6">
+      <div className="mx-auto max-w-[1280px] px-4 pb-24 sm:px-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 py-4 text-[12px] text-[#6b7785]" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-[11px] sm:text-[12px] text-[#6b7785]" aria-label="Breadcrumb">
           <Link href={`/${locale}`} className="hover:text-[#f2eee7] transition-colors">{isEs ? 'Inicio' : 'Home'}</Link>
           <ChevronRight size={12} />
           <span className="text-[#f2eee7]">{isAll ? (isEs ? 'Todos los productos' : 'All Products') : getLocalizedCategoryName(category!, locale)}</span>
         </nav>
 
         {/* Editorial hero */}
-        <section className="mb-12 overflow-hidden rounded-[30px] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(13,18,25,0.98),rgba(10,15,22,0.94))] shadow-[0_24px_80px_rgba(0,0,0,0.3)]">
+        <section className="mb-8 sm:mb-12 overflow-hidden rounded-[20px] sm:rounded-[30px] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(13,18,25,0.98),rgba(10,15,22,0.94))] shadow-[0_16px_60px_rgba(0,0,0,0.3)]">
           <div className="grid gap-0 lg:grid-cols-[1fr_1fr]">
-            <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3.5 py-1.5">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">
+            <div className="flex flex-col justify-center p-5 sm:p-8 lg:p-12">
+              <div className="mb-3.5 sm:mb-5 inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/[0.1] bg-white/[0.04] px-3 sm:px-3.5 py-1 sm:py-1.5">
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa7b9]">
                   {isEs ? editorial.eyebrow.es : editorial.eyebrow.en}
                 </span>
               </div>
 
-              <h1 className="text-[clamp(2rem,5vw,3.7rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[#f6f2eb]">
+              <h1 className="text-[clamp(1.6rem,5vw,3rem)] sm:text-[clamp(2rem,5vw,3.7rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[#f6f2eb]">
                 {eTitle}
               </h1>
 
-              <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#8791a1]">
+              <p className="mt-3.5 sm:mt-5 max-w-xl text-[14px] sm:text-[15px] leading-[1.6] sm:leading-8 text-[#8791a1]">
                 {category ? `${isEs ? category.description_es ?? category.description : category.description_en ?? category.description} ${eCopy}` : eCopy}
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-4 sm:mt-6 flex flex-wrap gap-1.5 sm:gap-2">
                 {eNeeds.map((need) => (
                   <span key={need}
-                    className="inline-flex items-center rounded-full border border-white/[0.09] bg-white/[0.03] px-3.5 py-2 text-[12px] font-medium text-[#b8c4d0]">
+                    className="inline-flex items-center rounded-full border border-white/[0.09] bg-white/[0.03] px-3 sm:px-3.5 py-1.5 sm:py-2 text-[11px] sm:text-[12px] font-medium text-[#b8c4d0]">
                     {need}
                   </span>
                 ))}
               </div>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              <div className="mt-5 sm:mt-8 grid gap-2.5 sm:gap-3 grid-cols-3">
                 {[
-                  { value: `${raw.length}`, label: isEs ? 'productos en esta colección' : 'products in this collection' },
+                  { value: `${raw.length}`, label: isEs ? 'productos' : 'products' },
                   { value: `From €${priceFloor}`, label: isEs ? 'precio inicial' : 'entry price' },
-                  { value: '30 nights', label: isEs ? 'devolución sin riesgo' : 'risk-free returns' },
+                  { value: '30 nights', label: isEs ? 'sin riesgo' : 'risk-free' },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] px-4 py-3">
-                    <div className="text-[15px] font-bold text-[#f2eee7]">{item.value}</div>
-                    <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[#5a6678]">{item.label}</div>
+                  <div key={item.label} className="rounded-xl sm:rounded-2xl border border-white/[0.07] bg-white/[0.025] px-2.5 sm:px-4 py-2.5 sm:py-3">
+                    <div className="text-[13px] sm:text-[15px] font-bold text-[#f2eee7]">{item.value}</div>
+                    <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[11px] uppercase tracking-[0.14em] text-[#5a6678]">{item.label}</div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-7 flex flex-wrap items-center gap-3">
+              <div className="mt-5 sm:mt-7 flex flex-wrap items-center gap-2.5 sm:gap-3">
                 <Link href={`/${locale}/products/${featuredProduct.slug}`}
-                  className="btn-secondary">
-                  {isEs ? 'Ver producto destacado' : 'View featured pick'}
-                  <ChevronRight size={14} />
+                  className="btn-secondary !px-5 sm:!px-7 !py-2.5 sm:!py-3 !text-[12px] sm:!text-[14px]">
+                  {isEs ? 'Ver destacado' : 'View featured'}
+                  <ChevronRight size={13} />
                 </Link>
                 <a href="#products"
-                  className="btn-secondary">
+                  className="btn-secondary !px-5 sm:!px-7 !py-2.5 sm:!py-3 !text-[12px] sm:!text-[14px]">
                   {isEs ? 'Ver todos' : 'Browse all'}
                 </a>
               </div>
             </div>
 
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[30px] m-3 lg:m-4">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] sm:rounded-[30px] m-2.5 sm:m-3 lg:m-4">
               {featuredProduct.images && featuredProduct.images.length > 0 ? (
                 <img src={featuredProduct.images[1] ?? featuredProduct.images[0]}
                   alt={getLocalizedProductName(featuredProduct, locale)}
@@ -378,17 +378,17 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
         </section>
 
         {/* Trust strip */}
-        <section className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <section className="mb-6 sm:mb-10 grid grid-cols-1 gap-2.5 sm:gap-3 sm:grid-cols-3">
           {[
             { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On every order' },
             { icon: RotateCcw, label: isEs ? '30 noches de prueba' : '30-night trial', sub: isEs ? 'Compra sin riesgo' : 'Buy with less risk' },
             { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: isEs ? 'Stripe cifrado' : 'Stripe encrypted' },
           ].map((item) => (
-            <div key={item.label} className="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.025] px-4 py-4">
-              <item.icon size={17} className="shrink-0 text-[#8ea7c7]" />
+            <div key={item.label} className="flex items-center gap-2.5 sm:gap-3 rounded-xl sm:rounded-2xl border border-white/[0.07] bg-white/[0.025] px-3.5 sm:px-4 py-3 sm:py-4">
+              <item.icon size={15} className="shrink-0 text-[#8ea7c7]" />
               <div>
-                <div className="text-[13px] font-semibold text-[#f2eee7]">{item.label}</div>
-                <div className="text-[11px] text-[#6b7785]">{item.sub}</div>
+                <div className="text-[12px] sm:text-[13px] font-semibold text-[#f2eee7]">{item.label}</div>
+                <div className="text-[10px] sm:text-[11px] text-[#6b7785]">{item.sub}</div>
               </div>
             </div>
           ))}
@@ -450,10 +450,10 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
           {/* Product grid */}
           <div className="flex-1">
             {/* Sort bar */}
-            <div className="mb-5 flex items-center justify-between">
-              <span className="text-[13px] text-[#6b7785]">{products.length} {isEs ? 'resultados' : 'results'}</span>
+            <div className="mb-3.5 sm:mb-5 flex items-center justify-between">
+              <span className="text-[12px] sm:text-[13px] text-[#6b7785]">{products.length} {isEs ? 'resultados' : 'results'}</span>
               <select value={sort} onChange={(e) => setSort(e.target.value as SortOption)}
-                className="rounded-full border border-white/[0.1] bg-[#0d1219] px-4 py-2 text-[12px] text-[#f2eee7] outline-none">
+                className="rounded-full border border-white/[0.1] bg-[#0d1219] px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-[12px] text-[#f2eee7] outline-none min-h-[36px]">
                 {Object.entries(SORT_LABELS).map(([key, val]) => (
                   <option key={key} value={key}>{isEs ? val.es : val.en}</option>
                 ))}

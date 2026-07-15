@@ -47,7 +47,7 @@ const COPY = {
       subtitle: 'Premium sleep and recovery technology designed for people who can\'t afford to sleep badly.',
       cta: 'Shop now',
       secondary: 'View all products',
-      price: 'From €11.99',
+      price: 'From €13.99',
       socialProof: '30-day money-back guarantee',
     },
     trust: [
@@ -129,7 +129,7 @@ const COPY = {
       subtitle: 'Tecnología premium de sueño y recuperación, diseñada para personas que no pueden permitirse dormir mal.',
       cta: 'Comprar ahora',
       secondary: 'Ver todos los productos',
-      price: 'Desde €11.99',
+      price: 'Desde €13.99',
       socialProof: 'Garantía de devolución de 30 noches',
     },
     trust: [
@@ -240,6 +240,7 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
   const { totalItems, open: openCart } = useCart()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const isEs = locale === 'es'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -247,13 +248,21 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const prev = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      return () => { document.body.style.overflow = prev || '' }
+    }
+  }, [mobileMenuOpen])
+
   return (
     <>
       <header className={`sticky top-0 z-50 border-b border-white/[0.06] backdrop-blur-xl transition-all duration-300 ${
         scrolled ? 'bg-[rgba(8,12,16,0.95)] h-14' : 'bg-[rgba(8,12,16,0.88)] h-16'
       }`}>
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-          <div className="flex h-full items-center gap-6">
+          <div className="flex h-full items-center gap-4 sm:gap-6">
             {/* Logo */}
             <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5">
               <Image src="/images/logo/logo.png" alt="Noctip" width={32} height={32} priority className="object-contain" sizes="32px" />
@@ -264,12 +273,12 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
             <nav className="hidden md:flex items-center gap-1 ml-4">
               {CATEGORIES.map((cat) => (
                 <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-all duration-200">
+                  className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200">
                   {getLocalizedCategoryName(cat, locale)}
                 </Link>
               ))}
               <Link href={`/${locale}/about`}
-                className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-all duration-200">
+                className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200">
                 {copy.nav.about}
               </Link>
             </nav>
@@ -277,14 +286,14 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
             <div className="flex-1" />
 
             {/* Desktop Actions */}
-            <div className="flex shrink-0 items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
               <Link href={`/${locale}/tracking`}
-                className="hidden sm:flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-all duration-200">
+                className="hidden sm:flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200">
                 {copy.nav.track}
               </Link>
 
               <Link href={switchHref}
-                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-all duration-200"
+                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200 min-h-[44px]"
                 aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
                 <span>{locale === 'es' ? 'EN' : 'ES'}</span>
               </Link>
@@ -293,7 +302,7 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
 
               <button onClick={openCart}
                 aria-label={`${copy.cart} - ${totalItems} items`}
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7] hover:bg-white/[0.04]">
+                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7] hover:bg-white/[0.04] active:scale-95">
                 <ShoppingCart size={18} />
                 {totalItems > 0 && (
                   <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#10BFD8] px-1 text-[10px] font-bold text-[#080c12]">
@@ -303,7 +312,7 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
               </button>
 
               <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex md:hidden h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7]"
+                className="flex md:hidden h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7] active:scale-95"
                 aria-label="Menu">
                 {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
@@ -312,39 +321,90 @@ function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; 
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — Premium fullscreen overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 border-b border-white/[0.06] bg-[rgba(8,12,16,0.98)] backdrop-blur-xl md:hidden overflow-hidden"
-          >
-            <nav className="mx-auto max-w-[1280px] px-4 py-4 space-y-1">
-              {CATEGORIES.map((cat) => (
-                <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] transition-all min-h-[48px]">
-                  {getLocalizedCategoryName(cat, locale)}
-                  <ChevronRight size={16} className="text-[#5a6678]" />
+          <>
+            <motion.div
+              key="menu-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-md md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <motion.div
+              key="menu-panel"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed top-0 right-0 bottom-0 z-[70] w-full max-w-[320px] flex flex-col bg-[#0a0e14] border-l border-white/[0.06] shadow-[-20px_0_60px_rgba(0,0,0,0.5)] md:hidden"
+            >
+              {/* Menu Header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
+                <div className="flex items-center gap-2.5">
+                  <Image src="/images/logo/logo.png" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
+                  <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-[#f2eee7]">Noctip</span>
+                </div>
+                <button onClick={() => setMobileMenuOpen(false)}
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors hover:bg-white/[0.06] hover:text-[#f2eee7] active:scale-95"
+                  aria-label={isEs ? 'Cerrar menú' : 'Close menu'}>
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Menu Links */}
+              <nav className="flex-1 overflow-y-auto px-4 py-5">
+                <div className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#5a6678]">
+                  {copy.nav.shop}
+                </div>
+                {CATEGORIES.map((cat, idx) => (
+                  <motion.div key={cat.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + idx * 0.05 }}>
+                    <Link href={`/${locale}/shop/${cat.slug}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
+                      {getLocalizedCategoryName(cat, locale)}
+                      <ChevronRight size={16} className="text-[#5a6678]" />
+                    </Link>
+                  </motion.div>
+                ))}
+
+                <div className="my-4 mx-3 h-px bg-white/[0.06]" />
+
+                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                  <Link href={`/${locale}/about`} onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
+                    {copy.nav.about}
+                  </Link>
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}>
+                  <Link href={`/${locale}/tracking`} onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
+                    {copy.nav.track}
+                  </Link>
+                </motion.div>
+              </nav>
+
+              {/* Menu Footer */}
+              <div className="border-t border-white/[0.06] px-4 py-4 space-y-2">
+                <Link href={switchHref} onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between rounded-xl px-4 py-3 text-[14px] font-medium text-[#8791a1] hover:bg-white/[0.04] hover:text-[#f2eee7] active:bg-white/[0.08] transition-all min-h-[48px]">
+                  <span>{isEs ? 'Idioma' : 'Language'}</span>
+                  <span className="text-[13px] font-semibold text-[#10BFD8]">{locale === 'es' ? 'ES → EN' : 'EN → ES'}</span>
                 </Link>
-              ))}
-              <Link href={`/${locale}/about`} onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] transition-all min-h-[48px]">
-                {copy.nav.about}
-              </Link>
-              <Link href={`/${locale}/tracking`} onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] transition-all min-h-[48px]">
-                {copy.nav.track}
-              </Link>
-              <Link href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center rounded-xl bg-[#f2eee7] px-4 py-3.5 text-[14px] font-semibold text-[#080c12] mt-2 min-h-[48px]">
-                {copy.hero.secondary}
-              </Link>
-            </nav>
-          </motion.div>
+                <Link href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center rounded-full bg-[#f2eee7] px-4 py-3.5 text-[14px] font-semibold text-[#080c12] min-h-[48px] active:scale-[0.98] transition-transform">
+                  {copy.hero.secondary}
+                </Link>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
@@ -368,7 +428,7 @@ function UserMenu({ locale }: { locale: string }) {
   if (!auth.user) {
     return (
       <button onClick={() => auth.openModal()}
-        className="flex h-10 items-center gap-2 rounded-full border border-white/10 px-3 text-[#8791a1] transition hover:border-white/20 hover:text-[#f2eee7] min-h-[44px]">
+        className="flex h-10 items-center gap-2 rounded-full border border-white/10 px-3 text-[#8791a1] transition hover:border-white/20 hover:text-[#f2eee7] active:scale-95 min-h-[44px]">
         <User size={14} />
         <span className="hidden sm:inline text-[12px] font-medium">{locale === 'es' ? 'Entrar' : 'Sign in'}</span>
       </button>
@@ -378,7 +438,7 @@ function UserMenu({ locale }: { locale: string }) {
   return (
     <div ref={ref} className="relative">
       <button onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-[#8791a1] transition hover:text-[#f2eee7] min-h-[44px]">
+        className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-[#8791a1] transition hover:text-[#f2eee7] active:scale-95 min-h-[44px]">
         <User size={14} />
         <span className="max-w-[80px] truncate text-[12px] font-medium">{auth.user.displayName || auth.user.email?.split('@')[0] || 'Account'}</span>
       </button>
@@ -388,12 +448,12 @@ function UserMenu({ locale }: { locale: string }) {
             transition={{ duration: 0.12 }}
             className="absolute right-0 top-full z-50 mt-2 w-52 overflow-hidden rounded-xl border border-white/[0.08] bg-[#0d1219] shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
             <Link href={`/${locale}/account/orders`} onClick={() => setOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-[13px] text-[#8791a1] transition hover:bg-white/[0.04] hover:text-[#f2eee7] min-h-[44px]">
+              className="flex items-center gap-3 px-4 py-3 text-[13px] text-[#8791a1] transition hover:bg-white/[0.04] hover:text-[#f2eee7] active:bg-white/[0.08] min-h-[44px]">
               <PackageCheck size={14} className="text-[#5a6678]" />
               {locale === 'es' ? 'Mis pedidos' : 'My orders'}
             </Link>
             <button onClick={() => { setOpen(false); auth.logout() }}
-              className="flex w-full items-center gap-3 px-4 py-3 text-[13px] text-[#8791a1] transition hover:bg-white/[0.04] hover:text-[#f2eee7] border-t border-white/[0.06] min-h-[44px]">
+              className="flex w-full items-center gap-3 px-4 py-3 text-[13px] text-[#8791a1] transition hover:bg-white/[0.04] hover:text-[#f2eee7] active:bg-white/[0.08] border-t border-white/[0.06] min-h-[44px]">
               <LogOut size={14} className="text-[#5a6678]" />
               {locale === 'es' ? 'Salir' : 'Sign out'}
             </button>
@@ -436,31 +496,31 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         <div className="relative flex aspect-square items-center justify-center overflow-hidden" style={{ background: product.color }}>
           <ProductImage slug={product.slug as any} color={product.color} icon={product.icon} images={product.images} alt={name} className="h-full w-full transition-transform duration-700 group-hover:scale-[1.03]" />
           {savings > 0 && (
-            <div className="absolute top-3 right-3 z-10">
-              <span className="rounded-full bg-[#10BFD8]/20 backdrop-blur-md border border-[#10BFD8]/30 px-2.5 py-1 text-[10px] font-bold text-[#10BFD8] uppercase tracking-wide">
+            <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10">
+              <span className="rounded-full bg-[#10BFD8]/20 backdrop-blur-md border border-[#10BFD8]/30 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-bold text-[#10BFD8] uppercase tracking-wide">
                 -{savings}%
               </span>
             </div>
           )}
           {product.badge && (
-            <div className="absolute top-3 left-3 z-10">
+            <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10">
               <Badge type={product.badge} locale={locale} />
             </div>
           )}
         </div>
-        <div className="flex flex-1 flex-col gap-2 p-4">
-          <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-[#10BFD8] transition-colors">{name}</h3>
-          <p className="line-clamp-2 text-[13px] leading-5 text-[#6b7785]">{desc}</p>
-          <div className="mt-auto flex items-center justify-between pt-2">
-            <div className="flex items-baseline gap-2">
-              <span className="text-[17px] font-bold text-[#f2eee7]">€{product.price}</span>
-              {savings > 0 && <span className="text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>}
+        <div className="flex flex-1 flex-col gap-1.5 sm:gap-2 p-3 sm:p-4">
+          <h3 className="text-[13px] sm:text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-[#10BFD8] transition-colors line-clamp-2">{name}</h3>
+          <p className="line-clamp-2 text-[11px] sm:text-[13px] leading-4 sm:leading-5 text-[#6b7785]">{desc}</p>
+          <div className="mt-auto flex items-center justify-between gap-2 pt-1.5 sm:pt-2">
+            <div className="flex items-baseline gap-1.5 sm:gap-2">
+              <span className="text-[15px] sm:text-[17px] font-bold text-[#f2eee7]">€{product.price}</span>
+              {savings > 0 && <span className="text-[10px] sm:text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>}
             </div>
             <button onClick={handleAdd} aria-label={`${copy.add} ${name}`}
-              className={`flex items-center gap-1.5 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-all duration-200 min-h-[44px] active:scale-95 ${
+              className={`flex items-center gap-1 sm:gap-1.5 rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-[11px] sm:text-[13px] font-semibold transition-all duration-200 min-h-[36px] sm:min-h-[44px] active:scale-95 ${
                 added ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-[#f2eee7] text-[#080c12] hover:bg-white hover:shadow-[0_4px_16px_rgba(242,238,231,0.15)]'
               }`}>
-              {added ? (<><Check size={12} />{copy.added}</>) : (<><ShoppingCart size={12} />{copy.add}</>)}
+              {added ? (<><Check size={11} />{copy.added}</>) : (<><ShoppingCart size={11} /><span className="hidden sm:inline">{copy.add}</span></>)}
             </button>
           </div>
         </div>
@@ -499,34 +559,35 @@ export default function ShopHomePage() {
         {/* ═══ HERO ═══ */}
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(16,191,216,0.08),transparent)]" />
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-16 sm:py-24 lg:py-32">
-            <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-12 sm:py-20 lg:py-28">
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-16">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-5">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4 sm:mb-5">
                   <Sparkles size={12} />
                   {copy.hero.badge}
                 </span>
-                <h1 className="text-[clamp(2.2rem,6vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f2eb]">
+                <h1 className="text-[clamp(2rem,7vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f2eb]">
                   {copy.hero.title1}<br />{copy.hero.title2}
                 </h1>
-                <p className="mt-5 max-w-md text-[16px] leading-[1.7] text-[#8791a1]">{copy.hero.subtitle}</p>
-                <div className="mt-6 flex flex-wrap items-center gap-3">
+                <p className="mt-4 sm:mt-5 max-w-md text-[15px] sm:text-[16px] leading-[1.65] sm:leading-[1.7] text-[#8791a1]">{copy.hero.subtitle}</p>
+                <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <Link href={`/${locale}/products/${flagship.slug}`}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(242,238,231,0.15)] min-h-[52px]">
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-7 sm:px-8 py-3.5 sm:py-4 text-[14px] sm:text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(242,238,231,0.15)] min-h-[48px] sm:min-h-[52px]">
                     {copy.hero.cta} <ArrowRight size={16} />
                   </Link>
                   <a href="#products"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 px-6 py-4 text-[14px] font-medium text-[#8791a1] transition-all duration-300 hover:border-white/25 hover:text-[#f2eee7] min-h-[52px]">
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-6 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-medium text-[#8791a1] transition-all duration-300 hover:border-white/25 hover:text-[#f2eee7] min-h-[48px] sm:min-h-[52px]">
                     {copy.hero.secondary}
                   </a>
                 </div>
-                <div className="mt-6 flex flex-wrap items-center gap-3 text-[13px] text-[#5a6678]">
+                <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-3 text-[12px] sm:text-[13px] text-[#5a6678]">
                   <span className="flex items-center gap-1.5"><Truck size={14} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
                   <span className="flex items-center gap-1.5"><RotateCcw size={14} className="text-[#10BFD8]" /> 30 {isEs ? 'noches' : 'nights'}</span>
                   <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro' : 'Secure'}</span>
                 </div>
               </motion.div>
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
+              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+                className="hidden sm:block">
                 <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
                   <div className="relative rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0d1219] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
                     <div className="relative aspect-[4/5] overflow-hidden">
@@ -546,13 +607,13 @@ export default function ShopHomePage() {
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
             <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.06]">
               {copy.trust.map((item) => (
-                <div key={item.label} className="flex items-center justify-center gap-3 py-5 px-3 sm:px-4">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
-                    <item.icon size={16} className="text-[#10BFD8]" />
+                <div key={item.label} className="flex items-center justify-center gap-2.5 sm:gap-3 py-3.5 sm:py-5 px-2 sm:px-4">
+                  <div className="flex h-8 sm:h-9 w-8 sm:w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
+                    <item.icon size={14} className="text-[#10BFD8]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[12px] font-semibold text-[#f2eee7] truncate">{item.label}</div>
-                    <div className="text-[11px] text-[#5a6678] truncate">{item.sub}</div>
+                    <div className="text-[11px] sm:text-[12px] font-semibold text-[#f2eee7] truncate">{item.label}</div>
+                    <div className="text-[10px] sm:text-[11px] text-[#5a6678] truncate">{item.sub}</div>
                   </div>
                 </div>
               ))}
@@ -561,13 +622,13 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ PRODUCTS ═══ */}
-        <section id="products" className="py-16 sm:py-24">
+        <section id="products" className="py-12 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-10 sm:mb-14">
-              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.products.heading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.products.sub}</p>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.products.heading}</h2>
+              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.products.sub}</p>
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
               {CATALOG.map((product) => (
                 <ProductCard key={product.slug} product={product} locale={locale} />
               ))}
@@ -576,22 +637,22 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ PROBLEMS WE SOLVE ═══ */}
-        <section className="py-16 sm:py-24 bg-[#0d1219]">
+        <section className="py-12 sm:py-20 lg:py-24 bg-[#0d1219]">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-10 sm:mb-14">
-              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.problems.heading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.problems.sub}</p>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.problems.heading}</h2>
+              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.problems.sub}</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               {copy.problems.items.map((problem, idx) => (
                 <motion.div key={problem.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
-                  className="rounded-2xl border border-white/[0.06] bg-[#111720] p-6 sm:p-8 text-center">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
-                    <problem.icon size={22} className="text-[#10BFD8]" />
+                  className="rounded-2xl border border-white/[0.06] bg-[#111720] p-5 sm:p-7 text-center">
+                  <div className="mx-auto mb-3 sm:mb-4 flex h-11 sm:h-12 w-11 sm:w-12 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
+                    <problem.icon size={20} className="text-[#10BFD8]" />
                   </div>
-                  <h3 className="text-[16px] font-semibold text-[#f2eee7]">{problem.title}</h3>
-                  <p className="mt-2 text-[13px] leading-6 text-[#6b7785]">{problem.text}</p>
+                  <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#f2eee7]">{problem.title}</h3>
+                  <p className="mt-1.5 sm:mt-2 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{problem.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -599,25 +660,25 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ HOW IT WORKS ═══ */}
-        <section className="py-16 sm:py-24">
+        <section className="py-12 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-10 sm:mb-14">
-              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.howItWorks.heading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.howItWorks.sub}</p>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.howItWorks.heading}</h2>
+              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.howItWorks.sub}</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               {copy.howItWorks.steps.map((step, idx) => (
                 <motion.div key={step.num} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
-                  className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-6 sm:p-8 text-center relative">
+                  className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-5 sm:p-7 text-center relative">
                   {idx < 2 && (
                     <div className="hidden sm:block absolute top-1/2 -right-3 w-6 h-6 text-[#2a3548]">
                       <ChevronRight size={20} className="rotate-90" />
                     </div>
                   )}
-                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#10BFD8]/10 text-[16px] font-bold text-[#10BFD8] mb-4">{step.num}</span>
-                  <h3 className="text-[16px] font-semibold text-[#f2eee7]">{step.title}</h3>
-                  <p className="mt-2 text-[13px] leading-6 text-[#6b7785]">{step.text}</p>
+                  <span className="inline-flex items-center justify-center w-11 sm:w-12 h-11 sm:h-12 rounded-full bg-[#10BFD8]/10 text-[14px] sm:text-[16px] font-bold text-[#10BFD8] mb-3 sm:mb-4">{step.num}</span>
+                  <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#f2eee7]">{step.title}</h3>
+                  <p className="mt-1.5 sm:mt-2 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{step.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -625,13 +686,13 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ WHY NOCTIP ═══ */}
-        <section className="py-16 sm:py-24 bg-[#0d1219]">
+        <section className="py-12 sm:py-20 lg:py-24 bg-[#0d1219]">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-10 sm:mb-14">
-              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.comparison.heading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.comparison.sub}</p>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.comparison.heading}</h2>
+              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.comparison.sub}</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
               {[
                 { icon: ShieldCheck, title: isEs ? 'Grado médico' : 'Medical grade', text: isEs ? 'Silicona de grado médico, hipoalergénica, segura para uso nocturno.' : 'Medical-grade silicone, hypoallergenic, safe for nightly use.' },
                 { icon: RotateCcw, title: isEs ? '30 noches sin riesgo' : '30 nights risk-free', text: isEs ? 'Prueba el producto en tu entorno real. Si no funciona, reembolso completo.' : 'Try it in your real environment. Full refund if it doesn\'t work.' },
@@ -642,13 +703,13 @@ export default function ShopHomePage() {
               ].map((item, idx) => (
                 <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ delay: idx * 0.08 }}
-                  className="flex items-start gap-4 rounded-2xl border border-white/[0.06] bg-[#111720] p-6">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
-                    <item.icon size={18} className="text-[#10BFD8]" />
+                  className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-white/[0.06] bg-[#111720] p-4 sm:p-5">
+                  <div className="flex h-9 sm:h-10 w-9 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
+                    <item.icon size={17} className="text-[#10BFD8]" />
                   </div>
                   <div>
-                    <h3 className="text-[15px] font-semibold text-[#f2eee7]">{item.title}</h3>
-                    <p className="mt-1 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
+                    <h3 className="text-[14px] sm:text-[15px] font-semibold text-[#f2eee7]">{item.title}</h3>
+                    <p className="mt-1 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{item.text}</p>
                   </div>
                 </motion.div>
               ))}
@@ -657,22 +718,22 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ GUARANTEES ═══ */}
-        <section className="py-16 sm:py-24">
+        <section className="py-12 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-10 sm:mb-14">
-              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.guarantees.heading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.guarantees.sub}</p>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.guarantees.heading}</h2>
+              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.guarantees.sub}</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {copy.guarantees.items.map((item, idx) => (
                 <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
-                  className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-6 sm:p-8">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)] mb-4">
-                    <item.icon size={18} className="text-[#10BFD8]" />
+                  className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-5 sm:p-7">
+                  <div className="flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)] mb-3 sm:mb-4">
+                    <item.icon size={17} className="text-[#10BFD8]" />
                   </div>
-                  <h3 className="text-[16px] font-semibold text-[#f2eee7]">{item.title}</h3>
-                  <p className="mt-2 text-[13px] leading-6 text-[#6b7785]">{item.text}</p>
+                  <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#f2eee7]">{item.title}</h3>
+                  <p className="mt-1.5 sm:mt-2 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{item.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -680,28 +741,28 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ FAQ ═══ */}
-        <section className="py-16 sm:py-24 bg-[#0d1219]">
+        <section className="py-12 sm:py-20 lg:py-24 bg-[#0d1219]">
           <div className="mx-auto max-w-[720px] px-4 sm:px-6">
-            <div className="text-center mb-10 sm:mb-14">
-              <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.faq.heading}</h2>
-              <p className="mt-3 text-[15px] text-[#6b7785]">{copy.faq.sub}</p>
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.faq.heading}</h2>
+              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.faq.sub}</p>
             </div>
             <FAQ items={copy.faq.items} />
           </div>
         </section>
 
         {/* ═══ CTA ═══ */}
-        <section className="py-16 sm:py-24">
+        <section className="py-12 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-[720px] px-4 sm:px-6 text-center">
-            <h2 className="text-[clamp(1.6rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.cta.heading}</h2>
-            <p className="mt-3 text-[15px] text-[#6b7785]">{copy.cta.sub}</p>
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+            <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.cta.heading}</h2>
+            <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.cta.sub}</p>
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <Link href={`/${locale}/shop/all`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-8 py-4 text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(242,238,231,0.15)] min-h-[52px]">
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-7 sm:px-8 py-3.5 sm:py-4 text-[14px] sm:text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(242,238,231,0.15)] min-h-[48px] sm:min-h-[52px]">
                 {copy.cta.primary} <ArrowRight size={16} />
               </Link>
               <Link href={`/${locale}/shop/all?sort=rating`}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-8 py-4 text-[14px] font-medium text-[#8791a1] transition-all duration-300 hover:border-white/25 hover:text-[#f2eee7] min-h-[52px]">
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-7 sm:px-8 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-medium text-[#8791a1] transition-all duration-300 hover:border-white/25 hover:text-[#f2eee7] min-h-[48px] sm:min-h-[52px]">
                 {copy.cta.secondary}
               </Link>
             </div>
