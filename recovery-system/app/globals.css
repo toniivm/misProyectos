@@ -3,39 +3,40 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════
-   NOCTIP DESIGN SYSTEM — Light Premium
-   Clean, luminous, trustworthy. Premium e-commerce.
+   NOCTIP DESIGN SYSTEM — Dark Premium
+   Deep, premium, trustworthy. E-commerce luxury feel.
 ═══════════════════════════════════════════════════════ */
 
 :root {
   /* ── Backgrounds ── */
-  --bg-base: #FFFFFF;
-  --bg-secondary: #F7F8FA;
-  --bg-tertiary: #F0F2F5;
-  --bg-card: #FFFFFF;
+  --bg-base: #080c12;
+  --bg-secondary: #0d1219;
+  --bg-tertiary: #111720;
+  --bg-card: #0d1219;
+  --bg-elevated: #111720;
 
   /* ── Text ── */
-  --text-primary: #1A1D1F;
-  --text-secondary: #5F6570;
-  --text-muted: #8C919A;
-  --text-faint: #B0B5BC;
+  --text-primary: #f2eee7;
+  --text-secondary: #8791a1;
+  --text-muted: #6b7785;
+  --text-faint: #4a5568;
 
   /* ── Accent ── */
-  --accent: #2563EB;
-  --accent-light: #EFF6FF;
-  --accent-hover: #1D4ED8;
+  --accent: #10BFD8;
+  --accent-light: rgba(16, 191, 216, 0.1);
+  --accent-hover: #0ea5c0;
 
   /* ── Borders ── */
-  --border-subtle: #E8EAED;
-  --border-default: #D1D5DB;
-  --border-strong: #9CA3AF;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
 
   /* ── Semantic ── */
-  --success: #16A34A;
-  --success-light: #F0FDF4;
-  --error: #DC2626;
-  --error-light: #FEF2F2;
-  --warning: #D97706;
+  --success: #34d399;
+  --success-light: rgba(52, 211, 153, 0.1);
+  --error: #ef4444;
+  --error-light: rgba(239, 68, 68, 0.1);
+  --warning: #fbbf24;
 
   /* ── Transitions ── */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -46,10 +47,10 @@
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 
   /* ── Shadows ── */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
-  --shadow-xl: 0 16px 48px rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.5);
 }
 
 * {
@@ -74,13 +75,13 @@ body {
 }
 
 /* ── Selection ── */
-::selection { background: rgba(37, 99, 235, 0.12); color: var(--text-primary); }
+::selection { background: rgba(16, 191, 216, 0.2); color: var(--text-primary); }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
 /* ═══════════════════════════════════════════════════════
    BUTTONS — Clean, modern
@@ -88,19 +89,19 @@ body {
 
 .btn-primary {
   @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold;
-  color: #FFFFFF;
-  background: var(--accent);
+  color: #080c12;
+  background: var(--text-primary);
   transition: all var(--duration-normal) var(--ease-out);
 }
 .btn-primary:hover {
-  background: var(--accent-hover);
+  background: #ffffff;
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 40px rgba(242, 238, 231, 0.15);
 }
 
 .btn-secondary {
   @apply inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3 sm:py-3.5 text-[13px] sm:text-[14px] font-semibold;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   border: 1px solid var(--border-default);
   background: transparent;
   transition: all var(--duration-normal) var(--ease-out);
@@ -108,7 +109,8 @@ body {
 }
 .btn-secondary:hover {
   border-color: var(--border-strong);
-  background: var(--bg-secondary);
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
 }
 
 .btn-ghost {
@@ -119,7 +121,7 @@ body {
 .btn-ghost:hover { color: var(--text-primary); }
 
 /* ═══════════════════════════════════════════════════════
-   INPUTS — Clean, light
+   INPUTS — Dark, premium
 ═══════════════════════════════════════════════════════ */
 
 .input, .input-premium {
@@ -127,13 +129,14 @@ body {
   font-size: 16px;
   min-height: 48px;
   border-color: var(--border-default);
-  background: var(--bg-base);
+  background: rgba(255,255,255,0.03);
   color: var(--text-primary);
 }
 .input::placeholder, .input-premium::placeholder { color: var(--text-faint); }
 .input:focus, .input-premium:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 0 3px rgba(16, 191, 216, 0.1);
+  background: rgba(255,255,255,0.05);
 }
 
 .select, .select-premium {
@@ -141,12 +144,19 @@ body {
   font-size: 16px;
   min-height: 48px;
   border-color: var(--border-default);
-  background: var(--bg-base);
+  background: rgba(255,255,255,0.03);
   color: var(--text-primary);
 }
 .select:focus, .select-premium:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 0 3px rgba(16, 191, 216, 0.1);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Dark option styling for selects */
+.select option, .select-premium option {
+  background: #0d1219;
+  color: var(--text-primary);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -155,11 +165,11 @@ body {
 
 .input-error, .select-error {
   border-color: var(--error) !important;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 .input-error:focus, .select-error:focus {
   border-color: var(--error) !important;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
 .input-success, .select-success {
@@ -196,13 +206,13 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════
-   CHECKOUT SECTION — Clean card
+   CHECKOUT SECTION — Dark card
 ═══════════════════════════════════════════════════════ */
 
 .checkout-section {
   border-radius: 12px;
   border: 1px solid var(--border-subtle);
-  background: var(--bg-base);
+  background: rgba(13, 18, 25, 0.8);
   padding: 16px;
   transition: border-color 0.2s ease;
 }
@@ -224,7 +234,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════
-   TRUST BADGE
+   TRUST BADGE — Dark
 ═══════════════════════════════════════════════════════ */
 
 .trust-badge {
@@ -234,14 +244,14 @@ body {
   padding: 6px 12px;
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
-  background: var(--bg-secondary);
+  background: rgba(255,255,255,0.04);
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   transition: all 0.15s ease;
 }
 .trust-badge:hover {
   border-color: var(--border-default);
-  background: var(--bg-tertiary);
+  background: rgba(255,255,255,0.06);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -262,7 +272,7 @@ body {
   width: auto;
   opacity: 0.5;
   transition: opacity 0.15s ease;
-  filter: grayscale(0.2);
+  filter: grayscale(0.2) brightness(1.5);
 }
 .payment-icon:hover {
   opacity: 0.8;
@@ -278,7 +288,7 @@ body {
 
 /* ── Focus visible — accessibility ── */
 *:focus-visible {
-  outline: 2px solid rgba(37, 99, 235, 0.5);
+  outline: 2px solid rgba(16, 191, 216, 0.5);
   outline-offset: 2px;
 }
 
@@ -291,19 +301,19 @@ body {
   }
 }
 
-/* ── Phone input ── */
+/* ── Phone input — Dark theme ── */
 .phone-input-wrapper .PhoneInput {
   display: flex;
   align-items: center;
   border-radius: 0.75rem;
   border: 1px solid var(--border-default);
-  background: var(--bg-base);
+  background: rgba(255,255,255,0.03);
   overflow: hidden;
   transition: border-color 0.2s;
 }
 .phone-input-wrapper .PhoneInput:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 0 3px rgba(16, 191, 216, 0.1);
 }
 .phone-input-wrapper .PhoneInputCountry {
   background: transparent;
@@ -314,7 +324,7 @@ body {
   color: var(--text-primary);
 }
 .phone-input-wrapper .PhoneInputCountrySelect {
-  background: var(--bg-base);
+  background: #0d1219;
   color: var(--text-primary);
   border: none;
   outline: none;
@@ -326,7 +336,7 @@ body {
   background: transparent;
   border: none;
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 16px;
   padding: 12px 10px;
   outline: none;
   min-width: 0;
@@ -340,7 +350,7 @@ body {
 }
 .phone-input-wrapper .PhoneInputCountrySelectArrow { display: none; }
 .phone-input-wrapper select option {
-  background: var(--bg-base);
+  background: #0d1219;
   color: var(--text-primary);
 }
 

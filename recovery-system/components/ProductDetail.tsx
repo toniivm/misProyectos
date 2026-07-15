@@ -22,6 +22,13 @@ import {
   type Review,
 } from '../lib/reviews';
 import ProductImage from './ProductImage';
+import ProductGallery from './ProductGallery';
+import ProductWhatYouGet from './ProductWhatYouGet';
+import ProductLifestyle from './ProductLifestyle';
+import ProductDetails from './ProductDetails';
+import ProductBenefits from './ProductBenefits';
+import ProductBeforeAfter from './ProductBeforeAfter';
+import CustomerPhotos from './CustomerPhotos';
 import Stars from './ui/Stars';
 import Badge from './ui/Badge';
 import FAQ from './ui/FAQ';
@@ -145,9 +152,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   ];
 
   const allImages = product?.images ?? [];
-  const hasVideo = !!product?.video;
-  const videoIdx = allImages.length;
-  const isVideoActive = hasVideo && activeImg === videoIdx;
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
@@ -211,65 +215,13 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: EASE_OUT }}
           >
-            <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden"
-              style={{ background: product?.color ?? '#111720' }}>
-              {isVideoActive ? (
-                <video
-                  src={product!.video}
-                  controls
-                  playsInline
-                  preload="metadata"
-                  className="absolute inset-0 h-full w-full object-contain"
-                />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <ProductImage
-                    slug={product?.slug as any ?? legacyProduct.slug as any}
-                    color={product?.color ?? legacyProduct.bg}
-                    icon={product?.icon ?? legacyProduct.icon}
-                    images={product?.images ?? []}
-                    alt={displayName}
-                    activeIndex={activeImg}
-                    className="h-full w-full"
-                  />
-                </div>
-              )}
-              <div className="absolute top-4 left-4 flex gap-2 z-10">
-                {product?.badge && <Badge type={product.badge} locale={locale} />}
-              </div>
-            </div>
-
-            {/* Thumbnails */}
-            <div className="mt-2.5 sm:mt-3 flex gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-5 sm:overflow-visible pb-1">
-              {allImages.map((src, idx) => (
-                <button key={idx} onClick={() => setActiveImg(idx)}
-                  className={`overflow-hidden rounded-lg sm:rounded-xl border-2 transition-all aspect-square shrink-0 w-[60px] sm:w-auto ${
-                    activeImg === idx ? 'border-[#10BFD8]/50' : 'border-white/10 opacity-50 hover:opacity-75'
-                  }`}>
-                  <img src={src} alt="" className="h-full w-full object-contain p-0.5 sm:p-1" loading={idx === 0 ? 'eager' : 'lazy'} decoding="async"
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
-                </button>
-              ))}
-              {hasVideo && (
-                <button onClick={() => setActiveImg(videoIdx)}
-                  className={`relative overflow-hidden rounded-xl border-2 transition-all aspect-square shrink-0 w-[72px] sm:w-auto ${
-                    activeImg === videoIdx ? 'border-[#10BFD8]/50' : 'border-white/10 opacity-50 hover:opacity-75'
-                  }`}>
-                  {allImages[0] ? (
-                    <img src={allImages[0]} alt="" className="h-full w-full object-contain p-1" loading="lazy" decoding="async" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-[#111720] text-[#5a6678]">
-                      <Play size={16} />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90">
-                      <Play size={14} className="ml-0.5 text-[#080c12]" fill="#080c12" />
-                    </div>
-                  </div>
-                </button>
-              )}
-            </div>
+            <ProductGallery
+              images={allImages}
+              alt={displayName}
+              color={product?.color ?? '#111720'}
+              badge={product?.badge ? <Badge type={product.badge} locale={locale} /> : undefined}
+              video={product?.video}
+            />
           </motion.div>
 
           {/* Right — Product info */}
@@ -425,6 +377,18 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
           </motion.div>
         </div>
+
+        {/* ═══ PREMIUM PRODUCT EXPERIENCE ═══ */}
+        {product && (
+          <>
+            <ProductWhatYouGet slug={product.slug} />
+            <ProductLifestyle slug={product.slug} />
+            <ProductBenefits slug={product.slug} />
+            <ProductBeforeAfter slug={product.slug} />
+            <ProductDetails slug={product.slug} />
+            <CustomerPhotos slug={product.slug} />
+          </>
+        )}
 
         {/* ═══ HOW IT WORKS — Product specific ═══ */}
         <section className="mt-10 sm:mt-16">
