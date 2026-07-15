@@ -566,7 +566,7 @@ export default function ShopHomePage() {
                   <Sparkles size={12} />
                   {copy.hero.badge}
                 </span>
-                <h1 className="text-[clamp(2rem,7vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f2eb]">
+                <h1 className="text-[clamp(2.2rem,8vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f2eb]">
                   {copy.hero.title1}<br />{copy.hero.title2}
                 </h1>
                 <p className="mt-4 sm:mt-5 max-w-md text-[15px] sm:text-[16px] leading-[1.65] sm:leading-[1.7] text-[#8791a1]">{copy.hero.subtitle}</p>
@@ -587,13 +587,13 @@ export default function ShopHomePage() {
                 </div>
               </motion.div>
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-                className="hidden sm:block">
+                className="block">
                 <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
                   <div className="relative rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0d1219] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-                    <div className="relative aspect-[4/5] overflow-hidden">
+                    <div className="relative aspect-[4/5] sm:aspect-[4/5] overflow-hidden">
                       <img src={flagshipImage} alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        className="absolute inset-0 h-full w-full object-contain p-8 transition-transform duration-700 group-hover:scale-[1.03]" />
+                        className="absolute inset-0 h-full w-full object-contain p-6 sm:p-8 transition-transform duration-700 group-hover:scale-[1.03]" />
                     </div>
                   </div>
                 </Link>

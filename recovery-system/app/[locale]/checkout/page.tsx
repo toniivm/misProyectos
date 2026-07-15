@@ -39,10 +39,10 @@ const PRODUCT_BG: Record<string, string> = {
 };
 
 const PRODUCT_ICON: Record<string, string> = {
-  'halo': '😴',
-  'wave': '🧘',
-  'sleep-headband': '🎧',
-  'neck-massager': '🧘',
+  'halo': '',
+  'wave': '',
+  'sleep-headband': '',
+  'neck-massager': '',
 };
 
 const SPAIN_PROVINCES = [
@@ -382,7 +382,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080c16] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
       {/* Header */}
       <header className="border-b border-white/[0.06] bg-[rgba(8,12,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
@@ -763,8 +763,8 @@ export default function CheckoutPage() {
                     <p className="font-semibold text-red-300">{error}</p>
                     <p className="mt-1.5 text-[11px] text-red-300/60">
                       {isEs
-                        ? 'Si el problema persiste, escríbenos a noctip95@gmail.com'
-                        : 'If the problem persists, email us at noctip95@gmail.com'}
+                        ? 'Si el problema persiste, escríbenos a support@noctip.com'
+                        : 'If the problem persists, email us at support@noctip.com'}
                     </p>
                   </div>
                 </div>
@@ -857,12 +857,12 @@ export default function CheckoutPage() {
                 {/* Quick trust icons */}
                 <div className="mt-3 grid grid-cols-3 gap-2">
                   {[
-                    { icon: '🔒', label: isEs ? 'SSL 256-bit' : 'SSL 256-bit' },
-                    { icon: '🚚', label: isEs ? 'Envío gratis' : 'Free shipping' },
-                    { icon: '↩️', label: isEs ? '30 días' : '30-day return' },
+                    { icon: ShieldCheck, label: isEs ? 'SSL 256-bit' : 'SSL 256-bit' },
+                    { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping' },
+                    { icon: RotateCcw, label: isEs ? '30 días' : '30-day return' },
                   ].map((item) => (
                     <div key={item.label} className="flex flex-col items-center gap-1 rounded-lg border border-white/[0.05] bg-white/[0.02] py-2 text-center">
-                      <span className="text-[14px]">{item.icon}</span>
+                      <item.icon size={14} className="text-[#10BFD8]" />
                       <span className="text-[9px] text-[#5a6678]">{item.label}</span>
                     </div>
                   ))}

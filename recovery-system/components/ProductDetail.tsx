@@ -154,7 +154,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const allImages = product?.images ?? [];
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[rgba(8,12,16,0.95)] backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-4 sm:px-6">
@@ -378,39 +378,50 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </motion.div>
         </div>
 
-        {/* ═══ PREMIUM PRODUCT EXPERIENCE ═══ */}
+        {/* ═══ STORYTELLING FLOW ═══ */}
         {product && (
           <>
-            <ProductWhatYouGet slug={product.slug} />
-            <ProductLifestyle slug={product.slug} />
+            {/* Step 1: How it works — immediate clarity */}
+            <section className="mt-10 sm:mt-16">
+              <h2 className="text-[17px] sm:text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7] mb-4 sm:mb-6">
+                {isEs ? 'Cómo funciona' : 'How it works'}
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                {[
+                  { num: '01', title: isEs ? 'Recibe tu pedido' : 'Receive your order', text: isEs ? 'Lo enviamos en 24 horas. Llega a tu puerta en 6-9 días con seguimiento incluido.' : 'We ship within 24 hours. Arrives at your door in 6-9 days with tracking included.' },
+                  { num: '02', title: isEs ? 'Úsalo esta noche' : 'Use it tonight', text: isEs ? 'Sin configuraciones complejas. Funciona desde el primer momento. Solo ábrelo y úsalo.' : 'No complex settings. Works from the moment you open it. Just unbox and use.' },
+                  { num: '03', title: isEs ? '30 noches sin riesgo' : '30 nights risk-free', text: isEs ? 'Pruébalo en tu entorno real. Si no notas la diferencia, te devolvemos cada euro.' : 'Try it in your real environment. If you don\'t feel the difference, we refund every cent.' },
+                ].map((step, idx) => (
+                  <div key={step.num} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 sm:p-6">
+                    <span className="inline-flex items-center justify-center w-9 sm:w-10 h-9 sm:h-10 rounded-full bg-[#10BFD8]/10 text-[14px] sm:text-[16px] font-bold text-[#10BFD8] mb-2.5 sm:mb-3">
+                      {step.num}
+                    </span>
+                    <h3 className="text-[14px] sm:text-[15px] font-semibold text-[#f2eee7]">{step.title}</h3>
+                    <p className="mt-1 sm:mt-1.5 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{step.text}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Step 2: Benefits — why this product */}
             <ProductBenefits slug={product.slug} />
+
+            {/* Step 3: Transformation — before/after */}
             <ProductBeforeAfter slug={product.slug} />
+
+            {/* Step 4: Lifestyle — product in context */}
+            <ProductLifestyle slug={product.slug} />
+
+            {/* Step 5: What you'll receive */}
+            <ProductWhatYouGet slug={product.slug} />
+
+            {/* Step 6: Premium details — quality close-ups */}
             <ProductDetails slug={product.slug} />
+
+            {/* Step 7: Social proof — customer photos */}
             <CustomerPhotos slug={product.slug} />
           </>
         )}
-
-        {/* ═══ HOW IT WORKS — Product specific ═══ */}
-        <section className="mt-10 sm:mt-16">
-          <h2 className="text-[17px] sm:text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7] mb-4 sm:mb-6">
-            {isEs ? 'Cómo funciona' : 'How it works'}
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            {[
-              { num: '01', title: isEs ? 'Recibe tu pedido' : 'Receive your order', text: isEs ? 'Lo enviamos en 24 horas. Llega a tu puerta en 6-9 días con seguimiento incluido.' : 'We ship within 24 hours. Arrives at your door in 6-9 days with tracking included.' },
-              { num: '02', title: isEs ? 'Úsalo esta noche' : 'Use it tonight', text: isEs ? 'Sin configuraciones complejas. Funciona desde el primer momento. Solo ábrelo y úsalo.' : 'No complex settings. Works from the moment you open it. Just unbox and use.' },
-              { num: '03', title: isEs ? '30 noches sin riesgo' : '30 nights risk-free', text: isEs ? 'Pruébalo en tu entorno real. Si no notas la diferencia, te devolvemos cada euro.' : 'Try it in your real environment. If you don\'t feel the difference, we refund every cent.' },
-            ].map((step, idx) => (
-              <div key={step.num} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 sm:p-6">
-                <span className="inline-flex items-center justify-center w-9 sm:w-10 h-9 sm:h-10 rounded-full bg-[#10BFD8]/10 text-[14px] sm:text-[16px] font-bold text-[#10BFD8] mb-2.5 sm:mb-3">
-                  {step.num}
-                </span>
-                <h3 className="text-[14px] sm:text-[15px] font-semibold text-[#f2eee7]">{step.title}</h3>
-                <p className="mt-1 sm:mt-1.5 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{step.text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* ═══ REVIEWS — Only show if reviews exist ═══ */}
         {displayReviewCount > 0 && (
@@ -471,7 +482,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {!auth.user && (
               <button
                 onClick={() => auth.openModal()}
-                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-[#c8d0da] transition hover:border-white/20 hover:text-white min-h-[36px]"
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-[#c8d0da] transition hover:border-white/20 hover:text-white min-h-[44px]"
               >
                 <Send size={12} />
                 {isEs ? 'Inicia sesión para escribir una reseña' : 'Sign in to write a review'}
@@ -487,7 +498,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {auth.user && userHasPurchased && !userHasReviewed && !reviewSubmitted && !showReviewForm && (
               <button
                 onClick={() => setShowReviewForm(true)}
-                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-[#c8d0da] transition hover:border-white/20 hover:text-white min-h-[36px]"
+                className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[12px] font-medium text-[#c8d0da] transition hover:border-white/20 hover:text-white min-h-[44px]"
               >
                 <Send size={12} />
                 {isEs ? 'Escribir reseña' : 'Write a review'}

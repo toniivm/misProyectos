@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Syne } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import {getLocale} from 'next-intl/server'
 import './globals.css'
 import UtmCapture from '../components/UtmCapture'
@@ -9,13 +9,6 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
-})
-
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
 })
 
 export const viewport: Viewport = {
@@ -90,11 +83,11 @@ export default async function RootLayout({
   const locale = await getLocale()
 
   return (
-    <html lang={locale} className={`${inter.variable} ${syne.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body className="bg-[#080c12] text-[#EAF1FF] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
+      <body className="bg-[#080c12] text-[#f2eee7] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <GoogleAnalytics />
         <UtmCapture />
         {children}

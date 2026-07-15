@@ -69,13 +69,13 @@ export default function CookieConsent() {
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   onClick={reject}
-                  className="rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-[11px] font-medium text-[#8791a1] transition hover:border-white/[0.2] hover:text-[#f2eee7] sm:px-4 sm:py-2.5 sm:text-[12px]"
+                  className="rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2.5 text-[12px] font-medium text-[#8791a1] transition hover:border-white/[0.2] hover:text-[#f2eee7] min-h-[44px]"
                 >
                   {isEs ? 'Rechazar' : 'Reject'}
                 </button>
                 <button
                   onClick={accept}
-                  className="flex items-center gap-1.5 rounded-full bg-[#f2eee7] px-4 py-2 text-[11px] font-semibold text-[#11161d] transition hover:bg-white hover:shadow-[0_4px_12px_rgba(242,238,231,0.2)] sm:px-5 sm:py-2.5 sm:text-[12px]"
+                  className="flex items-center gap-1.5 rounded-full bg-[#f2eee7] px-5 py-2.5 text-[12px] font-semibold text-[#11161d] transition hover:bg-white hover:shadow-[0_4px_12px_rgba(242,238,231,0.2)] min-h-[44px]"
                 >
                   <Shield size={12} />
                   {isEs ? 'Aceptar' : 'Accept'}

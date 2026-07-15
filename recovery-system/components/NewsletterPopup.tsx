@@ -112,10 +112,10 @@ export default function NewsletterPopup() {
                     </div>
 
                     <h3 className="text-[18px] font-bold tracking-[-0.03em] text-[#f2eee7] sm:text-[22px]">
-                      {isEs ? 'Consigue un 10% de descuento' : 'Get 10% off your first order'}
+                      {isEs ? 'Mantente al día' : 'Stay in the loop'}
                     </h3>
                     <p className="mt-2 text-[13px] leading-6 text-[#8791a1] sm:text-[14px]">
-                      {isEs ? 'Únete a quienes duermen mejor. Sin spam. Cancela cuando quieras.' : 'Join people sleeping better. No spam. Unsubscribe anytime.'}
+                      {isEs ? 'Novedades, consejos de sueño y ofertas exclusivas. Sin spam.' : 'New releases, sleep tips, and exclusive offers. No spam.'}
                     </p>
 
                     <form onSubmit={handleSubmit} className="mt-5 space-y-3 sm:mt-6">
@@ -140,13 +140,13 @@ export default function NewsletterPopup() {
                         {loading ? (
                           <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />
                         ) : (
-                          <>{isEs ? 'Obtener mi 10% de descuento' : 'Get my 10% off'}</>
+                          <>{isEs ? 'Suscribirme' : 'Subscribe'}</>
                         )}
                       </button>
                     </form>
 
                     <p className="mt-3 text-[11px] text-[#4a5568]">
-                      {isEs ? 'Accede a ofertas exclusivas' : 'Access exclusive offers'}
+                      {isEs ? 'Sin spam. Cancela cuando quieras.' : 'No spam. Unsubscribe anytime.'}
                     </p>
                   </>
                 ) : (
@@ -159,10 +159,10 @@ export default function NewsletterPopup() {
                       <Check size={28} className="text-emerald-400" />
                     </div>
                     <h3 className="text-[20px] font-bold text-[#f2eee7]">
-                      {isEs ? '¡Ya eres parte!' : 'You\'re in!'}
+                      {isEs ? '¡Gracias!' : 'Thank you!'}
                     </h3>
                     <p className="mt-2 text-[14px] text-[#8791a1]">
-                      {isEs ? 'Revisa tu email para el código de descuento.' : 'Check your email for the discount code.'}
+                      {isEs ? 'Te mantendremos informado.' : 'We\'ll keep you posted.'}
                     </p>
                   </motion.div>
                 )}

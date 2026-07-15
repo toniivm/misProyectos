@@ -119,13 +119,13 @@ export default function CartSidebar() {
                         </p>
                         <div className="mt-0.5 sm:mt-1 flex items-center gap-1.5 sm:gap-2">
                           <button onClick={() => updateQty(item.slug, item.quantity - 1)}
-                            className="flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
+                            className="flex h-10 w-10 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
                             aria-label={isEs ? 'Reducir cantidad' : 'Decrease quantity'}>
                             <Minus size={13} />
                           </button>
                           <span className="w-5 sm:w-6 text-center text-[14px] font-semibold text-[#f2eee7]">{item.quantity}</span>
                           <button onClick={() => updateQty(item.slug, item.quantity + 1)}
-                            className="flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
+                            className="flex h-10 w-10 sm:h-10 sm:w-10 items-center justify-center rounded-lg border border-white/[0.1] text-[#8791a1] transition hover:border-white/20 hover:bg-white/[0.05] hover:text-[#f2eee7] active:bg-white/[0.08]"
                             aria-label={isEs ? 'Aumentar cantidad' : 'Increase quantity'}>
                             <Plus size={13} />
                           </button>
