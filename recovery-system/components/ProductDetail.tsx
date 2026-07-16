@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star, ThumbsUp, Flag, ChevronDown, Send, X, CreditCard, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import { useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import {
   ShoppingCart, Check, ChevronRight,

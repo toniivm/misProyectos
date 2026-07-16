@@ -198,7 +198,7 @@ function FilterPanel({
 export default function CategoryPage({ categorySlug }: { categorySlug: string }) {
   const locale = useLocale()
   const isEs = locale === 'es'
-  const { totalItems, open: openCart } = useCart()
+  const { totalItems, open: openCart, isOpen: isCartOpen } = useCart()
   const [sort, setSort] = useState<SortOption>('featured')
   const [maxPrice, setMaxPrice] = useState<number>(200)
   const [showFilters, setShowFilters] = useState(false)
@@ -243,7 +243,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
   const eNeeds = isEs ? editorial.needs.es : editorial.needs.en
 
   return (
-    <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
       <Header showBackButton />
 
       <div className="mx-auto max-w-[1280px] px-4 pb-24 sm:px-6">
@@ -438,7 +438,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
       </div>
 
       {/* Mobile sticky cart */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] p-3 backdrop-blur-xl sm:hidden">
+      <div className={`fixed bottom-0 left-0 right-0 z-40 border-t border-white/[0.08] bg-[rgba(8,12,16,0.95)] p-3 backdrop-blur-xl sm:hidden transition-transform duration-300 ${isCartOpen ? 'translate-y-full' : ''}`}>
         <button onClick={openCart}
           className="flex w-full items-center justify-center gap-2 btn-secondary">
           <ShoppingCart size={15} />

@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { Shield, Truck, RotateCcw, Heart, Target, Zap } from 'lucide-react'
 import Header from '../../../components/Header'
@@ -49,7 +48,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
       <Header showBackButton />
 
       <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
