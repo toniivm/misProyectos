@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import { useState } from 'react'
-import { Package, Search, ArrowLeft, Clock, Truck, CheckCircle, AlertCircle } from 'lucide-react'
+import { Package, Search, Clock, Truck, CheckCircle, AlertCircle } from 'lucide-react'
+import Header from '../../../components/Header'
 
 interface OrderData {
   id: string
@@ -133,18 +133,7 @@ export default function TrackingPage() {
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
-      <header className="border-b border-white/[0.06] bg-[rgba(8,12,18,0.92)] px-5 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-2xl items-center justify-between">
-          <Link href={`/${locale}`} className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image src="/images/logo/logo.png" alt="Noctip" width={32} height={32} className="object-contain" sizes="32px" />
-            NOCTIP
-          </Link>
-          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">
-            <ArrowLeft size={14} />
-            {isEs ? 'Volver' : 'Back'}
-          </Link>
-        </div>
-      </header>
+      <Header showBackButton />
 
       <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
         <div className="text-center mb-8">

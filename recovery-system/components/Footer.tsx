@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Facebook, Instagram, Twitter } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Facebook, Instagram, Twitter, Youtube, Globe, Lock } from 'lucide-react'
 
 export default function Footer() {
   const locale = useLocale()
@@ -111,10 +111,15 @@ export default function Footer() {
                 aria-label="Instagram">
                 <Instagram size={15} />
               </a>
+              <a href="https://www.tiktok.com/@noctip2" target="_blank" rel="noopener noreferrer"
+                className="flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
+                aria-label="TikTok">
+                <Globe size={15} />
+              </a>
               <a href="#" target="_blank" rel="noopener noreferrer"
                 className="flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
-                aria-label="Twitter">
-                <Twitter size={15} />
+                aria-label="YouTube">
+                <Youtube size={15} />
               </a>
             </div>
           </div>
@@ -191,7 +196,8 @@ export default function Footer() {
           <span className="text-[10px] sm:text-[11px] text-[#3d4a5c]">{isEs ? 'Métodos de pago:' : 'Payment methods:'}</span>
           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
             {['Visa', 'MC', 'Amex', 'PayPal', 'Apple Pay', 'Google Pay'].map((method) => (
-              <span key={method} className="rounded-md border border-white/[0.06] bg-white/[0.02] px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-medium text-[#5a6678]">
+              <span key={method} className="flex items-center gap-1 rounded-md border border-white/[0.08] bg-white/[0.03] px-2 sm:px-2.5 py-1 sm:py-1.5 text-[9px] sm:text-[10px] font-medium text-[#5a6678]">
+                <CreditCard size={9} className="text-[#10BFD8]/60" />
                 {method}
               </span>
             ))}
@@ -205,7 +211,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-2.5 sm:gap-4">
             <div className="flex items-center gap-1.5 sm:gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-2.5 sm:px-3 py-1 sm:py-1.5">
-              <Shield size={10} className="text-[#10BFD8]" />
+              <Lock size={10} className="text-[#10BFD8]" />
               <span className="text-[9px] sm:text-[10px] font-medium text-[#5a6678]">
                 {isEs ? 'SSL Seguro' : 'SSL Secure'}
               </span>

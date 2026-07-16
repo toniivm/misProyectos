@@ -1,12 +1,11 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star, ThumbsUp, Flag, ChevronDown, Send, X, CreditCard, ShieldCheck } from 'lucide-react';
+import { Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star, ThumbsUp, Flag, ChevronDown, Send, X, CreditCard, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useMemo } from 'react';
 import { useLocale } from 'next-intl';
-import { usePathname } from 'next/navigation';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
@@ -24,14 +23,11 @@ import {
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
 import ProductWhatYouGet from './ProductWhatYouGet';
-import ProductLifestyle from './ProductLifestyle';
-import ProductDetails from './ProductDetails';
-import ProductBenefits from './ProductBenefits';
-import ProductBeforeAfter from './ProductBeforeAfter';
 import CustomerPhotos from './CustomerPhotos';
 import Stars from './ui/Stars';
 import Badge from './ui/Badge';
 import FAQ from './ui/FAQ';
+import Header from './Header';
 
 export interface Product {
   slug: string;
@@ -48,7 +44,6 @@ const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
 export default function ProductDetail({ product: legacyProduct }: { product: Product }) {
   const locale = useLocale();
   const isEs = locale === 'es';
-  const pathname = usePathname();
   const { add, open: openCart, isOpen: isCartOpen } = useCart();
   const auth = useAuth();
   const [added, setAdded] = useState(false);
@@ -155,41 +150,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[rgba(8,12,16,0.95)] backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-4 sm:px-6">
-          <Link href={`/${locale}`} className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image
-              src="/images/logo/logo.png"
-              alt="Noctip"
-              width={36}
-              height={36}
-              className="object-contain"
-              sizes="36px"
-            />
-            <span className="hidden sm:block">Noctip</span>
-          </Link>
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <Link href={`/${locale === 'es' ? 'en' : 'es'}${pathname?.replace(/^\/(es|en)/, '') || '/'}`}
-              className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-2 text-[12px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 active:scale-95 transition-all min-h-[44px]"
-              aria-label={isEs ? 'Switch to English' : 'Cambiar a español'}>
-              <svg className="w-5 h-3.5 rounded-sm" viewBox="0 0 60 30">
-                {isEs ? (
-                  <><rect width="50" height="30" fill="#c60b1e"/><rect y="3" width="50" height="24" fill="#ffc400"/><rect y="3" width="50" height="4" fill="#c60b1e"/><rect y="23" width="50" height="4" fill="#c60b1e"/></>
-                ) : (
-                  <><rect width="60" height="30" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#FFF" strokeWidth="6"/><path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" strokeWidth="3"/><path d="M30 0v30M0 15h60" stroke="#FFF" strokeWidth="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" strokeWidth="4"/></>
-                )}
-              </svg>
-              <span>{isEs ? 'EN' : 'ES'}</span>
-            </Link>
-            <button onClick={handleAdd}
-              className="flex items-center gap-1.5 rounded-full bg-[#f2eee7] px-4 py-2 text-[13px] font-semibold text-[#080c12] active:scale-95 transition-transform min-h-[44px]">
-              <ShoppingCart size={14} />
-              <span className="hidden sm:inline">{isEs ? 'Añadir' : 'Add'}</span>
-            </button>
-          </div>
-        </div>
-      </header>
+      <Header showBackButton />
 
       <div className="mx-auto max-w-[1280px] px-3 sm:px-6 pb-28 sm:pb-20 lg:pb-20">
         {/* Breadcrumb */}
@@ -403,22 +364,10 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             </section>
 
-            {/* Step 2: Benefits — why this product */}
-            <ProductBenefits slug={product.slug} />
-
-            {/* Step 3: Transformation — before/after */}
-            <ProductBeforeAfter slug={product.slug} />
-
-            {/* Step 4: Lifestyle — product in context */}
-            <ProductLifestyle slug={product.slug} />
-
-            {/* Step 5: What you'll receive */}
+            {/* Step 2: What you'll receive */}
             <ProductWhatYouGet slug={product.slug} />
 
-            {/* Step 6: Premium details — quality close-ups */}
-            <ProductDetails slug={product.slug} />
-
-            {/* Step 7: Social proof — customer photos */}
+            {/* Step 3: Social proof — customer photos */}
             <CustomerPhotos slug={product.slug} />
           </>
         )}

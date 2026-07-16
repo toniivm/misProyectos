@@ -4,10 +4,9 @@ import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
-import { usePathname } from 'next/navigation'
 import {
   ShoppingCart, ChevronRight, Check, Search,
-  Truck, RotateCcw, Shield, X, ArrowLeft, SlidersHorizontal,
+  Truck, RotateCcw, Shield, X, SlidersHorizontal,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import {
@@ -19,6 +18,7 @@ import {
 import ProductImage from './ProductImage'
 import Stars from './ui/Stars'
 import Badge from './ui/Badge'
+import Header from './Header'
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating' | 'reviews'
 
@@ -198,7 +198,6 @@ function FilterPanel({
 export default function CategoryPage({ categorySlug }: { categorySlug: string }) {
   const locale = useLocale()
   const isEs = locale === 'es'
-  const pathname = usePathname()
   const { totalItems, open: openCart } = useCart()
   const [sort, setSort] = useState<SortOption>('featured')
   const [maxPrice, setMaxPrice] = useState<number>(200)
@@ -245,52 +244,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
 
   return (
     <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] backdrop-blur-xl">
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-          <div className="flex h-14 items-center gap-4">
-            <Link href={`/${locale}`} className="flex items-center gap-2 text-[#8791a1] hover:text-[#f2eee7] transition-colors">
-              <ArrowLeft size={16} />
-              <span className="hidden text-[12px] font-bold uppercase tracking-[0.2em] text-[#f2eee7] sm:block">Noctip™</span>
-            </Link>
-            <div className="flex-1" />
-            <nav className="hidden items-center gap-1 overflow-x-auto sm:flex">
-              {CATEGORIES.map((cat) => (
-                <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
-                  className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-3 py-1 text-[11px] font-medium transition ${
-                    cat.slug === categorySlug
-                      ? 'border-white/[0.2] bg-white/[0.08] text-[#f2eee7]'
-                      : 'border-white/[0.07] bg-white/[0.02] text-[#9aa7b9] hover:border-white/[0.14] hover:text-[#f2eee7]'
-                  }`}>
-                  {cat.icon} {getLocalizedCategoryName(cat, locale)}
-                </Link>
-              ))}
-            </nav>
-            {/* Language switcher with flag */}
-            <Link href={`/${locale === 'es' ? 'en' : 'es'}${pathname?.replace(/^\/(es|en)/, '') || '/'}`}
-              className="flex items-center gap-1.5 rounded-lg border border-white/10 px-2.5 py-1.5 text-[11px] font-medium text-[#9aa7b9] hover:text-[#f2eee7] hover:border-white/20 transition-all"
-              aria-label={isEs ? 'Switch to English' : 'Cambiar a español'}>
-              <svg className="w-5 h-3.5 rounded-sm" viewBox="0 0 50 30">
-                {isEs ? (
-                  <><rect width="50" height="30" fill="#c60b1e"/><rect y="3" width="50" height="24" fill="#ffc400"/><rect y="3" width="50" height="4" fill="#c60b1e"/><rect y="23" width="50" height="4" fill="#c60b1e"/></>
-                ) : (
-                  <><rect width="60" height="30" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#FFF" strokeWidth="6"/><path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" strokeWidth="3"/><path d="M30 0v30M0 15h60" stroke="#FFF" strokeWidth="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" strokeWidth="4"/></>
-                )}
-              </svg>
-              <span>{isEs ? 'EN' : 'ES'}</span>
-            </Link>
-            <button onClick={openCart}
-              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[#c8d4e2] transition hover:bg-white/[0.08]">
-              <ShoppingCart size={15} />
-              {totalItems > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#f2eee7] text-[9px] font-bold text-[#11161d]">
-                  {totalItems}
-                </span>
-              )}
-            </button>
-          </div>
-        </div>
-      </header>
+      <Header showBackButton />
 
       <div className="mx-auto max-w-[1280px] px-4 pb-24 sm:px-6">
         {/* Breadcrumb */}

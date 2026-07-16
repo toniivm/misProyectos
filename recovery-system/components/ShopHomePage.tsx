@@ -1,16 +1,14 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLocale } from 'next-intl'
-import { usePathname } from 'next/navigation'
-import { useAuth } from '../context/AuthContext'
 import {
-  ShoppingCart, Check, ChevronRight, Menu, X,
-  Shield, Truck, RotateCcw, User, LogOut,
-  PackageCheck, ArrowRight, Star, Minus, Plus,
+  ShoppingCart, Check, ChevronRight,
+  Shield, Truck, RotateCcw,
+  ArrowRight, Star, Minus, Plus,
   CreditCard, Headphones, Moon, Zap, Heart,
   ChevronDown, Sparkles, ShieldCheck, Clock,
 } from 'lucide-react'
@@ -24,6 +22,7 @@ import {
 import ProductImage from './ProductImage'
 import Badge from './ui/Badge'
 import FAQ from './ui/FAQ'
+import Header from './Header'
 
 const ANNOUNCEMENT_MESSAGES = {
   en: [
@@ -234,237 +233,6 @@ function AnnouncementBar({ locale }: { locale: string }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   HEADER — Sticky with scroll reduction
-═══════════════════════════════════════════════════════ */
-function Header({ locale, copy, switchHref }: { locale: string; copy: CopyType; switchHref: string }) {
-  const { totalItems, open: openCart } = useCart()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const isEs = locale === 'es'
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      const prev = document.body.style.overflow
-      document.body.style.overflow = 'hidden'
-      return () => { document.body.style.overflow = prev || '' }
-    }
-  }, [mobileMenuOpen])
-
-  return (
-    <>
-      <header className={`sticky top-0 z-50 border-b border-white/[0.06] backdrop-blur-xl transition-all duration-300 ${
-        scrolled ? 'bg-[rgba(8,12,16,0.95)] h-14' : 'bg-[rgba(8,12,16,0.88)] h-16'
-      }`}>
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-          <div className="flex h-full items-center gap-4 sm:gap-6">
-            {/* Logo */}
-            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5">
-              <Image src="/images/logo/logo.png" alt="Noctip" width={32} height={32} priority className="object-contain" sizes="32px" />
-              <span className="hidden text-[13px] font-bold uppercase tracking-[0.14em] text-[#f2eee7] sm:block">Noctip</span>
-            </Link>
-
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-1 ml-4">
-              {CATEGORIES.map((cat) => (
-                <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`}
-                  className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200">
-                  {getLocalizedCategoryName(cat, locale)}
-                </Link>
-              ))}
-              <Link href={`/${locale}/about`}
-                className="rounded-lg px-3 py-1.5 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200">
-                {copy.nav.about}
-              </Link>
-            </nav>
-
-            <div className="flex-1" />
-
-            {/* Desktop Actions */}
-            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-              <Link href={`/${locale}/tracking`}
-                className="hidden sm:flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200">
-                {copy.nav.track}
-              </Link>
-
-              <Link href={switchHref}
-                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200 min-h-[44px]"
-                aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
-                <span>{locale === 'es' ? 'EN' : 'ES'}</span>
-              </Link>
-
-              <UserMenu locale={locale} />
-
-              <button onClick={openCart}
-                aria-label={`${copy.cart} - ${totalItems} items`}
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7] hover:bg-white/[0.04] active:scale-95">
-                <ShoppingCart size={18} />
-                {totalItems > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#10BFD8] px-1 text-[10px] font-bold text-[#080c12]">
-                    {totalItems > 9 ? '9+' : totalItems}
-                  </span>
-                )}
-              </button>
-
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex md:hidden h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7] active:scale-95"
-                aria-label="Menu">
-                {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Menu — Premium fullscreen overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            <motion.div
-              key="menu-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-md md:hidden"
-              onClick={() => setMobileMenuOpen(false)}
-            />
-            <motion.div
-              key="menu-panel"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 z-[70] w-full max-w-[320px] flex flex-col bg-[#0a0e14] border-l border-white/[0.06] shadow-[-20px_0_60px_rgba(0,0,0,0.5)] md:hidden"
-            >
-              {/* Menu Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
-                <div className="flex items-center gap-2.5">
-                  <Image src="/images/logo/logo.png" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
-                  <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-[#f2eee7]">Noctip</span>
-                </div>
-                <button onClick={() => setMobileMenuOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors hover:bg-white/[0.06] hover:text-[#f2eee7] active:scale-95"
-                  aria-label={isEs ? 'Cerrar menú' : 'Close menu'}>
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* Menu Links */}
-              <nav className="flex-1 overflow-y-auto px-4 py-5">
-                <div className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#5a6678]">
-                  {copy.nav.shop}
-                </div>
-                {CATEGORIES.map((cat, idx) => (
-                  <motion.div key={cat.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 + idx * 0.05 }}>
-                    <Link href={`/${locale}/shop/${cat.slug}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
-                      {getLocalizedCategoryName(cat, locale)}
-                      <ChevronRight size={16} className="text-[#5a6678]" />
-                    </Link>
-                  </motion.div>
-                ))}
-
-                <div className="my-4 mx-3 h-px bg-white/[0.06]" />
-
-                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-                  <Link href={`/${locale}/about`} onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
-                    {copy.nav.about}
-                  </Link>
-                </motion.div>
-
-                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}>
-                  <Link href={`/${locale}/tracking`} onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
-                    {copy.nav.track}
-                  </Link>
-                </motion.div>
-              </nav>
-
-              {/* Menu Footer */}
-              <div className="border-t border-white/[0.06] px-4 py-4 space-y-2">
-                <Link href={switchHref} onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between rounded-xl px-4 py-3 text-[14px] font-medium text-[#8791a1] hover:bg-white/[0.04] hover:text-[#f2eee7] active:bg-white/[0.08] transition-all min-h-[48px]">
-                  <span>{isEs ? 'Idioma' : 'Language'}</span>
-                  <span className="text-[13px] font-semibold text-[#10BFD8]">{locale === 'es' ? 'ES → EN' : 'EN → ES'}</span>
-                </Link>
-                <Link href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center rounded-full bg-[#f2eee7] px-4 py-3.5 text-[14px] font-semibold text-[#080c12] min-h-[48px] active:scale-[0.98] transition-transform">
-                  {copy.hero.secondary}
-                </Link>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════
-   USER MENU
-═══════════════════════════════════════════════════════ */
-function UserMenu({ locale }: { locale: string }) {
-  const auth = useAuth()
-  const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false) }
-    document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
-  }, [])
-
-  if (!auth.user) {
-    return (
-      <button onClick={() => auth.openModal()}
-        className="flex h-10 items-center gap-2 rounded-full border border-white/10 px-3 text-[#8791a1] transition hover:border-white/20 hover:text-[#f2eee7] active:scale-95 min-h-[44px]">
-        <User size={14} />
-        <span className="hidden sm:inline text-[12px] font-medium">{locale === 'es' ? 'Entrar' : 'Sign in'}</span>
-      </button>
-    )
-  }
-
-  return (
-    <div ref={ref} className="relative">
-      <button onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-[#8791a1] transition hover:text-[#f2eee7] active:scale-95 min-h-[44px]">
-        <User size={14} />
-        <span className="max-w-[80px] truncate text-[12px] font-medium">{auth.user.displayName || auth.user.email?.split('@')[0] || 'Account'}</span>
-      </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 4 }}
-            transition={{ duration: 0.12 }}
-            className="absolute right-0 top-full z-50 mt-2 w-52 overflow-hidden rounded-xl border border-white/[0.08] bg-[#0d1219] shadow-[0_8px_24px_rgba(0,0,0,0.4)]">
-            <Link href={`/${locale}/account/orders`} onClick={() => setOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-[13px] text-[#8791a1] transition hover:bg-white/[0.04] hover:text-[#f2eee7] active:bg-white/[0.08] min-h-[44px]">
-              <PackageCheck size={14} className="text-[#5a6678]" />
-              {locale === 'es' ? 'Mis pedidos' : 'My orders'}
-            </Link>
-            <button onClick={() => { setOpen(false); auth.logout() }}
-              className="flex w-full items-center gap-3 px-4 py-3 text-[13px] text-[#8791a1] transition hover:bg-white/[0.04] hover:text-[#f2eee7] active:bg-white/[0.08] border-t border-white/[0.06] min-h-[44px]">
-              <LogOut size={14} className="text-[#5a6678]" />
-              {locale === 'es' ? 'Salir' : 'Sign out'}
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════
    PRODUCT CARD — Premium dark style
 ═══════════════════════════════════════════════════════ */
 function ProductCard({ product, locale }: { product: CatalogProduct; locale: string }) {
@@ -537,14 +305,6 @@ export default function ShopHomePage() {
   const isEs = locale === 'es'
   const copy = getCopy(locale)
   const { open: openCart, totalItems, isOpen: isCartOpen } = useCart()
-  const rawPathname = usePathname() || '/'
-  const switchHref = (() => {
-    let p = rawPathname
-    if (!p.startsWith('/')) p = '/' + p
-    if (/^\/es(\/|$)/.test(p)) return p.replace(/^\/es/, '/en')
-    if (/^\/en(\/|$)/.test(p)) return p.replace(/^\/en/, '/es')
-    return `/${locale === 'es' ? 'en' : 'es'}${p === '/' ? '/' : p}`
-  })()
 
   const flagship = CATALOG.find(p => p.slug === 'halo') ?? CATALOG[0]
   const flagshipImage = flagship.images?.[0] ?? '/images/mouthpiece-1.jpg'
@@ -552,7 +312,7 @@ export default function ShopHomePage() {
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
       <AnnouncementBar locale={locale} />
-      <Header locale={locale} copy={copy} switchHref={switchHref} />
+      <Header />
 
       <main className="pb-24 sm:pb-0">
 

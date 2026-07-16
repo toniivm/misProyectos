@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useLocale } from 'next-intl'
-import { ArrowLeft, Mail, MessageCircle, Clock, Shield, Truck, RotateCcw, Send } from 'lucide-react'
+import { Mail, MessageCircle, Clock, Shield, Truck, RotateCcw, Send } from 'lucide-react'
 import { useState } from 'react'
+import Header from '../../../components/Header'
 
 export default function ContactPage() {
   const locale = useLocale()
@@ -41,26 +41,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#0c1016] text-[#f4f1ea]">
-      {/* Header */}
-      <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <Link href={`/${locale}`} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image
-              src="/images/logo/logo.png"
-              alt="Noctip"
-              width={36}
-              height={36}
-              className="object-contain"
-              sizes="36px"
-            />
-            <span className="hidden sm:block">Noctip</span>
-          </Link>
-          <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">
-            <ArrowLeft size={14} />
-            {isEs ? 'Volver' : 'Back'}
-          </Link>
-        </div>
-      </header>
+      <Header showBackButton />
 
       <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
         {/* Hero */}
