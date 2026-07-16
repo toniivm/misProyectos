@@ -132,7 +132,7 @@ export default function TrackingPage() {
   ] : []
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
       <Header showBackButton />
 
       <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">

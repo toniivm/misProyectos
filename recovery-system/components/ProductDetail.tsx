@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ChevronRight, Minus, Package, Plus, Play, RotateCcw, Shield, ShoppingCart, Truck, Star, ThumbsUp, Flag, ChevronDown, Send, X, CreditCard, ShieldCheck } from 'lucide-react';
+import { Check, ChevronRight, Minus, Plus, RotateCcw, ShoppingCart, Truck, Star, ThumbsUp, Flag, Send, X, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
 import { useLocale } from 'next-intl';
@@ -27,6 +27,7 @@ import Stars from './ui/Stars';
 import Badge from './ui/Badge';
 import FAQ from './ui/FAQ';
 import Header from './Header';
+import PaymentLogos from './PaymentLogos';
 
 export interface Product {
   slug: string;
@@ -326,15 +327,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
 
             {/* Payment methods */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 sm:px-4 py-2.5 sm:py-3">
-              <span className="text-[11px] sm:text-[12px] text-[#5a6678] mr-0.5 sm:mr-1">{isEs ? 'Aceptamos:' : 'We accept:'}</span>
-              <span className="text-[10px] sm:text-[11px] font-medium text-[#6b7280]">Visa</span>
-              <span className="text-[10px] sm:text-[11px] font-medium text-[#6b7280]">MC</span>
-              <span className="text-[10px] sm:text-[11px] font-medium text-[#6b7280]">Amex</span>
-              <span className="text-[10px] sm:text-[11px] font-medium text-[#6b7280]">PayPal</span>
-              <span className="text-[10px] sm:text-[11px] font-medium text-[#6b7280]">G Pay</span>
-              <span className="text-[10px] sm:text-[11px] font-medium text-[#6b7280]">Apple Pay</span>
-            </div>
+            <PaymentLogos />
           </motion.div>
         </div>
 

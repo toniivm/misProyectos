@@ -5,7 +5,8 @@ import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Facebook, Instagram, Twitter, Youtube, Globe, Lock } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Facebook, Instagram, Youtube, Globe, Lock } from 'lucide-react'
+import PaymentLogos from './PaymentLogos'
 
 export default function Footer() {
   const locale = useLocale()
@@ -192,16 +193,11 @@ export default function Footer() {
         </div>
 
         {/* Payment methods */}
-        <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-2 sm:gap-3 sm:justify-start">
-          <span className="text-[10px] sm:text-[11px] text-[#3d4a5c]">{isEs ? 'Métodos de pago:' : 'Payment methods:'}</span>
-          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-            {['Visa', 'MC', 'Amex', 'PayPal', 'Apple Pay', 'Google Pay'].map((method) => (
-              <span key={method} className="flex items-center gap-1 rounded-md border border-white/[0.08] bg-white/[0.03] px-2 sm:px-2.5 py-1 sm:py-1.5 text-[9px] sm:text-[10px] font-medium text-[#5a6678]">
-                <CreditCard size={9} className="text-[#10BFD8]/60" />
-                {method}
-              </span>
-            ))}
+        <div className="mt-8 sm:mt-10">
+          <div className="mb-3 text-[10px] sm:text-[11px] text-[#3d4a5c] text-center sm:text-left">
+            {isEs ? 'Métodos de pago:' : 'Payment methods:'}
           </div>
+          <PaymentLogos className="sm:justify-start" />
         </div>
 
         {/* Bottom bar */}

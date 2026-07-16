@@ -40,7 +40,7 @@ export default function ContactPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
       <Header showBackButton />
 
       <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">

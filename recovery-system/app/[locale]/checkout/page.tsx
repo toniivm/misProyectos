@@ -10,6 +10,7 @@ import { useAuth } from '../../../context/AuthContext';
 import PhoneInputField from '../../../components/PhoneInputField';
 import AddressAutocomplete from '../../../components/AddressAutocomplete';
 import { getActiveBundle } from '../../../lib/catalog';
+import PaymentLogos from '../../../components/PaymentLogos';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -678,20 +679,7 @@ export default function CheckoutPage() {
               </div>
 
               {/* Payment methods available */}
-              <div className="mb-4 flex flex-wrap items-center justify-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
-                {/* Visa */}
-                <svg viewBox="0 0 48 16" className="payment-icon" fill="#1A1F71"><path d="M19.5 2.5c-2.8 0-5.2.8-6.9 2.2L13 3.6c1.6-1.3 3.8-2.1 6.5-2.1 3.9 0 6.6 1.7 6.6 4.3v.3c0 1.2-.8 2.1-2.2 2.8-1.3.7-3 1.1-4.4 1.5-1.2.3-2.2.6-2.2 1.3 0 .5.4.8 1.2.8.9 0 2-.3 3.2-.9s2.3-1.3 2.3-1.3l-.3 1.8s-1 .7-2.7 1.2c-1 .3-2.1.5-3.2.5-2.5 0-4.1-1.2-4.1-3.2 0-2 1.6-3.2 4.2-4.1 1.4-.5 3.1-.9 4.4-1.2 1.1-.3 1.8-.6 1.8-1.2 0-.6-.6-1-1.9-1-1.1 0-2.4.2-3.6.7z"/><path d="M37.5 10.6c.6 0 1.2-.1 1.8-.4l-.5 1.6c-.5.2-1.1.4-1.7.4-2.1 0-3.3-1.2-3.3-3.1 0-2.2 1.5-3.8 3.5-3.8 1.1 0 2 .5 2.5 1.2l-.7 1.5c-.4-.5-.9-.8-1.6-.8-1.2 0-2 1-2 2.6 0 1.4.7 2.2 2 2.2z"/><path d="M42 .5h2.2L40.5 12.5h-2.2L42 .5z"/><path d="M2.5 2.5H6c1 0 1.8.1 2.2.3l-.4 1.9c-.3-.2-.8-.3-1.5-.3H4.9l-1.2 6.1H1.2L2.5 2.5z"/><path d="M10.5 2.5l-1.5 9.2h-2L9 .5h2.5l2.2 7.8L15 .5h2l-1.5 9.2h-2l1.2-7-2.2 7h-2L10.5 2.5z"/><path d="M26.5 2.5l-1.5 9.2h-2l1.5-9.2h2z"/><path d="M31 2.5l-1.5 9.2h-1.9l1.5-9.2H31zM31.5.5c0 .8-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4c0-.8.6-1.4 1.4-1.4s1.4.6 1.4 1.4z"/></svg>
-                {/* Mastercard */}
-                <svg viewBox="0 0 48 16" className="payment-icon"><circle fill="#F79F1A" cx="15.5" cy="8" r="7"/><circle fill="#EB001B" cx="28.5" cy="8" r="7" opacity=".8"/><path fill="#FF5F00" d="M22 2c2.8 2.1 4.2 5.4 4.2 8.9 0 3.5-1.4 6.8-4.2 8.9-2.8-2.1-4.2-5.4-4.2-8.9 0-3.5 1.4-6.8 4.2-8.9z"/></svg>
-                {/* Amex */}
-                <svg viewBox="0 0 48 16" className="payment-icon"><rect width="48" height="16" rx="2" fill="#006FCF"/><text x="24" y="11" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold" fontFamily="Arial">AMEX</text></svg>
-                {/* PayPal */}
-                <svg viewBox="0 0 48 16" className="payment-icon"><text x="24" y="11" textAnchor="middle" fill="#003087" fontSize="7" fontWeight="bold" fontFamily="Arial">PayPal</text></svg>
-                {/* Google Pay */}
-                <svg viewBox="0 0 48 16" className="payment-icon"><text x="24" y="11" textAnchor="middle" fill="#5F6368" fontSize="7" fontWeight="bold" fontFamily="Arial">G Pay</text></svg>
-                {/* Apple Pay */}
-                <svg viewBox="0 0 48 16" className="payment-icon"><text x="24" y="11" textAnchor="middle" fill="#000" fontSize="7" fontWeight="bold" fontFamily="Arial">Pay</text></svg>
-              </div>
+              <PaymentLogos className="mb-4" />
 
               {/* Security info */}
               <div className="space-y-2">
@@ -751,6 +739,19 @@ export default function CheckoutPage() {
                 </div>
               </div>
             )}
+
+            {/* ── Payment methods info ── */}
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5">
+              <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b7785]">
+                {isEs ? 'Métodos de pago aceptados' : 'Accepted payment methods'}
+              </div>
+              <PaymentLogos />
+              <p className="mt-2 text-[11px] text-[#5a6678] text-center">
+                {isEs
+                  ? 'Paga de forma segura con tarjeta, PayPal, Apple Pay o Google Pay'
+                  : 'Pay securely with card, PayPal, Apple Pay, or Google Pay'}
+              </p>
+            </div>
 
             {/* ── Global error ── */}
             {error && (

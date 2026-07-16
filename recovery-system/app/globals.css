@@ -157,6 +157,47 @@ body {
 .select option, .select-premium option {
   background: #0d1219;
   color: var(--text-primary);
+  padding: 8px;
+}
+
+/* Force dark theme on all form elements across browsers */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(255,255,255,0.03);
+  color: var(--text-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7785' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+select option {
+  background: #0d1219;
+  color: var(--text-primary);
+  padding: 8px 12px;
+}
+select option[value=""] {
+  color: var(--text-faint);
+}
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Textarea dark theme */
+textarea {
+  background-color: rgba(255,255,255,0.03);
+  color: var(--text-primary);
+}
+textarea::placeholder {
+  color: var(--text-faint);
+}
+
+/* Checkbox & Radio dark theme */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--accent);
 }
 
 /* ═══════════════════════════════════════════════════════

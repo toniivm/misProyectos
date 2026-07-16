@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import {
   ShoppingCart, Check, ChevronRight,
   Shield, Truck, RotateCcw,
-  ArrowRight, Star, Minus, Plus,
+  ArrowRight,
   CreditCard, Headphones, Moon, Zap, Heart,
-  ChevronDown, Sparkles, ShieldCheck, Clock,
+  Sparkles, ShieldCheck,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import {

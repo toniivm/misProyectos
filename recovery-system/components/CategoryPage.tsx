@@ -81,7 +81,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
     setTimeout(() => setAdded(false), 2000)
   }
 
-  const savings = Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100)
+  const savings = product.comparePrice > 0 ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100) : 0
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group block">
@@ -243,7 +243,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
   const eNeeds = isEs ? editorial.needs.es : editorial.needs.en
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f4f1ea]">
+    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
       <Header showBackButton />
 
       <div className="mx-auto max-w-[1280px] px-4 pb-24 sm:px-6">
