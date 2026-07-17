@@ -121,7 +121,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                   onMouseEnter={() => setProductsOpen(true)}
                   className="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-bold text-white hover:bg-white/[0.06] transition-all uppercase tracking-wide"
                   aria-expanded={productsOpen}>
-                  {isEs ? 'Tienda' : 'Shop'}
+                  {isEs ? 'Productos' : 'Products'}
                   <ChevronDown size={13} className={`transition-transform duration-200 text-[#10BFD8] ${productsOpen ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
@@ -165,9 +165,9 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                 </AnimatePresence>
               </div>
 
-              <Link href={`/${locale}/contact`}
-                className="rounded-lg px-4 py-2 text-[13px] font-bold text-white hover:bg-white/[0.06] transition-all">
-                {isEs ? 'Contacto' : 'Contact'}
+              <Link href={`/${locale}/about`}
+                className="rounded-lg px-4 py-2 text-[13px] font-bold text-white hover:bg-white/[0.06] transition-all uppercase tracking-wide">
+                {isEs ? 'Sobre nosotros' : 'About'}
               </Link>
             </nav>
 
@@ -240,17 +240,17 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
         <div className="hidden lg:block border-t border-white/[0.06]">
           <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-6 py-2">
-              <Link href={`/${locale}/shop/all`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Productos' : 'Products'}
+              <Link href={`/${locale}/contact`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
+                {isEs ? 'Contacto' : 'Contact'}
               </Link>
-              <Link href={`/${locale}/about`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Sobre nosotros' : 'About us'}
+              <Link href={`/${locale}/tracking`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
+                {isEs ? 'Seguimiento' : 'Track order'}
               </Link>
               <Link href={`/${locale}/legal/shipping`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
                 {isEs ? 'Envíos' : 'Shipping'}
               </Link>
-              <Link href={`/${locale}/contact`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Contacto' : 'Contact'}
+              <Link href={`/${locale}/legal/returns`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
+                {isEs ? 'Garantía' : 'Guarantee'}
               </Link>
             </div>
           </div>
