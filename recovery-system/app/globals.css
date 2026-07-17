@@ -88,15 +88,15 @@ body {
 ═══════════════════════════════════════════════════════ */
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold;
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-bold;
   color: #080c12;
-  background: var(--text-primary);
+  background: var(--accent);
   transition: all var(--duration-normal) var(--ease-out);
 }
 .btn-primary:hover {
-  background: #ffffff;
+  background: #0ea5c0;
   transform: translateY(-1px);
-  box-shadow: 0 8px 40px rgba(242, 238, 231, 0.15);
+  box-shadow: 0 8px 40px rgba(16, 191, 216, 0.35);
 }
 
 .btn-secondary {

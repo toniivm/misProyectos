@@ -331,11 +331,11 @@ export default function ShopHomePage() {
                 <p className="mt-4 sm:mt-5 max-w-md text-[15px] sm:text-[16px] leading-[1.65] sm:leading-[1.7] text-[#8791a1]">{copy.hero.subtitle}</p>
                 <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <Link href={`/${locale}/products/${flagship.slug}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-7 sm:px-8 py-3.5 sm:py-4 text-[14px] sm:text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(242,238,231,0.15)] min-h-[48px] sm:min-h-[52px]">
-                    {copy.hero.cta} <ArrowRight size={16} />
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-8 sm:px-9 py-4 sm:py-4.5 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(16,191,216,0.35)] min-h-[52px] sm:min-h-[56px]">
+                    {copy.hero.cta} <ArrowRight size={18} strokeWidth={2.5} />
                   </Link>
                   <a href="#products"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-6 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-medium text-[#8791a1] transition-all duration-300 hover:border-white/25 hover:text-[#f2eee7] min-h-[48px] sm:min-h-[52px]">
+                    className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/15 px-7 py-4 sm:py-4.5 text-[14px] sm:text-[15px] font-semibold text-[#f2eee7] transition-all duration-300 hover:border-[#10BFD8]/40 hover:text-[#10BFD8] hover:bg-[#10BFD8]/5 min-h-[52px] sm:min-h-[56px]">
                     {copy.hero.secondary}
                   </a>
                 </div>
@@ -517,11 +517,11 @@ export default function ShopHomePage() {
             <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.cta.sub}</p>
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <Link href={`/${locale}/shop/all`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f2eee7] px-7 sm:px-8 py-3.5 sm:py-4 text-[14px] sm:text-[15px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(242,238,231,0.15)] min-h-[48px] sm:min-h-[52px]">
-                {copy.cta.primary} <ArrowRight size={16} />
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-8 sm:px-9 py-4 sm:py-4.5 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(16,191,216,0.35)] min-h-[52px] sm:min-h-[56px]">
+                {copy.cta.primary} <ArrowRight size={18} strokeWidth={2.5} />
               </Link>
               <Link href={`/${locale}/shop/all?sort=rating`}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-7 sm:px-8 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-medium text-[#8791a1] transition-all duration-300 hover:border-white/25 hover:text-[#f2eee7] min-h-[48px] sm:min-h-[52px]">
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/15 px-7 sm:px-8 py-4 sm:py-4.5 text-[14px] sm:text-[15px] font-semibold text-[#f2eee7] transition-all duration-300 hover:border-[#10BFD8]/40 hover:text-[#10BFD8] hover:bg-[#10BFD8]/5 min-h-[52px] sm:min-h-[56px]">
                 {copy.cta.secondary}
               </Link>
             </div>
@@ -543,7 +543,7 @@ export default function ShopHomePage() {
             )}
           </button>
           <Link href={`/${locale}/products/${flagship.slug}`}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3 text-[15px] font-bold text-[#080c12] min-h-[48px]">
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#10BFD8] py-3.5 text-[15px] font-bold text-[#080c12] min-h-[52px] shadow-[0_4px_20px_rgba(16,191,216,0.3)]">
             {copy.mobile.cta} — {copy.hero.price}
           </Link>
         </div>

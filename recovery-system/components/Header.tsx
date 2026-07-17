@@ -88,15 +88,15 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
 
   return (
     <>
-      <header className={`sticky top-0 z-50 border-b border-white/[0.06] backdrop-blur-xl transition-all duration-300 ${
-        scrolled ? 'bg-[rgba(8,12,16,0.95)] h-14' : 'bg-[rgba(8,12,16,0.88)] h-16'
+      <header className={`sticky top-0 z-50 border-b border-white/[0.08] backdrop-blur-xl transition-all duration-300 ${
+        scrolled ? 'bg-[rgba(8,12,16,0.97)] h-14 shadow-[0_4px_24px_rgba(0,0,0,0.4)]' : 'bg-[rgba(8,12,16,0.92)] h-16'
       }`}>
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
           <div className="flex h-full items-center gap-3 sm:gap-5">
             {/* Logo */}
-            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2">
-              <Image src="/images/logo/logo.png" alt="Noctip" width={32} height={32} priority className="object-contain" sizes="32px" />
-              <span className="hidden text-[13px] font-bold uppercase tracking-[0.14em] text-[#f2eee7] sm:block">Noctip</span>
+            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5">
+              <Image src="/images/logo/logo.png" alt="Noctip" width={40} height={40} priority className="object-contain" sizes="40px" />
+              <span className="text-[15px] font-extrabold uppercase tracking-[0.16em] text-[#f2eee7] sm:block">Noctip</span>
             </Link>
 
             {/* Desktop Nav */}
@@ -239,9 +239,9 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
             >
               {/* Menu Header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
-                <div className="flex items-center gap-2.5">
-                  <Image src="/images/logo/logo.png" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
-                  <span className="text-[13px] font-bold uppercase tracking-[0.12em] text-[#f2eee7]">Noctip</span>
+                <div className="flex items-center gap-3">
+                  <Image src="/images/logo/logo.png" alt="Noctip" width={36} height={36} className="object-contain" sizes="36px" />
+                  <span className="text-[15px] font-extrabold uppercase tracking-[0.14em] text-[#f2eee7]">Noctip</span>
                 </div>
                 <button onClick={() => setMobileMenuOpen(false)}
                   className="flex h-11 w-11 items-center justify-center rounded-full text-[#8791a1] transition-colors hover:bg-white/[0.06] hover:text-[#f2eee7] active:scale-95"
@@ -314,7 +314,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                   </span>
                 </Link>
                 <Link href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center rounded-full bg-[#f2eee7] px-4 py-3.5 text-[14px] font-semibold text-[#080c12] min-h-[48px] active:scale-[0.98] transition-transform">
+                  className="flex items-center justify-center rounded-full bg-[#10BFD8] px-4 py-3.5 text-[14px] font-bold text-[#080c12] min-h-[48px] active:scale-[0.98] transition-transform shadow-[0_4px_20px_rgba(16,191,216,0.3)]">
                   {isEs ? 'Ver todos los productos' : 'View all products'}
                 </Link>
               </div>
