@@ -10,11 +10,10 @@ import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import {
   ShoppingCart, Menu, X, ChevronDown, User, LogOut,
-  ArrowLeft, PackageCheck, Search,
+  ArrowLeft, PackageCheck, Search, Sparkles,
 } from 'lucide-react'
 import {
   CATALOG,
-  getLocalizedCategoryName,
 } from '../lib/catalog'
 
 interface HeaderProps {
@@ -70,14 +69,14 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
   }, [])
 
   const FlagES = () => (
-    <svg className="w-5 h-[15px] rounded-[2px] shadow-sm" viewBox="0 0 750 500" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-[22px] h-[16px] rounded-[3px] shadow-[0_1px_3px_rgba(0,0,0,0.3)]" viewBox="0 0 750 500" xmlns="http://www.w3.org/2000/svg">
       <rect width="750" height="500" fill="#c60b1e"/>
       <rect y="125" width="750" height="250" fill="#ffc400"/>
     </svg>
   )
 
   const FlagEN = () => (
-    <svg className="w-5 h-[15px] rounded-[2px] shadow-sm" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-[22px] h-[16px] rounded-[3px] shadow-[0_1px_3px_rgba(0,0,0,0.3)]" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
       <rect width="60" height="30" fill="#012169"/>
       <path d="M0 0l60 30m0-30L0 30" stroke="#FFF" strokeWidth="6"/>
       <path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" strokeWidth="3"/>
@@ -88,24 +87,32 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
 
   return (
     <>
-      <header className={`sticky top-0 z-50 border-b border-white/[0.08] backdrop-blur-xl transition-all duration-300 ${
-        scrolled ? 'bg-[rgba(8,12,16,0.97)] h-14 shadow-[0_4px_24px_rgba(0,0,0,0.4)]' : 'bg-[rgba(8,12,16,0.92)] h-16'
-      }`}>
-        <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-          <div className="flex h-full items-center gap-3 sm:gap-5">
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[rgba(8,12,16,0.98)] h-[56px] shadow-[0_1px_0_rgba(255,255,255,0.06),0_4px_24px_rgba(0,0,0,0.5)]'
+          : 'bg-[rgba(8,12,16,0.95)] h-[64px]'
+      } backdrop-blur-2xl`}>
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 h-full">
+          <div className="flex h-full items-center justify-between">
             {/* Logo */}
-            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5">
-              <Image src="/images/logo/logo.png" alt="Noctip" width={40} height={40} priority className="object-contain" sizes="40px" />
-              <span className="text-[15px] font-extrabold uppercase tracking-[0.16em] text-[#f2eee7] sm:block">Noctip</span>
+            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-3 group">
+              <div className="relative">
+                <Image src="/images/logo/logo.png" alt="Noctip" width={42} height={42} priority className="object-contain transition-transform duration-300 group-hover:scale-105" sizes="42px" />
+              </div>
+              <div className="hidden sm:flex flex-col leading-none">
+                <span className="text-[16px] font-extrabold tracking-[0.18em] text-[#f2eee7] uppercase">Noctip</span>
+                <span className="text-[9px] font-medium tracking-[0.2em] text-[#10BFD8] uppercase mt-0.5">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>
+              </div>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-0.5 ml-2">
+            <nav className="hidden lg:flex items-center gap-1">
               {/* Productos Dropdown */}
               <div ref={productsRef} className="relative">
                 <button
                   onClick={() => setProductsOpen(!productsOpen)}
-                  className="flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200 min-h-[40px]"
+                  onMouseEnter={() => setProductsOpen(true)}
+                  className="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold text-[#c8d4e2] hover:text-white hover:bg-white/[0.06] active:bg-white/[0.08] transition-all duration-200"
                   aria-expanded={productsOpen}
                   aria-haspopup="true">
                   {isEs ? 'Productos' : 'Products'}
@@ -114,35 +121,36 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                 <AnimatePresence>
                   {productsOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                      initial={{ opacity: 0, y: 10, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                      transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute left-0 top-full mt-1 w-64 rounded-xl border border-white/[0.08] bg-[#0d1219] py-2 shadow-[0_16px_48px_rgba(0,0,0,0.5)] z-50">
+                      exit={{ opacity: 0, y: 10, scale: 0.97 }}
+                      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                      onMouseLeave={() => setProductsOpen(false)}
+                      className="absolute left-0 top-full mt-0 w-[280px] rounded-2xl border border-white/[0.08] bg-[#0d1219] p-2 shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-50">
                       <Link href={`/${locale}/shop/all`} onClick={() => setProductsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-[#f2eee7] hover:bg-white/[0.04] transition-colors">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[#10BFD8]">
-                          <Search size={14} />
+                        className="flex items-center gap-3 rounded-xl px-4 py-3 text-[13px] font-semibold text-white hover:bg-white/[0.06] transition-colors">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8]/10 text-[#10BFD8]">
+                          <Search size={15} />
                         </span>
-                        {isEs ? 'Todos los productos' : 'All products'}
+                        {isEs ? 'Ver todos los productos' : 'View all products'}
                       </Link>
-                      <div className="my-1 mx-3 h-px bg-white/[0.06]" />
+                      <div className="my-1.5 mx-3 h-px bg-white/[0.06]" />
                       {CATALOG.slice(0, 4).map((product) => (
                         <Link key={product.slug} href={`/${locale}/products/${product.slug}`} onClick={() => setProductsOpen(false)}
-                          className="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-colors">
-                          <span className="text-base">{product.icon}</span>
+                          className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-white hover:bg-white/[0.06] transition-colors">
+                          <span className="text-lg">{product.icon}</span>
                           <span className="truncate">{isEs ? (product.name_es ?? product.name) : (product.name_en ?? product.name)}</span>
                         </Link>
                       ))}
-                      <div className="my-1 mx-3 h-px bg-white/[0.06]" />
+                      <div className="my-1.5 mx-3 h-px bg-white/[0.06]" />
                       <Link href={`/${locale}/shop/sleep-audio`} onClick={() => setProductsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-colors">
-                        <span className="text-base">🌙</span>
+                        className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-white hover:bg-white/[0.06] transition-colors">
+                        <span className="text-lg">🌙</span>
                         {isEs ? 'Sueño y anti-ronquidos' : 'Sleep & Anti-Snoring'}
                       </Link>
                       <Link href={`/${locale}/shop/neck-recovery`} onClick={() => setProductsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-colors">
-                        <span className="text-base">💪</span>
+                        className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-white hover:bg-white/[0.06] transition-colors">
+                        <span className="text-lg">💪</span>
                         {isEs ? 'Postura y recuperación' : 'Posture & Recovery'}
                       </Link>
                     </motion.div>
@@ -151,43 +159,41 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
               </div>
 
               <Link href={`/${locale}/contact`}
-                className="rounded-lg px-3 py-2 text-[13px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200 min-h-[40px] flex items-center">
+                className="rounded-lg px-4 py-2 text-[13px] font-semibold text-[#c8d4e2] hover:text-white hover:bg-white/[0.06] active:bg-white/[0.08] transition-all duration-200">
                 {isEs ? 'Contacto' : 'Contact'}
               </Link>
             </nav>
 
-            <div className="flex-1" />
-
             {/* Desktop Actions */}
-            <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
+            <div className="flex items-center gap-2">
               {showBackButton && (
                 <Link href={resolvedBackHref}
-                  className="hidden lg:flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-[11px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:border-white/20 hover:bg-white/[0.06] active:scale-95 transition-all min-h-[36px]">
+                  className="hidden lg:flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] font-medium text-[#8791a1] hover:text-white hover:border-white/20 hover:bg-white/[0.06] active:scale-95 transition-all">
                   <ArrowLeft size={12} />
                   {resolvedBackLabel}
                 </Link>
               )}
 
               <Link href={`/${locale}/tracking`}
-                className="hidden sm:flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all duration-200 min-h-[40px]">
-                {isEs ? 'Seguimiento' : 'Track order'}
+                className="hidden sm:flex items-center rounded-lg px-3 py-2 text-[12px] font-semibold text-[#8791a1] hover:text-white hover:bg-white/[0.06] transition-all">
+                {isEs ? 'Seguimiento' : 'Track'}
               </Link>
 
-              {/* Language switcher */}
+              {/* Language */}
               <Link href={switchHref}
-                className="hidden sm:flex items-center gap-1.5 rounded-lg border border-white/[0.08] px-2.5 py-1.5 text-[11px] font-semibold text-[#8791a1] hover:text-[#f2eee7] hover:border-white/[0.16] active:scale-95 transition-all duration-200 min-h-[40px]"
+                className="hidden sm:flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-1.5 text-[11px] font-bold text-[#c8d4e2] hover:text-white hover:border-white/[0.18] hover:bg-white/[0.04] active:scale-95 transition-all"
                 aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
                 {locale === 'es' ? <FlagEN /> : <FlagES />}
                 <span>{locale === 'es' ? 'EN' : 'ES'}</span>
               </Link>
 
-              {/* User menu */}
+              {/* User */}
               {!auth.user ? (
                 <button onClick={() => auth.openModal()}
-                  className="hidden sm:flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-3 text-[#8791a1] transition hover:border-white/20 hover:text-[#f2eee7] active:scale-95 min-h-[40px]"
+                  className="hidden sm:flex items-center gap-2 rounded-full border border-white/[0.08] px-4 py-2 text-[12px] font-semibold text-[#c8d4e2] transition-all hover:border-[#10BFD8]/30 hover:text-white hover:bg-[#10BFD8]/5 active:scale-95"
                   aria-label={isEs ? 'Iniciar sesión' : 'Sign in'}>
                   <User size={14} />
-                  <span className="hidden lg:inline text-[12px] font-medium">{isEs ? 'Entrar' : 'Sign in'}</span>
+                  <span className="hidden xl:inline">{isEs ? 'Entrar' : 'Sign in'}</span>
                 </button>
               ) : (
                 <UserMenuInline locale={locale} auth={auth} />
@@ -196,20 +202,20 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
               {/* Cart */}
               <button onClick={openCart}
                 aria-label={`Cart - ${totalItems} items`}
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7] hover:bg-white/[0.04] active:scale-95 min-h-[44px] min-w-[44px]">
-                <ShoppingCart size={18} />
+                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#c8d4e2] transition-all duration-200 hover:text-white hover:bg-white/[0.06] active:scale-95">
+                <ShoppingCart size={19} strokeWidth={1.8} />
                 {totalItems > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#10BFD8] px-1 text-[10px] font-bold text-[#080c12]">
+                  <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#10BFD8] px-1 text-[10px] font-bold text-[#080c12] shadow-[0_2px_8px_rgba(16,191,216,0.4)]">
                     {totalItems > 9 ? '9+' : totalItems}
                   </span>
                 )}
               </button>
 
-              {/* Mobile menu toggle */}
+              {/* Mobile menu */}
               <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex md:hidden h-10 w-10 items-center justify-center rounded-full text-[#8791a1] transition-colors duration-200 hover:text-[#f2eee7] active:scale-95 min-h-[44px] min-w-[44px]"
+                className="flex lg:hidden h-10 w-10 items-center justify-center rounded-full text-[#c8d4e2] transition-all duration-200 hover:text-white hover:bg-white/[0.06] active:scale-95"
                 aria-label={isEs ? 'Abrir menú' : 'Open menu'}>
-                {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
@@ -221,100 +227,100 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
         {mobileMenuOpen && (
           <>
             <motion.div
-              key="menu-overlay"
+              key="overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm lg:hidden"
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.div
-              key="menu-panel"
+              key="panel"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 z-[70] w-full max-w-[320px] flex flex-col bg-[#0a0e14] border-l border-white/[0.06] shadow-[-20px_0_60px_rgba(0,0,0,0.5)] md:hidden"
+              className="fixed top-0 right-0 bottom-0 z-[70] w-full max-w-[340px] flex flex-col bg-[#0a0e14] border-l border-white/[0.06] shadow-[-20px_0_80px_rgba(0,0,0,0.6)] lg:hidden"
             >
-              {/* Menu Header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b border-white/[0.06]">
                 <div className="flex items-center gap-3">
-                  <Image src="/images/logo/logo.png" alt="Noctip" width={36} height={36} className="object-contain" sizes="36px" />
-                  <span className="text-[15px] font-extrabold uppercase tracking-[0.14em] text-[#f2eee7]">Noctip</span>
+                  <Image src="/images/logo/logo.png" alt="Noctip" width={38} height={38} className="object-contain" sizes="38px" />
+                  <div className="flex flex-col leading-none">
+                    <span className="text-[15px] font-extrabold tracking-[0.16em] text-white uppercase">Noctip</span>
+                    <span className="text-[8px] font-medium tracking-[0.18em] text-[#10BFD8] uppercase mt-0.5">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>
+                  </div>
                 </div>
                 <button onClick={() => setMobileMenuOpen(false)}
-                  className="flex h-11 w-11 items-center justify-center rounded-full text-[#8791a1] transition-colors hover:bg-white/[0.06] hover:text-[#f2eee7] active:scale-95"
+                  className="flex h-11 w-11 items-center justify-center rounded-full text-[#8791a1] transition-all hover:bg-white/[0.06] hover:text-white active:scale-95"
                   aria-label={isEs ? 'Cerrar menú' : 'Close menu'}>
-                  <X size={18} />
+                  <X size={20} />
                 </button>
               </div>
 
-              {/* Menu Links */}
-              <nav className="flex-1 overflow-y-auto px-4 py-4">
-                {/* Productos section */}
-                <MobileSection title={isEs ? 'Productos' : 'Products'}>
-                  <Link href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[#10BFD8]">
-                      <Search size={14} />
-                    </span>
-                    {isEs ? 'Todos los productos' : 'All products'}
-                  </Link>
-                  {CATALOG.slice(0, 4).map((product, idx) => (
-                    <motion.div key={product.slug}
-                      initial={{ opacity: 0, x: 16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + idx * 0.04 }}>
-                      <Link href={`/${locale}/products/${product.slug}`} onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-3 rounded-xl px-4 py-3 text-[14px] text-[#c8d4e2] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
-                        <span className="text-base">{product.icon}</span>
-                        <span className="truncate">{isEs ? (product.name_es ?? product.name) : (product.name_en ?? product.name)}</span>
-                      </Link>
-                    </motion.div>
-                  ))}
-                  <div className="my-1 mx-4 h-px bg-white/[0.06]" />
-                  <Link href={`/${locale}/shop/sleep-audio`} onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-[14px] text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
-                    <span className="text-base">🌙</span>
-                    {isEs ? 'Sueño y anti-ronquidos' : 'Sleep & Anti-Snoring'}
-                  </Link>
-                  <Link href={`/${locale}/shop/neck-recovery`} onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 rounded-xl px-4 py-3 text-[14px] text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
-                    <span className="text-base">💪</span>
-                    {isEs ? 'Postura y recuperación' : 'Posture & Recovery'}
-                  </Link>
-                </MobileSection>
+              {/* Links */}
+              <nav className="flex-1 overflow-y-auto px-5 py-5">
+                {/* Productos */}
+                <div className="mb-1 px-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#5a6678]">
+                  {isEs ? 'Productos' : 'Products'}
+                </div>
+                <MobileLink href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)} delay={0.03}>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[#10BFD8]">
+                    <Search size={14} />
+                  </span>
+                  {isEs ? 'Ver todos los productos' : 'View all products'}
+                </MobileLink>
+                {CATALOG.slice(0, 4).map((product, idx) => (
+                  <motion.div key={product.slug}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.04 + idx * 0.04 }}>
+                    <Link href={`/${locale}/products/${product.slug}`} onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 rounded-xl px-4 py-3 text-[14px] text-[#c8d4e2] hover:text-white hover:bg-white/[0.06] active:bg-white/[0.08] transition-all min-h-[48px]">
+                      <span className="text-lg">{product.icon}</span>
+                      <span className="truncate">{isEs ? (product.name_es ?? product.name) : (product.name_en ?? product.name)}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+                <div className="my-1.5 mx-4 h-px bg-white/[0.06]" />
+                <MobileLink href={`/${locale}/shop/sleep-audio`} onClick={() => setMobileMenuOpen(false)} delay={0.1}>
+                  <span className="text-lg">🌙</span>
+                  {isEs ? 'Sueño y anti-ronquidos' : 'Sleep & Anti-Snoring'}
+                </MobileLink>
+                <MobileLink href={`/${locale}/shop/neck-recovery`} onClick={() => setMobileMenuOpen(false)} delay={0.12}>
+                  <span className="text-lg">💪</span>
+                  {isEs ? 'Postura y recuperación' : 'Posture & Recovery'}
+                </MobileLink>
 
-                <div className="my-2 mx-3 h-px bg-white/[0.06]" />
+                <div className="my-3 mx-1 h-px bg-white/[0.06]" />
 
-                <MobileLink href={`/${locale}/contact`} onClick={() => setMobileMenuOpen(false)} delay={0.15}>
+                <MobileLink href={`/${locale}/contact`} onClick={() => setMobileMenuOpen(false)} delay={0.14}>
                   {isEs ? 'Contacto' : 'Contact'}
                 </MobileLink>
-
-                <MobileLink href={`/${locale}/tracking`} onClick={() => setMobileMenuOpen(false)} delay={0.18}>
+                <MobileLink href={`/${locale}/tracking`} onClick={() => setMobileMenuOpen(false)} delay={0.16}>
                   {isEs ? 'Seguimiento' : 'Track order'}
                 </MobileLink>
-
                 {!auth.user && (
-                  <MobileLink href="#" onClick={() => { auth.openModal(); setMobileMenuOpen(false); }} delay={0.21}>
+                  <MobileLink href="#" onClick={() => { auth.openModal(); setMobileMenuOpen(false); }} delay={0.18}>
                     {isEs ? 'Iniciar sesión' : 'Sign in'}
                   </MobileLink>
                 )}
               </nav>
 
-              {/* Menu Footer */}
-              <div className="border-t border-white/[0.06] px-4 py-4 space-y-2">
+              {/* Footer */}
+              <div className="border-t border-white/[0.06] px-5 py-5 space-y-3">
                 <Link href={switchHref} onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between rounded-xl px-4 py-3 text-[14px] font-medium text-[#8791a1] hover:bg-white/[0.04] hover:text-[#f2eee7] active:bg-white/[0.08] transition-all min-h-[48px]">
+                  className="flex items-center justify-between rounded-xl px-4 py-3 text-[14px] font-medium text-[#8791a1] hover:bg-white/[0.06] hover:text-white active:bg-white/[0.08] transition-all min-h-[48px]">
                   <span>{isEs ? 'Idioma' : 'Language'}</span>
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2.5">
                     {locale === 'es' ? <FlagEN /> : <FlagES />}
-                    <span className="text-[13px] font-semibold text-[#10BFD8]">{locale === 'es' ? 'EN' : 'ES'}</span>
+                    <span className="text-[13px] font-bold text-[#10BFD8]">{locale === 'es' ? 'EN' : 'ES'}</span>
                   </span>
                 </Link>
                 <Link href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center rounded-full bg-[#10BFD8] px-4 py-3.5 text-[14px] font-bold text-[#080c12] min-h-[48px] active:scale-[0.98] transition-transform shadow-[0_4px_20px_rgba(16,191,216,0.3)]">
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-4 py-3.5 text-[14px] font-bold text-[#080c12] min-h-[52px] active:scale-[0.98] transition-transform shadow-[0_4px_20px_rgba(16,191,216,0.3)]">
+                  <Sparkles size={15} />
                   {isEs ? 'Ver todos los productos' : 'View all products'}
                 </Link>
               </div>
@@ -326,34 +332,17 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
   )
 }
 
-/* ═══════════════════════════════════════════════════════
-   MOBILE NAV HELPERS
-═══════════════════════════════════════════════════════ */
-function MobileSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="mb-1">
-      <div className="mb-1 px-4 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#5a6678]">
-        {title}
-      </div>
-      {children}
-    </div>
-  )
-}
-
 function MobileLink({ href, onClick, delay = 0, children }: { href: string; onClick: () => void; delay?: number; children: React.ReactNode }) {
   return (
     <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay }}>
       <Link href={href} onClick={onClick}
-        className="flex items-center rounded-xl px-4 py-3.5 text-[15px] font-medium text-[#f2eee7] hover:bg-white/[0.04] active:bg-white/[0.08] transition-all min-h-[48px]">
+        className="flex items-center gap-3 rounded-xl px-4 py-3.5 text-[15px] font-semibold text-[#f2eee7] hover:bg-white/[0.06] active:bg-white/[0.08] transition-all min-h-[48px]">
         {children}
       </Link>
     </motion.div>
   )
 }
 
-/* ═══════════════════════════════════════════════════════
-   USER MENU INLINE (for desktop header)
-═══════════════════════════════════════════════════════ */
 function UserMenuInline({ locale, auth }: { locale: string; auth: ReturnType<typeof useAuth> }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -368,30 +357,30 @@ function UserMenuInline({ locale, auth }: { locale: string; auth: ReturnType<typ
   return (
     <div ref={ref} className="relative hidden sm:block">
       <button onClick={() => setOpen(!open)}
-        className="flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-3 text-[#8791a1] transition hover:border-white/20 hover:text-[#f2eee7] active:scale-95 min-h-[40px]"
+        className="flex h-10 items-center gap-2 rounded-full border border-white/[0.08] px-3.5 text-[#c8d4e2] transition-all hover:border-[#10BFD8]/30 hover:text-white hover:bg-[#10BFD8]/5 active:scale-95"
         aria-expanded={open}
         aria-label={isEs ? 'Menú de usuario' : 'User menu'}>
         <User size={14} />
-        <span className="text-[12px] font-medium max-w-[80px] truncate">{auth.user!.displayName || auth.user!.email}</span>
+        <span className="text-[12px] font-semibold max-w-[80px] truncate">{auth.user!.displayName || auth.user!.email}</span>
       </button>
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+            initial={{ opacity: 0, y: 8, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.96 }}
+            exit={{ opacity: 0, y: 8, scale: 0.97 }}
             transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-full mt-2 w-52 rounded-xl border border-white/[0.08] bg-[#0d1219] py-1.5 shadow-[0_16px_48px_rgba(0,0,0,0.5)] z-50">
-            <div className="px-4 py-2 border-b border-white/[0.06]">
+            className="absolute right-0 top-full mt-2 w-56 rounded-2xl border border-white/[0.08] bg-[#0d1219] py-2 shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-50">
+            <div className="px-4 py-2.5 border-b border-white/[0.06]">
               <p className="text-[11px] text-[#5a6678] truncate">{auth.user!.email}</p>
             </div>
             <Link href={`/${locale}/account/orders`} onClick={() => setOpen(false)}
-              className="flex items-center gap-2.5 px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-[#f2eee7] hover:bg-white/[0.04] transition-colors">
+              className="flex items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-[#8791a1] hover:text-white hover:bg-white/[0.06] transition-colors">
               <PackageCheck size={14} />
               {isEs ? 'Mis pedidos' : 'My orders'}
             </Link>
             <button onClick={() => { auth.logout(); setOpen(false); }}
-              className="flex w-full items-center gap-2.5 px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-red-400 hover:bg-white/[0.04] transition-colors">
+              className="flex w-full items-center gap-3 px-4 py-2.5 text-[13px] font-medium text-[#8791a1] hover:text-red-400 hover:bg-white/[0.06] transition-colors">
               <LogOut size={14} />
               {isEs ? 'Cerrar sesión' : 'Sign out'}
             </button>
