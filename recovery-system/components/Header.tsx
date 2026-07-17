@@ -240,17 +240,17 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
         <div className="hidden lg:block border-t border-white/[0.06]">
           <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-6 py-2">
+              <Link href={`/${locale}/shop/all`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
+                {isEs ? 'Productos' : 'Products'}
+              </Link>
               <Link href={`/${locale}/about`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
                 {isEs ? 'Sobre nosotros' : 'About us'}
-              </Link>
-              <Link href={`/${locale}/legal/returns`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Garantía 30 noches' : '30-night guarantee'}
               </Link>
               <Link href={`/${locale}/legal/shipping`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
                 {isEs ? 'Envíos' : 'Shipping'}
               </Link>
-              <Link href={`/${locale}/tracking`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Seguimiento' : 'Track order'}
+              <Link href={`/${locale}/contact`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
+                {isEs ? 'Contacto' : 'Contact'}
               </Link>
             </div>
           </div>
