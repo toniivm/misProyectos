@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
@@ -13,8 +13,8 @@ import {
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import {
-  CATALOG, CATEGORIES,
-  getLocalizedCategoryName, getLocalizedProductName,
+  CATALOG,
+  getLocalizedProductName,
   getLocalizedProductShortDescription,
   type CatalogProduct,
 } from '../lib/catalog'
@@ -23,21 +23,10 @@ import Badge from './ui/Badge'
 import FAQ from './ui/FAQ'
 import Header from './Header'
 
-const ANNOUNCEMENT_MESSAGES = {
-  en: [
-    { icon: Truck, text: 'Free shipping · 30-night trial · Secure checkout' },
-  ],
-  es: [
-    { icon: Truck, text: 'Envío gratis · 30 noches de prueba · Pago seguro' },
-  ],
-}
-
 const COPY = {
   en: {
     add: 'Add',
     added: 'Added',
-    cart: 'Cart',
-    nav: { shop: 'Shop', track: 'Track order', signIn: 'Sign in', about: 'About' },
     hero: {
       badge: 'Trusted by thousands across Europe',
       title1: 'Sleep better.',
@@ -46,13 +35,12 @@ const COPY = {
       cta: 'Shop now',
       secondary: 'View all products',
       price: 'From €13.99',
-      socialProof: '30-day money-back guarantee',
     },
     trust: [
-      { icon: Truck, label: 'Free shipping', sub: 'On every order, worldwide' },
+      { icon: Truck, label: 'Free shipping', sub: 'On every order' },
       { icon: RotateCcw, label: '30-night trial', sub: 'Full refund, no questions' },
-      { icon: ShieldCheck, label: 'Secure checkout', sub: 'SSL + Stripe encryption' },
-      { icon: Headphones, label: 'Real support', sub: 'Human response in 24h' },
+      { icon: ShieldCheck, label: 'Secure checkout', sub: 'SSL + Stripe' },
+      { icon: Headphones, label: 'Real support', sub: 'Response in 24h' },
     ],
     problems: {
       heading: 'Problems we solve',
@@ -73,16 +61,16 @@ const COPY = {
         { num: '03', title: '30 nights to decide', text: 'Try it in your real life. If it doesn\'t work, we refund every cent. No questions.' },
       ],
     },
-    comparison: {
+    whyNoctip: {
       heading: 'Why Noctip?',
       sub: 'We\'re not the cheapest. We\'re the ones that work.',
-      rows: [
-        { feature: '30-night trial', us: true, them: false },
-        { feature: 'Free shipping', us: true, them: false },
-        { feature: 'Medical-grade materials', us: true, them: false },
-        { feature: 'Real customer support', us: true, them: false },
-        { feature: 'Secure checkout (Stripe)', us: true, them: false },
-        { feature: 'Fast processing (24h)', us: true, them: false },
+      items: [
+        { icon: ShieldCheck, title: 'Medical grade', text: 'Medical-grade silicone, hypoallergenic, safe for nightly use.' },
+        { icon: RotateCcw, title: '30 nights risk-free', text: 'Try it in your real environment. Full refund if it doesn\'t work.' },
+        { icon: Truck, title: 'Ships in 24h', text: 'We ship within 24 hours. Delivery in 6-9 days with tracking.' },
+        { icon: Shield, title: '100% secure', text: '256-bit SSL encryption. Stripe. We never store card data.' },
+        { icon: Headphones, title: 'Human support', text: 'A real person responds within 24 hours. No bots.' },
+        { icon: CreditCard, title: 'Flexible payment', text: 'Visa, Mastercard, Amex, PayPal, Apple Pay, and Google Pay.' },
       ],
     },
     guarantees: {
@@ -118,8 +106,6 @@ const COPY = {
   es: {
     add: 'Añadir',
     added: 'Añadido',
-    cart: 'Carrito',
-    nav: { shop: 'Tienda', track: 'Seguimiento', signIn: 'Entrar', about: 'Nosotros' },
     hero: {
       badge: 'Confianza de miles de personas en Europa',
       title1: 'Duerme mejor.',
@@ -128,7 +114,6 @@ const COPY = {
       cta: 'Comprar ahora',
       secondary: 'Ver todos los productos',
       price: 'Desde €13.99',
-      socialProof: 'Garantía de devolución de 30 noches',
     },
     trust: [
       { icon: Truck, label: 'Envío gratis', sub: 'En todos los pedidos' },
@@ -155,16 +140,16 @@ const COPY = {
         { num: '03', title: '30 noches para decidir', text: 'Pruébalo en tu vida real. Si no funciona, te devolvemos cada euro. Sin preguntas.' },
       ],
     },
-    comparison: {
+    whyNoctip: {
       heading: '¿Por qué Noctip?',
       sub: 'No somos los más baratos. Somos los que funcionan.',
-      rows: [
-        { feature: 'Prueba de 30 noches', us: true, them: false },
-        { feature: 'Envío gratis', us: true, them: false },
-        { feature: 'Materiales de grado médico', us: true, them: false },
-        { feature: 'Soporte al cliente real', us: true, them: false },
-        { feature: 'Pago seguro (Stripe)', us: true, them: false },
-        { feature: 'Procesamiento rápido (24h)', us: true, them: false },
+      items: [
+        { icon: ShieldCheck, title: 'Grado médico', text: 'Silicona de grado médico, hipoalergénica, segura para uso nocturno.' },
+        { icon: RotateCcw, title: '30 noches sin riesgo', text: 'Prueba el producto en tu entorno real. Si no funciona, reembolso completo.' },
+        { icon: Truck, title: 'Envío en 24h', text: 'Procesamos y enviamos en 24 horas. Entrega en 6-9 días con seguimiento.' },
+        { icon: Shield, title: 'Pago 100% seguro', text: 'Cifrado SSL de 256 bits. Stripe. Nunca almacenamos datos de tarjeta.' },
+        { icon: Headphones, title: 'Soporte humano', text: 'Una persona real responde en menos de 24 horas. Sin bots.' },
+        { icon: CreditCard, title: 'Flexibilidad de pago', text: 'Visa, Mastercard, Amex, PayPal, Apple Pay y Google Pay.' },
       ],
     },
     guarantees: {
@@ -202,38 +187,6 @@ const COPY = {
 type CopyType = typeof COPY.en
 function getCopy(locale: string): CopyType { return locale === 'es' ? COPY.es as CopyType : COPY.en }
 
-/* ═══════════════════════════════════════════════════════
-   ANNOUNCEMENT BAR — Scrolling messages
-═══════════════════════════════════════════════════════ */
-function AnnouncementBar({ locale }: { locale: string }) {
-  const messages = ANNOUNCEMENT_MESSAGES[locale as 'en' | 'es'] || ANNOUNCEMENT_MESSAGES.en
-  const [current, setCurrent] = useState(0)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % messages.length)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [messages.length])
-
-  return (
-    <div className="relative overflow-hidden border-b border-white/[0.04] bg-[#0a0f15] py-2 text-[11px] font-medium text-[#5a6678]">
-      <div className="mx-auto max-w-[1280px] px-4">
-        <div className="flex items-center justify-center gap-2">
-          {(() => {
-            const Icon = messages[0].icon
-            return <Icon size={12} className="shrink-0 text-[#10BFD8]" />
-          })()}
-          <span>{messages[0].text}</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════
-   PRODUCT CARD — Premium dark style
-═══════════════════════════════════════════════════════ */
 function ProductCard({ product, locale }: { product: CatalogProduct; locale: string }) {
   const { add, open: openCart } = useCart()
   const [added, setAdded] = useState(false)
@@ -284,8 +237,8 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
               {savings > 0 && <span className="text-[10px] sm:text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>}
             </div>
             <button onClick={handleAdd} aria-label={`${copy.add} ${name}`}
-              className={`flex items-center gap-1 sm:gap-1.5 rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-[11px] sm:text-[13px] font-semibold transition-all duration-200 min-h-[36px] sm:min-h-[44px] active:scale-95 ${
-                added ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-[#f2eee7] text-[#080c12] hover:bg-white hover:shadow-[0_4px_16px_rgba(242,238,231,0.15)]'
+              className={`flex items-center gap-1 sm:gap-1.5 rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-[11px] sm:text-[13px] font-bold transition-all duration-200 min-h-[36px] sm:min-h-[44px] active:scale-95 ${
+                added ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-[#10BFD8] text-[#080c12] hover:shadow-[0_4px_16px_rgba(16,191,216,0.3)]'
               }`}>
               {added ? (<><Check size={11} />{copy.added}</>) : (<><ShoppingCart size={11} /><span className="hidden sm:inline">{copy.add}</span></>)}
             </button>
@@ -296,9 +249,6 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
   )
 }
 
-/* ═══════════════════════════════════════════════════════
-   MAIN COMPONENT
-═══════════════════════════════════════════════════════ */
 export default function ShopHomePage() {
   const locale = useLocale()
   const isEs = locale === 'es'
@@ -310,7 +260,6 @@ export default function ShopHomePage() {
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
-      <AnnouncementBar locale={locale} />
       <Header />
 
       <main className="pb-24 sm:pb-0">
@@ -396,22 +345,26 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ PROBLEMS WE SOLVE ═══ */}
-        <section className="py-12 sm:py-20 lg:py-24 bg-[#0d1219]">
+        <section className="py-14 sm:py-24 lg:py-28 bg-[#0d1219]">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.problems.heading}</h2>
-              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.problems.sub}</p>
-            </div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="text-center mb-10 sm:mb-14">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4">
+                {isEs ? '¿Te suena?' : 'Sound familiar?'}
+              </span>
+              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.problems.heading}</h2>
+              <p className="mt-3 sm:mt-4 max-w-xl mx-auto text-[14px] sm:text-[16px] text-[#6b7785] leading-relaxed">{copy.problems.sub}</p>
+            </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               {copy.problems.items.map((problem, idx) => (
-                <motion.div key={problem.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
-                  className="rounded-2xl border border-white/[0.06] bg-[#111720] p-5 sm:p-7 text-center">
-                  <div className="mx-auto mb-3 sm:mb-4 flex h-11 sm:h-12 w-11 sm:w-12 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
-                    <problem.icon size={20} className="text-[#10BFD8]" />
+                <motion.div key={problem.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: idx * 0.12, duration: 0.5 }}
+                  className="group rounded-2xl border border-white/[0.06] bg-[#111720] p-6 sm:p-8 text-center transition-all duration-300 hover:border-[#10BFD8]/20 hover:shadow-[0_8px_40px_rgba(16,191,216,0.08)]">
+                  <div className="mx-auto mb-4 sm:mb-5 flex h-14 sm:h-16 w-14 sm:w-16 items-center justify-center rounded-2xl bg-[#10BFD8]/10 transition-colors duration-300 group-hover:bg-[#10BFD8]/15">
+                    <problem.icon size={24} className="text-[#10BFD8]" />
                   </div>
-                  <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#f2eee7]">{problem.title}</h3>
-                  <p className="mt-1.5 sm:mt-2 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{problem.text}</p>
+                  <h3 className="text-[17px] sm:text-[18px] font-bold text-[#f2eee7] mb-2">{problem.title}</h3>
+                  <p className="text-[13px] sm:text-[14px] leading-[1.7] text-[#8791a1]">{problem.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -419,25 +372,29 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ HOW IT WORKS ═══ */}
-        <section className="py-12 sm:py-20 lg:py-24">
+        <section className="py-14 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.howItWorks.heading}</h2>
-              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.howItWorks.sub}</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="text-center mb-10 sm:mb-14">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4">
+                {isEs ? 'Simple' : 'Simple'}
+              </span>
+              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.howItWorks.heading}</h2>
+              <p className="mt-3 sm:mt-4 text-[14px] sm:text-[16px] text-[#6b7785]">{copy.howItWorks.sub}</p>
+            </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 relative">
               {copy.howItWorks.steps.map((step, idx) => (
-                <motion.div key={step.num} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
-                  className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-5 sm:p-7 text-center relative">
+                <motion.div key={step.num} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: idx * 0.12, duration: 0.5 }}
+                  className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-6 sm:p-8 text-center relative">
                   {idx < 2 && (
-                    <div className="hidden sm:block absolute top-1/2 -right-3 w-6 h-6 text-[#2a3548]">
-                      <ChevronRight size={20} className="rotate-90" />
+                    <div className="hidden sm:flex absolute top-1/2 -right-3 z-10 h-6 w-6 items-center justify-center">
+                      <ChevronRight size={18} className="text-[#10BFD8]/40" />
                     </div>
                   )}
-                  <span className="inline-flex items-center justify-center w-11 sm:w-12 h-11 sm:h-12 rounded-full bg-[#10BFD8]/10 text-[14px] sm:text-[16px] font-bold text-[#10BFD8] mb-3 sm:mb-4">{step.num}</span>
-                  <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#f2eee7]">{step.title}</h3>
-                  <p className="mt-1.5 sm:mt-2 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{step.text}</p>
+                  <span className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#10BFD8]/10 text-[18px] font-bold text-[#10BFD8] mb-4">{step.num}</span>
+                  <h3 className="text-[17px] sm:text-[18px] font-bold text-[#f2eee7] mb-2">{step.title}</h3>
+                  <p className="text-[13px] sm:text-[14px] leading-[1.7] text-[#8791a1]">{step.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -445,30 +402,27 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ WHY NOCTIP ═══ */}
-        <section className="py-12 sm:py-20 lg:py-24 bg-[#0d1219]">
+        <section className="py-14 sm:py-24 lg:py-28 bg-[#0d1219]">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.comparison.heading}</h2>
-              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.comparison.sub}</p>
-            </div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="text-center mb-10 sm:mb-14">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4">
+                {isEs ? 'La diferencia' : 'The difference'}
+              </span>
+              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.whyNoctip.heading}</h2>
+              <p className="mt-3 sm:mt-4 text-[14px] sm:text-[16px] text-[#6b7785]">{copy.whyNoctip.sub}</p>
+            </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-              {[
-                { icon: ShieldCheck, title: isEs ? 'Grado médico' : 'Medical grade', text: isEs ? 'Silicona de grado médico, hipoalergénica, segura para uso nocturno.' : 'Medical-grade silicone, hypoallergenic, safe for nightly use.' },
-                { icon: RotateCcw, title: isEs ? '30 noches sin riesgo' : '30 nights risk-free', text: isEs ? 'Prueba el producto en tu entorno real. Si no funciona, reembolso completo.' : 'Try it in your real environment. Full refund if it doesn\'t work.' },
-                { icon: Truck, title: isEs ? 'Envío en 24h' : 'Ships in 24h', text: isEs ? 'Procesamos y enviamos en 24 horas. Entrega en 6-9 días con seguimiento.' : 'We ship within 24 hours. Delivery in 6-9 days with tracking.' },
-                { icon: Shield, title: isEs ? 'Pago 100% seguro' : '100% secure', text: isEs ? 'Cifrado SSL de 256 bits. Stripe. Nunca almacenamos datos de tarjeta.' : '256-bit SSL encryption. Stripe. We never store card data.' },
-                { icon: Headphones, title: isEs ? 'Soporte humano' : 'Human support', text: isEs ? 'Una persona real responde en menos de 24 horas. Sin bots.' : 'A real person responds within 24 hours. No bots.' },
-                { icon: CreditCard, title: isEs ? 'Flexibilidad de pago' : 'Flexible payment', text: isEs ? 'Visa, Mastercard, Amex, PayPal, Apple Pay y Google Pay.' : 'Visa, Mastercard, Amex, PayPal, Apple Pay, and Google Pay.' },
-              ].map((item, idx) => (
-                <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: idx * 0.08 }}
-                  className="flex items-start gap-3 sm:gap-4 rounded-2xl border border-white/[0.06] bg-[#111720] p-4 sm:p-5">
-                  <div className="flex h-9 sm:h-10 w-9 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
-                    <item.icon size={17} className="text-[#10BFD8]" />
+              {copy.whyNoctip.items.map((item, idx) => (
+                <motion.div key={item.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: idx * 0.08, duration: 0.5 }}
+                  className="group flex items-start gap-4 rounded-2xl border border-white/[0.06] bg-[#111720] p-5 sm:p-6 transition-all duration-300 hover:border-[#10BFD8]/20">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8]/10 transition-colors duration-300 group-hover:bg-[#10BFD8]/15">
+                    <item.icon size={19} className="text-[#10BFD8]" />
                   </div>
                   <div>
-                    <h3 className="text-[14px] sm:text-[15px] font-semibold text-[#f2eee7]">{item.title}</h3>
-                    <p className="mt-1 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{item.text}</p>
+                    <h3 className="text-[15px] sm:text-[16px] font-bold text-[#f2eee7] mb-1">{item.title}</h3>
+                    <p className="text-[13px] sm:text-[14px] leading-[1.6] text-[#8791a1]">{item.text}</p>
                   </div>
                 </motion.div>
               ))}
@@ -477,22 +431,30 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ GUARANTEES ═══ */}
-        <section className="py-12 sm:py-20 lg:py-24">
+        <section className="py-14 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.guarantees.heading}</h2>
-              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.guarantees.sub}</p>
-            </div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="text-center mb-10 sm:mb-14">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4">
+                {isEs ? 'Confianza' : 'Trust'}
+              </span>
+              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.guarantees.heading}</h2>
+              <p className="mt-3 sm:mt-4 text-[14px] sm:text-[16px] text-[#6b7785]">{copy.guarantees.sub}</p>
+            </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {copy.guarantees.items.map((item, idx) => (
-                <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
-                  className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-5 sm:p-7">
-                  <div className="flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)] mb-3 sm:mb-4">
-                    <item.icon size={17} className="text-[#10BFD8]" />
+                <motion.div key={item.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  className="group rounded-2xl border border-white/[0.06] bg-[#0d1219] p-6 sm:p-8 transition-all duration-300 hover:border-[#10BFD8]/20">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8]/10 transition-colors duration-300 group-hover:bg-[#10BFD8]/15">
+                      <item.icon size={20} className="text-[#10BFD8]" />
+                    </div>
+                    <div>
+                      <h3 className="text-[16px] sm:text-[17px] font-bold text-[#f2eee7] mb-1.5">{item.title}</h3>
+                      <p className="text-[13px] sm:text-[14px] leading-[1.7] text-[#8791a1]">{item.text}</p>
+                    </div>
                   </div>
-                  <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#f2eee7]">{item.title}</h3>
-                  <p className="mt-1.5 sm:mt-2 text-[12px] sm:text-[13px] leading-[1.6] sm:leading-6 text-[#6b7785]">{item.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -500,31 +462,34 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ FAQ ═══ */}
-        <section className="py-12 sm:py-20 lg:py-24 bg-[#0d1219]">
+        <section className="py-14 sm:py-24 lg:py-28 bg-[#0d1219]">
           <div className="mx-auto max-w-[720px] px-4 sm:px-6">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.faq.heading}</h2>
-              <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.faq.sub}</p>
-            </div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="text-center mb-10 sm:mb-14">
+              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.faq.heading}</h2>
+              <p className="mt-3 sm:mt-4 text-[14px] sm:text-[16px] text-[#6b7785]">{copy.faq.sub}</p>
+            </motion.div>
             <FAQ items={copy.faq.items} />
           </div>
         </section>
 
         {/* ═══ CTA ═══ */}
-        <section className="py-12 sm:py-20 lg:py-24">
+        <section className="py-14 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-[720px] px-4 sm:px-6 text-center">
-            <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.cta.heading}</h2>
-            <p className="mt-2.5 sm:mt-3 text-[14px] sm:text-[15px] text-[#6b7785]">{copy.cta.sub}</p>
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
-              <Link href={`/${locale}/shop/all`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-8 sm:px-9 py-4 sm:py-4.5 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(16,191,216,0.35)] min-h-[52px] sm:min-h-[56px]">
-                {copy.cta.primary} <ArrowRight size={18} strokeWidth={2.5} />
-              </Link>
-              <Link href={`/${locale}/shop/all?sort=rating`}
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/15 px-7 sm:px-8 py-4 sm:py-4.5 text-[14px] sm:text-[15px] font-semibold text-[#f2eee7] transition-all duration-300 hover:border-[#10BFD8]/40 hover:text-[#10BFD8] hover:bg-[#10BFD8]/5 min-h-[52px] sm:min-h-[56px]">
-                {copy.cta.secondary}
-              </Link>
-            </div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.cta.heading}</h2>
+              <p className="mt-3 sm:mt-4 text-[14px] sm:text-[16px] text-[#6b7785]">{copy.cta.sub}</p>
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+                <Link href={`/${locale}/shop/all`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-9 py-4.5 text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(16,191,216,0.35)] min-h-[56px]">
+                  {copy.cta.primary} <ArrowRight size={18} strokeWidth={2.5} />
+                </Link>
+                <Link href={`/${locale}/shop/all?sort=rating`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/15 px-8 py-4.5 text-[15px] font-semibold text-[#f2eee7] transition-all duration-300 hover:border-[#10BFD8]/40 hover:text-[#10BFD8] hover:bg-[#10BFD8]/5 min-h-[56px]">
+                  {copy.cta.secondary}
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </section>
       </main>
