@@ -28,15 +28,18 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
   // Swipe handling for mobile
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    e.stopPropagation();
   }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX;
+    e.stopPropagation();
   }, []);
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     const diff = touchStartX.current - touchEndX.current;
     if (Math.abs(diff) > 50) {
+      e.preventDefault();
       if (diff > 0 && activeIdx < totalItems - 1) {
         setActiveIdx((p) => p + 1);
       } else if (diff < 0 && activeIdx > 0) {
@@ -86,7 +89,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
         {/* Main Image */}
         <div
           className="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden cursor-crosshair"
-          style={{ background: color }}
+          style={{ background: color, touchAction: 'pan-y' }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}

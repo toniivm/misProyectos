@@ -62,6 +62,10 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  touch-action: pan-y;
+  overscroll-behavior: none;
 }
 
 body {
@@ -72,6 +76,34 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  overscroll-behavior: none;
+  touch-action: pan-y;
+}
+
+/* Prevent zoom on input focus (iOS Chrome) */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="url"],
+input[type="search"],
+input[type="password"],
+textarea,
+select {
+  font-size: 16px !important;
+  touch-action: manipulation;
+}
+
+/* Prevent horizontal swipe causing layout break */
+img {
+  touch-action: pan-y;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent pull-to-refresh on mobile */
+html, body {
+  overscroll-behavior-y: none;
 }
 
 /* ── Selection ── */
