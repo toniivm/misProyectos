@@ -68,8 +68,16 @@ export async function POST(req: Request) {
       success_url: successUrl,
       cancel_url: cancelUrl,
       allow_promotion_codes: false,
+      customer_email: body.email || undefined,
+      metadata: {
+        items_json: JSON.stringify(items.map((i: any) => ({
+          id: String(i.id || ''),
+          name: String(i.name || ''),
+          price: Number(i.price || 0),
+          qty: Number(i.qty || 1),
+        }))),
+      },
     };
-    if (metadata) sessionParams.metadata = metadata;
 
     const session = await stripe.checkout.sessions.create(sessionParams);
 
