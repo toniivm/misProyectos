@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronRight, Minus, Plus, RotateCcw, ShoppingCart, Truck, Star, ThumbsUp, Flag, Send, X, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -13,12 +13,13 @@ import {
   getProductReviewStats,
   hasUserReviewedProduct,
   hasUserPurchasedProduct,
-  addReview,
-  toggleHelpful,
+  submitReview,
+  markReviewHelpful,
   reportReview,
   sortReviews,
   type Review,
-} from '../lib/reviews';
+  type ReviewStats,
+} from '../lib/reviews-firestore';
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
 import ProductWhatYouGet from './ProductWhatYouGet';
@@ -60,16 +61,41 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
   const [helpfulClicked, setHelpfulClicked] = useState<Set<string>>(new Set());
   const [reportClicked, setReportClicked] = useState<Set<string>>(new Set());
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewStats, setReviewStats] = useState<ReviewStats>({ average: 0, total: 0, distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } });
+  const [userHasReviewed, setUserHasReviewed] = useState(false);
+  const [userHasPurchased, setUserHasPurchased] = useState(false);
+  const [reviewPending, setReviewPending] = useState(false);
 
   const product = getCatalogProductBySlug(legacyProduct.slug);
   const category = product ? CATEGORIES.find((c) => c.id === product.category) : null;
   const related = product ? getProductsByCategory(product.category).filter((p) => p.slug !== product.slug).slice(0, 3) : [];
 
   const slug = legacyProduct.slug;
-  const reviews = useMemo(() => sortReviews(getProductReviews(slug), reviewSort), [slug, reviewSort]);
-  const reviewStats = useMemo(() => getProductReviewStats(slug), [slug]);
-  const userHasReviewed = auth.user?.email ? hasUserReviewedProduct(slug, auth.user.email) : false;
-  const userHasPurchased = auth.user?.email ? hasUserPurchasedProduct(auth.user.email, slug) : false;
+
+  // Load reviews from Firestore
+  const loadReviews = useCallback(async () => {
+    const [fetched, stats] = await Promise.all([
+      getProductReviews(slug),
+      getProductReviewStats(slug),
+    ])
+    setReviews(sortReviews(fetched, reviewSort))
+    setReviewStats(stats)
+  }, [slug, reviewSort])
+
+  useEffect(() => { loadReviews() }, [loadReviews])
+
+  // Check user review/purchase status
+  useEffect(() => {
+    if (!auth.user?.email) {
+      setUserHasReviewed(false)
+      setUserHasPurchased(false)
+      return
+    }
+    hasUserReviewedProduct(auth.user.email, slug).then(setUserHasReviewed)
+    hasUserPurchasedProduct(auth.user.email, slug).then(setUserHasPurchased)
+  }, [auth.user?.email, slug])
+
   const displayRating = reviewStats.total > 0 ? reviewStats.average : 0;
   const displayReviewCount = reviewStats.total;
 
@@ -102,8 +128,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const handleSubmitReview = async () => {
     if (!reviewComment.trim() || !auth.user?.email) return;
     setReviewSubmitting(true);
-    await new Promise((r) => setTimeout(r, 300));
-    addReview({
+    const result = await submitReview({
       productSlug: slug,
       rating: reviewRating,
       title: reviewTitle.trim() || undefined,
@@ -112,23 +137,29 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       userEmail: auth.user.email,
       verified: userHasPurchased,
     });
-    setReviewSubmitted(true);
     setReviewSubmitting(false);
-    setReviewComment('');
-    setReviewTitle('');
-    setShowReviewForm(false);
+    if (result.ok) {
+      setReviewPending(true);
+      setReviewSubmitted(true);
+      setReviewComment('');
+      setReviewTitle('');
+      setShowReviewForm(false);
+      setUserHasReviewed(true);
+    }
   };
 
-  const handleHelpful = (reviewId: string) => {
+  const handleHelpful = async (reviewId: string) => {
     if (helpfulClicked.has(reviewId)) return;
-    toggleHelpful(reviewId);
+    await markReviewHelpful(reviewId);
     setHelpfulClicked(new Set([...helpfulClicked, reviewId]));
+    loadReviews();
   };
 
-  const handleReport = (reviewId: string) => {
+  const handleReport = async (reviewId: string) => {
     if (reportClicked.has(reviewId)) return;
-    reportReview(reviewId);
+    await reportReview(reviewId);
     setReportClicked(new Set([...reportClicked, reviewId]));
+    loadReviews();
   };
 
   const productFaqs = [
@@ -520,10 +551,10 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             )}
           </AnimatePresence>
 
-          {reviewSubmitted && (
-            <div className="mb-4 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.05] px-4 py-3 text-[13px] text-emerald-300">
+          {reviewSubmitted && reviewPending && (
+            <div className="mb-4 rounded-xl border border-amber-500/20 bg-amber-500/[0.05] px-4 py-3 text-[13px] text-amber-300">
               <Check size={14} className="mr-1.5 inline" />
-              {isEs ? 'Tu reseña ha sido publicada. ¡Gracias!' : 'Your review has been published. Thank you!'}
+              {isEs ? 'Tu reseña está pendiente de revisión. La publicaremos pronto.' : 'Your review is pending approval. We\'ll publish it soon.'}
             </div>
           )}
 
@@ -555,7 +586,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                     )}
                   </div>
                   <span className="text-[11px] text-[#5a6678]">
-                    {new Date(r.date).toLocaleDateString(isEs ? 'es-ES' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                    {new Date(r.createdAt).toLocaleDateString(isEs ? 'es-ES' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                   </span>
                 </div>
                 {r.title && (
