@@ -29,12 +29,8 @@ export default function LegalNoticePage() {
           <span>Noctip™</span>
         </div>
         <div className="flex gap-2">
-          <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'CIF/NIF:' : 'Tax ID:'}</span>
-          <span>{isEs ? 'A determinar' : 'To be determined'}</span>
-        </div>
-        <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Domicilio:' : 'Address:'}</span>
-          <span>España</span>
+          <span>C Fernando Vela Nº 18, España</span>
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Correo electrónico:' : 'Email:'}</span>
