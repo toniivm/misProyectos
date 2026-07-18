@@ -73,7 +73,7 @@ export const CATALOG: CatalogProduct[] = [
     comparePrice: 29.99,
     rating: 0,
     reviewCount: 0,
-    badge: 'bestseller',
+    // badge: 'bestseller', // Activar cuando haya datos reales de ventas
     shortDescription: 'Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor.',
     shortDescription_en: 'Stop snoring from night one. Your partner sleeps better too.',
     shortDescription_es: 'Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor.',
@@ -221,7 +221,7 @@ export const CATALOG: CatalogProduct[] = [
     comparePrice: 34.99,
     rating: 0,
     reviewCount: 0,
-    badge: 'bestseller',
+    // badge: 'bestseller', // Activar cuando haya datos reales de ventas
     shortDescription: 'Alivio cervical profesional en 15 minutos. Tres capas de relajación.',
     shortDescription_en: 'Professional cervical relief in 15 minutes. Three layers of relaxation.',
     shortDescription_es: 'Alivio cervical profesional en 15 minutos. Tres capas de relajación.',

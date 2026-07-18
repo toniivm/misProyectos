@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Facebook, Instagram, Youtube, Globe, Lock } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Globe, Lock } from 'lucide-react'
 import PaymentLogos from './PaymentLogos'
 
 export default function Footer() {
@@ -13,12 +13,33 @@ export default function Footer() {
   const isEs = locale === 'es'
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email.trim() || !email.includes('@')) return
-    setSubscribed(true)
-    setEmail('')
+    setLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      const data = await res.json()
+      if (data.ok) {
+        setSubscribed(true)
+        setEmail('')
+      } else {
+        setError(isEs ? 'Error. Inténtalo de nuevo.' : 'Error. Try again.')
+      }
+    } catch {
+      setError(isEs ? 'Error de conexión.' : 'Connection error.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -86,12 +107,14 @@ export default function Footer() {
                       required
                       autoComplete="email"
                       inputMode="email"
-                      className="w-full rounded-xl border border-white/[0.08] bg-white/[0.03] py-2.5 sm:py-3 pl-9 pr-3 text-[15px] sm:text-[16px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.05]"
+                      disabled={loading}
+                      className="w-full rounded-xl border border-white/[0.08] bg-white/[0.03] py-2.5 sm:py-3 pl-9 pr-3 text-[15px] sm:text-[16px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.05] disabled:opacity-50"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="flex h-10 sm:h-11 w-10 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8] text-[#080c12] transition-all hover:bg-[#0ea5c7] active:scale-95"
+                    disabled={loading}
+                    className="flex h-10 sm:h-11 w-10 sm:w-11 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8] text-[#080c12] transition-all hover:bg-[#0ea5c7] active:scale-95 disabled:opacity-50"
                     aria-label={isEs ? 'Suscribirse' : 'Subscribe'}
                   >
                     <ArrowRight size={16} />

@@ -4,6 +4,9 @@ import {getLocale} from 'next-intl/server'
 import './globals.css'
 import UtmCapture from '../components/UtmCapture'
 import GoogleAnalytics from '../components/GoogleAnalytics'
+import MetaPixel from '../components/MetaPixel'
+import TikTokPixel from '../components/TikTokPixel'
+import TawkToChat from '../components/TawkToChat'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -91,6 +94,9 @@ export default async function RootLayout({
       </head>
       <body className="bg-[#080c12] text-[#f2eee7] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <GoogleAnalytics />
+        <MetaPixel />
+        <TikTokPixel />
+        <TawkToChat />
         <UtmCapture />
         {children}
       </body>

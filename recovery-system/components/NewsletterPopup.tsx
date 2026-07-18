@@ -13,6 +13,7 @@ export default function NewsletterPopup() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const locale = useLocale()
   const isEs = locale === 'es'
 
@@ -21,9 +22,7 @@ export default function NewsletterPopup() {
       const dismissed = localStorage.getItem(STORAGE_KEY)
       const alreadySubmitted = localStorage.getItem(SUBMITTED_KEY)
       if (dismissed || alreadySubmitted) return
-    } catch {
-      // localStorage unavailable
-    }
+    } catch {}
 
     const timer = setTimeout(() => {
       setVisible(true)
@@ -38,6 +37,7 @@ export default function NewsletterPopup() {
     setEmail('')
     setSubmitted(false)
     setLoading(false)
+    setError(null)
   }, [])
 
   useEffect(() => {
@@ -55,13 +55,28 @@ export default function NewsletterPopup() {
     e.preventDefault()
     if (!email.trim() || !email.includes('@')) return
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 800))
-    setLoading(false)
-    setSubmitted(true)
-    try { localStorage.setItem(SUBMITTED_KEY, 'true') } catch {}
-    setTimeout(() => {
-      dismiss()
-    }, 3000)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      const data = await res.json()
+
+      if (data.ok) {
+        setSubmitted(true)
+        try { localStorage.setItem(SUBMITTED_KEY, 'true') } catch {}
+        setTimeout(() => dismiss(), 3000)
+      } else {
+        setError(isEs ? 'Hubo un error. Inténtalo de nuevo.' : 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setError(isEs ? 'Error de conexión. Inténtalo de nuevo.' : 'Connection error. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -132,6 +147,9 @@ export default function NewsletterPopup() {
                           className="w-full rounded-full border border-white/[0.1] bg-white/[0.04] py-3 pl-11 pr-4 text-[16px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.06] sm:py-3.5 sm:text-[14px]"
                         />
                       </div>
+                      {error && (
+                        <p className="text-[12px] text-red-400 text-center">{error}</p>
+                      )}
                       <button
                         type="submit"
                         disabled={loading}

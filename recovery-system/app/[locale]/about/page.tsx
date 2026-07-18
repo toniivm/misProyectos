@@ -41,10 +41,10 @@ export default function AboutPage() {
   ]
 
   const stats = [
-    { value: '2.400+', label: isEs ? 'Clientes felices' : 'Happy customers' },
-    { value: '4.9', label: isEs ? 'Valoración media' : 'Average rating' },
+    { value: '4', label: isEs ? 'Productos especializados' : 'Specialized products' },
     { value: '30', label: isEs ? 'Noches de garantía' : 'Night guarantee' },
     { value: '24h', label: isEs ? 'Procesamiento en 24h' : 'Order processing' },
+    { value: '6', label: isEs ? 'Países con envío' : 'Countries shipped to' },
   ]
 
   return (

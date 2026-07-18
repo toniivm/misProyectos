@@ -11,7 +11,7 @@
   "auth": {
     "welcomeBack": "Welcome back",
     "createAccount": "Create account",
-    "createSubtitle": "Join thousands of happy customers",
+    "createSubtitle": "Track your orders and manage your account",
     "signInToAccount": "Sign in to your account",
     "continueWithGoogle": "Continue with Google",
     "or": "or",
@@ -65,7 +65,7 @@
     "stripeNote": "Stripe confirms final payment options based on browser, device and wallet compatibility.",
     "signInPrompt": "Please sign in or create an account to complete your purchase.",
     "signInButton": "Sign in / Create account",
-    "continueToPayment": "Continue to secure payment",
+    "continueToPayment": "Pay",
     "processing": "Processing…",
     "guarantee": "30-day guarantee",
     "freeShipping": "Free shipping",
@@ -133,7 +133,7 @@
     "line2": "Wake up like you slept 10 hours.",
     "subtitle": "Products your body feels from night one. Built for people who can't afford to sleep badly.",
     "primary": "Find what I'm missing",
-    "secondary": "See best sellers"
+    "secondary": "View all products"
   },
   "faq": {
     "title": "Frequently asked questions"

@@ -17,6 +17,31 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
   'https://misproyectos-neyj.onrender.com';
 
+const POSTAL_CODE_PATTERNS: Record<string, RegExp> = {
+  ES: /^\d{5}$/,
+  FR: /^\d{5}$/,
+  DE: /^\d{5}$/,
+  IT: /^\d{5}$/,
+  PT: /^\d{4}(-\d{3})?$/,
+  NL: /^\d{4}\s?[A-Z]{2}$/i,
+  BE: /^\d{4}$/,
+  GB: /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i,
+  US: /^\d{5}(-\d{4})?$/,
+  CA: /^[A-Z]\d[A-Z]\s?\d[A-Z]\d$/i,
+  JP: /^\d{3}-?\d{4}$/,
+}
+
+const POSTAL_CODE_LABELS: Record<string, { es: string; en: string }> = {
+  ES: { es: 'El código postal debe tener 5 dígitos', en: 'Postal code must be 5 digits' },
+  FR: { es: 'El código postal debe tener 5 dígitos', en: 'Postal code must be 5 digits' },
+  DE: { es: 'El código postal debe tener 5 dígitos', en: 'Postal code must be 5 digits' },
+  IT: { es: 'El código postal debe tener 5 dígitos', en: 'Postal code must be 5 digits' },
+  PT: { es: 'Código postal portugués (4 dígitos)', en: 'Portuguese postal code (4 digits)' },
+  NL: { es: 'Código postal neerlandés (4 dígitos + 2 letras)', en: 'Dutch postal code (4 digits + 2 letters)' },
+  BE: { es: 'El código postal debe tener 4 dígitos', en: 'Postal code must be 4 digits' },
+  GB: { es: 'Código postal británico (ej. SW1A 1AA)', en: 'UK postal code (e.g. SW1A 1AA)' },
+}
+
 const COUNTRY_CODES: Record<string, string> = {
   Spain: 'ES', 'United States': 'US', 'United Kingdom': 'GB', France: 'FR',
   Germany: 'DE', Mexico: 'MX', Portugal: 'PT', Italy: 'IT',
@@ -27,7 +52,7 @@ const COUNTRY_CODES: Record<string, string> = {
   Norway: 'NO', Denmark: 'DK', Finland: 'FI', Ireland: 'IE',
   Greece: 'GR', Turkey: 'TR', Morocco: 'MA', 'Dominican Republic': 'DO',
   Other: 'ES',
-};
+}
 
 const COUNTRY_FROM_CODE: Record<string, string> = Object.fromEntries(
   Object.entries(COUNTRY_CODES).map(([name, code]) => [code, name])
@@ -128,7 +153,7 @@ function lookupProvinceFromZip(zip: string): string | null {
 
 type FieldErrors = Record<string, string>;
 
-function validateField(name: string, value: string, isEs: boolean): string {
+function validateField(name: string, value: string, isEs: boolean, country?: string): string {
   switch (name) {
     case 'email':
       if (!value.trim()) return isEs ? 'Introduce tu correo electrónico' : 'Enter your email address';
@@ -163,7 +188,18 @@ function validateField(name: string, value: string, isEs: boolean): string {
       return '';
     case 'zip':
       if (!value.trim()) return isEs ? 'Introduce tu código postal' : 'Enter your postal code';
-      if (!/^\d{5}$/.test(value.replace(/\s/g, ''))) return isEs ? 'El código postal debe tener 5 dígitos' : 'Postal code must be 5 digits';
+      {
+        const cleanZip = value.replace(/\s/g, '');
+        const countryCode = COUNTRY_CODES[country || 'Spain'] || 'ES';
+        const pattern = POSTAL_CODE_PATTERNS[countryCode];
+        if (pattern && !pattern.test(cleanZip)) {
+          const msg = POSTAL_CODE_LABELS[countryCode];
+          return msg ? (isEs ? msg.es : msg.en) : (isEs ? 'Código postal no válido' : 'Invalid postal code');
+        }
+        if (!pattern && cleanZip.length < 3) {
+          return isEs ? 'Código postal no válido' : 'Invalid postal code';
+        }
+      }
       return '';
     case 'country':
       if (!value) return isEs ? 'Selecciona tu país' : 'Select your country';
@@ -210,7 +246,7 @@ export default function CheckoutPage() {
   const checkoutTotal = Math.max(0, checkoutSubtotal - bundleDiscount);
 
   const validateAndUpdateField = useCallback((name: string, value: string) => {
-    const error = validateField(name, value, isEs);
+    const error = validateField(name, value, isEs, shipping.country);
     setFieldErrors((prev) => {
       if (error) return { ...prev, [name]: error };
       const next = { ...prev };
@@ -254,7 +290,7 @@ export default function CheckoutPage() {
       country: shipping.country,
     };
     for (const [name, value] of Object.entries(allFields)) {
-      const err = validateField(name, value, isEs);
+      const err = validateField(name, value, isEs, shipping.country);
       if (err) errors[name] = err;
     }
     setFieldErrors(errors);

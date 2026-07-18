@@ -11,7 +11,7 @@
   "auth": {
     "welcomeBack": "Bienvenido",
     "createAccount": "Crear cuenta",
-    "createSubtitle": "Únete a miles de clientes satisfechos",
+    "createSubtitle": "Sigue tus pedidos y gestiona tu cuenta",
     "signInToAccount": "Inicia sesión en tu cuenta",
     "continueWithGoogle": "Continuar con Google",
     "or": "o",
@@ -65,7 +65,7 @@
     "stripeNote": "Stripe confirma las opciones de pago finales según navegador, dispositivo y compatibilidad de wallet.",
     "signInPrompt": "Inicia sesión o crea una cuenta para completar tu compra.",
     "signInButton": "Iniciar sesión / Crear cuenta",
-    "continueToPayment": "Ir al pago seguro",
+    "continueToPayment": "Pagar",
     "processing": "Procesando…",
     "guarantee": "Garantía 30 días",
     "freeShipping": "Envío gratis",
@@ -133,7 +133,7 @@
     "line2": "Despierta como si hubieras dormido 10 horas.",
     "subtitle": "Productos que tu cuerpo nota desde la primera noche. Diseñados para gente que no puede permitirse dormir mal.",
     "primary": "Descubrir qué me falta",
-    "secondary": "Ver más vendidos"
+    "secondary": "Ver todos los productos"
   },
   "faq": {
     "title": "Preguntas frecuentes"
