@@ -11,6 +11,7 @@ import PhoneInputField from '../../../components/PhoneInputField';
 import AddressAutocomplete from '../../../components/AddressAutocomplete';
 import { getActiveBundle } from '../../../lib/catalog';
 import PaymentLogos from '../../../components/PaymentLogos';
+import { trackBeginCheckout } from '../../../components/GoogleAnalytics';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -272,6 +273,11 @@ export default function CheckoutPage() {
 
     setLoading(true);
     setError(null);
+
+    trackBeginCheckout(
+      checkoutItems.map(i => ({ slug: i.slug, name: i.name, price: i.price, qty: i.quantity })),
+      checkoutTotal
+    );
 
     try {
       const payload = {

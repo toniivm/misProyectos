@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { useCart } from '../../../../context/CartContext';
 import { useAuth } from '../../../../context/AuthContext';
+import { trackPurchase } from '../../../../components/GoogleAnalytics';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -73,6 +74,17 @@ export default function CheckoutSuccessPage() {
 
     // Request confirmation email from backend
     if (orderId) {
+      // Fire GA4 purchase event
+      try {
+        const stored = localStorage.getItem('recover_cart');
+        if (stored) {
+          const cart = JSON.parse(stored);
+          if (cart.items && Array.isArray(cart.items)) {
+            trackPurchase(orderId, cart.items.map((i: any) => ({ slug: i.slug, name: i.name, price: i.price, qty: i.quantity })), cart.totalWithDiscount ?? cart.subtotal ?? 0);
+          }
+        }
+      } catch {}
+
       fetch(`${API_BASE_URL}/orders/${orderId}/send-confirmation`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

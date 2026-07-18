@@ -22,32 +22,7 @@ interface CustomerPhotosProps {
 
 const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
 
-// Placeholder data — replace with real customer photos
-const MOCK_PHOTOS: Record<string, CustomerPhoto[]> = {
-  halo: [
-    { id: '1', name: 'María G.', rating: 5, comment: 'Llevaba meses buscando algo así. Desde la primera noche, mi pareja no se despierta.', verified: true, date: '2025-03-15' },
-    { id: '2', name: 'Carlos R.', rating: 5, comment: 'Sencillo pero efectivo. Lo uso cada noche y noto la diferencia al despertar.', verified: true, date: '2025-02-28' },
-    { id: '3', name: 'Ana P.', rating: 4, comment: 'Muy cómoda, no me molesta para dormir. Mis ronquidos han disminuido mucho.', verified: true, date: '2025-04-10' },
-    { id: '4', name: 'Luis M.', rating: 5, comment: 'Me lo recomendó mi médico. Funciona mejor de lo que esperaba.', verified: true, date: '2025-01-20' },
-    { id: '5', name: 'Elena V.', rating: 5, comment: 'Mi esposo roncaba terriblemente. Ahora dormimos los dos tranquilos.', verified: true, date: '2025-05-02' },
-  ],
-  rest: [
-    { id: '1', name: 'Laura S.', rating: 5, comment: 'Me duermo en 5 minutos con mis podcasts favoritos. Maravillosa.', verified: true, date: '2025-03-22' },
-    { id: '2', name: 'Pedro L.', rating: 5, comment: 'La mejor inversión para dormir. Ni se siente puesta.', verified: true, date: '2025-04-05' },
-    { id: '3', name: 'Sofia M.', rating: 4, comment: 'Muy ligera, perfecta para dormir de lado. La batería dura toda la noche.', verified: true, date: '2025-02-14' },
-    { id: '4', name: 'Javier K.', rating: 5, comment: 'Uso ruido blanco cada noche. Esto cambia todo.', verified: true, date: '2025-05-18' },
-  ],
-  cervical: [
-    { id: '1', name: 'Rosa D.', rating: 5, comment: 'Tengo artritis cervical. Esto me alivia en 15 minutos.', verified: true, date: '2025-03-10' },
-    { id: '2', name: 'Miguel F.', rating: 5, comment: 'Lo uso en la oficina después del almuerzo. Me reactiva.', verified: true, date: '2025-04-25' },
-    { id: '3', name: 'Carmen B.', rating: 4, comment: 'Compacto y eficaz. Lo llevo de viaje siempre.', verified: true, date: '2025-02-08' },
-  ],
-  back: [
-    { id: '1', name: 'Juan A.', rating: 5, comment: 'Después de 2 semanas, mi postura ha mejorado notablemente.', verified: true, date: '2025-03-18' },
-    { id: '2', name: 'Isabel T.', rating: 5, comment: 'Lo uso en el trabajo y nadie lo nota. Mi dolor de espalda ha desaparecido.', verified: true, date: '2025-04-30' },
-    { id: '3', name: 'David N.', rating: 4, comment: 'Fácil de poner y ajustar. Los primeros días se siente raro pero te acostumbras.', verified: true, date: '2025-01-25' },
-  ],
-};
+const MOCK_PHOTOS: Record<string, CustomerPhoto[]> = {};
 
 export default function CustomerPhotos({ slug }: CustomerPhotosProps) {
   const locale = useLocale();
@@ -56,7 +31,9 @@ export default function CustomerPhotos({ slug }: CustomerPhotosProps) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const photos = MOCK_PHOTOS[slug] ?? MOCK_PHOTOS.halo;
+  const photos = MOCK_PHOTOS[slug];
+
+  if (!photos || photos.length === 0) return null;
 
   const checkScroll = () => {
     if (!scrollRef.current) return;

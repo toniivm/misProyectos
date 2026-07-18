@@ -22,13 +22,14 @@ import ProductImage from './ProductImage'
 import Badge from './ui/Badge'
 import FAQ from './ui/FAQ'
 import Header from './Header'
+import { trackAddToCart } from './GoogleAnalytics'
 
 const COPY = {
   en: {
     add: 'Add',
     added: 'Added',
     hero: {
-      badge: 'Trusted by thousands across Europe',
+      badge: 'Free shipping across Europe',
       title1: 'Sleep better.',
       title2: 'Wake up restored.',
       subtitle: 'Premium sleep and recovery technology designed for people who can\'t afford to sleep badly.',
@@ -107,7 +108,7 @@ const COPY = {
     add: 'Añadir',
     added: 'Añadido',
     hero: {
-      badge: 'Confianza de miles de personas en Europa',
+      badge: 'Envío gratis en toda Europa',
       title1: 'Duerme mejor.',
       title2: 'Despierta renovado.',
       subtitle: 'Tecnología premium de sueño y recuperación, diseñada para personas que no pueden permitirse dormir mal.',
@@ -199,6 +200,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
     e.preventDefault()
     e.stopPropagation()
     add({ slug: product.slug, name, price: product.price, icon: product.cartIcon })
+    trackAddToCart(product.slug, name, product.price)
     setAdded(true)
     openCart()
     setTimeout(() => setAdded(false), 2000)

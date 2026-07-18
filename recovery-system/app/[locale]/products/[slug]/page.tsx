@@ -72,7 +72,7 @@ export default function ProductPage({ params }: Props) {
   const product = catalogToProduct(cp);
 
   // Product structured data for Google rich snippets
-  const productJsonLd = {
+  const productJsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
@@ -97,14 +97,17 @@ export default function ProductPage({ params }: Props) {
         name: 'Noctip',
       },
     },
-    aggregateRating: {
+  };
+
+  if (cp.rating > 0 && cp.reviewCount > 0) {
+    productJsonLd.aggregateRating = {
       '@type': 'AggregateRating',
       ratingValue: cp.rating,
       reviewCount: cp.reviewCount,
       bestRating: 5,
       worstRating: 1,
-    },
-  };
+    }
+  }
 
   return (
     <>

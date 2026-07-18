@@ -18,6 +18,7 @@ import {
 import ProductImage from './ProductImage'
 import Stars from './ui/Stars'
 import Badge from './ui/Badge'
+import { trackAddToCart } from './GoogleAnalytics'
 import Header from './Header'
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating' | 'reviews'
@@ -76,6 +77,7 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault()
     add({ slug: product.slug, name, price: product.price, icon: product.cartIcon })
+    trackAddToCart(product.slug, name, product.price)
     setAdded(true)
     openCart()
     setTimeout(() => setAdded(false), 2000)
@@ -104,12 +106,14 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         </div>
 
         <div className="flex flex-1 flex-col gap-2 p-4">
-          <div className="flex items-center gap-1.5">
-            <Stars rating={product.rating} />
-            <span className="text-[11px] text-[#8791a1]">
-              {product.rating} ({product.reviewCount.toLocaleString(locale === 'es' ? 'es-ES' : 'en-US')})
-            </span>
-          </div>
+          {product.rating > 0 && product.reviewCount > 0 && (
+            <div className="flex items-center gap-1.5">
+              <Stars rating={product.rating} />
+              <span className="text-[11px] text-[#8791a1]">
+                {product.rating} ({product.reviewCount.toLocaleString(locale === 'es' ? 'es-ES' : 'en-US')})
+              </span>
+            </div>
+          )}
           <h3 className="text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-white transition-colors">{name}</h3>
           <p className="line-clamp-2 text-[12px] leading-5 text-[#8791a1]">{desc}</p>
           <div className="mt-auto flex items-end justify-between gap-2 pt-3">

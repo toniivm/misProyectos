@@ -108,7 +108,9 @@ export default async function LocaleLayout({children, params}: Props) {
     description: isEs
       ? 'Noctip diseña tecnología de sueño y recuperación: férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales.'
       : 'Noctip designs sleep and recovery technology: anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers.',
-    sameAs: [],
+    sameAs: [
+      'https://www.tiktok.com/@noctip2',
+    ],
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',

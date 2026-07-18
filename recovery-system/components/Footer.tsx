@@ -102,25 +102,10 @@ export default function Footer() {
 
             {/* Social links */}
             <div className="flex items-center gap-2.5 sm:gap-3">
-              <a href="#" target="_blank" rel="noopener noreferrer"
-                className="flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
-                aria-label="Facebook">
-                <Facebook size={15} />
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer"
-                className="flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
-                aria-label="Instagram">
-                <Instagram size={15} />
-              </a>
               <a href="https://www.tiktok.com/@noctip2" target="_blank" rel="noopener noreferrer"
                 className="flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
                 aria-label="TikTok">
                 <Globe size={15} />
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer"
-                className="flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
-                aria-label="YouTube">
-                <Youtube size={15} />
               </a>
             </div>
           </div>
