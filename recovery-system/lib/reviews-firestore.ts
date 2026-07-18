@@ -20,7 +20,6 @@ export interface Review {
 }
 
 const REVIEWS_COLLECTION = 'reviews'
-const ORDERS_KEY = 'noctas_orders'
 
 function docToReview(docSnap: DocumentData): Review {
   const d = docSnap.data()
@@ -87,45 +86,26 @@ export async function hasUserReviewedProduct(userEmail: string, productSlug: str
 export async function hasUserPurchasedProduct(userEmail: string, productSlug: string): Promise<boolean> {
   if (!userEmail) return false
   const db = getDb()
+  if (!db) return false
 
-  // Check Firestore orders collection if it exists
-  if (db) {
-    try {
-      const q = query(
-        collection(db, 'orders'),
-        where('email', '==', userEmail.toLowerCase()),
-        where('status', 'in', ['paid', 'shipped', 'delivered'])
-      )
-      const snapshot = await getDocs(q)
-      for (const orderDoc of snapshot.docs) {
-        const data = orderDoc.data()
-        const items = data.items || []
-        if (items.some((item: any) => (item.id || item.slug) === productSlug)) {
-          return true
-        }
-      }
-    } catch {
-      // 'orders' collection may not exist yet — fall through to localStorage
-    }
-  }
-
-  // Fallback: check localStorage orders (from checkout page)
-  if (typeof window === 'undefined') return false
   try {
-    const raw = localStorage.getItem(ORDERS_KEY)
-    if (!raw) return false
-    const orders = JSON.parse(raw)
-    if (typeof orders !== 'object') return false
-    return Object.values(orders).some((order: any) => {
-      if (!order) return false
-      const orderEmail = order.email?.toLowerCase()
-      const isPaid = order.status === 'paid' || order.status === 'shipped' || order.status === 'delivered'
-      const hasProduct = order.items?.some((item: any) => (item.id || item.slug) === productSlug)
-      return orderEmail === userEmail.toLowerCase() && isPaid && hasProduct
-    })
+    const q = query(
+      collection(db, 'orders'),
+      where('email', '==', userEmail.toLowerCase()),
+      where('status', 'in', ['paid', 'shipped', 'delivered'])
+    )
+    const snapshot = await getDocs(q)
+    for (const orderDoc of snapshot.docs) {
+      const data = orderDoc.data()
+      const items = data.items || []
+      if (items.some((item: any) => (item.id || item.slug) === productSlug)) {
+        return true
+      }
+    }
   } catch {
-    return false
+    // 'orders' collection may not exist yet — return false (denied)
   }
+  return false
 }
 
 export async function submitReview(review: Omit<Review, 'id' | 'helpful' | 'reported' | 'createdAt' | 'published'>): Promise<{ ok: boolean; error?: string }> {
