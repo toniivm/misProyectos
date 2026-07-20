@@ -1,7 +1,7 @@
 # Guía del Proyecto Noctip
 
 ## Identidad del Proyecto
-Noctip es una marca premium de productos de sueño y recuperación. Vende 4 productos:
+Noctip es una marca de productos de sueño y recuperación. Vende 4 productos:
 - **Noctip Halo** — Férula anti-ronquidos (€17.99, antes €29.99)
 - **Noctip Back** — Corrector postural (€19.99, antes €31.99)
 - **Noctip Rest** — Banda de audio para dormir (€11.99, antes €21.99)
@@ -189,6 +189,74 @@ transition={{ delay: idx * 0.08, duration: 0.5 }}
 - `NEXT_PUBLIC_BASE_URL` / `NEXT_PUBLIC_SITE_URL` — URL del sitio para Stripe callbacks
 - Firebase config en `AuthContext.tsx`
 
+## Infraestructura Completa
+
+### Hosting
+- **Frontend:** Render.com (static export `out/` servido por `static-server.js`)
+- **Backend API:** Render.com (`https://misproyectos-neyj.onrender.com`)
+- **Dominio:** `noctip.com` (DNS gestionado externamente)
+- **Build:** `output: 'export'` → archivos estáticos en `out/`
+
+### Backend Externos (Render)
+Endpoints llamados desde el frontend:
+- `POST /payments/create-checkout-session` — Stripe checkout
+- `POST /emails/welcome` — Email de bienvenida al registrarse
+- `POST /orders/{orderId}/send-confirmation` — Email de confirmación de pedido
+- `GET /orders` — Listado de pedidos (admin)
+- `PATCH /orders/{orderId}/ship` — Envío de pedido (admin)
+- `GET /health` — Health check / warmup
+
+### Email
+- **Contacto visible:** `hola@noctip.com` (en about, contact, legal-notice, privacy, returns)
+- **Soporte:** `support@noctip.com` (en FAQ, checkout, tracking)
+- **Newsletter:** Brevo (SendinBlue) — API key en `.env.local`, list ID 3
+- **Envío de emails:** Manejado por el backend en Render, NO en este repo
+- **Configuración de email con dominio:** Usar Zoho Mail (gratis hasta 5 usuarios)
+  1. Registrarse en https://www.zoho.com/mail/zohomail-pricing.html (Plan Free)
+  2. Añadir dominio `noctip.com`
+  3. Verificar dominio (registrar TXT record en DNS)
+  4. Añadir registros MX al DNS del dominio
+  5. Crear cuentas: `hola@noctip.com`, `support@noctip.com`
+
+### Firebase
+- **Proyecto:** `valtre-73c7b` (puede ser proyecto compartido)
+- **Auth:** Google sign-in + email/password
+- **Firestore:** Colecciones `reviews` y `orders`
+- **Config:** 7 variables en `.env.local`
+
+### Stripe
+- **Modo:** LIVE (producción)
+- **Publishable key:** En `.env.local`
+- **Secret key:** En el backend (Render)
+- **Webhook:** `https://noctip.com/api/webhooks/stripe` (evento: `checkout.session.completed`)
+- **Promo codes:** DESACTIVADOS (`allow_promotion_codes: false`)
+
+### Analytics
+- **GA4:** `G-HVTC1MN829`
+- **Meta Pixel:** Configurado pero SIN ID (`NEXT_PUBLIC_META_PIXEL_ID` no seteado)
+- **TikTok Pixel:** Configurado pero SIN ID (`NEXT_PUBLIC_TIKTOK_PIXEL_ID` no seteado)
+
+### Otros Servicios
+- **Tawk.to:** Chat en vivo configurado pero SIN credenciales
+- **Playwright:** Tests E2E en `.github/workflows/e2e.yml`
+
+## Variables de Entorno (.env.local)
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyCwPVVjeFsFOst_VCio5b-BwKoDkIvrH50
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=valtre-73c7b.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=valtre-73c7b
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=valtre-73c7b.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=461850531851
+NEXT_PUBLIC_FIREBASE_APP_ID=1:461850531851:web:7300c187d7c362fe524f0e
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-2XMSEM58VW
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_51TgYB7...
+NEXT_PUBLIC_API_URL=https://misproyectos-neyj.onrender.com
+NEXT_PUBLIC_APP_URL=https://noctip.com
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-HVTC1MN829
+BREVO_API_KEY=<ver .env.local>
+BREVO_LIST_ID=3
+```
+
 ## Archivos Clave por Funcionalidad
 | Funcionalidad | Archivo |
 |---------------|---------|
@@ -209,6 +277,17 @@ transition={{ delay: idx * 0.08, duration: 0.5 }}
 | Traducciones ES | `messages/es.json` |
 | Traducciones EN | `messages/en.json` |
 | Estilos globales | `app/globals.css` |
+
+## Mapeo de Slugs (IMPORTANTE)
+El catálogo usa slugs que NO coinciden con los nombres de carpeta:
+| Producto | Slug en catálogo | Carpeta de imágenes |
+|----------|-----------------|---------------------|
+| Noctip Halo | `halo` | `halo/` |
+| Noctip Back | `wave` | `back/` |
+| Noctip Rest | `sleep-headband` | `rest/` |
+| Noctip Cervical | `neck-massager` | `cervical/` |
+
+**Cuidado al editar:** `ProductWhatYouGet.tsx`, `ProductDetails.tsx` y `product-images.ts` necesitan keys para BOTH `wave` y `back`, BOTH `sleep-headband` y `rest`, BOTH `neck-massager` y `cervical`.
 
 ## Sistema de Reseñas
 - **Storage:** localStorage key `noctip_reviews` (array de objetos Review)
