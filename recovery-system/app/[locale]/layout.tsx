@@ -29,11 +29,11 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
   return {
     title: isEs
-      ? 'Noctip™ — Tecnología Premium de Sueño y Recuperación'
-      : 'Noctip™ — Premium Sleep & Recovery Technology',
+      ? 'Noctip™ — Sueño y Recuperación que Funciona'
+      : 'Noctip™ — Sleep & Recovery that Works',
     description: isEs
-      ? 'Noctip diseña tecnología de sueño y recuperación. Férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales. Envío gratis, garantía de 30 noches.'
-      : 'Noctip designs sleep and recovery technology. Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping, 30-night guarantee.',
+      ? 'Noctip diseña productos de sueño y recuperación que funcionan de verdad. Férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales. Envío gratis, garantía de 30 noches.'
+      : 'Noctip designs sleep and recovery products that actually work. Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping, 30-night guarantee.',
     keywords: isEs
       ? 'noctip, sueño, recuperación, anti-ronquidos, corrector postural, banda de sueño, masajeador cuello, tecnología sueño, bienestar, envío gratis'
       : 'noctip, sleep, recovery, anti-snoring, posture corrector, sleep headband, neck massager, sleep technology, wellness, free shipping',
@@ -50,8 +50,8 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     },
     openGraph: {
       title: isEs
-        ? 'Noctip™ — Tecnología Premium de Sueño y Recuperación'
-        : 'Noctip™ — Premium Sleep & Recovery Technology',
+        ? 'Noctip™ — Sueño y Recuperación que Funciona'
+        : 'Noctip™ — Sleep & Recovery that Works',
       description: isEs
         ? 'Duerme más profundo. Recupérate mejor. Vive mejor. Envío gratis y garantía de 30 noches.'
         : 'Sleep deeper. Recover better. Live better. Free shipping and 30-night guarantee.',
@@ -64,15 +64,15 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
           url: 'https://noctip.com/images/products/sleep-headband.jpg',
           width: 1200,
           height: 630,
-          alt: 'Noctip — Premium Sleep & Recovery Technology',
+          alt: 'Noctip — Sleep & Recovery that Works',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: isEs
-        ? 'Noctip™ — Tecnología Premium de Sueño y Recuperación'
-        : 'Noctip™ — Premium Sleep & Recovery Technology',
+        ? 'Noctip™ — Sueño y Recuperación que Funciona'
+        : 'Noctip™ — Sleep & Recovery that Works',
       description: isEs
         ? 'Duerme más profundo. Recupérate mejor. Vive mejor. Envío gratis y garantía de 30 noches.'
         : 'Sleep deeper. Recover better. Live better. Free shipping and 30-night guarantee.',
@@ -106,11 +106,8 @@ export default async function LocaleLayout({children, params}: Props) {
     url: 'https://noctip.com',
     logo: 'https://noctip.com/favicon.svg',
     description: isEs
-      ? 'Noctip diseña tecnología de sueño y recuperación: férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales.'
-      : 'Noctip designs sleep and recovery technology: anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers.',
-    sameAs: [
-      'https://www.tiktok.com/@noctip2',
-    ],
+      ? 'Noctip diseña productos de sueño y recuperación que funcionan de verdad: férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales.'
+      : 'Noctip designs sleep and recovery products that actually work: anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers.',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',

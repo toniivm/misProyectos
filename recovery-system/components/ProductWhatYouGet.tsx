@@ -34,6 +34,10 @@ export default function ProductWhatYouGet({ slug }: ProductWhatYouGetProps) {
       es: { 'Corrector postural': 'Noctip Back — soporte en forma de Y', 'Manual de instrucciones': 'Guía de ajuste y uso', 'Guía de tallas': 'Tabla de medidas detallada' },
       en: { 'Corrector postural': 'Noctip Back — Y-shaped posture support', 'Manual de instrucciones': 'Adjustment and usage guide', 'Guía de tallas': 'Detailed size chart' },
     },
+    wave: {
+      es: { 'Corrector postural': 'Noctip Back — soporte en forma de Y', 'Manual de instrucciones': 'Guía de ajuste y uso', 'Guía de tallas': 'Tabla de medidas detallada' },
+      en: { 'Corrector postural': 'Noctip Back — Y-shaped posture support', 'Manual de instrucciones': 'Adjustment and usage guide', 'Guía de tallas': 'Detailed size chart' },
+    },
   };
 
   const lang = isEs ? 'es' : 'en';

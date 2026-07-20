@@ -30,7 +30,7 @@ export default function PrivacyPage(){
         <div className="mt-8 space-y-8 text-[14px] leading-7 text-[#9aa7b9]">
           <section>
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? '1. Responsable del tratamiento' : '1. Data Controller'}</h2>
-            <p><strong>Noctip</strong> — {isEs ? 'Domicilio: C Fernando Vela Nº 18, España. Contacto: noctip95@gmail.com' : 'Address: C Fernando Vela Nº 18, Spain. Contact: noctip95@gmail.com'}</p>
+            <p><strong>Noctip</strong> — {isEs ? 'Domicilio: C Fernando Vela Nº 18, España. Contacto: hola@noctip.com' : 'Address: C Fernando Vela Nº 18, Spain. Contact: hola@noctip.com'}</p>
           </section>
 
           <section>
@@ -71,8 +71,8 @@ export default function PrivacyPage(){
           <section>
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? '6. Tus derechos' : '6. Your Rights'}</h2>
             <p>{isEs
-              ? 'Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, portabilidad y limitación del tratamiento escribiendo a noctip95@gmail.com.'
-              : 'You can exercise your rights of access, rectification, deletion, opposition, portability and limitation by writing to noctip95@gmail.com.'}</p>
+              ? 'Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, portabilidad y limitación del tratamiento escribiendo a hola@noctip.com.'
+              : 'You can exercise your rights of access, rectification, deletion, opposition, portability and limitation by writing to hola@noctip.com.'}</p>
           </section>
 
           <section>

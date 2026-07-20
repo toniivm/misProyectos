@@ -34,6 +34,7 @@ const LIFESTYLE_CONTEXTS: Record<string, string[]> = {
   rest: ['Antes y después de colocarlo', 'Alguien durmiendo de lado', 'Primer plano del material', 'Desde distintos ángulos', 'Mostrando el tamaño real', 'Encima de una cama', 'Junto a otros objetos'],
   cervical: ['Masajeándose el cuello', 'Utilizándolo en el sofá', 'Utilizándolo en una oficina', 'Detalle del tejido', 'Vista trasera', 'Vista lateral', 'Fotografía de la caja', 'Detalle de los botones'],
   back: ['Corrigiendo postura en el trabajo', 'De espalda con el corrector', 'Ajustando las correas', 'Debajo de la ropa', 'En el gimnasio', 'Por detrás', 'Detalle de la malla', 'Plegado para viajar'],
+  wave: ['Corrigiendo postura en el trabajo', 'De espalda con el corrector', 'Ajustando las correas', 'Debajo de la ropa', 'En el gimnasio', 'Por detrás', 'Detalle de la malla', 'Plegado para viajar'],
 };
 
 // Package contents per product
@@ -42,6 +43,7 @@ const PACKAGE_ITEMS: Record<string, string[]> = {
   rest: ['Banda de sueño', 'Cable de carga', 'Manual de instrucciones', 'Bolsa de almacenaje'],
   cervical: ['Masajeador cervical', 'Cable USB', 'Manual de usuario'],
   back: ['Corrector postural', 'Manual de instrucciones', 'Guía de tallas'],
+  wave: ['Corrector postural', 'Manual de instrucciones', 'Guía de tallas'],
 };
 
 /**

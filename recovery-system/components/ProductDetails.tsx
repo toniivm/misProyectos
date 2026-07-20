@@ -21,10 +21,14 @@ const DETAIL_LABELS: Record<string, { es: string[]; en: string[] }> = {
     en: ['Breathable fabric', 'Ultra-thin speakers', 'Reinforced stitching', 'Premium elasticity', 'Soft-touch finish', 'Machine washable', 'Ultra-lightweight', 'Ergonomic design'],
   },
   cervical: {
-    es: ['Electrodos curvos', 'Acabado mate mate', 'Botones de control', 'Superficie de contacto', 'Carcasa ABS', 'Acabados premium', 'Textura de agarre', 'Impermeable'],
+    es: ['Electrodos curvos', 'Acabado mate', 'Botones de control', 'Superficie de contacto', 'Carcasa ABS', 'Acabados premium', 'Textura de agarre', 'Impermeable'],
     en: ['Curved electrodes', 'Matte spray finish', 'Control buttons', 'Contact surface', 'ABS housing', 'Premium finishes', 'Grip texture', 'Water-resistant'],
   },
   back: {
+    es: ['Malla transpirable', 'Correas reforzadas', 'Velcro de alta adherencia', 'Costuras triples', 'Bordes cosidos', 'Textura de sujeción', 'Peso ultraligero', 'Acabados premium'],
+    en: ['Breathable mesh', 'Reinforced straps', 'High-grip velcro', 'Triple stitching', 'Hemmed edges', 'Grip texture', 'Ultra-lightweight', 'Premium finishes'],
+  },
+  wave: {
     es: ['Malla transpirable', 'Correas reforzadas', 'Velcro de alta adherencia', 'Costuras triples', 'Bordes cosidos', 'Textura de sujeción', 'Peso ultraligero', 'Acabados premium'],
     en: ['Breathable mesh', 'Reinforced straps', 'High-grip velcro', 'Triple stitching', 'Hemmed edges', 'Grip texture', 'Ultra-lightweight', 'Premium finishes'],
   },

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
-import { Mail, MessageCircle, Clock, Shield, Truck, RotateCcw, Send } from 'lucide-react'
+import { Mail, Clock, Shield, Truck, RotateCcw, Send } from 'lucide-react'
 import { useState } from 'react'
 import Header from '../../../components/Header'
 
@@ -22,14 +22,8 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: isEs ? 'Email' : 'Email',
-      value: 'noctip95@gmail.com',
+      value: 'hola@noctip.com',
       description: isEs ? 'Respuesta en menos de 24h' : 'Response within 24h',
-    },
-    {
-      icon: MessageCircle,
-      title: isEs ? 'WhatsApp' : 'WhatsApp',
-      value: '+34 600 000 000',
-      description: isEs ? 'Lun-Vie 9:00-18:00' : 'Mon-Fri 9:00-18:00',
     },
     {
       icon: Clock,
@@ -68,7 +62,7 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mt-10 grid gap-4 sm:grid-cols-3"
+          className="mt-10 grid gap-4 sm:grid-cols-2"
         >
           {contactMethods.map((method) => (
             <div key={method.title} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 text-center transition-all hover:border-white/[0.12]">

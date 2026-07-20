@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Globe, Lock } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Lock } from 'lucide-react'
 import PaymentLogos from './PaymentLogos'
 
 export default function Footer() {
@@ -128,7 +128,9 @@ export default function Footer() {
               <a href="https://www.tiktok.com/@noctip2" target="_blank" rel="noopener noreferrer"
                 className="flex h-10 sm:h-11 w-10 sm:w-11 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-[#5a6678] transition-all hover:border-[rgba(16,191,216,0.15)] hover:text-[#10BFD8] active:scale-95"
                 aria-label="TikTok">
-                <Globe size={15} />
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.51a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 10.86 4.46V13a8.28 8.28 0 0 0 5.58 2.15v-3.45a4.85 4.85 0 0 1-5.58-2.74V6.69h5.58z"/>
+                </svg>
               </a>
             </div>
           </div>

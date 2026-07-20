@@ -127,14 +127,11 @@ export default function AboutPage() {
               : 'If you have any questions before buying, write to us. We\'d rather you buy confident than buy with doubts. We reply within 24 hours.'}
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <a href="mailto:noctip95@gmail.com"
+            <a href="mailto:hola@noctip.com"
               className="inline-flex items-center rounded-full bg-[#f2eee7] px-8 py-4 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px]">
-              ✉️ {isEs ? 'noctip95@gmail.com' : 'noctip95@gmail.com'}
+              ✉️ {isEs ? 'hola@noctip.com' : 'hola@noctip.com'}
             </a>
           </div>
-          <p className="mt-4 text-[12px] text-[#6b7785]">
-            {isEs ? 'También por WhatsApp en el botón verde de la web' : 'Also via WhatsApp using the green button on the site'}
-          </p>
         </motion.div>
 
         {/* Trust */}

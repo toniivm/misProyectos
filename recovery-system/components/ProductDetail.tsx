@@ -239,8 +239,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               {displayName}
             </h1>
 
-            {/* Rating */}
-            {product && (
+            {/* Rating — only show when there are real reviews */}
+            {product && displayReviewCount > 0 && (
               <div className="flex items-center gap-2.5 sm:gap-3">
                 <Stars rating={displayRating} />
                 <span className="text-[13px] sm:text-[14px] text-[#f2eee7] font-medium">{displayRating}</span>
@@ -680,7 +680,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <div className="min-w-0">
               <div className="truncate text-[14px] font-semibold text-[#f2eee7]">{displayName}</div>
               <div className="mt-1 flex items-center gap-2 text-[12px] text-[#8791a1]">
-                {product ? (
+                {product && displayReviewCount > 0 ? (
                   <><Stars rating={displayRating} size={12} /><span>{displayRating} · {displayReviewCount.toLocaleString()} {isEs ? 'reseñas' : 'reviews'}</span></>
                 ) : (
                   <span>{legacyProduct.tag}</span>

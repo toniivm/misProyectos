@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   publisher: 'Noctip',
   metadataBase: new URL('https://noctip.com'),
   openGraph: {
-    title: 'Noctip™ — Premium Sleep & Recovery Technology',
-    description: 'Premium sleep & recovery technology. Free shipping, 30-night guarantee.',
+    title: 'Noctip™ — Sleep & Recovery that Works',
+    description: 'Sleep and recovery products that actually work. Free shipping, 30-night guarantee.',
     url: 'https://noctip.com',
     siteName: 'Noctip',
     locale: 'en_US',
@@ -51,14 +51,14 @@ export const metadata: Metadata = {
         url: 'https://noctip.com/images/products/sleep-headband.jpg',
         width: 1200,
         height: 630,
-        alt: 'Noctip — Premium Sleep & Recovery Technology',
+        alt: 'Noctip — Sleep & Recovery that Works',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Noctip™ — Premium Sleep & Recovery Technology',
-    description: 'Premium sleep & recovery technology. Free shipping, 30-night guarantee.',
+    title: 'Noctip™ — Sleep & Recovery that Works',
+    description: 'Sleep and recovery products that actually work. Free shipping, 30-night guarantee.',
     images: ['https://noctip.com/images/products/sleep-headband.jpg'],
   },
   robots: {
