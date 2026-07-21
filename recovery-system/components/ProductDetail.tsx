@@ -24,6 +24,7 @@ import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
 import ProductWhatYouGet from './ProductWhatYouGet';
 import CustomerPhotos from './CustomerPhotos';
+import CustomerReviews from './CustomerReviews';
 import Stars from './ui/Stars';
 import Badge from './ui/Badge';
 import FAQ from './ui/FAQ';
@@ -386,6 +387,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
             {/* Step 2: What you'll receive */}
             <ProductWhatYouGet slug={product.slug} />
+
+            {/* Step 3: Customer reviews with photos */}
+            <CustomerReviews slug={product.slug} />
           </>
         )}
 
