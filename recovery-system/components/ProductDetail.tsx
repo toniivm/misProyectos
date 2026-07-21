@@ -200,7 +200,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         </nav>
 
         {/* Main product layout */}
-        <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <div className="grid gap-4 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
           {/* Left — Gallery */}
           <motion.div
             initial={{ opacity: 0, x: -12 }}

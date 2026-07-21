@@ -88,7 +88,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
       <div className="relative">
         {/* Main Image */}
         <div
-          className="relative aspect-[3/4] sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden cursor-crosshair"
+          className="relative aspect-square sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden cursor-crosshair"
           style={{ background: color, touchAction: 'pan-y' }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
