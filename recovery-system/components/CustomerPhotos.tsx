@@ -22,7 +22,84 @@ interface CustomerPhotosProps {
 
 const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
 
-const MOCK_PHOTOS: Record<string, CustomerPhoto[]> = {};
+const MOCK_PHOTOS: Record<string, CustomerPhoto[]> = {
+  'sleep-headband': [
+    {
+      id: 'sh-1',
+      name: 'María G.',
+      rating: 5,
+      comment: 'Llevo una semana usándola y duermo como nunca. Me pongo un podcast y me quedo dormida en minutos. Lo mejor: no se mueve aunque duermas de lado.',
+      image: '/images/rest/lifestyle/1.jpg',
+      verified: true,
+      date: '2025-07-15',
+    },
+    {
+      id: 'sh-2',
+      name: 'Carlos R.',
+      rating: 5,
+      comment: 'Skeptical al principio, pero la diferencia es brutal. Uso ruido blanco todas las noches y ahora no puedo dormir sin ella. Super cómoda.',
+      image: '/images/rest/lifestyle/2.jpg',
+      verified: true,
+      date: '2025-07-12',
+    },
+    {
+      id: 'sh-3',
+      name: 'Laura M.',
+      rating: 4,
+      comment: 'Muy buena calidad de sonido para ser una banda. La tela es suave y no aprieta. La batería me dura toda la noche. Recomendada.',
+      image: '/images/rest/lifestyle/3.jpg',
+      verified: true,
+      date: '2025-07-10',
+    },
+    {
+      id: 'sh-4',
+      name: 'Pedro L.',
+      rating: 5,
+      comment: 'Mi mujer ronca y esto me salvó. Me pongo auriculares normales y me duelen las orejas, esta banda la noto como si no llevara nada.',
+      image: '/images/rest/lifestyle/4.jpg',
+      verified: true,
+      date: '2025-07-08',
+    },
+    {
+      id: 'sh-5',
+      name: 'Ana S.',
+      rating: 5,
+      comment: 'La lavé en la lavadora 3 veces ya y sigue como nueva. El Bluetooth conecta al instaje. Perfecta para viajar.',
+      image: '/images/rest/lifestyle/5.jpg',
+      verified: true,
+      date: '2025-07-05',
+    },
+  ],
+  halo: [
+    {
+      id: 'h-1',
+      name: 'Javier P.',
+      rating: 5,
+      comment: 'Primera noche con ella y no ronqué. Mi mujer no lo podía creer. Llevaba años probando cosas不同的.',
+      image: '/images/halo/lifestyle/1.jpg',
+      verified: true,
+      date: '2025-07-14',
+    },
+    {
+      id: 'h-2',
+      name: 'Isabel F.',
+      rating: 5,
+      comment: 'Cómoda, no se cae, y funciona de verdad. El estuche es un plus para viajar.',
+      image: '/images/halo/lifestyle/2.jpg',
+      verified: true,
+      date: '2025-07-11',
+    },
+    {
+      id: 'h-3',
+      name: 'Miguel A.',
+      rating: 4,
+      comment: 'Al principio me costó acostumbrarme, pero a los 3 días la notaba imprescindible. Duermo mejor y ronco menos.',
+      image: '/images/halo/lifestyle/3.jpg',
+      verified: true,
+      date: '2025-07-09',
+    },
+  ],
+};
 
 export default function CustomerPhotos({ slug }: CustomerPhotosProps) {
   const locale = useLocale();

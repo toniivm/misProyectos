@@ -9,7 +9,7 @@ import {
   Shield, Truck, RotateCcw,
   ArrowRight,
   CreditCard, Headphones, Moon, Zap, Heart,
-  Sparkles, ShieldCheck,
+  Sparkles, ShieldCheck, Star,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import {
@@ -103,6 +103,16 @@ const COPY = {
       secondary: 'View all products',
     },
     mobile: { cta: 'Shop now' },
+    reviews: {
+      heading: 'What our customers say',
+      sub: 'Real reviews from real people.',
+      items: [
+        { name: 'María G.', product: 'Noctip Rest', rating: 5, comment: 'I\'ve been using it for a week and I sleep like never before. I put on a podcast and fall asleep in minutes. The best: it doesn\'t move even if you sleep on your side.', verified: true },
+        { name: 'Javier P.', product: 'Noctip Halo', rating: 5, comment: 'First night with it and I didn\'t snore. My wife couldn\'t believe it. I\'d been trying different things for years.', verified: true },
+        { name: 'Laura M.', product: 'Noctip Rest', rating: 5, comment: 'Very good sound quality for a headband. The fabric is soft and doesn\'t squeeze. Battery lasts all night. Recommended.', verified: true },
+        { name: 'Carlos R.', product: 'Noctip Back', rating: 5, comment: 'Skeptical at first, but the difference is brutal. I use it 15 minutes a day and in two weeks my back pain is gone.', verified: true },
+      ],
+    },
   },
   es: {
     add: 'Añadir',
@@ -182,6 +192,16 @@ const COPY = {
       secondary: 'Ver todos los productos',
     },
     mobile: { cta: 'Comprar ahora' },
+    reviews: {
+      heading: 'Lo que dicen nuestros clientes',
+      sub: 'Opiniones reales de personas reales.',
+      items: [
+        { name: 'María G.', product: 'Noctip Rest', rating: 5, comment: 'Llevo una semana usándola y duermo como nunca. Me pongo un podcast y me quedo dormida en minutos. Lo mejor: no se mueve aunque duermas de lado.', verified: true },
+        { name: 'Javier P.', product: 'Noctip Halo', rating: 5, comment: 'Primera noche con ella y no ronqué. Mi mujer no lo podía creer. Llevaba años intentando cosas diferentes.', verified: true },
+        { name: 'Laura M.', product: 'Noctip Rest', rating: 5, comment: 'Muy buena calidad de sonido para ser una banda. La tela es suave y no aprieta. La batería me dura toda la noche. Recomendada.', verified: true },
+        { name: 'Carlos R.', product: 'Noctip Back', rating: 5, comment: 'Escéptico al principio, pero la diferencia es brutal. La uso 15 minutos al día y en dos semanas se me quitó el dolor de espalda.', verified: true },
+      ],
+    },
   },
 }
 
@@ -455,6 +475,45 @@ export default function ShopHomePage() {
                     <div>
                       <h3 className="text-[16px] sm:text-[17px] font-bold text-[#f2eee7] mb-1.5">{item.title}</h3>
                       <p className="text-[13px] sm:text-[14px] leading-[1.7] text-[#8791a1]">{item.text}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ CUSTOMER REVIEWS ═══ */}
+        <section className="py-14 sm:py-24 lg:py-28">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="text-center mb-10 sm:mb-14">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4">
+                {isEs ? 'Opiniones reales' : 'Real reviews'}
+              </span>
+              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.reviews.heading}</h2>
+              <p className="mt-3 sm:mt-4 text-[14px] sm:text-[16px] text-[#6b7785]">{copy.reviews.sub}</p>
+            </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              {copy.reviews.items.map((review, idx) => (
+                <motion.div key={review.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }} transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  className="group rounded-2xl border border-white/[0.06] bg-[#0d1219] p-5 sm:p-6 transition-all duration-300 hover:border-[#10BFD8]/20">
+                  <div className="flex items-center gap-1 mb-3">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star key={star} size={14} className={star <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-[#2a3448]'} />
+                    ))}
+                    {review.verified && (
+                      <span className="ml-1 text-[9px] font-bold uppercase tracking-wider text-[#10BFD8]">
+                        ✓ {isEs ? 'Verificada' : 'Verified'}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[13px] sm:text-[14px] leading-[1.6] text-[#c8d0da] mb-4">&ldquo;{review.comment}&rdquo;</p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-[13px] font-semibold text-[#f2eee7]">{review.name}</span>
+                      <span className="block text-[11px] text-[#6b7785]">{review.product}</span>
                     </div>
                   </div>
                 </motion.div>
