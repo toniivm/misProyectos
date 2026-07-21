@@ -88,7 +88,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
       <div className="relative">
         {/* Main Image */}
         <div
-          className="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden cursor-crosshair"
+          className="relative aspect-[3/4] sm:aspect-[3/4] rounded-2xl border border-white/[0.08] overflow-hidden cursor-crosshair"
           style={{ background: color, touchAction: 'pan-y' }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -157,13 +157,13 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
         {/* Thumbnails */}
         <div
           ref={thumbnailRef}
-          className="mt-2.5 sm:mt-3 flex gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-6 sm:overflow-visible pb-1"
+          className="mt-2.5 sm:mt-3 flex gap-2 overflow-x-auto scrollbar-none sm:grid sm:grid-cols-6 sm:overflow-visible pb-1"
         >
           {images.map((src, idx) => (
             <button
               key={idx}
               onClick={() => setActiveIdx(idx)}
-              className={`overflow-hidden rounded-lg sm:rounded-xl border-2 transition-all aspect-square shrink-0 w-[60px] sm:w-auto ${
+              className={`overflow-hidden rounded-lg sm:rounded-xl border-2 transition-all aspect-square shrink-0 w-[64px] sm:w-auto ${
                 activeIdx === idx
                   ? 'border-[#10BFD8]/50 opacity-100'
                   : 'border-white/10 opacity-50 hover:opacity-75'
@@ -172,7 +172,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
               <img
                 src={src}
                 alt=""
-                className="h-full w-full object-contain p-0.5 sm:p-1"
+                className="h-full w-full object-cover sm:object-contain sm:p-1"
                 loading="lazy"
                 decoding="async"
               />
@@ -181,14 +181,14 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
           {video && (
             <button
               onClick={() => setActiveIdx(images.length)}
-              className={`relative overflow-hidden rounded-xl border-2 transition-all aspect-square shrink-0 w-[60px] sm:w-auto ${
+              className={`relative overflow-hidden rounded-lg sm:rounded-xl border-2 transition-all aspect-square shrink-0 w-[64px] sm:w-auto ${
                 activeIdx === images.length
                   ? 'border-[#10BFD8]/50 opacity-100'
                   : 'border-white/10 opacity-50 hover:opacity-75'
               }`}
             >
               {images[0] ? (
-                <img src={images[0]} alt="" className="h-full w-full object-contain p-1" loading="lazy" decoding="async" />
+                <img src={images[0]} alt="" className="h-full w-full object-cover sm:object-contain sm:p-1" loading="lazy" decoding="async" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-[#111720] text-[#5a6678]">
                   <Maximize2 size={16} />

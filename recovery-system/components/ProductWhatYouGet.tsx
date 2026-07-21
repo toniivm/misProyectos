@@ -58,24 +58,24 @@ export default function ProductWhatYouGet({ slug }: ProductWhatYouGetProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08, duration: 0.5, ease: EASE_OUT }}
-              className="shrink-0 w-[200px] sm:w-auto snap-start rounded-2xl border border-white/[0.06] bg-[#0d1219] overflow-hidden transition-all duration-300 hover:border-[rgba(16,191,216,0.15)]"
+              className="shrink-0 w-[160px] sm:w-auto snap-start rounded-2xl border border-white/[0.06] bg-[#0d1219] overflow-hidden transition-all duration-300 hover:border-[rgba(16,191,216,0.15)]"
             >
-              <div className="aspect-[4/5] flex items-center justify-center bg-[#080c12] p-2">
+              <div className="aspect-[3/4] flex items-center justify-center bg-[#080c12] p-2">
                 <img
                   src={photo.src}
                   alt={photo.name}
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-cover sm:object-contain"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
-              <div className="p-3">
-                <div className="flex items-center gap-1 mb-1">
+              <div className="p-2.5">
+                <div className="flex items-center gap-0.5 mb-1">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} size={10} className={star <= photo.rating ? 'fill-amber-400 text-amber-400' : 'text-[#2a3448]'} />
+                    <Star key={star} size={9} className={star <= photo.rating ? 'fill-amber-400 text-amber-400' : 'text-[#2a3448]'} />
                   ))}
                 </div>
-                <p className="text-[11px] sm:text-[12px] leading-[1.4] text-[#8791a1] line-clamp-2">{photo.comment}</p>
+                <p className="text-[11px] leading-[1.4] text-[#8791a1] line-clamp-2">{photo.comment}</p>
               </div>
             </motion.div>
           ))}

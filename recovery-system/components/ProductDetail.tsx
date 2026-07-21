@@ -183,7 +183,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
       <Header showBackButton />
 
-      <div className="mx-auto max-w-[1280px] px-3 sm:px-6 pb-28 sm:pb-20 lg:pb-20">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 pb-28 sm:pb-20 lg:pb-20">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-[11px] sm:text-[13px] text-[#6b7785] overflow-x-auto scrollbar-none" aria-label="Breadcrumb">
           <Link href={`/${locale}`} className="hover:text-[#f2eee7] active:text-[#f2eee7] transition-colors whitespace-nowrap">{isEs ? 'Inicio' : 'Home'}</Link>
@@ -221,7 +221,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: EASE_OUT }}
-            className="flex flex-col gap-4 sm:gap-5 lg:sticky lg:top-24 lg:self-start"
+            className="flex flex-col gap-3 sm:gap-5 lg:sticky lg:top-24 lg:self-start"
           >
             {/* Category + badge */}
             <div className="flex items-center gap-2 flex-wrap">
