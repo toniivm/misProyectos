@@ -18,25 +18,28 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
   const [lightboxIdx, setLightboxIdx] = useState(0);
   const thumbnailRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+  const touchStartY = useRef(0);
+  const swiped = useRef(false);
 
   const totalItems = images.length + (video ? 1 : 0);
   const isVideoActive = video && activeIdx === images.length;
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
-  }, []);
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    swiped.current = false;
   }, []);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    const diff = touchStartX.current - touchEndX.current;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0 && activeIdx < totalItems - 1) {
+    if (swiped.current) return;
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+    // Only trigger if horizontal swipe is dominant and > 50px
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+      swiped.current = true;
+      if (diffX > 0 && activeIdx < totalItems - 1) {
         setActiveIdx((p) => p + 1);
-      } else if (diff < 0 && activeIdx > 0) {
+      } else if (diffX < 0 && activeIdx > 0) {
         setActiveIdx((p) => p - 1);
       }
     }
@@ -69,7 +72,6 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
           className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-2xl overflow-hidden"
           style={{ background: color }}
           onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           onClick={() => { setLightboxIdx(activeIdx); setLightboxOpen(true); }}
         >
