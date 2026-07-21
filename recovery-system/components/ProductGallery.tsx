@@ -225,7 +225,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
 
             {/* Counter */}
             <div className="absolute top-4 left-4 z-[110] rounded-full bg-white/10 px-3 py-1.5 text-[13px] text-white/80">
-              {lightboxIdx + 1} / {images.length}
+              {lightboxIdx + 1} / {totalItems}
             </div>
 
             {/* Navigation */}
@@ -238,7 +238,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
                 <ChevronLeft size={22} />
               </button>
             )}
-            {lightboxIdx < images.length - 1 && (
+            {lightboxIdx < totalItems - 1 && (
               <button
                 onClick={(e) => { e.stopPropagation(); setLightboxIdx((p) => p + 1); }}
                 className="absolute right-4 top-1/2 -translate-y-1/2 z-[110] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
@@ -248,19 +248,30 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
               </button>
             )}
 
-            {/* Image */}
-            <motion.img
-              key={lightboxIdx}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              src={images[lightboxIdx]}
-              alt={`${alt} - imagen ${lightboxIdx + 1}`}
-              className="max-h-[85vh] max-w-[90vw] object-contain"
-              onClick={(e) => e.stopPropagation()}
-              decoding="async"
-            />
+            {/* Image or Video */}
+            {video && lightboxIdx === images.length ? (
+              <video
+                key={lightboxIdx}
+                src={video}
+                controls
+                playsInline
+                className="max-h-[85vh] max-w-[90vw]"
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <motion.img
+                key={lightboxIdx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.2 }}
+                src={images[lightboxIdx]}
+                alt={`${alt} - imagen ${lightboxIdx + 1}`}
+                className="max-h-[85vh] max-w-[90vw] object-contain"
+                onClick={(e) => e.stopPropagation()}
+                decoding="async"
+              />
+            )}
 
             {/* Thumbnails strip */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[110] flex gap-2 overflow-x-auto scrollbar-none max-w-[90vw] p-2">
@@ -275,6 +286,27 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
                   <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
                 </button>
               ))}
+              {video && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setLightboxIdx(images.length); }}
+                  className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                    lightboxIdx === images.length ? 'border-[#10BFD8]' : 'border-white/20 opacity-50 hover:opacity-75'
+                  }`}
+                >
+                  {images[0] ? (
+                    <img src={images[0]} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-[#111720] text-[#5a6678]">
+                      <Maximize2 size={16} />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/90">
+                      <span className="ml-0.5 text-[8px] font-bold text-[#080c12]">▶</span>
+                    </div>
+                  </div>
+                </button>
+              )}
             </div>
           </motion.div>
         )}

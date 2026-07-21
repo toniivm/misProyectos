@@ -389,9 +389,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
             {/* Step 2: What you'll receive */}
             <ProductWhatYouGet slug={product.slug} />
-
-            {/* Step 3: Social proof — customer photos */}
-            <CustomerPhotos slug={product.slug} />
           </>
         )}
 
