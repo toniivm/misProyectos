@@ -173,8 +173,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       ? 'Sí. Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta. Visa, Mastercard, Amex, Apple Pay y Google Pay.'
       : 'Yes. Stripe with 256-bit SSL encryption. We never store card data. Visa, Mastercard, Amex, Apple Pay, and Google Pay.' },
     { q: isEs ? '¿Qué incluye exactamente?' : 'What exactly is included?', a: isEs
-      ? `El ${displayName} incluye el producto, manual de instrucciones, y todo lo necesario para empezar a usarlo inmediatamente.`
-      : `The ${displayName} includes the product, instruction manual, and everything you need to start using it immediately.` },
+      ? `El ${displayName} incluye todo lo necesario para empezar a usarlo inmediatamente.`
+      : `The ${displayName} includes everything you need to start using it immediately.` },
   ];
 
   const allImages = product?.images ?? [];
