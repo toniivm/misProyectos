@@ -185,7 +185,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 pb-28 sm:pb-20 lg:pb-20">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-[11px] sm:text-[13px] text-[#6b7785] overflow-x-auto scrollbar-none" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-1.5 sm:gap-2 py-2.5 sm:py-4 text-[11px] sm:text-[13px] text-[#6b7785] overflow-x-auto scrollbar-none" aria-label="Breadcrumb">
           <Link href={`/${locale}`} className="hover:text-[#f2eee7] active:text-[#f2eee7] transition-colors whitespace-nowrap">{isEs ? 'Inicio' : 'Home'}</Link>
           {category && (
             <>
@@ -200,7 +200,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         </nav>
 
         {/* Main product layout */}
-        <div className="grid gap-4 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <div className="grid gap-3 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
           {/* Left — Gallery */}
           <motion.div
             initial={{ opacity: 0, x: -12 }}
@@ -221,7 +221,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: EASE_OUT }}
-            className="flex flex-col gap-3 sm:gap-5 lg:sticky lg:top-24 lg:self-start"
+            className="flex flex-col gap-2.5 sm:gap-5 lg:sticky lg:top-24 lg:self-start"
           >
             {/* Category + badge */}
             <div className="flex items-center gap-2 flex-wrap">
@@ -235,16 +235,16 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             </div>
 
             {/* Title */}
-            <h1 className="text-[clamp(1.5rem,5vw,2.5rem)] sm:text-[clamp(1.8rem,4vw,3rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
+            <h1 className="text-[1.4rem] sm:text-[clamp(1.8rem,4vw,3rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
               {displayName}
             </h1>
 
             {/* Rating — only show when there are real reviews */}
             {product && displayReviewCount > 0 && (
-              <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="flex items-center gap-2">
                 <Stars rating={displayRating} />
-                <span className="text-[13px] sm:text-[14px] text-[#f2eee7] font-medium">{displayRating}</span>
-                <span className="text-[12px] sm:text-[13px] text-[#8791a1]">
+                <span className="text-[13px] text-[#f2eee7] font-medium">{displayRating}</span>
+                <span className="text-[12px] text-[#8791a1]">
                   ({displayReviewCount.toLocaleString()} {isEs ? 'reseñas' : 'reviews'})
                 </span>
               </div>
@@ -252,34 +252,34 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
             {/* Short description */}
             {product && (
-              <p className="text-[14px] sm:text-[15px] leading-[1.6] sm:leading-7 text-[#9aa7b9]">
+              <p className="text-[13px] sm:text-[15px] leading-[1.5] sm:leading-7 text-[#9aa7b9]">
                 {getLocalizedField(product, 'shortDescription') ?? product.shortDescription}
               </p>
             )}
 
             {/* Price */}
-            <div className="flex items-baseline gap-2.5 sm:gap-3">
-              <span className="text-[2rem] sm:text-[2.4rem] font-bold tracking-[-0.04em] text-[#f6f2eb]">€{displayPrice}</span>
-              <span className="text-[14px] sm:text-[16px] text-[#4a5568] line-through">€{displayComparePrice}</span>
-              <span className="rounded-full bg-[#10BFD8]/15 px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#10BFD8]">
+            <div className="flex items-baseline gap-2 sm:gap-3">
+              <span className="text-[1.75rem] sm:text-[2.4rem] font-bold tracking-[-0.04em] text-[#f6f2eb]">€{displayPrice}</span>
+              <span className="text-[13px] sm:text-[16px] text-[#4a5568] line-through">€{displayComparePrice}</span>
+              <span className="rounded-full bg-[#10BFD8]/15 px-2 py-0.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#10BFD8]">
                 {isEs ? 'Ahorra' : 'Save'} {savings}%
               </span>
             </div>
 
             {/* Shipping badge */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 sm:px-4 py-2.5 sm:py-3">
-              <span className="flex items-center gap-1.5"><Truck size={13} className="text-emerald-400" /><span className="text-[12px] sm:text-[13px] font-semibold text-emerald-300">{isEs ? 'Envío gratis' : 'Free shipping'}</span></span>
-              <span className="text-[11px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Envía en 24h' : 'Ships in 24h'}</span>
-              <span className="text-[11px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 6-9 días' : 'Arrives in 6-9 days'}</span>
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 sm:py-3">
+              <span className="flex items-center gap-1.5"><Truck size={12} className="text-emerald-400" /><span className="text-[11px] sm:text-[13px] font-semibold text-emerald-300">{isEs ? 'Envío gratis' : 'Free shipping'}</span></span>
+              <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Envía en 24h' : 'Ships in 24h'}</span>
+              <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 6-9 días' : 'Arrives in 6-9 days'}</span>
             </div>
 
-            {/* Features */}
+            {/* Features - collapsible on mobile */}
             {product?.features && (
-              <ul className="space-y-2 sm:space-y-2.5">
+              <ul className="space-y-1.5 sm:space-y-2.5">
                 {product.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 sm:gap-2.5 text-[13px] sm:text-[14px] leading-[1.5] sm:leading-6 text-[#c8d0da]">
-                    <span className="mt-[3px] flex h-[18px] sm:h-5 w-[18px] sm:w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                      <Check size={10} className="text-[#10BFD8]" />
+                  <li key={f} className="flex items-start gap-2 text-[12px] sm:text-[14px] leading-[1.4] sm:leading-6 text-[#c8d0da]">
+                    <span className="mt-[2px] flex h-4 sm:h-5 w-4 sm:w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
+                      <Check size={9} className="text-[#10BFD8]" />
                     </span>
                     {f}
                   </li>
@@ -311,19 +311,16 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             )}
 
-            {/* Trust badges — ABOVE CTA for trust */}
-            <div className="grid grid-cols-3 gap-2">
+            {/* Trust badges */}
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
-                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
-                { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee', sub: isEs ? 'Devolución completa' : 'Full refund' },
-                { icon: ShieldCheck, label: isEs ? 'Pago seguro' : 'Secure checkout', sub: 'SSL + Stripe' },
+                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping' },
+                { icon: RotateCcw, label: isEs ? '30 días' : '30 days' },
+                { icon: ShieldCheck, label: isEs ? 'Pago seguro' : 'Secure' },
               ].map((item) => (
-                <div key={item.label} className="flex flex-col items-center gap-1 sm:gap-1.5 rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5 sm:p-3 text-center transition-all hover:border-[rgba(16,191,216,0.15)]">
-                  <div className="flex h-8 sm:h-9 w-8 sm:w-9 items-center justify-center rounded-lg bg-[rgba(16,191,216,0.08)]">
-                    <item.icon size={14} className="text-[#10BFD8]" />
-                  </div>
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-[#f2eee7]">{item.label}</span>
-                  <span className="hidden sm:block text-[9px] sm:text-[10px] text-[#5a6678]">{item.sub}</span>
+                <div key={item.label} className="flex flex-col items-center gap-1 rounded-xl border border-white/[0.07] bg-white/[0.025] py-2.5 px-1 text-center">
+                  <item.icon size={14} className="text-[#10BFD8]" />
+                  <span className="text-[9px] sm:text-[10px] font-semibold text-[#f2eee7] leading-tight">{item.label}</span>
                 </div>
               ))}
             </div>
