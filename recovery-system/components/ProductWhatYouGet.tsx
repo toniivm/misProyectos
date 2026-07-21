@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Package, Truck, ShieldCheck, RotateCcw } from 'lucide-react';
+import { Package } from 'lucide-react';
 import { useLocale } from 'next-intl';
 
 interface ProductWhatYouGetProps {
@@ -10,88 +10,22 @@ interface ProductWhatYouGetProps {
 
 const EASE_OUT = [0.0, 0.0, 0.2, 1] as const;
 
-const PRODUCT_RECEIVE: Record<string, { title: string; title_en: string; items: string[]; items_en: string[] }> = {
-  'sleep-headband': {
-    title: 'Así llega tu Noctip Rest a casa',
-    title_en: 'This is how your Noctip Rest arrives',
-    items: [
-      'Banda de sueño con altavoces integrados',
-      'Cable de carga Micro-USB',
-      'Instrucciones rápidas de uso',
-      'Empaquetado discreto y seguro',
-    ],
-    items_en: [
-      'Sleep headband with built-in speakers',
-      'Micro-USB charging cable',
-      'Quick start instructions',
-      'Discreet and secure packaging',
-    ],
-  },
-  halo: {
-    title: 'Así llega tu Noctip Halo a casa',
-    title_en: 'This is how your Noctip Halo arrives',
-    items: [
-      'Férula anti-ronquidos de silicona médica',
-      'Estuche de viaje compacto',
-      'Guía de ajuste y uso',
-      'Empaquetado discreto y seguro',
-    ],
-    items_en: [
-      'Medical-grade silicone anti-snoring mouthpiece',
-      'Compact travel case',
-      'Adjustment and usage guide',
-      'Discreet and secure packaging',
-    ],
-  },
-  wave: {
-    title: 'Así llega tu Noctip Back a casa',
-    title_en: 'This is how your Noctip Back arrives',
-    items: [
-      'Corrector postural en forma de Y',
-      'Correas ajustables de XS a XL',
-      'Guía de tallas y uso',
-      'Empaquetado discreto y seguro',
-    ],
-    items_en: [
-      'Y-shaped posture corrector',
-      'Adjustable straps from XS to XL',
-      'Size and usage guide',
-      'Discreet and secure packaging',
-    ],
-  },
-  'neck-massager': {
-    title: 'Así llega tu Noctip Cervical a casa',
-    title_en: 'This is how your Noctip Cervical arrives',
-    items: [
-      'Masajeador cervical con electrodos',
-      'Cable de carga USB',
-      'Manual de uso y programas',
-      'Empaquetado discreto y seguro',
-    ],
-    items_en: [
-      'Cervical massager with electrodes',
-      'USB charging cable',
-      'Usage and program manual',
-      'Discreet and secure packaging',
-    ],
-  },
+const PRODUCT_PHOTOS: Record<string, string[]> = {
+  'sleep-headband': [
+    '/images/rest/lifestyle/1.png',
+    '/images/rest/lifestyle/2.png',
+    '/images/rest/lifestyle/3.png',
+    '/images/rest/lifestyle/4.png',
+    '/images/rest/lifestyle/5.png',
+  ],
 };
 
 export default function ProductWhatYouGet({ slug }: ProductWhatYouGetProps) {
   const locale = useLocale();
   const isEs = locale === 'es';
-  const data = PRODUCT_RECEIVE[slug];
+  const photos = PRODUCT_PHOTOS[slug];
 
-  if (!data) return null;
-
-  const title = isEs ? data.title : data.title_en;
-  const items = isEs ? data.items : data.items_en;
-
-  const trustItems = [
-    { icon: Truck, label: isEs ? 'Envío en 24h' : 'Ships in 24h', sub: isEs ? 'Procesamos tu pedido al instante' : 'We process your order instantly' },
-    { icon: RotateCcw, label: isEs ? '30 días de prueba' : '30-day trial', sub: isEs ? 'Si no te gusta, te devolvemos todo' : 'If you don\'t like it, full refund' },
-    { icon: ShieldCheck, label: isEs ? 'Pago 100% seguro' : '100% secure payment', sub: 'Stripe + SSL 256 bits' },
-  ];
+  if (!photos || photos.length === 0) return null;
 
   return (
     <section className="mt-10 sm:mt-16">
@@ -105,37 +39,31 @@ export default function ProductWhatYouGet({ slug }: ProductWhatYouGetProps) {
           <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-[#10BFD8]/10">
             <Package size={16} className="text-[#10BFD8] sm:w-[18px] sm:h-[18px]" />
           </div>
-          <div>
-            <h2 className="text-[17px] sm:text-[22px] font-bold tracking-[-0.03em] text-[#f2eee7]">
-              {title}
-            </h2>
-          </div>
+          <h2 className="text-[17px] sm:text-[22px] font-bold tracking-[-0.03em] text-[#f2eee7]">
+            {isEs ? 'Así es como llega a tu casa' : 'This is how it arrives at your home'}
+          </h2>
         </div>
 
-        {/* Items que recibes */}
-        <div className="rounded-2xl border border-white/[0.06] bg-[#0d1219] p-4 sm:p-6 mb-4">
-          <ul className="space-y-3">
-            {items.map((item, idx) => (
-              <li key={idx} className="flex items-center gap-3">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#10BFD8]/10">
-                  <span className="text-[11px] font-bold text-[#10BFD8]">{idx + 1}</span>
-                </span>
-                <span className="text-[13px] sm:text-[14px] text-[#c8d0da]">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Trust badges */}
-        <div className="grid grid-cols-3 gap-2">
-          {trustItems.map((item) => (
-            <div key={item.label} className="flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                <item.icon size={14} className="text-[#10BFD8]" />
+        <div className="flex gap-3 overflow-x-auto scrollbar-none pb-2 sm:pb-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:overflow-visible">
+          {photos.map((src, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.08, duration: 0.5, ease: EASE_OUT }}
+              className="shrink-0 w-[150px] sm:w-auto snap-start rounded-2xl border border-white/[0.06] bg-[#0d1219] overflow-hidden"
+            >
+              <div className="aspect-[3/4] flex items-center justify-center bg-[#080c12] p-1.5">
+                <img
+                  src={src}
+                  alt={isEs ? 'Lo que recibes' : 'What you receive'}
+                  className="h-full w-full object-cover rounded-lg"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
-              <span className="text-[10px] sm:text-[11px] font-semibold text-[#f2eee7] leading-tight">{item.label}</span>
-              <span className="hidden sm:block text-[9px] text-[#5a6678]">{item.sub}</span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>
