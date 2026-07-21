@@ -85,7 +85,7 @@ export default function ProductLifestyle({ slug }: ProductLifestyleProps) {
             >
               <div className={`${idx === 1 ? 'aspect-[4/3]' : 'aspect-square'} flex items-center justify-center`}>
                 <img
-                  src={`/images/${folder}/lifestyle/${idx}.jpg`}
+                  src={`/images/${folder}/lifestyle/${idx}.png`}
                   alt={`${isEs ? 'Producto en' : 'Product in'} ${activeCtx}`}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"

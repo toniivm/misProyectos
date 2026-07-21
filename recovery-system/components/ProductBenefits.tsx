@@ -82,7 +82,7 @@ export default function ProductBenefits({ slug }: ProductBenefitsProps) {
                 {/* Image */}
                 <div className="sm:w-[40%] aspect-[16/10] sm:aspect-auto flex items-center justify-center bg-[#080c12] overflow-hidden">
                   <img
-                    src={`/images/${folder}/lifestyle/${idx + 1}.jpg`}
+                    src={`/images/${folder}/lifestyle/${idx + 1}.png`}
                     alt={content.title}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"

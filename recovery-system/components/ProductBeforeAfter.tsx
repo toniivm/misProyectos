@@ -76,7 +76,7 @@ export default function ProductBeforeAfter({ slug }: ProductBeforeAfterProps) {
             <div className="p-4 sm:p-5">
               <div className="aspect-[16/10] rounded-xl overflow-hidden bg-[#080c12] mb-4">
                 <img
-                  src={`/images/${folder}/lifestyle/before.jpg`}
+                  src={`/images/${folder}/lifestyle/before.png`}
                   alt={isEs ? 'Antes de Noctip' : 'Before Noctip'}
                   className="h-full w-full object-cover"
                   loading="lazy"
@@ -132,7 +132,7 @@ export default function ProductBeforeAfter({ slug }: ProductBeforeAfterProps) {
             <div className="p-4 sm:p-5">
               <div className="aspect-[16/10] rounded-xl overflow-hidden bg-[#080c12] mb-4">
                 <img
-                  src={`/images/${folder}/lifestyle/after.jpg`}
+                  src={`/images/${folder}/lifestyle/after.png`}
                   alt={isEs ? 'Después de Noctip' : 'After Noctip'}
                   className="h-full w-full object-cover"
                   loading="lazy"
