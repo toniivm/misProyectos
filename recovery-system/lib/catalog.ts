@@ -209,6 +209,7 @@ export const CATALOG: CatalogProduct[] = [
       '/images/sleep-headband-4.webp',
       '/images/sleep-headband-5.webp',
       '/images/sleep-headband-6.webp',
+      '/images/rest/lifestyle/5.png',
     ],
     video: '/videos/noctip-rest-val.mp4',
     icon: '',
