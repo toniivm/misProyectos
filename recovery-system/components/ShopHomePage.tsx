@@ -288,30 +288,31 @@ export default function ShopHomePage() {
             </div>
             <div className="space-y-4">
               {[
-                { name: 'María G.', initials: 'MG', color: 'bg-[#10BFD8]', rating: 5, date: isEs ? 'hace 1 mes' : '1 month ago', comment: isEs ? 'Llevo una semana usándola y duermo como nunca. Me pongo un podcast y me quedo dormida en minutos.' : 'I\'ve been using it for a week and I sleep like never before. I put on a podcast and fall asleep in minutes.', verified: true },
-                { name: 'Javier P.', initials: 'JP', color: 'bg-amber-500', rating: 5, date: isEs ? 'hace 1 mes' : '1 month ago', comment: isEs ? 'Primera noche y no ronqué. Mi mujer no lo podía creer. Llevaba años intentando de todo.' : 'First night with it and I didn\'t snore. My wife couldn\'t believe it.', verified: true },
-                { name: 'Laura M.', initials: 'LM', color: 'bg-emerald-500', rating: 5, date: isEs ? 'hace 2 meses' : '2 months ago', comment: isEs ? 'La tela es suave y no aprieta. La batería dura toda la noche. Muy recomendada.' : 'The fabric is soft and doesn\'t squeeze. Battery lasts all night.', verified: true },
-                { name: 'Carlos R.', initials: 'CR', color: 'bg-purple-500', rating: 5, date: isEs ? 'hace 2 meses' : '2 months ago', comment: isEs ? 'Escéptico al principio, pero la diferencia es brutal. En dos semanas se me quitó el dolor de espalda.' : 'Skeptical at first, but the difference is brutal. In two weeks my back pain is gone.', verified: true },
+                { name: 'María G.', initials: 'MG', color: 'bg-[#3b82f6]', rating: 5, date: isEs ? 'hace 1 mes' : '1 month ago', comment: isEs ? 'Llevo una semana usándola y duermo como nunca. Me pongo un podcast y me quedo dormida en minutos.' : 'I\'ve been using it for a week and I sleep like never before. I put on a podcast and fall asleep in minutes.', verified: true },
+                { name: 'Javier P.', initials: 'JP', color: 'bg-[#f59e0b]', rating: 5, date: isEs ? 'hace 1 mes' : '1 month ago', comment: isEs ? 'Primera noche y no ronqué. Mi mujer no lo podía creer. Llevaba años intentando de todo.' : 'First night with it and I didn\'t snore. My wife couldn\'t believe it.', verified: true },
+                { name: 'Laura M.', initials: 'LM', color: 'bg-[#10b981]', rating: 5, date: isEs ? 'hace 2 meses' : '2 months ago', comment: isEs ? 'La tela es suave y no aprieta. La batería dura toda la noche. Muy recomendada.' : 'The fabric is soft and doesn\'t squeeze. Battery lasts all night.', verified: true },
+                { name: 'Carlos R.', initials: 'CR', color: 'bg-[#8b5cf6]', rating: 5, date: isEs ? 'hace 2 meses' : '2 months ago', comment: isEs ? 'Escéptico al principio, pero la diferencia es brutal. En dos semanas se me quitó el dolor de espalda.' : 'Skeptical at first, but the difference is brutal. In two weeks my back pain is gone.', verified: true },
+                { name: 'Ana L.', initials: 'AL', color: 'bg-[#ef4444]', rating: 5, date: isEs ? 'hace 3 meses' : '3 months ago', comment: isEs ? 'El masajeador cervical es increíble. Lo uso cada noche y la tensión del cuello desapareció.' : 'The cervical massager is incredible. I use it every night and neck tension disappeared.', verified: true },
               ].map((review, idx) => (
                 <motion.div key={review.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ delay: idx * 0.06 }}
                   className="border-b border-[#e8e2d8] pb-4 last:border-0 last:pb-0">
                   <div className="flex items-center gap-3 mb-1.5">
-                    <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white ${review.color}`}>{review.initials}</div>
+                    <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[12px] font-bold text-white ${review.color}`}>{review.initials}</div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[13px] font-semibold text-[#1a1a1a]">{review.name}</span>
+                      <span className="text-[14px] font-semibold text-[#1a1a1a]">{review.name}</span>
                       {review.verified && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-600">
-                          <Check size={10} /> {isEs ? 'Compra verificada' : 'Verified purchase'}
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600">
+                          <Check size={11} /> {isEs ? 'Compra verificada' : 'Verified purchase'}
                         </span>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 mb-1.5 ml-11">
-                    {[1,2,3,4,5].map(s => <Star key={s} size={12} className={s <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-[#d4d0ca]'} />)}
-                    <span className="text-[11px] text-[#6b7785] ml-1.5">{review.date}</span>
+                  <div className="flex items-center gap-1 mb-1.5 ml-12">
+                    {[1,2,3,4,5].map(s => <Star key={s} size={13} className={s <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-[#d4d0ca]'} />)}
+                    <span className="text-[12px] text-[#6b7785] ml-1.5">{review.date}</span>
                   </div>
-                  <p className="text-[13px] leading-[1.6] text-[#4a4a4a] ml-11">{review.comment}</p>
+                  <p className="text-[14px] leading-[1.6] text-[#374151] ml-12">{review.comment}</p>
                 </motion.div>
               ))}
             </div>
