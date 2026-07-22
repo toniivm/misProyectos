@@ -217,26 +217,12 @@ export default function ShopHomePage() {
           </div>
         </section>
 
-        {/* BESTSELLER — Full width video with overlay */}
+        {/* BESTSELLER — Full width image with overlay */}
         <section className="relative">
           <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-[#0d1219]">
-            <video
-              src={flagshipVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                const target = e.target as HTMLVideoElement;
-                target.style.display = 'none';
-                const img = document.createElement('img');
-                img.src = flagshipImage;
-                img.className = 'w-full h-full object-cover';
-                img.alt = copy.bestseller.heading;
-                target.parentNode?.appendChild(img);
-              }}
-            />
+            <img src={flagshipImage} alt={copy.bestseller.heading}
+              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+              className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
           </div>
           <div className="absolute inset-0 flex items-center">
@@ -332,14 +318,14 @@ export default function ShopHomePage() {
           </div>
         </section>
 
-        {/* GUARANTEE — Colored background */}
-        <section className="bg-[#8a9a72] py-14 sm:py-20 lg:py-24">
+        {/* GUARANTEE */}
+        <section className="py-14 sm:py-20 lg:py-24 border-t border-[#e8e2d8]">
           <div className="mx-auto max-w-[640px] px-4 sm:px-6 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <h2 className="text-[clamp(1.4rem,4vw,2.2rem)] font-bold text-white leading-[1.15]">{copy.guarantee.heading}</h2>
-              <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.7] text-white/85">{copy.guarantee.body}</p>
+              <h2 className="text-[clamp(1.4rem,4vw,2.2rem)] font-bold text-[#1a1a1a] leading-[1.15]">{copy.guarantee.heading}</h2>
+              <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.7] text-[#6b7785]">{copy.guarantee.body}</p>
               <Link href={`/${locale}/shop/all`}
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-white px-7 py-3.5 text-[14px] font-semibold text-[#1a1a1a] transition-all hover:bg-white/90 min-h-[48px]">
+                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#1a1a1a] px-7 py-3.5 text-[14px] font-semibold text-white transition-all hover:bg-[#2a2a2a] min-h-[48px]">
                 {copy.guarantee.cta}
               </Link>
             </motion.div>
