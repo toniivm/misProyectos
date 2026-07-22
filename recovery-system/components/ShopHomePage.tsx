@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { Truck, RotateCcw, ShieldCheck, ShoppingCart, Check, Star } from 'lucide-react'
 import { useCart } from '../context/CartContext'
-import { CATALOG, CATEGORIES, getLocalizedProductName, getLocalizedCategoryName, type CatalogProduct } from '../lib/catalog'
+import { CATALOG, CATEGORIES, getLocalizedProductName, getLocalizedCategoryName, getProductsByCategory, type CatalogProduct } from '../lib/catalog'
 import ProductImage from './ProductImage'
 import Header from './Header'
 
@@ -179,18 +179,28 @@ export default function ShopHomePage() {
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
             <h2 className="text-[clamp(1.2rem,3vw,1.8rem)] font-bold text-[#1a1a1a] mb-6 sm:mb-8">{isEs ? 'Comprar por categoría' : 'Shop by collection'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {CATEGORIES.map((cat, idx) => (
-                <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`} className="group block">
-                  <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ delay: idx * 0.1, duration: 0.4 }}
-                    className="relative overflow-hidden rounded-xl aspect-[16/9] bg-[#e8e2d8]">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
-                    <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 z-20">
-                      <span className="text-[16px] sm:text-[18px] font-bold text-white">{getLocalizedCategoryName(cat, locale)}</span>
-                    </div>
-                  </motion.div>
-                </Link>
-              ))}
+              {CATEGORIES.map((cat, idx) => {
+                const catProducts = getProductsByCategory(cat.id)
+                const firstProduct = catProducts[0]
+                const catImage = firstProduct?.images?.[0] ?? ''
+                return (
+                  <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`} className="group block">
+                    <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }} transition={{ delay: idx * 0.1, duration: 0.4 }}
+                      className="relative overflow-hidden rounded-xl aspect-[16/9] bg-[#e8e2d8]">
+                      {catImage && (
+                        <img src={catImage} alt={getLocalizedCategoryName(cat, locale)}
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10" />
+                      <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 z-20">
+                        <span className="text-[16px] sm:text-[18px] font-bold text-white">{getLocalizedCategoryName(cat, locale)}</span>
+                      </div>
+                    </motion.div>
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </section>
