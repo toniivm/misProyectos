@@ -22,7 +22,6 @@ import {
 } from '../lib/reviews-firestore';
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
-import ProductWhatYouGet from './ProductWhatYouGet';
 import ProductBenefits from './ProductBenefits';
 import WhatIsIncluded from './WhatIsIncluded';
 import ScienceBehindIt from './ScienceBehindIt';
@@ -389,10 +388,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             </section>
 
-            {/* Step 2: What you'll receive */}
-            <ProductWhatYouGet slug={product.slug} />
-
-            {/* Step 3: Customer reviews with photos */}
+            {/* Step 2: Customer reviews with photos */}
             <CustomerReviews slug={product.slug} />
 
             {/* Step 4: Product Benefits */}
