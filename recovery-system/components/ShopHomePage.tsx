@@ -318,11 +318,11 @@ export default function ShopHomePage() {
         </section>
 
         {/* GUARANTEE — Colored background */}
-        <section className="bg-[#5c6b4e] py-14 sm:py-20 lg:py-24">
+        <section className="bg-[#8a9a72] py-14 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-[640px] px-4 sm:px-6 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="text-[clamp(1.4rem,4vw,2.2rem)] font-bold text-white leading-[1.15]">{copy.guarantee.heading}</h2>
-              <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.7] text-white/80">{copy.guarantee.body}</p>
+              <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.7] text-white/85">{copy.guarantee.body}</p>
               <Link href={`/${locale}/shop/all`}
                 className="mt-6 inline-flex items-center justify-center rounded-lg bg-white px-7 py-3.5 text-[14px] font-semibold text-[#1a1a1a] transition-all hover:bg-white/90 min-h-[48px]">
                 {copy.guarantee.cta}
