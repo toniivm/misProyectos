@@ -67,16 +67,10 @@ const COPY = {
       ],
     },
     whyNoctip: {
-      heading: 'Why Noctip?',
-      sub: 'We\'re not the cheapest. We\'re the ones that work.',
-      items: [
-        { icon: ShieldCheck, title: 'Medical grade', text: 'Medical-grade silicone, hypoallergenic, safe for nightly use.' },
-        { icon: RotateCcw, title: '30 nights risk-free', text: 'Try it in your real environment. Full refund if it doesn\'t work.' },
-        { icon: Truck, title: 'Ships in 24h', text: 'We ship within 24 hours. Delivery in 6-9 days with tracking.' },
-        { icon: Shield, title: '100% secure', text: '256-bit SSL encryption. Stripe. We never store card data.' },
-        { icon: Headphones, title: 'Human support', text: 'A real person responds within 24 hours. No bots.' },
-        { icon: CreditCard, title: 'Flexible payment', text: 'Visa, Mastercard, Amex, PayPal, Apple Pay, and Google Pay.' },
-      ],
+      heading: 'Rest should never be a luxury.',
+      sub: 'At Noctip, we believe that sleeping well, relieving tension, and recovering your body shouldn\'t be complicated or expensive.',
+      body: 'We created Noctip because we saw too many people suffering — from snoring, back pain, restless nights — and settling for products that didn\'t work. So we designed our own. Simple. Effective. Made with quality materials. Backed by real guarantees.',
+      motto: 'Recovery shouldn\'t be complicated. It should just work.',
     },
     guarantees: {
       heading: 'Our guarantees',
@@ -156,16 +150,10 @@ const COPY = {
       ],
     },
     whyNoctip: {
-      heading: '¿Por qué Noctip?',
-      sub: 'No somos los más baratos. Somos los que funcionan.',
-      items: [
-        { icon: ShieldCheck, title: 'Grado médico', text: 'Silicona de grado médico, hipoalergénica, segura para uso nocturno.' },
-        { icon: RotateCcw, title: '30 noches sin riesgo', text: 'Prueba el producto en tu entorno real. Si no funciona, reembolso completo.' },
-        { icon: Truck, title: 'Envío en 24h', text: 'Procesamos y enviamos en 24 horas. Entrega en 6-9 días con seguimiento.' },
-        { icon: Shield, title: 'Pago 100% seguro', text: 'Cifrado SSL de 256 bits. Stripe. Nunca almacenamos datos de tarjeta.' },
-        { icon: Headphones, title: 'Soporte humano', text: 'Una persona real responde en menos de 24 horas. Sin bots.' },
-        { icon: CreditCard, title: 'Flexibilidad de pago', text: 'Visa, Mastercard, Amex, PayPal, Apple Pay y Google Pay.' },
-      ],
+      heading: 'Descansar no debería ser un lujo.',
+      sub: 'En Noctip creemos que dormir bien, aliviar tensiones y recuperar tu cuerpo no debería ser complicado ni caro.',
+      body: 'Creamos Noctip porque vimos a demasiadas personas sufriendo — por ronquidos, dolor de espalda, noches sin descanso — y conformándose con productos que no funcionaban. Así que diseñamos los nuestros. Simples. Efectivos. Hechos con materiales de calidad. Respaldados por garantías reales.',
+      motto: 'La recuperación no debería ser complicada. Solo debería funcionar.',
     },
     guarantees: {
       heading: 'Nuestras garantías',
@@ -427,31 +415,19 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ WHY NOCTIP ═══ */}
-        <section className="py-14 sm:py-24 lg:py-28 bg-[#0d1219]">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              className="text-center mb-10 sm:mb-14">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4">
-                {isEs ? 'La diferencia' : 'The difference'}
-              </span>
-              <h2 className="text-[clamp(1.5rem,4vw,2.8rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.whyNoctip.heading}</h2>
-              <p className="mt-3 sm:mt-4 text-[14px] sm:text-[16px] text-[#6b7785]">{copy.whyNoctip.sub}</p>
+        <section className="py-16 sm:py-28 lg:py-32 bg-[#0d1219]">
+          <div className="mx-auto max-w-[800px] px-4 sm:px-6 text-center">
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-[#f6f2eb] leading-[1.1]">{copy.whyNoctip.heading}</h2>
+              <p className="mt-5 sm:mt-6 text-[15px] sm:text-[17px] leading-[1.7] text-[#8791a1] max-w-xl mx-auto">{copy.whyNoctip.sub}</p>
+              <div className="mt-8 sm:mt-10 max-w-2xl mx-auto">
+                <p className="text-[14px] sm:text-[16px] leading-[1.8] text-[#b8c4d0]">{copy.whyNoctip.body}</p>
+              </div>
+              <div className="mt-8 sm:mt-10 inline-flex items-center gap-3 rounded-full border border-white/[0.08] bg-white/[0.03] px-6 py-3">
+                <span className="text-[#10BFD8] text-lg">✦</span>
+                <span className="text-[14px] sm:text-[15px] font-medium text-[#c8d4e2] italic">&ldquo;{copy.whyNoctip.motto}&rdquo;</span>
+              </div>
             </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-              {copy.whyNoctip.items.map((item, idx) => (
-                <motion.div key={item.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: idx * 0.08, duration: 0.5 }}
-                  className="group flex items-start gap-4 rounded-2xl border border-white/[0.06] bg-[#111720] p-5 sm:p-6 transition-all duration-300 hover:border-[#10BFD8]/20">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8]/10 transition-colors duration-300 group-hover:bg-[#10BFD8]/15">
-                    <item.icon size={19} className="text-[#10BFD8]" />
-                  </div>
-                  <div>
-                    <h3 className="text-[15px] sm:text-[16px] font-bold text-[#f2eee7] mb-1">{item.title}</h3>
-                    <p className="text-[13px] sm:text-[14px] leading-[1.6] text-[#8791a1]">{item.text}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </section>
 
