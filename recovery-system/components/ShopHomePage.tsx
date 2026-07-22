@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { Truck, RotateCcw, ShieldCheck, ShoppingCart, Check, Star } from 'lucide-react'
 import { useCart } from '../context/CartContext'
-import { CATALOG, getLocalizedProductName, type CatalogProduct } from '../lib/catalog'
+import { CATALOG, CATEGORIES, getLocalizedProductName, getLocalizedCategoryName, type CatalogProduct } from '../lib/catalog'
 import ProductImage from './ProductImage'
 import Header from './Header'
 
@@ -170,6 +170,27 @@ export default function ShopHomePage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {CATALOG.map((product) => (
                 <ProductCard key={product.slug} product={product} locale={locale} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SHOP BY COLLECTION */}
+        <section className="py-12 sm:py-16 lg:py-20">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <h2 className="text-[clamp(1.3rem,3vw,2rem)] font-bold tracking-[-0.03em] text-[#f2eee7] mb-6 sm:mb-8">{isEs ? 'Comprar por categoría' : 'Shop by collection'}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              {CATEGORIES.map((cat, idx) => (
+                <Link key={cat.id} href={`/${locale}/shop/${cat.slug}`} className="group block">
+                  <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }} transition={{ delay: idx * 0.1, duration: 0.5 }}
+                    className="relative overflow-hidden rounded-2xl aspect-[16/9] bg-[#0d1219]">
+                    <div className="absolute inset-0 flex items-end p-5 sm:p-6">
+                      <span className="text-[16px] sm:text-[18px] font-bold text-white z-10">{getLocalizedCategoryName(cat, locale)}</span>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </div>
