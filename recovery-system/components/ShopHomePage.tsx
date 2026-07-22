@@ -6,9 +6,9 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import {
   ShoppingCart, Check, ChevronRight,
-  Shield, Truck, RotateCcw,
+  Truck, RotateCcw,
   ArrowRight,
-  CreditCard, Headphones, Moon, Zap, Heart,
+  Moon, Zap, Heart, Headphones,
   Sparkles, ShieldCheck, Star,
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
@@ -435,7 +435,7 @@ export default function ShopHomePage() {
         </section>
 
         {/* ═══ HOW IT WORKS ═══ */}
-        <section className="py-14 sm:py-24 lg:py-28">
+        <section id="how-it-works" className="py-14 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               className="text-center mb-10 sm:mb-14">
@@ -675,7 +675,7 @@ export default function ShopHomePage() {
               </span>
             )}
           </button>
-          <Link href={`/${locale}/products/${flagship.slug}`}
+          <Link href={`/${locale}/shop/all`}
             className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#10BFD8] py-3.5 text-[15px] font-bold text-[#080c12] min-h-[52px] shadow-[0_4px_20px_rgba(16,191,216,0.3)]">
             {copy.mobile.cta} — {copy.hero.price}
           </Link>
