@@ -349,7 +349,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3 sm:py-3.5 text-[14px] sm:text-[15px] font-bold transition-all duration-200 active:scale-[0.98] min-h-[48px] sm:min-h-[52px] ${
                   added
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                    : 'bg-[#10BFD8] text-[#080c12] hover:shadow-[0_4px_24px_rgba(16,191,216,0.35)]'
+                    : 'bg-white text-[#080c12] hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)]'
                 }`}>
                 {added ? (
                   <><Check size={15} /> {isEs ? 'Añadido' : 'Added to cart'}</>
@@ -727,7 +727,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               className={`inline-flex min-w-[200px] items-center justify-center gap-2 rounded-full px-6 py-3 text-[14px] font-bold transition-all duration-200 active:scale-[0.98] min-h-[48px] ${
                 added
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                  : 'bg-[#10BFD8] text-[#080c12] hover:shadow-[0_4px_24px_rgba(16,191,216,0.35)]'
+                  : 'bg-white text-[#080c12] hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)]'
               }`}>
               {added ? <><Check size={15} /> {isEs ? 'Añadido' : 'Added to cart'}</> : <><ShoppingCart size={15} /> {isEs ? 'Añadir' : 'Add to cart'}</>}
             </button>
@@ -753,7 +753,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
           <button onClick={handleAdd}
             className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3.5 text-[15px] font-bold transition active:scale-[0.98] min-h-[52px] ${
-              added ? 'bg-emerald-500/20 text-emerald-300' : 'bg-[#10BFD8] text-[#080c12] shadow-[0_4px_20px_rgba(16,191,216,0.3)]'
+              added ? 'bg-emerald-500/20 text-emerald-300' : 'bg-white text-[#080c12] shadow-[0_4px_20px_rgba(255,255,255,0.2)]'
             }`}>
             {added ? <><Check size={15} /> {isEs ? 'Añadido' : 'Added!'}</> : <><ShoppingCart size={15} /> {isEs ? 'Añadir' : 'Add'} — €{displayPrice * qty}</>}
           </button>
