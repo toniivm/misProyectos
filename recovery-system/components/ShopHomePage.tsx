@@ -22,6 +22,10 @@ import ProductImage from './ProductImage'
 import Badge from './ui/Badge'
 import FAQ from './ui/FAQ'
 import Header from './Header'
+import TrustpilotReviews from './TrustpilotReviews'
+import CustomerVideos from './CustomerVideos'
+import BlogSection from './BlogSection'
+import ProductQuiz from './ProductQuiz'
 import { trackAddToCart } from './GoogleAnalytics'
 
 const COPY = {
@@ -521,6 +525,18 @@ export default function ShopHomePage() {
             </div>
           </div>
         </section>
+
+        {/* ═══ CUSTOMER VIDEOS ═══ */}
+        <CustomerVideos />
+
+        {/* ═══ TRUSTPILOT REVIEWS ═══ */}
+        <TrustpilotReviews />
+
+        {/* ═══ BLOG SECTION ═══ */}
+        <BlogSection />
+
+        {/* ═══ PRODUCT QUIZ ═══ */}
+        <ProductQuiz />
 
         {/* ═══ FAQ ═══ */}
         <section className="py-14 sm:py-24 lg:py-28 bg-[#0d1219]">

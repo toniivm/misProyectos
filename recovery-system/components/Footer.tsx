@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Lock } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Lock, Phone, Clock } from 'lucide-react'
 import PaymentLogos from './PaymentLogos'
 
 export default function Footer() {
@@ -132,6 +132,26 @@ export default function Footer() {
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.51a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 10.86 4.46V13a8.28 8.28 0 0 0 5.58 2.15v-3.45a4.85 4.85 0 0 1-5.58-2.74V6.69h5.58z"/>
                 </svg>
               </a>
+            </div>
+
+            {/* Customer Service */}
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 space-y-3">
+              <div className="text-[12px] font-bold text-[#f2eee7] uppercase tracking-wide">
+                {isEs ? 'Atención al cliente' : 'Customer Service'}
+              </div>
+              <div className="space-y-2">
+                <a href="mailto:support@noctip.com" className="flex items-center gap-2 text-[12px] text-[#6b7785] hover:text-[#10BFD8] transition-colors">
+                  <Mail size={12} />
+                  support@noctip.com
+                </a>
+                <div className="flex items-center gap-2 text-[12px] text-[#6b7785]">
+                  <Clock size={12} />
+                  {isEs ? 'Lun-Vie 9am-6pm CET' : 'Mon-Fri 9am-6pm CET'}
+                </div>
+              </div>
+              <p className="text-[10px] text-[#4a5568] leading-[1.5]">
+                {isEs ? 'Una persona real responde en menos de 24 horas.' : 'A real person responds within 24 hours.'}
+              </p>
             </div>
           </div>
 

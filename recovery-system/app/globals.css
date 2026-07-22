@@ -45,6 +45,7 @@
 
   /* ── Typography ── */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-merriweather), Georgia, 'Times New Roman', serif;
 
   /* ── Shadows ── */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
@@ -446,4 +447,20 @@ input[type="radio"] {
 }
 .group:hover .img-zoom {
   transform: scale(1.03);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SERIF HEADINGS — Premium editorial feel
+═══════════════════════════════════════════════════════ */
+
+.font-heading {
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
