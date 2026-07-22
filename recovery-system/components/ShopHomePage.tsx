@@ -229,8 +229,8 @@ export default function ShopHomePage() {
   const copy = getCopy(locale)
   const { open: openCart, totalItems, isOpen: isCartOpen } = useCart()
 
-  const flagship = CATALOG.find(p => p.slug === 'halo') ?? CATALOG[0]
-  const flagshipImage = flagship.images?.[0] ?? '/images/mouthpiece-1.jpg'
+  const flagship = CATALOG.find(p => p.slug === 'sleep-headband') ?? CATALOG[0]
+  const flagshipImage = flagship.images?.[0] ?? '/images/rest/gallery/1.jpg'
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
