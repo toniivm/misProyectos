@@ -217,13 +217,16 @@ export default function ShopHomePage() {
           </div>
         </section>
 
+        {/* Spacer */}
+        <div className="h-4" />
+
         {/* BESTSELLER — Full width image with overlay */}
         <section className="relative">
-          <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-[#0d1219]">
+          <div className="relative w-full aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9] overflow-hidden bg-[#0d1219]">
             <img src={flagshipImage} alt={copy.bestseller.heading}
               onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
               className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 sm:bg-gradient-to-r sm:from-black/70 sm:via-black/30 sm:to-transparent" />
           </div>
           <div className="absolute inset-0 flex items-center">
             <div className="mx-auto max-w-[1280px] px-4 sm:px-6 w-full">
@@ -257,9 +260,9 @@ export default function ShopHomePage() {
         {/* REVIEWS */}
         <section className="py-12 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-[clamp(1.2rem,3vw,1.8rem)] font-bold text-[#1a1a1a]">{copy.reviews.heading}</h2>
-              <Link href={`/${locale}/products/halo`} className="text-[13px] font-medium text-[#6b7785] hover:text-[#1a1a1a] transition-colors underline">{copy.reviews.write}</Link>
+            <div className="flex items-center justify-between mb-8 pt-2">
+              <h2 className="text-[18px] sm:text-[22px] font-bold text-[#1a1a1a]">{copy.reviews.heading}</h2>
+              <Link href={`/${locale}/products/sleep-headband`} className="text-[13px] font-medium text-[#374151] hover:text-[#1a1a1a] transition-colors underline underline-offset-4">{copy.reviews.write}</Link>
             </div>
             <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 mb-10">
               <div className="flex flex-col items-center sm:items-start shrink-0">
