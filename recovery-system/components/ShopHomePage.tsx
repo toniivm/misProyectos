@@ -33,12 +33,12 @@ const COPY = {
     add: 'Add',
     added: 'Added',
     hero: {
-      badge: 'Free shipping across Europe',
-      title1: 'Sleep better.',
-      title2: 'Wake up restored.',
-      subtitle: 'Sleep and recovery products that actually work, designed for people who can\'t afford to sleep badly.',
-      cta: 'Shop now',
-      secondary: 'View all products',
+      badge: 'Wellness designed for your recovery',
+      title1: 'Rest better.',
+      title2: 'Recover better.',
+      subtitle: 'Wellness solutions designed to help you sleep deeply, relieve tension, and recover your body every day.',
+      cta: 'Discover products',
+      secondary: 'See how it works',
       price: 'From €13.99',
     },
     trust: [
@@ -122,12 +122,12 @@ const COPY = {
     add: 'Añadir',
     added: 'Añadido',
     hero: {
-      badge: 'Envío gratis en toda Europa',
-      title1: 'Duerme mejor.',
-      title2: 'Despierta renovado.',
-      subtitle: 'Productos de sueño y recuperación que funcionan de verdad, diseñados para personas que no pueden permitirse dormir mal.',
-      cta: 'Comprar ahora',
-      secondary: 'Ver todos los productos',
+      badge: 'Bienestar diseñado para tu recuperación',
+      title1: 'Descansa mejor.',
+      title2: 'Recupérate mejor.',
+      subtitle: 'Soluciones de bienestar diseñadas para ayudarte a dormir profundamente, aliviar tensiones y recuperar tu cuerpo cada día.',
+      cta: 'Descubrir productos',
+      secondary: 'Ver cómo funciona',
       price: 'Desde €13.99',
     },
     trust: [
@@ -293,41 +293,40 @@ export default function ShopHomePage() {
         {/* ═══ HERO ═══ */}
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(16,191,216,0.08),transparent)]" />
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-12 sm:py-20 lg:py-28">
-            <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-16">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#10BFD8] uppercase tracking-wide mb-4 sm:mb-5">
-                  <Sparkles size={12} />
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-16 sm:py-24 lg:py-32">
+            <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
+              <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-[#b8c4d0] uppercase tracking-wide mb-5 sm:mb-6">
                   {copy.hero.badge}
                 </span>
-                <h1 className="text-[clamp(2.2rem,8vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#f6f2eb]">
+                <h1 className="text-[clamp(2.4rem,8vw,4.2rem)] font-bold leading-[1.0] tracking-[-0.04em] text-[#f6f2eb]">
                   {copy.hero.title1}<br />{copy.hero.title2}
                 </h1>
-                <p className="mt-4 sm:mt-5 max-w-md text-[15px] sm:text-[16px] leading-[1.65] sm:leading-[1.7] text-[#8791a1]">{copy.hero.subtitle}</p>
-                <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                  <Link href={`/${locale}/products/${flagship.slug}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-8 sm:px-9 py-4 sm:py-4.5 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(16,191,216,0.35)] min-h-[52px] sm:min-h-[56px]">
+                <p className="mt-5 sm:mt-6 max-w-lg text-[15px] sm:text-[17px] leading-[1.65] sm:leading-[1.7] text-[#8791a1]">{copy.hero.subtitle}</p>
+                <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <Link href={`/${locale}/shop/all`}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 sm:px-10 py-4 sm:py-4.5 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)] min-h-[52px] sm:min-h-[56px]">
                     {copy.hero.cta} <ArrowRight size={18} strokeWidth={2.5} />
                   </Link>
-                  <a href="#products"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/15 px-7 py-4 sm:py-4.5 text-[14px] sm:text-[15px] font-semibold text-[#f2eee7] transition-all duration-300 hover:border-[#10BFD8]/40 hover:text-[#10BFD8] hover:bg-[#10BFD8]/5 min-h-[52px] sm:min-h-[56px]">
+                  <a href="#how-it-works"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-7 py-4 sm:py-4.5 text-[14px] sm:text-[15px] font-medium text-[#b8c4d0] transition-all duration-300 hover:border-white/25 hover:text-white min-h-[52px] sm:min-h-[56px]">
                     {copy.hero.secondary}
                   </a>
                 </div>
-                <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-3 text-[12px] sm:text-[13px] text-[#5a6678]">
+                <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-4 text-[12px] sm:text-[13px] text-[#5a6678]">
                   <span className="flex items-center gap-1.5"><Truck size={14} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
-                  <span className="flex items-center gap-1.5"><RotateCcw size={14} className="text-[#10BFD8]" /> 30 {isEs ? 'noches' : 'nights'}</span>
-                  <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro' : 'Secure'}</span>
+                  <span className="flex items-center gap-1.5"><RotateCcw size={14} className="text-[#10BFD8]" /> 30 {isEs ? 'noches de prueba' : 'nights trial'}</span>
+                  <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro' : 'Secure checkout'}</span>
                 </div>
               </motion.div>
-              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+              <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.15 }}
                 className="block">
-                <Link href={`/${locale}/products/${flagship.slug}`} className="group block">
+                <Link href={`/${locale}/shop/all`} className="group block">
                   <div className="relative rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0d1219] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
                     <div className="relative aspect-[4/5] sm:aspect-[4/5] overflow-hidden">
                       <img src={flagshipImage} alt={getLocalizedProductName(flagship, locale)}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        className="absolute inset-0 h-full w-full object-contain p-6 sm:p-8 transition-transform duration-700 group-hover:scale-[1.03]" />
+                        className="absolute inset-0 h-full w-full object-contain p-8 sm:p-10 transition-transform duration-700 group-hover:scale-[1.03]" />
                     </div>
                   </div>
                 </Link>
