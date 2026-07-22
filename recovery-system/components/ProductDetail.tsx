@@ -405,8 +405,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </>
         )}
 
-        {/* ═══ REVIEWS — Only show if reviews exist ═══ */}
-        {displayReviewCount > 0 && (
+        {/* ═══ REVIEWS ═══ */}
         <section className="mt-10 sm:mt-16">
           <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
             <h2 className="text-[17px] sm:text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7]">
@@ -621,7 +620,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             ))}
           </div>
         </section>
-        )}
 
         {/* ═══ FAQ ═══ */}
         <section className="mt-10 sm:mt-16">
