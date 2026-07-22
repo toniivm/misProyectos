@@ -23,6 +23,10 @@ import {
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
 import ProductWhatYouGet from './ProductWhatYouGet';
+import ProductBenefits from './ProductBenefits';
+import WhatIsIncluded from './WhatIsIncluded';
+import ScienceBehindIt from './ScienceBehindIt';
+import BetterThanAlternatives from './BetterThanAlternatives';
 import CustomerPhotos from './CustomerPhotos';
 import CustomerReviews from './CustomerReviews';
 import Stars from './ui/Stars';
@@ -390,6 +394,18 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
             {/* Step 3: Customer reviews with photos */}
             <CustomerReviews slug={product.slug} />
+
+            {/* Step 4: Product Benefits */}
+            <ProductBenefits slug={product.slug} />
+
+            {/* Step 5: What's Included */}
+            <WhatIsIncluded slug={product.slug} />
+
+            {/* Step 6: Science Behind It */}
+            <ScienceBehindIt slug={product.slug} />
+
+            {/* Step 7: Better Than Alternatives */}
+            <BetterThanAlternatives slug={product.slug} />
           </>
         )}
 

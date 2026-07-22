@@ -102,17 +102,17 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
           <div className="flex items-center justify-center gap-4 sm:gap-8 py-2 text-[10px] sm:text-[11px] font-medium text-[#8791a1]">
             <span className="flex items-center gap-1.5">
               <span className="text-amber-400">★★★★★</span>
-              <span className="text-white font-bold">4.9</span>
-              <span>{isEs ? 'de 5,000+ reseñas' : 'from 5,000+ reviews'}</span>
+              <span className="text-white font-bold">4.8</span>
+              <span>{isEs ? 'de 300 reseñas' : 'from 300 reviews'}</span>
             </span>
             <span className="hidden sm:flex items-center gap-1.5">
               <span className="text-[#10BFD8]">✓</span>
-              <span className="text-white font-bold">12,000+</span>
+              <span className="text-white font-bold">+500</span>
               <span>{isEs ? 'clientes felices' : 'happy customers'}</span>
             </span>
             <span className="hidden md:flex items-center gap-1.5">
               <span className="text-[#10BFD8]">🚚</span>
-              <span>{isEs ? 'Envío en 24h' : 'Ships in 24h'}</span>
+              <span>{isEs ? 'Enviamos en 24 horas' : 'We ship in 24 hours'}</span>
             </span>
           </div>
         </div>
