@@ -30,13 +30,13 @@ const COPY = {
     },
     bestseller: {
       badge: 'BESTSELLER',
-      heading: 'Noctip Halo',
-      price: '€17.99',
-      comparePrice: '€29.99',
-      savings: '(40% off)',
-      subtitle: 'Stop snoring from night one. The Halo gently advances your jaw to open your airway.',
+      heading: 'Noctip Rest',
+      price: '€19.99',
+      comparePrice: '€31.99',
+      savings: '(38% off)',
+      subtitle: 'Sleep audio without earbuds. 45 grams that disappear when you wear them.',
       cta: 'Shop now',
-      features: ['Medical-grade silicone', 'Custom boil-and-bite fit', '30-night risk-free trial', 'Free shipping & returns'],
+      features: ['Bluetooth 5.0 wireless', 'Ultra-thin built-in speakers', 'Machine washable band', '10+ hours battery'],
     },
     reviews: { heading: 'Customer Reviews', write: 'Write a review' },
     guarantee: {
@@ -66,13 +66,13 @@ const COPY = {
     },
     bestseller: {
       badge: 'MÁS VENDIDO',
-      heading: 'Noctip Halo',
-      price: '€17.99',
-      comparePrice: '€29.99',
-      savings: '(40% dto.)',
-      subtitle: 'Elimina los ronquidos desde la primera noche. El Halo avanza suavemente tu mandíbula para abrir la vía aérea.',
+      heading: 'Noctip Rest',
+      price: '€19.99',
+      comparePrice: '€31.99',
+      savings: '(38% dto.)',
+      subtitle: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
       cta: 'Comprar ahora',
-      features: ['Silicona de grado médico', 'Ajuste personalizado hiérvelo-y-muerde', 'Prueba de 30 noches sin riesgo', 'Envío y devolución gratis'],
+      features: ['Bluetooth 5.0 inalámbrico', 'Altavoces ultrafinos integrados', 'Banda lavable a máquina', '10+ horas de batería'],
     },
     reviews: { heading: 'Reseñas de clientes', write: 'Escribir reseña' },
     guarantee: {
@@ -110,8 +110,9 @@ export default function ShopHomePage() {
   const isEs = locale === 'es'
   const copy = getCopy(locale)
   const { open: openCart, totalItems, isOpen: isCartOpen } = useCart()
-  const flagship = CATALOG.find(p => p.slug === 'halo') ?? CATALOG[0]
-  const flagshipImage = flagship.images?.[0] ?? '/images/mouthpiece-1.jpg'
+  const flagship = CATALOG.find(p => p.slug === 'sleep-headband') ?? CATALOG[0]
+  const flagshipImage = flagship.images?.[0] ?? '/images/sleep-headband-1.webp'
+  const flagshipVideo = '/videos/noctip-rest-val.mp4'
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
@@ -216,12 +217,26 @@ export default function ShopHomePage() {
           </div>
         </section>
 
-        {/* BESTSELLER — Full width image with overlay */}
+        {/* BESTSELLER — Full width video with overlay */}
         <section className="relative">
-          <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden">
-            <img src={flagshipImage} alt={copy.bestseller.heading}
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-              className="w-full h-full object-cover" />
+          <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-[#0d1219]">
+            <video
+              src={flagshipVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLVideoElement;
+                target.style.display = 'none';
+                const img = document.createElement('img');
+                img.src = flagshipImage;
+                img.className = 'w-full h-full object-cover';
+                img.alt = copy.bestseller.heading;
+                target.parentNode?.appendChild(img);
+              }}
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
           </div>
           <div className="absolute inset-0 flex items-center">
@@ -243,7 +258,7 @@ export default function ShopHomePage() {
                       </li>
                     ))}
                   </ul>
-                  <Link href={`/${locale}/products/halo`}
+                  <Link href={`/${locale}/products/sleep-headband`}
                     className="mt-5 inline-flex items-center justify-center rounded-lg bg-white px-7 py-3.5 text-[14px] font-semibold text-[#1a1a1a] transition-all hover:bg-white/90 min-h-[48px]">
                     {copy.bestseller.cta}
                   </Link>
