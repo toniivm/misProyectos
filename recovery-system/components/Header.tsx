@@ -122,7 +122,6 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
       <header className={`sticky top-0 z-50 bg-[#080c12] transition-all duration-300 ${
         scrolled ? 'shadow-[0_4px_20px_rgba(0,0,0,0.5)]' : 'border-b border-white/[0.06]'
       }`}>
-        {/* ── Row 1: Nav Left | Logo Center | Actions Right ── */}
         <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
           <div className="flex h-[56px] sm:h-[64px] items-center justify-between">
 
@@ -154,13 +153,13 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
                       onMouseLeave={() => setProductsOpen(false)}
-                      className="absolute left-0 top-full mt-1 w-[280px] rounded-2xl border border-white/[0.08] bg-[#111720] p-2 shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-50">
+                      className="absolute left-0 top-full mt-1 w-[260px] rounded-2xl border border-white/[0.08] bg-[#111720] p-2 shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-50">
                       <Link href={`/${locale}/shop/all`} onClick={() => setProductsOpen(false)}
                         className="flex items-center gap-3 rounded-xl px-4 py-3 text-[13px] font-bold text-white hover:bg-[#10BFD8]/10 transition-colors">
                         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/15 text-[#10BFD8]">
                           <Search size={14} />
                         </span>
-                        {isEs ? 'Ver todos los productos' : 'View all products'}
+                        {isEs ? 'Ver todos' : 'View all'}
                       </Link>
                       <div className="my-1.5 mx-3 h-px bg-white/[0.08]" />
                       {CATALOG.slice(0, 4).map((product) => (
@@ -171,51 +170,38 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                           <ChevronRight size={13} className="ml-auto text-[#5a6678] shrink-0" />
                         </Link>
                       ))}
-                      <div className="my-1.5 mx-3 h-px bg-white/[0.08]" />
-                      <Link href={`/${locale}/shop/sleep-audio`} onClick={() => setProductsOpen(false)}
-                        className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-white hover:bg-white/[0.06] transition-colors">
-                        <span className="text-lg w-7 text-center">🌙</span>
-                        {isEs ? 'Sueño y anti-ronquidos' : 'Sleep & Anti-Snoring'}
-                      </Link>
-                      <Link href={`/${locale}/shop/neck-recovery`} onClick={() => setProductsOpen(false)}
-                        className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] text-[#8791a1] hover:text-white hover:bg-white/[0.06] transition-colors">
-                        <span className="text-lg w-7 text-center">💪</span>
-                        {isEs ? 'Postura y recuperación' : 'Posture & Recovery'}
-                      </Link>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              <Link href={`/${locale}/about`}
+              <Link href={`/${locale}/contact`}
                 className="rounded-lg px-4 py-2 text-[13px] font-bold text-white hover:bg-white/[0.06] transition-all uppercase tracking-wide">
-                {isEs ? 'Sobre nosotros' : 'About'}
+                {isEs ? 'Contacto' : 'Contact'}
+              </Link>
+              <Link href={`/${locale}/tracking`}
+                className="rounded-lg px-4 py-2 text-[13px] font-bold text-white hover:bg-white/[0.06] transition-all uppercase tracking-wide">
+                {isEs ? 'Seguimiento' : 'Track'}
               </Link>
             </nav>
 
             {/* Center: Logo */}
             <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group mx-4 lg:mx-8">
               <Image src="/images/logo/logo.png" alt="Noctip" width={44} height={44} priority className="object-contain transition-transform duration-300 group-hover:scale-105" sizes="44px" />
-              <div className="hidden sm:flex flex-col">
+              <div className="flex flex-col">
                 <span className="text-[16px] font-extrabold tracking-[0.2em] text-white uppercase leading-none">Noctip</span>
-                <span className="text-[8px] font-bold tracking-[0.25em] text-[#10BFD8] uppercase mt-0.5">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>
+                <span className="text-[8px] font-bold tracking-[0.25em] text-[#10BFD8] uppercase mt-0.5 hidden sm:block">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>
               </div>
             </Link>
 
             {/* Right: Actions */}
             <div className="flex items-center gap-1.5 sm:gap-2 flex-1 justify-end">
-              {/* Seguimiento */}
-              <Link href={`/${locale}/tracking`}
-                className="hidden md:flex items-center rounded-lg px-3 py-2 text-[12px] font-bold text-[#c8d4e2] hover:text-white hover:bg-white/[0.06] transition-all">
-                {isEs ? 'Seguimiento' : 'Track'}
-              </Link>
-
               {/* Language */}
               <Link href={switchHref}
-                className="hidden sm:flex items-center gap-1.5 rounded-lg border border-white/[0.08] px-2.5 py-1.5 text-[11px] font-bold text-white hover:border-[#10BFD8]/30 hover:bg-[#10BFD8]/5 active:scale-95 transition-all"
+                className="flex items-center gap-1.5 rounded-lg border border-white/[0.08] px-2.5 py-1.5 text-[11px] font-bold text-white hover:border-[#10BFD8]/30 hover:bg-[#10BFD8]/5 active:scale-95 transition-all"
                 aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
                 {locale === 'es' ? <FlagEN /> : <FlagES />}
-                <span className="text-[#10BFD8]">{locale === 'es' ? 'EN' : 'ES'}</span>
+                <span className="text-[#10BFD8] hidden sm:inline">{locale === 'es' ? 'EN' : 'ES'}</span>
               </Link>
 
               {/* Search */}
@@ -254,26 +240,6 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                 aria-label={isEs ? 'Menú' : 'Menu'}>
                 {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Row 2: Secondary Nav (desktop only) ── */}
-        <div className="hidden lg:block border-t border-white/[0.06]">
-          <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center gap-6 py-2">
-              <Link href={`/${locale}/contact`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Contacto' : 'Contact'}
-              </Link>
-              <Link href={`/${locale}/tracking`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Seguimiento' : 'Track order'}
-              </Link>
-              <Link href={`/${locale}/legal/shipping`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Envíos' : 'Shipping'}
-              </Link>
-              <Link href={`/${locale}/legal/returns`} className="text-[11px] font-bold text-[#8791a1] hover:text-white transition-all uppercase tracking-wider">
-                {isEs ? 'Garantía' : 'Guarantee'}
-              </Link>
             </div>
           </div>
         </div>
@@ -324,7 +290,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8]/15 text-[#10BFD8]">
                     <Search size={16} />
                   </span>
-                  {isEs ? 'Ver todos los productos' : 'View all products'}
+                  {isEs ? 'Ver todos' : 'View all'}
                 </MobileLink>
                 {CATALOG.slice(0, 4).map((product, idx) => (
                   <motion.div key={product.slug} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 + idx * 0.04 }}>
@@ -336,29 +302,20 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                     </Link>
                   </motion.div>
                 ))}
-                <div className="my-3 mx-2 h-px bg-white/[0.08]" />
-                <MobileLink href={`/${locale}/shop/sleep-audio`} onClick={() => setMobileMenuOpen(false)} delay={0.1}>
-                  <span className="text-xl w-8 text-center">🌙</span>
-                  {isEs ? 'Sueño y anti-ronquidos' : 'Sleep & Anti-Snoring'}
-                </MobileLink>
-                <MobileLink href={`/${locale}/shop/neck-recovery`} onClick={() => setMobileMenuOpen(false)} delay={0.12}>
-                  <span className="text-xl w-8 text-center">💪</span>
-                  {isEs ? 'Postura y recuperación' : 'Posture & Recovery'}
-                </MobileLink>
 
                 <div className="my-4 mx-2 h-px bg-white/[0.08]" />
 
                 <div className="mb-2 px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#5a6678]">
                   {isEs ? 'Más' : 'More'}
                 </div>
-                <MobileLink href={`/${locale}/about`} onClick={() => setMobileMenuOpen(false)} delay={0.14}>
-                  {isEs ? 'Sobre nosotros' : 'About us'}
-                </MobileLink>
-                <MobileLink href={`/${locale}/contact`} onClick={() => setMobileMenuOpen(false)} delay={0.16}>
+                <MobileLink href={`/${locale}/contact`} onClick={() => setMobileMenuOpen(false)} delay={0.14}>
                   {isEs ? 'Contacto' : 'Contact'}
                 </MobileLink>
-                <MobileLink href={`/${locale}/tracking`} onClick={() => setMobileMenuOpen(false)} delay={0.18}>
-                  {isEs ? 'Seguimiento de pedido' : 'Track order'}
+                <MobileLink href={`/${locale}/tracking`} onClick={() => setMobileMenuOpen(false)} delay={0.16}>
+                  {isEs ? 'Seguimiento' : 'Track order'}
+                </MobileLink>
+                <MobileLink href={`/${locale}/about`} onClick={() => setMobileMenuOpen(false)} delay={0.18}>
+                  {isEs ? 'Sobre nosotros' : 'About us'}
                 </MobileLink>
                 {!auth.user && (
                   <MobileLink href="#" onClick={() => { auth.openModal(); setMobileMenuOpen(false); }} delay={0.2}>
