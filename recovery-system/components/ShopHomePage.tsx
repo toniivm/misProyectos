@@ -57,6 +57,31 @@ const COPY = {
       ],
     },
     products: { heading: 'Our products', sub: 'Each one solves a specific problem. No gimmicks.' },
+    bestseller: {
+      badge: 'Most popular',
+      heading: 'The Noctip Halo',
+      sub: 'Your nights, transformed. The Halo gently advances your jaw to open your airway, stopping snoring at the source. Thousands already sleep better.',
+      price: '€17.99',
+      comparePrice: '€29.99',
+      savings: '40% off',
+      cta: 'Shop now',
+      features: [
+        'Medical-grade silicone, hypoallergenic',
+        'Boil-and-bite custom fit',
+        'Adjustable for comfort',
+        'Includes travel case',
+      ],
+    },
+    comparison: {
+      heading: 'Halo vs. traditional solutions',
+      items: [
+        { feature: 'Custom fit', noctip: true, alt1: 'No', alt2: 'No' },
+        { feature: 'Medical-grade materials', noctip: true, alt1: 'No', alt2: 'Limited' },
+        { feature: '30-night risk-free trial', noctip: true, alt1: 'No', alt2: 'No' },
+        { feature: 'Free shipping & returns', noctip: true, alt1: 'No', alt2: 'No' },
+        { feature: 'Works from night one', noctip: true, alt1: 'Yes', alt2: 'No' },
+      ],
+    },
     howItWorks: {
       heading: 'How it works',
       sub: 'Three steps to better sleep',
@@ -140,6 +165,31 @@ const COPY = {
       ],
     },
     products: { heading: 'Nuestros productos', sub: 'Cada uno resuelve un problema específico. Sin trucos.' },
+    bestseller: {
+      badge: 'Más popular',
+      heading: 'Noctip Halo',
+      sub: 'Tus noches, transformadas. El Halo avanza suavemente tu mandíbula para abrir las vías respiratorias, eliminando los ronquidos de raíz. Miles ya descansan mejor.',
+      price: '€17.99',
+      comparePrice: '€29.99',
+      savings: '40% dto.',
+      cta: 'Comprar ahora',
+      features: [
+        'Silicona de grado médico, hipoalergénica',
+        'Ajuste personalizado hiérvelo-y-muerde',
+        'Diseñado para máxima comodidad',
+        'Incluye estuche de viaje',
+      ],
+    },
+    comparison: {
+      heading: 'Halo vs. soluciones tradicionales',
+      items: [
+        { feature: 'Ajuste personalizado', noctip: true, alt1: 'No', alt2: 'No' },
+        { feature: 'Materiales grado médico', noctip: true, alt1: 'No', alt2: 'Limitado' },
+        { feature: 'Prueba de 30 noches sin riesgo', noctip: true, alt1: 'No', alt2: 'No' },
+        { feature: 'Envío y devolución gratis', noctip: true, alt1: 'No', alt2: 'No' },
+        { feature: 'Funciona desde la primera noche', noctip: true, alt1: 'Sí', alt2: 'No' },
+      ],
+    },
     howItWorks: {
       heading: 'Cómo funciona',
       sub: '3 pasos para dormir mejor',
@@ -426,6 +476,72 @@ export default function ShopHomePage() {
               <div className="mt-8 sm:mt-10 inline-flex items-center gap-3 rounded-full border border-white/[0.08] bg-white/[0.03] px-6 py-3">
                 <span className="text-[#10BFD8] text-lg">✦</span>
                 <span className="text-[14px] sm:text-[15px] font-medium text-[#c8d4e2] italic">&ldquo;{copy.whyNoctip.motto}&rdquo;</span>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══ BESTSELLER ═══ */}
+        <section className="py-16 sm:py-28 lg:py-32">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
+            <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+              <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/15 border border-amber-400/20 px-3 py-1 text-[10px] sm:text-[11px] font-bold text-amber-300 uppercase tracking-wide mb-5">
+                  <Sparkles size={12} />
+                  {copy.bestseller.badge}
+                </span>
+                <h2 className="text-[clamp(1.8rem,4vw,3rem)] font-bold tracking-[-0.04em] text-[#f6f2eb] leading-[1.1]">{copy.bestseller.heading}</h2>
+                <p className="mt-4 sm:mt-5 text-[14px] sm:text-[16px] leading-[1.7] text-[#8791a1]">{copy.bestseller.sub}</p>
+                <div className="mt-5 flex items-baseline gap-3">
+                  <span className="text-[28px] sm:text-[32px] font-bold text-[#f2eee7]">{copy.bestseller.price}</span>
+                  <span className="text-[15px] sm:text-[17px] text-[#4a5568] line-through">{copy.bestseller.comparePrice}</span>
+                  <span className="rounded-full bg-emerald-500/15 border border-emerald-500/20 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400">{copy.bestseller.savings}</span>
+                </div>
+                <ul className="mt-6 sm:mt-7 space-y-2.5">
+                  {copy.bestseller.features.map((f, i) => (
+                    <li key={i} className="flex items-center gap-2.5 text-[13px] sm:text-[14px] text-[#c8d4e2]">
+                      <Check size={15} className="text-[#10BFD8] shrink-0" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link href={`/${locale}/products/halo`}
+                  className="mt-7 sm:mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 sm:px-10 py-4 sm:py-4.5 text-[15px] sm:text-[16px] font-bold text-[#080c12] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)] min-h-[52px] sm:min-h-[56px]">
+                  {copy.bestseller.cta} <ArrowRight size={18} strokeWidth={2.5} />
+                </Link>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                <div className="relative rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0d1219] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+                  <div className="relative aspect-square overflow-hidden">
+                    <img src={flagshipImage} alt={getLocalizedProductName(flagship, locale)}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                      className="absolute inset-0 h-full w-full object-contain p-8 sm:p-12 transition-transform duration-700 group-hover:scale-[1.03]" />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Comparison table */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="mt-16 sm:mt-20 max-w-2xl mx-auto">
+              <h3 className="text-center text-[15px] sm:text-[17px] font-bold text-[#f2eee7] mb-6">{copy.comparison.heading}</h3>
+              <div className="rounded-2xl border border-white/[0.06] bg-[#0d1219] overflow-hidden">
+                <div className="grid grid-cols-4 gap-0 text-[11px] sm:text-[12px] font-bold uppercase tracking-wide">
+                  <div className="px-4 py-3 text-left text-[#5a6678]">{isEs ? 'Característica' : 'Feature'}</div>
+                  <div className="px-3 py-3 text-center text-[#10BFD8]">Noctip</div>
+                  <div className="px-3 py-3 text-center text-[#5a6678]">{isEs ? 'Alternativa A' : 'Option A'}</div>
+                  <div className="px-3 py-3 text-center text-[#5a6678]">{isEs ? 'Alternativa B' : 'Option B'}</div>
+                </div>
+                {copy.comparison.items.map((row, i) => (
+                  <div key={row.feature} className={`grid grid-cols-4 gap-0 text-[12px] sm:text-[13px] ${i < copy.comparison.items.length - 1 ? 'border-t border-white/[0.04]' : ''}`}>
+                    <div className="px-4 py-3 text-left text-[#b8c4d0]">{row.feature}</div>
+                    <div className="px-3 py-3 text-center">
+                      <Check size={14} className="mx-auto text-[#10BFD8]" />
+                    </div>
+                    <div className="px-3 py-3 text-center text-[#4a5568]">{row.alt1}</div>
+                    <div className="px-3 py-3 text-center text-[#4a5568]">{row.alt2}</div>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
