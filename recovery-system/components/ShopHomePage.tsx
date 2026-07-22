@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
@@ -15,14 +14,11 @@ import { useCart } from '../context/CartContext'
 import {
   CATALOG,
   getLocalizedProductName,
-  getLocalizedProductShortDescription,
   type CatalogProduct,
 } from '../lib/catalog'
 import ProductImage from './ProductImage'
-import Badge from './ui/Badge'
 import FAQ from './ui/FAQ'
 import Header from './Header'
-import { trackAddToCart } from './GoogleAnalytics'
 
 const COPY = {
   en: {
@@ -161,22 +157,7 @@ type CopyType = typeof COPY.en
 function getCopy(locale: string): CopyType { return locale === 'es' ? COPY.es as CopyType : COPY.en }
 
 function ProductCard({ product, locale }: { product: CatalogProduct; locale: string }) {
-  const { add, open: openCart } = useCart()
-  const [added, setAdded] = useState(false)
-  const copy = getCopy(locale)
   const name = getLocalizedProductName(product, locale)
-  const desc = getLocalizedProductShortDescription(product, locale)
-  const savings = product.comparePrice > 0 ? Math.round(((product.comparePrice - product.price) / product.comparePrice) * 100) : 0
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    add({ slug: product.slug, name, price: product.price, icon: product.cartIcon })
-    trackAddToCart(product.slug, name, product.price)
-    setAdded(true)
-    openCart()
-    setTimeout(() => setAdded(false), 2000)
-  }
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group block">
@@ -185,38 +166,14 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0d1219] transition-all duration-300 hover:border-white/[0.12] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
+        className="flex flex-col overflow-hidden"
       >
-        <div className="relative flex aspect-square items-center justify-center overflow-hidden" style={{ background: product.color }}>
-          <ProductImage slug={product.slug as any} color={product.color} icon={product.icon} images={product.images} alt={name} className="h-full w-full transition-transform duration-700 group-hover:scale-[1.03]" />
-          {savings > 0 && (
-            <div className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10">
-              <span className="rounded-full bg-[#10BFD8]/20 backdrop-blur-md border border-[#10BFD8]/30 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[9px] sm:text-[10px] font-bold text-[#10BFD8] uppercase tracking-wide">
-                -{savings}%
-              </span>
-            </div>
-          )}
-          {product.badge && (
-            <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10">
-              <Badge type={product.badge} locale={locale} />
-            </div>
-          )}
+        <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-2xl" style={{ background: product.color }}>
+          <ProductImage slug={product.slug as any} color={product.color} icon={product.icon} images={product.images} alt={name} className="h-full w-full transition-transform duration-700 group-hover:scale-[1.05]" />
         </div>
-        <div className="flex flex-1 flex-col gap-1.5 sm:gap-2 p-3 sm:p-4">
-          <h3 className="text-[13px] sm:text-[15px] font-semibold leading-snug text-[#f2eee7] group-hover:text-[#10BFD8] transition-colors line-clamp-2">{name}</h3>
-          <p className="line-clamp-2 text-[11px] sm:text-[13px] leading-4 sm:leading-5 text-[#6b7785]">{desc}</p>
-          <div className="mt-auto flex items-center justify-between gap-2 pt-1.5 sm:pt-2">
-            <div className="flex items-baseline gap-1.5 sm:gap-2">
-              <span className="text-[15px] sm:text-[17px] font-bold text-[#f2eee7]">€{product.price}</span>
-              {savings > 0 && <span className="text-[10px] sm:text-[12px] text-[#4a5568] line-through">€{product.comparePrice}</span>}
-            </div>
-            <button onClick={handleAdd} aria-label={`${copy.add} ${name}`}
-              className={`flex items-center gap-1 sm:gap-1.5 rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-[11px] sm:text-[13px] font-bold transition-all duration-200 min-h-[36px] sm:min-h-[44px] active:scale-95 ${
-                added ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-[#10BFD8] text-[#080c12] hover:shadow-[0_4px_16px_rgba(16,191,216,0.3)]'
-              }`}>
-              {added ? (<><Check size={11} />{copy.added}</>) : (<><ShoppingCart size={11} /><span className="hidden sm:inline">{copy.add}</span></>)}
-            </button>
-          </div>
+        <div className="mt-3 sm:mt-4">
+          <h3 className="text-[13px] sm:text-[14px] font-semibold text-[#f2eee7]">{name}</h3>
+          <span className="text-[14px] sm:text-[15px] font-bold text-[#f2eee7]">€{product.price}</span>
         </div>
       </motion.div>
     </Link>
@@ -387,35 +344,70 @@ export default function ShopHomePage() {
         {/* ═══ REVIEWS ═══ */}
         <section className="py-14 sm:py-24 lg:py-28">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              className="text-center mb-10 sm:mb-12">
-              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7]">{copy.reviews.heading}</h2>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <h2 className="text-[clamp(1.4rem,4vw,2.5rem)] font-bold tracking-[-0.03em] text-[#f2eee7] mb-10 sm:mb-12">{isEs ? 'Reseñas de clientes' : 'Customer Reviews'}</h2>
+
+              {/* Rating summary */}
+              <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 mb-10 sm:mb-14">
+                {/* Big rating */}
+                <div className="flex flex-col items-center sm:items-start shrink-0">
+                  <span className="text-[56px] sm:text-[64px] font-bold text-[#f2eee7] leading-none">4.8</span>
+                  <div className="flex items-center gap-1 mt-2">
+                    {[1,2,3,4,5].map(s => <Star key={s} size={18} className="fill-amber-400 text-amber-400" />)}
+                  </div>
+                  <span className="text-[13px] text-[#8791a1] mt-2">{isEs ? '300 reseñas' : '300 reviews'}</span>
+                </div>
+
+                {/* Distribution bars */}
+                <div className="flex-1 space-y-2 max-w-xs">
+                  {[5,4,3,2,1].map(star => {
+                    const pcts = [72, 20, 5, 2, 1]
+                    const pct = pcts[5 - star]
+                    return (
+                      <div key={star} className="flex items-center gap-3">
+                        <span className="w-3 text-[13px] font-medium text-[#8791a1]">{star}</span>
+                        <Star size={13} className="fill-amber-400 text-amber-400 shrink-0" />
+                        <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
+                          <div className="h-full rounded-full bg-amber-400" style={{ width: `${pct}%` }} />
+                        </div>
+                        <span className="w-8 text-right text-[12px] text-[#5a6678]">{pct}%</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Reviews list */}
+              <div className="space-y-5">
+                {copy.reviews.items.map((review, idx) => {
+                  const initials = review.name.split(' ').map(n => n[0]).join('')
+                  const colors = ['bg-[#10BFD8]', 'bg-amber-500', 'bg-emerald-500', 'bg-purple-500']
+                  return (
+                    <motion.div key={review.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }} transition={{ delay: idx * 0.08, duration: 0.4 }}
+                      className="border-b border-white/[0.06] pb-5 last:border-0 last:pb-0">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[12px] font-bold text-[#080c12] ${colors[idx % colors.length]}`}>
+                          {initials}
+                        </div>
+                        <div>
+                          <span className="text-[14px] font-semibold text-[#f2eee7]">{review.name}</span>
+                          {review.verified && (
+                            <span className="ml-2 inline-flex items-center gap-1 text-[11px] font-medium text-[#10BFD8]">
+                              <Check size={11} /> {isEs ? 'Compra verificada' : 'Verified purchase'}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 mb-2">
+                        {[1,2,3,4,5].map(s => <Star key={s} size={13} className={s <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-[#2a3448]'} />)}
+                      </div>
+                      <p className="text-[14px] leading-[1.6] text-[#c8d0da]">{review.comment}</p>
+                    </motion.div>
+                  )
+                })}
+              </div>
             </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              {copy.reviews.items.map((review, idx) => (
-                <motion.div key={review.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  className="group rounded-2xl border border-white/[0.06] bg-[#0d1219] p-5 sm:p-6 transition-all duration-300 hover:border-[#10BFD8]/20">
-                  <div className="flex items-center gap-1 mb-3">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} size={14} className={star <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-[#2a3448]'} />
-                    ))}
-                    {review.verified && (
-                      <span className="ml-auto text-[9px] font-bold uppercase tracking-wider text-[#10BFD8]">
-                        ✓ {isEs ? 'Verificada' : 'Verified'}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-[13px] sm:text-[14px] leading-[1.6] text-[#c8d0da] mb-4">&ldquo;{review.comment}&rdquo;</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-[13px] font-semibold text-[#f2eee7]">{review.name}</span>
-                      <span className="block text-[11px] text-[#6b7785]">{review.product}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </section>
 
