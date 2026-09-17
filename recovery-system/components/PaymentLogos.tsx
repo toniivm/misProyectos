@@ -39,7 +39,7 @@ export default function PaymentLogos({ className = '' }: { className?: string })
       <div className="flex items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 transition-colors hover:bg-white/[0.06]">
         <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="4" fill="#000000"/>
-          <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontFamily="Arial, sans-serif" fontWeight="600" fontSize="9"> Pay</text>
+          <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontFamily="Arial, sans-serif" fontWeight="600" fontSize="9"> Pay</text>
         </svg>
       </div>
 

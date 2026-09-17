@@ -41,7 +41,8 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       canonical: `https://noctip.com/${locale}`,
       languages: {
         es: 'https://noctip.com/es',
-        en: 'https://noctip.com/en'
+        en: 'https://noctip.com/en',
+        'x-default': 'https://noctip.com/es',
       }
     },
     icons: {
@@ -137,7 +138,7 @@ export default async function LocaleLayout({children, params}: Props) {
     description: isEs
       ? 'Tienda online de tecnología premium de sueño y recuperación'
       : 'Online store for premium sleep and recovery technology',
-    priceRange: '€11-€20',
+    priceRange: '€13-€22',
     paymentAccepted: 'Credit Card, Stripe, Apple Pay, Google Pay',
     areaServed: [
       { '@type': 'Country', name: 'Spain' },
@@ -159,11 +160,6 @@ export default async function LocaleLayout({children, params}: Props) {
         {
           '@type': 'OfferCatalog',
           name: isEs ? 'Postura y recuperación' : 'Posture & Recovery',
-          numberOfItems: 1,
-        },
-        {
-          '@type': 'OfferCatalog',
-          name: isEs ? 'Masaje cervical' : 'Cervical Massage',
           numberOfItems: 2,
         },
       ],

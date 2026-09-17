@@ -81,6 +81,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
               controls
               playsInline
               preload="metadata"
+              poster={images[0]}
               className="absolute inset-0 w-full h-full object-contain"
             />
           ) : (
@@ -99,6 +100,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
           {activeIdx > 0 && (
             <button
               onClick={(e) => { e.stopPropagation(); setActiveIdx((p) => p - 1); }}
+              aria-label="Imagen anterior"
               className="absolute left-2 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm"
             >
               <ChevronLeft size={18} />
@@ -107,6 +109,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
           {activeIdx < totalItems - 1 && (
             <button
               onClick={(e) => { e.stopPropagation(); setActiveIdx((p) => p + 1); }}
+              aria-label="Imagen siguiente"
               className="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm"
             >
               <ChevronRight size={18} />
@@ -142,7 +145,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
             >
               <img
                 src={src}
-                alt=""
+                alt={`${alt} miniatura ${idx + 1}`}
                 className="w-full h-full object-cover sm:object-contain sm:p-1"
                 loading="lazy"
                 decoding="async"
@@ -152,6 +155,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
           {video && (
             <button
               onClick={() => setActiveIdx(images.length)}
+              aria-label="Ver vídeo"
               className={`relative shrink-0 w-[56px] h-[56px] sm:w-auto sm:h-auto sm:aspect-square overflow-hidden rounded-lg border-2 transition-all ${
                 activeIdx === images.length
                   ? 'border-[#10BFD8] opacity-100'
@@ -192,6 +196,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
               </div>
               <button
                 onClick={() => setLightboxOpen(false)}
+                aria-label="Cerrar"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white"
               >
                 <X size={20} />
@@ -202,6 +207,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
             {lightboxIdx > 0 && (
               <button
                 onClick={(e) => { e.stopPropagation(); setLightboxIdx((p) => p - 1); }}
+                aria-label="Anterior"
                 className="absolute left-3 top-1/2 -translate-y-1/2 z-[110] flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white"
               >
                 <ChevronLeft size={22} />
@@ -210,6 +216,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
             {lightboxIdx < totalItems - 1 && (
               <button
                 onClick={(e) => { e.stopPropagation(); setLightboxIdx((p) => p + 1); }}
+                aria-label="Siguiente"
                 className="absolute right-3 top-1/2 -translate-y-1/2 z-[110] flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white"
               >
                 <ChevronRight size={22} />

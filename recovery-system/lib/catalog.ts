@@ -276,7 +276,12 @@ const OLD_SLUGS: Record<string, string> = {
   'sleepband-pro': 'halo',
   'white-noise-pro': 'wave',
   'weighted-mask-pro': 'neck-massager',
+  'weighted-mask': 'neck-massager',
   'calm': 'neck-massager',
+  'sleepband': 'sleep-headband',
+  'rest': 'sleep-headband',
+  'back': 'wave',
+  'cervical': 'neck-massager',
 }
 
 export function getCatalogProductBySlug(slug: string): CatalogProduct | undefined {

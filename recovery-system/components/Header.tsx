@@ -118,6 +118,8 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                 <button
                   onClick={() => setProductsOpen(!productsOpen)}
                   onMouseEnter={() => setProductsOpen(true)}
+                  aria-haspopup="menu"
+                  aria-controls="products-menu"
                   className="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-bold text-[#1a1a1a] hover:bg-[#f5f0eb] transition-all uppercase tracking-wide"
                   aria-expanded={productsOpen}>
                   {isEs ? 'Productos' : 'Products'}
@@ -126,6 +128,8 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                 <AnimatePresence>
                   {productsOpen && (
                     <motion.div
+                      id="products-menu"
+                      role="menu"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
@@ -184,7 +188,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
 
               {/* Search */}
               <Link href={`/${locale}/shop/all`}
-                className="flex h-10 w-10 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
                 aria-label={isEs ? 'Buscar' : 'Search'}>
                 <Search size={18} />
               </Link>
@@ -192,7 +196,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
               {/* User */}
               {!auth.user ? (
                 <button onClick={() => auth.openModal()}
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
+                  className="flex h-11 w-11 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
                   aria-label={isEs ? 'Iniciar sesión' : 'Sign in'}>
                   <User size={18} />
                 </button>
@@ -202,8 +206,8 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
 
               {/* Cart */}
               <button onClick={openCart}
-                aria-label={`Cart - ${totalItems} items`}
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all">
+                aria-label={isEs ? `Carrito ${totalItems} artículos` : `Cart ${totalItems} items`}
+                className="relative flex h-11 w-11 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all">
                 <ShoppingCart size={18} />
                 {totalItems > 0 && (
                   <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#10BFD8] px-1 text-[10px] font-bold text-white shadow-[0_2px_8px_rgba(16,191,216,0.4)]">
@@ -214,7 +218,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
 
               {/* Mobile menu */}
               <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="flex lg:hidden h-10 w-10 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
+                className="flex lg:hidden h-11 w-11 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
                 aria-label={isEs ? 'Menú' : 'Menu'}>
                 {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>

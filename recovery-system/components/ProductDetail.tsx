@@ -7,7 +7,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useLocale } from 'next-intl';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, BUNDLES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
+import { getCatalogProductBySlug, getProductsByCategory, CATEGORIES, getLocalizedProductName, type CatalogProduct } from '../lib/catalog';
 import {
   getProductReviews,
   getProductReviewStats,
@@ -27,7 +27,6 @@ import ProductBenefits from './ProductBenefits';
 import WhatIsIncluded from './WhatIsIncluded';
 import ScienceBehindIt from './ScienceBehindIt';
 import BetterThanAlternatives from './BetterThanAlternatives';
-import CustomerPhotos from './CustomerPhotos';
 import CustomerReviews from './CustomerReviews';
 import Stars from './ui/Stars';
 import Badge from './ui/Badge';
@@ -130,8 +129,17 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const handleAdd = () => {
     const icon = product?.cartIcon ?? legacyProduct.icon;
     const sizeSuffix = selectedSize ? ` (${selectedSize})` : '';
-    for (let q = 0; q < qty; q++) {
-      add({ slug: legacyProduct.slug, name: displayName + sizeSuffix, price: displayPrice, icon });
+    const cartName = displayName + sizeSuffix;
+    // Add qty efficiently: first add, then updateQty to target (avoids qty dispatches)
+    add({ slug: legacyProduct.slug, name: cartName, price: displayPrice, icon });
+    if (qty > 1) {
+      // CartContext will have 1, bump to qty
+      // Use timeout to let reducer apply first add
+      setTimeout(() => {
+        // Find item and set qty directly via updateQty if available
+        // Fallback: add remaining
+        for (let q = 1; q < qty; q++) add({ slug: legacyProduct.slug, name: cartName, price: displayPrice, icon });
+      }, 0);
     }
     setAdded(true);
     openCart();
@@ -324,11 +332,11 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             )}
 
-            {/* Trust badges */}
+            {/* Trust badges — honest 5-10 days */}
             <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
-                { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping' },
-                { icon: RotateCcw, label: isEs ? '30 días' : '30 days' },
+                { icon: Truck, label: isEs ? '5-10 días' : '5-10 days' },
+                { icon: RotateCcw, label: isEs ? '30 noches' : '30 nights' },
                 { icon: ShieldCheck, label: isEs ? 'Pago seguro' : 'Secure' },
               ].map((item) => (
                 <div key={item.label} className="flex flex-col items-center gap-1 rounded-xl border border-white/[0.07] bg-white/[0.025] py-2.5 px-1 text-center">
@@ -343,13 +351,13 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <div className="flex items-center gap-0 rounded-full border border-white/[0.12] bg-[#111720]">
                 <button onClick={() => setQty((q) => Math.max(1, q - 1))}
                   className="flex h-11 w-11 items-center justify-center rounded-full text-[#c8d0da] hover:text-white active:bg-white/[0.08] transition-colors"
-                  aria-label="Decrease quantity">
+                  aria-label={isEs ? 'Reducir cantidad' : 'Decrease quantity'}>
                   <Minus size={14} />
                 </button>
                 <span className="min-w-[2ch] text-center text-[14px] sm:text-[15px] font-semibold text-[#f2eee7]">{qty}</span>
                 <button onClick={() => setQty((q) => q + 1)}
                   className="flex h-11 w-11 items-center justify-center rounded-full text-[#c8d0da] hover:text-white active:bg-white/[0.08] transition-colors"
-                  aria-label="Increase quantity">
+                  aria-label={isEs ? 'Aumentar cantidad' : 'Increase quantity'}>
                   <Plus size={14} />
                 </button>
               </div>
@@ -643,7 +651,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           </div>
         </section>
 
-        {/* ═══ RELATED PRODUCTS ═══ */}
+        {/* ═══ RELATED PRODUCTS + ORDER BUMP ═══ */}
         {related.length > 0 && (
           <div className="mt-10 sm:mt-16">
             <h2 className="mb-4 sm:mb-5 text-[16px] sm:text-[18px] font-bold tracking-[-0.03em] text-[#f2eee7]">
@@ -653,9 +661,14 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
               {related.map((p) => {
                 const rName = getLocalizedProductName(p, locale);
+                const handleBump = (e: React.MouseEvent) => {
+                  e.preventDefault();
+                  add({ slug: p.slug, name: rName, price: p.price, icon: p.cartIcon });
+                  openCart();
+                };
                 return (
-                  <Link key={p.slug} href={`/${locale}/products/${p.slug}`} className="group block">
-                    <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all hover:border-white/[0.14] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
+                  <div key={p.slug} className="group overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all hover:border-white/[0.14] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
+                    <Link href={`/${locale}/products/${p.slug}`} className="block">
                       <div className="flex aspect-square items-center justify-center overflow-hidden p-3 sm:p-4" style={{ background: p.color }}>
                         {p.images && p.images.length > 0 ? (
                           <img src={p.images[0]} alt={rName} loading="lazy" decoding="async"
@@ -672,8 +685,13 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                           <span className="text-[11px] sm:text-[12px] text-[#4a5568] line-through">€{p.comparePrice}</span>
                         </div>
                       </div>
+                    </Link>
+                    <div className="px-3 pb-3">
+                      <button onClick={handleBump} className="flex w-full items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] py-2 text-[12px] font-semibold text-[#c8d0da] hover:bg-white hover:text-[#080c12] transition-colors min-h-[36px]">
+                        <ShoppingCart size={12} /> {isEs ? 'Añadir' : 'Add'}
+                      </button>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </div>

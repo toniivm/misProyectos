@@ -121,7 +121,6 @@ export default function ShopHomePage() {
   const { open: openCart, totalItems, isOpen: isCartOpen } = useCart()
   const flagship = CATALOG.find(p => p.slug === 'sleep-headband') ?? CATALOG[0]
   const flagshipImage = flagship.images?.[0] ?? '/images/sleep-headband-1.webp'
-  const flagshipVideo = '/videos/noctip-rest-val.mp4'
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
@@ -136,6 +135,7 @@ export default function ShopHomePage() {
                 <Link href={`/${locale}/shop/all`} className="group block">
                   <div className="overflow-hidden rounded-xl">
                     <img src={flagshipImage} alt={getLocalizedProductName(flagship, locale)}
+                      width={640} height={800} fetchPriority="high" loading="eager" decoding="async"
                       onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                       className="w-full aspect-[4/5] object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
                   </div>

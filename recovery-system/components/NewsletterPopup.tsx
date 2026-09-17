@@ -111,7 +111,7 @@ export default function NewsletterPopup() {
             <button
               onClick={dismiss}
               className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full text-[#6b7785] transition hover:bg-white/[0.08] hover:text-white"
-              aria-label="Close"
+              aria-label={isEs ? 'Cerrar' : 'Close'}
             >
               <X size={16} />
             </button>

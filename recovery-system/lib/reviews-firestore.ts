@@ -86,7 +86,21 @@ export async function hasUserReviewedProduct(userEmail: string, productSlug: str
 export async function hasUserPurchasedProduct(userEmail: string, productSlug: string): Promise<boolean> {
   if (!userEmail) return false
   const db = getDb()
-  if (!db) return false
+  if (!db) {
+    // Fallback to localStorage orders for static export without Firestore index
+    try {
+      const raw = localStorage.getItem('noctas_orders')
+      if (raw) {
+        const orders = JSON.parse(raw)
+        for (const o of Object.values(orders) as any[]) {
+          if (o.email?.toLowerCase() === userEmail.toLowerCase() && ['paid','shipped','delivered'].includes(o.status)) {
+            if ((o.items || []).some((it: any) => (it.id || it.slug) === productSlug)) return true
+          }
+        }
+      }
+    } catch {}
+    return false
+  }
 
   try {
     const q = query(
@@ -102,8 +116,19 @@ export async function hasUserPurchasedProduct(userEmail: string, productSlug: st
         return true
       }
     }
-  } catch {
-    // 'orders' collection may not exist yet — return false (denied)
+  } catch (e) {
+    // Firestore missing composite index — fallback to local check
+    try {
+      const raw = localStorage.getItem('noctas_orders')
+      if (raw) {
+        const orders = JSON.parse(raw)
+        for (const o of Object.values(orders) as any[]) {
+          if (o.email?.toLowerCase() === userEmail.toLowerCase() && ['paid','shipped','delivered'].includes(o.status)) {
+            if ((o.items || []).some((it: any) => (it.id || it.slug) === productSlug)) return true
+          }
+        }
+      }
+    } catch {}
   }
   return false
 }
@@ -127,18 +152,25 @@ export async function submitReview(review: Omit<Review, 'id' | 'helpful' | 'repo
   return { ok: true }
 }
 
+const helpfulCooldown = new Set<string>()
 export async function markReviewHelpful(reviewId: string): Promise<void> {
+  if (helpfulCooldown.has(reviewId)) return
+  helpfulCooldown.add(reviewId)
+  setTimeout(() => helpfulCooldown.delete(reviewId), 60000)
   const db = getDb()
   if (!db) return
   const ref = doc(db, REVIEWS_COLLECTION, reviewId)
-  await updateDoc(ref, { helpful: increment(1) })
+  try { await updateDoc(ref, { helpful: increment(1) }) } catch {}
 }
 
 export async function reportReview(reviewId: string): Promise<void> {
+  // Require double confirmation to avoid accidental hides - still single click for UX but local cooldown
+  if (helpfulCooldown.has(`report-${reviewId}`)) return
+  helpfulCooldown.add(`report-${reviewId}`)
   const db = getDb()
   if (!db) return
   const ref = doc(db, REVIEWS_COLLECTION, reviewId)
-  await updateDoc(ref, { reported: true })
+  try { await updateDoc(ref, { reported: true }) } catch {}
 }
 
 export interface ReviewStats {

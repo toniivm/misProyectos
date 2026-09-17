@@ -70,7 +70,7 @@ export default function CartSidebar() {
                 </span>
               </div>
               <button onClick={close}
-                className="flex h-10 w-10 items-center justify-center rounded-lg text-[#8791a1] transition hover:bg-white/[0.06] hover:text-[#f2eee7]"
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-[#8791a1] transition hover:bg-white/[0.06] hover:text-[#f2eee7]"
                 aria-label={isEs ? 'Cerrar carrito' : 'Close cart'}>
                 <X size={17} />
               </button>
@@ -95,8 +95,9 @@ export default function CartSidebar() {
                   {items.map((item) => {
                     const catalogProduct = getCatalogProductBySlug(item.slug);
                     const productImage = catalogProduct?.images?.[0];
+                    const itemKey = `${item.slug}::${item.name}`
                     return (
-                    <li key={item.slug}
+                    <li key={itemKey}
                       className="flex gap-2.5 sm:gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-2.5 sm:p-3.5 transition-all hover:border-white/[0.12]">
                       <div className="flex h-12 w-12 sm:h-16 sm:w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] bg-[#111720]">
                         {productImage ? (
@@ -165,11 +166,11 @@ export default function CartSidebar() {
                   </motion.div>
                 )}
 
-                {/* Trust badges */}
+                {/* Trust badges - honest */}
                 <div className="flex items-center justify-center gap-3 sm:gap-4 text-[11px] sm:text-[12px] text-[#5a6678] pt-0.5 sm:pt-1">
-                  <span className="flex items-center gap-1"><RotateCcw size={11} />{isEs ? '30 días' : '30-day'}</span>
+                  <span className="flex items-center gap-1"><RotateCcw size={11} />{isEs ? '30 noches' : '30 nights'}</span>
                   <span className="flex items-center gap-1"><ShieldCheck size={11} />{isEs ? 'Seguro' : 'Secure'}</span>
-                  <span className="flex items-center gap-1"><Truck size={11} />{isEs ? 'Envío gratis' : 'Free'}</span>
+                  <span className="flex items-center gap-1"><Truck size={11} />{isEs ? '5-10 días' : '5-10 days'}</span>
                 </div>
 
                 <div className="flex items-center justify-between border-t border-white/[0.07] pt-2.5 sm:pt-3">

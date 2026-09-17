@@ -50,16 +50,16 @@ function reducer(state: CartState, action: Action): CartState {
       return { ...state, items: validated };
     }
     case 'ADD': {
-      const existing = state.items.find((i) => i.slug === action.item.slug);
+      // Key includes name to support same slug with different size (e.g. wave M vs L)
+      const key = `${action.item.slug}::${action.item.name}`
+      const existing = state.items.find((i) => `${i.slug}::${i.name}` === key);
       if (existing) {
         const newQty = Math.min(existing.quantity + 1, MAX_QUANTITY);
         return {
           ...state,
           isOpen: true,
           items: state.items.map((i) =>
-            i.slug === action.item.slug
-              ? { ...i, quantity: newQty }
-              : i,
+            `${i.slug}::${i.name}` === key ? { ...i, quantity: newQty } : i,
           ),
         };
       }

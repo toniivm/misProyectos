@@ -43,3 +43,4 @@ build.log
 test-results/
 .sixth/
 coverage/
+tsconfig.tsbuildinfo

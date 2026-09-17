@@ -16,18 +16,19 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = CATEGORIES.find((c) => c.slug === params.category)
   const isAll = params.category === 'all'
-  const title = cat
-    ? `${cat.name} — Noctip™`
-    : 'All Products — Noctip™'
-  const description = cat?.description ?? 'Browse all premium sleep and recovery products.'
+  const isEs = params.locale === 'es'
+  const catName = cat ? (isEs ? (cat.name_es ?? cat.name) : (cat.name_en ?? cat.name)) : (isEs ? 'Todos los productos' : 'All Products')
+  const catDesc = cat ? (isEs ? (cat.description_es ?? cat.description) : (cat.description_en ?? cat.description)) : (isEs ? 'Todos los productos de sueño y postura de Noctip.' : 'Browse all premium sleep and recovery products.')
+  const title = cat ? `${catName} — Noctip™` : (isEs ? 'Todos los productos — Noctip™' : 'All Products — Noctip™')
+  const description = catDesc
   const canonical = `https://noctip.com/${params.locale}/shop/${params.category}`
 
   return {
     title,
     description,
     keywords: isAll
-      ? 'noctip, sleep products, recovery products, anti-snoring, posture corrector, sleep headband, neck massager'
-      : `noctip, ${cat?.name?.toLowerCase() || ''}, sleep, recovery, wellness`,
+      ? (isEs ? 'noctip, sueño, postura, anti ronquidos, banda sueño, masajeador cervical' : 'noctip, sleep products, recovery products, anti-snoring, posture corrector, sleep headband, neck massager')
+      : `noctip, ${catName.toLowerCase()}, ${isEs ? 'sueño, recuperación, bienestar' : 'sleep, recovery, wellness'}`,
     alternates: {
       canonical,
       languages: {

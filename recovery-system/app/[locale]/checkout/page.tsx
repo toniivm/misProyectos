@@ -262,7 +262,7 @@ export default function CheckoutPage() {
         return next;
       });
     }
-  }, [isEs]);
+  }, [isEs, shipping.country]);
 
   const handleFieldBlur = useCallback((name: string, value: string) => {
     setTouchedFields((prev) => ({ ...prev, [name]: true }));
@@ -405,7 +405,7 @@ export default function CheckoutPage() {
   };
 
   useEffect(() => {
-    if (user?.email) setContact((c) => ({ ...c, email: user.email }));
+    if (user?.email) setContact((c) => (c.email ? c : { ...c, email: user.email! }));
     if (user?.displayName) {
       const parts = user.displayName.split(' ');
       const firstName = parts[0] || '';
@@ -689,7 +689,7 @@ export default function CheckoutPage() {
                   </label>
                   <input type="text" required value={shipping.zip}
                     autoComplete="postal-code"
-                    inputMode="numeric"
+                    inputMode="text"
                     onChange={(e) => {
                       setShipping((s) => ({...s, zip: e.target.value}));
                       handleFieldChange('zip', e.target.value);

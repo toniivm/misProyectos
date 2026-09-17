@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
-import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Lock, Phone, Clock } from 'lucide-react'
+import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Lock } from 'lucide-react'
 import PaymentLogos from './PaymentLogos'
 
 export default function Footer() {
@@ -154,7 +154,7 @@ export default function Footer() {
             {/* Newsletter */}
             <div>
               <div className="mb-2 text-[12px] font-semibold text-[#1a1a1a]">
-                {isEs ? 'Suscríbete y obtén 10% de descuento' : 'Subscribe and get 10% off'}
+                {isEs ? 'Suscríbete — novedades y consejos' : 'Subscribe — news & tips'}
               </div>
               {subscribed ? (
                 <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-2.5 text-[12px] text-emerald-600">
