@@ -37,3 +37,9 @@ Thumbs.db
 
 # vercel
 .vercel
+
+# build artifacts / logs
+build.log
+test-results/
+.sixth/
+coverage/

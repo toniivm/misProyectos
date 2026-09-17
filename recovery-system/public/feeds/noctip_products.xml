@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+  <title>Noctip — Product Feed</title>
+  <link>https://noctip.com</link>
+  <description>Feed de productos Noctip para Google Merchant Center. Actualizado 2026-09-17</description>
+  <item>
+    <g:id>halo_es</g:id>
+    <g:title>Noctip Halo — Férula Anti-ronquidos Ajustable 10mm | Silicona Médica + Estuche</g:title>
+    <g:description>Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor. Férula de avanzamiento mandibular 10mm, silicona médica hipoalergénica, diseño doble capa, estuche viaje. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/es/products/halo</g:link>
+    <g:image_link>https://noctip.com/images/mouthpiece-1.jpg</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/mouthpiece-2.jpg</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/mouthpiece-3.jpg</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>13.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Sleep &amp; Snoring</g:google_product_category>
+    <g:product_type>sleep-audio</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>sleep-audio</g:custom_label_0>
+    <g:custom_label_1>es</g:custom_label_1>
+  </item>
+  <item>
+    <g:id>sleep-headband_es</g:id>
+    <g:title>Noctip Rest — Banda Sueño Bluetooth 5.0 Lavable | 45g Altavoces Ultrafinos 10h</g:title>
+    <g:description>Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos. Banda de sueño Bluetooth 5.0, altavoces ultrafinos, lavable a máquina, 10+ horas batería, talla única elástica. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/es/products/sleep-headband</g:link>
+    <g:image_link>https://noctip.com/images/sleep-headband-1.webp</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/sleep-headband-2.webp</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/sleep-headband-3.webp</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>19.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Electronics &gt; Audio &gt; Headphones &gt; Headbands</g:google_product_category>
+    <g:product_type>sleep-audio</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>sleep-audio</g:custom_label_0>
+    <g:custom_label_1>es</g:custom_label_1>
+  </item>
+  <item>
+    <g:id>wave_es</g:id>
+    <g:title>Noctip Back — Corrector Postural Y Invisible | XS-XL Malla Transpirable 15min/día</g:title>
+    <g:description>Corrige tu postura en 2 semanas. Adiós al dolor de espalda del escritorio. Corrector postural en Y, tallas XS-XL, malla transpirable, invisible bajo ropa, 15 min/día. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/es/products/wave</g:link>
+    <g:image_link>https://noctip.com/images/posture-corrector-1.webp</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/posture-corrector-2.webp</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/posture-corrector-3.webp</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>19.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Back &amp; Posture Support</g:google_product_category>
+    <g:product_type>neck-recovery</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>neck-recovery</g:custom_label_0>
+    <g:custom_label_1>es</g:custom_label_1>
+  </item>
+  <item>
+    <g:id>neck-massager_es</g:id>
+    <g:title>Noctip Cervical — Masajeador Cuello Portátil | Electrodos Curvos 3 Capas 15min</g:title>
+    <g:description>Alivio cervical profesional en 15 minutos. Tres capas de relajación. Masajeador cervical electrodos curvos, 3 capas relajación, 15 min auto, portátil, USB. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/es/products/neck-massager</g:link>
+    <g:image_link>https://noctip.com/images/cervical-gallery-1.jpg</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/cervical-gallery-2.jpg</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/cervical-gallery-3.jpg</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>21.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Massage &amp; Relaxation</g:google_product_category>
+    <g:product_type>neck-recovery</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>neck-recovery</g:custom_label_0>
+    <g:custom_label_1>es</g:custom_label_1>
+  </item>
+  <item>
+    <g:id>halo_en</g:id>
+    <g:title>Noctip Halo — Adjustable Anti-Snoring Mouthpiece 10mm | Medical Silicone + Case</g:title>
+    <g:description>Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor. Férula de avanzamiento mandibular 10mm, silicona médica hipoalergénica, diseño doble capa, estuche viaje. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/en/products/halo</g:link>
+    <g:image_link>https://noctip.com/images/mouthpiece-1.jpg</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/mouthpiece-2.jpg</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/mouthpiece-3.jpg</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>13.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Sleep &amp; Snoring</g:google_product_category>
+    <g:product_type>sleep-audio</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>sleep-audio</g:custom_label_0>
+    <g:custom_label_1>en</g:custom_label_1>
+  </item>
+  <item>
+    <g:id>sleep-headband_en</g:id>
+    <g:title>Noctip Rest — Sleep Headband Bluetooth 5.0 Washable | 45g Ultra-thin Speakers 10h</g:title>
+    <g:description>Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos. Banda de sueño Bluetooth 5.0, altavoces ultrafinos, lavable a máquina, 10+ horas batería, talla única elástica. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/en/products/sleep-headband</g:link>
+    <g:image_link>https://noctip.com/images/sleep-headband-1.webp</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/sleep-headband-2.webp</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/sleep-headband-3.webp</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>19.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Electronics &gt; Audio &gt; Headphones &gt; Headbands</g:google_product_category>
+    <g:product_type>sleep-audio</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>sleep-audio</g:custom_label_0>
+    <g:custom_label_1>en</g:custom_label_1>
+  </item>
+  <item>
+    <g:id>wave_en</g:id>
+    <g:title>Noctip Back — Posture Corrector Y Invisible | XS-XL Breathable Mesh 15min/day</g:title>
+    <g:description>Corrige tu postura en 2 semanas. Adiós al dolor de espalda del escritorio. Corrector postural en Y, tallas XS-XL, malla transpirable, invisible bajo ropa, 15 min/día. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/en/products/wave</g:link>
+    <g:image_link>https://noctip.com/images/posture-corrector-1.webp</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/posture-corrector-2.webp</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/posture-corrector-3.webp</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>19.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Back &amp; Posture Support</g:google_product_category>
+    <g:product_type>neck-recovery</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>neck-recovery</g:custom_label_0>
+    <g:custom_label_1>en</g:custom_label_1>
+  </item>
+  <item>
+    <g:id>neck-massager_en</g:id>
+    <g:title>Noctip Cervical — Neck Massager Portable | Curved Electrodes 3 Layers 15min</g:title>
+    <g:description>Alivio cervical profesional en 15 minutos. Tres capas de relajación. Masajeador cervical electrodos curvos, 3 capas relajación, 15 min auto, portátil, USB. Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.</g:description>
+    <g:link>https://noctip.com/en/products/neck-massager</g:link>
+    <g:image_link>https://noctip.com/images/cervical-gallery-1.jpg</g:image_link>
+    <g:additional_image_link>https://noctip.com/images/cervical-gallery-2.jpg</g:additional_image_link>
+    <g:additional_image_link>https://noctip.com/images/cervical-gallery-3.jpg</g:additional_image_link>
+    <g:condition>new</g:condition>
+    <g:availability>in stock</g:availability>
+    <g:price>21.99 EUR</g:price>
+    <g:brand>Noctip</g:brand>
+    <g:google_product_category>Health &amp; Beauty &gt; Health Care &gt; Massage &amp; Relaxation</g:google_product_category>
+    <g:product_type>neck-recovery</g:product_type>
+    <g:identifier_exists>no</g:identifier_exists>
+    
+    <g:shipping>
+      <g:country>ES</g:country>
+      <g:service>Standard</g:service>
+      <g:price>0.00 EUR</g:price>
+      <g:min_handling_time>1</g:min_handling_time>
+      <g:max_handling_time>1</g:max_handling_time>
+      <g:min_transit_time>5</g:min_transit_time>
+      <g:max_transit_time>10</g:max_transit_time>
+    </g:shipping>
+    <g:shipping_label>standard</g:shipping_label>
+    <g:adult>no</g:adult>
+    <g:custom_label_0>neck-recovery</g:custom_label_0>
+    <g:custom_label_1>en</g:custom_label_1>
+  </item>
+</channel>
+</rss>

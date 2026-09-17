@@ -20,6 +20,7 @@ import {
   type Review,
   type ReviewStats,
 } from '../lib/reviews-firestore';
+import { trackViewItem } from './GoogleAnalytics';
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
 import ProductBenefits from './ProductBenefits';
@@ -88,6 +89,14 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   }, [slug, reviewSort])
 
   useEffect(() => { loadReviews() }, [loadReviews])
+
+  // GA4 view_item on mount
+  useEffect(() => {
+    if (!product) return
+    const name = getLocalizedProductName(product, locale as string) ?? legacyProduct.name
+    const price = product.price ?? legacyProduct.price
+    trackViewItem(product.slug, name, price)
+  }, [product?.slug])
 
   // Check user review/purchase status
   useEffect(() => {
@@ -168,8 +177,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
   const productFaqs = [
     { q: isEs ? '¿Cuándo llega?' : 'When does it arrive?', a: isEs
-      ? 'Procesamos y enviamos en 24 horas. Entrega estándar: 6-9 días laborables. Exprés de 1-2 días disponible en el checkout. Seguimiento incluido.'
-      : 'We process and ship within 24 hours. Standard delivery: 6-9 business days. Express 1-2 day shipping available at checkout. Tracking included.' },
+      ? 'Procesamos en 24 horas. Entrega estándar 5-10 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.'
+      : 'We process within 24 hours. Standard delivery 5-10 business days with tracking. Express 1-2 day shipping available at checkout.' },
     { q: isEs ? '¿Y si no me gusta?' : 'What if I don\'t like it?', a: isEs
       ? 'Pruébalo 30 noches. Si no cumple, contactas y gestionamos la devolución y el reembolso completo. Sin preguntas.'
       : 'Try it for 30 nights. If it doesn\'t meet your expectations, contact us and we arrange pickup and a full refund. No questions.' },
@@ -274,7 +283,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 sm:py-3">
               <span className="flex items-center gap-1.5"><Truck size={12} className="text-emerald-400" /><span className="text-[11px] sm:text-[13px] font-semibold text-emerald-300">{isEs ? 'Envío gratis' : 'Free shipping'}</span></span>
               <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Envía en 24h' : 'Ships in 24h'}</span>
-              <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 6-9 días' : 'Arrives in 6-9 days'}</span>
+              <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 5-10 días' : 'Arrives in 5-10 days'}</span>
             </div>
 
             {/* Features - collapsible on mobile */}

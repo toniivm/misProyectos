@@ -50,10 +50,19 @@ http
       return;
     }
 
+    const ext = path.extname(filePath).toLowerCase()
     res.setHeader(
       'Content-Type',
-      mimeTypes[path.extname(filePath).toLowerCase()] || 'application/octet-stream',
+      mimeTypes[ext] || 'application/octet-stream',
     );
+    // Cache static assets aggressively, html revalidated
+    if (['.js', '.css', '.webp', '.avif', '.png', '.jpg', '.jpeg', '.svg', '.woff2'].includes(ext)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+    } else if (ext === '.html') {
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate')
+    } else if (ext === '.xml' || ext === '.txt') {
+      res.setHeader('Cache-Control', 'public, max-age=3600')
+    }
 
     fs.createReadStream(filePath).pipe(res);
   })

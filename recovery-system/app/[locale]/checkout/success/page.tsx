@@ -28,7 +28,54 @@ export default function CheckoutSuccessPage() {
     const sessionId = urlParams.get('session_id');
     const orderId = urlParams.get('orderId');
     setRef(orderId ? orderId.slice(-8).toUpperCase() : (sessionId ? sessionId.slice(-8).toUpperCase() : null));
-    
+
+    // --- FIX: capture cart BEFORE clearing so purchase event has data ---
+    let purchaseFired = false
+    try {
+      const rawCart = localStorage.getItem('recover_cart')
+      const rawOrders = localStorage.getItem('noctas_orders')
+      let items: { slug: string; name: string; price: number; qty: number }[] = []
+      let total = 0
+      if (rawCart) {
+        try {
+          const parsed = JSON.parse(rawCart)
+          if (Array.isArray(parsed)) {
+            items = parsed.map((i: any) => ({ slug: i.slug, name: i.name, price: Number(i.price) || 0, qty: Number(i.quantity) || 1 }))
+            total = items.reduce((s, it) => s + it.price * it.qty, 0)
+          }
+        } catch {}
+      }
+      // Fallback: reconstruct from noctas_orders if cart already empty (e.g. direct success link)
+      if (items.length === 0 && rawOrders && orderId) {
+        try {
+          const orders = JSON.parse(rawOrders)
+          const o = orders[orderId]
+          if (o?.items?.length) {
+            items = o.items.map((i: any) => ({ slug: i.id || i.slug, name: i.name, price: Number(i.price) || 0, qty: Number(i.qty) || 1 }))
+            total = Math.round((o.amount || 0)) / 100 || items.reduce((s, it) => s + it.price * it.qty, 0)
+          }
+        } catch {}
+      }
+      if (items.length > 0) {
+        const txId = orderId || sessionId || `order_${Date.now()}`
+        trackPurchase(txId, items, total)
+        purchaseFired = true
+        // Also push utm/gclid for Enhanced Conversions if available
+        try {
+          const utmRaw = localStorage.getItem('utm_params')
+          if (utmRaw) {
+            const utm = JSON.parse(utmRaw)
+            if (utm?.gclid) {
+              ;(window as unknown as { dataLayer: unknown[] }).dataLayer?.push({ event: 'purchase_gclid', gclid: utm.gclid, transaction_id: txId })
+            }
+          }
+        } catch {}
+      }
+    } catch (e) {
+      console.warn('Could not fire purchase event', e)
+    }
+
+    // Now safe to clear cart
     try {
       clear?.();
     } catch (e) {
@@ -72,18 +119,15 @@ export default function CheckoutSuccessPage() {
       }
     }
 
+    // Fallback: if purchase wasn't fired yet (no cart, no order), try session_id param as last resort
+    if (!purchaseFired && sessionId && !orderId) {
+      try {
+        trackPurchase(sessionId, [], 0)
+      } catch {}
+    }
+
     // Request confirmation email from backend
     if (orderId) {
-      // Fire GA4 purchase event
-      try {
-        const stored = localStorage.getItem('recover_cart');
-        if (stored) {
-          const cart = JSON.parse(stored);
-          if (cart.items && Array.isArray(cart.items)) {
-            trackPurchase(orderId, cart.items.map((i: any) => ({ slug: i.slug, name: i.name, price: i.price, qty: i.quantity })), cart.totalWithDiscount ?? cart.subtotal ?? 0);
-          }
-        }
-      } catch {}
 
       fetch(`${API_BASE_URL}/orders/${orderId}/send-confirmation`, {
         method: 'POST',
@@ -133,8 +177,9 @@ export default function CheckoutSuccessPage() {
         <div className="mt-6 flex flex-col items-center gap-1 text-[14px] text-[#8791a1]">
           <span>
             {t('delivery')}:{' '}
-            <strong className="text-[#f2eee7]">6–9 {t('deliveryDays')}</strong>
+            <strong className="text-[#f2eee7]">5–10 {t('deliveryDays')}</strong>
           </span>
+          <span className="text-[11px] text-[#5a6678]">{isEs ? 'Con seguimiento incluido' : 'Tracking included'}</span>
         </div>
 
         {/* Email confirmation status */}

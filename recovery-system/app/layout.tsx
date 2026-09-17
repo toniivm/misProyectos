@@ -32,15 +32,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Noctip™ — Premium Sleep & Recovery Technology',
+    default: 'Noctip™ — Férula Anti-ronquidos, Banda Sueño y Postura | 30 Noches',
     template: '%s | Noctip™',
   },
   description:
-    'Noctip designs sleep and recovery technology. Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping, 30-night guarantee.',
+    'Noctip: férula anti-ronquidos 10mm, banda sueño Bluetooth 5.0 45g 10h lavable, corrector postural y masajeador cervical. Envío 5-10 días, 30 noches de prueba.',
   keywords: [
-    'noctip', 'sleep technology', 'recovery products', 'anti-snoring mouthpiece', 'posture corrector',
-    'sleep headband', 'neck massager', 'cervical massager', 'jaw advancement', 'wellness products',
-    'premium sleep', 'sleep optimization', 'recovery tools', 'biohacking sleep', 'noctip.com',
+    'noctip', 'férula anti ronquidos', 'banda sueño bluetooth', 'sleep headband', 'corrector postural', 'masajeador cervical',
+    'anti-snoring mouthpiece', 'posture corrector', 'neck massager', 'dejar de roncar', 'como dormir mejor',
   ],
   authors: [{ name: 'Noctip', url: 'https://noctip.com' }],
   creator: 'Noctip',

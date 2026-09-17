@@ -7,6 +7,7 @@ import { Truck, RotateCcw, ShieldCheck, ShoppingCart, Check, Star } from 'lucide
 import { useCart } from '../context/CartContext'
 import { CATALOG, CATEGORIES, getLocalizedProductName, getLocalizedCategoryName, getProductsByCategory, type CatalogProduct } from '../lib/catalog'
 import ProductImage from './ProductImage'
+import ProductQuiz from './ProductQuiz'
 import Header from './Header'
 
 const COPY = {
@@ -31,9 +32,13 @@ const COPY = {
     bestseller: {
       badge: 'BESTSELLER',
       heading: 'Noctip Rest',
-      price: '€19.99',
-      comparePrice: '€31.99',
-      savings: '(38% off)',
+      price: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.price ?? 19.99).toFixed(2)}`,
+      comparePrice: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.comparePrice ?? 31.99).toFixed(2)}`,
+      savings: (() => {
+        const p = CATALOG.find(x => x.slug === 'sleep-headband')
+        if (!p || p.comparePrice <= 0) return '(38% off)'
+        return `(${Math.round(((p.comparePrice - p.price) / p.comparePrice) * 100)}% off)`
+      })(),
       subtitle: 'Sleep audio without earbuds. 45 grams that disappear when you wear them.',
       cta: 'Shop now',
       features: ['Bluetooth 5.0 wireless', 'Ultra-thin built-in speakers', 'Machine washable band', '10+ hours battery'],
@@ -41,7 +46,7 @@ const COPY = {
     reviews: { heading: 'Customer Reviews', write: 'Write a review' },
     guarantee: {
       heading: 'Love it, or send it back.',
-      body: 'Try Noctip for 30 days. If it\'s not for you, return it for a full refund — no questions asked.',
+      body: 'Try Noctip for 30 nights. If it\'s not for you, return it for a full refund — no questions asked.',
       cta: 'Shop bestsellers',
     },
     mobile: { cta: 'Shop now' },
@@ -54,8 +59,8 @@ const COPY = {
       cta: 'Ver la colección',
     },
     trust: [
-      { icon: Truck, label: 'Envío gratis', sub: 'En todos los pedidos, sin mínimo.' },
-      { icon: RotateCcw, label: '30 días de devolución', sub: 'Te lo devolvemos todo.' },
+      { icon: Truck, label: 'Envío 5-10 días', sub: 'Con seguimiento incluido.' },
+      { icon: RotateCcw, label: '30 noches de prueba', sub: 'Reembolso total sin preguntas.' },
       { icon: ShieldCheck, label: 'Pago seguro', sub: 'Cifrado y protegido.' },
     ],
     products: { heading: 'Favoritos destacados', viewAll: 'Ver todo' },
@@ -67,9 +72,13 @@ const COPY = {
     bestseller: {
       badge: 'MÁS VENDIDO',
       heading: 'Noctip Rest',
-      price: '€19.99',
-      comparePrice: '€31.99',
-      savings: '(38% dto.)',
+      price: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.price ?? 19.99).toFixed(2)}`,
+      comparePrice: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.comparePrice ?? 31.99).toFixed(2)}`,
+      savings: (() => {
+        const p = CATALOG.find(x => x.slug === 'sleep-headband')
+        if (!p || p.comparePrice <= 0) return '(38% dto.)'
+        return `(${Math.round(((p.comparePrice - p.price) / p.comparePrice) * 100)}% dto.)`
+      })(),
       subtitle: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
       cta: 'Comprar ahora',
       features: ['Bluetooth 5.0 inalámbrico', 'Altavoces ultrafinos integrados', 'Banda lavable a máquina', '10+ horas de batería'],
@@ -77,7 +86,7 @@ const COPY = {
     reviews: { heading: 'Reseñas de clientes', write: 'Escribir reseña' },
     guarantee: {
       heading: 'Te gusta, o te lo devolvemos.',
-      body: 'Prueba Noctip durante 30 días. Si no es para ti, lo devuelves y te reembolsamos todo — sin preguntas.',
+      body: 'Prueba Noctip durante 30 noches. Si no es para ti, lo devuelves y te reembolsamos todo — sin preguntas.',
       cta: 'Ver productos',
     },
     mobile: { cta: 'Comprar ahora' },
@@ -175,6 +184,9 @@ export default function ShopHomePage() {
           </div>
         </section>
 
+        {/* QUIZ — Helps choose, lifts ATC 15-20% in other stores */}
+        <ProductQuiz />
+
         {/* SHOP BY COLLECTION */}
         <section className="py-10 sm:py-16 lg:py-20">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
@@ -257,70 +269,7 @@ export default function ShopHomePage() {
           </div>
         </section>
 
-        {/* REVIEWS */}
-        <section className="py-12 sm:py-20 lg:py-24">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="flex items-center justify-between mb-8 pt-2">
-              <h2 className="text-[18px] sm:text-[22px] font-bold text-[#1a1a1a]">{copy.reviews.heading}</h2>
-              <Link href={`/${locale}/products/sleep-headband`} className="text-[13px] font-medium text-[#374151] hover:text-[#1a1a1a] transition-colors underline underline-offset-4">{copy.reviews.write}</Link>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 mb-10">
-              <div className="flex flex-col items-center sm:items-start shrink-0">
-                <span className="text-[48px] sm:text-[56px] font-bold text-[#1a1a1a] leading-none">4.8</span>
-                <div className="flex items-center gap-0.5 mt-1">
-                  {[1,2,3,4,5].map(s => <Star key={s} size={16} className="fill-amber-400 text-amber-400" />)}
-                </div>
-                <span className="text-[13px] text-[#6b7785] mt-1.5">{isEs ? '300 reseñas' : '300 reviews'}</span>
-              </div>
-              <div className="flex-1 space-y-1.5 max-w-xs">
-                {[5,4,3,2,1].map(star => {
-                  const pcts = [72, 20, 5, 2, 1]
-                  const pct = pcts[5 - star]
-                  return (
-                    <div key={star} className="flex items-center gap-2.5">
-                      <span className="w-3 text-[12px] text-[#6b7785]">{star}</span>
-                      <Star size={12} className="fill-amber-400 text-amber-400 shrink-0" />
-                      <div className="h-2 flex-1 overflow-hidden rounded bg-[#e8e2d8]">
-                        <div className="h-full rounded bg-amber-400" style={{ width: `${pct}%` }} />
-                      </div>
-                      <span className="w-6 text-right text-[11px] text-[#6b7785]">{pct}%</span>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-            <div className="space-y-4">
-              {[
-                { name: 'María G.', initials: 'MG', color: 'bg-[#3b82f6]', rating: 5, date: isEs ? 'hace 1 mes' : '1 month ago', comment: isEs ? 'Llevo una semana usándola y duermo como nunca. Me pongo un podcast y me quedo dormida en minutos.' : 'I\'ve been using it for a week and I sleep like never before. I put on a podcast and fall asleep in minutes.', verified: true },
-                { name: 'Javier P.', initials: 'JP', color: 'bg-[#f59e0b]', rating: 5, date: isEs ? 'hace 1 mes' : '1 month ago', comment: isEs ? 'Primera noche y no ronqué. Mi mujer no lo podía creer. Llevaba años intentando de todo.' : 'First night with it and I didn\'t snore. My wife couldn\'t believe it.', verified: true },
-                { name: 'Laura M.', initials: 'LM', color: 'bg-[#10b981]', rating: 5, date: isEs ? 'hace 2 meses' : '2 months ago', comment: isEs ? 'La tela es suave y no aprieta. La batería dura toda la noche. Muy recomendada.' : 'The fabric is soft and doesn\'t squeeze. Battery lasts all night.', verified: true },
-                { name: 'Carlos R.', initials: 'CR', color: 'bg-[#8b5cf6]', rating: 5, date: isEs ? 'hace 2 meses' : '2 months ago', comment: isEs ? 'Escéptico al principio, pero la diferencia es brutal. En dos semanas se me quitó el dolor de espalda.' : 'Skeptical at first, but the difference is brutal. In two weeks my back pain is gone.', verified: true },
-                { name: 'Ana L.', initials: 'AL', color: 'bg-[#ef4444]', rating: 5, date: isEs ? 'hace 3 meses' : '3 months ago', comment: isEs ? 'El masajeador cervical es increíble. Lo uso cada noche y la tensión del cuello desapareció.' : 'The cervical massager is incredible. I use it every night and neck tension disappeared.', verified: true },
-              ].map((review, idx) => (
-                <motion.div key={review.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }} transition={{ delay: idx * 0.06 }}
-                  className="border-b border-[#e8e2d8] pb-4 last:border-0 last:pb-0">
-                  <div className="flex items-center gap-3 mb-1.5">
-                    <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[12px] font-bold text-white ${review.color}`}>{review.initials}</div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[14px] font-semibold text-[#1a1a1a]">{review.name}</span>
-                      {review.verified && (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600">
-                          <Check size={11} /> {isEs ? 'Compra verificada' : 'Verified purchase'}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 mb-1.5 ml-12">
-                    {[1,2,3,4,5].map(s => <Star key={s} size={13} className={s <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-[#d4d0ca]'} />)}
-                    <span className="text-[12px] text-[#6b7785] ml-1.5">{review.date}</span>
-                  </div>
-                  <p className="text-[14px] leading-[1.6] text-[#374151] ml-12">{review.comment}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* REVIEWS — hidden until real reviews exist to avoid fake social proof */}
 
         {/* GUARANTEE */}
         <section className="py-14 sm:py-20 lg:py-24 border-t border-[#e8e2d8]">
@@ -337,7 +286,7 @@ export default function ShopHomePage() {
         </section>
       </main>
 
-      {/* MOBILE CTA */}
+      {/* MOBILE CTA — price from catalog */}
       <div className={`fixed bottom-0 left-0 right-0 z-40 border-t border-[#e8e2d8] bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:hidden transition-transform duration-300 ${isCartOpen ? 'translate-y-full' : ''}`}>
         <div className="flex items-center gap-2.5">
           <button onClick={openCart} className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#f5f0eb] text-[#1a1a1a]" aria-label="Cart">
@@ -346,9 +295,9 @@ export default function ShopHomePage() {
               <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8] text-[10px] font-bold text-white">{totalItems > 9 ? '9+' : totalItems}</span>
             )}
           </button>
-          <Link href={`/${locale}/shop/all`}
+          <Link href={`/${locale}/products/sleep-headband`}
             className="flex flex-1 items-center justify-center rounded-lg bg-[#1a1a1a] py-3 text-[14px] font-semibold text-white min-h-[48px]">
-            {copy.mobile.cta} — €13.99
+            {copy.mobile.cta} — €{(CATALOG.find(p => p.slug === 'sleep-headband')?.price ?? 19.99).toFixed(2)}
           </Link>
         </div>
       </div>

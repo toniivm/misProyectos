@@ -21,7 +21,7 @@ interface Benefit {
 
 const BENEFITS: Record<string, Benefit[]> = {
   'sleep-headband': [
-    { icon: Moon, title: 'Mejora tu sueño', titleEn: 'Improves your sleep', description: 'El 95% de nuestros usuarios reportan dormir mejor desde la primera semana.', descriptionEn: '95% of our users report sleeping better from the first week.', percentage: 95 },
+    { icon: Moon, title: 'Sueño sin interrupciones', titleEn: 'Uninterrupted sleep', description: 'Duerme con tu música o ruido blanco sin que nada presione tus oídos. Ideal si duermes de lado.', descriptionEn: 'Sleep with your music or white noise without pressure on your ears. Ideal for side sleepers.', percentage: 100 },
     { icon: Zap, title: 'Sin cables ni apps', titleEn: 'No cables or apps', description: 'Te la pones y funciona. Así de simple. Sin configuraciones complejas.', descriptionEn: 'You put it on and it works. That simple. No complex setups.', percentage: 100 },
     { icon: Heart, title: 'Cómoda como una nube', titleEn: 'Comfortable as a cloud', description: '45 gramos que no sientes. Tela suave que desaparece al ponértela.', descriptionEn: '45 grams you won\'t feel. Soft fabric that disappears when you wear it.', percentage: 100 },
     { icon: Clock, title: 'Toda la noche', titleEn: 'All night long', description: '10+ horas de batería cubren toda la noche sin necesidad de cargar.', descriptionEn: '10+ hours of battery cover the whole night without needing to charge.', percentage: 10 },
@@ -29,23 +29,23 @@ const BENEFITS: Record<string, Benefit[]> = {
     { icon: Headphones, title: 'Bluetooth 5.0', titleEn: 'Bluetooth 5.0', description: 'Conexión estable y rápida a tu móvil. Sin cables, sin complicaciones.', descriptionEn: 'Stable and fast connection to your phone. No cables, no complications.', percentage: 100 },
   ],
   halo: [
-    { icon: Moon, title: 'Elimina ronquidos', titleEn: 'Stops snoring', description: 'El 97% de usuarios reportan reducción de ronquidos desde la primera noche.', descriptionEn: '97% of users report snoring reduction from the first night.', percentage: 97 },
+    { icon: Moon, title: 'Noches silenciosas', titleEn: 'Silent nights', description: 'Diseñada para mantener la vía aérea abierta y reducir ronquidos. Muchos usuarios notan mejora desde la primera noche.', descriptionEn: 'Designed to keep the airway open and reduce snoring. Many users notice improvement from night one.', percentage: 97 },
     { icon: Zap, title: 'Ajuste personalizado', titleEn: 'Custom fit', description: '10mm de micro-ajustes para adaptarse perfectamente a tu boca.', descriptionEn: '10mm of micro-adjustments to fit your mouth perfectly.', percentage: 100 },
     { icon: Heart, title: 'Silicona médica', titleEn: 'Medical grade silicone', description: 'Hipoalergénica, suave y segura para uso nocturno.', descriptionEn: 'Hypoallergenic, soft and safe for nightly use.', percentage: 100 },
-    { icon: Clock, title: 'Resultado inmediato', titleEn: 'Immediate results', description: 'Desde la primera noche notarás la diferencia.', descriptionEn: 'From the first night you\'ll feel the difference.', percentage: 1 },
+    { icon: Clock, title: 'Resultado rápido', titleEn: 'Fast results', description: 'Pruébala en casa 30 noches. Si no te convence, devolución total.', descriptionEn: 'Try it at home for 30 nights. Full refund if not satisfied.', percentage: 1 },
     { icon: Shield, title: 'Reutilizable', titleEn: 'Reusable', description: 'Lavable y duradera. Meses de uso sin problemas.', descriptionEn: 'Washable and durable. Months of trouble-free use.', percentage: 100 },
     { icon: Headphones, title: 'Estuche incluido', titleEn: 'Case included', description: 'Estuche de viaje compacto para llevarla a cualquier parte.', descriptionEn: 'Compact travel case to take it anywhere.', percentage: 100 },
   ],
   wave: [
-    { icon: Moon, title: 'Corrige postura', titleEn: 'Corrects posture', description: 'El 93% de usuarios mejoran su postura en 2 semanas.', descriptionEn: '93% of users improve their posture in 2 weeks.', percentage: 93 },
+    { icon: Moon, title: 'Postura alineada', titleEn: 'Aligned posture', description: 'Soporte en Y que te recuerda mantener la espalda recta. Úsalo 15 min/día y nota el hábito.', descriptionEn: 'Y-shaped support that reminds you to keep your back straight. 15 min/day helps build the habit.', percentage: 93 },
     { icon: Zap, title: 'Invisible', titleEn: 'Invisible', description: 'Úsalo debajo de la ropa. Nadie lo notará.', descriptionEn: 'Wear it under your clothes. Nobody will notice.', percentage: 100 },
-    { icon: Heart, title: 'Sin dolor', titleEn: 'Pain free', description: 'Soporte ergonómico que alivia el dolor sin cirugías.', descriptionEn: 'Ergonomic support that relieves pain without surgery.', percentage: 100 },
+    { icon: Heart, title: 'Sin dolor', titleEn: 'Pain free', description: 'Soporte ergonómico que alivia la tensión sin cirugías.', descriptionEn: 'Ergonomic support that eases tension without surgery.', percentage: 100 },
     { icon: Clock, title: 'Solo 15 min/día', titleEn: 'Just 15 min/day', description: '15 minutos al día son suficientes para reconstruir el hábito.', descriptionEn: '15 minutes a day is enough to rebuild the habit.', percentage: 15 },
     { icon: Shield, title: 'Ajustable', titleEn: 'Adjustable', description: 'Correas de XS a XL. Se adapta a cualquier cuerpo.', descriptionEn: 'Straps from XS to XL. Fits any body.', percentage: 100 },
     { icon: Headphones, title: 'Transpirable', titleEn: 'Breathable', description: 'Malla transpirable para comodidad todo el día.', descriptionEn: 'Breathable mesh for all-day comfort.', percentage: 100 },
   ],
   'neck-massager': [
-    { icon: Moon, title: 'Alivio profesional', titleEn: 'Professional relief', description: 'El 96% de usuarios reportan alivio desde la primera sesión.', descriptionEn: '96% of users report relief from the first session.', percentage: 96 },
+    { icon: Moon, title: 'Alivio en minutos', titleEn: 'Relief in minutes', description: 'Sesión de 15 min que libera tensión cervical. Úsalo en casa u oficina.', descriptionEn: '15-min session that releases neck tension. Use at home or office.', percentage: 96 },
     { icon: Zap, title: '3 capas de relajación', titleEn: '3 layers of relaxation', description: 'Nervios, vasos sanguíneos y músculos. Masaje profundo.', descriptionEn: 'Nerves, blood vessels and muscles. Deep massage.', percentage: 3 },
     { icon: Heart, title: '15 minutos', titleEn: '15 minutes', description: 'Cada sesión dura 15 minutos con temporización automática.', descriptionEn: 'Each session lasts 15 minutes with automatic timer.', percentage: 15 },
     { icon: Clock, title: 'Portátil', titleEn: 'Portable', description: 'Compacto y ligero. Úsalo en casa, oficina o viaje.', descriptionEn: 'Compact and lightweight. Use at home, office or travel.', percentage: 100 },

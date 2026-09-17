@@ -26,12 +26,38 @@ export default function CookieConsent() {
   }, [])
 
   const accept = () => {
-    try { localStorage.setItem('noctip_cookie_consent', 'accepted') } catch {}
+    try {
+      localStorage.setItem('noctip_cookie_consent', 'accepted')
+      // Consent Mode v2 update
+      const w = window as unknown as { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] }
+      if (w.gtag) {
+        w.gtag('consent', 'update', {
+          ad_storage: 'granted',
+          analytics_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+        })
+      } else {
+        w.dataLayer = w.dataLayer || []
+        w.dataLayer.push(['consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' }])
+      }
+    } catch {}
     setShow(false)
   }
 
   const reject = () => {
-    try { localStorage.setItem('noctip_cookie_consent', 'rejected') } catch {}
+    try {
+      localStorage.setItem('noctip_cookie_consent', 'rejected')
+      const w = window as unknown as { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] }
+      if (w.gtag) {
+        w.gtag('consent', 'update', {
+          ad_storage: 'denied',
+          analytics_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+        })
+      }
+    } catch {}
     setShow(false)
   }
 

@@ -160,9 +160,9 @@ function validateField(name: string, value: string, isEs: boolean, country?: str
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return isEs ? 'Introduce un correo válido' : 'Enter a valid email address';
       return '';
     case 'phone':
-      if (!value.trim()) return isEs ? 'Introduce tu número de teléfono' : 'Enter your phone number';
+      if (!value.trim()) return ''; // optional now — we ask but don't block
       const digits = value.replace(/\D/g, '');
-      if (digits.length < 9) return isEs ? 'El teléfono debe tener al menos 9 dígitos' : 'Phone must have at least 9 digits';
+      if (digits.length > 0 && digits.length < 9) return isEs ? 'El teléfono debe tener al menos 9 dígitos' : 'Phone must have at least 9 digits';
       return '';
     case 'firstName':
       if (!value.trim()) return isEs ? 'Introduce tu nombre' : 'Enter your first name';
@@ -479,8 +479,24 @@ export default function CheckoutPage() {
           {t('backToShop')}
         </Link>
 
+        {/* Guest checkout reassurance — move above form for trust */}
+        {!user && !authLoading && (
+          <div className="lg:hidden mb-4 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-[13px] text-emerald-300 flex items-center gap-2">
+            <Check size={14} /> {isEs ? 'Compras como invitado — sin crear cuenta' : 'Guest checkout — no account needed'}
+          </div>
+        )}
+
         <div className="grid gap-6 lg:gap-10 lg:grid-cols-[1fr_380px]">
           <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-5">
+            {/* Guest notice desktop */}
+            {!user && !authLoading && (
+              <div className="hidden lg:flex rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-[13px] text-emerald-300 items-center gap-2">
+                <Check size={14} /> {isEs ? 'Compras como invitado — no necesitas crear cuenta. Opcional:' : 'Guest checkout — no account needed. Optional:'}
+                <button type="button" onClick={() => openModal()} className="ml-auto text-[12px] font-semibold underline decoration-emerald-400/40 underline-offset-4 hover:text-emerald-200">
+                  {isEs ? 'Inicia sesión' : 'Sign in'}
+                </button>
+              </div>
+            )}
             {/* ── Contact ── */}
             <section className="checkout-section !p-4 sm:!p-6">
               <div className="mb-4 sm:mb-5 flex items-center gap-2.5 sm:gap-3">
@@ -514,7 +530,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('phone')} <span className="text-[#10BFD8]">*</span>
+                    {t('phone')} <span className="text-[#5a6678] text-[10px]">({isEs ? 'opcional, para seguimiento' : 'optional, for tracking'})</span>
                   </label>
                   <PhoneInputField
                     value={contact.phone}
@@ -523,7 +539,7 @@ export default function CheckoutPage() {
                       handleFieldChange('phone', val || '');
                     }}
                     onBlur={() => handleFieldBlur('phone', contact.phone)}
-                    required
+                    required={false}
                   />
                   {fieldErrors.phone && touchedFields.phone && (
                     <div className="error-message"><AlertCircle size={12} />{fieldErrors.phone}</div>
@@ -764,23 +780,7 @@ export default function CheckoutPage() {
               </div>
             </section>
 
-            {/* ── Auth prompt (optional) ── */}
-            {!user && !authLoading && (
-              <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5 text-[13px] text-[#c8d4e2]">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#10BFD8]/10">
-                    <User size={12} className="text-[#10BFD8]" />
-                  </div>
-                  <div className="flex-1">
-                    <span className="text-[#f2eee7] font-medium">{isEs ? '¿Tienes cuenta? ' : 'Have an account? '}</span>
-                    <button type="button" onClick={() => openModal()}
-                      className="inline-flex items-center rounded-full bg-[#10BFD8]/10 px-3 py-1 text-[12px] font-semibold text-[#10BFD8] transition hover:bg-[#10BFD8]/15">
-                      {isEs ? 'Inicia sesión para ir más rápido' : 'Sign in for faster checkout'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+
 
             {/* ── Payment methods info ── */}
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5">

@@ -29,14 +29,14 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
   return {
     title: isEs
-      ? 'Noctip™ — Sueño y Recuperación que Funciona'
-      : 'Noctip™ — Sleep & Recovery that Works',
+      ? 'Noctip™ — Anti-ronquidos, Banda Sueño y Postura | Envío 5-10 días'
+      : 'Noctip™ — Anti-Snoring, Sleep Headband & Posture | Ships 5-10 Days',
     description: isEs
-      ? 'Noctip diseña productos de sueño y recuperación que funcionan de verdad. Férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales. Envío gratis, garantía de 30 noches.'
-      : 'Noctip designs sleep and recovery products that actually work. Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping, 30-night guarantee.',
+      ? 'Férula anti-ronquidos, banda de sueño Bluetooth 5.0, corrector postural y masajeador cervical. 45g lavable 10h, 10mm ajuste, 30 noches de prueba. Envío 5-10 días.'
+      : 'Anti-snoring mouthpiece, Bluetooth 5.0 sleep headband, posture corrector & neck massager. 45g washable 10h, 10mm fit, 30-night trial. Ships 5-10 days.',
     keywords: isEs
-      ? 'noctip, sueño, recuperación, anti-ronquidos, corrector postural, banda de sueño, masajeador cuello, tecnología sueño, bienestar, envío gratis'
-      : 'noctip, sleep, recovery, anti-snoring, posture corrector, sleep headband, neck massager, sleep technology, wellness, free shipping',
+      ? 'noctip, férula anti ronquidos, banda sueño bluetooth, corrector postural, masajeador cervical, dejar de roncar, como dormir mejor, envío 5-10 días, 30 noches'
+      : 'noctip, anti-snoring mouthpiece, sleep headband bluetooth, posture corrector, neck massager, stop snoring, sleep better, free shipping',
     alternates: {
       canonical: `https://noctip.com/${locale}`,
       languages: {
@@ -180,7 +180,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: '¿Cuánto tarda el envío de Noctip?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Procesamos y enviamos todos los pedidos en un máximo de 24 horas. La entrega estándar en Europa es de 3 a 5 días laborables. Envío exprés de 1-2 días disponible en el checkout.',
+          text: 'Procesamos y enviamos todos los pedidos en 24 horas. Entrega estándar 5-10 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.',
         },
       },
       {
@@ -221,7 +221,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: 'How long does Noctip shipping take?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We process and ship all orders within 24 hours. Standard delivery across Europe takes 6-9 business days. Express 1-2 day shipping is available at checkout.',
+          text: 'We process and ship all orders within 24 hours. Standard delivery takes 5-10 business days with tracking. Express 1-2 day shipping is available at checkout.',
         },
       },
       {
