@@ -13,24 +13,25 @@ import Header from './Header'
 const COPY = {
   en: {
     hero: {
-      tagline: 'REST. RECOVER. RECHARGE.',
-      title: 'Products for better rest and real recovery.',
-      subtitle: 'Sleep and recovery solutions designed to help you sleep deeply, relieve tension, and recover your body — thoughtfully designed to move with your day.',
-      cta: 'Shop the collection',
+      tagline: 'YOUR PARTNER KICKED YOU OUT FOR SNORING? · CAN’T SLEEP WITH EARBUDS?',
+      title: 'Sleep through the night. Wake up like you actually rested.',
+      subtitle: 'No pills, no bulky machines. Anti-snoring mouthpiece, 45g sleep headband and posture tools — 5–10 day delivery, 30-night trial. Pick your problem, we handle the rest.',
+      cta: 'Find my solution in 30s',
+      ctaSecondary: 'See all products',
     },
     trust: [
-      { icon: Truck, label: 'Free shipping', sub: 'On every order, no minimum.' },
-      { icon: RotateCcw, label: '30-day money-back', sub: 'Love it or get a full refund.' },
-      { icon: ShieldCheck, label: 'Secure checkout', sub: 'Encrypted and protected.' },
+      { icon: Truck, label: '5–10 day delivery', sub: 'Tracked. EU warehouse.' },
+      { icon: RotateCcw, label: '30-night trial', sub: 'Full refund, no questions.' },
+      { icon: ShieldCheck, label: 'Secure checkout', sub: 'Stripe • 256-bit SSL.' },
     ],
-    products: { heading: 'Featured favorites', viewAll: 'View all' },
+    products: { heading: 'Pick your problem', sub: '4 focused tools — each solves one thing well.', viewAll: 'View all' },
     why: {
       heading: 'WHY NOCTIP?',
-      body: 'We make calm, useful wellness tech for the small moments that matter — the night you can\'t switch off, the morning you wake up tired, the evening you finally slow down. Thoughtfully designed, quietly effective, made to move with your day.',
-      motto: 'Recovery shouldn\'t be complicated. It should just work.',
+      body: 'We don’t sell “wellness”. We sell quiet nights, necks that don’t crack and backs that don’t ache after 8h at a desk. If it doesn’t help from night one, we don’t sell it.',
+      motto: 'One problem, one product that actually fixes it.',
     },
     bestseller: {
-      badge: 'BESTSELLER',
+      badge: 'HERO PRODUCT',
       heading: 'Noctip Rest',
       price: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.price ?? 19.99).toFixed(2)}`,
       comparePrice: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.comparePrice ?? 31.99).toFixed(2)}`,
@@ -39,38 +40,39 @@ const COPY = {
         if (!p || p.comparePrice <= 0) return '(38% off)'
         return `(${Math.round(((p.comparePrice - p.price) / p.comparePrice) * 100)}% off)`
       })(),
-      subtitle: 'Sleep audio without earbuds. 45 grams that disappear when you wear them.',
-      cta: 'Shop now',
-      features: ['Bluetooth 5.0 wireless', 'Ultra-thin built-in speakers', 'Machine washable band', '10+ hours battery'],
+      subtitle: 'Sleep audio without earbuds. 45g, no pressure on ears — perfect for side sleepers. Washable. 10h battery.',
+      cta: 'Get Rest — 30-night trial',
+      features: ['Side-sleeper friendly — no ear pressure', 'Machine washable — speakers pop out in seconds', '10h battery — lasts the whole night', 'Bluetooth 5.0 — phone stays on nightstand'],
     },
     reviews: { heading: 'Customer Reviews', write: 'Write a review' },
     guarantee: {
-      heading: 'Love it, or send it back.',
-      body: 'Try Noctip for 30 nights. If it\'s not for you, return it for a full refund — no questions asked.',
-      cta: 'Shop bestsellers',
+      heading: 'Try it 30 nights. Keep it only if you sleep better.',
+      body: 'If your nights aren’t quieter or your neck/back don’t feel it, we pick it up and refund 100% — no forms, no hassle.',
+      cta: 'Shop with guarantee',
     },
-    mobile: { cta: 'Shop now' },
+    mobile: { cta: 'Find my fix' },
   },
   es: {
     hero: {
-      tagline: 'DESCANSA. RECUPÉRATE. RECÁRGATE.',
-      title: 'Productos para un descanso real y una recuperación de verdad.',
-      subtitle: 'Soluciones de sueño y recuperación diseñadas para ayudarte a dormir, aliviar tensiones y recuperar tu cuerpo — pensadas para acompañarte cada día.',
-      cta: 'Ver la colección',
+      tagline: '¿TU PAREJA TE ECHA POR RONCAR? · ¿NO SOPORTAS DORMIR CON AURICULARES?',
+      title: 'Duerme toda la noche. Despierta como si hubieras descansado.',
+      subtitle: 'Sin pastillas ni aparatos enormes. Férula anti-ronquidos, banda de 45g y correctores posturales — entrega 5–10 días, 30 noches de prueba. Elige tu problema, nosotros el resto.',
+      cta: 'Encuentra mi solución en 30s',
+      ctaSecondary: 'Ver todos',
     },
     trust: [
-      { icon: Truck, label: 'Envío 5-10 días', sub: 'Con seguimiento incluido.' },
-      { icon: RotateCcw, label: '30 noches de prueba', sub: 'Reembolso total sin preguntas.' },
-      { icon: ShieldCheck, label: 'Pago seguro', sub: 'Cifrado y protegido.' },
+      { icon: Truck, label: 'Entrega 5–10 días', sub: 'Con seguimiento. Desde UE.' },
+      { icon: RotateCcw, label: '30 noches de prueba', sub: 'Reembolso total.' },
+      { icon: ShieldCheck, label: 'Pago seguro', sub: 'Stripe • SSL 256 bits.' },
     ],
-    products: { heading: 'Favoritos destacados', viewAll: 'Ver todo' },
+    products: { heading: 'Elige tu problema', sub: '4 herramientas — cada una resuelve una cosa bien.', viewAll: 'Ver todo' },
     why: {
       heading: '¿POR QUÉ NOCTIP?',
-      body: 'Hacemos tecnología de bienestar tranquila y útil para esos pequeños momentos que importan — la noche que no puedes desconectar, la mañana que te levantas cansado, la tarde en por fin te relajas. Diseñados con cuidado, efectivos en silencio, hechos para acompañarte.',
-      motto: 'La recuperación no debería ser complicada. Solo debería funcionar.',
+      body: 'No vendemos “bienestar”. Vendemos noches sin roncar, cuellos que no crujen y espaldas que no duelen tras 8h sentado. Si no se nota desde la primera noche, no lo vendemos.',
+      motto: 'Un problema, un producto que lo soluciona.',
     },
     bestseller: {
-      badge: 'MÁS VENDIDO',
+      badge: 'PRODUCTO HÉROE',
       heading: 'Noctip Rest',
       price: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.price ?? 19.99).toFixed(2)}`,
       comparePrice: `€${(CATALOG.find(p => p.slug === 'sleep-headband')?.comparePrice ?? 31.99).toFixed(2)}`,
@@ -79,17 +81,17 @@ const COPY = {
         if (!p || p.comparePrice <= 0) return '(38% dto.)'
         return `(${Math.round(((p.comparePrice - p.price) / p.comparePrice) * 100)}% dto.)`
       })(),
-      subtitle: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
-      cta: 'Comprar ahora',
-      features: ['Bluetooth 5.0 inalámbrico', 'Altavoces ultrafinos integrados', 'Banda lavable a máquina', '10+ horas de batería'],
+      subtitle: 'Audio para dormir sin auriculares. 45g, no presiona — ideal si duermes de lado. Lavable. 10h.',
+      cta: 'Quiero Rest — 30 noches',
+      features: ['Ideal de lado — sin presión en orejas', 'Lavable — altavoces salen en segundos', '10h batería — toda la noche', 'Bluetooth 5.0 — móvil en la mesita'],
     },
     reviews: { heading: 'Reseñas de clientes', write: 'Escribir reseña' },
     guarantee: {
-      heading: 'Te gusta, o te lo devolvemos.',
-      body: 'Prueba Noctip durante 30 noches. Si no es para ti, lo devuelves y te reembolsamos todo — sin preguntas.',
-      cta: 'Ver productos',
+      heading: 'Pruébalo 30 noches. Quédate solo si duermes mejor.',
+      body: 'Si tus noches no son más silenciosas o tu cuello/espalda no lo nota, lo recogemos y te devolvemos el 100% — sin formularios.',
+      cta: 'Comprar con garantía',
     },
-    mobile: { cta: 'Comprar ahora' },
+    mobile: { cta: 'Mi solución' },
   },
 }
 
@@ -142,13 +144,20 @@ export default function ShopHomePage() {
                 </Link>
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-                <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-[#8791a1] mb-4 block">{copy.hero.tagline}</span>
+                <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] text-[#10BFD8] mb-4 block">{copy.hero.tagline}</span>
                 <h1 className="text-[clamp(2rem,6vw,3.5rem)] font-bold leading-[1.1] tracking-[-0.02em] text-[#f6f2eb]">{copy.hero.title}</h1>
-                <p className="mt-4 max-w-md text-[15px] sm:text-[16px] leading-[1.7] text-[#8791a1]">{copy.hero.subtitle}</p>
-                <Link href={`/${locale}/shop/all`}
-                  className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#1a1a1a] px-7 py-3.5 text-[14px] font-semibold text-white transition-all hover:bg-[#2a2a2a] min-h-[48px]">
-                  {copy.hero.cta}
-                </Link>
+                <p className="mt-4 max-w-md text-[15px] sm:text-[16px] leading-[1.7] text-[#c8d0da]">{copy.hero.subtitle}</p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a href="#quiz" onClick={(e)=>{e.preventDefault(); document.getElementById('quiz')?.scrollIntoView({behavior:'smooth'})}}
+                    className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-[14px] font-bold text-[#080c12] hover:bg-[#f2eee7] transition-all min-h-[48px]">
+                    {copy.hero.cta}
+                  </a>
+                  <Link href={`/${locale}/shop/all`}
+                    className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-7 py-3.5 text-[14px] font-semibold text-[#c8d0da] hover:bg-white hover:text-[#080c12] transition-all min-h-[48px]">
+                    {copy.hero.ctaSecondary}
+                  </Link>
+                </div>
+                <p className="mt-3 text-[12px] text-[#6b7785]">{isEs ? 'Entrega 5–10 días · 30 noches de prueba · Pago Stripe' : '5–10 day delivery · 30-night trial · Stripe checkout'}</p>
               </motion.div>
             </div>
           </div>
@@ -172,9 +181,12 @@ export default function ShopHomePage() {
         {/* FEATURED PRODUCTS */}
         <section className="py-10 sm:py-16 lg:py-20">
           <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <div className="flex items-center justify-between mb-6 sm:mb-8">
-              <h2 className="text-[clamp(1.2rem,3vw,1.8rem)] font-bold text-[#1a1a1a]">{copy.products.heading}</h2>
-              <Link href={`/${locale}/shop/all`} className="text-[13px] font-medium text-[#6b7785] hover:text-[#1a1a1a] transition-colors">{copy.products.viewAll}</Link>
+            <div className="flex items-end justify-between mb-6 sm:mb-8 gap-4">
+              <div>
+                <h2 className="text-[clamp(1.2rem,3vw,1.8rem)] font-bold text-[#1a1a1a]">{copy.products.heading}</h2>
+                <p className="text-[13px] text-[#6b7785] mt-1">{(copy.products as any).sub}</p>
+              </div>
+              <Link href={`/${locale}/shop/all`} className="text-[13px] font-medium text-[#6b7785] hover:text-[#1a1a1a] transition-colors shrink-0">{copy.products.viewAll}</Link>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {CATALOG.map((product) => (
@@ -185,7 +197,7 @@ export default function ShopHomePage() {
         </section>
 
         {/* QUIZ — Helps choose, lifts ATC 15-20% in other stores */}
-        <ProductQuiz />
+        <div id="quiz"><ProductQuiz /></div>
 
         {/* SHOP BY COLLECTION */}
         <section className="py-10 sm:py-16 lg:py-20">
@@ -222,9 +234,9 @@ export default function ShopHomePage() {
         <section className="py-12 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-[640px] px-4 sm:px-6 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <h2 className="text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.25em] text-[#6b7785] mb-4">{copy.why.heading}</h2>
-              <p className="text-[14px] sm:text-[15px] leading-[1.8] text-[#4a4a4a]">{copy.why.body}</p>
-              <p className="mt-5 text-[14px] sm:text-[15px] italic text-[#6b7785]">&ldquo;{copy.why.motto}&rdquo;</p>
+              <h2 className="text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.25em] text-[#10BFD8] mb-4">{copy.why.heading}</h2>
+              <p className="text-[15px] sm:text-[16px] leading-[1.8] text-[#1a1a1a] font-medium">{copy.why.body}</p>
+              <p className="mt-5 text-[14px] sm:text-[15px] italic font-semibold text-[#0b9bb0]">&ldquo;{copy.why.motto}&rdquo;</p>
             </motion.div>
           </div>
         </section>

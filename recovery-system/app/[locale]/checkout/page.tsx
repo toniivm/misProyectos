@@ -177,7 +177,7 @@ function validateField(name: string, value: string, isEs: boolean, country?: str
       if (value.trim().length < 5) return isEs ? 'La dirección debe ser más específica' : 'Please enter a more specific address';
       return '';
     case 'streetNumber':
-      if (!value.trim()) return isEs ? 'Introduce el número' : 'Enter the street number';
+      // optional now — many addresses include number in streetName (autocomplete) or are s/n
       return '';
     case 'city':
       if (!value.trim()) return isEs ? 'Introduce tu ciudad' : 'Enter your city';
@@ -279,11 +279,10 @@ export default function CheckoutPage() {
     const errors: FieldErrors = {};
     const allFields: Record<string, string> = {
       email: contact.email,
-      phone: contact.phone,
+      // phone optional
       firstName: shipping.firstName,
       lastName: shipping.lastName,
       streetName: shipping.streetName,
-      streetNumber: shipping.streetNumber,
       city: shipping.city,
       province: shipping.province,
       zip: shipping.zip,
@@ -591,7 +590,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('streetName')} <span className="text-[#10BFD8]">*</span>
+                    {isEs ? 'Dirección (calle y número)' : 'Address (street and number)'} <span className="text-[#10BFD8]">*</span>
                   </label>
                   <AddressAutocomplete
                     value={shipping.streetName}
@@ -602,28 +601,17 @@ export default function CheckoutPage() {
                     onAddressSelect={handleAddressSelect}
                     required
                     locale={locale}
+                    placeholder={isEs ? 'Ej: Calle Mayor 5, 2ºB' : 'e.g. Main St 5, Apt 2B'}
                     className={getFieldClassName('streetName', !!shipping.streetName)}
                   />
                   {fieldErrors.streetName && touchedFields.streetName && (
                     <div className="error-message"><AlertCircle size={12} />{fieldErrors.streetName}</div>
                   )}
                 </div>
-                <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('streetNumber')} <span className="text-[#10BFD8]">*</span>
-                  </label>
-                  <input type="text" required value={shipping.streetNumber}
-                    inputMode="numeric"
-                    onChange={(e) => {
-                      setShipping((s) => ({...s, streetNumber: e.target.value}));
-                      handleFieldChange('streetNumber', e.target.value);
-                    }}
-                    onBlur={(e) => handleFieldBlur('streetNumber', e.target.value)}
-                    placeholder="Nº"
-                    className={getFieldClassName('streetNumber', !!shipping.streetNumber)} />
-                  {fieldErrors.streetNumber && touchedFields.streetNumber && (
-                    <div className="error-message"><AlertCircle size={12} />{fieldErrors.streetNumber}</div>
-                  )}
+                <div className="hidden">
+                  <input type="text" value={shipping.streetNumber}
+                    onChange={(e) => setShipping((s) => ({...s, streetNumber: e.target.value}))}
+                    placeholder="Nº" />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('floor')}</label>
@@ -738,6 +726,9 @@ export default function CheckoutPage() {
 
               {/* Payment methods available */}
               <PaymentLogos className="mb-4" />
+              <p className="mb-4 text-center text-[11px] leading-4 text-[#6b7785]">
+                {isEs ? 'Serás redirigido a Stripe para pagar con tarjeta, Apple Pay o Google Pay — según tu dispositivo.' : 'You’ll be redirected to Stripe to pay with card, Apple Pay or Google Pay — depending on your device.'}
+              </p>
 
               {/* Security info */}
               <div className="space-y-2">

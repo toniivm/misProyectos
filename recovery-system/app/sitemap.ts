@@ -51,6 +51,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${BASE_URL}/${locale}/blog`, lastModified: buildDate, changeFrequency: 'weekly', priority: 0.7 },
       { url: `${BASE_URL}/${locale}/blog/como-dejar-de-roncar-sin-cirugia`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
       { url: `${BASE_URL}/${locale}/blog/como-dormir-mejor-sin-pastillas`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
+      { url: `${BASE_URL}/${locale}/blog/corrector-postura-funciona-de-verdad`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
+      { url: `${BASE_URL}/${locale}/blog/masajeador-cervical-beneficios`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
       { url: `${BASE_URL}/${locale}/legal/privacy`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.3 },
       { url: `${BASE_URL}/${locale}/legal/terms`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.3 },
       { url: `${BASE_URL}/${locale}/legal/shipping`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.4 },

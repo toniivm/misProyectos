@@ -18,6 +18,22 @@ const POSTS = [
     excerpt_en: 'Light, noise, routine. Before pills, try this — including a sleep headband like Rest if you hate earbuds.',
     date: '2026-09-17',
   },
+  {
+    slug: 'corrector-postura-funciona-de-verdad',
+    title_es: 'Corrector de postura: ¿funciona de verdad o es placebo?',
+    title_en: 'Posture Corrector: Does It Really Work or Is It Placebo?',
+    excerpt_es: 'Evidencia honesta: 15 min/día + ejercicios. Cuándo ayuda Noctip Back y cuándo no.',
+    excerpt_en: 'Honest evidence: 15 min/day + exercises. When Noctip Back helps and when not.',
+    date: '2026-09-17',
+  },
+  {
+    slug: 'masajeador-cervical-beneficios',
+    title_es: 'Masajeador cervical: beneficios y contraindicaciones',
+    title_en: 'Cervical Massager: Benefits and Contraindications',
+    excerpt_es: '15 min, 3 capas, electrodos curvos. Quién sí, quién no y rutina segura.',
+    excerpt_en: '15 min, 3 layers, curved electrodes. Who benefits, who avoids and safe routine.',
+    date: '2026-09-17',
+  },
 ]
 
 export async function generateMetadata({ params }: { params: { locale: string }}): Promise<Metadata> {

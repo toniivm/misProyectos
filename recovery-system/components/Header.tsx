@@ -89,7 +89,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
       <div className="bg-[#1a1a1a] text-white">
         <div className="mx-auto max-w-[1320px] px-4">
           <div className="flex items-center justify-center gap-2 sm:gap-6 py-2 text-[10px] sm:text-[12px] font-bold tracking-wide text-center">
-            <span className="flex items-center gap-1.5">🚚 {isEs ? 'Envío gratis en todos los pedidos' : 'Free shipping on all orders'}</span>
+            <span className="flex items-center gap-1.5">🚚 {isEs ? 'Entrega 5–10 días con seguimiento' : '5–10 day delivery with tracking'}</span>
             <span className="hidden sm:flex items-center gap-1.5">🔄 {isEs ? '30 noches de prueba' : '30-night trial'}</span>
             <span className="hidden md:flex items-center gap-1.5">🔒 {isEs ? 'Pago 100% seguro' : '100% secure payment'}</span>
           </div>

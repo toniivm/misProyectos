@@ -111,6 +111,68 @@ const POSTS: Record<string, Post> = {
       { q: 'Shipping?', a: '24h handling, 5-10 days. 30-night guarantee.' },
     ],
   },
+  'corrector-postura-funciona-de-verdad': {
+    slug: 'corrector-postura-funciona-de-verdad',
+    title_es: 'Corrector de postura: ¿funciona de verdad o es placebo?',
+    title_en: 'Posture Corrector: Does It Really Work or Is It Placebo?',
+    desc_es: 'Evidencia, postura en Y, 15 min/día y ejercicios. Cuándo ayuda Noctip Back y cuándo no.',
+    desc_en: 'Evidence, Y-shape, 15 min/day and exercises. When Noctip Back helps and when it does not.',
+    body_es: `
+<h2>1) Qué hace un corrector</h2><p>Recuerda a tu cuerpo la posición neutra (hombros atrás, pecho abierto). No “corrige” huesos, reentrena hábito neuromuscular. Útil si te encorvas 6-8h sentado.</p>
+<h2>2) Evidencia</h2><p>Soporte externo + pausas activas mejora postura percibida en 2-4 semanas. Sin ejercicios, el efecto se pierde al quitarlo.</p>
+<h2>3) Cómo usar Noctip Back</h2><ul><li>15 min/día, sube 5 min cada 3 días. Debajo de camiseta, talla XS-XL. Malla transpirable.</li><li>Combina: retracciones cervicales 10×3/día, estiramiento pecho 30s ×2.</li></ul>
+<h2>4) Cuándo NO usar</h2><p>Dolor agudo, hernia sin diagnóstico, embarazo sin consejo médico. Si hormigueo/dolor aumenta, para.</p>
+<p><em>Tienda:</em> <a href="/es/products/wave">Noctip Back</a> — 5-10 días, 30 noches. También <a href="/es/products/neck-massager">Cervical</a> para tensión puntual 15 min.</p>
+`,
+    body_en: `
+<h2>1) What it does</h2><p>Reminds your body of neutral posture (shoulders back, chest open). Not bone correction, habit retraining. Useful if you hunch 6-8h.</p>
+<h2>2) Evidence</h2><p>Support + active breaks improves perceived posture in 2-4 weeks. Without exercise, effect fades when removed.</p>
+<h2>3) How to use Noctip Back</h2><ul><li>15 min/day, +5 min every 3 days. Under tee, XS-XL. Breathable mesh.</li><li>Add: chin tucks 10×3/day, chest stretch 30s ×2.</li></ul>
+<h2>4) When not</h2><p>Acute pain, undiagnosed hernia, pregnancy without advice. Numbness ↑ → stop.</p>
+<p><em>Store:</em> <a href="/en/products/wave">Noctip Back</a> — ships 5-10 days, 30 nights. Also <a href="/en/products/neck-massager">Cervical</a> 15 min.</p>
+`,
+    faq_es: [
+      { q: '¿Todo el día?', a: 'No. 15-60 min/día. Todo el día crea dependencia muscular.' },
+      { q: '¿Se ve bajo ropa?', a: 'Y fino, invisible bajo camiseta holgada.' },
+      { q: '¿Envío?', a: '24h proceso, 5-10 días. 30 noches.' },
+    ],
+    faq_en: [
+      { q: 'All day?', a: 'No. 15-60 min/day. All day creates dependence.' },
+      { q: 'Visible?', a: 'Thin Y, invisible under loose tee.' },
+      { q: 'Shipping?', a: '24h, 5-10 days. 30 nights.' },
+    ],
+  },
+  'masajeador-cervical-beneficios': {
+    slug: 'masajeador-cervical-beneficios',
+    title_es: 'Masajeador cervical: beneficios, contraindicaciones y uso diario',
+    title_en: 'Cervical Massager: Benefits, Contraindications and Daily Use',
+    desc_es: '15 min, 3 capas, electrodos curvos. Para quién sí, para quién no, y rutina diaria segura.',
+    desc_en: '15 min, 3 layers, curved electrodes. Who benefits, who should avoid, safe daily routine.',
+    body_es: `
+<h2>1) Para qué sirve</h2><p>Libera tensión de trapecio/ECOM tras móvil/ordenador. Calor + pulsos + presión suave mejoran sensación de descanso.</p>
+<h2>2) Cómo usar Noctip Cervical</h2><ul><li>15 min sesión auto, 1/día. Electrodos curvos adaptables, no aprietes. Limpia piel antes.</li><li>Postura: sentado recto, hombros bajos, respira nasal 4-6.</li></ul>
+<h2>3) Contraindicaciones</h2><p>Marcapasos, embarazo, piel dañada, fiebre, trombos, cervical operada sin alta. Duda → médico.</p>
+<h2>4) Rutina</h2><p>Mañana o noche, tras estirar cuello 30s lado/ lado. Si dolor >3 días o irradia a mano, para y consulta.</p>
+<p><em>Tienda:</em> <a href="/es/products/neck-massager">Noctip Cervical</a> — portátil, USB, 5-10 días. Combínalo con <a href="/es/products/wave">Back</a> para postura.</p>
+`,
+    body_en: `
+<h2>1) What for</h2><p>Releases trap/SCM tension after phone/desk. Heat + pulses + gentle pressure.</p>
+<h2>2) How to use Cervical</h2><ul><li>15 min auto, 1/day. Curved electrodes, don’t overtighten. Clean skin.</li><li>Posture: upright, shoulders down, nasal 4-6 breathing.</li></ul>
+<h2>3) Avoid if</h2><p>Pacemaker, pregnancy, broken skin, fever, clots, operated neck without clearance. Doubt → doctor.</p>
+<h2>4) Routine</h2><p>AM or PM after 30s/side stretch. Pain >3 days or radiating → stop.</p>
+<p><em>Store:</em> <a href="/en/products/neck-massager">Cervical</a> — portable, USB, 5-10 days. Pair with <a href="/en/products/wave">Back</a>.</p>
+`,
+    faq_es: [
+      { q: '¿Cada día?', a: 'Sí, 15 min/día. No más de 2 sesiones seguidas.' },
+      { q: '¿Alergia?', a: 'No alergénico, carcasas ABS/TPR. Limpia electrodos tras uso.' },
+      { q: '¿Envío?', a: '24h, 5-10 días. 30 noches.' },
+    ],
+    faq_en: [
+      { q: 'Daily?', a: 'Yes, 15 min/day. No more than 2 back-to-back.' },
+      { q: 'Allergy?', a: 'Non-allergenic ABS/TPR. Wipe electrodes after.' },
+      { q: 'Shipping?', a: '24h, 5-10 days. 30 nights.' },
+    ],
+  },
 }
 
 export function generateStaticParams() {

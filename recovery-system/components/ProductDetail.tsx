@@ -20,7 +20,7 @@ import {
   type Review,
   type ReviewStats,
 } from '../lib/reviews-firestore';
-import { trackViewItem } from './GoogleAnalytics';
+import { trackViewItem, trackAddToCart } from './GoogleAnalytics';
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
 import ProductBenefits from './ProductBenefits';
@@ -133,14 +133,12 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     // Add qty efficiently: first add, then updateQty to target (avoids qty dispatches)
     add({ slug: legacyProduct.slug, name: cartName, price: displayPrice, icon });
     if (qty > 1) {
-      // CartContext will have 1, bump to qty
-      // Use timeout to let reducer apply first add
       setTimeout(() => {
-        // Find item and set qty directly via updateQty if available
-        // Fallback: add remaining
         for (let q = 1; q < qty; q++) add({ slug: legacyProduct.slug, name: cartName, price: displayPrice, icon });
       }, 0);
     }
+    // GA4 add_to_cart
+    try { trackAddToCart(legacyProduct.slug, cartName, displayPrice * qty) } catch {}
     setAdded(true);
     openCart();
     setTimeout(() => setAdded(false), 2500);
@@ -194,8 +192,14 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       ? 'Sí. Stripe con cifrado SSL de 256 bits. Nunca almacenamos datos de tarjeta. Visa, Mastercard, Amex, Apple Pay y Google Pay.'
       : 'Yes. Stripe with 256-bit SSL encryption. We never store card data. Visa, Mastercard, Amex, Apple Pay, and Google Pay.' },
     { q: isEs ? '¿Qué incluye exactamente?' : 'What exactly is included?', a: isEs
-      ? `El ${displayName} incluye todo lo necesario para empezar a usarlo inmediatamente.`
-      : `The ${displayName} includes everything you need to start using it immediately.` },
+      ? `El ${displayName} incluye todo lo necesario para empezar a usarlo inmediatamente. Revisa “Qué incluye” más abajo.`
+      : `The ${displayName} includes everything you need to start using it right away. See “What’s included” below.` },
+    { q: isEs ? '¿ Necesito crear cuenta?' : 'Do I need an account?', a: isEs
+      ? 'No. Compras como invitado y pagas con Stripe. Si quieres, creas cuenta después para ver tu pedido.'
+      : 'No. Guest checkout with Stripe. Create an account later if you want to track your order.' },
+    { q: isEs ? '¿Puedo lavar o reutilizar?' : 'Is it washable/reusable?', a: isEs
+      ? 'Sí. Rest es lavable (retira altavoces), Halo se enjuaga y dura meses, Back/Cervical se limpian en seco.'
+      : 'Yes. Rest is washable (remove speakers), Halo rinses and lasts months, Back/Cervical wipe clean.' },
   ];
 
   const allImages = product?.images ?? [];
