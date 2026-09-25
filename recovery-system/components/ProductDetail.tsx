@@ -310,13 +310,22 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </p>
             )}
 
-            {/* Price */}
+            {/* Price — grande como Manta/ZQuiet */}
             <div className="flex items-baseline gap-2 sm:gap-3">
-              <span className="text-[1.75rem] sm:text-[2.4rem] font-bold tracking-[-0.04em] text-[#f6f2eb]">€{displayPrice}</span>
-              <span className="text-[13px] sm:text-[16px] text-[#4a5568] line-through">€{displayComparePrice}</span>
-              <span className="rounded-full bg-[#10BFD8]/15 px-2 py-0.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-[#10BFD8]">
-                {isEs ? 'Ahorra' : 'Save'} {savings}%
+              <span className="text-[2rem] sm:text-[2.6rem] font-bold tracking-[-0.04em] text-[#f6f2eb]">€{displayPrice}</span>
+              <span className="text-[14px] sm:text-[16px] text-[#4a5568] line-through">€{displayComparePrice}</span>
+              <span className="rounded-full bg-[#10BFD8]/15 px-3 py-1 text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.1em] text-[#10BFD8]">
+                SAVE {savings}% · {isEs ? 'Ahorra' : 'Save'} {savings}%
               </span>
+            </div>
+
+            {/* Sello grande arriba — VitalSleep 60-night style */}
+            <div className="flex flex-wrap items-center gap-2 rounded-xl border border-[#10BFD8]/20 bg-[#10BFD8]/5 px-3 py-2.5">
+              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><RotateCcw size={13} />{isEs ? '60 noches · devolución completa' : '60 nights · full refund'}</span>
+              <span className="h-3 w-px bg-white/10 hidden sm:block" />
+              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><Truck size={13} />{isEs ? 'Cambio talla gratis' : 'Free size exchange'}</span>
+              <span className="h-3 w-px bg-white/10 hidden sm:block" />
+              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><ShieldCheck size={13} />{isEs ? '1 año garantía' : '1-year warranty'}</span>
             </div>
 
             {/* Shipping badge */}
@@ -325,44 +334,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Envía en 24h' : 'Ships in 24h'}</span>
               <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 5-10 días' : 'Arrives in 5-10 days'}</span>
             </div>
-
-            {/* Features - collapsible on mobile */}
-            {product?.features && (
-              <ul className="space-y-1.5 sm:space-y-2.5">
-                {product.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-[12px] sm:text-[14px] leading-[1.4] sm:leading-6 text-[#c8d0da]">
-                    <span className="mt-[2px] flex h-4 sm:h-5 w-4 sm:w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-                      <Check size={9} className="text-[#10BFD8]" />
-                    </span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {/* Size selector */}
-            {product?.specs?.['Tallas'] && (
-              <div>
-                <span className="text-[12px] sm:text-[13px] font-medium text-[#c8d0da] mb-2 block">
-                  {isEs ? 'Seleccionar talla' : 'Select size'}
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {product.specs['Tallas'].split(' / ').map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`rounded-full border px-3.5 sm:px-4 py-2 sm:py-2.5 text-[12px] sm:text-[13px] font-medium transition-all min-h-[44px] ${
-                        selectedSize === size
-                          ? 'border-[#10BFD8] bg-[#10BFD8]/10 text-[#10BFD8]'
-                          : 'border-white/10 bg-white/[0.03] text-[#8791a1] hover:border-white/20 hover:text-[#c8d0da]'
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Trust badges — honest 5-10 days */}
             <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
@@ -381,6 +352,47 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Oliver West style Bundle Selector */}
             {product && (
               <BundleSelector product={product} onAdd={handleBundleAdd} added={added} />
+            )}
+
+            {/* Tabla comparativa — Manta vs Generic (Manta 42% slimmer) */}
+            {product && (
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                <div className="grid grid-cols-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[#6b7785] bg-white/[0.04] px-3 py-2.5">
+                  <span></span>
+                  <span className="text-center text-[#10BFD8]">Noctip</span>
+                  <span className="text-center">Genérico</span>
+                </div>
+                {(() => {
+                  const rows = product.slug === 'sleep-headband'
+                    ? [['Peso','45g','~80g'],['Batería','10h','4-6h'],['Lavable','Sí','No'],['BT','5.0','4.2']]
+                    : product.slug === 'halo'
+                    ? [['Ajuste','10mm micro','—'],['Moldeado','Hervir y morder','—'],['Material','Silicona médica','Plástico'],['Incluye','Estuche','No']]
+                    : product.slug === 'wave'
+                    ? [['Tallas','XS-XL','S/M/L'],['Invisible','Sí','No'],['Malla','Transpirable','Nylon'],['Tiempo','15 min/día','1h']]
+                    : [['Tiempo','15 min','30 min'],['Peso','200g','500g'],['Auto-off','Sí 15min','No'],['Portátil','Sí','No']];
+                  return rows.map(([a,b,c]) => (
+                    <div key={a} className="grid grid-cols-3 text-[12px] px-3 py-2.5 border-t border-white/[0.05]">
+                      <span className="text-[#8791a1]">{a}</span>
+                      <span className="text-center font-semibold text-[#f2eee7]">{b}</span>
+                      <span className="text-center text-[#6b7785]">{c}</span>
+                    </div>
+                  ));
+                })()}
+              </div>
+            )}
+
+            {/* Features - después de oferta (Manta orden) */}
+            {product?.features && (
+              <ul className="space-y-1.5 sm:space-y-2.5">
+                {product.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-[12px] sm:text-[14px] leading-[1.4] sm:leading-6 text-[#c8d0da]">
+                    <span className="mt-[2px] flex h-4 sm:h-5 w-4 sm:w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
+                      <Check size={9} className="text-[#10BFD8]" />
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
             )}
 
             {/* Fallback single add hidden but kept for non-bundle SEO */}
