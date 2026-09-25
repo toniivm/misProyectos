@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         es: `https://noctip.com/es/shop/${params.category}`,
         en: `https://noctip.com/en/shop/${params.category}`,
+        'x-default': `https://noctip.com/es/shop/${params.category}`,
       },
     },
     openGraph: {

@@ -38,11 +38,11 @@ export default function ShippingPage(){
           <section>
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? 'Envío estándar' : 'Standard Shipping'}</h2>
             <ul className="list-disc ml-5 space-y-2">
-              <li><strong>España peninsular:</strong> {isEs ? '2-4 días laborables' : '2-4 business days'}</li>
-              <li><strong>{isEs ? 'Europa' : 'Europe'}:</strong> {isEs ? '3-7 días laborables' : '3-7 business days'}</li>
+              <li><strong>España peninsular:</strong> {isEs ? '5-10 días laborables (procesamiento 24h + tránsito) — seguimiento incluido' : '5-10 business days (24h processing + transit) — tracking included'}</li>
+              <li><strong>{isEs ? 'Europa' : 'Europe'}:</strong> {isEs ? '5-10 días laborables — seguimiento incluido' : '5-10 business days — tracking included'}</li>
               <li><strong>{isEs ? 'Resto del mundo' : 'Rest of world'}:</strong> {isEs ? '7-14 días laborables' : '7-14 business days'}</li>
             </ul>
-            <p className="mt-2">{isEs ? 'Envío gratuito en todos los pedidos.' : 'Free shipping on all orders.'}</p>
+            <p className="mt-2">{isEs ? 'Envío gratuito en todos los pedidos. Transportista: Correos Express / GLS. Plazo máximo legal 30 días.' : 'Free shipping on all orders. Carrier: Correos Express / GLS. Legal max 30 days.'}</p>
           </section>
 
           <section>

@@ -253,7 +253,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
                       lightboxIdx === idx ? 'border-[#10BFD8]' : 'border-white/20 opacity-50'
                     }`}
                   >
-                    <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                    <img src={src} alt={`${alt} miniatura ${idx + 1}`} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   </button>
                 ))}
                 {video && (
@@ -264,7 +264,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
                     }`}
                   >
                     {images[0] ? (
-                      <img src={images[0]} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                      <img src={images[0]} alt={`${alt} vídeo miniatura`} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-[#111720]">
                         <Maximize2 size={14} className="text-[#5a6678]" />

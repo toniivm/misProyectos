@@ -24,6 +24,7 @@ import { trackViewItem, trackAddToCart } from './GoogleAnalytics';
 import { trackMetaViewContent, trackMetaAddToCart } from './MetaPixel';
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
+import BundleSelector, { type BundleTier } from './BundleSelector';
 import ProductBenefits from './ProductBenefits';
 import WhatIsIncluded from './WhatIsIncluded';
 import ScienceBehindIt from './ScienceBehindIt';
@@ -132,16 +133,40 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     const icon = product?.cartIcon ?? legacyProduct.icon;
     const sizeSuffix = selectedSize ? ` (${selectedSize})` : '';
     const cartName = displayName + sizeSuffix;
-    // Add qty efficiently: first add, then updateQty to target (avoids qty dispatches)
+    // Legacy single-qty add (kept for sticky bars if needed)
     add({ slug: legacyProduct.slug, name: cartName, price: displayPrice, icon });
     if (qty > 1) {
       setTimeout(() => {
         for (let q = 1; q < qty; q++) add({ slug: legacyProduct.slug, name: cartName, price: displayPrice, icon });
       }, 0);
     }
-    // GA4 + Meta add_to_cart
     try { trackAddToCart(legacyProduct.slug, cartName, displayPrice * qty) } catch {}
     try { trackMetaAddToCart(displayPrice * qty, [legacyProduct.slug]) } catch {}
+    setAdded(true);
+    openCart();
+    setTimeout(() => setAdded(false), 2500);
+  };
+
+  const handleBundleAdd = (tier: BundleTier, variants: string[]) => {
+    if (!product) return;
+    const icon = product.cartIcon ?? legacyProduct.icon;
+    const tierPrice = tier.paid * displayPrice;
+    const perUnitPrice = tierPrice / tier.total;
+    // For products with sizes, add each unit with its size; otherwise add bundle as N units
+    if (product.specs?.['Tallas'] && variants.length) {
+      variants.forEach((size) => {
+        const name = size ? `${displayName} (${size})` : displayName;
+        add({ slug: legacyProduct.slug, name, price: perUnitPrice, icon });
+      });
+    } else {
+      // No sizes: add total units at effective price
+      for (let i = 0; i < tier.total; i++) {
+        add({ slug: legacyProduct.slug, name: displayName, price: perUnitPrice, icon });
+      }
+    }
+    const totalPrice = tierPrice;
+    try { trackAddToCart(legacyProduct.slug, displayName, totalPrice) } catch {}
+    try { trackMetaAddToCart(totalPrice, [legacyProduct.slug]) } catch {}
     setAdded(true);
     openCart();
     setTimeout(() => setAdded(false), 2500);
@@ -353,33 +378,14 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               ))}
             </div>
 
-            {/* Qty + Add to cart */}
-            <div className="flex items-center gap-2.5 sm:gap-3">
-              <div className="flex items-center gap-0 rounded-full border border-white/[0.12] bg-[#111720]">
-                <button onClick={() => setQty((q) => Math.max(1, q - 1))}
-                  className="flex h-11 w-11 items-center justify-center rounded-full text-[#c8d0da] hover:text-white active:bg-white/[0.08] transition-colors"
-                  aria-label={isEs ? 'Reducir cantidad' : 'Decrease quantity'}>
-                  <Minus size={14} />
-                </button>
-                <span className="min-w-[2ch] text-center text-[14px] sm:text-[15px] font-semibold text-[#f2eee7]">{qty}</span>
-                <button onClick={() => setQty((q) => q + 1)}
-                  className="flex h-11 w-11 items-center justify-center rounded-full text-[#c8d0da] hover:text-white active:bg-white/[0.08] transition-colors"
-                  aria-label={isEs ? 'Aumentar cantidad' : 'Increase quantity'}>
-                  <Plus size={14} />
-                </button>
-              </div>
-              <button onClick={handleAdd}
-                className={`flex flex-1 items-center justify-center gap-2 rounded-full py-3 sm:py-3.5 text-[14px] sm:text-[15px] font-bold transition-all duration-200 active:scale-[0.98] min-h-[48px] sm:min-h-[52px] ${
-                  added
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                    : 'bg-white text-[#080c12] hover:shadow-[0_8px_32px_rgba(255,255,255,0.15)]'
-                }`}>
-                {added ? (
-                  <><Check size={15} /> {isEs ? 'Añadido' : 'Added to cart'}</>
-                ) : (
-                  <><ShoppingCart size={15} /> {isEs ? 'Añadir al carrito' : 'Add to cart'} — €{displayPrice * qty}</>
-                )}
-              </button>
+            {/* Oliver West style Bundle Selector */}
+            {product && (
+              <BundleSelector product={product} onAdd={handleBundleAdd} added={added} />
+            )}
+
+            {/* Fallback single add hidden but kept for non-bundle SEO */}
+            <div className="hidden">
+              <button onClick={handleAdd}>fallback</button>
             </div>
 
             {/* Payment methods */}

@@ -6,7 +6,7 @@ const locales = ['es', 'en']
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
-  const buildDate = new Date('2026-09-17')
+  const buildDate = new Date()
 
   // Homepage for each locale
   for (const locale of locales) {

@@ -82,28 +82,34 @@ export default function CookiesPage() {
           </thead>
           <tbody className="text-[#8791a1]">
             <tr className="border-t border-white/[0.05]">
-              <td className="p-3">dev_user</td>
+              <td className="p-3">recover_cart</td>
               <td className="p-3">{isEs ? 'Técnica' : 'Technical'}</td>
-              <td className="p-3">{isEs ? 'Sesión' : 'Session'}</td>
-              <td className="p-3">{isEs ? 'Mantiene la sesión del usuario' : 'Maintains user session'}</td>
-            </tr>
-            <tr className="border-t border-white/[0.05]">
-              <td className="p-3">cart_items</td>
-              <td className="p-3">{isEs ? 'Técnica' : 'Technical'}</td>
-              <td className="p-3">{isEs ? 'Sesión' : 'Session'}</td>
+              <td className="p-3">{isEs ? 'Persistente' : 'Persistent'}</td>
               <td className="p-3">{isEs ? 'Almacena los productos del carrito' : 'Stores cart products'}</td>
             </tr>
             <tr className="border-t border-white/[0.05]">
-              <td className="p-3">locale_pref</td>
-              <td className="p-3">{isEs ? 'Técnica' : 'Technical'}</td>
-              <td className="p-3">1 {isEs ? 'año' : 'year'}</td>
-              <td className="p-3">{isEs ? 'Recuerda el idioma preferido' : 'Remembers preferred language'}</td>
-            </tr>
-            <tr className="border-t border-white/[0.05]">
-              <td className="p-3">cookie_consent</td>
+              <td className="p-3">noctip_cookie_consent</td>
               <td className="p-3">{isEs ? 'Técnica' : 'Technical'}</td>
               <td className="p-3">1 {isEs ? 'año' : 'year'}</td>
               <td className="p-3">{isEs ? 'Registra la aceptación de cookies' : 'Records cookie acceptance'}</td>
+            </tr>
+            <tr className="border-t border-white/[0.05]">
+              <td className="p-3">noctip_newsletter_dismissed</td>
+              <td className="p-3">{isEs ? 'Técnica' : 'Technical'}</td>
+              <td className="p-3">1 {isEs ? 'año' : 'year'}</td>
+              <td className="p-3">{isEs ? 'Recuerda si cerraste el popup newsletter' : 'Remembers newsletter popup dismissal'}</td>
+            </tr>
+            <tr className="border-t border-white/[0.05]">
+              <td className="p-3">utm_params</td>
+              <td className="p-3">Analytics</td>
+              <td className="p-3">30 {isEs ? 'días' : 'days'}</td>
+              <td className="p-3">{isEs ? 'Atribución de campaña (UTM)' : 'Campaign attribution (UTM)'}</td>
+            </tr>
+            <tr className="border-t border-white/[0.05]">
+              <td className="p-3">locale</td>
+              <td className="p-3">{isEs ? 'Técnica' : 'Technical'}</td>
+              <td className="p-3">1 {isEs ? 'año' : 'year'}</td>
+              <td className="p-3">{isEs ? 'Recuerda el idioma preferido' : 'Remembers preferred language'}</td>
             </tr>
           </tbody>
         </table>
