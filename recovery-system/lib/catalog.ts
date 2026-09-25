@@ -74,9 +74,9 @@ export const CATALOG: CatalogProduct[] = [
     rating: 0,
     reviewCount: 0,
     // badge: 'bestseller', // Activar cuando haya datos reales de ventas
-    shortDescription: 'Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor.',
-    shortDescription_en: 'Stop snoring from night one. Your partner sleeps better too.',
-    shortDescription_es: 'Elimina los ronquidos desde la primera noche. Tu pareja también dormirá mejor.',
+    shortDescription: 'Dormíais separados por sus ronquidos. En 1 noche volvéis a dormir abrazados 8h.',
+    shortDescription_en: 'You slept apart because of snoring. In 1 night you sleep together 8h again.',
+    shortDescription_es: 'Dormíais separados por sus ronquidos. En 1 noche volvéis a dormir abrazados 8h.',
     description:
       'Cada noche que roncas, arruinas tu descanso y el de tu pareja. El Noctip Halo resuelve el problema en su origen: avanza suavemente la mandíbula para abrir la vía aérea, eliminando los ronquidos antes de que empiecen.\n\nEl diseño ajustable de doble capa se adapta perfectamente a tu boca con 10mm de micro-ajustes. Silicona de grado médico, hipoalergénica, suave y segura para uso nocturno. Incluye estuche de viaje compacto.\n\nDesde la primera noche notarás la diferencia. Despiertas descansado, sin fatiga, sin dolor de garganta. Y tu pareja duerme por fin en silencio.',
     description_en:
@@ -123,9 +123,9 @@ export const CATALOG: CatalogProduct[] = [
     rating: 0,
     reviewCount: 0,
     badge: 'new',
-    shortDescription: 'Corrige tu postura en 2 semanas. Adiós al dolor de espalda del escritorio.',
-    shortDescription_en: 'Fix your posture in 2 weeks. Goodbye desk back pain.',
-    shortDescription_es: 'Corrige tu postura en 2 semanas. Adiós al dolor de espalda del escritorio.',
+    shortDescription: 'Camisa torcida a las 4pm, pareces mayor. En 15min/día entras erguido.',
+    shortDescription_en: 'Shirt twisted at 4pm, you look older. 15min/day you walk in upright.',
+    shortDescription_es: 'Camisa torcida a las 4pm, pareces mayor. En 15min/día entras erguido.',
     description:
       'Tu columna recuerda la mala postura. Cada hora encorvado frente al ordenador se acumula y termina en dolor crónico. El Noctip Back reentrena tu postura con soporte ergonómico en forma de Y que jala tus hombros hacia atrás suavemente.\n\nCorreas ajustables de XS a XL, se adapta a cualquier cuerpo. Úsalo debajo de la ropa — nadie lo notará. Solo 15 minutos al día son suficientes para reconstruir el hábito.\n\nEn dos semanas, tu cuerpo recuerda solo. Sin dolor, sin esfuerzo consciente. Tu quiropráctico notará la diferencia.',
     description_en:
@@ -171,9 +171,9 @@ export const CATALOG: CatalogProduct[] = [
     comparePrice: 31.99,
     rating: 0,
     reviewCount: 0,
-    shortDescription: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
-    shortDescription_en: 'Sleep audio without earbuds. 45 grams that disappear when you wear them.',
-    shortDescription_es: 'Audio para dormir sin auriculares. 45 gramos que desaparecen al ponértelos.',
+    shortDescription: 'Dabas vueltas 40min con auriculares clavados. Te duermes en 12min sin molestarle.',
+    shortDescription_en: 'You tossed 40min with painful earbuds. You fall asleep in 12min without waking them.',
+    shortDescription_es: 'Dabas vueltas 40min con auriculares clavados. Te duermes en 12min sin molestarle.',
     description:
       'Si nunca has probado una banda de sueño, empieza aquí. 45 gramos que no sientes. Lavable a máquina. 10 horas de batería. Sin apps, sin cables, sin curva de aprendizaje.\n\nTe la pones y funciona. Así de simple. Los altavoces ultrafinos no presionan tus orejas — la tela suave desaparece al ponértela. Conecta por Bluetooth a tu móvil y duerme con tu podcast, música o ruido blanco favorito.\n\nDespiertas preguntándote por qué no lo intentaste antes.',
     description_en:
@@ -228,9 +228,9 @@ export const CATALOG: CatalogProduct[] = [
     rating: 0,
     reviewCount: 0,
     // badge: 'bestseller', // Activar cuando haya datos reales de ventas
-    shortDescription: 'Alivio cervical en 15 minutos. Calor suave, sin cables.',
-    shortDescription_en: 'Neck relief in 15 minutes. Gentle heat, no wires.',
-    shortDescription_es: 'Alivio cervical en 15 minutos. Calor suave, sin cables.',
+    shortDescription: 'Nuca piedra a las 7pm. En 15min suelta sin fisio ni pastillas.',
+    shortDescription_en: 'Neck stone at 7pm. Loose in 15min without physio or pills.',
+    shortDescription_es: 'Nuca piedra a las 7pm. En 15min suelta sin fisio ni pastillas.',
     description:
       'Tensión acumulada en cuello y hombros después de horas sentado. El Noctip Cervical la libera en 15 minutos con calor suave y masaje sin cables.\n\nSe adapta a cualquier cuello, no aprieta y no da alergia. Pequeño y portátil: úsalo en casa, en la oficina o de viaje. Una sesión y notas los hombros más ligeros.\n\n15 minutos al día y mejora la circulación. Material ABS+TPR resistente, 200g, con temporizador automático.',
     description_en:
