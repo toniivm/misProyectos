@@ -729,7 +729,7 @@ export default function CheckoutPage() {
               {/* Payment methods available */}
               <PaymentLogos className="mb-4" />
               <p className="mb-4 text-center text-[11px] leading-4 text-[#6b7785]">
-                {isEs ? 'Serás redirigido a Stripe para pagar con tarjeta, Apple Pay o Google Pay — según tu dispositivo.' : 'You’ll be redirected to Stripe to pay with card, Apple Pay or Google Pay — depending on your device.'}
+                {isEs ? 'Serás redirigido a Stripe para pagar con tarjeta, PayPal, Apple Pay o Google Pay — según tu dispositivo.' : 'You’ll be redirected to Stripe to pay with card, PayPal, Apple Pay or Google Pay — depending on your device.'}
               </p>
 
               {/* Security info */}

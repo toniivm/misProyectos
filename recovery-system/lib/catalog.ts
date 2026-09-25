@@ -228,18 +228,18 @@ export const CATALOG: CatalogProduct[] = [
     rating: 0,
     reviewCount: 0,
     // badge: 'bestseller', // Activar cuando haya datos reales de ventas
-    shortDescription: 'Alivio cervical profesional en 15 minutos. Tres capas de relajación.',
-    shortDescription_en: 'Professional cervical relief in 15 minutes. Three layers of relaxation.',
-    shortDescription_es: 'Alivio cervical profesional en 15 minutos. Tres capas de relajación.',
+    shortDescription: 'Alivio cervical en 15 minutos. Calor suave, sin cables.',
+    shortDescription_en: 'Neck relief in 15 minutes. Gentle heat, no wires.',
+    shortDescription_es: 'Alivio cervical en 15 minutos. Calor suave, sin cables.',
     description:
-      'Almohadillas de electrodos curvos pintados con aerosol mate que se adaptan a cualquier tipo de cuello, cómodas y no alergénicas. Tres capas de relajación — desde los nervios hasta los vasos sanguíneos y los músculos — masajean profundamente tu cuello para un alivio real.\n\nPequeño y portátil. Cada sesión de 15 minutos es tan cómoda como un masajista profesional en un SPA. Diseñado para uso diario en casa, oficina o viaje.\n\nEl masaje de 15 minutos libera la tensión acumulada y mejora la circulación. Resultados visibles desde la primera semana de uso.',
+      'Tensión acumulada en cuello y hombros después de horas sentado. El Noctip Cervical la libera en 15 minutos con calor suave y masaje sin cables.\n\nSe adapta a cualquier cuello, no aprieta y no da alergia. Pequeño y portátil: úsalo en casa, en la oficina o de viaje. Una sesión y notas los hombros más ligeros.\n\n15 minutos al día y mejora la circulación. Material ABS+TPR resistente, 200g, con temporizador automático.',
     description_en:
-      'Curved electrode pads with matte spray finish that adapt to any neck type — comfortable and non-allergenic. Three layers of relaxation — from nerves to blood vessels and muscles — deeply massage your neck for real relief.\n\nSmall and portable. Each 15-minute session is as comfortable as a professional spa masseuse. Designed for daily use at home, office, or on the go.\n\nThe 15-minute massage releases accumulated tension and improves circulation. Visible results from the first week of use.',
+      'Tension built up in your neck and shoulders after hours at your desk. The Noctip Cervical releases it in 15 minutes with gentle heat and cordless massage.\n\nAdapts to any neck, no pressure, non-allergenic. Small and portable: use it at home, at the office, or while traveling. One session and your shoulders feel lighter.\n\n15 minutes a day improves circulation. Durable ABS+TPR, 200g, with auto timer.',
     description_es:
-      'Almohadillas de electrodos curvos pintados con aerosol mate que se adaptan a cualquier tipo de cuello, cómodas y no alergénicas. Tres capas de relajación — desde los nervios hasta los vasos sanguíneos y los músculos — masajean profundamente tu cuello para un alivio real.\n\nPequeño y portátil. Cada sesión de 15 minutos es tan cómoda como un masajista profesional en un SPA. Diseñado para uso diario en casa, oficina o viaje.\n\nEl masaje de 15 minutos libera la tensión acumulada y mejora la circulación. Resultados visibles desde la primera semana de uso.',
+      'Tensión acumulada en cuello y hombros después de horas sentado. El Noctip Cervical la libera en 15 minutos con calor suave y masaje sin cables.\n\nSe adapta a cualquier cuello, no aprieta y no da alergia. Pequeño y portátil: úsalo en casa, en la oficina o de viaje. Una sesión y notas los hombros más ligeros.\n\n15 minutos al día y mejora la circulación. Material ABS+TPR resistente, 200g, con temporizador automático.',
     features: [
-      'Electrodos curvos con acabado mate — se adaptan a cualquier cuello',
-      'Tres capas de relajación — nervios, vasos sanguíneos y músculos',
+      'Se adapta a cualquier cuello — cómodo y no alergénico',
+      'Calor suave + masaje — alivia en 15 min',
       'Sesión de 15 minutos — temporización automática',
       'Compacto y portátil — úsalo donde quieras',
       'No alergénico — material de alta calidad',
@@ -350,6 +350,39 @@ export const BUNDLES: Bundle[] = [
     name_es: 'Pack Recuperación',
     slugs: ['wave', 'neck-massager'],
     discountPercent: 15,
+  },
+  // P0-5: cualquier 3 productos → 20% (igual que el completo) para no penalizar carrito de 3
+  {
+    id: 'triple-hws',
+    name: 'Triple Pack',
+    name_en: 'Triple Pack',
+    name_es: 'Pack Triple',
+    slugs: ['halo', 'wave', 'sleep-headband'],
+    discountPercent: 20,
+  },
+  {
+    id: 'triple-hwn',
+    name: 'Triple Pack',
+    name_en: 'Triple Pack',
+    name_es: 'Pack Triple',
+    slugs: ['halo', 'wave', 'neck-massager'],
+    discountPercent: 20,
+  },
+  {
+    id: 'triple-hsn',
+    name: 'Triple Pack',
+    name_en: 'Triple Pack',
+    name_es: 'Pack Triple',
+    slugs: ['halo', 'sleep-headband', 'neck-massager'],
+    discountPercent: 20,
+  },
+  {
+    id: 'triple-wsn',
+    name: 'Triple Pack',
+    name_en: 'Triple Pack',
+    name_es: 'Pack Triple',
+    slugs: ['wave', 'sleep-headband', 'neck-massager'],
+    discountPercent: 20,
   },
   {
     id: 'complete-pack',
