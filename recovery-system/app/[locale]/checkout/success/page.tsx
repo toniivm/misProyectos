@@ -9,6 +9,7 @@ import { useCart } from '../../../../context/CartContext';
 import { useAuth } from '../../../../context/AuthContext';
 import { trackPurchase } from '../../../../components/GoogleAnalytics';
 import { trackMetaPurchase } from '../../../../components/MetaPixel';
+import { getActiveBundle } from '../../../../lib/catalog';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -30,7 +31,7 @@ export default function CheckoutSuccessPage() {
     const orderId = urlParams.get('orderId');
     setRef(orderId ? orderId.slice(-8).toUpperCase() : (sessionId ? sessionId.slice(-8).toUpperCase() : null));
 
-    // --- FIX: capture cart BEFORE clearing so purchase event has data ---
+    // --- P0-3 FIX: capture cart BEFORE clearing, with discounted total + dedup ---
     let purchaseFired = false
     try {
       const rawCart = localStorage.getItem('recover_cart')
@@ -46,7 +47,7 @@ export default function CheckoutSuccessPage() {
           }
         } catch {}
       }
-      // Fallback: reconstruct from noctas_orders if cart already empty (e.g. direct success link)
+      // Fallback: reconstruct from noctas_orders if cart already empty
       if (items.length === 0 && rawOrders && orderId) {
         try {
           const orders = JSON.parse(rawOrders)
@@ -59,19 +60,33 @@ export default function CheckoutSuccessPage() {
       }
       if (items.length > 0) {
         const txId = orderId || sessionId || `order_${Date.now()}`
-        trackPurchase(txId, items, total)
-        try { trackMetaPurchase(total, items.map(i => i.slug)) } catch {}
-        purchaseFired = true
-        // Also push utm/gclid for Enhanced Conversions if available
+        // Dedup guard: don't fire purchase twice on reload
         try {
-          const utmRaw = localStorage.getItem('utm_params')
-          if (utmRaw) {
-            const utm = JSON.parse(utmRaw)
-            if (utm?.gclid) {
-              ;(window as unknown as { dataLayer: unknown[] }).dataLayer?.push({ event: 'purchase_gclid', gclid: utm.gclid, transaction_id: txId })
-            }
+          if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('purchase_fired_' + txId)) {
+            purchaseFired = true
+          } else {
+            // Apply bundle discount to GA4/Meta value (P0-3): total with dto
+            const bundle = getActiveBundle(items.map(i => i.slug))
+            const discount = bundle ? Math.round(total * (bundle.discountPercent / 100) * 100) / 100 : 0
+            const discountedTotal = Math.max(0, total - discount)
+            trackPurchase(txId, items, discountedTotal)
+            try { trackMetaPurchase(discountedTotal, items.map(i => i.slug)) } catch {}
+            try { if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('purchase_fired_' + txId, '1') } catch {}
+            purchaseFired = true
+            // Also push utm/gclid for Enhanced Conversions if available
+            try {
+              const utmRaw = localStorage.getItem('utm_params')
+              if (utmRaw) {
+                const utm = JSON.parse(utmRaw)
+                if (utm?.gclid) {
+                  ;(window as unknown as { dataLayer: unknown[] }).dataLayer?.push({ event: 'purchase_gclid', gclid: utm.gclid, transaction_id: txId })
+                }
+              }
+            } catch {}
           }
-        } catch {}
+        } catch (e) {
+          console.warn('Could not fire purchase event', e)
+        }
       }
     } catch (e) {
       console.warn('Could not fire purchase event', e)
@@ -121,11 +136,9 @@ export default function CheckoutSuccessPage() {
       }
     }
 
-    // Fallback: if purchase wasn't fired yet (no cart, no order), try session_id param as last resort
+    // P0-3: no fallback purchase 0€ — items.length===0 means no data, don't fire
     if (!purchaseFired && sessionId && !orderId) {
-      try {
-        trackPurchase(sessionId, [], 0)
-      } catch {}
+      // Intentionally no trackPurchase([],0) to avoid 0€ conversions polluting GA4/Meta
     }
 
     // Request confirmation email from backend
