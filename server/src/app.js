@@ -1294,6 +1294,26 @@ app.post('/emails/welcome', welcomeEmailLimiter, async (req, res) => {
   res.json({ ok: true });
 });
 
+// Contact form — P0-4: frontend now actually sends (no fake setSubmitted)
+const contactLimiter = rateLimit({ windowMs: 60*1000, max: 5, message: { error: 'Too many contact requests' } });
+app.post('/emails/contact', contactLimiter, async (req, res) => {
+  const { name, email, subject, message, locale } = req.body || {};
+  if (!email || !message) return res.status(400).json({ error: 'MISSING_FIELDS' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'INVALID_EMAIL' });
+  const subjectMap = { order: 'Consulta pedido', return: 'Devolución', product: 'Producto', other: 'General' };
+  const subjectLabel = subjectMap[subject] || subject || 'General';
+  const html = `<h2>Nuevo mensaje de contacto — Noctip</h2><p><strong>De:</strong> ${name || '—'} &lt;${email}&gt;</p><p><strong>Asunto:</strong> ${subjectLabel} (${locale || 'es'})</p><p><strong>Mensaje:</strong></p><p style="white-space:pre-wrap;background:#f9fafb;padding:12px;border-radius:8px;">${String(message).slice(0,2000)}</p><p style="color:#6b7280;font-size:12px;">Responder a ${email} directamente.</p>`;
+  const to = process.env.CONTACT_EMAIL || process.env.SENDER_EMAIL || 'hola@noctip.com';
+  const result = await sendEmail(to, `📩 Contacto ${subjectLabel} — ${name || email}`, html);
+  // also send auto-reply to customer
+  try {
+    const isEn = locale === 'en';
+    await sendEmail(email, isEn ? 'We received your message — Noctip' : 'Hemos recibido tu mensaje — Noctip',
+      isEn ? `<p>Hi ${name || ''},</p><p>We received your message and will reply within 24h.</p><p style="color:#6b7280">— Noctip team · hola@noctip.com</p>` : `<p>Hola ${name || ''},</p><p>Hemos recibido tu mensaje y te responderemos en menos de 24h.</p><p style="color:#6b7280">— Equipo Noctip · hola@noctip.com</p>`);
+  } catch {}
+  res.json({ ok: result?.ok ?? true });
+});
+
 // Public endpoint: request order confirmation email (used by frontend after Stripe redirect)
 app.post('/orders/:id/send-confirmation', confirmationEmailLimiter, async (req, res) => {
   const { id } = req.params;

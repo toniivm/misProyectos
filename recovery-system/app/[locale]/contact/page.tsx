@@ -3,19 +3,43 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
-import { Mail, Clock, Shield, Truck, RotateCcw, Send } from 'lucide-react'
+import { Mail, Clock, Shield, Truck, RotateCcw, Send, Phone, AlertCircle } from 'lucide-react'
 import { useState } from 'react'
 import Header from '../../../components/Header'
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'https://misproyectos-neyj.onrender.com'
 
 export default function ContactPage() {
   const locale = useLocale()
   const isEs = locale === 'es'
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [form, setForm] = useState({ name: '', email: '', subject: 'order', message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In production, this would send to backend
-    setSubmitted(true)
+    setSending(true)
+    setError(null)
+    try {
+      const res = await fetch(`${API_BASE_URL}/emails/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, locale }),
+      })
+      if (!res.ok) {
+        // fallback: try mailto if backend not ready
+        const data = await res.json().catch(() => null)
+        if (data?.error) throw new Error(data.error)
+        throw new Error('CONTACT_FAILED')
+      }
+      setSubmitted(true)
+    } catch (err) {
+      // No bloqueamos al usuario: mostramos email alternativo
+      setError(isEs ? 'No se pudo enviar. Escríbenos directamente a hola@noctip.com' : 'Could not send. Please email us at hola@noctip.com')
+    } finally {
+      setSending(false)
+    }
   }
 
   const contactMethods = [
@@ -23,7 +47,13 @@ export default function ContactPage() {
       icon: Mail,
       title: isEs ? 'Email' : 'Email',
       value: 'hola@noctip.com',
-      description: isEs ? 'Respuesta en menos de 24h' : 'Response within 24h',
+      description: isEs ? 'Respuesta en <24h · support@noctip.com' : 'Response <24h · support@noctip.com',
+    },
+    {
+      icon: Phone,
+      title: isEs ? 'Teléfono' : 'Phone',
+      value: isEs ? '[Pendiente +34 911 234 567]' : '[Pending +34 911 234 567]',
+      description: isEs ? 'Lun-Vie 9-18h — añade tu nº real' : 'Mon-Fri 9-18 — add your real number',
     },
     {
       icon: Clock,
@@ -62,7 +92,7 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mt-10 grid gap-4 sm:grid-cols-2"
+          className="mt-10 grid gap-4 sm:grid-cols-3"
         >
           {contactMethods.map((method) => (
             <div key={method.title} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 text-center transition-all hover:border-white/[0.12]">
@@ -117,22 +147,21 @@ export default function ContactPage() {
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     {isEs ? 'Nombre' : 'Name'}
                   </label>
-                  <input type="text" required
-                    className="input-premium" />
+                  <input type="text" required value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))}
+                    className="input-premium" placeholder={isEs ? 'Ej: María García' : 'e.g. John Smith'} />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     {isEs ? 'Email' : 'Email'}
                   </label>
-                  <input type="email" required
-                    className="input-premium" />
+                  <input type="email" required value={form.email} onChange={e=>setForm(f=>({...f,email:e.target.value}))}
+                    className="input-premium" placeholder="tu@email.com" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     {isEs ? 'Asunto' : 'Subject'}
                   </label>
-                  <select className="select-premium">
-                    <option value="">{isEs ? 'Selecciona un motivo' : 'Select a reason'}</option>
+                  <select className="select-premium" value={form.subject} onChange={e=>setForm(f=>({...f,subject:e.target.value}))}>
                     <option value="order">{isEs ? 'Consulta sobre pedido' : 'Order inquiry'}</option>
                     <option value="return">{isEs ? 'Devolución o cambio' : 'Return or exchange'}</option>
                     <option value="product">{isEs ? 'Pregunta sobre producto' : 'Product question'}</option>
@@ -143,17 +172,24 @@ export default function ContactPage() {
                   <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
                     {isEs ? 'Mensaje' : 'Message'}
                   </label>
-                  <textarea rows={4} required
+                  <textarea rows={4} required value={form.message} onChange={e=>setForm(f=>({...f,message:e.target.value}))}
                     placeholder={isEs ? 'Describe tu consulta...' : 'Describe your inquiry...'}
                     className="input-premium resize-none" />
                 </div>
               </div>
 
-              <button type="submit"
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3.5 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px]">
-                <Send size={14} />
-                {isEs ? 'Enviar mensaje' : 'Send message'}
+              {error && (
+                <div className="mt-4 flex items-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-[13px] text-red-300">
+                  <AlertCircle size={14} />{error}
+                </div>
+              )}
+
+              <button type="submit" disabled={sending}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3.5 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px] disabled:opacity-50">
+                {sending ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" /> : <Send size={14} />}
+                {sending ? (isEs ? 'Enviando...' : 'Sending...') : (isEs ? 'Enviar mensaje' : 'Send message')}
               </button>
+              <p className="mt-3 text-center text-[11px] text-[#6b7785]">{isEs ? 'O escríbenos directamente a hola@noctip.com' : 'Or email us at hola@noctip.com'}</p>
             </form>
           )}
         </motion.div>

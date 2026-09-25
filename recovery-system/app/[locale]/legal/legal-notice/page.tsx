@@ -30,11 +30,19 @@ export default function LegalNoticePage() {
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Domicilio:' : 'Address:'}</span>
-          <span>C Fernando Vela Nº 18, España</span>
+          <span>C/ Fernando Vela Nº 18, 28023 Madrid, España</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="text-[#c8d4e2] font-medium w-48 shrink-0">NIF/CIF:</span>
+          <span className="text-amber-300">[Pendiente: añade tu NIF/CIF y forma jurídica — ej. B-XXXXXXXX, S.L.]</span>
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Correo electrónico:' : 'Email:'}</span>
-          <span>hola@noctip.com</span>
+          <span>hola@noctip.com · support@noctip.com</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Teléfono:' : 'Phone:'}</span>
+          <span>[Pendiente: añade teléfono — ej. +34 911 234 567]</span>
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Actividad:' : 'Activity:'}</span>

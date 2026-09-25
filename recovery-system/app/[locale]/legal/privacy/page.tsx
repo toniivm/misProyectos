@@ -30,7 +30,7 @@ export default function PrivacyPage(){
         <div className="mt-8 space-y-8 text-[14px] leading-7 text-[#9aa7b9]">
           <section>
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? '1. Responsable del tratamiento' : '1. Data Controller'}</h2>
-            <p><strong>Noctip</strong> — {isEs ? 'Domicilio: C Fernando Vela Nº 18, España. Contacto: hola@noctip.com' : 'Address: C Fernando Vela Nº 18, Spain. Contact: hola@noctip.com'}</p>
+            <p><strong>Noctip</strong> — {isEs ? 'Domicilio: C/ Fernando Vela Nº 18, 28023 Madrid, España. NIF/CIF: [pendiente]. Contacto: hola@noctip.com · Tel: [pendiente +34 911 234 567]' : 'Address: C/ Fernando Vela Nº 18, 28023 Madrid, Spain. NIF/CIF: [pending]. Contact: hola@noctip.com · Tel: [pending +34 911 234 567]'}</p>
           </section>
 
           <section>
