@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation';
 import { useCart } from '../../../../context/CartContext';
 import { useAuth } from '../../../../context/AuthContext';
 import { trackPurchase } from '../../../../components/GoogleAnalytics';
+import { trackMetaPurchase } from '../../../../components/MetaPixel';
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') ||
@@ -59,6 +60,7 @@ export default function CheckoutSuccessPage() {
       if (items.length > 0) {
         const txId = orderId || sessionId || `order_${Date.now()}`
         trackPurchase(txId, items, total)
+        try { trackMetaPurchase(total, items.map(i => i.slug)) } catch {}
         purchaseFired = true
         // Also push utm/gclid for Enhanced Conversions if available
         try {

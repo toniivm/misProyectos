@@ -21,6 +21,7 @@ import {
   type ReviewStats,
 } from '../lib/reviews-firestore';
 import { trackViewItem, trackAddToCart } from './GoogleAnalytics';
+import { trackMetaViewContent, trackMetaAddToCart } from './MetaPixel';
 import ProductImage from './ProductImage';
 import ProductGallery from './ProductGallery';
 import ProductBenefits from './ProductBenefits';
@@ -89,12 +90,13 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
   useEffect(() => { loadReviews() }, [loadReviews])
 
-  // GA4 view_item on mount
+  // GA4 + Meta view_item on mount
   useEffect(() => {
     if (!product) return
     const name = getLocalizedProductName(product, locale as string) ?? legacyProduct.name
     const price = product.price ?? legacyProduct.price
     trackViewItem(product.slug, name, price)
+    try { trackMetaViewContent(price, [product.slug]) } catch {}
   }, [product?.slug])
 
   // Check user review/purchase status
@@ -137,8 +139,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
         for (let q = 1; q < qty; q++) add({ slug: legacyProduct.slug, name: cartName, price: displayPrice, icon });
       }, 0);
     }
-    // GA4 add_to_cart
+    // GA4 + Meta add_to_cart
     try { trackAddToCart(legacyProduct.slug, cartName, displayPrice * qty) } catch {}
+    try { trackMetaAddToCart(displayPrice * qty, [legacyProduct.slug]) } catch {}
     setAdded(true);
     openCart();
     setTimeout(() => setAdded(false), 2500);
@@ -668,6 +671,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 const handleBump = (e: React.MouseEvent) => {
                   e.preventDefault();
                   add({ slug: p.slug, name: rName, price: p.price, icon: p.cartIcon });
+                  try { trackMetaAddToCart(p.price, [p.slug]) } catch {}
                   openCart();
                 };
                 return (
