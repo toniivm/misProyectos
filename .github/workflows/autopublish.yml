@@ -18,8 +18,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm ci --prefix server || true
-      - run: node scripts/autopublish/autoVideoPublisher.js --product=${{ inputs.product }}
+      - name: Test publisher (dry-run)
+        run: node scripts/autopublish/autoVideoPublisher.js --product=${{ inputs.product || 'halo' }} --dry-run
+      - name: Publish video
+        run: node scripts/autopublish/autoVideoPublisher.js --product=${{ inputs.product }}
         env:
           HIGGSFIELD_API_KEY: ${{ secrets.HIGGSFIELD_API_KEY }}
           BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}

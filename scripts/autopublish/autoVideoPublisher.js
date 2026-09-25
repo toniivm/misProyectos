@@ -4,18 +4,19 @@
  * Genera vídeo IA (Higgsfield/Novoads free) + publica en TikTok/Reels/Shorts vía Buffer/MultiUpload
  * Uso: node scripts/autopublish/autoVideoPublisher.js --product=halo --dry-run
  * Cron: GitHub Actions daily 19:00 ES
+ * Node 20+ — CommonJS compatible (sin "type": "module")
  */
-import 'dotenv/config';
-import fs from 'fs';
-import path from 'path';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://misproyectos-neyj.onrender.com';
+// dotenv opcional — no rompe si no está instalado
+try { require('dotenv').config(); } catch {}
 
-// Prompts reales de docs/noctip-higgsfield-angles.md
+const fs = require('fs');
+const path = require('path');
+
 const PROMPTS = {
   halo: {
     prompt: 'Woman 52 Spanish bedroom night, tired on sofa → relieved in bed holding white Halo case, photorealistic, warm light, product close-up 12s',
-    script: `¿Tu pareja te echa por roncar al sofá? Yo dormía fatal, él roncaba, dolor garganta mañana. Noctip Halo: micro-ajuste 10mm, silicona médica, 1 noche y volví a la cama. Pack 2+1 gratis hoy.`,
+    script: '¿Tu pareja te echa por roncar al sofá? Yo dormía fatal, él roncaba, dolor garganta mañana. Noctip Halo: micro-ajuste 10mm, silicona médica, 1 noche y volví a la cama. Pack 2+1 gratis hoy.',
     caption: '¿Te echa por roncar? 1 noche con Halo y volvió a la cama 😴 Pack 2+1 gratis + envío gratis ⏰ #ronquidos #dormir #pareja #noctip noctip.com/es/products/halo',
     title: 'Pareja vuelve a dormir junta con Halo — 1 noche',
   },
@@ -39,10 +40,9 @@ const PROMPTS = {
   },
 };
 
-// Rotación diaria sin pagar: 4 productos × 3 vídeos = 12 días ciclo
 const ROTATION = ['halo','rest','wave','neck-massager','halo','rest','wave','neck-massager','halo','rest','wave','neck-massager'];
 function getTodayProduct() {
-  const day = new Date().getDate(); // 1-31
+  const day = new Date().getDate();
   return ROTATION[day % ROTATION.length];
 }
 
@@ -52,7 +52,6 @@ async function generateWithHiggsfield(product) {
     console.log(`[MOCK] Higgsfield sin API_KEY — simulo generación para ${product} (no gasto créditos)`);
     return { videoUrl: `https://mock.higgsfield.ai/${product}-mock.mp4`, mock: true };
   }
-  // Real Higgsfield API (docs: POST https://api.higgsfield.ai/v1/generate)
   const res = await fetch('https://api.higgsfield.ai/v1/generate', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -60,7 +59,7 @@ async function generateWithHiggsfield(product) {
       prompt: PROMPTS[product].prompt,
       script: PROMPTS[product].script,
       aspect: '9:16',
-      model: 'seedance-fast', // 100cr/día free
+      model: 'seedance-fast',
       duration: 25,
     }),
   });
@@ -76,8 +75,11 @@ async function publishViaBuffer(videoUrl, caption, title) {
     console.log(`Caption: ${caption}`);
     return { mock: true, urls: ['https://mock.buffer/ig','https://mock.buffer/tiktok'] };
   }
-  // Buffer API: POST https://api.bufferapp.com/1/updates/create.json
-  const channels = (process.env.BUFFER_CHANNELS || '').split(',').filter(Boolean); // ids de IG, TikTok, YT
+  const channels = (process.env.BUFFER_CHANNELS || '').split(',').filter(Boolean);
+  if (!channels.length) {
+    console.warn('[WARN] BUFFER_CHANNELS vacío — configura "ig_id,tiktok_id,yt_id" en env');
+    return { mock: true, warn: 'no channels' };
+  }
   const results = [];
   for (const channel of channels) {
     const r = await fetch('https://api.bufferapp.com/1/updates/create.json', {
@@ -92,7 +94,9 @@ async function publishViaBuffer(videoUrl, caption, title) {
         now: true,
       }),
     });
-    results.push(await r.json().catch(()=>({})));
+    const j = await r.json().catch(()=>({ error: 'json parse' }));
+    results.push({ channel, ok: r.ok, data: j });
+    if (!r.ok) console.error(`Buffer ${channel} error:`, j);
   }
   return { mock: false, results };
 }
@@ -100,7 +104,6 @@ async function publishViaBuffer(videoUrl, caption, title) {
 async function publishViaMultiUpload(videoUrl, caption, title) {
   const key = process.env.MULTI_UPLOAD_API_KEY;
   if (!key) return publishViaBuffer(videoUrl, caption, title);
-  // POST https://api.multi-upload-tool.com/v1/schedule
   const res = await fetch('https://api.multi-upload-tool.com/v1/schedule', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -112,6 +115,7 @@ async function publishViaMultiUpload(videoUrl, caption, title) {
       schedule: 'now',
     }),
   });
+  if (!res.ok) throw new Error(`MultiUpload ${res.status} ${await res.text()}`);
   return res.json();
 }
 
@@ -119,29 +123,40 @@ async function main() {
   const args = process.argv.slice(2);
   const dry = args.includes('--dry-run');
   const productArg = args.find(a=>a.startsWith('--product='))?.split('=')[1];
-  const product = productArg || getTodayProduct();
-  const { prompt, caption, title } = PROMPTS[product] || PROMPTS.halo;
+  const valid = Object.keys(PROMPTS);
+  let product = productArg || getTodayProduct();
+  if (!valid.includes(product)) {
+    console.warn(`[WARN] producto "${product}" no existe, uso halo. Válidos: ${valid.join(', ')}`);
+    product = 'halo';
+  }
+  const { prompt, caption, title } = PROMPTS[product];
 
   console.log(`\n🎬 Noctip Auto Publisher — ${new Date().toISOString()}`);
-  console.log(`Producto hoy: ${product} — ${title}`);
+  console.log(`Producto: ${product} — ${title}`);
   console.log(`Prompt: ${prompt}`);
+  console.log(`Modo: ${dry ? 'DRY-RUN (no publico)' : 'LIVE'}`);
 
   const gen = await generateWithHiggsfield(product);
   console.log(`Video: ${gen.videoUrl} ${gen.mock ? '(mock)' : ''}`);
-  if (dry) { console.log('Dry run — no publico'); return; }
+  if (dry) { console.log('✓ Dry run OK — no publico, log no escrito'); return; }
 
-  // Intenta MultiUpload primero, fallback Buffer
   let pub;
   try { pub = await publishViaMultiUpload(gen.videoUrl, caption, title); }
-  catch { pub = await publishViaBuffer(gen.videoUrl, caption, title); }
+  catch (e) {
+    console.warn('MultiUpload falló, fallback Buffer:', e.message);
+    pub = await publishViaBuffer(gen.videoUrl, caption, title);
+  }
   console.log('Publish result:', JSON.stringify(pub,null,2));
 
-  // Log para auditoría
   const logPath = path.join(process.cwd(), 'docs', 'autopublish-log.json');
-  const log = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath,'utf8')) : [];
-  log.push({ date: new Date().toISOString(), product, title, videoUrl: gen.videoUrl, publish: pub });
-  fs.writeFileSync(logPath, JSON.stringify(log.slice(-100),null,2));
-  console.log(`✅ Log guardado ${logPath}`);
+  try {
+    const log = fs.existsSync(logPath) ? JSON.parse(fs.readFileSync(logPath,'utf8')) : [];
+    log.push({ date: new Date().toISOString(), product, title, videoUrl: gen.videoUrl, publish: pub });
+    fs.writeFileSync(logPath, JSON.stringify(log.slice(-100),null,2));
+    console.log(`✅ Log guardado ${logPath} (${log.length} entradas)`);
+  } catch (e) {
+    console.warn('No se pudo escribir log:', e.message);
+  }
 }
 
-main().catch(e=>{ console.error(e); process.exit(1); });
+main().catch(e=>{ console.error('❌ Error:', e.message); console.error(e.stack); process.exit(1); });
