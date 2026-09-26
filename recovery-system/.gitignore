@@ -44,3 +44,4 @@ test-results/
 .sixth/
 coverage/
 tsconfig.tsbuildinfo
+*.aliexpress.bak
