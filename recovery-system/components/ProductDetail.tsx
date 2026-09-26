@@ -230,7 +230,52 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
       : 'Yes. Rest is washable (remove speakers), Halo rinses and lasts months, Back/Cervical wipe clean.' },
   ];
 
-  const allImages = product?.images ?? [];
+  // ── Premium gallery: merge flat catalog images + organized lifestyle/gallery where available
+  // Note: rest/gallery/1.jpg is 1.9MB unoptimized — excluded until compressed
+  const organizedExtra: Record<string, string[]> = {
+    'sleep-headband': [
+      '/images/rest/lifestyle/1.png',
+      '/images/rest/lifestyle/2.png',
+      '/images/rest/lifestyle/3.png',
+    ],
+    'neck-massager': [
+      '/images/cervical/gallery/1.jpg',
+      '/images/productos-reales/neck-massager.jpg',
+    ],
+    halo: [],
+    wave: [],
+  }
+  const extraImages = organizedExtra[slug] ?? []
+  const allImages = [...(product?.images ?? []), ...extraImages].slice(0, 10)
+
+  // Problem → Solution copy (CRO)
+  const problemCopy: Record<string, { problem: string; solution: string; problemEn: string; solutionEn: string }> = {
+    'sleep-headband': {
+      problem: 'Auriculares que duelen',
+      solution: 'Audio sin presión',
+      problemEn: 'Earbuds that hurt',
+      solutionEn: 'Audio without pressure',
+    },
+    halo: {
+      problem: 'Roncas o tu pareja no duerme',
+      solution: 'Silencio desde la 1ª noche',
+      problemEn: 'Snoring keeps you apart',
+      solutionEn: 'Silence from night one',
+    },
+    wave: {
+      problem: 'Espalda cargada tras 8h',
+      solution: '15 min/día, invisible',
+      problemEn: 'Back aching after 8h',
+      solutionEn: '15 min/day, invisible',
+    },
+    'neck-massager': {
+      problem: 'Nuca piedra a las 7pm',
+      solution: 'Suelta en 15 min',
+      problemEn: 'Neck like stone at 7pm',
+      solutionEn: 'Loose in 15 min',
+    },
+  }
+  const pc = problemCopy[slug]
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
@@ -287,6 +332,15 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               {product?.badge && <Badge type={product.badge} locale={locale} />}
             </div>
 
+            {/* Problem → Solution — CRO */}
+            {pc && (
+              <div className="flex items-center gap-2 rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1.5 w-fit">
+                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#10BFD8]">{isEs ? pc.problem : pc.problemEn}</span>
+                <span className="text-[#10BFD8]/40">→</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#f2eee7]">{isEs ? pc.solution : pc.solutionEn}</span>
+              </div>
+            )}
+
             {/* Title */}
             <h1 className="text-[1.4rem] sm:text-[clamp(1.8rem,4vw,3rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
               {displayName}
@@ -303,9 +357,9 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </div>
             )}
 
-            {/* Short description */}
+            {/* Short description — benefit first */}
             {product && (
-              <p className="text-[13px] sm:text-[15px] leading-[1.5] sm:leading-7 text-[#9aa7b9]">
+              <p className="text-[13px] sm:text-[15px] leading-[1.6] sm:leading-7 text-[#9aa7b9] border-l-2 border-[#10BFD8]/30 pl-3">
                 {getLocalizedField(product, 'shortDescription') ?? product.shortDescription}
               </p>
             )}
@@ -436,6 +490,43 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Step 4: Product Benefits */}
             <ProductBenefits slug={product.slug} />
 
+            {/* ── Lifestyle / Benefit Visual — only show rich lifestyle where images exist ── */}
+            {(slug === 'sleep-headband' || slug === 'neck-massager') && (
+              <section className="mt-10 sm:mt-16 overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0d1219]">
+                <div className="grid sm:grid-cols-2">
+                  <div className="relative aspect-[4/3] sm:aspect-auto sm:min-h-[320px] bg-[#080c12] overflow-hidden">
+                    <img
+                      src={slug === 'sleep-headband' ? '/images/rest/lifestyle/2.png' : '/images/cervical/gallery/1.jpg'}
+                      alt={`${displayName} lifestyle`}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      loading="lazy"
+                      onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    <div className="absolute bottom-3 left-3 rounded-full bg-black/50 px-3 py-1 text-[11px] font-bold text-white backdrop-blur border border-white/10">
+                      {slug === 'sleep-headband' ? (isEs ? 'Durmiendo de lado · Sin presión' : 'Side sleeping · No pressure') : (isEs ? '15 min · Hombros ligeros' : '15 min · Shoulders light')}
+                    </div>
+                  </div>
+                  <div className="p-6 sm:p-8 flex flex-col justify-center">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#10BFD8]">{isEs ? 'Prueba visual' : 'Visual proof'}</span>
+                    <h3 className="mt-2 text-[18px] font-bold text-[#f2eee7] leading-tight">
+                      {slug === 'sleep-headband' ? (isEs ? 'Se ve como parte de tu noche. No como un aparato.' : 'Looks like part of your night. Not a device.') : (isEs ? 'Compacto. Lo usas donde estás.' : 'Compact. Use it where you are.')}
+                    </h3>
+                    <p className="mt-2 text-[13px] leading-[1.6] text-[#8791a1]">
+                      {slug === 'sleep-headband'
+                        ? (isEs ? 'La tela suave desaparece al ponértela. Duermes de lado sin que nada presione tus orejas. A la mañana, altavoces fuera y a la lavadora.' : 'Soft fabric disappears when you wear it. Sleep on your side with nothing pressing your ears. Morning: speakers out, machine wash.')
+                        : (isEs ? '200g, sin cables. En casa, en la oficina o de viaje. Una sesión y notas los hombros más ligeros. 15 min con temporizador automático.' : '200g, cordless. At home, office or travel. One session and shoulders feel lighter. 15 min with auto timer.')}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[11px] text-[#c8d0da]">{slug === 'sleep-headband' ? '45g' : '200g'}</span>
+                      <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[11px] text-[#c8d0da]">{slug === 'sleep-headband' ? 'Lavable' : '15 min'}</span>
+                      <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[11px] text-[#c8d0da]">{slug === 'sleep-headband' ? '10h batería' : 'Portátil'}</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
+
             {/* Step 5: What's Included */}
             <WhatIsIncluded slug={product.slug} />
 
@@ -444,6 +535,35 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
             {/* Step 7: Better Than Alternatives */}
             <BetterThanAlternatives slug={product.slug} />
+
+            {/* ── Guarantee — risk reversal visual ── */}
+            <section className="mt-10 sm:mt-16 overflow-hidden rounded-2xl border border-[#10BFD8]/20 bg-gradient-to-br from-[#0d1219] via-[#0d1219] to-[#0f1a1f] p-6 sm:p-8">
+              <div className="grid gap-6 sm:grid-cols-[1.1fr_0.9fr] items-center">
+                <div>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#10BFD8]/30 bg-[#10BFD8]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#10BFD8]">
+                    <ShieldCheck size={12} /> {isEs ? 'Sin riesgo' : 'Risk-free'}
+                  </span>
+                  <h3 className="mt-3 text-[18px] sm:text-[20px] font-bold leading-tight text-[#f6f2eb]">{isEs ? 'Pruébalo 30 noches. Quédate solo si duermes mejor.' : 'Try it 30 nights. Keep it only if you sleep better.'}</h3>
+                  <p className="mt-2 text-[13px] leading-[1.6] text-[#9aa7b9]">
+                    {isEs ? 'Úsalo en tu habitación real. Si no notas la diferencia, lo recogemos y te devolvemos cada euro. Sin formularios.' : 'Use it in your real bedroom. If you don’t feel the difference, we pick it up and refund every cent. No forms.'}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {[isEs ? 'Lo pruebas 30 noches' : 'Try 30 nights', isEs ? 'Tú decides' : 'You decide', isEs ? 'Reembolso 100%' : '100% refund'].map((s, i) => (
+                      <span key={s} className="flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-[11px] text-[#c8d0da]">
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#10BFD8] text-[10px] font-bold text-white">{i+1}</span>{s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex justify-center">
+                  <div className="rounded-2xl border border-white/[0.06] bg-[#080c12] p-6 text-center w-full max-w-[260px]">
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-[#10BFD8]/30 bg-[#10BFD8]/10 text-[24px] font-bold text-[#10BFD8]">30</div>
+                    <div className="mt-3 text-[12px] font-bold uppercase tracking-[0.14em] text-[#f2eee7]">{isEs ? 'Noches de prueba' : 'Night trial'}</div>
+                    <div className="mt-1 text-[11px] text-[#6b7785]">{isEs ? 'Reembolso total si no te convence' : 'Full refund if not for you'}</div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </>
         )}
 
@@ -695,7 +815,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 return (
                   <div key={p.slug} className="group overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all hover:border-white/[0.14] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
                     <Link href={`/${locale}/products/${p.slug}`} className="block">
-                      <div className="flex aspect-square items-center justify-center overflow-hidden p-3 sm:p-4" style={{ background: p.color }}>
+                      <div className="flex aspect-square items-center justify-center overflow-hidden p-3 sm:p-4 bg-[#f5f0eb]">
                         {p.images && p.images.length > 0 ? (
                           <img src={p.images[0]} alt={rName} loading="lazy" decoding="async"
                             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}

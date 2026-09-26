@@ -64,17 +64,21 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
     return () => window.removeEventListener('keydown', handler);
   }, [lightboxOpen, totalItems]);
 
+  // Premium DTC: light platform for product pop on dark site — keep border for cohesion
+  const isLifestyleIdx = false // placeholder for future lifestyle detection
   return (
     <>
       <div className="relative">
-        {/* Main Image */}
+        {/* Main Image — premium light platform */}
         <div
-          className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-2xl overflow-hidden"
-          style={{ background: color }}
+          className="relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.07] shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+          style={{ background: '#f5f0eb' }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           onClick={() => { setLightboxIdx(activeIdx); setLightboxOpen(true); }}
         >
+          {/* subtle grain */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `radial-gradient(circle at 1px 1px, #000 1px, transparent 0)`, backgroundSize: '18px 18px' }} />
           {isVideoActive && video ? (
             <video
               src={video}
@@ -82,13 +86,13 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
               playsInline
               preload="metadata"
               poster={images[0]}
-              className="absolute inset-0 w-full h-full object-contain"
+              className="absolute inset-0 w-full h-full object-contain p-2 sm:p-4"
             />
           ) : (
             <img
               src={images[activeIdx]}
               alt={`${alt} - ${activeIdx + 1}`}
-              className="absolute inset-0 w-full h-full object-contain"
+              className="absolute inset-0 w-full h-full object-contain p-4 sm:p-6"
               decoding="async"
               loading={activeIdx === 0 ? 'eager' : 'lazy'}
             />
@@ -128,25 +132,25 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
           </div>
         </div>
 
-        {/* Thumbnails */}
+          {/* Thumbnails — light cards for consistency */}
         <div
           ref={thumbnailRef}
-          className="mt-2 flex gap-1.5 overflow-x-auto scrollbar-none pb-1 sm:grid sm:grid-cols-6 sm:gap-2 sm:overflow-visible sm:pb-0"
+          className="mt-3 flex gap-2 overflow-x-auto scrollbar-none pb-1 sm:grid sm:grid-cols-6 sm:gap-2 sm:overflow-visible sm:pb-0"
         >
           {images.map((src, idx) => (
             <button
               key={idx}
               onClick={() => setActiveIdx(idx)}
-              className={`shrink-0 w-[56px] h-[56px] sm:w-auto sm:h-auto sm:aspect-square overflow-hidden rounded-lg border-2 transition-all ${
+              className={`shrink-0 w-[64px] h-[64px] sm:w-auto sm:h-auto sm:aspect-square overflow-hidden rounded-xl border-2 transition-all bg-[#f5f0eb] flex items-center justify-center p-1 ${
                 activeIdx === idx
-                  ? 'border-[#10BFD8] opacity-100'
-                  : 'border-white/10 opacity-50'
+                  ? 'border-[#10BFD8] opacity-100 shadow-[0_4px_12px_rgba(16,191,216,0.15)]'
+                  : 'border-white/10 opacity-70 hover:opacity-100'
               }`}
             >
               <img
                 src={src}
                 alt={`${alt} miniatura ${idx + 1}`}
-                className="w-full h-full object-cover sm:object-contain sm:p-1"
+                className="w-full h-full object-contain"
                 loading="lazy"
                 decoding="async"
               />

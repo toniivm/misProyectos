@@ -87,16 +87,27 @@ function ProductCard({ product, locale }: { product: CatalogProduct; locale: str
 
   return (
     <Link href={`/${locale}/products/${product.slug}`} className="group block">
-      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-white/[0.14] hover:shadow-card-hover">
-        <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden" style={{ background: product.color }}>
-          <ProductImage
-            slug={product.slug as any}
-            color={product.color}
-            icon={product.icon}
-            images={product.images}
-            alt={name}
-            className="h-full w-full"
-          />
+      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] transition-all duration-500 hover:border-white/[0.14] hover:shadow-card-hover hover:-translate-y-0.5">
+        <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#f5f0eb] p-4">
+          {product.images && product.images[0] ? (
+            <img
+              src={product.images[0]}
+              alt={name}
+              loading="lazy"
+              decoding="async"
+              onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}}
+              className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.04]"
+            />
+          ) : (
+            <ProductImage
+              slug={product.slug as any}
+              color={product.color}
+              icon={product.icon}
+              images={product.images}
+              alt={name}
+              className="h-full w-full"
+            />
+          )}
           {product.badge && (
             <div className="absolute left-3 top-3 z-10"><Badge type={product.badge} locale={locale} /></div>
           )}
