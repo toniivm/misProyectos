@@ -34,7 +34,7 @@ const SEO_TITLES: Record<string, { es: string; en: string }> = {
 
 const SEO_DESCS: Record<string, { es: string; en: string }> = {
   halo: { es: 'Férula anti-ronquidos Noctip Halo: avanza suavemente la mandíbula 10mm, silicona médica hipoalergénica, doble capa + estuche. 30 noches de prueba.', en: 'Noctip Halo anti-snoring mouthpiece: 10mm jaw advancement, medical silicone, dual-layer + case. 30-night trial.' },
-  wave: { es: 'Corrector postural Noctip Back en Y: XS-XL, invisible bajo ropa, malla transpirable, 15 min/día. Envío 5-10 días.', en: 'Noctip Back Y posture corrector: XS-XL, invisible under clothes, breathable mesh, 15 min/day. Ships 5-10 days.' },
+  wave: { es: 'Corrector postural Noctip Back en Y: XS-XL, invisible bajo ropa, malla transpirable, 15 min/día. Envío 7-20 días.', en: 'Noctip Back Y posture corrector: XS-XL, invisible under clothes, breathable mesh, 15 min/day. Ships 7-20 days.' },
   'sleep-headband': { es: 'Banda de sueño Noctip Rest: Bluetooth 5.0, altavoces ultrafinos, 45g, lavable, 10h batería. Duerme sin auriculares.', en: 'Noctip Rest sleep headband: Bluetooth 5.0, ultra-thin speakers, 45g, washable, 10h battery. Sleep without earbuds.' },
   'neck-massager': { es: 'Masajeador cervical Noctip Cervical: electrodos curvos, 3 capas, 15 min auto, portátil USB. Alivio real.', en: 'Noctip Cervical neck massager: curved electrodes, 3 layers, 15 min auto, portable USB. Real relief.' },
 }

@@ -211,7 +211,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
   const productFaqs = [
     { q: isEs ? '¿Cuándo llega?' : 'When does it arrive?', a: isEs
-      ? 'Procesamos en 24 horas. Entrega estándar 5-10 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.'
+      ? 'Procesamos en 24 horas. Entrega estándar 7-20 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.'
       : 'We process within 24 hours. Standard delivery 5-10 business days with tracking. Express 1-2 day shipping available at checkout.' },
     { q: isEs ? '¿Y si no me gusta?' : 'What if I don\'t like it?', a: isEs
       ? 'Pruébalo 30 noches. Si no cumple, contactas y gestionamos la devolución y el reembolso completo. Sin preguntas.'
@@ -386,13 +386,13 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2 sm:py-3">
               <span className="flex items-center gap-1.5"><Truck size={12} className="text-emerald-400" /><span className="text-[11px] sm:text-[13px] font-semibold text-emerald-300">{isEs ? 'Envío gratis' : 'Free shipping'}</span></span>
               <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Envía en 24h' : 'Ships in 24h'}</span>
-              <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 5-10 días' : 'Arrives in 5-10 days'}</span>
+              <span className="text-[10px] sm:text-[12px] text-[#8791a1]">· {isEs ? 'Llega en 7-20 días' : 'Arrives in 7-20 days'}</span>
             </div>
 
-            {/* Trust badges — honest 5-10 days */}
+            {/* Trust badges — honest 7-20 days */}
             <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
-                { icon: Truck, label: isEs ? '5-10 días' : '5-10 days' },
+                { icon: Truck, label: isEs ? '7-20 días' : '7-20 days' },
                 { icon: RotateCcw, label: isEs ? '30 noches' : '30 nights' },
                 { icon: ShieldCheck, label: isEs ? 'Pago seguro' : 'Secure' },
               ].map((item) => (
@@ -469,7 +469,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 {[
-                  { num: '01', title: isEs ? 'Recibe tu pedido' : 'Receive your order', text: isEs ? 'Lo enviamos en 24 horas. Llega a tu puerta en 6-9 días con seguimiento incluido.' : 'We ship within 24 hours. Arrives at your door in 6-9 days with tracking included.' },
+                  { num: '01', title: isEs ? 'Recibe tu pedido' : 'Receive your order', text: isEs ? 'Lo enviamos en 24 horas. Llega a tu puerta en 7-20 días con seguimiento incluido.' : 'We ship within 24 hours. Arrives at your door in 7-20 days with tracking included.' },
                   { num: '02', title: isEs ? 'Úsalo esta noche' : 'Use it tonight', text: isEs ? 'Sin configuraciones complejas. Funciona desde el primer momento. Solo ábrelo y úsalo.' : 'No complex settings. Works from the moment you open it. Just unbox and use.' },
                   { num: '03', title: isEs ? '30 noches sin riesgo' : '30 nights risk-free', text: isEs ? 'Pruébalo en tu entorno real. Si no notas la diferencia, te devolvemos cada euro.' : 'Try it in your real environment. If you don\'t feel the difference, we refund every cent.' },
                 ].map((step, idx) => (

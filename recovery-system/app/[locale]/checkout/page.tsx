@@ -751,7 +751,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Envío protegido' : 'Protected shipping'}</div>
-                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Seguimiento incluido · Entrega en 6-9 días' : 'Tracking included · Delivery in 6-9 days'}</div>
+                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Seguimiento incluido · Entrega en 7-20 días' : 'Tracking included · Delivery in 7-20 days'}</div>
                   </div>
                 </div>
 

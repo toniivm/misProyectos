@@ -100,7 +100,7 @@ function buildTitle(p: typeof CATALOG[0], locale: string): string {
 }
 
 function buildDescription(p: typeof CATALOG[0]): string {
-  return `${p.shortDescription} ${p.description} Envío 5-10 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.`.slice(0, 500)
+  return `${p.shortDescription} ${p.description} Envío 7-20 días con seguimiento. 30 noches de prueba o reembolso total. Pago seguro Stripe.`.slice(0, 500)
 }
 
 function itemXml(p: typeof CATALOG[0], locale: string): string {

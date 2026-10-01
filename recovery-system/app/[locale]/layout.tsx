@@ -29,13 +29,13 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
   return {
     title: isEs
-      ? 'Noctip™ — Anti-ronquidos, Banda Sueño y Postura | Envío 5-10 días'
+      ? 'Noctip™ — Anti-ronquidos, Banda Sueño y Postura | Envío 7-20 días'
       : 'Noctip™ — Anti-Snoring, Sleep Headband & Posture | Ships 5-10 Days',
     description: isEs
-      ? 'Férula anti-ronquidos, banda de sueño Bluetooth 5.0, corrector postural y masajeador cervical. 45g lavable 10h, 10mm ajuste, 30 noches de prueba. Envío 5-10 días.'
-      : 'Anti-snoring mouthpiece, Bluetooth 5.0 sleep headband, posture corrector & neck massager. 45g washable 10h, 10mm fit, 30-night trial. Ships 5-10 days.',
+      ? 'Férula anti-ronquidos, banda de sueño Bluetooth 5.0, corrector postural y masajeador cervical. 45g lavable 10h, 10mm ajuste, 30 noches de prueba. Envío 7-20 días.'
+      : 'Anti-snoring mouthpiece, Bluetooth 5.0 sleep headband, posture corrector & neck massager. 45g washable 10h, 10mm fit, 30-night trial. Ships 7-20 days.',
     keywords: isEs
-      ? 'noctip, férula anti ronquidos, banda sueño bluetooth, corrector postural, masajeador cervical, dejar de roncar, como dormir mejor, envío 5-10 días, 30 noches'
+      ? 'noctip, férula anti ronquidos, banda sueño bluetooth, corrector postural, masajeador cervical, dejar de roncar, como dormir mejor, envío 7-20 días, 30 noches'
       : 'noctip, anti-snoring mouthpiece, sleep headband bluetooth, posture corrector, neck massager, stop snoring, sleep better, free shipping',
     alternates: {
       canonical: `https://noctip.com/${locale}`,
@@ -176,7 +176,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: '¿Cuánto tarda el envío de Noctip?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Procesamos y enviamos todos los pedidos en 24 horas. Entrega estándar 5-10 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.',
+          text: 'Procesamos y enviamos todos los pedidos en 24 horas. Entrega estándar 7-20 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.',
         },
       },
       {

@@ -2,6 +2,29 @@
 
 > Fecha: 01 Oct 2026 | Problema: supplier chino envía directo a casa cliente → contradice promesa web `ShopHomePage.tsx:118` "5-10 días · almacén UE" + `legal/shipping/page.tsx:45` Correos/GLS
 > Investigación: CJdropshipping, EPROLO, BrandSKU + arancel UE julio 2026
+> **Estado Oct 2026: web claims corregidos a "7-20 días" (honesto). CJ pendiente de contactar.**
+
+---
+
+## 0. Plan "50€ Listo" — Cero Capital (Oct 2026)
+
+**Presupuesto: €50.** El fulfillment se autofinancia (Stripe cobra → tú pagas a CJ). Los €50 van a validación.
+
+| Día | Qué haces | Coste |
+|---|---|---|
+| 1 | Registro CJ gratis + pedir sourcing de tus 4 SKUs (pega links AliExpress) | **€0** |
+| 1 | Diseñar caja en Canva gratis (crema `#f2eee7` + logo `#080c12` + copy `PREMIUM_PACKAGING_NOCTIP.md`) | **€0** |
+| 2 | Pedir **1 sample Halo desde almacén DE de CJ** | **~€15** |
+| 3-4 | Llega sample → **6 fotos + 1 vídeo** (móvil, persona 55-65a, dormitorio real) | **€0** |
+| 5 | Subir fotos a PDP + escribir 9 guiones Julito (3×3) | **€0** |
+| 6-7 | **1 CBO Meta €5/día × 7 días** = 9 creativos, 1 avatar (pareja 55a) | **€35** |
+| **Total** | | **€50** |
+
+**Primer pedido real:** cliente paga €13.99 en Stripe → tú pagas CJ ~€9-14 (producto + caja branded + envío DE) → CJ envía → tú conservas margen. **El pedido se autofinancia.**
+
+**Cuando CJ esté operativo** → restaurar claims web a "5-10 días" (ahora sí es verdad desde almacén DE).
+
+---
 
 ---
 

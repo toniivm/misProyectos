@@ -170,7 +170,7 @@ export default function CartSidebar() {
                 <div className="flex items-center justify-center gap-3 sm:gap-4 text-[11px] sm:text-[12px] text-[#5a6678] pt-0.5 sm:pt-1">
                   <span className="flex items-center gap-1"><RotateCcw size={11} />{isEs ? '30 noches' : '30 nights'}</span>
                   <span className="flex items-center gap-1"><ShieldCheck size={11} />{isEs ? 'Seguro' : 'Secure'}</span>
-                  <span className="flex items-center gap-1"><Truck size={11} />{isEs ? '5-10 días' : '5-10 days'}</span>
+                  <span className="flex items-center gap-1"><Truck size={11} />{isEs ? '7-20 días' : '7-20 days'}</span>
                 </div>
 
                 <div className="flex items-center justify-between border-t border-white/[0.07] pt-2.5 sm:pt-3">

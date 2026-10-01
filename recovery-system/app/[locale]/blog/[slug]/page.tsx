@@ -49,7 +49,7 @@ const POSTS: Record<string, Post> = {
 <li>Días 11-14: evalúa. Si baja ≥3 puntos, sigue. Si no o empeora, médico.</li>
 </ol>
 
-<p><em>Transparencia:</em> vendemos <a href="/es/products/halo">Noctip Halo</a> y <a href="/es/products/sleep-headband">Noctip Rest</a> (si el ruido te despierta). Envío 5-10 días con seguimiento, 30 noches garantía. No somos producto sanitario.</p>
+<p><em>Transparencia:</em> vendemos <a href="/es/products/halo">Noctip Halo</a> y <a href="/es/products/sleep-headband">Noctip Rest</a> (si el ruido te despierta). Envío 7-20 días con seguimiento, 30 noches garantía. No somos producto sanitario.</p>
 `,
     body_en: `
 <h2>1) Why you snore</h2>
@@ -60,12 +60,12 @@ const POSTS: Record<string, Post> = {
 <ul><li><strong>MAD mouthpiece</strong> like <a href="/en/products/halo">Noctip Halo</a>: ~10mm advancement.</li><li>Nasal strips for mild congestion.</li><li>CPAP only if prescribed.</li></ul>
 <h2>4) 14-day plan</h2>
 <ol><li>Days 1-3: side + hygiene + diary.</li><li>Days 4-10: add Halo nightly, +1mm every 2 nights.</li><li>Days 11-14: evaluate.</li></ol>
-<p><em>Disclosure:</em> we sell <a href="/en/products/halo">Halo</a> and <a href="/en/products/sleep-headband">Rest</a>. Ships 5-10 days, 30-night guarantee. Not a medical device.</p>
+<p><em>Disclosure:</em> we sell <a href="/en/products/halo">Halo</a> and <a href="/en/products/sleep-headband">Rest</a>. Ships 7-20 days, 30-night guarantee. Not a medical device.</p>
 `,
     faq_es: [
       { q: '¿La férula duele?', a: 'Al inicio puede molestar mandíbula/baba. Ajusta 1mm cada 2 noches y limpia diario. Si dolor persiste, pausa y consulta.' },
       { q: '¿Sirve si tengo apnea?', a: 'Solo el médico lo decide. Ronquido fuerte + pausas + sueño diurno = estudio de sueño.' },
-      { q: '¿Cuánto tarda el envío?', a: 'Procesamos en 24h, entrega 5-10 días laborables con seguimiento. 30 noches de prueba.' },
+      { q: '¿Cuánto tarda el envío?', a: 'Procesamos en 24h, entrega 7-20 días laborables con seguimiento. 30 noches de prueba.' },
     ],
     faq_en: [
       { q: 'Does it hurt?', a: 'Jaw/drool at first is common. Adjust 1mm/2 nights, clean daily. Persistent pain → pause and ask a doctor.' },
@@ -88,7 +88,7 @@ const POSTS: Record<string, Post> = {
 <h2>6) Siesta</h2><p>≤20 min antes de 15:00 o nada.</p>
 <h2>7) Herramientas</h2><ul><li>Banda Rest para audio sin presión.</li><li>Antifaz si entra luz.</li></ul>
 <p>Combina 2-3 cambios 14 días. Diario: hora cama, despertares, energía 0-10.</p>
-<p>Tienda: <a href="/es/products/sleep-headband">Noctip Rest</a> y <a href="/es/products/wave">Noctip Back</a> (postura 15 min/día). Envío 5-10 días.</p>
+<p>Tienda: <a href="/es/products/sleep-headband">Noctip Rest</a> y <a href="/es/products/wave">Noctip Back</a> (postura 15 min/día). Envío 7-20 días.</p>
 `,
     body_en: `
 <h2>1) Light</h2><p>Dark room 30 min before. Phone out, warm dim light.</p>
@@ -98,17 +98,17 @@ const POSTS: Record<string, Post> = {
 <h2>5) Caffeine/alcohol</h2><p>Coffee till 14:00, no alcohol 4h before.</p>
 <h2>6) Nap</h2><p>≤20 min before 15:00.</p>
 <h2>7) Tools</h2><ul><li>Rest headband.</li><li>Eye mask.</li></ul>
-<p>Store: <a href="/en/products/sleep-headband">Rest</a> and <a href="/en/products/wave">Back</a>. Ships 5-10 days.</p>
+<p>Store: <a href="/en/products/sleep-headband">Rest</a> and <a href="/en/products/wave">Back</a>. Ships 7-20 days.</p>
 `,
     faq_es: [
       { q: '¿Ruido blanco engancha?', a: 'No crea dependencia como fármaco. Úsalo como rutina, baja volumen progresiva si quieres.' },
       { q: '¿La banda aprieta?', a: '45g elástica, no presiona. Retira altavoces y lava.' },
-      { q: '¿Envío?', a: '24h proceso, 5-10 días entrega. 30 noches garantía.' },
+      { q: '¿Envío?', a: '24h proceso, 7-20 días entrega. 30 noches garantía.' },
     ],
     faq_en: [
       { q: 'White noise habit?', a: 'No drug dependency. Use as routine, taper volume if you wish.' },
       { q: 'Tight?', a: '45g stretch, no pressure. Remove speakers to wash.' },
-      { q: 'Shipping?', a: '24h handling, 5-10 days. 30-night guarantee.' },
+      { q: 'Shipping?', a: '24h handling, 7-20 days. 30-night guarantee.' },
     ],
   },
   'corrector-postura-funciona-de-verdad': {
@@ -122,24 +122,24 @@ const POSTS: Record<string, Post> = {
 <h2>2) Evidencia</h2><p>Soporte externo + pausas activas mejora postura percibida en 2-4 semanas. Sin ejercicios, el efecto se pierde al quitarlo.</p>
 <h2>3) Cómo usar Noctip Back</h2><ul><li>15 min/día, sube 5 min cada 3 días. Debajo de camiseta, talla XS-XL. Malla transpirable.</li><li>Combina: retracciones cervicales 10×3/día, estiramiento pecho 30s ×2.</li></ul>
 <h2>4) Cuándo NO usar</h2><p>Dolor agudo, hernia sin diagnóstico, embarazo sin consejo médico. Si hormigueo/dolor aumenta, para.</p>
-<p><em>Tienda:</em> <a href="/es/products/wave">Noctip Back</a> — 5-10 días, 30 noches. También <a href="/es/products/neck-massager">Cervical</a> para tensión puntual 15 min.</p>
+<p><em>Tienda:</em> <a href="/es/products/wave">Noctip Back</a> — 7-20 días, 30 noches. También <a href="/es/products/neck-massager">Cervical</a> para tensión puntual 15 min.</p>
 `,
     body_en: `
 <h2>1) What it does</h2><p>Reminds your body of neutral posture (shoulders back, chest open). Not bone correction, habit retraining. Useful if you hunch 6-8h.</p>
 <h2>2) Evidence</h2><p>Support + active breaks improves perceived posture in 2-4 weeks. Without exercise, effect fades when removed.</p>
 <h2>3) How to use Noctip Back</h2><ul><li>15 min/day, +5 min every 3 days. Under tee, XS-XL. Breathable mesh.</li><li>Add: chin tucks 10×3/day, chest stretch 30s ×2.</li></ul>
 <h2>4) When not</h2><p>Acute pain, undiagnosed hernia, pregnancy without advice. Numbness ↑ → stop.</p>
-<p><em>Store:</em> <a href="/en/products/wave">Noctip Back</a> — ships 5-10 days, 30 nights. Also <a href="/en/products/neck-massager">Cervical</a> 15 min.</p>
+<p><em>Store:</em> <a href="/en/products/wave">Noctip Back</a> — ships 7-20 days, 30 nights. Also <a href="/en/products/neck-massager">Cervical</a> 15 min.</p>
 `,
     faq_es: [
       { q: '¿Todo el día?', a: 'No. 15-60 min/día. Todo el día crea dependencia muscular.' },
       { q: '¿Se ve bajo ropa?', a: 'Y fino, invisible bajo camiseta holgada.' },
-      { q: '¿Envío?', a: '24h proceso, 5-10 días. 30 noches.' },
+      { q: '¿Envío?', a: '24h proceso, 7-20 días. 30 noches.' },
     ],
     faq_en: [
       { q: 'All day?', a: 'No. 15-60 min/day. All day creates dependence.' },
       { q: 'Visible?', a: 'Thin Y, invisible under loose tee.' },
-      { q: 'Shipping?', a: '24h, 5-10 days. 30 nights.' },
+      { q: 'Shipping?', a: '24h, 7-20 days. 30 nights.' },
     ],
   },
   'masajeador-cervical-beneficios': {
@@ -153,24 +153,24 @@ const POSTS: Record<string, Post> = {
 <h2>2) Cómo usar Noctip Cervical</h2><ul><li>15 min sesión auto, 1/día. Electrodos curvos adaptables, no aprietes. Limpia piel antes.</li><li>Postura: sentado recto, hombros bajos, respira nasal 4-6.</li></ul>
 <h2>3) Contraindicaciones</h2><p>Marcapasos, embarazo, piel dañada, fiebre, trombos, cervical operada sin alta. Duda → médico.</p>
 <h2>4) Rutina</h2><p>Mañana o noche, tras estirar cuello 30s lado/ lado. Si dolor >3 días o irradia a mano, para y consulta.</p>
-<p><em>Tienda:</em> <a href="/es/products/neck-massager">Noctip Cervical</a> — portátil, USB, 5-10 días. Combínalo con <a href="/es/products/wave">Back</a> para postura.</p>
+<p><em>Tienda:</em> <a href="/es/products/neck-massager">Noctip Cervical</a> — portátil, USB, 7-20 días. Combínalo con <a href="/es/products/wave">Back</a> para postura.</p>
 `,
     body_en: `
 <h2>1) What for</h2><p>Releases trap/SCM tension after phone/desk. Heat + pulses + gentle pressure.</p>
 <h2>2) How to use Cervical</h2><ul><li>15 min auto, 1/day. Curved electrodes, don’t overtighten. Clean skin.</li><li>Posture: upright, shoulders down, nasal 4-6 breathing.</li></ul>
 <h2>3) Avoid if</h2><p>Pacemaker, pregnancy, broken skin, fever, clots, operated neck without clearance. Doubt → doctor.</p>
 <h2>4) Routine</h2><p>AM or PM after 30s/side stretch. Pain >3 days or radiating → stop.</p>
-<p><em>Store:</em> <a href="/en/products/neck-massager">Cervical</a> — portable, USB, 5-10 days. Pair with <a href="/en/products/wave">Back</a>.</p>
+<p><em>Store:</em> <a href="/en/products/neck-massager">Cervical</a> — portable, USB, 7-20 days. Pair with <a href="/en/products/wave">Back</a>.</p>
 `,
     faq_es: [
       { q: '¿Cada día?', a: 'Sí, 15 min/día. No más de 2 sesiones seguidas.' },
       { q: '¿Alergia?', a: 'No alergénico, carcasas ABS/TPR. Limpia electrodos tras uso.' },
-      { q: '¿Envío?', a: '24h, 5-10 días. 30 noches.' },
+      { q: '¿Envío?', a: '24h, 7-20 días. 30 noches.' },
     ],
     faq_en: [
       { q: 'Daily?', a: 'Yes, 15 min/day. No more than 2 back-to-back.' },
       { q: 'Allergy?', a: 'Non-allergenic ABS/TPR. Wipe electrodes after.' },
-      { q: 'Shipping?', a: '24h, 5-10 days. 30 nights.' },
+      { q: 'Shipping?', a: '24h, 7-20 days. 30 nights.' },
     ],
   },
 }

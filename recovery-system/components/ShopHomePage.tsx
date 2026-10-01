@@ -30,7 +30,7 @@ const COPY = {
       micro: '5–10 day tracked delivery · 30-night trial · Stripe checkout',
     },
     trust: [
-      { icon: Truck, label: 'Tracked delivery', sub: '5–10 days · EU warehouse' },
+      { icon: Truck, label: 'Tracked delivery', sub: '7–20 days · tracked shipping' },
       { icon: RotateCcw, label: '30-night trial', sub: 'Full refund — no questions' },
       { icon: ShieldCheck, label: 'Secure payment', sub: 'Stripe · 256-bit SSL' },
       { icon: HeartPulse, label: 'Real support', sub: 'hola@noctip.com' },
@@ -112,10 +112,10 @@ const COPY = {
       subtitle: 'Noctip selecciona herramientas sencillas que funcionan desde la primera noche. Sin pastillas. Sin aparatos enormes. Solo el ritual que tu cuerpo estaba esperando.',
       cta: 'Encuentra mi solución en 30s',
       ctaSecondary: 'Ver productos',
-      micro: 'Entrega 5–10 días con seguimiento · 30 noches de prueba · Pago Stripe',
+      micro: 'Entrega 7–20 días con seguimiento · 30 noches de prueba · Pago Stripe',
     },
     trust: [
-      { icon: Truck, label: 'Entrega con seguimiento', sub: '5–10 días · almacén UE' },
+      { icon: Truck, label: 'Entrega con seguimiento', sub: '7–20 días · envío con seguimiento' },
       { icon: RotateCcw, label: '30 noches de prueba', sub: 'Reembolso total — sin preguntas' },
       { icon: ShieldCheck, label: 'Pago seguro', sub: 'Stripe · SSL 256 bits' },
       { icon: HeartPulse, label: 'Atención real', sub: 'hola@noctip.com' },

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: '%s | Noctip™',
   },
   description:
-    'Noctip: férula anti-ronquidos 10mm, banda sueño Bluetooth 5.0 45g 10h lavable, corrector postural y masajeador cervical. Envío 5-10 días, 30 noches de prueba.',
+    'Noctip: férula anti-ronquidos 10mm, banda sueño Bluetooth 5.0 45g 10h lavable, corrector postural y masajeador cervical. Envío 7-20 días, 30 noches de prueba.',
   keywords: [
     'noctip', 'férula anti ronquidos', 'banda sueño bluetooth', 'sleep headband', 'corrector postural', 'masajeador cervical',
     'anti-snoring mouthpiece', 'posture corrector', 'neck massager', 'dejar de roncar', 'como dormir mejor',
