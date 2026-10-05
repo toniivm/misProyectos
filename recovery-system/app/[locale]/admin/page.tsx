@@ -199,7 +199,7 @@ export default function AdminPage(){
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/images/logo/logo.png" alt="Noctip" width={36} height={36} className="object-contain" sizes="36px" />
+              <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={36} height={36} className="object-contain" sizes="36px" />
             </Link>
             <div>
               <h1 className="text-[15px] font-bold text-white">Noctip Admin</h1>

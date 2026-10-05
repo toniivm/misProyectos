@@ -27,7 +27,7 @@ const COPY = {
       subtitle: 'Noctip curates simple tools that work from night one. No pills. No bulky machines. Just the nightly ritual your body has been waiting for.',
       cta: 'Find my solution in 30s',
       ctaSecondary: 'See all products',
-      micro: '5–10 day tracked delivery · 30-night trial · Stripe checkout',
+      micro: '7–20 day tracked delivery · 30-night trial · Stripe checkout',
     },
     trust: [
       { icon: Truck, label: 'Tracked delivery', sub: '7–20 days · tracked shipping' },
@@ -53,7 +53,7 @@ const COPY = {
       viewAll: 'View all →',
     },
     heroProduct: {
-      badge: 'HERO RITUAL · MOST CHOSEN',
+      badge: 'SLEEP AUDIO · NOCTIP REST',
       heading: 'Your night ritual starts here.',
       sub: 'Noctip Rest — 45g you don’t feel. No pressure on ears. Perfect for side sleepers. Washable. 10h battery.',
       bullets: ['No ear pressure — sleep on your side', 'Speakers pop out → machine washable', '10h battery — lasts the whole night', 'Bluetooth 5.0 — phone stays on nightstand'],
@@ -138,7 +138,7 @@ const COPY = {
       viewAll: 'Ver todo →',
     },
     heroProduct: {
-      badge: 'RITUAL HÉROE · EL MÁS ELEGIDO',
+      badge: 'AUDIO PARA DESCANSAR · NOCTIP REST',
       heading: 'Tu ritual de noche empieza aquí.',
       sub: 'Noctip Rest — 45g que no sientes. Sin presión en las orejas. Ideal de lado. Lavable. 10h de batería.',
       bullets: ['Sin presión — duerme de lado', 'Altavoces salen → lavable a máquina', '10h batería — toda la noche', 'Bluetooth 5.0 — móvil en la mesita'],

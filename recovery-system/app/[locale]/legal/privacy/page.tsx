@@ -13,7 +13,7 @@ export default function PrivacyPage(){
       <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image src="/images/logo/logo.png" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
+            <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
             <span className="hidden sm:block">Noctip</span>
           </Link>
           <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">

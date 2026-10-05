@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Investigación completa — Noctip</title>
+<style>
+  :root{
+    --base:#080c12; --surface:#0d1219; --elevated:#111720;
+    --primary:#10BFD8; --text:#f2eee7; --text2:#8791a1; --muted:#6b7785;
+    --border:rgba(255,255,255,.06); --border2:rgba(255,255,255,.12);
+    --amber:#fbbf24; --green:#34d399; --red:#f87171; --violet:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--base);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(8,12,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;padding:12px 20px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:13px}
+  .brand img{width:30px;height:30px;object-fit:contain}
+  .draft{margin-left:auto;background:rgba(16,191,216,.12);border:1px solid rgba(16,191,216,.3);color:var(--primary);
+    font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  header.hero{padding:46px 0 26px}
+  h1{font-size:clamp(28px,5vw,46px);letter-spacing:-.04em;line-height:1.03;margin:0 0 12px}
+  .lead{color:var(--text2);max-width:820px}
+  .small{font-size:12.5px;color:var(--muted)}
+  section{padding:36px 0;border-top:1px solid var(--border)}
+  h2{font-size:clamp(20px,3vw,28px);letter-spacing:-.03em;margin:0 0 6px}
+  h3{font-size:15.5px;margin:0 0 6px}
+  .eyebrow{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+  .src{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    padding:3px 9px;border-radius:999px;border:1px solid var(--border2);color:var(--text2);margin-bottom:12px}
+  .warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.28);color:#f3dfa5;border-radius:12px;padding:12px 14px;font-size:13px}
+  .ok{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);color:#a9f0d0;border-radius:12px;padding:12px 14px;font-size:13px}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+  th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;background:var(--elevated)}
+  tr:last-child td{border-bottom:0}
+  .num{font-weight:800;font-size:15px}
+  .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;min-width:90px}
+  .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#10BFD8,#5eead4)}
+  .violet i{background:linear-gradient(90deg,#a78bfa,#c4b5fd)}
+  .amber i{background:linear-gradient(90deg,#fbbf24,#fde68a)}
+  .red i{background:linear-gradient(90deg,#f87171,#fca5a5)}
+
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.g3,.g2{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+  .card.hot{border-color:rgba(16,191,216,.3);background:linear-gradient(180deg,rgba(16,191,216,.06),var(--surface))}
+  .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    padding:3px 9px;border-radius:999px;border:1px solid var(--border2);color:var(--text2)}
+  .tag.go{color:var(--green);border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+  .tag.mid{color:var(--amber);border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+  .tag.no{color:var(--red);border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)}
+  .price{font-size:20px;font-weight:800;letter-spacing:-.02em}
+  .link{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:700}
+  ul{margin:8px 0;padding-left:18px}li{margin:5px 0;font-size:13px;color:var(--text2)}
+  .kpi{display:flex;gap:20px;flex-wrap:wrap;margin:6px 0 4px}
+  .kpi div{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;padding:10px 14px;min-width:120px}
+  .kpi b{display:block;font-size:19px;letter-spacing:-.02em}
+  .kpi span{font-size:11px;color:var(--muted)}
+  footer{padding:34px 0;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><img src="../public/images/logo/logo-compact.webp" alt="Noctip" /><span>Noctip · Investigación</span></div>
+    <span class="draft">05-oct-2026</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Sueño y recuperación · AliExpress + 1688 + Amazon + TikTok</div>
+    <h1>Todo lo que más se vende, en una pantalla</h1>
+    <p class="lead">Cuatro fuentes cruzadas para elegir <b>qué muestras pedir</b>. Los datos son señales de demanda, no pruebas de rentabilidad. Cambian con el tiempo.</p>
+    <div class="kpi" style="margin-top:16px">
+      <div><b>9</b><span>categorías analizadas</span></div>
+      <div><b>4</b><span>fuentes distintas</span></div>
+      <div><b>3</b><span>finalistas para Noctip</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- 1. ALIEXPRESS -->
+<section>
+  <div class="wrap">
+    <span class="src">Fuente 1 · AliExpress España · pedidos acumulados</span>
+    <h2>Lo que más se vende en AliExpress</h2>
+    <table style="margin-top:18px">
+      <thead><tr><th>#</th><th>Producto</th><th>Pedidos</th><th>Precio</th><th>Valoración</th><th>Enlace</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1</td><td><b>Almohada cervical memory foam</b></td>
+          <td><span class="num">65.922</span><div class="bar"><i style="width:100%"></i></div></td>
+          <td>20,99 €</td><td>★4,9 · 50.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005006997671212.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>2</td><td>Corrector postural</td>
+          <td><span class="num">50.996</span><div class="bar"><i style="width:77%"></i></div></td>
+          <td>3,29 €</td><td>★4,2 · 50.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005006697527976.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>3</td><td>Banda/antifaz audio Bluetooth</td>
+          <td><span class="num">40.094</span><div class="bar violet"><i style="width:61%"></i></div></td>
+          <td>4,69 €</td><td>★4,9 · 10.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005006678181206.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>4</td><td><b>Masajeador cuello/hombros con calor</b></td>
+          <td><span class="num">25.998</span><div class="bar amber"><i style="width:39%"></i></div></td>
+          <td>38,12 €</td><td>★4,9 · 10.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005012076397555.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>5</td><td>Antifaz 3D blackout</td>
+          <td><span class="num">12.211</span><div class="bar"><i style="width:19%"></i></div></td>
+          <td>5,19 €</td><td>★4,8 · 10.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005007585702357.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>6</td><td>Máquina de ruido blanco</td>
+          <td><span class="num">4.680</span><div class="bar"><i style="width:7%"></i></div></td>
+          <td>21,99 €</td><td>★4,9 · 4.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005006860794423.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>7</td><td>Cojín lumbar oficina</td>
+          <td><span class="num">3.331</span><div class="bar"><i style="width:5%"></i></div></td>
+          <td>8,04 €</td><td>★4,7 · 3.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005009144649292.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>8</td><td>Manta ponderada</td>
+          <td><span class="num">861</span><div class="bar red"><i style="width:2%"></i></div></td>
+          <td>40,47 €</td><td>★4,8 · 800+</td>
+          <td><a href="https://es.aliexpress.com/item/1005010026270377.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+        <tr>
+          <td>9</td><td>Férula anti-ronquidos</td>
+          <td><span class="num">datos bajos</span><div class="bar red"><i style="width:1%"></i></div></td>
+          <td>7,89 €</td><td>★4,1 · 1.000+</td>
+          <td><a href="https://es.aliexpress.com/item/1005010707041107.html" target="_blank" rel="noopener">Ver</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="small" style="margin-top:10px">Los pedidos son del anuncio concreto, no de toda la categoría. Un anuncio con 65.000 pedidos no significa que sea fácil de rentabilizar: mira siempre el precio.</p>
+  </div>
+</section>
+
+<!-- 2. 1688 -->
+<section>
+  <div class="wrap">
+    <span class="src">Fuente 2 · 1688.com (China, mayorista)</span>
+    <h2>Precios de fábrica reales</h2>
+    <p class="lead">1688 es el mercado interno chino. Aquí se ve el <b>coste de fábrica</b> antes de que nadie ponga su margen. Es donde comprarías para revender con tu marca.</p>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card">
+        <h3>Almohada memory foam cervical</h3>
+        <div class="kpi"><div><b>4,76–25 ¥</b><span>coste fábrica (0,60–3,20 €)</span></div><div><b>100.000+</b><span>vendidos en un listado</span></div></div>
+        <ul>
+          <li>Modelos “蝶形” (mariposa) y “双芯” (doble núcleo).</li>
+          <li>Recompra publicada: 40–66 %.</li>
+          <li>Fabricantes: Nantong, Jiangsu (cluster textil).</li>
+        </ul>
+        <p class="small">Con coste de ~2 € y venta a 20–40 €, hay margen para publicidad. Buen candidato.</p>
+      </div>
+      <div class="card">
+        <h3>Cojín cervical “C” con calor / masaje</h3>
+        <div class="kpi"><div><b>5,76 ¥</b><span>mayorista (~0,75 €)</span></div><div><b>35.000</b><span>piezas (un proveedor)</span></div></div>
+        <ul>
+          <li>Relleno EPP + espuma viscoelástica.</li>
+          <li>MOQ desde 100 uds; −5 % a partir de 300.</li>
+          <li>Certificaciones CCC; valoraciones 4,5+.</li>
+        </ul>
+        <p class="small">El masajeador eléctrico con calor es más caro de fabricar, pero se vende a 38–64 €.</p>
+      </div>
+    </div>
+    <div class="warn" style="margin-top:16px">1688 no publica “rentabilidad”: publica ventas y precio mayorista. Sirve para negociar, no para prometer ventas.</div>
+  </div>
+</section>
+
+<!-- 3. AMAZON -->
+<section>
+  <div class="wrap">
+    <span class="src">Fuente 3 · Amazon (US)</span>
+    <h2>Precios que aguanta el mercado</h2>
+    <p class="lead">Amazon marca el techo de precio que el cliente ya acepta pagar. Si allí se vende a 50 $, tú puedes vender a 40-50 €.</p>
+    <div class="grid g3" style="margin-top:18px">
+      <div class="card">
+        <span class="tag go">Categoría fuerte</span>
+        <h3 style="margin-top:10px">Masajeadores de cuello con calor</h3>
+        <div class="price">49–99 $</div>
+        <ul>
+          <li>RENPHO, Nekteck, COMFIER, Snailax…</li>
+          <li>RENPHO heating pad: <b>26.193 reseñas</b> · 4,4★ · 49,99 $.</li>
+          <li>Cordless con calor = la versión que gana.</li>
+        </ul>
+        <a class="link" href="https://www.amazon.com/Best-Sellers-Electric-Back-Massagers/zgbs/hpc/3767531" target="_blank" rel="noopener">Ver más vendidos →</a>
+      </div>
+      <div class="card">
+        <span class="tag go">Categoría fuerte</span>
+        <h3 style="margin-top:10px">Almohadas y calor cervical</h3>
+        <div class="price">27–50 $</div>
+        <ul>
+          <li>Almohadillas térmicas con 26.000+ reseñas.</li>
+          <li>Cervical memory foam de 27 a 50 $.</li>
+          <li>Mucho volumen y recompra.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag mid">Cuidado</span>
+        <h3 style="margin-top:10px">Corrector de postura</h3>
+        <div class="price">10–25 $</div>
+        <ul>
+          <li>Precio bajo y mucha competencia.</li>
+          <li>Riesgo de promesas médicas.</li>
+          <li>Difícil de diferenciar.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ok" style="margin-top:16px"><b>Lectura:</b> el cliente ya paga 40–60 € por un masajeador de cuello y 25–40 € por una buena almohada. Ese es el rango de precio donde Noctip puede jugar.</div>
+  </div>
+</section>
+
+<!-- 4. TIKTOK -->
+<section>
+  <div class="wrap">
+    <span class="src">Fuente 4 · TikTok Shop 2026</span>
+    <h2>Qué se está moviendo ahora</h2>
+    <div class="grid g3" style="margin-top:18px">
+      <div class="card">
+        <h3>Nodpod · antifaz con peso</h3>
+        <div class="price">32 $</div>
+        <p><b>#1 de su categoría</b> en TikTok Shop US con ~143.000 $ ese mes. Antifaz ponderado (weighted mask).</p>
+      </div>
+      <div class="card">
+        <h3>Masajeadores de cuello</h3>
+        <div class="price">150.000 $/día</div>
+        <p>Los masajeadores de cuello alcanzaron ~150.000 $/día en TikTok US. Gana el formato ASMR / “satisfying”.</p>
+      </div>
+      <div class="card">
+        <h3>Almohada cervical “cooling”</h3>
+        <div class="price">tendencia alta</div>
+        <p>La almohada cervical con soporte y efecto frío es tendencia fuerte en TikTok Shop (2026).</p>
+      </div>
+    </div>
+    <p class="small" style="margin-top:12px">Fuentes: Trenz.ai (ranking TikTok Shop US), netinfluencer, reports de tendencias 2026. Son estimaciones de terceros.</p>
+  </div>
+</section>
+
+<!-- 5. SHORTLIST -->
+<section>
+  <div class="wrap">
+    <span class="src">Veredicto</span>
+    <h2>Los 3 que probaría en Noctip</h2>
+    <div class="grid g3" style="margin-top:18px">
+
+      <div class="card hot">
+        <span class="tag go">Prioridad 1</span>
+        <h3 style="margin-top:10px">Almohada cervical / lateral</h3>
+        <div class="price">20–40 €</div>
+        <ul>
+          <li>65.922 pedidos en AliExpress.</li>
+          <li>Coste fábrica desde ~2 € (1688).</li>
+          <li>26.000+ reseñas de térmicas similares en Amazon.</li>
+          <li>Tendencia “cervical/cooling” en TikTok.</li>
+          <li>Fácil de demostrar en vídeo.</li>
+        </ul>
+        <a class="link" href="https://es.aliexpress.com/item/1005006997671212.html" target="_blank" rel="noopener">Muestra en AliExpress →</a>
+      </div>
+
+      <div class="card hot">
+        <span class="tag go">Prioridad 2</span>
+        <h3 style="margin-top:10px">Masajeador de cuello con calor</h3>
+        <div class="price">38–64 €</div>
+        <ul>
+          <li>25.998 pedidos en AliExpress a 38 €.</li>
+          <li>Amazon lo vende a 49–99 $.</li>
+          <li>TikTok: 150.000 $/día.</li>
+          <li><b>Mejor margen</b> de todos: precio alto.</li>
+          <li>El “con calor” es lo que convierte.</li>
+        </ul>
+        <a class="link" href="https://es.aliexpress.com/item/1005012076397555.html" target="_blank" rel="noopener">Muestra en AliExpress →</a>
+      </div>
+
+      <div class="card">
+        <span class="tag mid">Prioridad 3</span>
+        <h3 style="margin-top:10px">Antifaz con peso (weighted mask)</h3>
+        <div class="price">20–32 €</div>
+        <ul>
+          <li>Nodpod: #1 en TikTok a 32 $.</li>
+          <li>AliExpress: solo ~220 pedidos (poco volumen).</li>
+          <li>Peso ligero → envío barato.</li>
+          <li>Bueno como complemento, no como héroe.</li>
+        </ul>
+        <a class="link" href="https://es.aliexpress.com/item/1005007295310684.html" target="_blank" rel="noopener">Muestra en AliExpress →</a>
+      </div>
+
+    </div>
+    <div class="warn" style="margin-top:16px"><b>Descarto ahora:</b> corrector postural y banda de audio (precio 3-5 €, no pagan anuncios), manta ponderada (volumen bajo) y férula anti-ronquidos (datos bajos + riesgo legal).</div>
+  </div>
+</section>
+
+<!-- 6. PLAN -->
+<section>
+  <div class="wrap">
+    <span class="src">Siguiente paso</span>
+    <h2>Plan de muestras</h2>
+    <p class="lead">Pedir las 2 primeras hoy, probarlas y decidir en 4-5 días. Sin comprar stock ni gastar en anuncios todavía.</p>
+    <table style="margin-top:18px">
+      <thead><tr><th>Muestra</th><th>Enlace</th><th>Precio visto</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td><b>Almohada cervical</b></td><td><a href="https://es.aliexpress.com/item/1005006997671212.html" target="_blank" rel="noopener">1005006997671212</a></td><td>20,99 €</td><td>Pedir</td></tr>
+        <tr><td><b>Masajeador cuello calor</b></td><td><a href="https://es.aliexpress.com/item/1005012076397555.html" target="_blank" rel="noopener">1005012076397555</a></td><td>38,12 €</td><td>Pedir</td></tr>
+        <tr><td>Antifaz con peso</td><td><a href="https://es.aliexpress.com/item/1005007295310684.html" target="_blank" rel="noopener">1005007295310684</a></td><td>19,89 €</td><td>Opcional</td></tr>
+      </tbody>
+    </table>
+    <div class="ok" style="margin-top:16px"><b>Coste 2 primeras muestras: ~59 € + envío.</b> Las 3: ~79 € + envío. Es el único gasto necesario antes de decidir nada.</div>
+  </div>
+</section>
+
+<!-- 7. LIMITES -->
+<section>
+  <div class="wrap">
+    <span class="src">Transparencia</span>
+    <h2>Qué significan y qué no estos datos</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Sirven para</h3>
+        <ul>
+          <li>Elegir qué muestras pedir.</li>
+          <li>Comparar precio de venta del mercado.</li>
+          <li>Ver la tendencia (cervical, calor, peso).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>NO sirven para</h3>
+        <ul>
+          <li>Prometer ventas ni rentabilidad.</li>
+          <li>Saber la calidad real del producto.</li>
+          <li>Conocer el margen hasta tener coste + envío + devoluciones.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small" style="margin-top:14px">Fuentes: AliExpress España, wiki.1688.com, Amazon US, Trenz.ai / reports TikTok Shop 2026. Datos de 05-oct-2026; cambian con el tiempo.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Investigación de apoyo para Noctip. No es la web final ni una garantía de resultados. Verifica siempre variante, almacén, plazo y documentos antes de comprar.</div>
+</footer>
+
+</body>
+</html>

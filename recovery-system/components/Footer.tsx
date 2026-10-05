@@ -51,7 +51,7 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-4 space-y-5">
             <div className="flex items-center gap-3">
               <Image
-                src="/images/logo/logo.png"
+                src="/images/logo/logo-compact.webp"
                 alt="Noctip"
                 width={38}
                 height={38}

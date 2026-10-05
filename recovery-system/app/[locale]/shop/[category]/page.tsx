@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: params.locale === 'es' ? 'es_ES' : 'en_US',
       images: [
         {
-          url: 'https://noctip.com/images/products/sleep-headband.jpg',
+          url: 'https://noctip.com/images/logo/logo.png',
           width: 1200,
           height: 630,
           alt: title,
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://noctip.com/images/products/sleep-headband.jpg'],
+      images: ['https://noctip.com/images/logo/logo.png'],
     },
   }
 }

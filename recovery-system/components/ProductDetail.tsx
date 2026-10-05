@@ -27,8 +27,6 @@ import ProductGallery from './ProductGallery';
 import BundleSelector, { type BundleTier } from './BundleSelector';
 import ProductBenefits from './ProductBenefits';
 import WhatIsIncluded from './WhatIsIncluded';
-import ScienceBehindIt from './ScienceBehindIt';
-import BetterThanAlternatives from './BetterThanAlternatives';
 import CustomerReviews from './CustomerReviews';
 import Stars from './ui/Stars';
 import Badge from './ui/Badge';
@@ -212,7 +210,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   const productFaqs = [
     { q: isEs ? '¿Cuándo llega?' : 'When does it arrive?', a: isEs
       ? 'Procesamos en 24 horas. Entrega estándar 7-20 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.'
-      : 'We process within 24 hours. Standard delivery 5-10 business days with tracking. Express 1-2 day shipping available at checkout.' },
+      : 'We process within 24 hours. Standard delivery 7-20 business days with tracking. Express 1-2 day shipping available at checkout.' },
     { q: isEs ? '¿Y si no me gusta?' : 'What if I don\'t like it?', a: isEs
       ? 'Pruébalo 30 noches. Si no cumple, contactas y gestionamos la devolución y el reembolso completo. Sin preguntas.'
       : 'Try it for 30 nights. If it doesn\'t meet your expectations, contact us and we arrange pickup and a full refund. No questions.' },
@@ -373,13 +371,11 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
               </span>
             </div>
 
-            {/* Sello grande arriba — VitalSleep 60-night style */}
+            {/* Sello de confianza: alineado con la política pública de 30 noches */}
             <div className="flex flex-wrap items-center gap-2 rounded-xl border border-[#10BFD8]/20 bg-[#10BFD8]/5 px-3 py-2.5">
-              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><RotateCcw size={13} />{isEs ? '60 noches · devolución completa' : '60 nights · full refund'}</span>
+              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><RotateCcw size={13} />{isEs ? '30 noches · devolución completa' : '30 nights · full refund'}</span>
               <span className="h-3 w-px bg-white/10 hidden sm:block" />
-              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><Truck size={13} />{isEs ? 'Cambio talla gratis' : 'Free size exchange'}</span>
-              <span className="h-3 w-px bg-white/10 hidden sm:block" />
-              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><ShieldCheck size={13} />{isEs ? '1 año garantía' : '1-year warranty'}</span>
+              <span className="flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8]"><ShieldCheck size={13} />{isEs ? 'Pago seguro Stripe' : 'Secure Stripe payment'}</span>
             </div>
 
             {/* Shipping badge */}
@@ -529,12 +525,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
             {/* Step 5: What's Included */}
             <WhatIsIncluded slug={product.slug} />
-
-            {/* Step 6: Science Behind It */}
-            <ScienceBehindIt slug={product.slug} />
-
-            {/* Step 7: Better Than Alternatives */}
-            <BetterThanAlternatives slug={product.slug} />
 
             {/* ── Guarantee — risk reversal visual ── */}
             <section className="mt-10 sm:mt-16 overflow-hidden rounded-2xl border border-[#10BFD8]/20 bg-gradient-to-br from-[#0d1219] via-[#0d1219] to-[#0f1a1f] p-6 sm:p-8">

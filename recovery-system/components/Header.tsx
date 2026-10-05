@@ -89,7 +89,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
       <div className="bg-[#1a1a1a] text-white">
         <div className="mx-auto max-w-[1320px] px-4">
           <div className="flex items-center justify-center gap-2 sm:gap-6 py-2 text-[10px] sm:text-[12px] font-bold tracking-wide text-center">
-            <span className="flex items-center gap-1.5">🚚 {isEs ? 'Entrega 7–20 días con seguimiento' : '5–10 day delivery with tracking'}</span>
+            <span className="flex items-center gap-1.5">🚚 {isEs ? 'Entrega 7–20 días con seguimiento' : '7–20 day delivery with tracking'}</span>
             <span className="hidden sm:flex items-center gap-1.5">🔄 {isEs ? '30 noches de prueba' : '30-night trial'}</span>
             <span className="hidden md:flex items-center gap-1.5">🔒 {isEs ? 'Pago 100% seguro' : '100% secure payment'}</span>
           </div>
@@ -169,7 +169,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
 
             {/* Center: Logo */}
             <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group mx-4 lg:mx-8">
-              <Image src="/images/logo/logo.png" alt="Noctip" width={44} height={44} priority className="object-contain transition-transform duration-300 group-hover:scale-105" sizes="44px" />
+              <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={44} height={44} priority className="object-contain transition-transform duration-300 group-hover:scale-105" sizes="44px" />
               <div className="flex flex-col">
                 <span className="text-[16px] font-extrabold tracking-[0.2em] text-[#1a1a1a] uppercase leading-none">Noctip</span>
                 <span className="text-[8px] font-bold tracking-[0.25em] text-[#10BFD8] uppercase mt-0.5 hidden sm:block">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>
@@ -250,7 +250,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
               {/* Mobile Header */}
               <div className="flex items-center justify-between px-6 py-5 border-b border-[#e8e2d8]">
                 <Link href={`/${locale}`} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
-                  <Image src="/images/logo/logo.png" alt="Noctip" width={38} height={38} className="object-contain" sizes="38px" />
+                  <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={38} height={38} className="object-contain" sizes="38px" />
                   <div className="flex flex-col">
                     <span className="text-[15px] font-extrabold tracking-[0.18em] text-[#1a1a1a] uppercase leading-none">Noctip</span>
                     <span className="text-[8px] font-bold tracking-[0.22em] text-[#10BFD8] uppercase mt-0.5">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>

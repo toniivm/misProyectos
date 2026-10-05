@@ -13,7 +13,7 @@ export default function ShippingPage(){
       <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image src="/images/logo/logo.png" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
+            <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
             <span className="hidden sm:block">Noctip</span>
           </Link>
           <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">
@@ -38,8 +38,8 @@ export default function ShippingPage(){
           <section>
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? 'Envío estándar' : 'Standard Shipping'}</h2>
             <ul className="list-disc ml-5 space-y-2">
-              <li><strong>España peninsular:</strong> {isEs ? '7-20 días laborables (procesamiento 24h + tránsito) — seguimiento incluido' : '5-10 business days (24h processing + transit) — tracking included'}</li>
-              <li><strong>{isEs ? 'Europa' : 'Europe'}:</strong> {isEs ? '7-20 días laborables — seguimiento incluido' : '5-10 business days — tracking included'}</li>
+              <li><strong>España peninsular:</strong> {isEs ? '7-20 días laborables (procesamiento 24h + tránsito) — seguimiento incluido' : '7-20 business days (24h processing + transit) — tracking included'}</li>
+              <li><strong>{isEs ? 'Europa' : 'Europe'}:</strong> {isEs ? '7-20 días laborables — seguimiento incluido' : '7-20 business days — tracking included'}</li>
               <li><strong>{isEs ? 'Resto del mundo' : 'Rest of world'}:</strong> {isEs ? '7-14 días laborables' : '7-14 business days'}</li>
             </ul>
             <p className="mt-2">{isEs ? 'Envío gratuito en todos los pedidos. Transportista: transportista con seguimiento. Plazo máximo legal 30 días.' : 'Free shipping on all orders. Carrier: transportista con seguimiento. Legal max 30 days.'}</p>

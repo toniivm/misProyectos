@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Por qué estos y no otros — Noctip</title>
+<style>
+  :root{--base:#080c12;--surface:#0d1219;--elevated:#111720;--primary:#10BFD8;--text:#f2eee7;
+    --text2:#8791a1;--muted:#6b7785;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.12);
+    --green:#34d399;--red:#f87171;--amber:#fbbf24;}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--base);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+  a{color:var(--primary)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .topbar{position:sticky;top:0;background:rgba(8,12,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:50}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;padding:12px 20px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:13px}
+  .brand img{width:30px;height:30px;object-fit:contain}
+  .draft{margin-left:auto;background:rgba(16,191,216,.12);border:1px solid rgba(16,191,216,.3);color:var(--primary);
+    font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  header{padding:44px 0 20px}
+  h1{font-size:clamp(26px,5vw,44px);letter-spacing:-.04em;line-height:1.04;margin:0 0 10px}
+  .lead{color:var(--text2);max-width:820px}
+  .small{font-size:12.5px;color:var(--muted)}
+  section{padding:28px 0;border-top:1px solid var(--border)}
+  h2{font-size:clamp(19px,3vw,26px);letter-spacing:-.03em;margin:0 0 8px}
+  .eyebrow{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+  .grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:820px){.g2,.g3{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+  .card.win{border-color:rgba(52,211,153,.3);background:linear-gradient(180deg,rgba(52,211,153,.05),var(--surface))}
+  .card.lose{border-color:rgba(248,113,113,.22)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;background:var(--elevated)}
+  tr:last-child td{border-bottom:0}
+  .yes{color:var(--green);font-weight:800}.no{color:var(--red);font-weight:800}.mid{color:var(--amber);font-weight:800}
+  ul{margin:8px 0;padding-left:18px}li{margin:5px 0;font-size:13.5px;color:var(--text2)}
+  .warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.28);color:#f3dfa5;border-radius:12px;padding:12px 14px;font-size:13px}
+  footer{padding:34px 0;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="brand"><img src="../public/images/logo/logo-compact.webp" alt="Noctip" /><span>Noctip · Decisión</span></div>
+  <span class="draft">Para mañana</span>
+</div></div>
+
+<header><div class="wrap">
+  <div class="eyebrow">Por qué el Tier S y no otros</div>
+  <h1>Analizado con NUESTRO contexto</h1>
+  <p class="lead">No es “lo que más vende en el mundo”. Es lo que mejor encaja con <b>lo que Noctip ya es</b>: marca de descanso, público 50-70, España/UE, web oscura premium, 30 noches, Stripe, sin stock y con presupuesto pequeño.</p>
+</div></header>
+
+<section><div class="wrap">
+  <div class="eyebrow">Nuestro contexto real</div>
+  <h2>Con qué jugamos</h2>
+  <div class="grid g3">
+    <div class="card"><b>Público</b><p class="small">50-70 años, poca habilidad digital, busca comodidad, no tecnicismos.</p></div>
+    <div class="card"><b>Marca</b><p class="small">Sueño y recuperación. Ya vendemos cuello (Cervical) y espalda (Back). Web oscura premium.</p></div>
+    <div class="card"><b>Operación</b><p class="small">Sin stock, envío desde China 7-20 días, Stripe, garantía 30 noches.</p></div>
+    <div class="card"><b>Presupuesto</b><p class="small">Pequeño. No podemos comprar 500 uds ni quemar 1.000 € en anuncios.</p></div>
+    <div class="card"><b>Regla propia</b><p class="small">Nada de reseñas falsas ni promesas médicas. Solo se publica lo comprobado.</p></div>
+    <div class="card"><b>Precio actual</b><p class="small">Nuestros productos van de 14 a 22 €. Eso casi no deja pagar publicidad.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">El filtro</div>
+  <h2>Los 5 filtros que aplico</h2>
+  <ul>
+    <li><b>1. Precio que deje margen</b> (30 € o más) — si no, los anuncios se comen el beneficio.</li>
+    <li><b>2. Que encaje en nuestro territorio</b> (cuello / descanso / recuperación), no abrir una categoría nueva desde cero.</li>
+    <li><b>3. Que se vea en vídeo</b> sin explicaciones largas (calor, forma, ajuste).</li>
+    <li><b>4. Sin promesas médicas</b> y sin voluminoso/pesado que arruine el envío y la devolución.</li>
+    <li><b>5. Que se pueda empezar con muestra</b>, sin stock ni inversión grande.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">La decisión</div>
+  <h2>Tier S, con nuestro contexto</h2>
+  <div class="grid g2">
+    <div class="card win">
+      <b style="color:var(--green)">Almohada cervical / memory foam</b>
+      <ul>
+        <li>Ya vendemos <b>Cervical</b> y <b>Back</b>: el cliente y el problema son los mismos.</li>
+        <li>Precio 20-40 €: por fin deja margen para anuncios.</li>
+        <li>Se demuestra en vídeo (forma y ajuste).</li>
+        <li>Sin cables ni electricidad: menos normativa y menos averías.</li>
+        <li>Muestra barata: podemos probar ya.</li>
+      </ul>
+    </div>
+    <div class="card win">
+      <b style="color:var(--green)">Masajeador de cuello con calor</b>
+      <ul>
+        <li>Es <b>literalmente nuestra categoría</b> (el Cervical que ya vendemos), pero mejor y más caro.</li>
+        <li>38 € en AliExpress, 49-99 $ en Amazon: margen real.</li>
+        <li>El “con calor” se entiende en 2 segundos y se graba fácil.</li>
+        <li>Mismo público 50-70 que ya busca esto.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Y por qué NO los demás</div>
+  <h2>Motivo por producto</h2>
+  <table style="margin-top:14px">
+    <thead><tr><th>Producto</th><th>Por qué no</th><th>Veredicto</th></tr></thead>
+    <tbody>
+      <tr><td>Banda audio Bluetooth</td><td>Es Rest, que ya tenemos. A 4,69 € no paga anuncios.</td><td class="no">No escala</td></tr>
+      <tr><td>Corrector postural</td><td>Es Back, a 3,29 €. Barato y con riesgo de promesas médicas.</td><td class="no">No escala</td></tr>
+      <tr><td>Antifaz 3D</td><td>Cuesta 5 €: imposible pagar publicidad.</td><td class="no">Margen</td></tr>
+      <tr><td>Antifaz con peso</td><td>Bonito en TikTok, pero casi sin ventas en AliExpress.</td><td class="mid">Probar 2ª</td></tr>
+      <tr><td>Máquina ruido blanco</td><td>Bien, pero demanda media y es otro aparato electrónico.</td><td class="mid">Probar 2ª</td></tr>
+      <tr><td>Manta ponderada</td><td>Pesa y abulta: envío y devolución carísimos.</td><td class="no">Logística</td></tr>
+      <tr><td>Férula anti-ronquidos</td><td>Datos bajos de venta + producto bucal + riesgo legal.</td><td class="no">Descartar</td></tr>
+      <tr><td>Masajeador de pies</td><td>Convierte, pero voluminoso y caro de enviar.</td><td class="mid">Futuro</td></tr>
+      <tr><td>Bloqueador de móvil</td><td>No hay búsquedas en España y se sale de la marca.</td><td class="no">Descartar</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Resumen en 1 línea</div>
+  <h2>La lógica</h2>
+  <div class="warn">
+    No elegimos “lo que más vende en AliExpress”. Elegimos <b>lo que podemos vender rentable dentro de lo que Noctip ya hace</b>:
+    productos de cuello/descanso, de 30 € o más, sin cables, sin promesas médicas y que se vean en vídeo.
+    La almohada y el masajeador con calor son los únicos del ranking que cumplen los 5 filtros a la vez.
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Mañana</div>
+  <h2>Pendiente</h2>
+  <ul>
+    <li>Pedir 2 muestras: almohada (20,99 €) + masajeador (38,12 €) ≈ 59 €.</li>
+    <li>Con la muestra: calcular margen real y CAC máximo.</li>
+    <li>Decidir cuál es el héroe y montar ficha + 9 anuncios.</li>
+    <li>Subir a GitHub los cambios seguros que ya hicimos en la web.</li>
+  </ul>
+  <p class="small">Este ranking es una hipótesis, no una promesa. La muestra y los números deciden.</p>
+</div></section>
+
+<footer><div class="wrap">Noctip · análisis de contexto · 05-oct-2026</div></footer>
+
+</body>
+</html>

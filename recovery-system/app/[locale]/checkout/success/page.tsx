@@ -192,7 +192,7 @@ export default function CheckoutSuccessPage() {
         <div className="mt-6 flex flex-col items-center gap-1 text-[14px] text-[#8791a1]">
           <span>
             {t('delivery')}:{' '}
-            <strong className="text-[#f2eee7]">5–10 {t('deliveryDays')}</strong>
+            <strong className="text-[#f2eee7]">7–20 {t('deliveryDays')}</strong>
           </span>
           <span className="text-[11px] text-[#5a6678]">{isEs ? 'Con seguimiento incluido' : 'Tracking included'}</span>
         </div>

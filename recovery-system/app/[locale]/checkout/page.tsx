@@ -432,7 +432,7 @@ export default function CheckoutPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
             <Image
-              src="/images/logo/logo.png"
+              src="/images/logo/logo-compact.webp"
               alt="Noctip"
               width={32}
               height={32}

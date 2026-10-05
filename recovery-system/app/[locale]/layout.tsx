@@ -30,7 +30,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   return {
     title: isEs
       ? 'Noctip™ — Anti-ronquidos, Banda Sueño y Postura | Envío 7-20 días'
-      : 'Noctip™ — Anti-Snoring, Sleep Headband & Posture | Ships 5-10 Days',
+      : 'Noctip™ — Anti-Snoring, Sleep Headband & Posture | Ships 7-20 Days',
     description: isEs
       ? 'Férula anti-ronquidos, banda de sueño Bluetooth 5.0, corrector postural y masajeador cervical. 45g lavable 10h, 10mm ajuste, 30 noches de prueba. Envío 7-20 días.'
       : 'Anti-snoring mouthpiece, Bluetooth 5.0 sleep headband, posture corrector & neck massager. 45g washable 10h, 10mm fit, 30-night trial. Ships 7-20 days.',
@@ -62,7 +62,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       locale: isEs ? 'es_ES' : 'en_US',
       images: [
         {
-          url: 'https://noctip.com/images/products/sleep-headband.jpg',
+          url: 'https://noctip.com/images/logo/logo.png',
           width: 1200,
           height: 630,
           alt: 'Noctip — Sleep & Recovery that Works',
@@ -77,7 +77,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       description: isEs
         ? 'Duerme más profundo. Recupérate mejor. Vive mejor. Envío gratis y garantía de 30 noches.'
         : 'Sleep deeper. Recover better. Live better. Free shipping and 30-night guarantee.',
-      images: ['https://noctip.com/images/products/sleep-headband.jpg'],
+      images: ['https://noctip.com/images/logo/logo.png'],
     },
     other: {
       'apple-mobile-web-app-capable': 'yes',
@@ -217,7 +217,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: 'How long does Noctip shipping take?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We process and ship all orders within 24 hours. Standard delivery takes 5-10 business days with tracking. Express 1-2 day shipping is available at checkout.',
+          text: 'We process and ship all orders within 24 hours. Standard delivery takes 7-20 business days with tracking. Express 1-2 day shipping is available at checkout.',
         },
       },
       {

@@ -70,7 +70,7 @@ const POSTS: Record<string, Post> = {
     faq_en: [
       { q: 'Does it hurt?', a: 'Jaw/drool at first is common. Adjust 1mm/2 nights, clean daily. Persistent pain → pause and ask a doctor.' },
       { q: 'Apnea?', a: 'Doctor decides. Loud snore + pauses + daytime sleepiness = sleep study.' },
-      { q: 'Shipping?', a: 'Ships in 24h, 5-10 business days with tracking. 30-night trial.' },
+      { q: 'Shipping?', a: 'Ships in 24h, 7-20 business days with tracking. 30-night trial.' },
     ],
   },
   'como-dormir-mejor-sin-pastillas': {

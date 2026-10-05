@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://noctip.com/images/products/sleep-headband.jpg',
+        url: 'https://noctip.com/images/logo/logo.png',
         width: 1200,
         height: 630,
         alt: 'Noctip — Sleep & Recovery that Works',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Noctip™ — Sleep & Recovery that Works',
     description: 'Sleep and recovery products that actually work. Free shipping, 30-night guarantee.',
-    images: ['https://noctip.com/images/products/sleep-headband.jpg'],
+    images: ['https://noctip.com/images/logo/logo.png'],
   },
   robots: {
     index: true,
