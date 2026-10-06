@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Noctip · Guiones grabables (plano a plano)</title>
+<style>
+  :root{
+    --base:#080c12;--surface:#0d1219;--elevated:#111720;--primary:#10BFD8;--text:#f2eee7;
+    --text2:#8791a1;--muted:#6b7785;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.12);
+    --green:#34d399;--red:#f87171;--amber:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--base);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+  a{color:var(--primary)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .topbar{position:sticky;top:0;background:rgba(8,12,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:50}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;padding:12px 20px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:13px}
+  .brand img{width:30px;height:30px;object-fit:contain}
+  .draft{margin-left:auto;background:rgba(16,191,216,.12);border:1px solid rgba(16,191,216,.3);color:var(--primary);
+    font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  header{padding:42px 0 14px}
+  h1{font-size:clamp(26px,5vw,42px);letter-spacing:-.04em;line-height:1.05;margin:0 0 10px}
+  .lead{color:var(--text2);max-width:820px}
+  .small{font-size:12.5px;color:var(--muted)}
+  section{padding:28px 0;border-top:1px solid var(--border)}
+  h2{font-size:clamp(19px,3vw,26px);letter-spacing:-.03em;margin:0 0 10px}
+  h3{font-size:16px;margin:0 0 6px}
+  .eyebrow{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+  .warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.28);color:#f3dfa5;border-radius:12px;padding:12px 14px;font-size:13px}
+  .ok{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);color:#a9f0d0;border-radius:12px;padding:12px 14px;font-size:13px}
+  .grid{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.g2,.g3{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:12px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;background:var(--elevated)}
+  tr:last-child td{border-bottom:0}
+  td.t{white-space:nowrap;color:var(--primary);font-weight:800;font-size:12.5px}
+  td.vo{color:var(--text)}
+  td.on{color:var(--text2)}
+  .script{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:18px}
+  .script .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid rgba(16,191,216,.3);background:rgba(16,191,216,.08);color:var(--primary)}
+  ul{margin:8px 0;padding-left:18px}li{margin:5px 0;font-size:13.5px;color:var(--text2)}
+  .hooks li{color:var(--text);font-weight:600}
+  pre.copy{background:#05080d;border:1px solid var(--border);border-radius:12px;padding:16px;font-size:12.5px;color:#c8d0da;white-space:pre-wrap}
+  .cpbtn{background:rgba(16,191,216,.12);border:1px solid rgba(16,191,216,.3);color:var(--primary);border-radius:10px;
+    padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;margin:0 0 10px}
+  footer{padding:34px 0;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="brand"><img src="../public/images/logo/logo-compact.webp" alt="Noctip" /><span>Noctip · Guiones</span></div>
+  <span class="draft">Para grabar</span>
+</div></div>
+
+<header><div class="wrap">
+  <div class="eyebrow">Almohada cervical · avatar cuello/dolor</div>
+  <h1>Guiones grabables, plano a plano</h1>
+  <p class="lead">Todo con la muestra delante. Móvil vertical 9:16, luz de ventana, subtítulos grandes. Cambias el <b>hook</b> (los 3 primeros segundos) y reutilizas el mismo <b>cuerpo</b>: grabas menos y pruebas más.</p>
+</div></header>
+
+<!-- SETUP -->
+<section><div class="wrap">
+  <div class="eyebrow">Antes de grabar</div>
+  <h2>Setup (10 minutos)</h2>
+  <div class="grid g3">
+    <div class="card">
+      <h3>Qué necesitas</h3>
+      <ul>
+        <li>La almohada de la muestra.</li>
+        <li>Una cama real, sábanas lisas.</li>
+        <li>Móvil en vertical, apoyado o con trípode.</li>
+        <li>Luz: ventana de día o lámpara cálida. Nunca flash.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Quién sale</h3>
+      <ul>
+        <li>Alguien de 55-65 años, real.</li>
+        <li>Ropa de casa normal (no modelo).</li>
+        <li>Piso normal, no estudio.</li>
+        <li>Que se vea la cara natural, sin actuación exagerada.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Reglas de voz y texto</h3>
+      <ul>
+        <li>Frases cortas, como se habla.</li>
+        <li>Subtítulos grandes blancos con sombra.</li>
+        <li>Una idea por plano.</li>
+        <li>Sin música fuerte: manda la voz.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="warn" style="margin-top:16px">Nunca digas: “quita el dolor”, “cura”, “corrige la columna”, “médica”, “clínicamente probado”. Habla de <b>comodidad, descanso y cómo se usa</b>.</div>
+</div></section>
+
+<!-- MATERIAL -->
+<section><div class="wrap">
+  <div class="eyebrow">Plan de rodaje</div>
+  <h2>Qué grabas en total</h2>
+  <table>
+    <thead><tr><th>Bloque</th><th>Cuántos</th><th>Para qué</th></tr></thead>
+    <tbody>
+      <tr><td>Hooks (3 primeros segundos)</td><td><b>9 clips</b></td><td>3 por cada guión. Se graban una vez y se combinan.</td></tr>
+      <tr><td>Cuerpos</td><td><b>3 clips</b></td><td>Uno por guión. Se reutiliza con los 3 hooks.</td></tr>
+      <tr><td>Cierres / CTA</td><td><b>1 clip</b></td><td>Producto + 30 noches. Vale para todos.</td></tr>
+    </tbody>
+  </table>
+  <div class="ok" style="margin-top:14px">9 hooks + 3 cuerpos + 1 cierre = <b>9 anuncios</b> montados en CapCut, grabando solo 13 clips.</div>
+</div></section>
+
+<!-- GUION A -->
+<div class="wrap">
+  <div class="script">
+    <span class="tag">Guión A · Situación + mecanismo</span>
+    <h3 style="margin-top:10px">Para quien vive el problema cada mañana</h3>
+
+    <div class="eyebrow" style="margin-top:14px">Los 3 hooks (elige uno por vídeo)</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">0-3 s</td><td>Persona despertando y girando el cuello con cuidado.</td><td class="on">“¿Y si no es la edad?”</td><td class="vo">“Llevas años levantándote cargado y culpando a la edad.”</td></tr>
+        <tr><td class="t">0-3 s</td><td>Persona mirando el techo de noche, sin dormir.</td><td class="on">“8 horas y no descansas”</td><td class="vo">“Duermes 8 horas y te levantas como si no hubieras dormido.”</td></tr>
+        <tr><td class="t">0-3 s</td><td>Plano de la almohada en la cama, luz cálida.</td><td class="on">“Fíjate en esto”</td><td class="vo">“Mira qué pasa cuando el cuello no queda forzado toda la noche.”</td></tr>
+      </tbody>
+    </table>
+
+    <div class="eyebrow" style="margin-top:16px">Cuerpo (igual para los 3 hooks)</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">3-9 s</td><td>Otra almohada vieja tirada en la cama. Mano la aparta.</td><td class="on">“Probé de todo”</td><td class="vo">“Probé de todo. Otra almohada, cambiar de postura… nada.”</td></tr>
+        <tr><td class="t">9-15 s</td><td>Primer plano: se abre la funda y se ve el relleno.</td><td class="on">“Se regula la altura”</td><td class="vo">“El problema no era yo. Era que la almohada no se adaptaba.”</td></tr>
+        <tr><td class="t">15-22 s</td><td>Se quita o se añade relleno. La mano ajusta la altura.</td><td class="on">“Más baja o más alta”</td><td class="vo">“Esta se regula: le quitas o le pones relleno y encuentras tu altura.”</td></tr>
+        <tr><td class="t">22-28 s</td><td>Persona apoyada de lado y de espaldas, cómoda.</td><td class="on">“De lado o de espaldas”</td><td class="vo">“Y la funda se lava. Se limpia en un momento.”</td></tr>
+      </tbody>
+    </table>
+
+    <div class="eyebrow" style="margin-top:16px">Cierre (igual para todos)</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">28-33 s</td><td>Almohada en la cama + logo Noctip.</td><td class="on">“30 noches para probarla”</td><td class="vo">“30 noches para probarla. Si no te encaja, la devuelves.”</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- GUION B -->
+<div class="wrap">
+  <div class="script">
+    <span class="tag">Guión B · Deseo en 1ª persona</span>
+    <h3 style="margin-top:10px">Para quien busca activamente solución</h3>
+
+    <div class="eyebrow" style="margin-top:14px">Los 3 hooks</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">0-3 s</td><td>Persona estirándose al despertar, con energía.</td><td class="on">“Con ganas, no a rastras”</td><td class="vo">“Quiero volver a levantarme con energía, no a rastras.”</td></tr>
+        <tr><td class="t">0-3 s</td><td>Espejo: persona se mira el cuello de lado.</td><td class="on">“No tiene que ser así”</td><td class="vo">“Los 55 no tienen por qué ser levantarte torcido.”</td></tr>
+        <tr><td class="t">0-3 s</td><td>Antes: cama deshecha. Después: persona descansando.</td><td class="on">“Cambié una cosa”</td><td class="vo">“Cambié la almohada y cambió mi mañana.”</td></tr>
+      </tbody>
+    </table>
+
+    <div class="eyebrow" style="margin-top:16px">Cuerpo (igual para los 3 hooks)</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">3-9 s</td><td>Persona dando vueltas en la cama de noche.</td><td class="on">“Antes me costaba”</td><td class="vo">“Antes me despertaba y ya estaba cansado.”</td></tr>
+        <tr><td class="t">9-16 s</td><td>Mano ajustando la altura de la almohada.</td><td class="on">“La ajusto a cómo duermo”</td><td class="vo">“Ahora solo cambio la altura de la almohada según cómo duerma.”</td></tr>
+        <tr><td class="t">16-22 s</td><td>Persona durmiendo tranquila, luz cálida.</td><td class="on">“Es lo único que cambié”</td><td class="vo">“Es lo único que cambié. Y la mañana se nota.”</td></tr>
+        <tr><td class="t">22-27 s</td><td>Detalle de funda lavable.</td><td class="on">“Funda lavable”</td><td class="vo">“Y la funda se puede lavar.”</td></tr>
+      </tbody>
+    </table>
+
+    <div class="eyebrow" style="margin-top:16px">Cierre</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">27-32 s</td><td>Almohada + logo.</td><td class="on">“30 noches de prueba”</td><td class="vo">“Pruébala 30 noches. Si no te encaja, la devuelves.”</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- GUION C -->
+<div class="wrap">
+  <div class="script">
+    <span class="tag">Guión C · Ruptura de objeción</span>
+    <h3 style="margin-top:10px">Para quien ya probó y desconfía</h3>
+
+    <div class="eyebrow" style="margin-top:14px">Los 3 hooks</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">0-3 s</td><td>Persona con cara de “ya probé esto”, brazos cruzados.</td><td class="on">“Otra almohada más”</td><td class="vo">“Ya probaste 3 almohadas. Por eso esta se ajusta.”</td></tr>
+        <tr><td class="t">0-3 s</td><td>Varias almohadas apiladas, se retiran.</td><td class="on">“No era la almohada”</td><td class="vo">“El problema no era la almohada. Era que no encajaba contigo.”</td></tr>
+        <tr><td class="t">0-3 s</td><td>Mano abriendo la cremallera de la funda.</td><td class="on">“Antes de comprar, mira”</td><td class="vo">“Antes de comprar otra, mira cómo se regula esta.”</td></tr>
+      </tbody>
+    </table>
+
+    <div class="eyebrow" style="margin-top:16px">Cuerpo (igual para los 3 hooks)</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">3-10 s</td><td>Primer plano del ajuste: quitar y poner relleno.</td><td class="on">“La altura se ajusta”</td><td class="vo">“Sé lo que piensas: otra almohada igual que las demás.”</td></tr>
+        <tr><td class="t">10-17 s</td><td>Comparación: altura fija vs ajustable, misma cámara.</td><td class="on">“Ajustable, no fija”</td><td class="vo">“La diferencia es esta: la altura se ajusta a ti.”</td></tr>
+        <tr><td class="t">17-24 s</td><td>Medidas con regla o cinta + funda lavable.</td><td class="on">“Medidas normales · funda lavable”</td><td class="vo">“Funda lavable, medidas normales. Cabe en cualquier cama.”</td></tr>
+        <tr><td class="t">24-29 s</td><td>Persona guardando la almohada en la cama.</td><td class="on">“No te encaja, la devuelves”</td><td class="vo">“Y si no te encaja, la devuelves.”</td></tr>
+      </tbody>
+    </table>
+
+    <div class="eyebrow" style="margin-top:16px">Cierre</div>
+    <table>
+      <thead><tr><th>Tiempo</th><th>Imagen</th><th>Texto en pantalla</th><th>Voz</th></tr></thead>
+      <tbody>
+        <tr><td class="t">29-34 s</td><td>Almohada + logo.</td><td class="on">“30 noches para probar”</td><td class="vo">“30 noches para probarla. Sin riesgo.”</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MONTAJE -->
+<section><div class="wrap">
+  <div class="eyebrow">Montaje</div>
+  <h2>Combinaciones en CapCut</h2>
+  <table>
+    <thead><tr><th>Anuncio</th><th>Hook</th><th>Cuerpo</th><th>Cierre</th></tr></thead>
+    <tbody>
+      <tr><td>A1</td><td>A-hook 1</td><td>A</td><td>Común</td></tr>
+      <tr><td>A2</td><td>A-hook 2</td><td>A</td><td>Común</td></tr>
+      <tr><td>A3</td><td>A-hook 3</td><td>A</td><td>Común</td></tr>
+      <tr><td>B1</td><td>B-hook 1</td><td>B</td><td>Común</td></tr>
+      <tr><td>B2</td><td>B-hook 2</td><td>B</td><td>Común</td></tr>
+      <tr><td>B3</td><td>B-hook 3</td><td>B</td><td>Común</td></tr>
+      <tr><td>C1</td><td>C-hook 1</td><td>C</td><td>Común</td></tr>
+      <tr><td>C2</td><td>C-hook 2</td><td>C</td><td>Común</td></tr>
+      <tr><td>C3</td><td>C-hook 3</td><td>C</td><td>Común</td></tr>
+    </tbody>
+  </table>
+  <div class="ok" style="margin-top:14px">Exporta siempre 9:16 (1080x1920), subtítulos quemados y volumen de voz alto.</div>
+</div></section>
+
+<!-- REDES -->
+<section><div class="wrap">
+  <div class="eyebrow">Orgánico</div>
+  <h2>Texto y hashtags para subir gratis</h2>
+  <button class="cpbtn" onclick="copiar('cap')">Copiar texto</button>
+  <pre class="copy" id="cap">Toda la vida culpando a la edad y era la almohada.
+Se ajusta la altura y la funda se lava.
+30 noches para probarla. Enlace en bio.
+
+#dormir #descanso #almohada #dolordecuello #bienestar #noctip #cervical #dormirmejor</pre>
+  <div class="warn" style="margin-top:12px">Súbelo igual a TikTok, YouTube Shorts e Instagram Reels. Mira cuál de los 9 tiene más guardados y comentarios: <b>ese</b> lo pagas en Meta.</div>
+</div></section>
+
+<!-- CHECKLIST -->
+<section><div class="wrap">
+  <div class="eyebrow">Antes de darle a publicar</div>
+  <h2>Checklist</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Grabación</h3>
+      <ul>
+        <li>Vertical, sin zoom raro.</li>
+        <li>Voz clara y luz suficiente.</li>
+        <li>Se ve el ajuste de verdad (sin cortes que lo escondan).</li>
+        <li>La persona que sale es real y la muestra es real.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Publicación</h3>
+      <ul>
+        <li>Subtítulos revisados (sin faltas).</li>
+        <li>Enlace a noctip.com en bio.</li>
+        <li>Sin promesas médicas.</li>
+        <li>30 noches solo si se puede cumplir de verdad.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Guiones de trabajo Noctip. Se graban con la muestra real; los huecos de datos se completan al confirmar el proveedor.</div></footer>
+
+<script>
+function copiar(id){
+  const t=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(t).then(()=>{const b=event.target;const o=b.innerText;b.innerText='Copiado';setTimeout(()=>b.innerText=o,1500)}).catch(()=>{});
+}
+</script>
+</body>
+</html>
