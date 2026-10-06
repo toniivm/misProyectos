@@ -365,10 +365,14 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Price — grande como Manta/ZQuiet */}
             <div className="flex items-baseline gap-2 sm:gap-3">
               <span className="text-[2rem] sm:text-[2.6rem] font-bold tracking-[-0.04em] text-[#f6f2eb]">€{displayPrice}</span>
-              <span className="text-[14px] sm:text-[16px] text-[#4a5568] line-through">€{displayComparePrice}</span>
-              <span className="rounded-full bg-[#10BFD8]/15 px-3 py-1 text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.1em] text-[#10BFD8]">
-                SAVE {savings}% · {isEs ? 'Ahorra' : 'Save'} {savings}%
-              </span>
+              {displayComparePrice > displayPrice && (
+                <span className="text-[14px] sm:text-[16px] text-[#4a5568] line-through">€{displayComparePrice}</span>
+              )}
+              {savings > 0 && (
+                <span className="rounded-full bg-[#10BFD8]/15 px-3 py-1 text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.1em] text-[#10BFD8]">
+                  {isEs ? `Ahorra ${savings}%` : `Save ${savings}%`}
+                </span>
+              )}
             </div>
 
             {/* Sello de confianza: alineado con la política pública de 30 noches */}
@@ -563,54 +567,68 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             <h2 className="text-[17px] sm:text-[20px] font-bold tracking-[-0.03em] text-[#f2eee7]">
               {isEs ? 'Reseñas verificadas' : 'Verified reviews'}
             </h2>
-            <span className="rounded-full bg-[#10BFD8]/10 px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold text-[#10BFD8]">
-              {displayReviewCount}
-            </span>
+            {displayReviewCount > 0 && (
+              <span className="rounded-full bg-[#10BFD8]/10 px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold text-[#10BFD8]">
+                {displayReviewCount}
+              </span>
+            )}
           </div>
 
-          {/* Review summary */}
-          <div className="mb-6 grid gap-6 sm:grid-cols-[200px_1fr]">
-            <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
-              <div className="text-[40px] font-bold text-[#f2eee7]">{displayRating}</div>
-              <Stars rating={displayRating} size={16} />
-              <div className="mt-2 text-[12px] text-[#6b7785]">
-                {displayReviewCount} {isEs ? 'reseñas' : 'reviews'}
+          {/* Review summary — solo cuando hay reseñas reales */}
+          {displayReviewCount > 0 && (
+            <div className="mb-6 grid gap-6 sm:grid-cols-[200px_1fr]">
+              <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
+                <div className="text-[40px] font-bold text-[#f2eee7]">{displayRating}</div>
+                <Stars rating={displayRating} size={16} />
+                <div className="mt-2 text-[12px] text-[#6b7785]">
+                  {displayReviewCount} {isEs ? 'reseñas' : 'reviews'}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                {[5, 4, 3, 2, 1].map((star) => {
+                  const count = reviewStats.distribution[star] || 0;
+                  const pct = reviewStats.total > 0 ? (count / reviewStats.total) * 100 : 0;
+                  return (
+                    <div key={star} className="flex items-center gap-3">
+                      <span className="w-3 text-[12px] text-[#8791a1]">{star}</span>
+                      <Star size={12} className="fill-amber-400 text-amber-400" />
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
+                        <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="w-6 text-right text-[12px] text-[#6b7785]">{count}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
+          )}
 
-            <div className="space-y-2">
-              {[5, 4, 3, 2, 1].map((star) => {
-                const count = reviewStats.distribution[star] || 0;
-                const pct = reviewStats.total > 0 ? (count / reviewStats.total) * 100 : 0;
-                return (
-                  <div key={star} className="flex items-center gap-3">
-                    <span className="w-3 text-[12px] text-[#8791a1]">{star}</span>
-                    <Star size={12} className="fill-amber-400 text-amber-400" />
-                    <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
-                      <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${pct}%` }} />
-                    </div>
-                    <span className="w-6 text-right text-[12px] text-[#6b7785]">{count}</span>
-                  </div>
-                );
-              })}
+          {displayReviewCount === 0 && (
+            <div className="mb-6 rounded-xl border border-white/[0.07] bg-white/[0.025] p-5 text-[13px] leading-6 text-[#8791a1]">
+              {isEs
+                ? 'Todavía no hay reseñas publicadas de este producto. Cuando los compradores dejen su opinión, aparecerá aquí tal cual, sin inventar nada.'
+                : 'No published reviews for this product yet. When verified buyers leave their feedback, it will appear here as it is, nothing invented.'}
             </div>
-          </div>
+          )}
 
           {/* Sort + Write review */}
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-[13px] text-[#6b7785]">{isEs ? 'Ordenar por:' : 'Sort by:'}</span>
-              <select
-                value={reviewSort}
-                onChange={(e) => setReviewSort(e.target.value)}
-                className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[16px] text-[#c8d0da] focus:border-[#10BFD8] focus:outline-none min-h-[44px]"
-              >
-                <option value="newest">{isEs ? 'Más recientes' : 'Newest'}</option>
-                <option value="highest">{isEs ? 'Mejor valoradas' : 'Highest rated'}</option>
-                <option value="lowest">{isEs ? 'Peor valoradas' : 'Lowest rated'}</option>
-                <option value="helpful">{isEs ? 'Más útiles' : 'Most helpful'}</option>
-              </select>
-            </div>
+            {displayReviewCount > 0 && (
+              <div className="flex items-center gap-2">
+                <span className="text-[13px] text-[#6b7785]">{isEs ? 'Ordenar por:' : 'Sort by:'}</span>
+                <select
+                  value={reviewSort}
+                  onChange={(e) => setReviewSort(e.target.value)}
+                  className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[16px] text-[#c8d0da] focus:border-[#10BFD8] focus:outline-none min-h-[44px]"
+                >
+                  <option value="newest">{isEs ? 'Más recientes' : 'Newest'}</option>
+                  <option value="highest">{isEs ? 'Mejor valoradas' : 'Highest rated'}</option>
+                  <option value="lowest">{isEs ? 'Peor valoradas' : 'Lowest rated'}</option>
+                  <option value="helpful">{isEs ? 'Más útiles' : 'Most helpful'}</option>
+                </select>
+              </div>
+            )}
 
             {!auth.user && (
               <button
@@ -728,13 +746,6 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
 
           {/* Reviews list */}
           <div className="grid gap-4 max-w-2xl">
-            {reviews.length === 0 && (
-              <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-8 text-center">
-                <p className="text-[14px] text-[#6b7785]">
-                  {isEs ? 'Aún no hay reseñas. Sé el primero en opinar.' : 'No reviews yet. Be the first to share your experience.'}
-                </p>
-              </div>
-            )}
             {reviews.map((r) => (
               <div key={r.id} className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-5">
                 <div className="flex items-center justify-between">
