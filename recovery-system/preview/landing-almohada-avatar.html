@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Noctip · Landing almohada + 9 creativos</title>
+<style>
+  :root{
+    --base:#080c12;--surface:#0d1219;--elevated:#111720;--primary:#10BFD8;--text:#f2eee7;
+    --text2:#8791a1;--muted:#6b7785;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.12);
+    --green:#34d399;--red:#f87171;--amber:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--base);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+  a{color:var(--primary)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .topbar{position:sticky;top:0;background:rgba(8,12,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:50}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;padding:12px 20px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:13px}
+  .brand img{width:30px;height:30px;object-fit:contain}
+  .draft{margin-left:auto;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35);color:var(--amber);
+    font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  header{padding:44px 0 16px}
+  h1{font-size:clamp(26px,5vw,44px);letter-spacing:-.04em;line-height:1.04;margin:0 0 10px}
+  .lead{color:var(--text2);max-width:820px}
+  .small{font-size:12.5px;color:var(--muted)}
+  section{padding:30px 0;border-top:1px solid var(--border)}
+  h2{font-size:clamp(19px,3vw,26px);letter-spacing:-.03em;margin:0 0 10px}
+  h3{font-size:15.5px;margin:0 0 6px}
+  .eyebrow{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+  .warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.28);color:#f3dfa5;border-radius:12px;padding:12px 14px;font-size:13px}
+  .ok{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);color:#a9f0d0;border-radius:12px;padding:12px 14px;font-size:13px}
+  .grid{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.g2,.g3{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+
+  /* avatar box */
+  .avatar{background:linear-gradient(180deg,rgba(16,191,216,.06),var(--surface));border:1px solid rgba(16,191,216,.25);
+    border-radius:18px;padding:22px}
+  .avatar .quote{font-size:19px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin:10px 0}
+  .avatar .quote span{color:var(--primary)}
+
+  /* phone landing */
+  .phones{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+  .phone{width:320px;background:#05080d;border:8px solid #1a212c;border-radius:38px;box-shadow:0 24px 60px rgba(0,0,0,.55);overflow:hidden}
+  .phone .screen{background:var(--base);position:relative}
+  .status{height:24px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:10px;color:var(--muted)}
+  .phnav{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--border)}
+  .phnav img{width:24px;height:24px;object-fit:contain}
+  .phnav .nm{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+  .phbody{padding:14px}
+  .hero{border-radius:18px;border:1px dashed rgba(255,255,255,.22);padding:18px;position:relative;
+    background:radial-gradient(120% 90% at 70% 10%,rgba(16,191,216,.14),transparent 55%),linear-gradient(160deg,#0f1720,#0a0e14);
+    min-height:210px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--text2);font-size:12px}
+  .hero .tag{position:absolute;top:10px;left:10px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);
+    border:1px solid rgba(251,191,36,.35);background:rgba(251,191,36,.1);padding:3px 8px;border-radius:999px}
+  .phbody h1{font-size:22px;margin:14px 0 8px;letter-spacing:-.03em}
+  .phbody .sub{color:var(--text2);font-size:13px;margin:0 0 12px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+  .badge{font-size:10.5px;color:var(--primary);border:1px solid rgba(16,191,216,.25);background:rgba(16,191,216,.07);border-radius:999px;padding:4px 9px;font-weight:600}
+  .btn{display:block;width:100%;text-align:center;border-radius:999px;padding:15px;font-weight:800;font-size:14.5px;border:0;cursor:pointer;margin-top:6px}
+  .btn.primary{background:#fff;color:#080c12}
+  .btn.ghost{background:transparent;color:#c8d0da;border:1px solid var(--border2)}
+  .block{border:1px solid var(--border);border-radius:14px;padding:12px;margin:10px 0;background:rgba(255,255,255,.015)}
+  .block .lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .block p{margin:0;font-size:12.5px;color:var(--text2)}
+  .sticky{position:sticky;bottom:0;background:rgba(8,12,18,.96);border-top:1px solid var(--border);padding:10px 14px;display:flex;gap:10px;align-items:center}
+  .sticky .p{font-weight:800;font-size:15px}.sticky .s{font-size:10px;color:var(--muted)}
+  .sticky .btn{margin:0;flex:1;padding:12px}
+
+  /* creativos */
+  .story{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px}
+  .frames{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
+  .frame{flex:0 0 160px;aspect-ratio:9/16;border-radius:16px;border:1px solid var(--border2);
+    background:linear-gradient(165deg,#0f1720,#0a0e14);padding:12px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+  .frame .t{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-weight:800}
+  .frame .txt{font-size:13.5px;font-weight:800;line-height:1.15;letter-spacing:-.02em}
+  .frame .vis{font-size:10.5px;color:var(--text2);border-top:1px solid var(--border);padding-top:8px;margin-top:8px}
+  .frame .ph{position:absolute;right:10px;top:10px;font-size:9px;color:var(--amber);border:1px solid rgba(251,191,36,.35);background:rgba(251,191,36,.1);padding:2px 6px;border-radius:999px}
+  .hooks{margin-top:10px}
+  .hooks div{font-size:12.5px;color:var(--text2);padding:5px 0;border-top:1px solid var(--border)}
+  .hooks b{color:var(--text)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;background:var(--elevated)}
+  tr:last-child td{border-bottom:0}
+  ul{margin:8px 0;padding-left:18px}li{margin:5px 0;font-size:13.5px;color:var(--text2)}
+  .yes{color:var(--green);font-weight:700}.no{color:var(--red);font-weight:700}
+  footer{padding:34px 0;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="brand"><img src="../public/images/logo/logo-compact.webp" alt="Noctip" /><span>Noctip · Almohada</span></div>
+  <span class="draft">Borrador · no publicado</span>
+</div></div>
+
+<header><div class="wrap">
+  <div class="eyebrow">Tier S · deseo #2 · “no envejecer con dolor”</div>
+  <h1>Landing por avatar + 9 creativos</h1>
+  <p class="lead">Vehículo recomendado: <b>almohada cervical</b>. Motivo: 65.922 pedidos en AliExpress, coste de fábrica bajo, precio 20-40 €, sin cables ni riesgo legal, y se puede demostrar en vídeo. Se publica <b>solo con la muestra probada</b>.</p>
+</div></header>
+
+<section><div class="wrap">
+  <div class="eyebrow">La persona (arquetipo, no testimonio)</div>
+  <div class="avatar">
+    <span class="small">Avatar del deseo #2</span>
+    <div class="quote">“Me levanto con el cuello cargado y el día ya empieza cuesta arriba. <span>Y pienso: serán cosas de la edad.”</span></div>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="card"><b>Quién</b><p class="small">50-65 años, trabaja o ha trabajado sentado, usa el móvil en la cama.</p></div>
+      <div class="card"><b>Dolor real</b><p class="small">Se despierta con el cuello/cabeza cargada y con la sensación de no haber descansado.</p></div>
+      <div class="card"><b>Miedo</b><p class="small">Perder autonomía, depender de otros, quedarse “apagado”.</p></div>
+    </div>
+    <div class="warn" style="margin-top:14px">Se habla del <b>día a día</b> (dormir, descansar mejor), nunca de curar una enfermedad. Nada de “quita el dolor” ni “corrige la columna”.</div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">01 · La landing (móvil)</div>
+  <h2>Así se vería la página del avatar</h2>
+  <div style="height:20px"></div>
+  <div class="phones">
+    <div class="phone"><div class="screen">
+      <div class="status"><span>9:41</span><span>Noctip</span></div>
+      <div class="phnav"><img src="../public/images/logo/logo-compact.webp" alt="Noctip" /><span class="nm">Noctip</span></div>
+      <div class="phbody">
+        <div class="hero"><span class="tag">Pendiente muestra</span>Vídeo vertical: persona real despertando y girando el cuello con cuidado, luego la almohada en uso</div>
+        <h1>Te levantas con el cuello cargado. Y aún no has empezado el día.</h1>
+        <p class="sub">No siempre es la edad. A veces es la forma y la altura de tu almohada.</p>
+        <div class="badges">
+          <span class="badge">30 noches · devolución completa</span>
+          <span class="badge">Pago seguro Stripe</span>
+        </div>
+        <button class="btn primary">Elegir mi almohada</button>
+        <button class="btn ghost">Ver cómo se ajusta</button>
+
+        <div class="block"><div class="lbl">El problema</div><p>Una almohada de una sola altura no encaja con todo el mundo. Si el cuello queda forzado, lo notas por la mañana.</p></div>
+        <div class="block"><div class="lbl">Qué cambia</div><p>Una almohada con la forma y la altura que puedes regular. Aquí se explica cómo, sin prometer curas.</p></div>
+        <div class="block"><div class="lbl">Qué incluye</div><p>Almohada · funda lavable · guía de ajuste. (Confirmar con proveedor.)</p></div>
+        <div class="block"><div class="lbl">Envío y devoluciones</div><p>Plazos reales cuando la cotización esté confirmada.</p></div>
+        <div class="block"><div class="lbl">Opiniones</div><p>Solo cuando existan reseñas reales verificadas. Aquí no se inventa nada.</p></div>
+      </div>
+      <div class="sticky"><div><div class="p">€—,—</div><div class="s">30 noches de prueba</div></div><button class="btn primary">Comprar</button></div>
+    </div></div>
+
+    <div class="card" style="max-width:430px">
+      <div class="eyebrow">Estructura</div>
+      <h3>Orden de secciones</h3>
+      <ul>
+        <li><b>Hero:</b> situación (“te levantas cargado”) + vídeo real.</li>
+        <li><b>Em­patía:</b> “pro­baste otra almohada y nada”.</li>
+        <li><b>Mecanismo:</b> la altura y la forma, demostradas.</li>
+        <li><b>Producto:</b> fotos propias + qué incluye.</li>
+        <li><b>Encaje:</b> para quién es y para quién no.</li>
+        <li><b>Confianza:</b> 30 noches, pago seguro, soporte.</li>
+        <li><b>Oferta:</b> 1 unidad y pack 2, con margen calculado.</li>
+      </ul>
+      <div class="ok" style="margin-top:12px">Mismo esqueleto que <b>Cloudpillo / OTTY / Manta</b>: situación → demo → condiciones reales.</div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">02 · Los 9 creativos</div>
+  <h2>3 guiones × 3 hooks</h2>
+  <p class="lead">Mismo producto, mismo avatar. Cambia el hook y el arranque visual, no el producto. Todo grabado con la muestra real, móvil 9:16, subtítulos grandes.</p>
+  <div style="height:20px"></div>
+
+  <div class="grid g3">
+
+    <div class="story">
+      <h3>Guión A · Situación + mecanismo</h3>
+      <p class="small">Para quien ya vive el problema cada mañana.</p>
+      <div class="frames">
+        <div class="frame"><span class="ph">grabar</span><div class="t">0–3 s</div><div class="txt">Hook</div><div class="vis">Persona despertando y girando el cuello con cuidado.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">3–9 s</div><div class="txt">“Probé de todo…”</div><div class="vis">Otra almohada tirada en la cama.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">9–17 s</div><div class="txt">“Es la altura.”</div><div class="vis">Demostrar el ajuste real de la almohada.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">17–24 s</div><div class="txt">CTA</div><div class="vis">Uso real + 30 noches + precio.</div></div>
+      </div>
+      <div class="hooks">
+        <div><b>Hook 1:</b> “Llevas años levantándote cargado y culpando a la edad.”</div>
+        <div><b>Hook 2:</b> “Duermes 8 horas y te levantas como si no hubieras dormido.”</div>
+        <div><b>Hook 3:</b> “Mira lo que pasa cuando el cuello no queda forzado toda la noche.”</div>
+      </div>
+    </div>
+
+    <div class="story">
+      <h3>Guión B · Deseo en 1ª persona</h3>
+      <p class="small">Para quien busca activamente solución.</p>
+      <div class="frames">
+        <div class="frame"><span class="ph">grabar</span><div class="t">0–3 s</div><div class="txt">“Quiero levantarme descansado.”</div><div class="vis">Persona estirándose al despertar, con energía.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">3–9 s</div><div class="txt">“Antes me costaba.”</div><div class="vis">Persona maldurmiendo con almohada normal.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">9–17 s</div><div class="txt">“Ahora la ajusto.”</div><div class="vis">Demostración del ajuste + uso real.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">17–24 s</div><div class="txt">CTA</div><div class="vis">Precio + 30 noches.</div></div>
+      </div>
+      <div class="hooks">
+        <div><b>Hook 1:</b> “Quiero volver a levantarme con energía, no a rastras.”</div>
+        <div><b>Hook 2:</b> “Los 55 no tienen por qué ser levantarse torcido.”</div>
+        <div><b>Hook 3:</b> “Cambié la almohada y cambió mi mañana.”</div>
+      </div>
+    </div>
+
+    <div class="story">
+      <h3>Guión C · Ruptura de objeción</h3>
+      <p class="small">Para quien ya probó y desconfía.</p>
+      <div class="frames">
+        <div class="frame"><span class="ph">grabar</span><div class="t">0–3 s</div><div class="txt">“¿Otra almohada? Sí, escucha.”</div><div class="vis">Persona con cara de “ya probé esto”.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">3–9 s</div><div class="txt">“Esta se ajusta a ti.”</div><div class="vis">Mostrar cómo se regula la altura.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">9–17 s</div><div class="txt">“Funda lavable y listo.”</div><div class="vis">Detalle de funda y medidas reales.</div></div>
+        <div class="frame"><span class="ph">grabar</span><div class="t">17–24 s</div><div class="txt">CTA</div><div class="vis">30 noches para probarla.</div></div>
+      </div>
+      <div class="hooks">
+        <div><b>Hook 1:</b> “Ya probaste 3 almohadas. Por eso esta se ajusta.”</div>
+        <div><b>Hook 2:</b> “El problema no era la almohada. Era que no encajaba contigo.”</div>
+        <div><b>Hook 3:</b> “Antes de comprar otra, mira cómo se regula esta.”</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="warn" style="margin-top:18px">Los hooks describen <b>situaciones</b>, no prometen resultados médicos. Nada de “quita el dolor”, “cura” o “corrige la columna”.</div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">03 · Texto de anuncio (primario)</div>
+  <h2>Copy listo para pegar</h2>
+  <table style="margin-top:14px">
+    <thead><tr><th>Versión</th><th>Texto primario</th></tr></thead>
+    <tbody>
+      <tr><td><b>Dolor</b></td><td>Te levantas con el cuello cargado y el día ya cuesta. No siempre es la edad: muchas veces es la forma y la altura de la almohada. Esta se ajusta a ti. Mira cómo. 30 noches de prueba.</td></tr>
+      <tr><td><b>Deseo</b></td><td>Quiero volver a levantarme descansado. Con una almohada que se adapta a cómo duermes, no al revés. Míralo antes de comprar. 30 noches de prueba.</td></tr>
+      <tr><td><b>Objeción</b></td><td>¿Otra almohada más? Esta sí cambia algo: puedes regular la altura. Funda lavable. Y si no te encaja, 30 noches para devolverla.</td></tr>
+    </tbody>
+  </table>
+  <div class="warn" style="margin-top:14px">Titulares cortos sugeridos: “La altura importa”, “Ajusta tu almohada”, “30 noches para probarla”. Sin mayúsculas gritadas ni promesas médicas.</div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">04 · Reglas antes de publicar</div>
+  <h2>Checklist</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3 class="yes">Se puede decir</h3>
+      <ul>
+        <li>“Se ajusta a ti”, “funda lavable”, medidas reales.</li>
+        <li>“Para quien duerme de lado o de espaldas”.</li>
+        <li>“30 noches de prueba” (si se puede cumplir).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 class="no">No se puede decir</h3>
+      <ul>
+        <li>“Quita el dolor”, “cura”, “corrige la columna”.</li>
+        <li>“Médica” o “clínicamente probado” sin documento.</li>
+        <li>Reseñas o estrellas inventadas.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ok" style="margin-top:14px">Cuando llegue la muestra: sustituir los huecos por fotos y vídeos reales, confirmar medidas y lanzar con la hoja de márgenes ya hecha.</div>
+</div></section>
+
+<footer><div class="wrap">Borrador de trabajo. No es la web publicada. Se completa con la muestra real.</div></footer>
+
+</body>
+</html>
