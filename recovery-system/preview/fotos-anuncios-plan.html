@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Noctip · Fotos, anuncios y canales</title>
+<style>
+  :root{
+    --base:#080c12;--surface:#0d1219;--elevated:#111720;--primary:#10BFD8;--text:#f2eee7;
+    --text2:#8791a1;--muted:#6b7785;--border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.12);
+    --green:#34d399;--red:#f87171;--amber:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--base);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+  a{color:var(--primary)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .topbar{position:sticky;top:0;background:rgba(8,12,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:50}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;padding:12px 20px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:13px}
+  .brand img{width:30px;height:30px;object-fit:contain}
+  .draft{margin-left:auto;background:rgba(16,191,216,.12);border:1px solid rgba(16,191,216,.3);color:var(--primary);
+    font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  header{padding:42px 0 14px}
+  h1{font-size:clamp(26px,5vw,42px);letter-spacing:-.04em;line-height:1.05;margin:0 0 10px}
+  .lead{color:var(--text2);max-width:820px}
+  .small{font-size:12.5px;color:var(--muted)}
+  section{padding:28px 0;border-top:1px solid var(--border)}
+  h2{font-size:clamp(19px,3vw,26px);letter-spacing:-.03em;margin:0 0 10px}
+  h3{font-size:15.5px;margin:0 0 6px}
+  .eyebrow{color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+  .warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.28);color:#f3dfa5;border-radius:12px;padding:12px 14px;font-size:13px}
+  .ok{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);color:#a9f0d0;border-radius:12px;padding:12px 14px;font-size:13px}
+  .grid{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.g2,.g3{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px}
+  .card.pick{border-color:rgba(52,211,153,.3);background:linear-gradient(180deg,rgba(52,211,153,.05),var(--surface))}
+  .pill{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border2);color:var(--text2)}
+  .pill.go{color:var(--green);border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+  .pill.no{color:var(--red);border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800;background:var(--elevated)}
+  tr:last-child td{border-bottom:0}
+  ul{margin:8px 0;padding-left:18px}li{margin:5px 0;font-size:13.5px;color:var(--text2)}
+  pre.copy{background:#05080d;border:1px solid var(--border);border-radius:12px;padding:16px;font-size:12.5px;color:#c8d0da;white-space:pre-wrap}
+  .cpbtn{background:rgba(16,191,216,.12);border:1px solid rgba(16,191,216,.3);color:var(--primary);border-radius:10px;
+    padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;margin:0 0 10px}
+  .link{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700}
+  footer{padding:34px 0;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="brand"><img src="../public/images/logo/logo-compact.webp" alt="Noctip" /><span>Noctip · Plan</span></div>
+  <span class="draft">Acción</span>
+</div></div>
+
+<header><div class="wrap">
+  <div class="eyebrow">Fotos · anuncios · canales</div>
+  <h1>Qué almohada, cómo hacer fotos y dónde anunciar</h1>
+  <p class="lead">Todo en orden de ejecución. Las fotos del producto deben ser <b>reales</b>: la IA solo para fondos y escenas, nunca para inventar el producto.</p>
+</div></header>
+
+<!-- 1. ALMOHADA -->
+<section><div class="wrap">
+  <div class="eyebrow">1 · Qué almohada pedir</div>
+  <h2>De AliExpress, para probar</h2>
+  <p class="lead">Recomiendo pedir <b>2 muestras</b> y decidir con las dos en la mano. No compres stock.</p>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card pick">
+      <span class="pill go">Muestra 1 · recomendada</span>
+      <h3 style="margin-top:10px">Almohada cervical memory foam</h3>
+      <p class="small">20,99 € · ★4,9 · <b>65.922 pedidos</b>. La de más demanda y mejor valoración de la categoría.</p>
+      <a class="link" href="https://es.aliexpress.com/item/1005006997671212.html" target="_blank" rel="noopener">Abrir en AliExpress →</a>
+    </div>
+    <div class="card">
+      <span class="pill">Muestra 2 · alternativa</span>
+      <h3 style="margin-top:10px">Almohada lateral ajustable</h3>
+      <p class="small">11,99 € · ★4,9 · 2.000+ pedidos. Más barata y con ajuste: compárala con la primera.</p>
+      <a class="link" href="https://es.aliexpress.com/item/1005007038289457.html" target="_blank" rel="noopener">Abrir en AliExpress →</a>
+    </div>
+  </div>
+  <div class="warn" style="margin-top:16px">Mira en el anuncio: si es <b>regulable en altura</b>, si la <b>funda es lavable</b>, dimensiones y peso reales, y si hay <b>almacén UE</b>. Si no lo dice claro, pregunta antes de comprar.</div>
+</div></section>
+
+<!-- 2. FOTOS -->
+<section><div class="wrap">
+  <div class="eyebrow">2 · Fotos de la web</div>
+  <h2>Cómo conseguir fotos buenas (con el móvil y con IA)</h2>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card">
+      <span class="pill go">Regla de oro</span>
+      <h3 style="margin-top:10px">El producto, real</h3>
+      <p>La almohada que sale en la web debe ser la que se envía, fotografiada de verdad. La IA no inventa el producto.</p>
+    </div>
+    <div class="card">
+      <span class="pill">Con el móvil</span>
+      <h3 style="margin-top:10px">7 fotos mínimas</h3>
+      <ul>
+        <li>Producto sobre fondo claro (sábana lisa).</li>
+        <li>Producto sobre fondo oscuro (#080c12).</li>
+        <li>Detalle de la funda y la cremallera.</li>
+        <li>Detalle de la altura / ajuste.</li>
+        <li>En la cama de verdad, hecha.</li>
+        <li>Persona 55-65 usándola (de lado y de espaldas).</li>
+        <li>Qué incluye, todo junto en la caja.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="pill">Con IA (solo extras)</span>
+      <h3 style="margin-top:10px">Fondos y escenas</h3>
+      <p>La IA sirve para crear <b>fondos de dormitorio</b> y escenas sin producto, o para limpiar/recortar la foto real. Nunca para poner una almohada falsa.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:22px">
+    <div class="eyebrow" style="margin-bottom:6px">Prompt 1 · fondo lifestyle (sin producto)</div>
+    <button class="cpbtn" onclick="copiar('p1')">Copiar prompt</button>
+    <pre class="copy" id="p1">Fotografía publicitaria premium de un dormitorio real español, tono cálido de mañana, luz natural entrando por una ventana con cortina fina, sábanas de lino beige arrugadas de forma natural, mesita de noche de madera con una lámpara cálida, estética minimalista tipo Apple / Oura / Eight Sleep, sin personas, SIN texto, SIN logos, sin producto, colores cálidos y oscuros (#080c12 y #f2eee7), sombras suaves, grano fino, aspecto editorial, alta resolución, formato vertical 4:5 y cuadrado 1:1.</pre>
+  </div>
+
+  <div style="margin-top:16px">
+    <div class="eyebrow" style="margin-bottom:6px">Prompt 2 · limpiar y presentar la foto REAL</div>
+    <button class="cpbtn" onclick="copiar('p2')">Copiar prompt</button>
+    <pre class="copy" id="p2">Usando esta FOTO REAL de mi almohada (no la cambies, no la rediseñes):
+- Recorta y quita el fondo, deja el producto exactamente igual.
+- Colócala sobre un fondo limpio y oscuro #080c12.
+- Corrige color y luz para que la tela se vea natural, sin exagerar.
+- Añade una sombra suave y realista debajo.
+- No añadas texto, ni logos, ni elementos nuevos.
+- Exporta en 1:1 y 4:5 a alta resolución.</pre>
+  </div>
+
+  <div style="margin-top:16px">
+    <div class="eyebrow" style="margin-bottom:6px">Prompt 3 · b-roll de vídeo (solo fondos y manos)</div>
+    <button class="cpbtn" onclick="copiar('p3')">Copiar prompt</button>
+    <pre class="copy" id="p3">Plano cenital suave de un dormitorio cálido por la mañana. Una persona de unos 58 años, en pijama sencillo, alisa las sábanas y se estira despertando tranquila. Luz natural cálida, tonos beige y azul oscuro, cámara lenta, sin primer plano del rostro, sin producto, sin texto, sin logos. Estética real y hogareña, no estudio. Vertical 9:16.</pre>
+  </div>
+
+  <div class="warn" style="margin-top:16px">Herramientas: <b>CapCut</b> y <b>Canva</b> (gratis) para editar, quitar fondo y montar. Para IA de imagen: cualquier generador que uses, pero recuerda la regla: producto real siempre.</div>
+</div></section>
+
+<!-- 3. DONDE ANUNCIAR -->
+<section><div class="wrap">
+  <div class="eyebrow">3 · Dónde hago anuncios</div>
+  <h2>Orden recomendado</h2>
+  <table style="margin-top:14px">
+    <thead><tr><th>Prioridad</th><th>Canal</th><th>Por qué</th><th>Para empezar</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>1</b></td>
+        <td><b>Meta Ads</b><br><span class="small">Facebook + Instagram</span></td>
+        <td>Tu público (50-70) está en Facebook. Es donde mejor se venden productos de descanso.</td>
+        <td>1 campaña de <b>ventas</b>, 1 conjunto, los 9 vídeos, €20-30/día.</td>
+      </tr>
+      <tr>
+        <td><b>2</b></td>
+        <td><b>TikTok Ads</b></td>
+        <td>Más barato para <b>probar creativos</b>. Aquí descubres qué hook funciona.</td>
+        <td>€15-20/día, mismos vídeos en 9:16.</td>
+      </tr>
+      <tr>
+        <td><b>3</b></td>
+        <td><b>Google</b> (Shopping / PMax + Búsqueda)</td>
+        <td>Coge a quien <b>ya busca</b> “almohada cervical”. Más abajo en el embudo.</td>
+        <td>Cuando haya al menos 30-50 ventas y datos.</td>
+      </tr>
+      <tr>
+        <td><b>4</b></td>
+        <td>Pinterest / Email</td>
+        <td>Recuperar carritos y tráfico gratis a futuro.</td>
+        <td>Más adelante.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="ok" style="margin-top:16px"><b>Regla:</b> un canal a la vez. Primero Meta con los 9 creativos; el que gane, se escala. No abras TikTok y Meta con dinero a la vez si el presupuesto es pequeño.</div>
+  <div class="warn" style="margin-top:12px">Antes de gastar: confirma el píxel de Meta, calcula tu <b>CAC máximo</b> (hoja de márgenes) y ten lista la garantía de 30 noches de verdad.</div>
+</div></section>
+
+<!-- 4. TIKTOK Y YOUTUBE -->
+<section><div class="wrap">
+  <div class="eyebrow">4 · ¿Subo a TikTok y YouTube?</div>
+  <h2>Sí. Y es gratis.</h2>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <span class="pill go">Sí, súbelo</span>
+      <h3 style="margin-top:10px">Orgánico (gratis)</h3>
+      <ul>
+        <li><b>TikTok:</b> sube los 9 vídeos. El que más views/guardados tenga, es el hook que pagas en anuncios.</li>
+        <li><b>YouTube Shorts:</b> sube los mismos verticales. Google los indexa y traen tráfico gratis.</li>
+        <li><b>Instagram Reels:</b> lo mismo, refuerza Meta.</li>
+      </ul>
+      <p class="small">Coste: 0 €. Beneficio: aprendes qué engancha <b>antes</b> de pagar anuncios.</p>
+    </div>
+    <div class="card">
+      <span class="pill no">Ojo</span>
+      <h3 style="margin-top:10px">La diferencia</h3>
+      <ul>
+        <li><b>Orgánico</b> = publicar gratis en tu cuenta. Sirve para probar.</li>
+        <li><b>Anuncio</b> = pagar para que lo vea gente que no te sigue (Meta/TikTok Ads).</li>
+        <li>No mezcles: primero orgánico para aprender, luego pago para escalar.</li>
+      </ul>
+      <p class="small">Pon siempre el enlace a noctip.com en bio y en el primer comentario fijado.</p>
+    </div>
+  </div>
+  <div class="ok" style="margin-top:16px">Plan real: <b>sube los 9 vídeos gratis esta semana</b>, mira los 3 que mejor funcionen y <b>esos</b> los pones como anuncios en Meta.</div>
+</div></section>
+
+<!-- 5. CALENDARIO -->
+<section><div class="wrap">
+  <div class="eyebrow">5 · Plan de la semana</div>
+  <h2>Orden de ejecución</h2>
+  <table style="margin-top:14px">
+    <thead><tr><th>Día</th><th>Qué haces</th><th>Coste</th></tr></thead>
+    <tbody>
+      <tr><td><b>1</b></td><td>Pedir 2 muestras de almohada (AliExpress) + mensaje al vendedor.</td><td>~33 €</td></tr>
+      <tr><td><b>2-4</b></td><td>Mientras llegan: montar el píxel y la hoja de márgenes con datos reales.</td><td>0 €</td></tr>
+      <tr><td><b>5-7</b></td><td>Llega la muestra: probarla 2 noches. Fotos reales + 1 vídeo con el móvil.</td><td>0 €</td></tr>
+      <tr><td><b>8</b></td><td>Subir fotos a la ficha y los 9 vídeos a TikTok / YouTube / Reels.</td><td>0 €</td></tr>
+      <tr><td><b>9-14</b></td><td>Ver qué vídeo gana. Lanzar Meta con los 3 mejores.</td><td>€20-30/día</td></tr>
+    </tbody>
+  </table>
+  <p class="small" style="margin-top:12px">Nada de comprar stock ni de gastar en anuncios hasta tener la muestra probada y el CAC máximo calculado.</p>
+</div></section>
+
+<footer><div class="wrap">Plan de trabajo Noctip. Los enlaces y precios pueden cambiar. Verifica antes de comprar.</div></footer>
+
+<script>
+function copiar(id){
+  const t=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(t).then(()=>{const b=event.target;const o=b.innerText;b.innerText='Copiado';setTimeout(()=>b.innerText=o,1500)}).catch(()=>{});
+}
+</script>
+</body>
+</html>
