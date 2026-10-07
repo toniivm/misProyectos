@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;font-family:"Inter",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  #stage{position:relative;width:100vw;height:100vh;overflow:hidden;display:flex;flex-direction:column;
+    padding:6vmin 7vmin 5vmin;
+    background:
+      radial-gradient(70% 42% at 84% 2%, rgba(16,191,216,.10), transparent 62%),
+      linear-gradient(180deg,#ffffff 0%, #ffffff 74%, #f1f4f6 100%);
+    color:#0b0f14}
+  .top{display:flex;align-items:center;gap:1.6vmin;font-family:"Sora",sans-serif;font-weight:800;
+    letter-spacing:.34em;text-transform:uppercase;font-size:2.2vmin;color:#0b0f14}
+  .top .dot{width:1.2vmin;height:1.2vmin;border-radius:50%;background:#10BFD8}
+  .top .tag{margin-left:auto;font-family:"Inter";font-weight:600;letter-spacing:.16em;font-size:1.6vmin;color:#5b6570}
+  .head{margin-top:4vmin}
+  .eyebrow{font-weight:800;letter-spacing:.24em;text-transform:uppercase;font-size:1.9vmin;color:#0e9db4}
+  h1{font-family:"Sora",sans-serif;font-weight:800;font-size:9.4vmin;line-height:1.0;letter-spacing:-.045em;margin-top:1.8vmin;max-width:94%}
+  h1 .cy{color:#0e9db4}
+  .sub{margin-top:2.2vmin;font-size:3vmin;line-height:1.4;color:#465059;max-width:82%;font-weight:500}
+  .product{flex:1;position:relative;display:flex;align-items:center;justify-content:center;margin:1vmin 0}
+  .product::before{content:"";position:absolute;width:130vmin;height:95vmin;border-radius:50%;
+    background:radial-gradient(closest-side, #ffffff 70%, rgba(255,255,255,0));}
+  .product img{position:relative;width:78%;max-width:78%;height:auto;transform:rotate(-2deg);
+    filter:drop-shadow(0 3.4vmin 3.4vmin rgba(20,30,40,.16))}
+  .benefits{display:flex;gap:3vmin;flex-wrap:wrap;margin-bottom:2.6vmin}
+  .b{display:flex;align-items:center;gap:1.2vmin;font-size:2.2vmin;font-weight:600;color:#2a333b}
+  .b svg{width:2.6vmin;height:2.6vmin;flex:0 0 auto}
+  .b svg circle{fill:#10BFD8}
+  .b svg path{stroke:#04222a;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .cta{display:inline-flex;align-items:center;gap:1.6vmin;background:#0b0f14;color:#fff;border-radius:99px;
+    padding:2.8vmin 5.4vmin;font-weight:700;font-size:3.2vmin;align-self:flex-start;
+    box-shadow:0 3vmin 6vmin rgba(11,15,20,.22)}
+  .cta svg{width:3vmin;height:3vmin;fill:none;stroke:#10BFD8;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  .foot{display:flex;align-items:center;gap:2.6vmin;margin-top:2.4vmin;font-size:1.9vmin;color:#68727c;font-weight:600}
+  .foot b{color:#0b0f14}
+
+  /* cuadrado y 4:5 */
+  #stage.compact{padding:5vmin 6vmin 4vmin}
+  #stage.compact .head{margin-top:2.6vmin}
+  #stage.compact h1{font-size:6.8vmin}
+  #stage.compact .sub{font-size:2.5vmin;margin-top:1.4vmin}
+  #stage.compact .product img{width:62%}
+  #stage.compact .product::before{width:58vmin;height:46vmin}
+  #stage.compact .b{font-size:1.9vmin}
+  #stage.compact .cta{padding:2.2vmin 4.4vmin;font-size:2.7vmin}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="top"><span class="dot"></span><span>Noctip</span><span class="tag">Sueño &amp; Recuperación</span></div>
+
+  <div class="head">
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 id="headline"></h1>
+    <div class="sub" id="sub"></div>
+  </div>
+
+  <div class="product"><img src="assets/product.png" alt="" /></div>
+
+  <div class="benefits" id="benefits"></div>
+
+  <div class="cta" id="cta"><span></span>
+    <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </div>
+
+  <div class="foot">
+    <span><b>30 noches</b> de prueba</span>
+    <span><b>Pago seguro</b> Stripe</span>
+    <span><b>Envío</b> con seguimiento</span>
+  </div>
+</div>
+
+<script>
+  const q = new URLSearchParams(location.search);
+  const concept = q.get('concept') || 'A';
+
+  const ADS = {
+    A: {
+      eyebrow: 'Almohada cervical',
+      headline: 'Te levantas con el <span class="cy">cuello cargado</span>.',
+      sub: 'No siempre es la edad. A veces es la forma y la altura de tu almohada.',
+      benefits: ['Se ajusta a ti', 'Funda lavable', 'Memory foam'],
+      cta: 'Ver cómo se ajusta'
+    },
+    B: {
+      eyebrow: 'La altura importa',
+      headline: 'Una almohada que se <span class="cy">ajusta</span> a cómo duermes.',
+      sub: 'Regula la altura hasta encontrar tu punto. De lado o de espaldas.',
+      benefits: ['Altura regulable', 'De lado o de espaldas', 'Funda lavable'],
+      cta: 'Ver la almohada'
+    },
+    C: {
+      eyebrow: 'Antes de comprar otra',
+      headline: '¿Otra almohada más? <span class="cy">Esta se ajusta.</span>',
+      sub: 'Y la funda se lava. Si no te encaja, tienes 30 noches para devolverla.',
+      benefits: ['Se ajusta', 'Funda lavable', 'Medidas 59×33 cm'],
+      cta: 'Míralo aquí'
+    }
+  };
+
+  const a = ADS[concept] || ADS.A;
+  document.getElementById('eyebrow').textContent = a.eyebrow;
+  document.getElementById('headline').innerHTML = a.headline;
+  document.getElementById('sub').textContent = a.sub;
+  document.querySelector('#cta span').textContent = a.cta;
+
+  const b = document.getElementById('benefits');
+  a.benefits.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'b';
+    d.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><span>' + t + '</span>';
+    b.appendChild(d);
+  });
+
+  const ratio = window.innerHeight / window.innerWidth;
+  if (ratio < 1.45) document.getElementById('stage').classList.add('compact');
+</script>
+</body>
+</html>
