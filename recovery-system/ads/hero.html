@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;font-family:"Segoe UI",Arial,sans-serif}
+  #stage{width:100vw;height:100vh;position:relative;display:flex;align-items:center;justify-content:center;
+    background:#ffffff;
+  }
+  #stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 120%, rgba(8,12,18,.06), transparent 60%)}
+  .halo{position:absolute;width:64vmin;height:64vmin;border-radius:50%;
+    background:radial-gradient(circle, rgba(16,191,216,.14), transparent 62%)}
+  .shadow{position:absolute;bottom:22vmin;width:56vmin;height:7vmin;border-radius:50%;
+    background:radial-gradient(ellipse, rgba(8,12,18,.28), transparent 70%);filter:blur(2vmin)}
+  img{position:relative;width:74vmin;height:auto;filter:drop-shadow(0 4vmin 4vmin rgba(8,12,18,.18))}
+  .mark{position:absolute;bottom:6vmin;display:flex;align-items:center;gap:1.4vmin;color:#080c12;
+    font-weight:800;letter-spacing:.34em;text-transform:uppercase;font-size:2.6vmin;opacity:.85}
+  .mark i{display:block;width:6vmin;height:1px;background:#10BFD8}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="halo"></div>
+  <div class="shadow"></div>
+  <img src="assets/product.png" alt="" />
+  <div class="mark"><i></i>Noctip</div>
+</div>
+</body>
+</html>
