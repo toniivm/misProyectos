@@ -28,6 +28,11 @@ yarn-error.log*
 *.swp
 *.swo
 
+# piezas generadas de anuncios (los MP4 se regeneran con scripts/generate-ads.js)
+ads/*.mp4
+ads/.tmp-*
+
+
 # OS
 .DS_Store
 Thumbs.db

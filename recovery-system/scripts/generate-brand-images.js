@@ -221,6 +221,46 @@ function drawRest(scale = 1) {
   </g>`;
 }
 
+// ANTIFAZ — antifaz 3D con peso (vista frontal, cazoletas visibles)
+function drawAntifaz(scale = 1) {
+  return `
+  <g id="antifaz">
+    <defs>
+      <linearGradient id="maskBody" x1="0.2" y1="0" x2="0.8" y2="1">
+        <stop offset="0%" stop-color="#3d4a5e"/>
+        <stop offset="55%" stop-color="#232c3a"/>
+        <stop offset="100%" stop-color="#141a22"/>
+      </linearGradient>
+      <radialGradient id="cup" cx="50%" cy="42%" r="62%">
+        <stop offset="0%" stop-color="#10151c"/>
+        <stop offset="70%" stop-color="#2c3646"/>
+        <stop offset="100%" stop-color="#4a5568"/>
+      </radialGradient>
+      <linearGradient id="strapG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2b3442"/>
+        <stop offset="100%" stop-color="#171e26"/>
+      </linearGradient>
+    </defs>
+    <!-- correa trasera -->
+    <path d="M -540 -60 C -760 -160 -900 -120 -940 40 C -960 160 -880 260 -760 280" stroke="url(#strapG)" stroke-width="54" fill="none" stroke-linecap="round"/>
+    <path d="M 540 -60 C 760 -160 900 -120 940 40 C 960 160 880 260 760 280" stroke="url(#strapG)" stroke-width="54" fill="none" stroke-linecap="round"/>
+    <!-- cuerpo -->
+    <path d="M -580 -30 C -580 -250 -300 -340 0 -340 C 300 -340 580 -250 580 -30 C 580 150 430 280 250 300 C 190 306 150 296 120 270 L 60 210 C 30 180 -30 180 -60 210 L -120 270 C -150 296 -190 306 -250 300 C -430 280 -580 150 -580 -30 Z"
+      fill="url(#maskBody)" stroke="#55617a" stroke-width="5"/>
+    <!-- cazoletas 3D -->
+    <ellipse cx="-260" cy="-70" rx="210" ry="160" fill="url(#cup)"/>
+    <ellipse cx="260" cy="-70" rx="210" ry="160" fill="url(#cup)"/>
+    <ellipse cx="-260" cy="-70" rx="210" ry="160" fill="none" stroke="#5c6b84" stroke-width="6" opacity="0.7"/>
+    <ellipse cx="260" cy="-70" rx="210" ry="160" fill="none" stroke="#5c6b84" stroke-width="6" opacity="0.7"/>
+    <path d="M -350 -160 C -300 -190 -200 -196 -150 -170" stroke="#8a97ad" stroke-width="8" fill="none" opacity="0.5" stroke-linecap="round"/>
+    <path d="M 170 -170 C 200 -196 300 -190 350 -160" stroke="#8a97ad" stroke-width="8" fill="none" opacity="0.5" stroke-linecap="round"/>
+    <!-- costura perimetral -->
+    <path d="M -540 -40 C -520 -220 -280 -300 0 -300 C 280 -300 520 -220 540 -40" stroke="#5c6b84" stroke-width="4" fill="none" stroke-dasharray="10 9" opacity="0.8"/>
+    <!-- brillo superior -->
+    <path d="M -420 -240 C -240 -320 -60 -330 100 -310" stroke="#7d8aa0" stroke-width="10" fill="none" opacity="0.4" stroke-linecap="round"/>
+  </g>`;
+}
+
 // CERVICAL — masajeador de cuello en U (blanco, electrodos metálicos, vista 3/4)
 function drawCervical(scale = 1) {
   return `
@@ -278,6 +318,7 @@ function drawCervical(scale = 1) {
 // ── Escenas ─────────────────────────────────────────────────────────────
 
 const PRODUCTS = {
+  antifaz: { draw: drawAntifaz, label: 'antifaz' },
   halo: { draw: drawHalo, label: 'halo' },
   wave: { draw: drawBack, label: 'back' },
   'sleep-headband': { draw: drawRest, label: 'rest' },
@@ -290,6 +331,7 @@ function scene(w, h, productKey, variant) {
 
   // Bounds reales por producto (en unidades del dibujo) para sombra y escala
   const BOUNDS = {
+    antifaz: { hw: 950, hh: 345 },
     halo: { hw: 570, hh: 305 },
     wave: { hw: 660, hh: 505 },
     'sleep-headband': { hw: 560, hh: 300 },
