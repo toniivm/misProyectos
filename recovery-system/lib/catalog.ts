@@ -100,8 +100,9 @@ export const CATALOG: CatalogProduct[] = [
       'Incluye': 'Férula + estuche de viaje',
       'Reutilizable': 'Sí — lavable y duradera',
     },
-    // Renders de marca. Reemplazar por fotos reales de la muestra (docs/BRIEF_FOTOS_REALES.md)
+    // Renders de marca + foto real recortada del proveedor. Reemplazar por fotos reales (docs/BRIEF_FOTOS_REALES.md)
     images: [
+      '/images/brand/halo-photo-1.jpg',
       '/images/brand/halo-hero.jpg',
       '/images/brand/halo-detail.jpg',
       '/images/brand/halo-context.jpg',
@@ -147,8 +148,9 @@ export const CATALOG: CatalogProduct[] = [
       'Cuidado': 'Lavar a mano — secar al aire',
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
-    // Renders de marca. Reemplazar por fotos reales (docs/BRIEF_FOTOS_REALES.md)
+    // Renders de marca + foto real recortada del proveedor. Reemplazar por fotos reales (docs/BRIEF_FOTOS_REALES.md)
     images: [
+      '/images/brand/wave-photo-1.jpg',
       '/images/brand/wave-hero.jpg',
       '/images/brand/wave-detail.jpg',
       '/images/brand/wave-context.jpg',
