@@ -463,33 +463,7 @@ export default function ShopHomePage() {
           </div>
         </section>
 
-        {/* ═══ 3. PROBLEMAS ═══ */}
-        <section className="py-10 sm:py-16">
-          <div className="mx-auto max-w-[1280px] px-4 sm:px-6">
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: EASE }} className="max-w-3xl">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#10BFD8]">{copy.problems.eyebrow}</span>
-              <h2 className="mt-2 text-[clamp(1.5rem,4vw,2.2rem)] font-bold tracking-[-0.03em] text-[#f6f2eb] leading-[1.05]">{copy.problems.heading}</h2>
-              <p className="mt-3 text-[14px] sm:text-[15px] leading-[1.6] text-[#8791a1]">{copy.problems.sub}</p>
-            </motion.div>
-
-            <div className="mt-6 sm:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              {copy.problems.cards.map((card, idx) => (
-                <motion.div key={card.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.06, duration: 0.5, ease: EASE }}>
-                  <Link href={`/${locale}/products/${card.href}`} className="group flex h-full flex-col rounded-2xl border border-white/[0.07] bg-[#0d1219] p-4 sm:p-5 hover:border-white/[0.14] hover:bg-[#111720] hover:-translate-y-0.5 transition-all duration-300">
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${card.accent}`}>
-                      <card.icon size={18} />
-                    </div>
-                    <h3 className="mt-3 text-[15px] font-bold text-[#f2eee7] group-hover:text-white transition-colors">{card.label}</h3>
-                    <p className="mt-1 text-[13px] leading-[1.5] text-[#6b7785]">{card.desc}</p>
-                    <span className="mt-auto pt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-[#10BFD8] group-hover:gap-1.5 transition-all">
-                      {isEs ? 'Ver solución' : 'See solution'} <ChevronRight size={12} />
-                    </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Sección "problems" eliminada: repetía la navegación del grid de productos + quiz (auditoría vs Manta/Drowsy, 14 Oct) */}
 
         {/* ═══ 4. PRODUCTOS COMO SOLUCIONES ═══ */}
         <section className="py-6 sm:py-10">
