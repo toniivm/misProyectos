@@ -127,6 +127,17 @@ node scripts/generate-ads.js --video-only    # solo MP4
 5. Anotar en `docs/SEGUIMIENTO_ANTIFAZ.csv`: vistas, retención 3s, guardados, clics, ATC.
 6. **Ritmo:** 1-2 publicaciones al día, misma base, distinto hook. No más: quemas la cuenta y el material.
 
+### ¿Y publicar automáticamente con IA? (la verdad)
+
+Existe, pero para vuestro momento no compensa:
+
+- **TikTok Content Posting API** y **Instagram Graph API** requieren crear una app de desarrollador, cuenta business y pasar revisiones. Días o semanas de papeleo para ahorrar 5 minutos de subida manual.
+- **YouTube Data API** es más fácil (OAuth), pero solo cubre una de las tres redes.
+- **Herramientas de terceros** (Buffer, Metricool, Publer...) tienen planes gratis limitados, pero programan — no "crean" el vídeo. El vídeo ya lo tienes: la subida manual desde el móvil es literalmente 3 toques por red.
+
+**Decisión:** subida manual (5 min/día). Cuando haya ventas y volumen (>1 pieza/día en 3 redes), se monta automatización. Documentado aquí para que no paguéis por ello antes de tiempo.
+
+
 ---
 
 ## 6. Reglas de copy (no negociables)
