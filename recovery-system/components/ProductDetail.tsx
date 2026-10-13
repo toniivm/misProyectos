@@ -232,9 +232,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
   // Note: rest/gallery/1.jpg is 1.9MB unoptimized — excluded until compressed
   const organizedExtra: Record<string, string[]> = {
     'sleep-headband': [
-      '/images/rest/lifestyle/1.png',
-      '/images/rest/lifestyle/2.png',
-      '/images/rest/lifestyle/3.png',
+      // Sin fotos caseras: los renders de marca ya cubren la galería.
+      // Cuando haya fotos reales de la muestra, añadirlas aquí.
     ],
     'neck-massager': [
       '/images/cervical/gallery/1.jpg',

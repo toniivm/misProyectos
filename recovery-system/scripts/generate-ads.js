@@ -187,10 +187,10 @@ const VW = 1080;
 const VH = 1920;
 
 function imageSegment(img, dur, out) {
-  const frames = Math.round(dur * FPS);
+  // Ken Burns: se acumula el zoom frame a frame (d=1) para que dure lo pedido.
   runFfmpeg([
     '-loop', '1', '-t', String(dur), '-i', img,
-    '-vf', `scale=${VW}:${VH}:force_original_aspect_ratio=increase,crop=${VW}:${VH},zoompan=z='min(zoom+0.0011,1.16)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${frames}:s=${VW}x${VH}:fps=${FPS},fade=t=in:st=0:d=0.3,fade=t=out:st=${(dur - 0.3).toFixed(2)}:d=0.3`,
+    '-vf', `scale=${VW}:${VH}:force_original_aspect_ratio=increase,crop=${VW}:${VH},zoompan=z='min(zoom+0.0009,1.12)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=${VW}x${VH}:fps=${FPS},fade=t=in:st=0:d=0.3,fade=t=out:st=${(dur - 0.3).toFixed(2)}:d=0.3`,
     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-an', out,
   ]);
 }

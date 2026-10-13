@@ -26,7 +26,7 @@ const POSTS: BlogPost[] = [
     category: 'Sleep',
     readTime: '5 min',
     date: '2025-07-15',
-    image: '/images/rest/lifestyle/1.png',
+    image: '/images/brand/sleep-headband-hero.jpg',
     slug: 'how-to-stop-snoring',
   },
   {
@@ -46,7 +46,7 @@ const POSTS: BlogPost[] = [
     category: 'Health',
     readTime: '6 min',
     date: '2025-07-05',
-    image: '/images/rest/lifestyle/2.png',
+    image: '/images/brand/sleep-headband-detail.jpg',
     slug: 'why-posture-matters',
   },
 ]

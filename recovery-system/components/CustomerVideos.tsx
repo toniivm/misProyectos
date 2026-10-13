@@ -17,40 +17,8 @@ interface VideoTestimonial {
   rating: number
 }
 
-const TESTIMONIALS: VideoTestimonial[] = [
-  {
-    id: 'v-1',
-    name: 'María G.',
-    product: 'Noctip Rest',
-    thumbnail: '/images/rest/lifestyle/1.png',
-    quote: 'Llevo una semana usándola y duermo como nunca. Me pongo un podcast y me quedo dormida en minutos.',
-    rating: 5,
-  },
-  {
-    id: 'v-2',
-    name: 'Carlos R.',
-    product: 'Noctip Halo',
-    thumbnail: '/images/halo/lifestyle/1.jpg',
-    quote: 'Escéptico al principio, pero la diferencia es brutal. La uso todas las noches.',
-    rating: 5,
-  },
-  {
-    id: 'v-3',
-    name: 'Laura M.',
-    product: 'Noctip Back',
-    thumbnail: '/images/rest/lifestyle/2.png',
-    quote: 'Muy buena calidad. La uso 15 minutos al día y en dos semanas se me quitó el dolor de espalda.',
-    rating: 5,
-  },
-  {
-    id: 'v-4',
-    name: 'Pedro L.',
-    product: 'Noctip Rest',
-    thumbnail: '/images/rest/lifestyle/3.png',
-    quote: 'Mi mujer ronca y esto me salvó. La banda la noto como si no llevara nada.',
-    rating: 5,
-  },
-]
+// VACÍO A PROPÓSITO: no publicar testimonios hasta tener clientes reales (AGENTS.md: nunca datos falsos).
+const TESTIMONIALS: VideoTestimonial[] = []
 
 function StarRating({ rating, size = 12 }: { rating: number; size?: number }) {
   return (
