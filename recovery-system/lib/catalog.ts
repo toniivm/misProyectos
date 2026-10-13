@@ -200,8 +200,9 @@ export const CATALOG: CatalogProduct[] = [
       'Control': 'Volumen integrado en la banda',
       'Paquete incluye': 'Banda de sueño + Cable de carga',
     },
-    // Renders de marca (fotos limpias sin marca ajena). Reemplazar por fotos reales (docs/BRIEF_FOTOS_REALES.md)
+    // Foto real de estudio (logo ajeno eliminado por retoque) + renders de marca
     images: [
+      '/images/brand/rest-photo-1.jpg',
       '/images/brand/sleep-headband-hero.jpg',
       '/images/brand/sleep-headband-detail.jpg',
       '/images/brand/sleep-headband-context.jpg',

@@ -297,8 +297,8 @@ export default function ShopHomePage() {
   const flagship = CATALOG.find(p => p.slug === 'sleep-headband') ?? CATALOG[0]
   const flagshipImg = flagship.images?.[0] ?? '/images/sleep-headband-1.webp'
   // lifestyle for hero visual — use rest lifestyle if exists, else flagship
-  const heroLifestyle = '/images/brand/sleep-headband-hero.jpg'
-  const heroLifestyle2 = '/images/brand/sleep-headband-detail.jpg'
+  const heroLifestyle = '/images/brand/lifestyle-1.jpg'
+  const heroLifestyle2 = '/images/brand/lifestyle-2.jpg'
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
@@ -329,7 +329,7 @@ export default function ShopHomePage() {
                     <div className="relative aspect-[4/3.4] lg:aspect-[4/3.2] overflow-hidden bg-[#0c1016]">
                       <img
                         src={heroLifestyle}
-                        alt="Noctip Rest — imagen de producto"
+                        alt="Habitación nocturna en penumbra"
                         width={720} height={540}
                         fetchPriority="high"
                         loading="eager"
@@ -384,8 +384,7 @@ export default function ShopHomePage() {
                     <span className="text-[11px] font-semibold text-[#c8d0da]">{isEs ? '30 noches de prueba' : '30-night trial'}</span>
                   </div>
                 </div>
-                <p className="mt-3 text-center text-[11px] text-[#5a6678] hidden sm:block">{isEs ? 'Noctip Rest · Imagen de producto' : 'Noctip Rest · Product image'}</p>
-              </motion.div>
+                </motion.div>
 
               {/* Copy */}
               <motion.div
@@ -506,8 +505,8 @@ export default function ShopHomePage() {
                 {/* lifestyle */}
                 <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[520px] overflow-hidden bg-[#080c12]">
                   <img
-                    src="/images/brand/sleep-headband-context.jpg"
-                    alt="Noctip Rest — en contexto"
+                    src="/images/brand/rest-photo-1.jpg"
+                    alt="Noctip Rest — foto de producto"
                     loading="lazy"
                     decoding="async"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
@@ -654,7 +653,7 @@ export default function ShopHomePage() {
               {/* mosaic — use available lifestyle images, fallback to gradient cards */}
               <motion.div initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: EASE }} className="grid grid-cols-3 gap-2 sm:gap-3">
                 <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] aspect-[4/3] relative">
-                  <img src="/images/brand/sleep-headband-hero-9x16.jpg" alt="Lifestyle Noctip" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
+                  <img src="/images/brand/lifestyle-2.jpg" alt="Escena nocturna" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   <span className="absolute bottom-3 left-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur border border-white/10">{isEs ? 'Noche · Rest' : 'Night · Rest'}</span>
                 </div>
@@ -668,7 +667,7 @@ export default function ShopHomePage() {
                 </div>
                 <div className="col-span-3 grid grid-cols-3 gap-2 sm:gap-3">
                   <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] aspect-[4/3] relative">
-                    <img src="/images/rest/gallery/1.jpg" alt="Noctip Rest detail" className="absolute inset-0 h-full w-full object-contain p-2 bg-[#f5f0eb]" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
+                    <img src="/images/brand/rest-photo-1.jpg" alt="Noctip Rest" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
                   </div>
                   <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111720] aspect-[4/3] relative flex items-center justify-center">
                     <div className="text-center p-2">
