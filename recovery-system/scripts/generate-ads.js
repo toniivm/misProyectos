@@ -23,7 +23,7 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
 const ADS = path.join(ROOT, 'ads');
-const BRAND = path.join(ROOT, 'public', 'images', 'brand');
+const IMAGES = path.join(ROOT, 'public', 'images');
 fs.mkdirSync(ADS, { recursive: true });
 
 let ffmpeg = null;
@@ -40,31 +40,31 @@ const PRODUCTS = {
     name: 'Noctip Antifaz',
     hook: 'Duermes de lado y siempre entra luz',
     sub: 'Cazoleta 3D + peso. No aprieta los ojos y no se mueve.',
-    images: ['antifaz-hero.jpg', 'antifaz-detail.jpg', 'antifaz-context.jpg'],
+    images: ['brand/antifaz-hero.jpg', 'brand/antifaz-detail.jpg', 'brand/antifaz-context.jpg'],
   },
   halo: {
     name: 'Noctip Halo',
     hook: 'Dormís separados por los ronquidos',
     sub: '10mm de micro-ajuste. Estuche de viaje incluido.',
-    images: ['halo-hero.jpg', 'halo-detail.jpg', 'halo-context.jpg'],
+    images: ['brand/halo-photo-1.jpg', 'brand/halo-hero.jpg', 'brand/halo-detail.jpg'],
   },
   wave: {
     name: 'Noctip Back',
     hook: 'Camisa torcida a las 4 de la tarde',
     sub: '15 min al día. XS-XL. Invisible bajo la ropa.',
-    images: ['wave-hero.jpg', 'wave-detail.jpg', 'wave-context.jpg'],
+    images: ['brand/wave-photo-1.jpg', 'brand/wave-hero.jpg', 'brand/wave-detail.jpg'],
   },
   'sleep-headband': {
     name: 'Noctip Rest',
     hook: 'Auriculares clavados en la oreja toda la noche',
     sub: '45 g que no sientes. Lavable. 10 h de batería.',
-    images: ['sleep-headband-hero.jpg', 'sleep-headband-detail.jpg', 'sleep-headband-context.jpg'],
+    images: ['brand/rest-photo-1.jpg', 'brand/sleep-headband-hero.jpg', 'brand/sleep-headband-context.jpg'],
   },
   'neck-massager': {
     name: 'Noctip Cervical',
     hook: 'Nuca de piedra a las 7 de la tarde',
     sub: 'Calor suave y masaje. 15 minutos sin cables.',
-    images: ['neck-massager-hero.jpg', 'neck-massager-detail.jpg', 'neck-massager-context.jpg'],
+    images: ['cervical/gallery/1.jpg', 'brand/neck-massager-hero.jpg', 'productos-reales/neck-massager.jpg'],
   },
 };
 
@@ -211,7 +211,7 @@ async function makeVideo(slug, p) {
   const tmp = path.join(ADS, `.tmp-${slug}`);
   fs.mkdirSync(tmp, { recursive: true });
 
-  const imgs = p.images.map((f) => path.join(BRAND, f)).filter((f) => fs.existsSync(f));
+  const imgs = p.images.map((f) => path.join(IMAGES, f)).filter((f) => fs.existsSync(f));
   if (imgs.length < 2) {
     console.log('⚠ Faltan imágenes de', slug, '— vídeo no generado');
     return;
