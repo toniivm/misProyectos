@@ -40,7 +40,7 @@ const PRODUCTS = {
     name: 'Noctip Antifaz',
     hook: 'Duermes de lado y siempre entra luz',
     sub: 'Cazoleta 3D + peso. No aprieta los ojos y no se mueve.',
-    images: ['brand/antifaz-scene-wear.jpg', 'brand/antifaz-hero.jpg', 'brand/antifaz-scene-sleep.jpg'],
+    images: ['brand/antifaz-scene-wear.jpg', 'brand/antifaz-bed-1.jpg', 'brand/antifaz-hero.jpg'],
   },
   halo: {
     name: 'Noctip Halo',
