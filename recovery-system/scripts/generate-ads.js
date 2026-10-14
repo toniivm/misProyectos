@@ -40,7 +40,7 @@ const PRODUCTS = {
     name: 'Noctip Antifaz',
     hook: 'Duermes de lado y siempre entra luz',
     sub: 'Cazoleta 3D + peso. No aprieta los ojos y no se mueve.',
-    images: ['brand/antifaz-hero.jpg', 'brand/antifaz-detail.jpg', 'brand/antifaz-context.jpg'],
+    images: ['brand/antifaz-scene-wear.jpg', 'brand/antifaz-hero.jpg', 'brand/antifaz-scene-sleep.jpg'],
   },
   halo: {
     name: 'Noctip Halo',
@@ -251,8 +251,11 @@ async function main() {
   const args = process.argv.slice(2);
   const cardsOnly = args.includes('--cards-only');
   const videoOnly = args.includes('--video-only');
+  const onlyArg = args.find((a) => a.startsWith('--only='));
+  const only = onlyArg ? onlyArg.split('=')[1] : null;
 
   for (const [slug, p] of Object.entries(PRODUCTS)) {
+    if (only && slug !== only) continue;
     if (!videoOnly) await makeCards(slug, p);
     if (!cardsOnly) await makeVideo(slug, p);
   }
