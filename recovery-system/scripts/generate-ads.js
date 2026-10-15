@@ -40,30 +40,35 @@ const PRODUCTS = {
     name: 'Noctip Antifaz',
     hook: 'Duermes de lado y siempre entra luz',
     sub: 'Cazoleta 3D + peso. No aprieta los ojos y no se mueve.',
+    pill: 'Cazoleta 3D + peso — no toca los ojos',
     images: ['brand/antifaz-real-1.jpg', 'brand/antifaz-real-3.jpg', 'brand/antifaz-real-2.jpg'],
   },
   halo: {
     name: 'Noctip Halo',
     hook: 'Dormís separados por los ronquidos',
     sub: '10mm de micro-ajuste. Estuche de viaje incluido.',
+    pill: 'Ajuste 10mm — estuche incluido',
     images: ['brand/halo-photo-1.jpg', 'brand/halo-hero.jpg', 'brand/halo-detail.jpg'],
   },
   wave: {
     name: 'Noctip Back',
     hook: 'Camisa torcida a las 4 de la tarde',
     sub: '15 min al día. XS-XL. Invisible bajo la ropa.',
+    pill: '15 min/día — invisible bajo la ropa',
     images: ['brand/wave-photo-1.jpg', 'brand/wave-hero.jpg', 'brand/wave-detail.jpg'],
   },
   'sleep-headband': {
     name: 'Noctip Rest',
     hook: 'Auriculares clavados en la oreja toda la noche',
     sub: '45 g que no sientes. Lavable. 10 h de batería.',
+    pill: '45 g — lavable — 10 h de batería',
     images: ['brand/rest-photo-1.jpg', 'brand/sleep-headband-hero.jpg', 'brand/sleep-headband-context.jpg'],
   },
   'neck-massager': {
     name: 'Noctip Cervical',
     hook: 'Nuca de piedra a las 7 de la tarde',
     sub: 'Calor suave y masaje. 15 minutos sin cables.',
+    pill: 'Calor suave + masaje — 15 min',
     images: ['cervical/gallery/1.jpg', 'brand/neck-massager-hero.jpg', 'productos-reales/neck-massager.jpg'],
   },
 };
@@ -160,6 +165,19 @@ function overlayHookSvg(w, h, p) {
   </svg>`;
 }
 
+function pillSvg(w, h, text) {
+  const size = 46;
+  const pad = 36;
+  const bw = text.length * size * 0.58 + pad * 2;
+  const bh = size + pad * 1.2;
+  const x = (w - bw) / 2;
+  const y = h * 0.775;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+    <rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="${bh / 2}" fill="rgba(10,14,20,0.76)"/>
+    <text x="${w / 2}" y="${y + bh / 2 + size * 0.34}" font-family="Segoe UI, Arial, sans-serif" font-size="${size}" font-weight="700" fill="#ffffff" text-anchor="middle">${esc(text)}</text>
+  </svg>`;
+}
+
 // ── Generación de tarjetas ─────────────────────────────────────────────
 
 async function makeCards(slug, p) {
@@ -168,6 +186,7 @@ async function makeCards(slug, p) {
     { file: `card-cta-${slug}-9x16.png`, svg: ctaCardSvg(1080, 1920, p) },
     { file: `card-cta-${slug}-1x1.png`, svg: ctaCardSvg(1080, 1080, p) },
     { file: `overlay-hook-${slug}-9x16.png`, svg: overlayHookSvg(1080, 1920, p) },
+    { file: `pill-${slug}-9x16.png`, svg: pillSvg(1080, 1920, p.pill) },
   ];
   for (const j of jobs) {
     const out = path.join(ADS, j.file);
@@ -185,20 +204,50 @@ function runFfmpeg(args) {
 const FPS = 25;
 const VW = 1080;
 const VH = 1920;
+const XFADE = 0.5;
 
-function imageSegment(img, dur, out) {
-  // Ken Burns: se acumula el zoom frame a frame (d=1) para que dure lo pedido.
+function imageSegmentPro(img, dur, overlayPng, out, opts = {}) {
+  const { zoomIn = true, fadeFirst = false, fadeLast = false } = opts;
+  const zExpr = zoomIn
+    ? `min(zoom+0.0011,1.14)`
+    : `if(eq(on,1),1.14,max(zoom-0.0011,1.0))`;
+  const base = `scale=${VW}:${VH}:force_original_aspect_ratio=increase,crop=${VW}:${VH},zoompan=z='${zExpr}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=${VW}x${VH}:fps=${FPS},setsar=1`;
+  const fades = [];
+  if (fadeFirst) fades.push(`fade=t=in:st=0:d=0.35`);
+  if (fadeLast) fades.push(`fade=t=out:st=${(dur - 0.35).toFixed(2)}:d=0.35`);
+
+  const args = ['-loop', '1', '-t', String(dur), '-i', img];
+  let filter;
+  if (overlayPng && fs.existsSync(overlayPng)) {
+    args.push('-loop', '1', '-t', String(dur), '-i', overlayPng);
+    filter = `[0:v]${base}[bg];[1:v]scale=${VW}:${VH},setsar=1[fg];[bg][fg]overlay=0:0:format=auto`;
+    if (fades.length) filter += ',' + fades.join(',');
+    filter += ',format=yuv420p';
+    args.push('-filter_complex', filter);
+  } else {
+    filter = base + (fades.length ? ',' + fades.join(',') : '') + ',format=yuv420p';
+    args.push('-vf', filter);
+  }
+  args.push('-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-r', String(FPS), '-an', out);
+  runFfmpeg(args);
+}
+
+function cardSegmentPro(card, dur, out, opts = {}) {
+  const { fadeFirst = false, fadeLast = false } = opts;
+  const fades = [];
+  if (fadeFirst) fades.push(`fade=t=in:st=0:d=0.35`);
+  if (fadeLast) fades.push(`fade=t=out:st=${(dur - 0.35).toFixed(2)}:d=0.35`);
   runFfmpeg([
-    '-loop', '1', '-t', String(dur), '-i', img,
-    '-vf', `scale=${VW}:${VH}:force_original_aspect_ratio=increase,crop=${VW}:${VH},zoompan=z='min(zoom+0.0009,1.12)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=${VW}x${VH}:fps=${FPS},fade=t=in:st=0:d=0.3,fade=t=out:st=${(dur - 0.3).toFixed(2)}:d=0.3`,
-    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-an', out,
+    '-loop', '1', '-t', String(dur), '-i', card,
+    '-vf', `scale=${VW}:${VH},setsar=1${fades.length ? ',' + fades.join(',') : ''},format=yuv420p`,
+    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-r', String(FPS), '-an', out,
   ]);
 }
 
-function cardSegment(card, dur, out) {
+function xfadeMerge(a, b, out, durA) {
   runFfmpeg([
-    '-loop', '1', '-t', String(dur), '-i', card,
-    '-vf', `scale=${VW}:${VH},fade=t=in:st=0:d=0.3,fade=t=out:st=${(dur - 0.3).toFixed(2)}:d=0.3`,
+    '-i', a, '-i', b,
+    '-filter_complex', `[0:v][1:v]xfade=transition=fade:duration=${XFADE}:offset=${(durA - XFADE).toFixed(2)}`,
     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-an', out,
   ]);
 }
@@ -217,30 +266,42 @@ async function makeVideo(slug, p) {
     return;
   }
 
-  const hookCard = path.join(ADS, `card-hook-${slug}-9x16.png`);
+  const hookOverlay = path.join(ADS, `overlay-hook-${slug}-9x16.png`);
+  const pillOverlay = path.join(ADS, `pill-${slug}-9x16.png`);
   const ctaCard = path.join(ADS, `card-cta-${slug}-9x16.png`);
 
   const plan = [
-    { type: 'card', src: hookCard, dur: 3 },
-    { type: 'img', src: imgs[0], dur: 4 },
-    { type: 'img', src: imgs[1], dur: 3.5 },
-    { type: 'img', src: imgs[2] ?? imgs[1], dur: 3.5 },
-    { type: 'card', src: ctaCard, dur: 3 },
+    { type: 'img', src: imgs[0], dur: 4.2, ov: hookOverlay, zoomIn: true },
+    { type: 'img', src: imgs[1], dur: 3.6, ov: pillOverlay, zoomIn: false },
+    { type: 'img', src: imgs[2] ?? imgs[1], dur: 3.6, ov: pillOverlay, zoomIn: true },
+    { type: 'card', src: ctaCard, dur: 3.6 },
   ];
 
   const segs = [];
+  const durs = [];
   plan.forEach((step, i) => {
     const out = path.join(tmp, `seg${i}.mp4`);
-    if (step.type === 'card') cardSegment(step.src, step.dur, out);
-    else imageSegment(step.src, step.dur, out);
+    const first = i === 0;
+    const last = i === plan.length - 1;
+    if (step.type === 'card') cardSegmentPro(step.src, step.dur, out, { fadeFirst: first, fadeLast: last });
+    else imageSegmentPro(step.src, step.dur, step.ov, out, { zoomIn: step.zoomIn, fadeFirst: first, fadeLast: last });
     segs.push(out);
+    durs.push(step.dur);
   });
 
-  const listFile = path.join(tmp, 'list.txt');
-  fs.writeFileSync(listFile, segs.map((s) => `file '${s.replace(/\\/g, '/')}'`).join('\n'));
+  // Cadena de fundidos cruzados: sensación de vídeo, no de pase de diapositivas
+  let current = segs[0];
+  let currentDur = durs[0];
+  for (let i = 1; i < segs.length; i++) {
+    const merged = path.join(tmp, `merge${i}.mp4`);
+    xfadeMerge(current, segs[i], merged, currentDur);
+    currentDur = currentDur + durs[i] - XFADE;
+    current = merged;
+  }
+
   const outFile = path.join(ADS, `${slug}-anuncio-9x16.mp4`);
-  runFfmpeg(['-f', 'concat', '-safe', '0', '-i', listFile, '-c', 'copy', outFile]);
-  console.log('✔', path.relative(ROOT, outFile), '(música se añade en CapCut)');
+  fs.copyFileSync(current, outFile);
+  console.log('✔', path.relative(ROOT, outFile), `(≈${currentDur.toFixed(1)}s, música en CapCut)`);
 
   fs.rmSync(tmp, { recursive: true, force: true });
 }
