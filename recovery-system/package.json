@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/postbuild-index.js",
     "start": "next start",
     "lint": "next lint",
     "feed": "node scripts/generate-feed.js",
