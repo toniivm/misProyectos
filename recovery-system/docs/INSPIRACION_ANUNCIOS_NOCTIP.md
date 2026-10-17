@@ -77,6 +77,19 @@ Prueba: `Manta Sleep`, `Hoomband`, `Drowsy`, `SleepPhones`, `Smart Nora`, `ZQuie
 > Nota: para ver los anuncios de estas tiendas hay que usar Ad Library con TU navegador con sesión iniciada (el acceso automático está bloqueado por Meta).
 > Pon el nombre de la tienda en `q=` y mira qué anuncios llevan más tiempo activos.
 
+### 3.c Webs con IMPACTO REAL (números verificados — los mejores espejos a imitar)
+
+| Marca | Categoría | Números reales | Qué copiar de ella |
+|---|---|---|---|
+| **Manta Sleep** (mantasleep.com) | Antifaz + audio (≈ Rest) | **$12,8M/año (2025)** · ~$1,3M/mes · 743K visitas/mes · conversión 2–2,5% · ticket $75–100 (Grips Intelligence) | Su Manta SOUND ($159) vende lo mismo que Rest: cómo hacerlo premium. UGC + bundles + fichas largas |
+| **LIVLAB / HoomBand** (livlab.care) 🇫🇷 | Banda audio (≈ Rest) | **+1,2M usuarios** (Dodow + HoomBand) · **300.000 usuarios HoomBand** · +50M escuchas · prensa CNN | La europea de referencia: comparativa "auriculares vs banda", la app como parte de la oferta, tono calmado |
+| **Emma – The Sleep Company** (emma-sleep.es) 🇩🇪 | Sueño (marca grande) | **€645M facturación (2021)** · ~**$932M GMV (2025)** · 33 países · mayor D2C de sueño de Europa | Anuncios masivos en España. Ver cómo se ve una marca de sueño cuando domina: ofertas, reviews, confianza |
+| **Eight Sleep** (eightsleep.com) | Sleep-tech premium | **Valoración $1.500M** (mar 2026) · +$500M en ventas del Pod · 34 países · $100M levantados en 2025 | El techo del nicho. Para ver hacia dónde va el mercado (premium, suscripción, datos) |
+| **Smart Nora** (smartnora.com) | Anti-ronquidos (≈ Halo) | **+100.000 clientes** · prensa (Forbes, Oprah, GMA) · doctores en la web | Los ángulos de Halo hechos bien: "salva tu matrimonio", prueba social, 30 noches |
+| **SleepPhones** (sleepphones.com) | Banda audio (≈ Rest) | +10 años vendiendo · prensa (CNET, Washington Post, BuzzFeed) · "9 de cada 10 la recomiendan" | Testimonios largos en texto y el ángulo "para quien duerme al lado de un ronca-dor" |
+
+> **Benchmark:** Manta convierte 2–2,5% con ticket $75–100. Nuestro ticket es €14–22, así que lo que hay que copiarles es la ESTRUCTURA (cómo enseñan el producto, qué prometen, cómo rematan la venta) — no los números brutos.
+
 ## 4. Vídeos para ver (canales y búsquedas)
 
 - **Ali Akbar (el del vídeo):** https://www.youtube.com/watch?v=32CRwhHqou4 · canal: https://www.youtube.com/@daily-ecommerce

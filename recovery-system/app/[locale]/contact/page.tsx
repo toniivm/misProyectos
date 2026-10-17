@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
-import { Mail, Clock, Shield, Truck, RotateCcw, Send, Phone, AlertCircle } from 'lucide-react'
+import { Mail, Clock, Shield, Truck, RotateCcw, Send, AlertCircle } from 'lucide-react'
 import { useState } from 'react'
 import Header from '../../../components/Header'
 
@@ -47,13 +47,13 @@ export default function ContactPage() {
       icon: Mail,
       title: isEs ? 'Email' : 'Email',
       value: 'hola@noctip.com',
-      description: isEs ? 'Respuesta en <24h · support@noctip.com' : 'Response <24h · support@noctip.com',
+      description: isEs ? 'Respuesta en menos de 24h' : 'Response within 24 hours',
     },
     {
-      icon: Phone,
-      title: isEs ? 'Teléfono' : 'Phone',
-      value: isEs ? '[Pendiente +34 911 234 567]' : '[Pending +34 911 234 567]',
-      description: isEs ? 'Lun-Vie 9-18h — añade tu nº real' : 'Mon-Fri 9-18 — add your real number',
+      icon: RotateCcw,
+      title: isEs ? 'Devoluciones' : 'Returns',
+      value: isEs ? '30 noches de prueba' : '30-night trial',
+      description: isEs ? 'Te devolvemos el 100%' : '100% refund',
     },
     {
       icon: Clock,
@@ -206,7 +206,7 @@ export default function ContactPage() {
           </h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {[
-              { q: isEs ? '¿Cuánto tarda el envío?' : 'How long does shipping take?', a: isEs ? '7-20 días laborables en Europa' : '6-9 business days in Europe' },
+              { q: isEs ? '¿Cuánto tarda el envío?' : 'How long does shipping take?', a: isEs ? '7-20 días laborables en Europa' : '7-20 business days in Europe' },
               { q: isEs ? '¿Cómo devuelvo un producto?' : 'How do I return a product?', a: isEs ? 'Contacta con nosotros en 30 días' : 'Contact us within 30 days' },
               { q: isEs ? '¿El pago es seguro?' : 'Is checkout secure?', a: 'SSL 256-bit + Stripe' },
               { q: isEs ? '¿Dónde está mi pedido?' : 'Where is my order?', a: isEs ? 'Email de seguimiento en 24h' : 'Tracking email within 24h' },

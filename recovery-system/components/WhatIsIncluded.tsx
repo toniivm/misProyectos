@@ -42,31 +42,31 @@ const INCLUDED: Record<string, IncludedItem[]> = {
   ],
 }
 
-const SPECS: Record<string, { label: string; labelEn: string; value: string }[]> = {
+const SPECS: Record<string, { label: string; labelEn: string; value: string; valueEn: string }[]> = {
   'sleep-headband': [
-    { label: 'Peso', labelEn: 'Weight', value: '≈45g' },
-    { label: 'Batería', labelEn: 'Battery', value: '10+ horas' },
-    { label: 'Conectividad', labelEn: 'Connectivity', value: 'Bluetooth 5.0' },
-    { label: 'Material', labelEn: 'Material', value: 'PVC transpirable' },
-    { label: 'Talla', labelEn: 'Size', value: 'Única — elástica' },
+    { label: 'Peso', labelEn: 'Weight', value: '≈45g', valueEn: '≈45g' },
+    { label: 'Batería', labelEn: 'Battery', value: '10+ horas', valueEn: '10+ hours' },
+    { label: 'Conectividad', labelEn: 'Connectivity', value: 'Bluetooth 5.0', valueEn: 'Bluetooth 5.0' },
+    { label: 'Material', labelEn: 'Material', value: 'Poliéster transpirable', valueEn: 'Breathable polyester' },
+    { label: 'Talla', labelEn: 'Size', value: 'Única — elástica', valueEn: 'One size — stretch' },
   ],
   halo: [
-    { label: 'Ajuste', labelEn: 'Fit', value: '10mm micro-ajustes' },
-    { label: 'Material', labelEn: 'Material', value: 'Silicona médica' },
-    { label: 'Diseño', labelEn: 'Design', value: 'Doble capa' },
-    { label: 'Moldeado', labelEn: 'Molding', value: 'Hervir y morder' },
+    { label: 'Ajuste', labelEn: 'Fit', value: '10mm micro-ajustes', valueEn: '10 mm micro-adjustments' },
+    { label: 'Material', labelEn: 'Material', value: 'Silicona médica', valueEn: 'Medical silicone' },
+    { label: 'Diseño', labelEn: 'Design', value: 'Doble capa', valueEn: 'Dual layer' },
+    { label: 'Moldeado', labelEn: 'Molding', value: 'Hervir y morder', valueEn: 'Boil & bite' },
   ],
   wave: [
-    { label: 'Tallas', labelEn: 'Sizes', value: 'XS / S / M / L / XL' },
-    { label: 'Material', labelEn: 'Material', value: 'Malla transpirable' },
-    { label: 'Peso', labelEn: 'Weight', value: '≈120g' },
-    { label: 'Ajuste', labelEn: 'Fit', value: 'Correas de velcro' },
+    { label: 'Tallas', labelEn: 'Sizes', value: 'XS / S / M / L / XL', valueEn: 'XS / S / M / L / XL' },
+    { label: 'Material', labelEn: 'Material', value: 'Malla transpirable', valueEn: 'Breathable mesh' },
+    { label: 'Peso', labelEn: 'Weight', value: '≈120g', valueEn: '≈120g' },
+    { label: 'Ajuste', labelEn: 'Fit', value: 'Correas de velcro', valueEn: 'Hook-and-loop straps' },
   ],
   'neck-massager': [
-    { label: 'Peso', labelEn: 'Weight', value: '200g' },
-    { label: 'Dimensiones', labelEn: 'Dimensions', value: '17 × 5 × 17 cm' },
-    { label: 'Tiempo', labelEn: 'Time', value: '15 min (auto)' },
-    { label: 'Material', labelEn: 'Material', value: 'ABS y TPR' },
+    { label: 'Peso', labelEn: 'Weight', value: '200g', valueEn: '200g' },
+    { label: 'Dimensiones', labelEn: 'Dimensions', value: '17 × 5 × 17 cm', valueEn: '17 × 5 × 17 cm' },
+    { label: 'Tiempo', labelEn: 'Time', value: '15 min (auto)', valueEn: '15 min (auto)' },
+    { label: 'Material', labelEn: 'Material', value: 'ABS y TPR', valueEn: 'ABS and TPR' },
   ],
 }
 
@@ -137,7 +137,7 @@ export default function WhatIsIncluded({ slug }: WhatIsIncludedProps) {
                       {isEs ? spec.label : spec.labelEn}
                     </span>
                     <span className="text-[12px] font-semibold text-[#f2eee7]">
-                      {spec.value}
+                      {isEs ? spec.value : spec.valueEn}
                     </span>
                   </motion.div>
                 ))}

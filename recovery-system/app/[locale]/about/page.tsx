@@ -44,7 +44,7 @@ export default function AboutPage() {
     { value: '4', label: isEs ? 'Productos especializados' : 'Specialized products' },
     { value: '30', label: isEs ? 'Noches de garantía' : 'Night guarantee' },
     { value: '24h', label: isEs ? 'Procesamiento en 24h' : 'Order processing' },
-    { value: '6', label: isEs ? 'Países con envío' : 'Countries shipped to' },
+    { value: 'EU', label: isEs ? 'Envío en Europa' : 'Shipping in Europe' },
   ]
 
   return (

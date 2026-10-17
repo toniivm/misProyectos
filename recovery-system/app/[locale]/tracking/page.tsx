@@ -291,8 +291,8 @@ export default function TrackingPage() {
           <div className="text-center py-8">
             <p className="text-[13px] text-[#5a6678]">
               {isEs
-                ? 'Tu número de pedido aparece en el email de confirmación y en esta página.'
-                : 'Your order number can be found in your confirmation email and on this page.'}
+                ? 'Tu número de pedido aparece en el email de confirmación de tu compra.'
+                : 'Your order number is in your order confirmation email.'}
             </p>
           </div>
         )}

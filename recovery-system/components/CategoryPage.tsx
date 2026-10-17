@@ -165,12 +165,12 @@ function FilterPanel({
         <div className="mb-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[#6b7785]">
           {isEs ? 'Precio máx:' : 'Max price:'} €{maxPrice}
         </div>
-        <input type="range" min={20} max={200} step={5} value={maxPrice}
+        <input type="range" min={10} max={30} step={1} value={maxPrice}
           onChange={(e) => setMaxPrice(Number(e.target.value))}
           className="w-full accent-[#f2eee7]" />
         <div className="mt-1 flex justify-between text-[10px] text-[#4a5568]">
-          <span>€20</span>
-          <span>€200</span>
+          <span>€10</span>
+          <span>€30</span>
         </div>
       </div>
 
@@ -215,7 +215,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
   const isEs = locale === 'es'
   const { totalItems, open: openCart, isOpen: isCartOpen } = useCart()
   const [sort, setSort] = useState<SortOption>('featured')
-  const [maxPrice, setMaxPrice] = useState<number>(200)
+  const [maxPrice, setMaxPrice] = useState<number>(30)
   const [showFilters, setShowFilters] = useState(false)
 
   const isAll = categorySlug === 'all'
@@ -299,8 +299,8 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
               <div className="mt-5 sm:mt-8 grid gap-2.5 sm:gap-3 grid-cols-3">
                 {[
                   { value: `${raw.length}`, label: isEs ? 'productos' : 'products' },
-                  { value: `From €${priceFloor}`, label: isEs ? 'precio inicial' : 'entry price' },
-                  { value: '30 nights', label: isEs ? 'sin riesgo' : 'risk-free' },
+                  { value: isEs ? `Desde €${priceFloor}` : `From €${priceFloor}`, label: isEs ? 'precio inicial' : 'entry price' },
+                  { value: isEs ? '30 noches' : '30 nights', label: isEs ? 'sin riesgo' : 'risk-free' },
                 ].map((item) => (
                   <div key={item.label} className="rounded-xl sm:rounded-2xl border border-white/[0.07] bg-white/[0.025] px-2.5 sm:px-4 py-2.5 sm:py-3">
                     <div className="text-[13px] sm:text-[15px] font-bold text-[#f2eee7]">{item.value}</div>
@@ -435,7 +435,7 @@ export default function CategoryPage({ categorySlug }: { categorySlug: string })
                 <div className="text-[15px] font-medium text-[#8791a1]">
                   {isEs ? 'No hay productos con estos filtros' : 'No products match your filters'}
                 </div>
-                <button onClick={() => setMaxPrice(200)}
+                <button onClick={() => setMaxPrice(30)}
                   className="mt-4 btn-secondary">
                   {isEs ? 'Restablecer filtros' : 'Reset filters'}
                 </button>

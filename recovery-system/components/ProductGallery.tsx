@@ -120,10 +120,12 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
             </button>
           )}
 
-          {/* Counter */}
-          <div className="absolute bottom-3 left-3 z-10 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-white/90 backdrop-blur-sm">
-            {activeIdx + 1} / {totalItems}
-          </div>
+          {/* Counter — solo si hay más de una pieza (foto o vídeo) */}
+          {totalItems > 1 && (
+            <div className="absolute bottom-3 left-3 z-10 rounded-full bg-black/60 px-2.5 py-1 text-[11px] text-white/90 backdrop-blur-sm">
+              {activeIdx + 1} / {totalItems}
+            </div>
+          )}
 
           {/* Zoom hint - desktop only */}
           <div className="absolute bottom-3 right-3 z-10 hidden sm:flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1.5 text-[10px] text-white/70 backdrop-blur-sm">
@@ -135,7 +137,7 @@ export default function ProductGallery({ images, alt, color = '#111720', badge, 
           {/* Thumbnails — light cards for consistency */}
         <div
           ref={thumbnailRef}
-          className="mt-3 flex gap-2 overflow-x-auto scrollbar-none pb-1 sm:grid sm:grid-cols-6 sm:gap-2 sm:overflow-visible sm:pb-0"
+          className={`mt-3 flex gap-2 overflow-x-auto scrollbar-none pb-1 sm:grid sm:grid-cols-6 sm:gap-2 sm:overflow-visible sm:pb-0 ${totalItems > 1 ? '' : 'hidden'}`}
         >
           {images.map((src, idx) => (
             <button

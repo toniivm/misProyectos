@@ -423,12 +423,12 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
             {/* Features - después de oferta (Manta orden) */}
             {product?.features && (
               <ul className="space-y-1.5 sm:space-y-2.5">
-                {product.features.map((f) => (
+                {product.features.map((f, i) => (
                   <li key={f} className="flex items-start gap-2 text-[12px] sm:text-[14px] leading-[1.4] sm:leading-6 text-[#c8d0da]">
                     <span className="mt-[2px] flex h-4 sm:h-5 w-4 sm:w-5 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
                       <Check size={9} className="text-[#10BFD8]" />
                     </span>
-                    {f}
+                    {isEs ? f : (product.features_en?.[i] ?? f)}
                   </li>
                 ))}
               </ul>
@@ -592,8 +592,8 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
           {displayReviewCount === 0 && (
             <div className="mb-6 rounded-xl border border-white/[0.07] bg-white/[0.025] p-5 text-[13px] leading-6 text-[#8791a1]">
               {isEs
-                ? 'Todavía no hay reseñas publicadas de este producto. Cuando los compradores dejen su opinión, aparecerá aquí tal cual, sin inventar nada.'
-                : 'No published reviews for this product yet. When verified buyers leave their feedback, it will appear here as it is, nothing invented.'}
+                ? 'Aún no hay reseñas de este producto. Cuando los primeros compradores dejen la suya, aparecerá aquí.'
+                : 'No reviews for this product yet. When the first buyers leave theirs, it will appear here.'}
             </div>
           )}
 
