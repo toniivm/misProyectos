@@ -100,12 +100,9 @@ export const CATALOG: CatalogProduct[] = [
       'Incluye': 'Férula + estuche de viaje',
       'Reutilizable': 'Sí — lavable y duradera',
     },
-    // Renders de marca + foto real recortada del proveedor. Reemplazar por fotos reales (docs/BRIEF_FOTOS_REALES.md)
+    // Foto real del proveedor. Renders IA retirados de la galería (auditoría fotos, 17 Oct).
     images: [
       '/images/brand/halo-photo-1.jpg',
-      '/images/brand/halo-hero.jpg',
-      '/images/brand/halo-detail.jpg',
-      '/images/brand/halo-context.jpg',
     ],
     icon: '',
     cartIcon: '',
@@ -148,12 +145,9 @@ export const CATALOG: CatalogProduct[] = [
       'Cuidado': 'Lavar a mano — secar al aire',
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
-    // Renders de marca + foto real recortada del proveedor. Reemplazar por fotos reales (docs/BRIEF_FOTOS_REALES.md)
+    // Foto real del proveedor. Renders IA retirados de la galería (auditoría fotos, 17 Oct).
     images: [
       '/images/brand/wave-photo-1.jpg',
-      '/images/brand/wave-hero.jpg',
-      '/images/brand/wave-detail.jpg',
-      '/images/brand/wave-context.jpg',
     ],
     icon: '',
     cartIcon: '',
@@ -200,12 +194,11 @@ export const CATALOG: CatalogProduct[] = [
       'Control': 'Volumen integrado en la banda',
       'Paquete incluye': 'Banda de sueño + Cable de carga',
     },
-    // Foto real de estudio (logo ajeno eliminado por retoque) + renders de marca
+    // Fotos reales: estudio (logo ajeno eliminado por retoque) + persona durmiendo con ella.
+    // Renders IA retirados de la galería (auditoría fotos, 17 Oct).
     images: [
       '/images/brand/rest-photo-1.jpg',
-      '/images/brand/sleep-headband-hero.jpg',
-      '/images/brand/sleep-headband-detail.jpg',
-      '/images/brand/sleep-headband-context.jpg',
+      '/images/brand/antifaz-real-1.jpg',
     ],
     video: '/videos/noctip-rest-val.mp4',
     icon: '',
@@ -254,10 +247,10 @@ export const CATALOG: CatalogProduct[] = [
       'Voltaje': '<50V CA',
       'Paquete incluye': 'Masajeador cervical, Cable USB, Manual de usuario',
     },
+    // Fotos reales del producto (estudio + proveedor). Renders IA retirados (17 Oct).
     images: [
-      '/images/brand/neck-massager-hero.jpg',
-      '/images/brand/neck-massager-detail.jpg',
-      '/images/brand/neck-massager-context.jpg',
+      '/images/cervical/gallery/1.jpg',
+      '/images/productos-reales/neck-massager.jpg',
     ],
     icon: '',
     cartIcon: '',

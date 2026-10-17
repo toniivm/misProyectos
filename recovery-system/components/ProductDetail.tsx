@@ -220,30 +220,16 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
     { q: isEs ? '¿Qué incluye exactamente?' : 'What exactly is included?', a: isEs
       ? `El ${displayName} incluye todo lo necesario para empezar a usarlo inmediatamente. Revisa “Qué incluye” más abajo.`
       : `The ${displayName} includes everything you need to start using it right away. See “What’s included” below.` },
-    { q: isEs ? '¿ Necesito crear cuenta?' : 'Do I need an account?', a: isEs
+    { q: isEs ? '¿Necesito crear cuenta?' : 'Do I need an account?', a: isEs
       ? 'No. Compras como invitado y pagas con Stripe. Si quieres, creas cuenta después para ver tu pedido.'
       : 'No. Guest checkout with Stripe. Create an account later if you want to track your order.' },
     { q: isEs ? '¿Puedo lavar o reutilizar?' : 'Is it washable/reusable?', a: isEs
-      ? 'Sí. Rest es lavable (retira altavoces), Halo se enjuaga y dura meses, Back/Cervical se limpian en seco.'
+      ? 'Sí. Rest es lavable (retira los altavoces), Halo se enjuaga y dura meses, y Back y Cervical se limpian con un paño.'
       : 'Yes. Rest is washable (remove speakers), Halo rinses and lasts months, Back/Cervical wipe clean.' },
   ];
 
-  // ── Premium gallery: merge flat catalog images + organized lifestyle/gallery where available
-  // Note: rest/gallery/1.jpg is 1.9MB unoptimized — excluded until compressed
-  const organizedExtra: Record<string, string[]> = {
-    'sleep-headband': [
-      // Sin fotos caseras: los renders de marca ya cubren la galería.
-      // Cuando haya fotos reales de la muestra, añadirlas aquí.
-    ],
-    'neck-massager': [
-      '/images/cervical/gallery/1.jpg',
-      '/images/productos-reales/neck-massager.jpg',
-    ],
-    halo: [],
-    wave: [],
-  }
-  const extraImages = organizedExtra[slug] ?? []
-  const allImages = [...(product?.images ?? []), ...extraImages].slice(0, 10)
+  // ── Galería: solo fotos reales. Todas viven en lib/catalog.ts (renders IA retirados, 17 Oct).
+  const allImages = (product?.images ?? []).slice(0, 10)
 
   // Problem → Solution copy (CRO)
   const problemCopy: Record<string, { problem: string; solution: string; problemEn: string; solutionEn: string }> = {
@@ -495,7 +481,7 @@ export default function ProductDetail({ product: legacyProduct }: { product: Pro
                 <div className="grid sm:grid-cols-2">
                   <div className="relative aspect-[4/3] sm:aspect-auto sm:min-h-[320px] bg-[#080c12] overflow-hidden">
                     <img
-                      src={slug === 'sleep-headband' ? '/images/rest/lifestyle/2.png' : '/images/cervical/gallery/1.jpg'}
+                      src={slug === 'sleep-headband' ? '/images/brand/antifaz-real-1.jpg' : '/images/cervical/gallery/1.jpg'}
                       alt={`${displayName} lifestyle`}
                       className="absolute inset-0 h-full w-full object-cover"
                       loading="lazy"

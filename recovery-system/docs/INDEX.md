@@ -25,6 +25,7 @@
 | `docs/SEGUIMIENTO_ANTIFAZ.csv` | Hoja de métricas diaria (el hábito de Julito) |
 | `docs/AUDITORIA_CALIDAD_NOCTIP.md` | Checklist 10 días de prueba de cualquier muestra |
 | `docs/JULITO_ECOM_NOCTIP.md` | Framework completo Julito (canal secundario) |
+| `docs/INSPIRACION_ANUNCIOS_NOCTIP.md` | Referencias reales de anuncios: Ad Library + tiendas + vídeos del nicho |
 | `docs/PREMIUM_PACKAGING_NOCTIP.md` | Fase 2: caja y marca propia |
 | `docs/FULFILLMENT_NOCTIP.md` | Almacén UE (cuando haya ventas) |
 

@@ -4,10 +4,9 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import {
-  Truck, RotateCcw, ShieldCheck, ShoppingCart, Check, Star,
+  Truck, RotateCcw, ShieldCheck, ShoppingCart, Check,
   Moon, VolumeX, HeartPulse, PersonStanding, Sparkles, ArrowRight,
-  BedDouble, Headphones, Shield, Clock, Package, Award,
-  ChevronRight, Quote
+  BedDouble, Headphones, Shield, Package
 } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { CATALOG, CATEGORIES, getLocalizedProductName, getLocalizedCategoryName, getProductsByCategory, type CatalogProduct } from '../lib/catalog'
@@ -296,9 +295,9 @@ export default function ShopHomePage() {
   const { open: openCart, totalItems, isOpen: isCartOpen } = useCart()
   const flagship = CATALOG.find(p => p.slug === 'sleep-headband') ?? CATALOG[0]
   const flagshipImg = flagship.images?.[0] ?? '/images/sleep-headband-1.webp'
-  // lifestyle for hero visual — use rest lifestyle if exists, else flagship
-  const heroLifestyle = '/images/brand/lifestyle-1.jpg'
-  const heroLifestyle2 = '/images/brand/lifestyle-2.jpg'
+  // lifestyle for hero visual — foto real de persona usando Noctip Rest
+  const heroLifestyle = '/images/brand/antifaz-real-1.jpg'
+  const heroLifestyle2 = '/images/brand/lifestyle-1.jpg'
 
   return (
     <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
@@ -329,7 +328,7 @@ export default function ShopHomePage() {
                     <div className="relative aspect-[4/3.4] lg:aspect-[4/3.2] overflow-hidden bg-[#0c1016]">
                       <img
                         src={heroLifestyle}
-                        alt="Habitación nocturna en penumbra"
+                        alt="Persona durmiendo con la banda de audio Noctip Rest"
                         width={720} height={540}
                         fetchPriority="high"
                         loading="eager"
@@ -650,24 +649,26 @@ export default function ShopHomePage() {
                 </div>
               </motion.div>
 
-              {/* mosaic — use available lifestyle images, fallback to gradient cards */}
+              {/* mosaic — solo fotos reales de producto (renders IA retirados, 17 Oct) */}
               <motion.div initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: EASE }} className="grid grid-cols-3 gap-2 sm:gap-3">
                 <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] aspect-[4/3] relative">
-                  <img src="/images/brand/lifestyle-2.jpg" alt="Escena nocturna" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
+                  <img src="/images/brand/rest-photo-1.jpg" alt="Noctip Rest" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur border border-white/10">{isEs ? 'Noche · Rest' : 'Night · Rest'}</span>
+                  <span className="absolute bottom-3 left-3 rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur border border-white/10">Noctip Rest</span>
                 </div>
                 <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111720] aspect-square flex items-center justify-center relative">
-                  <img src="/images/brand/sleep-headband-detail-1x1.jpg" alt="Lifestyle Noctip" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
-                  <span className="absolute bottom-2 left-2 rounded-full bg-black/50 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur">{isEs ? 'Descanso' : 'Rest'}</span>
+                  <img src="/images/cervical/gallery/1.jpg" alt="Noctip Cervical" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
+                  <span className="absolute bottom-2 left-2 rounded-full bg-black/50 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur">Noctip Cervical</span>
                 </div>
                 <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] aspect-square flex flex-col items-center justify-center p-3 text-center">
-                  <Quote size={16} className="text-[#10BFD8]/60 mb-2" />
-                  <p className="text-[11px] leading-[1.5] text-[#9aa7b9]">{isEs ? '“Tu cuerpo recuerda el descanso.”' : '“Your body remembers rest.”'}</p>
+                  <Shield size={16} className="text-[#10BFD8]/60 mb-2" />
+                  <p className="text-[11px] font-semibold leading-[1.4] text-[#c8d0da]">{isEs ? '30 noches de prueba' : '30-night trial'}</p>
+                  <p className="text-[10px] leading-[1.4] text-[#6b7785] mt-1">{isEs ? 'Devolución completa' : 'Full refund'}</p>
                 </div>
                 <div className="col-span-3 grid grid-cols-3 gap-2 sm:gap-3">
                   <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] aspect-[4/3] relative">
-                    <img src="/images/brand/rest-photo-1.jpg" alt="Noctip Rest" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
+                    <img src="/images/brand/halo-photo-1.jpg" alt="Noctip Halo" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
+                    <span className="absolute bottom-2 left-2 rounded-full bg-black/50 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur">Noctip Halo</span>
                   </div>
                   <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#111720] aspect-[4/3] relative flex items-center justify-center">
                     <div className="text-center p-2">
@@ -676,8 +677,8 @@ export default function ShopHomePage() {
                     </div>
                   </div>
                   <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1219] aspect-[4/3] relative">
-                    <img src="/images/cervical/gallery/1.jpg" alt="Noctip Cervical" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
-                    <span className="absolute bottom-2 left-2 rounded-full bg-black/50 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur">{isEs ? 'Cervical' : 'Cervical'}</span>
+                    <img src="/images/brand/wave-photo-1.jpg" alt="Noctip Back" className="absolute inset-0 h-full w-full object-cover" loading="lazy" onError={(e)=>{(e.target as HTMLImageElement).style.display='none'}} />
+                    <span className="absolute bottom-2 left-2 rounded-full bg-black/50 px-2 py-0.5 text-[9px] font-semibold text-white backdrop-blur">Noctip Back</span>
                   </div>
                 </div>
               </motion.div>
