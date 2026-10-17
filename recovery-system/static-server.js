@@ -22,7 +22,9 @@ const mimeTypes = {
 };
 
 function resolvePath(requestPath) {
-  const cleanPath = decodeURIComponent((requestPath || '/').split('?')[0]);
+  let cleanPath = decodeURIComponent((requestPath || '/').split('?')[0]);
+  // Normaliza la barra final (/es/ → /es): si no, el export estático devuelve 404
+  if (cleanPath.length > 1 && cleanPath.endsWith('/')) cleanPath = cleanPath.slice(0, -1);
   const basePath = cleanPath === '/' ? '/index.html' : cleanPath;
   const candidatePaths = [path.join(root, basePath)];
 

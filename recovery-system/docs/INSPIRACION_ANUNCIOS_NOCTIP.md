@@ -66,6 +66,17 @@ Prueba: `Manta Sleep`, `Hoomband`, `Drowsy`, `SleepPhones`, `Smart Nora`, `ZQuie
 | **Ozlo Sleepbuds** | https://ozlosleep.com | Rest (otra forma) | Duermen con auriculares; anuncios muy agresivos |
 | **Renpho** | https://renpho.com | Cervical | Masajeadores con anuncios por toda Europa |
 
+## 3.b Tiendas españolas clon de Noctip (encontradas 17 Oct — investígalas)
+
+| Tienda | Producto | Qué mirar |
+|---|---|---|
+| **Zavira** (zavira.es) | "Antifaz con auriculares bluetooth" €24,99 | Clon casi 1:1 de Rest en Shopify ES. Búscala en Ad Library |
+| **Samark** (samarkstore.com/es) | "Antifaz Bluetooth 3D" | Estilo dropship: garantías, reviews, ofertas |
+| **Holmora** (holmora.com) | "Antifaz 3 en 1" | CRO agresivo: banners de urgencia, Black Friday, 448 reviews |
+
+> Nota: para ver los anuncios de estas tiendas hay que usar Ad Library con TU navegador con sesión iniciada (el acceso automático está bloqueado por Meta).
+> Pon el nombre de la tienda en `q=` y mira qué anuncios llevan más tiempo activos.
+
 ## 4. Vídeos para ver (canales y búsquedas)
 
 - **Ali Akbar (el del vídeo):** https://www.youtube.com/watch?v=32CRwhHqou4 · canal: https://www.youtube.com/@daily-ecommerce
