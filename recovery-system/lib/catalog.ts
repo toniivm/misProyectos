@@ -162,9 +162,10 @@ export const CATALOG: CatalogProduct[] = [
       'Cuidado': 'Lavar a mano — secar al aire',
       'Guía de tallas': 'Medición de ancho de pecho incluida',
     },
-    // Foto real del proveedor. Renders IA retirados de la galería (auditoría fotos, 17 Oct).
+    // Fotos reales del proveedor: producto + detalle del soporte. Renders IA retirados (17 Oct).
     images: [
       '/images/brand/wave-photo-1.jpg',
+      '/images/brand/wave-detail-2.jpg',
     ],
     icon: '',
     cartIcon: '',
@@ -221,11 +222,14 @@ export const CATALOG: CatalogProduct[] = [
       'Control': 'Volumen integrado en la banda',
       'Paquete incluye': 'Banda de sueño + Cable de carga',
     },
-    // Fotos reales: estudio (logo ajeno eliminado por retoque) + persona durmiendo con ella.
+    // Fotos reales: estudio + persona usándola + detalle de tejido + colores (recortadas sin textos).
     // Renders IA retirados de la galería (auditoría fotos, 17 Oct).
     images: [
       '/images/brand/rest-photo-1.jpg',
       '/images/brand/antifaz-real-1.jpg',
+      '/images/brand/rest-use-2.jpg',
+      '/images/brand/rest-detail-fabric.jpg',
+      '/images/brand/rest-color-blue.jpg',
     ],
     video: '/videos/noctip-rest-val.mp4',
     icon: '',
