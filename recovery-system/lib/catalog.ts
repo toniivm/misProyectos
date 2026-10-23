@@ -166,6 +166,8 @@ export const CATALOG: CatalogProduct[] = [
     images: [
       '/images/brand/wave-photo-1.jpg',
       '/images/brand/wave-detail-2.jpg',
+      '/images/brand/wave-gallery-1.jpg',
+      '/images/brand/wave-gallery-2.jpg',
     ],
     icon: '',
     cartIcon: '',
@@ -289,6 +291,7 @@ export const CATALOG: CatalogProduct[] = [
     // Fotos reales del producto (estudio + proveedor). Renders IA retirados (17 Oct).
     images: [
       '/images/cervical/gallery/1.jpg',
+      '/images/cervical-gallery-2.jpg',
       '/images/productos-reales/neck-massager.jpg',
     ],
     icon: '',
