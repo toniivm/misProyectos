@@ -292,6 +292,7 @@ export const CATALOG: CatalogProduct[] = [
     images: [
       '/images/cervical/gallery/1.jpg',
       '/images/cervical-gallery-2.jpg',
+      '/images/cervical-gallery-3.jpg',
       '/images/productos-reales/neck-massager.jpg',
     ],
     icon: '',
