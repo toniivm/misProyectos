@@ -22,6 +22,8 @@ Todo lo demás ya está hecho.
 
 ## 1. Proveedor: Dropea (gratis, 2 minutos)
 
+> Antes de darte de alta, lee **`proveedores.md`**. Ahí está la comparación con BigBuy, OcioStock y Kairós, y por qué Dropea vale para esta semana pero no es la mejor a largo plazo.
+
 `dropea.com` → *Quiero empezar a vender* → **Dropshipper**.
 
 Pide NIF, teléfono y firma: eso solo lo puedes hacer tú.
@@ -34,6 +36,8 @@ Dentro, busca y filtra **stock 24 h**:
 
 Coge el que tenga: mango extensible, **8 cabezales**, batería ≥ 2000 mAh, IPX7 y **marcado CE**.
 Coste objetivo: **≤ 17 €**. Si el único que hay pasa de 20 €, no compres: cambia de modelo.
+
+Antes de pagar nada, mándales las **5 preguntas** de `proveedores.md` (plazo real, IVA, comisión, rechazo y devolución) y guarda la respuesta por escrito.
 
 **Envíame el enlace del producto** (o 6 fotos + el coste). Con eso:
 - ajusto precios y margen real,
