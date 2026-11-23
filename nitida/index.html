@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Nítida — El baño limpio de verdad, sin agacharte</title>
+<meta name="description" content="Nítida es el cepillo eléctrico giratorio con mango de 1,30 m. Limpia juntas, azulejos y mamparas en segundos, sin ponerte de rodillas. Envío 24-72 h desde España y pago al recibir.">
+<meta property="og:title" content="Nítida — El baño limpio de verdad, sin agacharte">
+<meta property="og:description" content="380 rpm, 8 cabezales y 90 minutos de batería. Sin agacharte, sin frotar. Envío 24-72 h y pago al recibir.">
+<meta property="og:type" content="product">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%230fb5c9'/><path d='M9 23V9l14 14V9' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<style>
+  :root{
+    --ink:#0a1a20; --ink-2:#3a515b; --mute:#6f8993;
+    --line:#e4ecef; --bg:#fff; --soft:#f4f9fa;
+    --aqua:#0fb5c9; --aqua-deep:#07879a; --mint:#e6f7fa;
+    --amber:#b45309; --amber-bg:#fff7e6;
+    --r:22px; --shadow:0 18px 50px rgba(10,26,32,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5;
+  }
+  h1,h2,h3{letter-spacing:-.035em; line-height:1.02; margin:0; font-weight:800}
+  p{margin:0}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .eyebrow{
+    display:inline-block;font-size:11px;font-weight:800;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--aqua-deep)
+  }
+
+  /* ---------- barra superior ---------- */
+  .topbar{background:var(--ink);color:#dff4f7;font-size:12.5px;text-align:center;padding:9px 16px;letter-spacing:.01em}
+  .topbar b{color:#fff}
+  .topbar .dot{display:inline-block;width:6px;height:6px;border-radius:99px;background:#3ee0c8;margin-right:7px;vertical-align:1px}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.14em;font-size:14px}
+  .brand svg{width:28px;height:28px;flex:none}
+  .nav-links{display:none;gap:26px;font-size:13.5px;color:var(--ink-2)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border-radius:999px;padding:11px 18px;font-size:13px;font-weight:700}
+  @media(min-width:900px){.nav-links{display:flex}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:38px 0 8px;background:
+    radial-gradient(900px 420px at 88% -8%, #e8fafd 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(700px 380px at 0% 10%, #f2fbfc 0%, rgba(255,255,255,0) 60%)}
+  .hero-grid{display:grid;gap:34px;align-items:center}
+  @media(min-width:920px){.hero-grid{grid-template-columns:1.02fr .98fr;gap:56px}}
+  h1{font-size:clamp(2.05rem,4.9vw,3.35rem);margin-top:14px;line-height:1.04}
+  @media(min-width:920px){h1{font-size:clamp(2.4rem,3.5vw,3.35rem)}}
+  h1 em{font-style:normal;color:var(--aqua-deep)}
+  .lede{margin-top:18px;font-size:16px;line-height:1.65;color:var(--ink-2);max-width:34em}
+  .ticks{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+  .ticks li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink)}
+  .ticks svg{flex:none;margin-top:2px}
+
+  .pricebar{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .price{font-size:clamp(2rem,5vw,2.5rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+  .price-old{color:#9aaeb6;text-decoration:line-through;font-size:17px}
+  .save{background:var(--amber-bg);color:var(--amber);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:18px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:56px;padding:0 28px;border-radius:999px;border:0;cursor:pointer;
+    font:inherit;font-size:15.5px;font-weight:800;letter-spacing:-.01em;
+    background:var(--aqua);color:#00252b;box-shadow:0 12px 26px rgba(15,181,201,.28);
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 18px 34px rgba(15,181,201,.34);background:#12c3d8}
+  .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+  .btn-ghost:hover{background:#fff;border-color:#cfdde1;box-shadow:0 10px 24px rgba(10,26,32,.07)}
+  .micro{margin-top:12px;font-size:12.5px;color:var(--mute)}
+
+  .trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;
+    border-radius:999px;padding:8px 13px;font-size:12px;font-weight:600;color:var(--ink-2)}
+  .chip svg{flex:none}
+
+  /* ---------- media ---------- */
+  .media-card{position:relative;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,#0e2b33,#07202a 60%,#04161d);
+    box-shadow:0 30px 70px rgba(6,34,44,.28);border:1px solid rgba(255,255,255,.08)}
+  .media-card .frame{aspect-ratio:9/16;max-height:600px;width:100%;position:relative;display:flex;align-items:center;justify-content:center}
+  .media-card video,.media-card img,.media-card .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#9fd6e0;
+    background:
+      radial-gradient(420px 300px at 50% 18%, rgba(15,181,201,.35), transparent 70%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 14px, transparent 14px 28px);
+    text-align:center;padding:24px}
+  .ph .ring{width:76px;height:76px;border-radius:50%;border:1px solid rgba(159,214,224,.35);display:grid;place-items:center;background:rgba(255,255,255,.04)}
+  .ph small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:#7fc3cf}
+  .ph span{font-size:13px;color:#bfe6ec;max-width:22ch;line-height:1.5}
+  .badge-float{position:absolute;left:14px;top:14px;z-index:3;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+    border-radius:999px;padding:7px 12px;font-size:11px;font-weight:800;letter-spacing:.02em;color:#0a1a20;display:flex;align-items:center;gap:6px}
+  .badge-float .live{width:7px;height:7px;border-radius:99px;background:#12c3a8}
+  .media-note{text-align:center;font-size:12px;color:var(--mute);margin-top:12px}
+
+  /* ---------- secciones ---------- */
+  section{border-top:1px solid var(--line)}
+  .sec{padding:64px 0}
+  @media(min-width:768px){.sec{padding:84px 0}}
+  .sec-head{max-width:46em}
+  h2{font-size:clamp(1.7rem,4.4vw,2.7rem);margin-top:10px}
+  .sub{margin-top:14px;color:var(--ink-2);font-size:15.5px;line-height:1.7;max-width:44em}
+
+  .pains{display:grid;gap:14px;margin-top:30px}
+  @media(min-width:820px){.pains{grid-template-columns:repeat(3,1fr)}}
+  .pain{background:var(--soft);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+  .pain .n{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--aqua-deep)}
+  .pain h3{font-size:16.5px;margin-top:8px}
+  .pain p{margin-top:8px;font-size:14px;line-height:1.65;color:var(--ink-2)}
+
+  /* antes / después */
+  .ba-wrap{display:grid;gap:28px;margin-top:30px;align-items:center}
+  @media(min-width:900px){.ba-wrap{grid-template-columns:1.15fr .85fr}}
+  .ba{position:relative;border-radius:24px;overflow:hidden;background:#0c2a33;aspect-ratio:4/3;box-shadow:var(--shadow);touch-action:pan-y}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ba .after{clip-path:inset(0 0 0 var(--p,50%))}
+  .ba input[type=range]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:4}
+  .ba .line{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;background:#fff;z-index:3;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+  .ba .knob{position:absolute;top:50%;left:var(--p,50%);transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;
+    background:#fff;z-index:3;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.28);color:#0a1a20;pointer-events:none}
+  .ba .tag{position:absolute;z-index:2;bottom:12px;font-size:11px;font-weight:800;letter-spacing:.08em;
+    background:rgba(6,26,32,.62);color:#fff;padding:6px 11px;border-radius:999px;backdrop-filter:blur(6px)}
+  .ba .tag.l{left:12px} .ba .tag.r{right:12px}
+  .ba .miss{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#8fc5d0;font-size:12.5px;
+    letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:30px;
+    background:repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 14px, transparent 14px 28px),#0c2a33}
+
+  .benefits{display:grid;gap:14px;margin-top:30px}
+  @media(min-width:640px){.benefits{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1000px){.benefits{grid-template-columns:repeat(4,1fr)}}
+  .card{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:#fff;transition:border-color .2s, box-shadow .2s, transform .2s}
+  .card:hover{border-color:#cfe2e7;box-shadow:0 14px 34px rgba(10,26,32,.07);transform:translateY(-2px)}
+  .ico{width:40px;height:40px;border-radius:12px;background:var(--mint);display:grid;place-items:center;color:var(--aqua-deep);margin-bottom:14px}
+  .card h3{font-size:15.5px}
+  .card p{margin-top:8px;font-size:13.5px;line-height:1.65;color:var(--ink-2)}
+
+  /* pasos */
+  .steps{display:grid;gap:14px;margin-top:30px;counter-reset:s}
+  @media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{border:1px solid var(--line);border-radius:var(--r);padding:24px;background:var(--soft)}
+  .step .num{width:34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
+  .step h3{margin-top:14px;font-size:16px}
+  .step p{margin-top:8px;font-size:13.5px;line-height:1.65;color:var(--ink-2)}
+
+  /* incluye */
+  .kit{display:grid;gap:26px;margin-top:30px}
+  @media(min-width:900px){.kit{grid-template-columns:.9fr 1.1fr;align-items:start}}
+  .kit-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .kit-list li{display:flex;justify-content:space-between;gap:16px;padding:14px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .kit-list b{font-weight:700}
+  .kit-list span{color:var(--mute);font-size:13px;text-align:right}
+  .kit-box{border:1px solid var(--line);border-radius:var(--r);background:var(--soft);padding:24px}
+  .kit-box h3{font-size:15px;letter-spacing:.02em}
+  .kit-box p{margin-top:10px;font-size:13.5px;line-height:1.7;color:var(--ink-2)}
+
+  /* comparativa */
+  .cmp-scroll{overflow-x:auto;margin-top:28px;-webkit-overflow-scrolling:touch}
+  table.cmp{border-collapse:separate;border-spacing:0;min-width:640px;width:100%;font-size:14px}
+  table.cmp th,table.cmp td{padding:14px 16px;text-align:center;border-bottom:1px solid var(--line)}
+  table.cmp th:first-child,table.cmp td:first-child{text-align:left;color:var(--ink-2);font-weight:600;min-width:190px}
+  table.cmp thead th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:800;border-bottom:1px solid var(--line)}
+  table.cmp thead th.us{color:var(--aqua-deep);background:var(--mint);border-radius:14px 14px 0 0}
+  table.cmp td.us{background:var(--mint);font-weight:700}
+  table.cmp tr:last-child td.us{border-radius:0 0 14px 14px}
+  .yes{color:#0f9d76;font-weight:800}.no{color:#c2606a;font-weight:800}
+
+  /* oferta */
+  .offer{background:linear-gradient(180deg,#f7fbfc,#eef7f9);border-top:1px solid var(--line)}
+  .plans{display:grid;gap:14px;margin-top:30px}
+  @media(min-width:780px){.plans{grid-template-columns:repeat(2,1fr)}}
+  .plan{position:relative;background:#fff;border:2px solid var(--line);border-radius:24px;padding:24px;cursor:pointer;transition:border-color .2s, box-shadow .2s}
+  .plan[aria-checked=true]{border-color:var(--aqua);box-shadow:0 18px 40px rgba(15,181,201,.16)}
+  .plan .tagbest{position:absolute;top:-12px;left:22px;background:var(--ink);color:#fff;font-size:10.5px;font-weight:800;
+    letter-spacing:.12em;text-transform:uppercase;padding:6px 11px;border-radius:999px}
+  .plan h3{font-size:16px}
+  .plan .p{display:flex;align-items:baseline;gap:9px;margin-top:10px}
+  .plan .p b{font-size:31px;letter-spacing:-.04em}
+  .plan .p s{color:#9aaeb6;font-size:14px}
+  .plan .p em{font-style:normal;font-size:12.5px;color:var(--mute)}
+  .plan ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
+  .plan li{font-size:13.5px;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start}
+  .plan li svg{flex:none;margin-top:2px}
+
+  .guarantee{display:grid;gap:20px;margin-top:34px;background:var(--ink);color:#dbedf1;border-radius:24px;padding:28px}
+  @media(min-width:820px){.guarantee{grid-template-columns:1fr auto;align-items:center;padding:34px 36px}}
+  .guarantee h3{font-size:clamp(1.25rem,3vw,1.7rem);color:#fff}
+  .guarantee p{margin-top:10px;font-size:14px;line-height:1.7;color:#a9c9d1;max-width:52em}
+  .seal{display:grid;place-items:center;text-align:center;min-width:150px}
+  .seal .circ{width:88px;height:88px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;
+    font-size:26px;font-weight:800;color:#3ee0c8;background:rgba(62,224,200,.07)}
+  .seal small{display:block;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8fb9c3;font-weight:800}
+
+  /* faq */
+  .faq{margin-top:26px;border-top:1px solid var(--line)}
+  details{border-bottom:1px solid var(--line)}
+  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:18px;align-items:center;
+    padding:18px 2px;font-size:15px;font-weight:700}
+  summary::-webkit-details-marker{display:none}
+  summary .pm{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--aqua-deep);
+    font-size:16px;font-weight:700;transition:transform .2s}
+  details[open] summary .pm{transform:rotate(45deg)}
+  details p{padding:0 2px 20px;font-size:14px;line-height:1.7;color:var(--ink-2);max-width:60em}
+
+  /* cierre */
+  .final{text-align:center;padding:70px 0}
+  .final h2{max-width:18em;margin:12px auto 0}
+  .final .sub{margin:16px auto 0}
+  .final .cta-row{justify-content:center}
+
+  footer{border-top:1px solid var(--line);background:#fbfdfd;padding:34px 0 90px}
+  @media(min-width:900px){footer{padding-bottom:40px}}
+  .foot{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start}
+  .foot .col{min-width:150px}
+  .foot h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 10px;font-weight:800}
+  .foot a,.foot p{display:block;font-size:13px;color:var(--ink-2);margin:0 0 7px}
+  .foot a:hover{color:var(--aqua-deep)}
+  .legal{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mute);line-height:1.7}
+
+  /* sticky mobile */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;gap:12px;
+    background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+  .sticky .sp{font-size:16px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+  .sticky .sp small{display:block;font-size:10.5px;color:var(--mute);font-weight:600;letter-spacing:0;margin-top:3px}
+  .sticky .btn{flex:1;min-height:50px;font-size:14.5px;padding:0 18px}
+  @media(min-width:900px){.sticky{display:none}}
+
+  .js .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+  .js .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .js .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+    .btn:hover{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><span class="dot"></span><b>Envío gratis 24–72 h</b> · Pago al recibir · 30 días</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Nítida, inicio">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0fb5c9"/><path d="M9.5 23V9l13 14V9" stroke="#fff" stroke-width="3.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      NÍTIDA
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#problema">El problema</a>
+      <a href="#antes-despues">Antes y después</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#comprar">Precio</a>
+      <a href="#faq">Dudas</a>
+    </nav>
+    <a class="nav-cta" href="#comprar">Comprar <span aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Cepillo eléctrico giratorio</span>
+        <h1>El baño limpio de verdad.<br><em>Sin ponerte de rodillas.</em></h1>
+        <p class="lede">Nítida gira a 380 rpm y arranca la suciedad de juntas, azulejos y mamparas. Con el mango extendido llegas al suelo y al techo sin agacharte ni frotar.</p>
+
+        <ul class="ticks">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#07879a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Mango telescópico hasta 1,30 m</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#07879a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> 8 cabezales: junta, esquina, mampara, suelo y coche</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#07879a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> 90 minutos de batería · carga USB-C</li>
+        </ul>
+
+        <div class="pricebar">
+          <span class="price">39,99 €</span>
+          <span class="price-old">59,99 €</span>
+          <span class="save">-33 %</span>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn" href="#comprar">Lo quiero — 39,99 €</a>
+          <a class="btn btn-ghost" href="#antes-despues">Ver antes y después</a>
+        </div>
+        <p class="micro">Envío gratis · Pago con tarjeta o al recibir · 30 días para devolverlo</p>
+
+        <div class="trust">
+          <span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#07879a" stroke-width="2" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg> Envío 24–72 h</span>
+          <span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#07879a" stroke-width="2" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Pago al recibir</span>
+          <span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#07879a" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> Garantía 2 años</span>
+        </div>
+      </div>
+
+      <!-- MEDIA: deja el vídeo en media/hero.mp4 y la foto en media/hero.jpg -->
+      <div>
+        <div class="media-card reveal">
+          <span class="badge-float"><span class="live"></span> Demo real · 15 s</span>
+          <div class="frame">
+            <img src="media/hero.jpg" alt="Nítida limpiando la mampara del baño" onerror="this.remove()">
+            <div class="ph" aria-hidden="true">
+              <div class="ring">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="#bfe6ec"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <small>Vídeo demo</small>
+              <span>Aquí va el vídeo de la mampara: 3 segundos de suciedad y 3 segundos limpia.</span>
+            </div>
+          </div>
+        </div>
+        <p class="media-note">El vídeo se reproduce sin sonido. Se entiende solo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEMA -->
+  <section id="problema">
+    <div class="wrap sec">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Lo que pasa cada domingo</span>
+        <h2>Fregar el baño no es limpiar. Es castigarte.</h2>
+        <p class="sub">La fregona no llega a las juntas. El cepillo manual te deja el brazo cansado y la espalda dolorida. Y aun así, la mampara sigue con marcas.</p>
+      </div>
+      <div class="pains">
+        <div class="pain reveal"><div class="n">01</div><h3>Te duelen las rodillas</h3><p>Para llegar a la junta del plato de ducha hay que arrodillarse. Y luego hay que levantarse.</p></div>
+        <div class="pain reveal"><div class="n">02</div><h3>La junta nunca queda blanca</h3><p>Frotas con el cepillo de siempre y la línea negra vuelve a la semana siguiente.</p></div>
+        <div class="pain reveal"><div class="n">03</div><h3>La mampara se queda con marcas</h3><p>Le pasas la bayeta y el agua deja la misma huella. Siempre la misma.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANTES / DESPUÉS -->
+  <section id="antes-despues">
+    <div class="wrap sec">
+      <div class="ba-wrap">
+        <div class="reveal">
+          <div class="ba" id="ba" style="--p:52%">
+            <img class="before" src="media/antes.jpg" alt="Juntas del baño antes de limpiar" onerror="this.style.display='none'">
+            <img class="after" src="media/despues.jpg" alt="Juntas del baño después de limpiar con Nítida" onerror="this.style.display='none'">
+            <div class="miss" aria-hidden="true"><span style="font-size:11px;letter-spacing:.16em">Falta la foto real</span></div>
+            <div class="line" aria-hidden="true"></div>
+            <div class="knob" aria-hidden="true">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg>
+            </div>
+            <span class="tag l">Antes</span>
+            <span class="tag r">Después</span>
+            <input id="baRange" type="range" min="0" max="100" value="52" aria-label="Mover para comparar antes y después">
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="eyebrow">La prueba</span>
+          <h2 style="margin-top:10px">Mueve la línea.<br>No hay truco.</h2>
+          <p class="sub">Misma junta, misma luz, mismo día. A la izquierda con el cepillo de siempre, a la derecha con el cabezal pequeño de Nítida y 15 segundos.</p>
+          <p class="sub" style="margin-top:12px">Y si en tu baño no se nota, lo devuelves. Tienes 30 días.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section>
+    <div class="wrap sec">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Por qué funciona</span>
+        <h2>Es una máquina de fregar pequeña. Y se nota.</h2>
+      </div>
+      <div class="benefits">
+        <div class="card reveal">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M7 7l5-4 5 4M7 17l5 4 5-4"/></svg></div>
+          <h3>No te agachas</h3>
+          <p>Dos extensiones de acero. Llegas al plato de ducha de pie y al techo sin escalera.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></svg></div>
+          <h3>Gira, no frota</h3>
+          <p>380 rpm y dos velocidades. Tú solo guías: el cepillo hace la fuerza.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="16" height="10" rx="2"/><path d="M22 10v4"/><path d="M6 11v2M10 11v2M14 11v2"/></svg></div>
+          <h3>90 minutos seguidos</h3>
+          <p>Batería de litio y carga USB-C. Da para el baño, la cocina y el coche sin volver a enchufar.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2s5 5.5 5 9a5 5 0 0 1-10 0c0-3.5 5-9 5-9z"/></svg></div>
+          <h3>Se puede mojar entera</h3>
+          <p>IPX7: la metes en la ducha sin miedo. El mango es de acero inoxidable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="como-funciona">
+    <div class="wrap sec">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Cómo se usa</span>
+        <h2>Tres pasos. Ni manual ni app.</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="num">1</div><h3>Carga y elige cabezal</h3><p>USB-C, como el móvil. Punta redonda para la bañera, plana para azulejos, pequeña para juntas.</p></div>
+        <div class="step reveal"><div class="num">2</div><h3>Ajusta el mango</h3><p>65 cm para el lavabo, 1,30 m para el suelo. Gira y tira: se queda fijo.</p></div>
+        <div class="step reveal"><div class="num">3</div><h3>Pasa y aclara</h3><p>Sin apretar. El cepillo gira y arrastra. Aclaras con agua y ya está.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ INCLUYE -->
+  <section>
+    <div class="wrap sec">
+      <div class="kit">
+        <div class="reveal">
+          <span class="eyebrow">Qué recibes</span>
+          <h2 style="margin-top:10px">El kit completo, no la versión pelada.</h2>
+          <p class="sub">Muchos vienen con tres cabezales y sin extensiones. Este trae los ocho y las dos extensiones.</p>
+        </div>
+        <div class="reveal">
+          <ul class="kit-list">
+            <li><b>Cuerpo motorizado Nítida</b><span>2 velocidades · 380 rpm</span></li>
+            <li><b>2 extensiones de acero</b><span>hasta 1,30 m</span></li>
+            <li><b>8 cabezales</b><span>plano, redondo, esquina, esponja, tela, cerdas duras…</span></li>
+            <li><b>Cable USB-C</b><span>carga en 3 h</span></li>
+            <li><b>Gancho de pared</b><span>para colgarlo</span></li>
+            <li><b>Manual en español</b><span>y garantía de 2 años</span></li>
+          </ul>
+          <div class="kit-box" style="margin-top:18px">
+            <h3>Peso y medidas</h3>
+            <p>1,1 kg con el mango corto. Se guarda en vertical en cualquier rincón. No necesita instalación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARATIVA -->
+  <section>
+    <div class="wrap sec">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Comparado</span>
+        <h2>Contra lo que ya tienes en casa.</h2>
+      </div>
+      <div class="cmp-scroll reveal">
+        <table class="cmp">
+          <thead>
+            <tr><th></th><th>Fregona</th><th>Cepillo manual</th><th class="us">Nítida</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Llega a la junta del plato de ducha</td><td class="no">No</td><td class="no">De rodillas</td><td class="us yes">De pie</td></tr>
+            <tr><td>Hace la fuerza por ti</td><td class="no">No</td><td class="no">No</td><td class="us yes">Sí</td></tr>
+            <tr><td>Tiempo en una mampara</td><td class="no">10–15 min</td><td class="no">10–15 min</td><td class="us yes">2–4 min</td></tr>
+            <tr><td>Llega al techo</td><td class="no">No</td><td class="no">Con escalera</td><td class="us yes">Sí</td></tr>
+            <tr><td>Sirve para el coche</td><td class="no">No</td><td class="no">A mano</td><td class="us yes">Con cabezal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFERTA -->
+  <section id="comprar" class="offer">
+    <div class="wrap sec">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Elige el tuyo</span>
+        <h2>Precio de lanzamiento.</h2>
+        <p class="sub">Envío gratis en los dos. Pago con tarjeta o al recibir. 30 días para devolverlo si no te ahorra tiempo.</p>
+      </div>
+
+      <div class="plans" role="radiogroup" aria-label="Opciones de compra">
+        <div class="plan" role="radio" aria-checked="false" tabindex="0" data-plan="1" data-price="39,99 €">
+          <h3>1 unidad</h3>
+          <div class="p"><b>39,99 €</b><s>59,99 €</s></div>
+          <ul>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Kit completo con 8 cabezales</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Envío gratis 24–72 h</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Garantía 2 años</li>
+          </ul>
+        </div>
+
+        <div class="plan" role="radio" aria-checked="true" tabindex="0" data-plan="2" data-price="69,99 €">
+          <span class="tagbest">El más elegido</span>
+          <h3>2 unidades · pack familia</h3>
+          <div class="p"><b>69,99 €</b><s>119,98 €</s><em>34,99 € cada una</em></div>
+          <ul>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Una para ti y otra para quien te ayude</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Envío gratis 24–72 h</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Garantía 2 años en las dos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta-row" style="margin-top:24px">
+        <!-- Cambia el href por tu Stripe Payment Link -->
+        <a class="btn" id="buyBtn" href="#" data-1="https://buy.stripe.com/REEMPLAZA_1UD" data-2="https://buy.stripe.com/REEMPLAZA_2UDS">
+          Comprar ahora — <span id="buyPrice">69,99 €</span>
+        </a>
+        <a class="btn btn-ghost" href="#faq">Tengo una duda</a>
+      </div>
+      <p class="micro">Pago seguro con Stripe. Contra reembolso: +2,50 € al recibir. No guardamos datos de tarjeta.</p>
+
+      <div class="guarantee reveal">
+        <div>
+          <h3>30 días. Si no te ahorra tiempo, te lo recogemos.</h3>
+          <p>Pruébalo en tu baño, en tu ducha, en tus juntas. Si no notas la diferencia, escribes un correo y pasamos a recogerlo. Te devolvemos el 100 %, incluido el envío.</p>
+        </div>
+        <div class="seal"><div class="circ">30</div><small>Días de prueba</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap sec">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Antes de comprar</span>
+        <h2>Las dudas que nos escriben.</h2>
+      </div>
+      <div class="faq">
+        <details><summary>¿Cuánto tarda en llegar? <span class="pm">+</span></summary><p>Entre 24 y 72 horas laborables en península, desde un almacén en España. Te enviamos el número de seguimiento por email en cuanto sale.</p></details>
+        <details><summary>¿Puedo pagar cuando lo reciba? <span class="pm">+</span></summary><p>Sí. Elige contra reembolso y pagas al repartidor. Tiene un recargo de 2,50 €. También puedes pagar con tarjeta al hacer el pedido.</p></details>
+        <details><summary>¿De verdad no hay que agacharse? <span class="pm">+</span></summary><p>Con las dos extensiones puestas mide 1,30 m. Llegas al plato de ducha de pie. Para el techo, lo mismo.</p></details>
+        <details><summary>¿Raya los azulejos o la mampara? <span class="pm">+</span></summary><p>No. Los cabezales son de nylon suave y esponja. Para mamparas usa el de esponja y aclara con agua.</p></details>
+        <details><summary>¿Se puede mojar entera? <span class="pm">+</span></summary><p>Sí, es IPX7. Puedes usarla dentro de la ducha y aclararla bajo el grifo. No la sumerjas más de 30 minutos seguidos.</p></details>
+        <details><summary>¿Cuánto dura la batería? <span class="pm">+</span></summary><p>Hasta 90 minutos en velocidad baja y unos 40 en alta. Se carga en unas 3 horas con USB-C.</p></details>
+        <details><summary>¿Sirve para el coche y los muebles? <span class="pm">+</span></summary><p>Sí. Trae cabezal de tela para tapicería y uno plano para llantas y cristales.</p></details>
+        <details><summary>¿Y si no me convence? <span class="pm">+</span></summary><p>Tienes 30 días. Escribes a hola@nitida.es, te mandamos la etiqueta y pasamos a recogerlo. Devolvemos el 100 %.</p></details>
+        <details><summary>¿Tiene garantía? <span class="pm">+</span></summary><p>Dos años en el motor y la batería. Si falla, lo cambiamos sin coste.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section>
+    <div class="wrap final">
+      <span class="eyebrow">Esta semana</span>
+      <h2>El próximo domingo, el baño se limpia en la mitad de tiempo.</h2>
+      <p class="sub">39,99 € el kit completo. Envío gratis, pago al recibir y 30 días para probarlo.</p>
+      <div class="cta-row">
+        <a class="btn" href="#comprar">Comprar Nítida</a>
+        <a class="btn btn-ghost" href="#faq">Ver dudas</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="col" style="min-width:220px">
+        <a class="brand" href="#top" style="margin-bottom:12px">
+          <svg viewBox="0 0 32 32" aria-hidden="true" style="width:24px;height:24px"><rect width="32" height="32" rx="9" fill="#0fb5c9"/><path d="M9.5 23V9l13 14V9" stroke="#fff" stroke-width="3.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          NÍTIDA
+        </a>
+        <p style="max-width:26em;font-size:12.5px;line-height:1.7">Utensilios de limpieza que ahorran tiempo y espalda. Producto y envío desde España.</p>
+      </div>
+      <div class="col">
+        <h4>Tienda</h4>
+        <a href="#comprar">Comprar</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#faq">Preguntas</a>
+      </div>
+      <div class="col">
+        <h4>Ayuda</h4>
+        <a href="legal/legal.html#envios">Envíos y plazos</a>
+        <a href="legal/legal.html#devoluciones">Devoluciones</a>
+        <a href="legal/legal.html#garantia">Garantía</a>
+        <a href="mailto:hola@nitida.es">hola@nitida.es</a>
+      </div>
+      <div class="col">
+        <h4>Legal</h4>
+        <a href="legal/legal.html#aviso">Aviso legal</a>
+        <a href="legal/legal.html#privacidad">Privacidad</a>
+        <a href="legal/legal.html#cookies">Cookies</a>
+        <a href="legal/legal.html#terminos">Términos</a>
+      </div>
+    </div>
+    <div class="legal">
+      © 2026 Nítida · Todos los precios incluyen IVA. El precio tachado corresponde al precio recomendado anterior. Envío gratuito en península; Baleares y Canarias consultar. Este producto no es un artículo médico.
+    </div>
+  </div>
+</footer>
+
+<div class="sticky">
+  <div class="sp" id="stickyPrice">69,99 €<small>Envío gratis · 30 días</small></div>
+  <a class="btn" href="#comprar">Comprar</a>
+</div>
+
+<script>
+  // Selector de plan
+  var plans = Array.prototype.slice.call(document.querySelectorAll('.plan'));
+  var buyBtn = document.getElementById('buyBtn');
+  var buyPrice = document.getElementById('buyPrice');
+  var stickyPrice = document.getElementById('stickyPrice');
+  var current = '2';
+
+  function selectPlan(plan){
+    current = plan.getAttribute('data-plan');
+    plans.forEach(function(p){ p.setAttribute('aria-checked', p === plan ? 'true' : 'false'); });
+    var txt = plan.getAttribute('data-price');
+    if (buyPrice) buyPrice.textContent = txt;
+    if (stickyPrice) stickyPrice.innerHTML = txt + '<small>Envío gratis · 30 días</small>';
+    if (buyBtn) buyBtn.setAttribute('href', buyBtn.getAttribute('data-' + current) || '#');
+  }
+  plans.forEach(function(p){
+    p.addEventListener('click', function(){ selectPlan(p); });
+    p.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectPlan(p); }
+    });
+  });
+
+  // Antes / después
+  var ba = document.getElementById('ba');
+  var range = document.getElementById('baRange');
+  if (ba && range) {
+    var setP = function(v){ ba.style.setProperty('--p', v + '%'); };
+    range.addEventListener('input', function(){ setP(range.value); });
+    setP(range.value);
+  }
+
+  // Si existe media/hero.mp4, el vídeo sustituye a la foto y al marcador
+  (function(){
+    var frame = document.querySelector('.media-card .frame');
+    if (!frame) return;
+    var v = document.createElement('video');
+    v.src = 'media/hero.mp4';
+    v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+    v.setAttribute('aria-label', 'Demostración de Nítida limpiando la mampara');
+    v.addEventListener('loadeddata', function(){
+      var ph = frame.querySelector('.ph');
+      var img = frame.querySelector('img');
+      if (img) img.remove();
+      if (ph) ph.remove();
+      frame.appendChild(v);
+      var p = v.play(); if (p && p.catch) p.catch(function(){});
+    });
+    v.addEventListener('error', function(){});
+    v.load();
+  })();
+
+  // Aparición suave
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+</body>
+</html>

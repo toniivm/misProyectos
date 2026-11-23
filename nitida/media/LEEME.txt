@@ -1,0 +1,12 @@
+Fotos y vídeo de Nítida. Nombres exactos:
+
+  hero.jpg        9:16  producto en el baño, mango extendido
+  antes.jpg       4:3   junta o mampara SUCIA, sin retocar
+  despues.jpg     4:3   la MISMA toma, limpia, mismo ángulo y luz
+  detalle-1.jpg        8 cabezales vistos desde arriba
+  detalle-2.jpg        mango a medio extender
+  detalle-3.jpg        producto en la mano (escala)
+  hero.mp4        9:16  10-15 s, sin sonido, sucio -> limpio
+
+Si falta un archivo, la página muestra un fondo neutro y no se rompe.
+No uses fotos de banco de imágenes.
