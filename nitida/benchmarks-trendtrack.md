@@ -1,5 +1,9 @@
 # Qué hacen las tiendas que ganan (TrendTrack, 24/11/2026)
 
+> **Lectura estratégica:** los 9 modelos de tienda, la física del negocio y el plan de 90 días están en **`tipos-de-tienda.md`**. Este archivo es la tabla bruta.
+>
+> Las cifras de abajo salen de la **lista** de Shops (estimación de 30 días). La ficha de cada tienda muestra el **último mes** y varía ±20 %: Ridge aparece con 13 M$ en la lista y 15 M$ en su ficha. Usa una sola fuente por comparación.
+
 Fuente: tu workspace de TrendTrack, Explorer → Shops, ordenado por ingresos.
 **Límite del plan:** las pestañas «Productos» y «Ads» piden mejora de plan, así que no he podido buscar por producto ni ver creatividades. Todo lo de abajo sale de la tabla de Shops.
 

@@ -1,13 +1,16 @@
 # Nítida — tienda de una página
 
-Página lista para vender **un solo producto**: un cepillo eléctrico giratorio con mango de 1,30 m.
+Página lista para vender **un solo producto**: un cepillo eléctrico giratorio con mango telescópico.
 No necesita Next, ni build, ni servidor: es un `index.html` que se sube tal cual.
 
 ```
 nitida/
-├── index.html        ← la tienda entera (HTML + CSS + JS, sin dependencias)
-├── media/            ← aquí van las fotos y el vídeo reales
-└── legal/legal.html  ← aviso legal, condiciones, envíos, devoluciones, privacidad y cookies
+├── index.html            ← la tienda entera (HTML + CSS + JS, sin dependencias)
+├── media/                ← aquí van las fotos y el vídeo reales
+├── legal/legal.html      ← aviso legal, condiciones, envíos, devoluciones, privacidad y cookies
+├── tipos-de-tienda.md    ← 9 modelos reales y las 7 estrategias a seguir
+├── benchmarks-trendtrack.md ← datos brutos de las 7 tiendas top
+└── proveedores.md        ← comparación de proveedores y preguntas antes de contratar
 ```
 
 ## Lo que falta para publicar (y no puedo hacer yo)
@@ -34,8 +37,10 @@ Dentro, busca y filtra **stock 24 h**:
 - `cepillo giratorio`
 - `spin scrubber`
 
-Coge el que tenga: mango extensible, **8 cabezales**, batería ≥ 2000 mAh, IPX7 y **marcado CE**.
+Coge el que tenga: mango telescópico, **9 accesorios**, batería de **90 min**, carga **USB-C**, **25 W** y **marcado CE**.
 Coste objetivo: **≤ 17 €**. Si el único que hay pasa de 20 €, no compres: cambia de modelo.
+
+No pidas especificaciones que no estén en la ficha del proveedor. Las que llevaba la web (IPX7, 380 rpm, 2.000 mAh) se quitaron porque no estaban verificadas.
 
 Antes de pagar nada, mándales las **5 preguntas** de `proveedores.md` (plazo real, IVA, comisión, rechazo y devolución) y guarda la respuesta por escrito.
 
@@ -70,17 +75,18 @@ El vídeo se reproduce solo y sin sonido: tiene que entenderse en silencio.
 ## 3. Cobrar: Stripe Payment Link
 
 1. Stripe → **Productos** → crea «Nítida — 1 unidad» a **39,99 €**.
-2. Añade «Nítida — pack 2 unidades» a **69,99 €**.
+2. Añade «Nítida — pack 2 unidades» a **69,99 €** y «Nítida — pack 3 unidades» a **94,99 €**.
 3. En cada producto → **Crear enlace de pago**.
-4. Pega los dos enlaces en `index.html`, en el botón:
+4. Pega los tres enlaces en `index.html`, en el botón:
 
 ```html
 <a class="btn" id="buyBtn" href="#"
    data-1="https://buy.stripe.com/xxxx1ud"
-   data-2="https://buy.stripe.com/xxxx2uds">
+   data-2="https://buy.stripe.com/xxxx2uds"
+   data-3="https://buy.stripe.com/xxxx3uds">
 ```
 
-El selector de la página cambia el enlace solo.
+El selector de la página cambia el enlace solo. Si un pack no tiene enlace, el botón se queda en el de 2: no lo dejes a medias.
 
 **Contra reembolso:** se activa como método de pago en Stripe si tu cuenta lo permite, o se gestiona con el panel de Dropea (recibes el pedido por email y lo lanzas tú). El recargo de 2,50 € tiene que estar en el precio o en el checkout.
 
