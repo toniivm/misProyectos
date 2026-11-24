@@ -179,7 +179,7 @@
   /* oferta */
   .offer{background:linear-gradient(180deg,#f7fbfc,#eef7f9);border-top:1px solid var(--line)}
   .plans{display:grid;gap:14px;margin-top:30px}
-  @media(min-width:780px){.plans{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:860px){.plans{grid-template-columns:repeat(3,1fr)}}
   .plan{position:relative;background:#fff;border:2px solid var(--line);border-radius:24px;padding:24px;cursor:pointer;transition:border-color .2s, box-shadow .2s}
   .plan[aria-checked=true]{border-color:var(--aqua);box-shadow:0 18px 40px rgba(15,181,201,.16)}
   .plan .tagbest{position:absolute;top:-12px;left:22px;background:var(--ink);color:#fff;font-size:10.5px;font-weight:800;
@@ -493,11 +493,21 @@
             <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Garantía 2 años en las dos</li>
           </ul>
         </div>
+
+        <div class="plan" role="radio" aria-checked="false" tabindex="0" data-plan="3" data-price="94,99 €">
+          <h3>3 unidades · pack regalo</h3>
+          <div class="p"><b>94,99 €</b><em>31,66 € cada una</em></div>
+          <ul>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Una para casa, otra para el coche, otra para regalar</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> Envío gratis 24–72 h</li>
+            <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f9d76" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg> El mejor precio por unidad</li>
+          </ul>
+        </div>
       </div>
 
       <div class="cta-row" style="margin-top:24px">
         <!-- Cambia el href por tu Stripe Payment Link -->
-        <a class="btn" id="buyBtn" href="#" data-1="https://buy.stripe.com/REEMPLAZA_1UD" data-2="https://buy.stripe.com/REEMPLAZA_2UDS">
+        <a class="btn" id="buyBtn" href="#" data-1="https://buy.stripe.com/REEMPLAZA_1UD" data-2="https://buy.stripe.com/REEMPLAZA_2UDS" data-3="https://buy.stripe.com/REEMPLAZA_3UDS">
           Comprar ahora — <span id="buyPrice">69,99 €</span>
         </a>
         <a class="btn btn-ghost" href="#faq">Tengo una duda</a>

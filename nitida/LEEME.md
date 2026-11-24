@@ -113,14 +113,14 @@ Luego apunta el dominio (`nitida.es` o el que elijas) y listo.
 
 ## 7. Números (para no vender a pérdida)
 
-| Concepto | 1 ud | 2 uds |
-|---|---|---|
-| Precio | 39,99 € | 69,99 € |
-| Producto | −16,00 € | −32,00 € |
-| Envío | −4,00 € | −4,00 € |
-| Contra reembolso | −2,50 € | −2,50 € |
-| Pasarela | −0,60 € | −0,90 € |
-| **Margen** | **16,89 €** | **30,59 €** |
-| **CPA máximo** | 14 € | 26 € |
+| Concepto | 1 ud | 2 uds | 3 uds |
+|---|---|---|---|
+| Precio | 39,99 € | 69,99 € | 94,99 € |
+| Producto | −16,00 € | −32,00 € | −48,00 € |
+| Envío | −4,00 € | −4,00 € | −4,00 € |
+| Contra reembolso | −2,50 € | −2,50 € | −2,50 € |
+| Pasarela | −0,60 € | −0,90 € | −1,20 € |
+| **Margen** | **16,89 €** | **30,59 €** | **39,29 €** |
+| **CPA máximo** | 14 € | 26 € | 32 € |
 
-Por eso el pack de 2 está preseleccionado: con una sola unidad, el anuncio tiene que ser muy barato para salir vivo.
+Por eso el pack de 2 está preseleccionado y el de 3 existe: con una sola unidad, el anuncio tiene que ser muy barato para salir vivo. Lo que separa a Blissy (6,69 $ por visita) de Loop (1,05 $) es exactamente esto.
