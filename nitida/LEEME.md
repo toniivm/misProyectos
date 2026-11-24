@@ -39,6 +39,11 @@ Coste objetivo: **≤ 17 €**. Si el único que hay pasa de 20 €, no compres:
 
 Antes de pagar nada, mándales las **5 preguntas** de `proveedores.md` (plazo real, IVA, comisión, rechazo y devolución) y guarda la respuesta por escrito.
 
+**Y comprueba dos cosas antes de escribir una sola línea de anuncio:**
+
+1. **Stock real del SKU**, no que el producto exista en el catálogo. (Klack tenía el cepillo perfecto: agotado.)
+2. **Que el proveedor no lo venda al público más barato que tu precio.** Si su tienda lo tiene a 18,90 €, tu 39,99 € es una trampa para ti.
+
 **Envíame el enlace del producto** (o 6 fotos + el coste). Con eso:
 - ajusto precios y margen real,
 - sustituyo las fotos,

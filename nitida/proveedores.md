@@ -21,6 +21,22 @@ Y para esta semana eso vale, pero con tres comprobaciones por escrito antes de m
 
 ## Lo que he encontrado en cada uno
 
+### Klack Europe — el proveedor español que casi lo era
+
+**Klack Europe S.L.** (Mejorada del Campo, Madrid) tiene tienda propia, marca propia y **programa de dropshipping con panel y feed de datos**. Condiciones publicadas:
+- Te das de alta como cliente con datos de facturación y les mandas **documentación de actividad de empresa** (no aceptan particulares).
+- Te activan cuenta, precios de mayorista y stock.
+- Pides indicando la dirección de tu cliente. También puedes mandar tu transporte a recoger.
+- Factura española con IVA. Sin cuota publicada.
+
+**Y tienen exactamente el cepillo que queríamos:** «Cepillo Eléctrico de Limpieza Klack 9 en 1 25W con Mango Telescópico, 9 Accesorios, Batería 90 Min, USB-C».
+
+**Los dos problemas, y son graves:**
+1. **Está agotado.** Su API devuelve `is_in_stock: false`.
+2. **Lo vende él mismo a 18,90 €** (antes 26,90 €). Si tú lo vendes a 39,99 €, tu cliente encuentra el mismo producto en la tienda del fabricante a la mitad. No hay negocio.
+
+**La regla que sale de esto:** un proveedor que también vende al público te pone un techo de precio. Sirve para marca blanca, no para revender.
+
 ### Dropea — rápido y gratis, pero joven y sin plazos publicados
 
 **A favor:** 0 €, contra reembolso en España, app de Shopify y API, catálogo de ~2.000 productos, y cobra solo por pedido (según su web, por los entregados).
