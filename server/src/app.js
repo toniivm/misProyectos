@@ -389,7 +389,7 @@ function toStripeLineItems(items, currency){
         unit_amount: Math.round(Number(it.price) * 100),
         product_data: {
           name: (it.name || `Item ${it.id || ''}`).toString().slice(0, 200),
-          description: 'Noctip™ — Recuperación premium',
+          description: 'Nítida Vapor — Limpieza sin frotar',
         },
       },
       quantity: it.qty,
@@ -438,7 +438,12 @@ async function decrementInventory(items){
     for (const it of productItems){
       const ref = db.collection('products').doc(String(it.id));
       const snap = await tx.get(ref);
-      if (!snap.exists) throw new Error(`NO_PRODUCT:${it.id}`);
+      if (!snap.exists) {
+        // Product exists in the static catalog but has no Firestore stock doc yet.
+        // Do not fail a paid order; stock is controlled manually until seeded.
+        if (PRODUCTS.some((p) => String(p.id) === String(it.id))) continue;
+        throw new Error(`NO_PRODUCT:${it.id}`);
+      }
       const data = snap.data();
       if (data.stock < it.qty) throw new Error(`RACE_OUT_OF_STOCK:${it.id}`);
       const newStock = data.stock - it.qty;
@@ -853,7 +858,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
         metadata: { orderId, items: JSON.stringify(items.map((item) => ({ id: item.id, qty: item.qty }))), paymentMethod },
         payment_intent_data: {
           metadata: { orderId, paymentMethod },
-          description: `Pedido #${orderId} — Noctip`,
+          description: `Pedido #${orderId} — Nítida`,
         },
         // 3D Secure: 'automatic' lets Stripe decide when to request it (only when bank requires it)
         payment_method_options: {
@@ -945,7 +950,7 @@ async function sendEmail(to, subject, html){
   }
 
   try {
-    const from = process.env.SENDER_EMAIL ? `Noctip <${process.env.SENDER_EMAIL}>` : 'Noctip <onboarding@resend.dev>';
+    const from = process.env.SENDER_EMAIL ? `Nítida <${process.env.SENDER_EMAIL}>` : 'Nítida <onboarding@resend.dev>';
     const adminEmail = 'tonivfortnite@gmail.com';
     console.log(`📧 Sending email from "${from}" to "${to}"...`);
     const { data, error } = await client.emails.send({
@@ -1044,7 +1049,7 @@ async function handleOrderPaid(orderId, stripeObj){
         html = `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${orderId}</strong></p><ul>${itemsList}</ul><p><strong>Total: ${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`;
       }
 
-      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Noctip`, html);
+      await sendEmail(order.email, `✅ Confirmación de pedido #${orderId} - Nítida`, html);
       console.log(`  ✅ Confirmation email sent to ${order.email}`);
 
       // Mark email as sent to prevent duplicate from frontend
@@ -1193,8 +1198,8 @@ app.post('/orders/:id/ship', adminAuth, async (req,res) => {
   }
 
   const subject = isEn
-    ? `📦 Your order #${req.params.id} has been shipped — Noctip`
-    : `📦 Tu pedido #${req.params.id} ha sido enviado — Noctip`;
+    ? `📦 Your order #${req.params.id} has been shipped — Nítida`
+    : `📦 Tu pedido #${req.params.id} ha sido enviado — Nítida`;
 
   if (shipmentHtml) {
     await sendEmail(order.email, subject, shipmentHtml);
@@ -1240,14 +1245,14 @@ app.post('/orders/:id/deliver', adminAuth, async (req,res) => {
   }
 
   const subject = isEn
-    ? `📦 Your order #${req.params.id} has been delivered — Noctip`
-    : `📦 Tu pedido #${req.params.id} ha sido entregado — Noctip`;
+    ? `📦 Your order #${req.params.id} has been delivered — Nítida`
+    : `📦 Tu pedido #${req.params.id} ha sido entregado — Nítida`;
 
   if (deliveryHtml) {
     await sendEmail(order.email, subject, deliveryHtml);
   } else {
     await sendEmail(order.email, subject,
-      `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Noctip.</p>`
+      `<h1>¡Pedido entregado!</h1><p>Pedido: <strong>#${req.params.id}</strong></p><p>Tu pedido ha sido entregado con éxito.</p><p>Gracias por tu confianza en Nítida.</p>`
     );
   }
   res.json({ ok: true });
@@ -1285,8 +1290,8 @@ app.post('/emails/welcome', welcomeEmailLimiter, async (req, res) => {
   }
 
   const subject = isEn
-    ? '👋 Welcome to Noctip — Here\'s 10% off'
-    : '👋 Bienvenido a Noctip — Aquí tienes 10% de descuento';
+    ? '👋 Welcome to Nítida — Here\'s 10% off'
+    : '👋 Bienvenido a Nítida — Aquí tienes 10% de descuento';
 
   if (welcomeHtml) {
     await sendEmail(email, subject, welcomeHtml);
@@ -1302,14 +1307,14 @@ app.post('/emails/contact', contactLimiter, async (req, res) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'INVALID_EMAIL' });
   const subjectMap = { order: 'Consulta pedido', return: 'Devolución', product: 'Producto', other: 'General' };
   const subjectLabel = subjectMap[subject] || subject || 'General';
-  const html = `<h2>Nuevo mensaje de contacto — Noctip</h2><p><strong>De:</strong> ${name || '—'} &lt;${email}&gt;</p><p><strong>Asunto:</strong> ${subjectLabel} (${locale || 'es'})</p><p><strong>Mensaje:</strong></p><p style="white-space:pre-wrap;background:#f9fafb;padding:12px;border-radius:8px;">${String(message).slice(0,2000)}</p><p style="color:#6b7280;font-size:12px;">Responder a ${email} directamente.</p>`;
+  const html = `<h2>Nuevo mensaje de contacto — Nítida</h2><p><strong>De:</strong> ${name || '—'} &lt;${email}&gt;</p><p><strong>Asunto:</strong> ${subjectLabel} (${locale || 'es'})</p><p><strong>Mensaje:</strong></p><p style="white-space:pre-wrap;background:#f9fafb;padding:12px;border-radius:8px;">${String(message).slice(0,2000)}</p><p style="color:#6b7280;font-size:12px;">Responder a ${email} directamente.</p>`;
   const to = process.env.CONTACT_EMAIL || process.env.SENDER_EMAIL || 'hola@noctip.com';
   const result = await sendEmail(to, `📩 Contacto ${subjectLabel} — ${name || email}`, html);
   // also send auto-reply to customer
   try {
     const isEn = locale === 'en';
-    await sendEmail(email, isEn ? 'We received your message — Noctip' : 'Hemos recibido tu mensaje — Noctip',
-      isEn ? `<p>Hi ${name || ''},</p><p>We received your message and will reply within 24h.</p><p style="color:#6b7280">— Noctip team · hola@noctip.com</p>` : `<p>Hola ${name || ''},</p><p>Hemos recibido tu mensaje y te responderemos en menos de 24h.</p><p style="color:#6b7280">— Equipo Noctip · hola@noctip.com</p>`);
+    await sendEmail(email, isEn ? 'We received your message — Nítida' : 'Hemos recibido tu mensaje — Nítida',
+      isEn ? `<p>Hi ${name || ''},</p><p>We received your message and will reply within 24h.</p><p style="color:#6b7280">— Nítida team · hola@noctip.com</p>` : `<p>Hola ${name || ''},</p><p>Hemos recibido tu mensaje y te responderemos en menos de 24h.</p><p style="color:#6b7280">— Equipo Nítida · hola@noctip.com</p>`);
   } catch {}
   res.json({ ok: result?.ok ?? true });
 });
@@ -1362,7 +1367,7 @@ app.post('/orders/:id/send-confirmation', confirmationEmailLimiter, async (req, 
       html = `<h1>Gracias por tu pedido</h1><p>Pedido: <strong>#${id}</strong></p><ul>${itemsList}</ul><p><strong>Total: ${total}</strong></p><p>Recibirás un email cuando tu pedido sea enviado.</p>`;
     }
 
-    const result = await sendEmail(order.email, `✅ Confirmación de pedido #${id} - Noctip`, html);
+    const result = await sendEmail(order.email, `✅ Confirmación de pedido #${id} - Nítida`, html);
 
     // Mark email as sent to avoid duplicates
     if (result?.ok) {
@@ -1408,18 +1413,18 @@ app.post('/emails/order-confirmation', adminAuth, async (req,res) => {
       .replace(/{{itemsHtml}}/g, `<ul>${itemsList}</ul>`)
       .replace(/{{total}}/g, `€${total}`);
 
-    emailResult = await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Noctip`, html);
+    emailResult = await sendEmail(email, `✅ Confirmación de pedido #${orderId} - Nítida`, html);
   } else {
     emailResult = await sendEmail(
       email,
-      `✅ Confirmación de pedido #${orderId} - Noctip`,
+      `✅ Confirmación de pedido #${orderId} - Nítida`,
       `<h1>¡Gracias por tu pedido!</h1>
       <p>Pedido: <strong>#${orderId}</strong></p>
       <h3>Artículos:</h3>
       <ul>${itemsList}</ul>
       <p><strong>Total: €${total}</strong></p>
       <p>Recibirás un email cuando tu pedido sea enviado.</p>
-      <p>Gracias por confiar en Noctip.</p>`
+      <p>Gracias por confiar en Nítida.</p>`
     );
   }
 

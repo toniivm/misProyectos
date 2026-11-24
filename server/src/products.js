@@ -22,6 +22,37 @@ const PRODUCTS = [
     stock: 20,
   },
 
+  // ─── Nítida Vapor ──────────────────────────────────────────────────
+  {
+    id: 'vapor',
+    slug: 'vapor',
+    title: 'Nítida Vapor',
+    description: 'Limpiador de vapor a presión 1.050 W, 3 bar, 115 °C, 12 accesorios.',
+    price: 39.99,
+    category: 'limpieza',
+    brand: 'Nítida',
+    stock: 100,
+  },
+  {
+    id: 'vapor-duo',
+    slug: 'vapor-duo',
+    title: 'Nítida Vapor — Pack Dúo (2 unidades)',
+    description: 'Dos limpiadores de vapor completos con 12 accesorios cada uno.',
+    price: 69.99,
+    category: 'limpieza',
+    brand: 'Nítida',
+    stock: 50,
+  },
+  {
+    id: 'vapor-trio',
+    slug: 'vapor-trio',
+    title: 'Nítida Vapor — Pack Familia (3 unidades)',
+    description: 'Tres limpiadores de vapor completos con 12 accesorios cada uno.',
+    price: 94.99,
+    category: 'limpieza',
+    brand: 'Nítida',
+    stock: 30,
+  },
   // ─── Posture & Recovery ────────────────────────────────────────────
   {
     id: 'wave',
