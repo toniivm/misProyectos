@@ -610,11 +610,19 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       return res.status(400).json({ error: 'INVALID_PAYLOAD', detail: 'Los datos enviados no son válidos. Revisa el formulario e inténtalo de nuevo.', details: error.details.map(e => e.message) });
     }
     
-    const { items, currency, email, phone, shipping, promoCode, discountPercent } = value;
-    
+    const { items, currency, email, phone, shipping, promoCode } = value;
+
+    // Never trust the price sent by the browser: use the server catalog.
+    const pricedItems = items.map((it) => {
+      if (String(it.id).startsWith('shipping:')) return it;
+      const catalogProduct = PRODUCTS.find((p) => String(p.id) === String(it.id));
+      if (!catalogProduct) return it;
+      return { ...it, price: catalogProduct.price, name: catalogProduct.title || it.name };
+    });
+
     // Verify inventory before creating intent
     try {
-      await verifyInventory(items);
+      await verifyInventory(pricedItems);
     } catch (invErr) {
       console.error('Inventory verification failed:', invErr.message);
       if (invErr.message?.startsWith('OUT_OF_STOCK')) {
@@ -626,7 +634,7 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       throw invErr;
     }
     
-    const amount = calcAmount(items, discountPercent);
+    const amount = calcAmount(pricedItems, 0);
     if (amount <= 0)       return res.status(400).json({ error: 'INVALID_AMOUNT', detail: 'El importe no es válido. Revisa tu carrito.' });
     
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
@@ -636,12 +644,12 @@ app.post('/payments/create-intent', checkoutLimiter, async (req,res) => {
       status: 'pending',
       email,
       phone: phone || null,
-      items,
+      items: pricedItems,
       amount,
       currency,
       shipping,
       promoCode: promoCode || null,
-      discountPercent: discountPercent || 0,
+      discountPercent: 0,
       ip: req.ip,
       userAgent: req.get('user-agent') || null,
       createdAt: new Date(),
@@ -735,11 +743,19 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       return res.status(400).json({ error: 'INVALID_PAYLOAD', detail: 'Los datos enviados no son válidos. Revisa el formulario e inténtalo de nuevo.', details: error.details.map(e => e.message) });
     }
 
-    const { items, currency, email, phone, shipping, successUrl, cancelUrl, promoCode, discountPercent } = value;
+    const { items, currency, email, phone, shipping, successUrl, cancelUrl, promoCode } = value;
+
+    // Never trust the price sent by the browser: use the server catalog.
+    const pricedItems = items.map((it) => {
+      if (String(it.id).startsWith('shipping:')) return it;
+      const catalogProduct = PRODUCTS.find((p) => String(p.id) === String(it.id));
+      if (!catalogProduct) return it; // verifyInventory returns PRODUCT_NOT_FOUND
+      return { ...it, price: catalogProduct.price, name: catalogProduct.title || it.name };
+    });
 
     if (db) {
       try {
-        await verifyInventory(items);
+        await verifyInventory(pricedItems);
       } catch (invErr) {
         console.error('Inventory verification failed:', invErr.message);
         if (invErr.message?.startsWith('OUT_OF_STOCK')) {
@@ -758,7 +774,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       console.warn('⚠ Firestore unavailable, skipping inventory verification for checkout session');
     }
 
-    const amount = calcAmount(items, discountPercent);
+    const amount = calcAmount(pricedItems, 0);
     if (amount <= 0)       return res.status(400).json({ error: 'INVALID_AMOUNT', detail: 'El importe no es válido. Revisa tu carrito.' });
 
     const idempotencyKey = req.headers['idempotency-key'] || uuidv4();
@@ -769,12 +785,12 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       status: 'pending',
       email,
       phone: phone || null,
-      items,
+      items: pricedItems,
       amount,
       currency,
       shipping,
       promoCode: promoCode || null,
-      discountPercent: discountPercent || 0,
+      discountPercent: 0,
       ip: req.ip,
       userAgent: req.get('user-agent') || null,
       createdAt: new Date(),
@@ -827,8 +843,8 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
       console.warn(`⚠ Customer NOT saved: db=${!!db}, email=${email}`);
     }
 
-    const productItems = items.filter((it) => !String(it.id).startsWith('shipping:'));
-    const shippingItems = items.filter((it) => String(it.id).startsWith('shipping:'));
+    const productItems = pricedItems.filter((it) => !String(it.id).startsWith('shipping:'));
+    const shippingItems = pricedItems.filter((it) => String(it.id).startsWith('shipping:'));
     const lineItems = [
       ...toStripeLineItems(productItems, currency),
       ...toStripeLineItems(shippingItems, currency),
@@ -855,7 +871,7 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
         customer_email: email,
         success_url: successUrl || defaultSuccess,
         cancel_url: cancelUrl || defaultCancel,
-        metadata: { orderId, items: JSON.stringify(items.map((item) => ({ id: item.id, qty: item.qty }))), paymentMethod },
+        metadata: { orderId, items: JSON.stringify(pricedItems.map((item) => ({ id: item.id, qty: item.qty }))), paymentMethod },
         payment_intent_data: {
           metadata: { orderId, paymentMethod },
           description: `Pedido #${orderId} — Nítida`,
