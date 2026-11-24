@@ -5,6 +5,7 @@ No necesita Next, ni build, ni servidor: es un `index.html` que se sube tal cual
 
 ```
 nitida/
+├── empieza-aqui.md       ← LA DECISIÓN: modelo, proveedor, fechas y presupuesto
 ├── index.html            ← la tienda entera (HTML + CSS + JS, sin dependencias)
 ├── media/                ← aquí van las fotos y el vídeo reales
 ├── legal/legal.html      ← aviso legal, condiciones, envíos, devoluciones, privacidad y cookies
@@ -12,6 +13,8 @@ nitida/
 ├── benchmarks-trendtrack.md ← datos brutos de las 7 tiendas top
 └── proveedores.md        ← comparación de proveedores y preguntas antes de contratar
 ```
+
+> **Si solo vas a leer un archivo, lee `empieza-aqui.md`.** Ahí está la decisión tomada: Blissy como modelo, Dropea como proveedor, enero como fecha y 280 € como presupuesto. Este documento es el manual técnico.
 
 ## Lo que falta para publicar (y no puedo hacer yo)
 

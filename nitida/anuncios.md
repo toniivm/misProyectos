@@ -54,9 +54,9 @@ Para retargeting y para quien ya vio los otros dos.
 |---|---|---|
 | 0–2 s | Las manos frotando con un cepillo pequeño, rápido. | «Una hora de tu domingo» |
 | 2–5 s | Corte seco: Nítida girando, 3 pasadas. | «O 15 minutos» |
-| 5–9 s | Los 8 cabezales alineados, uno a uno. | «8 cabezales» · «1,30 m» · «90 min» |
+| 5–9 s | Los 9 accesorios alineados, uno a uno. | «9 accesorios» · «mango telescópico» · «90 min» |
 | 9–12 s | Producto + caja. | «Kit completo» |
-| 12–15 s | Precio grande. | **39,99 €** · antes 59,99 € · envío gratis |
+| 12–15 s | Precio grande. | **39,99 €** · envío gratis · pago al recibir |
 
 ---
 
