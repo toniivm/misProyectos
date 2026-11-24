@@ -1,5 +1,7 @@
 # La decisión: qué tienda, con qué modelo y cuándo
 
+> **Revisión del 24/11, después de analizar los anuncios activos en España:** el héroe recomendado deja de ser el cepillo y pasa a ser el **limpiador de vapor a 49,99 €**. El análisis está en **`tiendas-que-funcionan.md`**. Este documento sigue valiendo para el modelo (Blissy: un héroe, tres packs, un país), el proveedor, las fotos, el legal y los números; donde dice «cepillo», léelo como «el héroe que elijas». La opción del cepillo queda como plan B.
+
 **24/11/2026. Esto es lo que haría yo con mi dinero. No hay opciones: hay un camino.**
 
 ## 1. La elección
