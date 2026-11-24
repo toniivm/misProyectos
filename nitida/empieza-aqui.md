@@ -27,11 +27,13 @@
 
 - **Home** con héroe, antes/después, 3 problemas, cómo funciona, 12 accesorios, ficha técnica, comparativa, garantía, 8 FAQ y CTA final.
 - **Ficha de producto** con galería real, selector de packs, añadir al carrito, ficha y FAQ.
-- **Carrito y checkout** reales, con Stripe. Probado: pack 1 = 39,99 €, pack 2 = 69,99 €, pack 3 = 94,99 €.
+- **Carrito y checkout** reales, con Stripe. **Probado en producción**: Stripe genera sesiones de 39,99 €, 69,99 € y 94,99 € (verificado el 24/11).
 - **3 packs** conectados al catálogo y al checkout.
 - **Precio de entrada 39,99 €**, sin precio tachado falso.
 - **Legal** actualizado a Nítida, envíos 24-72 h y 30 días.
 - **SEO**: título, descripción, JSON-LD de producto, FAQ, breadcrumb y sitemap.
+- **Publicada en `noctip.com`** con el contenido nuevo (Firebase Hosting).
+- **Backend actualizado** para aceptar `vapor`, `vapor-duo` y `vapor-trio`; el checkout ya no rechaza el producto.
 - **Móvil**: sin scroll horizontal, botones de 44-56 px, CTA fijo abajo.
 - **Imágenes**: 3 fotos reales del mismo modelo OEM (producto, 12 accesorios y uso). Hay que sustituirlas por fotos propias en cuanto llegue la unidad.
 
@@ -41,7 +43,8 @@
 2. **Contra reembolso (COD).** Es el disparador más fuerte en España. El checkout actual solo acepta tarjeta. Es la prioridad número uno.
 3. **Fotos propias.** Las actuales son del mismo modelo, pero no son tuyas. En cuanto tengas la unidad, 6 fotos y un vídeo de 12 s.
 4. **Reseñas reales.** Cero inventadas. Las 10 primeras se piden a los primeros clientes.
-5. **Dominio.** `noctip.com` funciona; a medio plazo, `nitida.es`.
+5. **Tráfico.** 3 TikToks y 20 €/día. Sin esto no hay ventas, aunque la web esté perfecta.
+6. **Dominio.** `noctip.com` funciona; a medio plazo, `nitida.es`.
 
 ## 4. Los números
 
@@ -61,7 +64,7 @@
 
 | Día | Acción | Coste |
 |---|---|---|
-| **Hoy** | Cerrar SKU y coste. Pedir 1 unidad de muestra. Publicar la web. | 0 € |
+| **Hoy** | Cerrar SKU y coste. Pedir 1 unidad de muestra. (La web ya está publicada.) | 0 € |
 | **Hoy** | Grabar 3 clips con la muestra: juntas, vitro, mampara. | 0 € |
 | **Hoy** | Publicar 3 TikToks. Sin anuncios. | 0 € |
 | **Mañana** | Si un vídeo pasa de 10.000 visitas, meter 20 €/día. | 20 € |
@@ -103,4 +106,4 @@
 
 ---
 
-**Resumen:** la tienda ya vende un limpiador de vapor de 39,99 € con packs de 2 y 3. Falta el proveedor, el COD y las fotos propias. El resto está hecho y probado.
+**Resumen:** la tienda ya cobra: Stripe funciona con 39,99 €, 69,99 € y 94,99 €. Falta el proveedor, el COD, las fotos propias y el tráfico. El resto está hecho y probado.

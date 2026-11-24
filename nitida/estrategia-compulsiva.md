@@ -150,7 +150,7 @@ Retargeting 3 días + recuperación de carrito
 - Pack familia: **94,99 €** (31,66 €/ud).
 - La entrada es 1 unidad (39,99 €); el dúo se destaca como «más elegido», pero no se impone.
 - La home y la ficha muestran el ahorro real, no un descuento inventado.
-- Checkout: falta activar **COD**; es la prioridad número uno para subir conversión.
+- Checkout: **activo y probado en producción** con Stripe (39,99/69,99/94,99). Falta activar **COD**, la prioridad número uno para subir conversión.
 
 ---
 
