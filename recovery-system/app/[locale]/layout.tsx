@@ -29,14 +29,14 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
   return {
     title: isEs
-      ? 'Noctip™ — Anti-ronquidos, Banda Sueño y Postura | Envío 7-20 días'
-      : 'Noctip™ — Anti-Snoring, Sleep Headband & Posture | Ships 7-20 Days',
+      ? 'Limpiador de Vapor a Presión | 12 Accesorios y 3 Bar'
+      : 'Pressurised Steam Cleaner | 12 Accessories, 3 Bar',
     description: isEs
-      ? 'Férula anti-ronquidos, banda de sueño Bluetooth 5.0, corrector postural y masajeador cervical. 45g lavable 10h, 10mm ajuste, 30 noches de prueba. Envío 7-20 días.'
-      : 'Anti-snoring mouthpiece, Bluetooth 5.0 sleep headband, posture corrector & neck massager. 45g washable 10h, 10mm fit, 30-night trial. Ships 7-20 days.',
+      ? 'Limpiador de vapor a presión con 12 accesorios: 1.050 W, 3 bar y hasta 115 °C. Despega grasa y cal de cocina, baño y tapicería solo con agua. Envío 24-72 h, 30 días para probarlo y 2 años de garantía.'
+      : 'Pressurised steam cleaner with 12 accessories: 1,050 W, 3 bar and up to 115 °C. Lifts grease and limescale from kitchen, bathroom and upholstery with water only. 24-72 h shipping, 30-day trial and 2-year warranty.',
     keywords: isEs
-      ? 'noctip, férula anti ronquidos, banda sueño bluetooth, corrector postural, masajeador cervical, dejar de roncar, como dormir mejor, envío 7-20 días, 30 noches'
-      : 'noctip, anti-snoring mouthpiece, sleep headband bluetooth, posture corrector, neck massager, stop snoring, sleep better, free shipping',
+      ? 'limpiador de vapor, limpiadora a vapor, vapor a presión, limpieza sin frotar, quitar grasa, quitar cal, limpieza cocina, limpieza baño, 12 accesorios, nitida'
+      : 'steam cleaner, pressurised steam, clean without scrubbing, remove grease, remove limescale, kitchen cleaning, bathroom cleaning, 12 accessories, nitida',
     alternates: {
       canonical: `https://noctip.com/${locale}`,
       languages: {
@@ -51,13 +51,13 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     },
     openGraph: {
       title: isEs
-        ? 'Noctip™ — Sueño y Recuperación que Funciona'
-        : 'Noctip™ — Sleep & Recovery that Works',
+        ? 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.'
+        : 'Nítida Vapor™ — Grease and limescale melt away. You don’t.',
       description: isEs
-        ? 'Duerme más profundo. Recupérate mejor. Vive mejor. Envío gratis y garantía de 30 noches.'
-        : 'Sleep deeper. Recover better. Live better. Free shipping and 30-night guarantee.',
+        ? 'Limpiador de vapor a presión con 12 accesorios. Solo agua. Envío 24-72 h y 30 días para probarlo.'
+        : 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
       url: 'https://noctip.com',
-      siteName: 'Noctip',
+      siteName: 'Nítida',
       type: 'website',
       locale: isEs ? 'es_ES' : 'en_US',
       images: [
@@ -65,18 +65,18 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
           url: 'https://noctip.com/images/logo/logo.png',
           width: 1200,
           height: 630,
-          alt: 'Noctip — Sleep & Recovery that Works',
+          alt: 'Nítida Vapor — limpiador de vapor a presión',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: isEs
-        ? 'Noctip™ — Sueño y Recuperación que Funciona'
-        : 'Noctip™ — Sleep & Recovery that Works',
+        ? 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.'
+        : 'Nítida Vapor™ — Grease and limescale melt away. You don’t.',
       description: isEs
-        ? 'Duerme más profundo. Recupérate mejor. Vive mejor. Envío gratis y garantía de 30 noches.'
-        : 'Sleep deeper. Recover better. Live better. Free shipping and 30-night guarantee.',
+        ? 'Limpiador de vapor a presión con 12 accesorios. Solo agua. Envío 24-72 h y 30 días para probarlo.'
+        : 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
       images: ['https://noctip.com/images/logo/logo.png'],
     },
     other: {
@@ -103,12 +103,12 @@ export default async function LocaleLayout({children, params}: Props) {
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Noctip',
+    name: 'Nítida',
     url: 'https://noctip.com',
     logo: 'https://noctip.com/favicon.svg',
     description: isEs
-      ? 'Noctip diseña productos de sueño y recuperación que funcionan de verdad: férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales.'
-      : 'Noctip designs sleep and recovery products that actually work: anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers.',
+      ? 'Nítida diseña limpiadores de vapor que despegan la grasa y la cal sin frotar. Solo agua, 12 accesorios y 2 años de garantía.'
+      : 'Nítida designs steam cleaners that lift grease and limescale without scrubbing. Water only, 12 accessories and a 2-year warranty.',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
@@ -120,11 +120,11 @@ export default async function LocaleLayout({children, params}: Props) {
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Noctip',
+    name: 'Nítida',
     url: 'https://noctip.com',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `https://noctip.com/${locale}/shop/all?q={search_term_string}`,
+      target: `https://noctip.com/${locale}/products/vapor?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };
@@ -133,34 +133,25 @@ export default async function LocaleLayout({children, params}: Props) {
   const storeJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'OnlineStore',
-    name: 'Noctip',
+    name: 'Nítida',
     url: 'https://noctip.com',
     description: isEs
-      ? 'Tienda online de tecnología premium de sueño y recuperación'
-      : 'Online store for premium sleep and recovery technology',
-    priceRange: '€13-€22',
+      ? 'Tienda online de limpiadores de vapor para el hogar'
+      : 'Online store for home steam cleaners',
+    priceRange: '€39.99',
     paymentAccepted: 'Credit Card, Stripe, Apple Pay, Google Pay',
     areaServed: [
       { '@type': 'Country', name: 'Spain' },
       { '@type': 'Country', name: 'Portugal' },
-      { '@type': 'Country', name: 'France' },
-      { '@type': 'Country', name: 'Germany' },
-      { '@type': 'Country', name: 'Italy' },
-      { '@type': 'Country', name: 'United Kingdom' },
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: isEs ? 'Productos de sueño y recuperación' : 'Sleep & Recovery Products',
+      name: isEs ? 'Limpiadores de vapor' : 'Steam cleaners',
       itemListElement: [
         {
           '@type': 'OfferCatalog',
-          name: isEs ? 'Sueño y anti-ronquidos' : 'Sleep & Anti-Snoring',
-          numberOfItems: 2,
-        },
-        {
-          '@type': 'OfferCatalog',
-          name: isEs ? 'Postura y recuperación' : 'Posture & Recovery',
-          numberOfItems: 2,
+          name: isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing',
+          numberOfItems: 1,
         },
       ],
     },
@@ -173,83 +164,67 @@ export default async function LocaleLayout({children, params}: Props) {
     mainEntity: isEs ? [
       {
         '@type': 'Question',
-        name: '¿Cuánto tarda el envío de Noctip?',
+        name: '¿Cuánto tarda el envío de Nítida Vapor?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Procesamos y enviamos todos los pedidos en 24 horas. Entrega estándar 7-20 días laborables con seguimiento. Exprés 1-2 días disponible en el checkout.',
+          text: 'Enviamos en 24-72 horas laborables con seguimiento. Recibes el número de seguimiento por email en cuanto sale el pedido.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Cómo funciona la férula anti-ronquidos Noctip Halo?',
+        name: '¿Qué limpia Nítida Vapor?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El Noctip Halo usa tecnología de avanzamiento mandibular para mover suavemente la mandíbula hacia adelante, abriendo la vía aérea y reduciendo los ronquidos. Tiene diseño ajustable de doble capa con 10mm de micro-ajustes y se moldea a tus dientes.',
+          text: 'Grasa de vitrocerámica y horno, cal de grifos y mamparas, juntas del baño, azulejos, cristales y tapicería. Incluye 12 accesorios para cada zona.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Qué hace el corrector postural Noctip Back?',
+        name: '¿Necesito detergente?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El Noctip Back es un corrector postural con soporte ergonómico en forma de Y que jala los hombros hacia atrás y alinea la columna. Viene en 5 tallas (XS a XL) con correas ajustables. Se puede usar debajo de la ropa.',
+          text: 'No. El depósito es solo agua del grifo. El vapor a 3 bar y hasta 115 °C ablanda la grasa y la cal sin productos químicos.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Cómo funciona la garantía de 30 noches de Noctip?',
+        name: '¿Qué garantía tiene?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Puedes probar cualquier producto Noctip durante 30 noches en tu propio entorno. Si no cumple tus expectativas, contactas con nuestro equipo y gestionamos la recogida y el reembolso completo.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Qué productos vende Noctip?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Noctip vende tecnología de sueño y recuperación: férulas anti-ronquidos (Noctip Halo), correctores posturales (Noctip Back), bandas de audio para dormir (Noctip Rest) y masajeadores cervicales (Noctip Cervical).',
+          text: '2 años de garantía y 30 días para probarlo. Si no limpia como esperabas, lo recogemos y te devolvemos el importe del producto.',
         },
       },
     ] : [
       {
         '@type': 'Question',
-        name: 'How long does Noctip shipping take?',
+        name: 'How long does Nítida Vapor shipping take?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We process and ship all orders within 24 hours. Standard delivery takes 7-20 business days with tracking. Express 1-2 day shipping is available at checkout.',
+          text: 'We ship in 24-72 working hours with tracking. You receive the tracking number by email as soon as the order leaves.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How does the Noctip Halo anti-snoring mouthpiece work?',
+        name: 'What does Nítida Vapor clean?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The Noctip Halo uses jaw advancement technology to gently move your lower jaw forward, opening your airway and reducing snoring. The dual-layer design is adjustable with 10mm of micro-settings and molds to your teeth.',
+          text: 'Grease on induction hobs and ovens, limescale on taps and shower screens, bathroom grout, tiles, glass and upholstery. It includes 12 accessories for each area.',
         },
       },
       {
         '@type': 'Question',
-        name: 'What does the Noctip Back posture corrector do?',
+        name: 'Do I need detergent?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The Noctip Back is a posture corrector with ergonomic Y-shaped support that pulls your shoulders back and aligns your spine. It comes in 5 sizes (XS to XL) with adjustable straps and can be worn under clothing.',
+          text: 'No. The tank is tap water only. Steam at 3 bar and up to 115 °C softens grease and limescale without chemicals.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How does the 30-night guarantee work?',
+        name: 'What warranty does it have?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'You can test any Noctip product for 30 nights in your own environment. If it doesn\'t meet your expectations, contact us and we arrange pickup and a full refund.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'What products does Noctip sell?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Noctip sells sleep and recovery technology: anti-snoring mouthpieces (Noctip Halo), posture correctors (Noctip Back), sleep audio headbands (Noctip Rest), and cervical massagers (Noctip Cervical).',
+          text: '2-year warranty and 30 days to try it. If it does not clean as expected, we collect it and refund the product price.',
         },
       },
     ],
@@ -269,8 +244,8 @@ export default async function LocaleLayout({children, params}: Props) {
       {
         '@type': 'ListItem',
         position: 2,
-        name: isEs ? 'Tienda' : 'Shop',
-        item: `https://noctip.com/${locale}/shop/all`,
+        name: isEs ? 'Producto' : 'Product',
+        item: `https://noctip.com/${locale}/products/vapor`,
       },
     ],
   };

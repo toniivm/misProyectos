@@ -32,24 +32,24 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Noctip™ — Férula Anti-ronquidos, Banda Sueño y Postura | 30 Noches',
-    template: '%s | Noctip™',
+    default: 'Nítida Vapor™ — Limpiador de vapor a presión | 12 accesorios',
+    template: '%s | Nítida™',
   },
   description:
-    'Noctip: férula anti-ronquidos 10mm, banda sueño Bluetooth 5.0 45g 10h lavable, corrector postural y masajeador cervical. Envío 7-20 días, 30 noches de prueba.',
+    'Nítida Vapor: limpiador de vapor a presión con 12 accesorios. Despega grasa y cal de cocina, baño y tapicería solo con agua. Envío 24-72 h, 30 días de prueba y 2 años de garantía.',
   keywords: [
-    'noctip', 'férula anti ronquidos', 'banda sueño bluetooth', 'sleep headband', 'corrector postural', 'masajeador cervical',
-    'anti-snoring mouthpiece', 'posture corrector', 'neck massager', 'dejar de roncar', 'como dormir mejor',
+    'nitida', 'limpiador de vapor', 'limpiadora a vapor', 'vapor a presión', 'limpieza sin frotar', 'quitar grasa', 'quitar cal',
+    'steam cleaner', 'pressurised steam', 'clean without scrubbing', 'limescale', 'grease',
   ],
-  authors: [{ name: 'Noctip', url: 'https://noctip.com' }],
-  creator: 'Noctip',
-  publisher: 'Noctip',
+  authors: [{ name: 'Nítida', url: 'https://noctip.com' }],
+  creator: 'Nítida',
+  publisher: 'Nítida',
   metadataBase: new URL('https://noctip.com'),
   openGraph: {
-    title: 'Noctip™ — Sleep & Recovery that Works',
-    description: 'Sleep and recovery products that actually work. Free shipping, 30-night guarantee.',
+    title: 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.',
+    description: 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
     url: 'https://noctip.com',
-    siteName: 'Noctip',
+    siteName: 'Nítida',
     locale: 'en_US',
     type: 'website',
     images: [
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Noctip™ — Sleep & Recovery that Works',
-    description: 'Sleep and recovery products that actually work. Free shipping, 30-night guarantee.',
+    title: 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.',
+    description: 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
     images: ['https://noctip.com/images/logo/logo.png'],
   },
   robots: {

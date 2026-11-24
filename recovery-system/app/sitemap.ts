@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   // Product pages
-  for (const product of CATALOG) {
+  for (const product of CATALOG.filter((p) => !p.hidden)) {
     for (const locale of locales) {
       entries.push({
         url: `${BASE_URL}/${locale}/products/${product.slug}`,
@@ -45,14 +45,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages (tracking excluded intentionally - blocked by robots.txt)
   for (const locale of locales) {
     entries.push(
-      { url: `${BASE_URL}/${locale}/shop/all`, lastModified: buildDate, changeFrequency: 'daily', priority: 0.8 },
+      { url: `${BASE_URL}/${locale}/products/vapor`, lastModified: buildDate, changeFrequency: 'weekly', priority: 0.9 },
       { url: `${BASE_URL}/${locale}/about`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
       { url: `${BASE_URL}/${locale}/contact`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.5 },
-      { url: `${BASE_URL}/${locale}/blog`, lastModified: buildDate, changeFrequency: 'weekly', priority: 0.7 },
-      { url: `${BASE_URL}/${locale}/blog/como-dejar-de-roncar-sin-cirugia`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
-      { url: `${BASE_URL}/${locale}/blog/como-dormir-mejor-sin-pastillas`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
-      { url: `${BASE_URL}/${locale}/blog/corrector-postura-funciona-de-verdad`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
-      { url: `${BASE_URL}/${locale}/blog/masajeador-cervical-beneficios`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
       { url: `${BASE_URL}/${locale}/legal/privacy`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.3 },
       { url: `${BASE_URL}/${locale}/legal/terms`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.3 },
       { url: `${BASE_URL}/${locale}/legal/shipping`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.4 },

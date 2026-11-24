@@ -13,8 +13,8 @@ export default function PrivacyPage(){
       <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
-            <span className="hidden sm:block">Noctip</span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#10BFD8] text-[13px] font-extrabold leading-none text-[#041014]">N</span>
+            <span className="hidden sm:block">Nítida</span>
           </Link>
           <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">
             <ArrowLeft size={14} />
@@ -30,7 +30,7 @@ export default function PrivacyPage(){
         <div className="mt-8 space-y-8 text-[14px] leading-7 text-[#9aa7b9]">
           <section>
             <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? '1. Responsable del tratamiento' : '1. Data Controller'}</h2>
-            <p><strong>Noctip</strong> — {isEs ? 'Domicilio: C/ Fernando Vela Nº 18, 28023 Madrid, España. NIF/CIF: [pendiente]. Contacto: hola@noctip.com · Tel: [pendiente +34 911 234 567]' : 'Address: C/ Fernando Vela Nº 18, 28023 Madrid, Spain. NIF/CIF: [pending]. Contact: hola@noctip.com · Tel: [pending +34 911 234 567]'}</p>
+            <p><strong>Nítida</strong> — {isEs ? 'Domicilio: C/ Fernando Vela Nº 18, 28023 Madrid, España. NIF/CIF: [pendiente]. Contacto: hola@noctip.com · Tel: [pendiente +34 911 234 567]' : 'Address: C/ Fernando Vela Nº 18, 28023 Madrid, Spain. NIF/CIF: [pending]. Contact: hola@noctip.com · Tel: [pending +34 911 234 567]'}</p>
           </section>
 
           <section>

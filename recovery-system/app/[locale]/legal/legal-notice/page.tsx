@@ -26,7 +26,7 @@ export default function LegalNoticePage() {
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Denominación comercial:' : 'Trading name:'}</span>
-          <span>Noctip™</span>
+          <span>Nítida™</span>
         </div>
         <div className="flex gap-2">
           <span className="text-[#c8d4e2] font-medium w-48 shrink-0">{isEs ? 'Domicilio:' : 'Address:'}</span>

@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Noctip™ | Herramientas que te hacen dormir mejor desde mañana",
-    "description": "Férulas anti-ronquidos, correctores posturales, bandas de audio para dormir y masajeadores cervicales. Envío gratis. 30 noches de garantía."
+    "title": "Nítida Vapor™ | Limpiador de vapor a presión con 12 accesorios",
+    "description": "Limpiador de vapor a presión con 12 accesorios. Despega grasa y cal sin frotar. Envío 24-72 h, 30 días para probarlo y 2 años de garantía."
   },
   "nav": {
-    "brand": "NOCTIP™",
+    "brand": "NÍTIDA™",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión"
   },
@@ -36,7 +36,7 @@
     "free": "Gratis",
     "total": "Total",
     "checkout": "Ir al pago",
-    "secureCheckout": "Pago 100% seguro · 30 noches de garantía",
+    "secureCheckout": "Pago 100% seguro · 30 días de garantía",
     "item": "artículo",
     "items": "artículos"
   },
@@ -78,7 +78,7 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Envío",
     "totalLine": "Total",
-    "guaranteeBadge": "30 noches de prueba — o te devolvemos todo"
+    "guaranteeBadge": "30 días de prueba — o te devolvemos todo"
   },
   "category": {
     "allProducts": "Todos los productos",
@@ -104,7 +104,7 @@
     "returns": "Devoluciones 30 días",
     "secureCheckout": "Pago seguro",
     "shippingInfo": "Envío y entrega",
-    "shipsIn": "Envío en 24h · llega en 3-5 días · gratis en todos los pedidos",
+    "shipsIn": "Envío en 24-72 h · gratis en todos los pedidos",
     "faqHeading": "Preguntas frecuentes",
     "faqSubheading": "Respuestas rápidas antes de añadirlo a tu rutina.",
     "relatedProducts": "Más de",
@@ -147,10 +147,10 @@
     "tagline": "Dormimos mejor para que vivas mejor.",
     "shop": "Tienda",
     "support": "Soporte",
-    "returns": "30 noches para devolver",
-    "shipping": "Envío gratis siempre",
+    "returns": "30 días para devolver",
+    "shipping": "Envío 24-72 h",
     "rights": "Todos los derechos reservados.",
     "securePayments": "Pago 100% seguro (Stripe + SSL)",
-    "trustBadge": "Envío gratis · 30 noches de garantía · Pago seguro"
+    "trustBadge": "Envío 24-72 h · 30 días de garantía · Pago seguro"
   }
 }

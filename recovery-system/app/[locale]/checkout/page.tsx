@@ -3,7 +3,6 @@
 import { ArrowLeft, Check, Lock, ShieldCheck, Truck, RotateCcw, AlertCircle, CheckCircle2, User } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
 import { useCart } from '../../../context/CartContext';
 import { useAuth } from '../../../context/AuthContext';
@@ -60,6 +59,9 @@ const COUNTRY_FROM_CODE: Record<string, string> = Object.fromEntries(
 );
 
 const PRODUCT_BG: Record<string, string> = {
+  'vapor': '#0b1520',
+  'vapor-duo': '#0b1520',
+  'vapor-trio': '#0b1520',
   'halo': '#0b0f14',
   'wave': '#131020',
   'sleep-headband': '#101828',
@@ -67,6 +69,9 @@ const PRODUCT_BG: Record<string, string> = {
 };
 
 const PRODUCT_ICON: Record<string, string> = {
+  'vapor': '💨',
+  'vapor-duo': '💨',
+  'vapor-trio': '💨',
   'halo': '',
   'wave': '',
   'sleep-headband': '',
@@ -431,15 +436,8 @@ export default function CheckoutPage() {
       <header className="border-b border-white/[0.06] bg-[rgba(8,12,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image
-              src="/images/logo/logo-compact.webp"
-              alt="Noctip"
-              width={32}
-              height={32}
-              className="object-contain"
-              sizes="32px"
-            />
-            NOCTIP
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#10BFD8] text-[16px] font-extrabold leading-none text-[#041014]">N</span>
+            NÍTIDA
           </Link>
           <div className="flex items-center gap-2 text-[12px] text-[#6b7280]">
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/10">
@@ -751,7 +749,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Envío protegido' : 'Protected shipping'}</div>
-                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Seguimiento incluido · Entrega en 7-20 días' : 'Tracking included · Delivery in 7-20 days'}</div>
+                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Seguimiento incluido · Entrega en 24-72 h' : 'Tracking included · Delivery in 24-72 h'}</div>
                   </div>
                 </div>
 
@@ -760,7 +758,7 @@ export default function CheckoutPage() {
                     <RotateCcw size={16} className="text-[#10BFD8]" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Garantía 30 días' : '30-day guarantee'}</div>
+                    <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Garantía 2 años' : '2-year warranty'}</div>
                     <div className="text-[11px] text-[#6b7280]">{isEs ? 'Devolución completa sin preguntas' : 'Full refund, no questions asked'}</div>
                   </div>
                 </div>
@@ -820,7 +818,7 @@ export default function CheckoutPage() {
 
             {/* ── Trust row ── */}
             <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] text-[#5a6678]">
-              <span className="flex items-center gap-1.5"><ShieldCheck size={12} className="text-[#10BFD8]" /> {isEs ? 'Garantía 30 días' : '30-day guarantee'}</span>
+              <span className="flex items-center gap-1.5"><ShieldCheck size={12} className="text-[#10BFD8]" /> {isEs ? 'Garantía 2 años' : '2-year warranty'}</span>
               <span className="flex items-center gap-1.5"><Truck size={12} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
               <span className="flex items-center gap-1.5"><Lock size={12} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro' : 'Secure checkout'}</span>
               <span className="flex items-center gap-1.5"><RotateCcw size={12} className="text-[#10BFD8]" /> {isEs ? 'Devolución fácil' : 'Easy returns'}</span>

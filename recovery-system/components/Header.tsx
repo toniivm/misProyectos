@@ -3,14 +3,13 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import {
   ShoppingCart, Menu, X, ChevronDown, User, LogOut,
-  ArrowLeft, PackageCheck, Search, Sparkles, ChevronRight,
+  ArrowLeft, PackageCheck, Search, Sparkles, ChevronRight, Wind,
 } from 'lucide-react'
 import { CATALOG } from '../lib/catalog'
 
@@ -89,8 +88,8 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
       <div className="bg-[#1a1a1a] text-white">
         <div className="mx-auto max-w-[1320px] px-4">
           <div className="flex items-center justify-center gap-2 sm:gap-6 py-2 text-[10px] sm:text-[12px] font-bold tracking-wide text-center">
-            <span className="flex items-center gap-1.5">🚚 {isEs ? 'Entrega 7–20 días con seguimiento' : '7–20 day delivery with tracking'}</span>
-            <span className="hidden sm:flex items-center gap-1.5">🔄 {isEs ? '30 noches de prueba' : '30-night trial'}</span>
+            <span className="flex items-center gap-1.5">🚚 {isEs ? 'Envío 24–72 h con seguimiento' : '24–72 h tracked shipping'}</span>
+            <span className="hidden sm:flex items-center gap-1.5">🔄 {isEs ? '30 días para probarlo' : '30-day trial'}</span>
             <span className="hidden md:flex items-center gap-1.5">🔒 {isEs ? 'Pago 100% seguro' : '100% secure payment'}</span>
           </div>
         </div>
@@ -136,7 +135,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                       transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
                       onMouseLeave={() => setProductsOpen(false)}
                       className="absolute left-0 top-full mt-1 w-[260px] rounded-2xl border border-[#e8e2d8] bg-white p-2 shadow-[0_20px_60px_rgba(0,0,0,0.12)] z-50">
-                      <Link href={`/${locale}/shop/all`} onClick={() => setProductsOpen(false)}
+                      <Link href={`/${locale}/products/vapor`} onClick={() => setProductsOpen(false)}
                         className="flex items-center gap-3 rounded-xl px-4 py-3 text-[13px] font-bold text-[#1a1a1a] hover:bg-[#f5f0eb] transition-colors">
                         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/15 text-[#10BFD8]">
                           <Search size={14} />
@@ -144,10 +143,12 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                         {isEs ? 'Ver todos' : 'View all'}
                       </Link>
                       <div className="my-1.5 mx-3 h-px bg-[#e8e2d8]" />
-                      {CATALOG.slice(0, 4).map((product) => (
+                      {CATALOG.filter((p) => !p.hidden).slice(0, 4).map((product) => (
                         <Link key={product.slug} href={`/${locale}/products/${product.slug}`} onClick={() => setProductsOpen(false)}
                           className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] text-[#4a4a4a] hover:text-[#1a1a1a] hover:bg-[#f5f0eb] transition-colors">
-                          <span className="text-lg w-7 text-center">{product.icon}</span>
+                          <span className="flex h-7 w-7 items-center justify-center text-[#10BFD8]">
+                            {product.icon || <Wind size={14} />}
+                          </span>
                           <span className="truncate font-medium">{isEs ? (product.name_es ?? product.name) : (product.name_en ?? product.name)}</span>
                           <ChevronRight size={13} className="ml-auto text-[#6b7785] shrink-0" />
                         </Link>
@@ -168,16 +169,16 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
             </nav>
 
             {/* Center: Logo */}
-            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group mx-4 lg:mx-8">
-              <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={44} height={44} priority className="object-contain transition-transform duration-300 group-hover:scale-105" sizes="44px" />
+            <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group mx-2 sm:mx-4 lg:mx-8">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#10BFD8] text-[20px] font-extrabold leading-none text-[#041014] transition-transform duration-300 group-hover:scale-105">N</span>
               <div className="flex flex-col">
-                <span className="text-[16px] font-extrabold tracking-[0.2em] text-[#1a1a1a] uppercase leading-none">Noctip</span>
-                <span className="text-[8px] font-bold tracking-[0.25em] text-[#10BFD8] uppercase mt-0.5 hidden sm:block">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>
+                <span className="text-[16px] font-extrabold tracking-[0.16em] text-[#1a1a1a] uppercase leading-none">Nítida</span>
+                <span className="text-[8px] font-bold tracking-[0.2em] text-[#10BFD8] uppercase mt-0.5 hidden sm:block">{isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing'}</span>
               </div>
             </Link>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-1 justify-end">
+            <div className="flex items-center gap-1 sm:gap-2 flex-1 justify-end">
               {/* Language */}
               <Link href={switchHref}
                 className="flex items-center gap-1.5 rounded-lg border border-[#e8e2d8] px-2.5 py-1.5 text-[11px] font-bold text-[#1a1a1a] hover:border-[#10BFD8]/40 hover:bg-[#10BFD8]/5 active:scale-95 transition-all"
@@ -187,8 +188,8 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
               </Link>
 
               {/* Search */}
-              <Link href={`/${locale}/shop/all`}
-                className="flex h-11 w-11 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
+              <Link href={`/${locale}/products/vapor`}
+                className="hidden sm:flex h-11 w-11 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all"
                 aria-label={isEs ? 'Buscar' : 'Search'}>
                 <Search size={18} />
               </Link>
@@ -250,10 +251,10 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
               {/* Mobile Header */}
               <div className="flex items-center justify-between px-6 py-5 border-b border-[#e8e2d8]">
                 <Link href={`/${locale}`} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
-                  <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={38} height={38} className="object-contain" sizes="38px" />
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10BFD8] text-[18px] font-extrabold leading-none text-[#041014]">N</span>
                   <div className="flex flex-col">
-                    <span className="text-[15px] font-extrabold tracking-[0.18em] text-[#1a1a1a] uppercase leading-none">Noctip</span>
-                    <span className="text-[8px] font-bold tracking-[0.22em] text-[#10BFD8] uppercase mt-0.5">{isEs ? 'Sueño & Recuperación' : 'Sleep & Recovery'}</span>
+                    <span className="text-[15px] font-extrabold tracking-[0.16em] text-[#1a1a1a] uppercase leading-none">Nítida</span>
+                    <span className="text-[8px] font-bold tracking-[0.18em] text-[#10BFD8] uppercase mt-0.5">{isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing'}</span>
                   </div>
                 </Link>
                 <button onClick={() => setMobileMenuOpen(false)}
@@ -268,17 +269,19 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                 <div className="mb-2 px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#6b7785]">
                   {isEs ? 'Productos' : 'Products'}
                 </div>
-                <MobileLink href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)} delay={0.03}>
+                <MobileLink href={`/${locale}/products/vapor`} onClick={() => setMobileMenuOpen(false)} delay={0.03}>
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8]/15 text-[#10BFD8]">
                     <Search size={16} />
                   </span>
                   {isEs ? 'Ver todos' : 'View all'}
                 </MobileLink>
-                {CATALOG.slice(0, 4).map((product, idx) => (
+                {CATALOG.filter((p) => !p.hidden).slice(0, 4).map((product, idx) => (
                   <motion.div key={product.slug} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 + idx * 0.04 }}>
                     <Link href={`/${locale}/products/${product.slug}`} onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-3.5 rounded-xl px-4 py-3.5 text-[14px] text-[#4a4a4a] hover:text-[#1a1a1a] hover:bg-[#f5f0eb] transition-all min-h-[52px]">
-                      <span className="text-xl w-8 text-center">{product.icon}</span>
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[#10BFD8]">
+                        {product.icon || <Wind size={15} />}
+                      </span>
                       <span className="flex-1 truncate font-semibold">{isEs ? (product.name_es ?? product.name) : (product.name_en ?? product.name)}</span>
                       <ChevronRight size={16} className="text-[#6b7785] shrink-0" />
                     </Link>
@@ -316,7 +319,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                     <span className="text-[13px] font-bold text-[#10BFD8]">{locale === 'es' ? 'English' : 'Español'}</span>
                   </span>
                 </Link>
-                <Link href={`/${locale}/shop/all`} onClick={() => setMobileMenuOpen(false)}
+                <Link href={`/${locale}/products/vapor`} onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center gap-2.5 rounded-full bg-[#10BFD8] px-5 py-4 text-[15px] font-extrabold text-white min-h-[56px] active:scale-[0.98] transition-transform shadow-[0_6px_24px_rgba(16,191,216,0.35)]">
                   <Sparkles size={16} />
                   {isEs ? 'Ver todos los productos' : 'View all products'}

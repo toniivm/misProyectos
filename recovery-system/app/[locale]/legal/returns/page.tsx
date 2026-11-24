@@ -13,8 +13,8 @@ export default function ReturnsPage(){
       <header className="border-b border-white/[0.07] bg-[rgba(12,16,22,0.92)] px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <Image src="/images/logo/logo-compact.webp" alt="Noctip" width={28} height={28} className="object-contain" sizes="28px" />
-            <span className="hidden sm:block">Noctip</span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#10BFD8] text-[13px] font-extrabold leading-none text-[#041014]">N</span>
+            <span className="hidden sm:block">Nítida</span>
           </Link>
           <Link href={`/${locale}`} className="flex items-center gap-1.5 text-[13px] text-[#6b7785] hover:text-[#f2eee7] transition-colors">
             <ArrowLeft size={14} />
@@ -29,10 +29,10 @@ export default function ReturnsPage(){
 
         <div className="mt-8 space-y-8 text-[14px] leading-7 text-[#9aa7b9]">
           <section>
-            <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? 'Garantía de 30 noches' : '30-Night Guarantee'}</h2>
+            <h2 className="text-[18px] font-semibold text-[#f2eee7] mb-3">{isEs ? 'Garantía de 30 días' : '30-Day Guarantee'}</h2>
             <p>{isEs
-              ? 'Puedes probar cualquier producto Noctip durante 30 noches. Si no estás satisfecho, te devolvemos el importe íntegro. Sin preguntas, sin formularios interminables.'
-              : 'You can try any Noctip product for 30 nights. If you are not satisfied, we refund the full amount. No questions, no endless forms.'}</p>
+              ? 'Puedes probar cualquier producto Nítida durante 30 días. Si no estás satisfecho, te devolvemos el importe íntegro. Sin preguntas, sin formularios interminables.'
+              : 'You can try any Nítida product for 30 days. If you are not satisfied, we refund the full amount. No questions, no endless forms.'}</p>
           </section>
 
           <section>

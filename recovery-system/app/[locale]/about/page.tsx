@@ -21,8 +21,8 @@ export default function AboutPage() {
       icon: Shield,
       title: isEs ? 'Sin letra pequeña' : 'No fine print',
       text: isEs
-        ? '30 noches de prueba. Si no te gusta, lo recogemos y te devolvemos el dinero. Sin preguntas, sin formularios interminables.'
-        : '30-night trial. If you don\'t like it, we pick it up and refund you. No questions, no endless forms.',
+        ? '30 días de prueba. Si no te gusta, lo recogemos y te devolvemos el dinero. Sin preguntas, sin formularios interminables.'
+        : '30-day trial. If you don\'t like it, we pick it up and refund you. No questions, no endless forms.',
     },
     {
       icon: Heart,
@@ -41,10 +41,10 @@ export default function AboutPage() {
   ]
 
   const stats = [
-    { value: '4', label: isEs ? 'Productos especializados' : 'Specialized products' },
-    { value: '30', label: isEs ? 'Noches de garantía' : 'Night guarantee' },
-    { value: '24h', label: isEs ? 'Procesamiento en 24h' : 'Order processing' },
-    { value: 'EU', label: isEs ? 'Envío en Europa' : 'Shipping in Europe' },
+    { value: '1', label: isEs ? 'Producto, bien elegido' : 'One product, chosen well' },
+    { value: '12', label: isEs ? 'Accesorios incluidos' : 'Accessories included' },
+    { value: '30', label: isEs ? 'Días para probarlo' : 'Days to try it' },
+    { value: '24-72h', label: isEs ? 'Envío con seguimiento' : 'Tracked shipping' },
   ]
 
   return (
@@ -63,13 +63,13 @@ export default function AboutPage() {
           </span>
           <h1 className="mt-4 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
             {isEs
-              ? 'Dormir bien no debería ser un lujo'
-              : 'Sleeping well shouldn\'t be a luxury'}
+              ? 'Limpiar no debería costar una tarde'
+              : 'Cleaning shouldn\'t cost you an afternoon'}
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-[#8791a1]">
             {isEs
-              ? 'Somos una marca pequeña, independiente, con una idea clara: crear productos de descanso que funcionen de verdad y cuesten lo justo. Sin inversores, sin juntas directivas, sin márgenes inflados. Solo productos que nos gustan y que usamos nosotros mismos.'
-              : 'We are a small, independent brand with one clear idea: create rest products that actually work and cost what they should. No investors, no board meetings, no inflated margins. Just products we like and use ourselves.'}
+              ? 'Somos una marca pequeña e independiente con una idea clara: quitar la fricción de las tareas del hogar. Empezamos con Nítida Vapor, un limpiador que despega la grasa y la cal solo con agua. Sin inversores, sin juntas directivas y sin márgenes inflados.'
+              : 'We are a small, independent brand with one clear idea: remove friction from household chores. We start with Nítida Vapor, a cleaner that lifts grease and limescale with water only. No investors, no board meetings, no inflated margins.'}
           </p>
         </motion.div>
 
@@ -137,7 +137,7 @@ export default function AboutPage() {
         {/* Trust */}
         <div className="mt-12 grid grid-cols-3 gap-3">
           {[
-            { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping' },
+            { icon: Truck, label: isEs ? 'Envío 24-72 h' : '24-72 h shipping' },
             { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee' },
             { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout' },
           ].map((item) => (

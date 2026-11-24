@@ -1,5 +1,7 @@
 # Nítida — tienda de una página
 
+> **Aviso (24/11/2026):** este documento describe la versión estática antigua, la del cepillo. La tienda activa es el proyecto Next.js de Noctip, reconvertido a **Nítida Vapor** (limpiador de vapor). El plan actual está en **`empieza-aqui.md`** y la estrategia en **`estrategia-compulsiva.md`**.
+
 Página lista para vender **un solo producto**: un cepillo eléctrico giratorio con mango telescópico.
 No necesita Next, ni build, ni servidor: es un `index.html` que se sube tal cual.
 

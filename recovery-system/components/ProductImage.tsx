@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-type ProductType = 'halo' | 'wave' | 'sleep-headband' | 'neck-massager'
+type ProductType = 'halo' | 'wave' | 'sleep-headband' | 'neck-massager' | 'vapor'
 
 type Props = {
   slug: ProductType
@@ -178,6 +178,87 @@ const PRODUCT_GRAPHICS: Record<ProductType, {
         <rect x="193" y="299" width="14" height="4" rx="1" fill="#10BFD8" opacity="0.4" />
       </svg>
     )
+  },
+  'vapor': {
+    gradient: 'from-[#0b1a24] via-[#0a141d] to-[#0b1a24]',
+    elements: (
+      <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
+        <defs>
+          <radialGradient id="vapor-glow">
+            <stop offset="0%" stopColor="#10BFD8" stopOpacity="0.18" />
+            <stop offset="60%" stopColor="#10BFD8" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#10BFD8" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="vapor-body" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#eafbff" stopOpacity="0.9" />
+            <stop offset="45%" stopColor="#bfeaf2" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#7fd9ff" stopOpacity="0.55" />
+          </linearGradient>
+          <linearGradient id="vapor-handle" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#f2eee7" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#10BFD8" stopOpacity="0.5" />
+          </linearGradient>
+        </defs>
+
+        <circle cx="200" cy="200" r="165" fill="url(#vapor-glow)" />
+
+        {/* Steam puffs */}
+        {[0, 1, 2, 3].map((i) => (
+          <g key={i} opacity={0.35 - i * 0.06}>
+            <path
+              d={`M${118 - i * 18} ${268 - i * 8} C${92 - i * 20} ${250 - i * 10}, ${88 - i * 20} ${228 - i * 10}, ${108 - i * 22} ${214 - i * 10}`}
+              stroke="#7FD9FF"
+              strokeWidth={2 - i * 0.25}
+              strokeLinecap="round"
+              strokeDasharray="4 7"
+            />
+            <path
+              d={`M${120 - i * 16} ${286 + i * 6} C${92 - i * 18} ${288 + i * 8}, ${78 - i * 18} ${272 + i * 8}, ${86 - i * 18} ${252 + i * 8}`}
+              stroke="#10BFD8"
+              strokeWidth={1.6 - i * 0.2}
+              strokeLinecap="round"
+              strokeDasharray="3 8"
+            />
+          </g>
+        ))}
+
+        {/* Nozzle */}
+        <path d="M176 250 L120 272 L126 292 L180 276 Z" fill="#cfeef6" fillOpacity="0.55" stroke="#7FD9FF" strokeWidth="1.2" strokeOpacity="0.7" />
+        <path d="M124 274 L112 279" stroke="#eafbff" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.8" />
+
+        {/* Body / tank */}
+        <rect x="176" y="158" width="92" height="152" rx="30" fill="url(#vapor-body)" fillOpacity="0.18" stroke="#bfeaf2" strokeWidth="2" strokeOpacity="0.75" />
+        <rect x="188" y="186" width="68" height="106" rx="20" fill="#0b1520" fillOpacity="0.35" stroke="#10BFD8" strokeWidth="1" strokeOpacity="0.25" />
+
+        {/* Water level */}
+        <path d="M194 250 Q222 242 250 250 L250 280 Q222 288 194 280 Z" fill="#10BFD8" fillOpacity="0.18" />
+        <path d="M194 250 Q222 242 250 250" stroke="#10BFD8" strokeWidth="1.2" strokeOpacity="0.55" />
+
+        {/* Handle */}
+        <path d="M186 170 C186 120, 214 108, 240 118 C258 125, 262 150, 256 172" stroke="url(#vapor-handle)" strokeWidth="16" strokeLinecap="round" fill="none" />
+        <path d="M186 170 C186 120, 214 108, 240 118 C258 125, 262 150, 256 172" stroke="#0b1520" strokeWidth="7" strokeLinecap="round" fill="none" strokeOpacity="0.35" />
+
+        {/* Trigger */}
+        <path d="M252 194 L268 202 L262 224 L246 216 Z" fill="#10BFD8" fillOpacity="0.55" stroke="#7FD9FF" strokeWidth="1" strokeOpacity="0.6" />
+
+        {/* Safety cap */}
+        <rect x="198" y="146" width="48" height="14" rx="7" fill="#f2eee7" fillOpacity="0.35" stroke="#eafbff" strokeWidth="1" strokeOpacity="0.5" />
+
+        {/* Power light */}
+        <circle cx="218" cy="236" r="5" fill="#10BFD8" />
+        <circle cx="218" cy="236" r="10" fill="#10BFD8" fillOpacity="0.18" />
+
+        {/* Accessories floating */}
+        <g opacity="0.55">
+          <circle cx="304" cy="168" r="16" stroke="#7FD9FF" strokeWidth="1.4" />
+          {[0, 45, 90, 135].map((a) => (
+            <line key={a} x1="304" y1="168" x2={304 + 14 * Math.cos((a * Math.PI) / 180)} y2={168 + 14 * Math.sin((a * Math.PI) / 180)} stroke="#7FD9FF" strokeWidth="1" />
+          ))}
+          <rect x="292" y="204" width="24" height="10" rx="4" stroke="#10BFD8" strokeWidth="1.2" />
+          <path d="M292 224 L316 224 L312 238 L296 238 Z" stroke="#10BFD8" strokeWidth="1.2" />
+        </g>
+      </svg>
+    )
   }
 }
 
@@ -188,27 +269,31 @@ export default function ProductImage({ slug, color, icon, images, alt, className
   const hasRealImage = images && images.length > activeIndex && !imgError[activeIndex]
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ background: color }}>
-      {/* Background gradient always visible */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient}`} />
-      
-      {/* SVG illustration always visible as background */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        {config.elements}
-      </div>
-      
+    <div className={`relative overflow-hidden ${className}`} style={{ background: hasRealImage ? '#f5f0eb' : color }}>
+      {!hasRealImage && (
+        <>
+          {/* Background gradient always visible */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${config.gradient}`} />
+
+          {/* SVG illustration always visible as background */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            {config.elements}
+          </div>
+        </>
+      )}
+
       {/* Real image on top if available — opacity-100 always, onError removes it */}
       {hasRealImage && (
-        <img 
+        <img
           key={`${slug}-${activeIndex}`}
-          src={images![activeIndex]} 
-          alt={alt || 'Product'} 
+          src={images![activeIndex]}
+          alt={alt || 'Product'}
           onError={() => setImgError(prev => ({ ...prev, [activeIndex]: true }))}
-          className="absolute inset-0 h-full w-full object-contain p-4"
+          className="absolute inset-0 h-full w-full object-contain p-3 sm:p-4"
           style={{ objectPosition: 'center center' }}
         />
       )}
-      
+
       {/* Icon badge removed — was showing as unwanted square */}
     </div>
   )

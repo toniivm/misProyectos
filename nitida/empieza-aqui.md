@@ -1,117 +1,106 @@
-# La decisión: qué tienda, con qué modelo y cuándo
+# Empieza aquí — Nítida Vapor
 
-> **Revisión del 24/11, después de analizar los anuncios activos en España:** el héroe recomendado deja de ser el cepillo y pasa a ser el **limpiador de vapor a 49,99 €**. El análisis está en **`tiendas-que-funcionan.md`**. Este documento sigue valiendo para el modelo (Blissy: un héroe, tres packs, un país), el proveedor, las fotos, el legal y los números; donde dice «cepillo», léelo como «el héroe que elijas». La opción del cepillo queda como plan B.
+**La tienda ya está montada. Esto es lo que hay, lo que falta y lo que se hace hoy.**
 
-**24/11/2026. Esto es lo que haría yo con mi dinero. No hay opciones: hay un camino.**
-
-## 1. La elección
+## 1. La decisión final
 
 | Decisión | Qué |
 |---|---|
-| **Modelo** | **Blissy**: un solo héroe, tres packs, un solo país. |
-| **Producto** | El cepillo eléctrico giratorio. |
-| **Proveedor** | **Dropea**, solo si el SKU cuesta ≤ 17 € y el stock es real. |
+| **Modelo** | Tienda de **compra impulsiva**: un héroe, tres packs, precio de entrada bajo. |
+| **Producto** | **Nítida Vapor** — limpiador de vapor a presión, 1.050 W, 3 bar, 115 °C, 12 accesorios. |
+| **Entrada** | **1 unidad: 39,99 €**. Por debajo de la barrera de 50 €. |
+| **Pack dúo** | **2 unidades: 69,99 €** (35,00 €/ud). El que se destaca como «más elegido». |
+| **Pack familia** | **3 unidades: 94,99 €** (31,66 €/ud). |
+| **Proveedor** | Dropea o BigBuy. Objetivo de coste: **≤ 15 €/ud** a 50 unidades. |
 | **Mercado** | España. Solo España hasta 300 pedidos. |
-| **Precio** | 39,99 € / 69,99 € (2) / 94,99 € (3). El de 2 preseleccionado. |
-| **Cuándo** | Página publicada el 1 de diciembre. Anuncios de pago desde el **7 de enero**. |
-| **Presupuesto** | **280 €** (20 €/día × 14 días). Ni un euro más hasta que el CPA baje de 25 €. |
-| **Objetivo** | 40 pedidos en enero, CPA ≤ 20 €, ticket ≥ 65 €. |
+| **Web** | La web de Noctip, reconvertida a Nítida Vapor. Checkout real con Stripe. |
+| **Presupuesto** | **280 €** en 14 días (20 €/día). Ni un euro más hasta que el CPA baje de 25 €. |
 
-**Por qué esta y no las otras ocho:**
+### Por qué el vapor y no otro producto
 
-- **Samako** (14,69 $/visita) es el destino, pero necesita 83 referencias, almacén y 5.900 reseñas. No se empieza por ahí.
-- **Glov** (10,59) vive del recambio. Nítida aún no tiene precio de cabezales. Se añade en febrero.
-- **Loop** (1,41) es el espejo exacto: producto único, 49 referencias, 13.000 anuncios. Su liga es la tuya.
-- **Ridge** (4,05) necesita marca y 12 años.
-- **Oodie** (2,17) es un regalo de temporada; el cepillo no.
-- **Squatch** (2,09) es recompra pura; el cepillo no se recompra, los cabezales sí.
-- **Momcozy** (0,65) es catálogo; con un producto no se puede.
-- **Los clones** están a 0 €. No.
+- **VaporSeguro** lleva **más de un año** con **573 anuncios activos** vendiendo un limpiador de vapor a 49,99 €. Eso no se hace si no vende.
+- **Di4** vende una fregona eléctrica a **239,40 €**. En España se paga por limpiar bien.
+- **Zabon** gana **10,15 $ por visita** con un limpiador de 15,99 € y suscripción. El negocio está en la recompra, no en el aparato.
+- El cepillo giratorio no tiene ninguna tienda española con tráfico; la única dedicada al mismo producto tiene **0 visitas**.
 
-## 2. Por qué no gasto en Black Friday
+## 2. La tienda (lo que ya está hecho)
 
-Tres razones, en orden de peso:
+- **Home** con héroe, antes/después, 3 problemas, cómo funciona, 12 accesorios, ficha técnica, comparativa, garantía, 8 FAQ y CTA final.
+- **Ficha de producto** con galería real, selector de packs, añadir al carrito, ficha y FAQ.
+- **Carrito y checkout** reales, con Stripe. Probado: pack 1 = 39,99 €, pack 2 = 69,99 €, pack 3 = 94,99 €.
+- **3 packs** conectados al catálogo y al checkout.
+- **Precio de entrada 39,99 €**, sin precio tachado falso.
+- **Legal** actualizado a Nítida, envíos 24-72 h y 30 días.
+- **SEO**: título, descripción, JSON-LD de producto, FAQ, breadcrumb y sitemap.
+- **Móvil**: sin scroll horizontal, botones de 44-56 px, CTA fijo abajo.
+- **Imágenes**: 3 fotos reales del mismo modelo OEM (producto, 12 accesorios y uso). Hay que sustituirlas por fotos propias en cuanto llegue la unidad.
 
-1. **No llegas.** Hoy es 24. BF es el 27. No hay cuenta de Dropea, ni SKU elegido, ni fotos, ni enlace de Stripe. Publicar el 26 con fotos de catálogo es la receta de 0 ventas y 300 € quemados.
-2. **El cepillo no es un regalo de BF.** BF mueve electrónica, moda y juguetes. Un cepillo de baño es una tarea del hogar. Su pico es **enero** (vuelta a casa, propósitos) y **primavera** (limpieza a fondo).
-3. **BF es caro.** Todos los anunciantes pujan a la vez; el clic sube y el aprendizaje de una página nueva se compra al doble de precio. En enero compites con menos gente y con el mensaje correcto.
+## 3. Lo que falta (y es lo que decide si vende)
 
-**Lo que sí hacemos en diciembre:** publicar, 3 TikToks por semana sin pagar, 10 pedidos orgánicos y las primeras reseñas reales. Eso vale más que 300 € en BF.
+1. **Proveedor con stock real y coste ≤ 15 €.** Sin esto, el margen no aguanta los anuncios.
+2. **Contra reembolso (COD).** Es el disparador más fuerte en España. El checkout actual solo acepta tarjeta. Es la prioridad número uno.
+3. **Fotos propias.** Las actuales son del mismo modelo, pero no son tuyas. En cuanto tengas la unidad, 6 fotos y un vídeo de 12 s.
+4. **Reseñas reales.** Cero inventadas. Las 10 primeras se piden a los primeros clientes.
+5. **Dominio.** `noctip.com` funciona; a medio plazo, `nitida.es`.
 
-## 3. Lo que haces tú (3 cosas, 1 tarde)
+## 4. Los números
 
-1. **Alta en Dropea** (10 min): `dropea.com` → *Quiero empezar a vender* → Dropshipper. Pide NIF, teléfono y firma.
-2. **Fotos y vídeo**: 6 fotos + 1 vídeo de 12 s con el móvil. La lista exacta está en `media/LEEME.txt`.
-3. **Stripe y dominio**: 3 enlaces de pago y `nitida.es` (o el que quieras).
-
-Cuando tengas el SKU, mándame el enlace. Yo ajusto la ficha a sus especificaciones reales y monto los 3 vídeos.
-
-## 4. Lo que hago yo cuando me lo pases
-
-- Cambiar las especificaciones de la ficha por las del SKU real (nada que no esté en la ficha del proveedor).
-- Montar los 3 anuncios en 9:16 con las fotos reales.
-- Dejar el calendario de TikTok de diciembre (3/semana, sin pagar).
-- Dejar los 4 emails de enero (bienvenida, carrito, post-compra, recuperación).
-- Revisar la página en móvil y publicarla.
-
-## 5. Calendario
-
-| Fechas | Qué | Coste |
-|---|---|---|
-| 24-30 nov | Alta Dropea, 5 preguntas, elegir SKU, fotos, Stripe | 0 € |
-| 1-20 dic | Página publicada. 3 TikToks/semana. Sin ads. | 0 € |
-| 21 dic-6 ene | Pausa. Logística navideña saturada. | 0 € |
-| **7-31 ene** | **20 €/día. 3 anuncios. Objetivo 40 pedidos.** | **280 €** |
-| Febrero | Recambios + suscripción. Subir ticket a 70 €. | — |
-| Marzo | Segunda máquina (vapor o aspirador) si hay 300 pedidos. | — |
-
-## 6. Los 3 anuncios (no 20)
-
-| # | Gancho | Qué se ve | Duración |
-|---|---|---|---|
-| 1 | «La junta negra no se limpia frotando» | Suciedad real → 3 pasadas → limpio | 12 s |
-| 2 | «Le di esto a mi madre para no agacharse» | Persona real, de pie, mango extendido | 15 s |
-| 3 | «Una hora de tu domingo o 15 minutos» | Manos frotando → cepillo girando | 15 s |
-
-Regla: **3 vídeos, 7 días, 20 €/día.** El que tenga retención a 3 s por debajo del 25 %, fuera. Se reemplaza uno, no los tres.
-
-## 7. El dinero, otra vez
-
-| Concepto | 1 ud | 2 uds | 3 uds |
+| | 1 ud | 2 uds | 3 uds |
 |---|---|---|---|
 | Precio | 39,99 € | 69,99 € | 94,99 € |
-| Producto | −16,00 € | −32,00 € | −48,00 € |
-| Envío | −4,00 € | −4,00 € | −4,00 € |
-| Contra reembolso | −2,50 € | −2,50 € | −2,50 € |
-| Pasarela | −0,60 € | −0,90 € | −1,20 € |
-| **Margen** | **16,89 €** | **30,59 €** | **39,29 €** |
-| **CPA máximo** | 14 € | 26 € | 32 € |
+| Producto (18 €/ud) | −18,00 € | −36,00 € | −54,00 € |
+| Envío | −4,00 € | −4,00 € | −5,00 € |
+| COD (si se activa) | −2,50 € | −2,50 € | −2,50 € |
+| Pasarela | −0,80 € | −1,20 € | −1,50 € |
+| **Margen** | **14,69 €** | **26,29 €** | **31,99 €** |
+| **CPA máximo** | 12 € | 22 € | 28 € |
 
-Con 20 €/día y CPA de 20 €, enero deja ~40 pedidos y ~1.200 € de margen. No es el negocio de tu vida: es la prueba de que sabes comprar tráfico. El negocio de tu vida es la máquina de 129-249 €.
+**Con coste de 15 €/ud**, el margen del dúo sube a **32,29 €** y el CPA máximo a 28 €. Negociar 3 € por unidad es lo que decide si esto escala.
 
-## 8. Criterios de muerte (escritos antes de empezar)
+## 5. Plan de 7 días (empezando hoy)
 
-- CPA > 30 € durante 3 días seguidos con más de 1.000 visitas → parar y cambiar el gancho.
-- Conversión < 1 % con 2.000 visitas → el problema es la página o el precio, no el anuncio.
-- Devoluciones > 8 % → el producto no cumple lo que promete la página. Parar.
-- Proveedor sin stock 2 veces en 30 días → cambiar de proveedor antes de escalar.
+| Día | Acción | Coste |
+|---|---|---|
+| **Hoy** | Cerrar SKU y coste. Pedir 1 unidad de muestra. Publicar la web. | 0 € |
+| **Hoy** | Grabar 3 clips con la muestra: juntas, vitro, mampara. | 0 € |
+| **Hoy** | Publicar 3 TikToks. Sin anuncios. | 0 € |
+| **Mañana** | Si un vídeo pasa de 10.000 visitas, meter 20 €/día. | 20 € |
+| **Día 3** | Email de carrito abandonado + WhatsApp. | 0 € |
+| **Día 4** | 5 microcreadores de limpieza. Producto + 15 %. | 5 productos |
+| **Día 7** | Revisar CPA. Matar el peor anuncio. Duplicar el mejor. | 140 € |
 
-## 9. El mensaje a Dropea (copiar y pegar)
+## 6. Negociación con el proveedor (copiar y pegar)
 
-> Hola. Voy a lanzar una tienda de limpieza en España y quiero trabajar con vosotros como dropshipper.
+> Hola. Voy a lanzar Nítida Vapor en España y quiero trabajar con vosotros de forma recurrente. Antes de empezar necesito cerrar estas condiciones:
 >
-> Antes de empezar necesito confirmar cinco cosas por escrito:
+> 1. Precio unitario para 10, 50 y 100 unidades.
+> 2. Plazo real de entrega a Madrid en días laborables.
+> 3. ¿Podéis enviar contra reembolso? ¿Qué comisión cobráis?
+> 4. ¿La factura lleva IVA español deducible?
+> 5. ¿Quién asume el paquete rechazado y la devolución de un defectuoso?
+> 6. ¿Podéis servir con embalaje neutro (sin vuestra marca)?
 >
-> 1. Para la referencia **[SKU]**, ¿desde qué almacén sale y cuál es el plazo real a Madrid en días laborables?
-> 2. ¿La factura lleva IVA español deducible o es de Dropea Limited (Malta)?
-> 3. ¿Cuánto cobráis exactamente por pedido? Desglose: gestión, contra reembolso y envío.
-> 4. Si el cliente rechaza el paquete, ¿lo pago yo? ¿Cuánto?
-> 5. ¿Quién paga la devolución de un producto defectuoso y en qué plazo?
->
-> Si me lo confirmáis, hago el primer pedido esta semana.
+> Si el precio a 50 unidades baja de 15 €, empiezo con 50 y escalo.
 
-Si no contestan las 5 en 24 h, eso ya es la respuesta.
+## 7. KPIs y criterios de muerte
+
+| Métrica | Objetivo | Muerte |
+|---|---|---|
+| Conversión | ≥ 2,5 % | < 1 % con 2.000 visitas |
+| CPA | ≤ 20 € | > 30 € durante 3 días |
+| Ticket medio | ≥ 60 € | < 45 € |
+| RPV | ≥ 1,50 € | < 1,00 € |
+| Devoluciones | < 8 % | > 12 % |
+| Entrega 24-72 h | ≥ 90 % | < 80 % |
+
+## 8. Lo que no se hace
+
+- **No inventar reseñas.** Cero.
+- **No inventar urgencia.** «Solo quedan 3» solo si quedan 3.
+- **No poner precio tachado falso.** El anterior debe ser el más bajo de 30 días.
+- **No prometer 24-72 h** si el proveedor no lo firma.
+- **No gastar en 20 anuncios.** 3 vídeos, 7 días, y se decide.
 
 ---
 
-**Resumen:** Blissy, no Samako. Cepillo, no máquina. Enero, no Black Friday. 280 €, no 3.000 €. Tres anuncios, no veinte.
+**Resumen:** la tienda ya vende un limpiador de vapor de 39,99 € con packs de 2 y 3. Falta el proveedor, el COD y las fotos propias. El resto está hecho y probado.

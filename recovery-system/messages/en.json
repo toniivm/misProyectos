@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Noctip™ | Sleep tools that work from night one",
-    "description": "Anti-snoring mouthpieces, posture correctors, sleep audio headbands, and cervical massagers. Free shipping. 30-night guarantee."
+    "title": "Nítida Vapor™ | Pressurised steam cleaner with 12 accessories",
+    "description": "Pressurised steam cleaner with 12 accessories. Lifts grease and limescale without scrubbing. 24-72 h shipping, 30-day trial and 2-year warranty."
   },
   "nav": {
-    "brand": "NOCTIP™",
+    "brand": "NÍTIDA™",
     "login": "Sign in",
     "logout": "Log out"
   },
@@ -36,7 +36,7 @@
     "free": "Free",
     "total": "Total",
     "checkout": "Proceed to checkout",
-    "secureCheckout": "100% secure payment · 30-night guarantee",
+    "secureCheckout": "100% secure payment · 30-day guarantee",
     "item": "item",
     "items": "items"
   },
@@ -78,7 +78,7 @@
     "subtotalLine": "Subtotal",
     "shippingLine": "Shipping",
     "totalLine": "Total",
-    "guaranteeBadge": "30-night trial — or we refund everything"
+    "guaranteeBadge": "30-day trial — or we refund everything"
   },
   "category": {
     "allProducts": "All products",
@@ -104,7 +104,7 @@
     "returns": "30-day returns",
     "secureCheckout": "Secure checkout",
     "shippingInfo": "Shipping & delivery",
-    "shipsIn": "Ships within 24 hours · arrives in 3–5 business days · Free on all orders",
+    "shipsIn": "Ships in 24-72 h · free on all orders",
     "faqHeading": "Frequently asked questions",
     "faqSubheading": "Quick answers before you add it to your routine.",
     "relatedProducts": "More from",
@@ -147,10 +147,10 @@
     "tagline": "We sleep better so you live better.",
     "shop": "Shop",
     "support": "Support",
-    "returns": "30 nights to return",
-    "shipping": "Free shipping always",
+    "returns": "30 days to return",
+    "shipping": "24-72 h shipping",
     "rights": "All rights reserved.",
     "securePayments": "100% secure payment (Stripe + SSL)",
-    "trustBadge": "Free shipping · 30-night guarantee · Secure checkout"
+    "trustBadge": "24-72 h shipping · 30-day guarantee · Secure checkout"
   }
 }

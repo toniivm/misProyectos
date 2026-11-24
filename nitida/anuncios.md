@@ -1,94 +1,85 @@
-# Anuncios de Nítida
+# Anuncios de Nítida Vapor (9:16, sin voz)
 
-Todo en **9:16**, 1080×1920, con subtítulos quemados. Se ve sin sonido y se entiende.
-El 90 % de la gente que compre va a ver **los primeros 2 segundos**. Ahí se gana o se pierde.
+**Regla:** 3 vídeos, no 20. Cada uno de 12-15 s. Se entiende sin sonido. Texto grande, plano corto y suciedad real.
 
----
+## Los 5 ganchos (elegir 3)
 
-## Los 5 ganchos (usa uno por vídeo, nunca dos)
-
-1. **«Llevas años fregando el baño de rodillas. Esto lo hace de pie.»**
-2. **«Mira lo que sale de una junta que parecía limpia.»**
-3. **«Mi madre tiene 67 años y ya no se agacha para limpiar el baño.»**
-4. **«39,99 €. Menos que una hora de limpieza.»**
-5. **«El antes y después que no te esperas.»**
-
-Regla: el gancho se dice **y** se escribe en pantalla en el primer segundo.
+1. **«La junta de la ducha no se limpia frotando.»**
+2. **«Le di esto a mi madre para que dejara de agacharse.»**
+3. **«Una hora de tu domingo o 15 minutos.»**
+4. **«Esto sale de la vitro sin rascar.»**
+5. **«Si no quita la cal, te devolvemos el dinero.»**
 
 ---
 
-## Vídeo 1 — «La junta» (12 s, sin voz)
-
-El que más va a vender. No necesita actor ni hablar.
+## Vídeo 1 — «La junta negra» (12 s)
 
 | Tiempo | Imagen | Texto en pantalla |
 |---|---|---|
-| 0,0–2,0 s | Primer plano de una junta negra. La uña rasca y no sale. | **«Esto lleva ahí 3 años»** |
-| 2,0–4,0 s | Entra el cabezal pequeño y gira. La línea se va poniendo blanca. | **«15 segundos»** |
-| 4,0–7,0 s | Plano medio: la persona pasa el cepillo **de pie**, sin agacharse. | «Sin agacharse» |
-| 7,0–9,5 s | Antes/después partido en el mismo plano, con la línea en medio. | **«Misma junta. Mismo día.»** |
-| 9,5–12,0 s | Producto en la mano + precio. | **39,99 €** · Envío 24-72 h · Pago al recibir |
+| 0-2 s | Primer plano de la junta de la mampara, negra. | «Esto no se limpia frotando» |
+| 2-5 s | Nítida Vapor con la boquilla angular. Tres pasadas lentas. | «Vapor a 3 bar» |
+| 5-8 s | La misma junta, mismo ángulo, sale blanca. | «Sin lejía. Sin frotar.» |
+| 8-11 s | Producto entero + 12 accesorios. | «12 accesorios · 1.050 W» |
+| 11-12 s | Precio y CTA. | «39,99 € · Pagas al recibir» |
 
-Cómo grabarlo: móvil apoyado, luz del baño encendida, trípode o dos libros. Graba 20 s de la junta sucia y 20 s limpia **desde el mismo sitio**. El corte lo haces tú.
+**Cómo grabarlo:** trípode o móvil apoyado. Luz del baño encendida. Enfoque manual en la junta. No cortes entre la suciedad y el resultado: mismo plano, misma luz.
 
-## Vídeo 2 — «Mi madre» (18 s, con voz)
+## Vídeo 2 — «Mi madre» (15 s)
 
-El de storytelling. Aquí no vendes un cepillo: vendes que su madre no se ponga de rodillas.
-
-| Tiempo | Imagen | Voz / texto |
+| Tiempo | Imagen | Texto en pantalla |
 |---|---|---|
-| 0–3 s | Mujer de 60+ de frente, con el cepillo viejo en la mano, en el baño. | «Mi madre lleva 30 años limpiando el baño de rodillas.» |
-| 3–6 s | Se agacha y le cuesta levantarse. | «Y cada vez le cuesta más.» |
-| 6–9 s | Le da el mango extendido. Ella lo mira. | «Le di esto y no entendía nada.» |
-| 9–14 s | Pasa el cepillo de pie por el plato de ducha. La junta sale blanca. | «Ahora limpia de pie. Y en la mitad de tiempo.» |
-| 14–16 s | Ella sonríe, de pie, con el producto. | «No es magia. Es un mango largo.» |
-| 16–18 s | Producto + precio. | 39,99 € · Envío gratis · Pago al recibir |
+| 0-2 s | Una mujer real (madre, tía, vecina) de pie, mirando la mampara. | «Mi madre se agachaba para esto» |
+| 2-5 s | Ella pasa la boquilla por las juntas. | «Ya no» |
+| 5-9 s | El agua sucia sale; la junta queda blanca. | «Solo agua» |
+| 9-13 s | Ella sonríe, de pie, con el producto. | «No es magia. Es vapor.» |
+| 13-15 s | Producto + precio. | «39,99 € · Envío 24-72 h» |
 
-Truco: que la señora sea **real** (tu madre, tu tía, una vecina). Los actores jóvenes fingiendo ser mayores no funcionan.
+**Truco:** que la señora sea real. Los actores jóvenes fingiendo ser mayores no funcionan.
 
-## Vídeo 3 — «El precio» (15 s, sin voz)
-
-Para retargeting y para quien ya vio los otros dos.
+## Vídeo 3 — «Una hora o 15 minutos» (15 s)
 
 | Tiempo | Imagen | Texto |
 |---|---|---|
-| 0–2 s | Las manos frotando con un cepillo pequeño, rápido. | «Una hora de tu domingo» |
-| 2–5 s | Corte seco: Nítida girando, 3 pasadas. | «O 15 minutos» |
-| 5–9 s | Los 9 accesorios alineados, uno a uno. | «9 accesorios» · «mango telescópico» · «90 min» |
-| 9–12 s | Producto + caja. | «Kit completo» |
-| 12–15 s | Precio grande. | **39,99 €** · envío gratis · pago al recibir |
+| 0-2 s | Manos frotando una vitro con un estropajo, rápido. | «Una hora de tu domingo» |
+| 2-5 s | Corte seco: Nítida Vapor, 3 pasadas. | «O 15 minutos» |
+| 5-9 s | La grasa se despega; la vitro brilla. | «Sin rascar» |
+| 9-12 s | Producto + caja + 12 accesorios. | «Kit completo» |
+| 12-15 s | Precio grande. | **39,99 €** · envío gratis |
 
 ---
 
 ## Textos de publicación
 
 **TikTok / Reels (Vídeo 1):**
-> La junta de la ducha no se limpia frotando. Se limpia girando.
-> 39,99 €, envío 24-72 h y pagas cuando lo recibes.
+> La junta de la ducha no se limpia frotando. Se limpia girando el vapor.
+> 39,99 €, envío 24-72 h y 30 días para probarlo.
 > #limpieza #hogar #trucosdecasa #baño #españa
 
 **TikTok (Vídeo 2):**
 > Le di esto a mi madre para que dejara de agacharse. No esperaba su reacción.
 > #parati #madres #limpieza #regalos
 
-Sin emojis a cascoporro, sin «link en bio» repetido, sin mayúsculas gritonas.
+**TikTok (Vídeo 3):**
+> Una hora frotando o 15 minutos con vapor. Tú eliges.
+> #limpieza #vitro #cocina #trucos
 
 ---
 
-## Plan de 4 días
+## Plan de publicación
 
 | Día | Qué |
 |---|---|
-| Hoy | Subir la página. Grabar los 3 vídeos. Publicar el 1 en TikTok y Reels. |
-| Mañana | Publicar el 2. €20 de prueba en TikTok Ads (o Meta), **un solo conjunto**, España, 25-65, intereses: hogar/limpieza. No tocar en 24 h. |
-| Día 3 | Mirar retención a 3 s. Si el vídeo 1 retiene >30 %, duplicar su presupuesto y publicar el 3. |
-| Día 4 | Responder **todos** los comentarios y DMs en menos de 1 h. Es la mitad de las ventas. |
+| Lunes | Vídeo 1 orgánico |
+| Miércoles | Vídeo 2 orgánico |
+| Viernes | Vídeo 3 orgánico |
+| Sábado | Revisar: el que tenga más retención a 3 s, se convierte en anuncio |
 
-## Lo que hay que mirar (y nada más)
+**Métrica que decide:** retención a 3 segundos. Si baja del 25 %, el gancho no funciona. Se cambia el gancho, no el producto.
 
-- **Retención a 3 s** > 30 % → el gancho funciona.
-- **CPA** < 14 € en 1 unidad, < 26 € en el pack → hay negocio.
-- **Tasa de entrega contra reembolso** > 70 % → si baja, quita el COD y deja solo tarjeta.
-- **1-5 ventas en 72 h** = validado. **10+** = a escalar.
+## Lo que no se dice
 
-Si a las 48 h el CPA está por encima del doble del margen, se apaga. Sin dramas y sin «esperar a que remonte».
+- No «cura», no «desinfecta el 99,9 %» sin informe.
+- No «el mejor del mercado».
+- No «solo quedan 3» si hay 300.
+- No «antes 89,99 €» si no fue tu precio real.
+- No testimonios inventados.

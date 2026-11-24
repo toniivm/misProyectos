@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useLocale } from 'next-intl'
 import Link from 'next/link'
-import Image from 'next/image'
 import { CATEGORIES, getLocalizedCategoryName } from '../lib/catalog'
 import { Shield, CreditCard, Truck, RotateCcw, Mail, ArrowRight, Check, Lock } from 'lucide-react'
 import PaymentLogos from './PaymentLogos'
@@ -50,20 +49,13 @@ export default function Footer() {
           {/* Brand column */}
           <div className="sm:col-span-2 lg:col-span-4 space-y-5">
             <div className="flex items-center gap-3">
-              <Image
-                src="/images/logo/logo-compact.webp"
-                alt="Noctip"
-                width={38}
-                height={38}
-                className="object-contain"
-                sizes="38px"
-              />
-              <span className="text-[14px] font-extrabold uppercase tracking-[0.2em] text-[#1a1a1a]">Noctip</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#10BFD8] text-[20px] font-extrabold leading-none text-[#041014]">N</span>
+              <span className="text-[14px] font-extrabold uppercase tracking-[0.16em] text-[#1a1a1a]">Nítida</span>
             </div>
             <p className="max-w-sm text-[12px] sm:text-[13px] leading-[1.7] text-[#6b7785]">
               {isEs
-                ? 'Herramientas de sueño y recuperación que funcionan. Anti-ronquidos, corrección postural y masaje cervical — diseñados para gente que no puede dormir mal.'
-                : 'Sleep and recovery tools that work. Anti-snoring, posture correction, and cervical massage — designed for people who can\'t afford to sleep badly.'}
+                ? 'Limpiadores de vapor que despegan la grasa y la cal sin frotar. Solo agua, 12 accesorios y 2 años de garantía. Para gente que quiere limpiar en menos tiempo.'
+                : 'Steam cleaners that lift grease and limescale without scrubbing. Water only, 12 accessories and a 2-year warranty. For people who want to clean in less time.'}
             </p>
 
             {/* Customer Service inline */}
@@ -99,7 +91,7 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <Link href={`/${locale}/shop/all`}
+                <Link href={`/${locale}/products/vapor`}
                   className="text-[13px] text-[#6b7785] transition-colors hover:text-[#1a1a1a]">
                   {isEs ? 'Ver todos' : 'All products'}
                 </Link>
@@ -195,10 +187,10 @@ export default function Footer() {
         {/* Trust bar */}
         <div className="mt-10 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping', sub: isEs ? 'En todos los pedidos' : 'On all orders' },
+            { icon: Truck, label: isEs ? 'Envío 24-72 h' : '24-72 h shipping', sub: isEs ? 'Con seguimiento' : 'Tracked delivery' },
             { icon: RotateCcw, label: isEs ? 'Devolución 30 días' : '30-day returns', sub: isEs ? 'Sin preguntas' : 'No questions asked' },
             { icon: CreditCard, label: isEs ? 'Pago seguro' : 'Secure payment', sub: 'SSL + Stripe' },
-            { icon: Shield, label: isEs ? 'Garantía 30 noches' : '30-night guarantee', sub: isEs ? 'Devolución completa' : 'Full refund' },
+            { icon: Shield, label: isEs ? 'Garantía 2 años' : '2-year warranty', sub: isEs ? 'Producto nuevo' : 'Brand new unit' },
           ].map(({ icon: Icon, label, sub }) => (
             <div key={label} className="flex items-center gap-2.5 rounded-xl border border-[#e8e2d8] bg-white px-3 py-2.5 transition-all hover:border-[#10BFD8]">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10">
@@ -223,7 +215,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-6 flex flex-col gap-3 border-t border-[#e8e2d8] pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[10px] text-[#9a9a9a]">
-            &copy; {new Date().getFullYear()} Noctip&trade;. {isEs ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+            &copy; {new Date().getFullYear()} Nítida&trade;. {isEs ? 'Todos los derechos reservados.' : 'All rights reserved.'}
           </p>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 rounded-lg border border-[#e8e2d8] bg-white px-2.5 py-1">

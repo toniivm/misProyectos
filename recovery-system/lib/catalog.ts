@@ -21,6 +21,7 @@ export type CatalogProduct = {
   rating: number
   reviewCount: number
   badge?: 'bestseller' | 'new' | 'deal' | 'trending'
+  hidden?: boolean
   shortDescription: string
   shortDescription_en?: string
   shortDescription_es?: string
@@ -39,282 +40,186 @@ export type CatalogProduct = {
 
 export const CATEGORIES: Category[] = [
   {
-    id: 'sleep-audio',
-    slug: 'sleep-audio',
-    name: 'Sleep & Anti-Snoring',
-    name_en: 'Sleep & Anti-Snoring',
-    name_es: 'Sueño y anti-ronquidos',
+    id: 'limpieza',
+    slug: 'limpieza',
+    name: 'Limpieza sin frotar',
+    name_en: 'Clean without scrubbing',
+    name_es: 'Limpieza sin frotar',
     icon: '',
-    description: 'Anti-snoring mouthpieces and sleep audio technology for deeper, quieter rest.',
-    description_en: 'Anti-snoring mouthpieces and sleep audio technology for deeper, quieter rest.',
-    description_es: 'Férulas anti-ronquidos y tecnología de audio para dormir para un descanso más profundo y silencioso.',
-  },
-  {
-    id: 'neck-recovery',
-    slug: 'neck-recovery',
-    name: 'Posture & Recovery',
-    name_en: 'Posture & Recovery',
-    name_es: 'Postura y recuperación',
-    icon: '',
-    description: 'Posture correction and cervical massage tools for pain relief and muscle recovery.',
-    description_en: 'Posture correction and cervical massage tools for pain relief and muscle recovery.',
-    description_es: 'Correctores posturales y masajeadores cervicales para alivio del dolor y recuperación muscular.',
+    description: 'Vapor a presión para despegar grasa, cal y suciedad incrustada. Solo agua.',
+    description_en: 'Pressurised steam to lift grease, limescale and baked-on dirt. Just water.',
+    description_es: 'Vapor a presión para despegar grasa, cal y suciedad incrustada. Solo agua.',
   },
 ]
 
 export const CATALOG: CatalogProduct[] = [
-  // ─── Sleep & Anti-Snoring ──────────────────────────────────────────
   {
-    slug: 'halo',
-    name: 'Noctip Halo',
-    name_en: 'Noctip Halo',
-    name_es: 'Noctip Halo',
-    category: 'sleep-audio',
-    price: 13.99,
-    comparePrice: 29.99,
-    rating: 0,
-    reviewCount: 0,
-    // badge: 'bestseller', // Activar cuando haya datos reales de ventas
-    shortDescription: 'Dormíais separados por los ronquidos. En 1 noche volvéis a dormir abrazados.',
-    shortDescription_en: 'You slept apart because of snoring. In 1 night you sleep together again.',
-    shortDescription_es: 'Dormíais separados por los ronquidos. En 1 noche volvéis a dormir abrazados.',
-    description:
-      'Cada noche que roncas, arruinas tu descanso y el de tu pareja. El Noctip Halo resuelve el problema en su origen: avanza suavemente la mandíbula para abrir la vía aérea, eliminando los ronquidos antes de que empiecen.\n\nEl diseño ajustable de doble capa se adapta perfectamente a tu boca con 10mm de micro-ajustes. Silicona de grado médico, hipoalergénica, suave y segura para uso nocturno. Incluye estuche de viaje compacto.\n\nDesde la primera noche notarás la diferencia. Despiertas descansado, sin fatiga, sin dolor de garganta. Y tu pareja duerme por fin en silencio.',
-    description_en:
-      'Every night you snore, you ruin your rest — and your partner\'s. The Noctip Halo fixes the problem at its source: it gently advances your jaw to open your airway, stopping snoring before it starts.\n\nThe adjustable dual-layer design fits your mouth perfectly with 10mm of micro-adjustments. Medical-grade silicone, hypoallergenic, soft and safe for nightly use. Includes compact travel case.\n\nFrom night one you\'ll feel the difference. You wake up rested, no fatigue, no sore throat. And your partner finally sleeps in silence.',
-    description_es:
-      'Cada noche que roncas, arruinas tu descanso y el de tu pareja. El Noctip Halo resuelve el problema en su origen: avanza suavemente la mandíbula para abrir la vía aérea, eliminando los ronquidos antes de que empiecen.\n\nEl diseño ajustable de doble capa se adapta perfectamente a tu boca con 10mm de micro-ajustes. Silicona de grado médico, hipoalergénica, suave y segura para uso nocturno. Incluye estuche de viaje compacto.\n\nDesde la primera noche notarás la diferencia. Despiertas descansado, sin fatiga, sin dolor de garganta. Y tu pareja duerme por fin en silencio.',
-    features: [
-      'Elimina ronquidos desde la primera noche — abre tu vía aérea',
-      'Ajuste personalizado — 10mm de micro-ajustes para tu boca',
-      'Silicona de grado médico — suave, hipoalergénica, segura',
-      'Diseño de doble capa — sujeta la mandíbula en posición natural',
-      'Estuche de viaje incluido — compacto y discreto',
-      'Reutilizable y fácil de limpiar — se moldea en casa con agua caliente',
-    ],
-    features_en: [
-      'Helps stop snoring from night one — keeps your airway open',
-      'Custom fit — 10 mm of micro-adjustments for your mouth',
-      'Medical-grade silicone — soft, hypoallergenic, safe',
-      'Dual-layer design — holds your jaw in a natural position',
-      'Travel case included — compact and discreet',
-      'Reusable and easy to clean — molds at home with hot water',
-    ],
-    specs: {
-      'Tipo': 'Férula de avanzamiento mandibular anti-ronquidos',
-      'Ajuste': 'Rango de 10mm — micro-ajustes individuales',
-      'Material': 'Silicona médica libre de BPA',
-      'Diseño': 'Doble capa — bandejas superior e inferior',
-      'Moldeado': 'Hervir y morder — ajuste personalizado',
-      'Incluye': 'Férula + estuche de viaje',
-      'Reutilizable': 'Sí — lavable y duradera',
-    },
-    // Foto real del proveedor. Renders IA retirados de la galería (auditoría fotos, 17 Oct).
-    images: [
-      '/images/brand/halo-photo-1.jpg',
-    ],
-    icon: '',
-    cartIcon: '',
-    color: '#0b0f14',
-  },
-  {
-    slug: 'wave',
-    name: 'Noctip Back',
-    name_en: 'Noctip Back',
-    name_es: 'Noctip Back',
-    category: 'neck-recovery',
-    price: 19.99,
-    comparePrice: 31.99,
+    slug: 'vapor',
+    name: 'Nítida Vapor',
+    name_en: 'Nítida Vapor',
+    name_es: 'Nítida Vapor',
+    category: 'limpieza',
+    price: 39.99,
+    comparePrice: 39.99,
     rating: 0,
     reviewCount: 0,
     badge: 'new',
-    shortDescription: 'Camisa torcida a las 4pm, pareces mayor. En 15 min al día vas erguido.',
-    shortDescription_en: 'Shirt twisted at 4pm, you look older. 15 min a day and you walk upright.',
-    shortDescription_es: 'Camisa torcida a las 4pm, pareces mayor. En 15 min al día vas erguido.',
+    shortDescription: 'La grasa y la cal se derriten. Tú no.',
+    shortDescription_en: 'Grease and limescale melt away. You don’t.',
+    shortDescription_es: 'La grasa y la cal se derriten. Tú no.',
     description:
-      'Tu columna recuerda la mala postura. Cada hora encorvado frente al ordenador se acumula y termina en dolor crónico. El Noctip Back reentrena tu postura con soporte ergonómico en forma de Y que jala tus hombros hacia atrás suavemente.\n\nCorreas ajustables de XS a XL, se adapta a cualquier cuerpo. Úsalo debajo de la ropa — nadie lo notará. Solo 15 minutos al día son suficientes para reconstruir el hábito.\n\nEn dos semanas, tu cuerpo recuerda solo. Sin dolor, sin esfuerzo consciente. Tu quiropráctico notará la diferencia.',
+      'Limpiador de vapor a presión con 12 accesorios. Solo agua del grifo: 1.050 W, 3 bar y hasta 115 °C para despegar grasa, cal y suciedad incrustada de cocina, baño, cristales y tapicería.\n\nSe calienta en 3-5 minutos, se apaga solo cuando se queda sin agua y pesa poco: se usa con una mano. Incluye 12 accesorios para cocina, baño, juntas, mamparas, cristales, tapicería y coche.\n\nGarantía de 2 años, 30 días para probarlo y pago seguro con tarjeta. Sin detergentes: no quedan restos de producto en la vitro ni en el colchón.',
     description_en:
-      'Your spine remembers bad posture. Every hour hunched over your desk accumulates into chronic pain. The Noctip Back retrains your posture with ergonomic Y-shaped support that gently pulls your shoulders back.\n\nAdjustable straps from XS to XL, fits any body. Wear it under your clothes — nobody will notice. Just 15 minutes a day is enough to rebuild the habit.\n\nIn two weeks, your body remembers on its own. No pain, no conscious effort. Your chiropractor will notice the difference.',
+      'Pressurised steam cleaner with 12 accessories. Just tap water: 1,050 W, 3 bar and up to 115 °C to lift grease, limescale and baked-on dirt from kitchens, bathrooms, glass and upholstery.\n\nHeats up in 3-5 minutes, switches off automatically when the tank runs dry and is light enough to use one-handed. Includes 12 accessories for kitchen, bathroom, grout, shower screens, glass, upholstery and car.\n\n2-year warranty, 30 days to try it and secure card payment. No detergents: no residue left on your hob or mattress.',
     description_es:
-      'Tu columna recuerda la mala postura. Cada hora encorvado frente al ordenador se acumula y termina en dolor crónico. El Noctip Back reentrena tu postura con soporte ergonómico en forma de Y que jala tus hombros hacia atrás suavemente.\n\nCorreas ajustables de XS a XL, se adapta a cualquier cuerpo. Úsalo debajo de la ropa — nadie lo notará. Solo 15 minutos al día son suficientes para reconstruir el hábito.\n\nEn dos semanas, tu cuerpo recuerda solo. Sin dolor, sin esfuerzo consciente. Tu quiropráctico notará la diferencia.',
+      'Limpiador de vapor a presión con 12 accesorios. Solo agua del grifo: 1.050 W, 3 bar y hasta 115 °C para despegar grasa, cal y suciedad incrustada de cocina, baño, cristales y tapicería.\n\nSe calienta en 3-5 minutos, se apaga solo cuando se queda sin agua y pesa poco: se usa con una mano. Incluye 12 accesorios para cocina, baño, juntas, mamparas, cristales, tapicería y coche.\n\nGarantía de 2 años, 30 días para probarlo y pago seguro con tarjeta. Sin detergentes: no quedan restos de producto en la vitro ni en el colchón.',
     features: [
-      'Corrige la postura naturalmente — soporte en forma de Y',
-      'Se adapta a tu cuerpo — correas ajustables de XS a XL',
-      'Invisible bajo la ropa — nadie lo notará',
-      'Malla transpirable — comodidad todo el día',
-      'Resultados visibles en 2 semanas — con 15 min al día',
-      'Ligero y portátil — llévalo a cualquier parte',
+      '12 accesorios: cocina, baño, juntas, cristales, tapicería y coche',
+      '3 bar de presión y hasta 115 °C: la grasa se despega sin frotar',
+      'Solo agua del grifo, sin detergentes ni restos químicos',
+      'Listo en 3-5 minutos · depósito de 350 ml',
+      'Apagado automático y tapa de seguridad',
+      'Garantía de 2 años · 30 días para probarlo',
     ],
     features_en: [
-      'Naturally corrects posture — Y-shaped support',
-      'Adapts to your body — adjustable straps XS to XL',
-      'Invisible under clothes — nobody notices',
-      'Breathable mesh — all-day comfort',
-      'Results in 2 weeks — with 15 min a day',
-      'Light and portable — take it anywhere',
+      '12 accessories: kitchen, bathroom, grout, glass, upholstery and car',
+      '3 bar of pressure and up to 115 °C: grease lifts without scrubbing',
+      'Tap water only, no detergents or chemical residue',
+      'Ready in 3-5 minutes · 350 ml tank',
+      'Auto shut-off and safety cap',
+      '2-year warranty · 30 days to try it',
     ],
     specs: {
-      'Tipo': 'Corrector postural en forma de Y',
-      'Tallas': 'XS / S / M / L / XL',
-      'Material': 'Malla transpirable + correas reforzadas',
-      'Ajuste': 'Correas de velcro — posiciones ilimitadas',
-      'Peso': '≈120g',
-      'Cuidado': 'Lavar a mano — secar al aire',
-      'Guía de tallas': 'Medición de ancho de pecho incluida',
+      'Potencia': '1.050 W',
+      'Presión': '3 bar (0,3 MPa)',
+      'Temperatura': 'Hasta 115 °C',
+      'Depósito': '350 ml (llenado recomendado 250 ml)',
+      'Calentamiento': '3-5 minutos',
+      'Caudal de vapor': '28 g/min',
+      'Medidas': '27 × 13 × 24 cm',
+      'Accesorios': '12 incluidos',
+      'Apagado': 'Automático al quedarse sin agua',
+      'Garantía': '2 años',
     },
-    // Fotos reales del proveedor: producto + detalle del soporte. Renders IA retirados (17 Oct).
+    // Imágenes reales del producto (mismo modelo OEM 1050W, 12 accesorios).
+    // Sustituir por fotos propias en cuanto llegue la unidad.
     images: [
-      '/images/brand/wave-photo-1.jpg',
-      '/images/brand/wave-detail-2.jpg',
-      '/images/brand/wave-gallery-1.jpg',
-      '/images/brand/wave-gallery-2.jpg',
+      '/images/vapor/vs-studio-product-800.webp',
+      '/images/vapor/vs-studio-kit.webp',
+      '/images/vapor/vs-gal-limpieza-800.webp',
     ],
     icon: '',
     cartIcon: '',
-    color: '#131020',
+    color: '#0b1520',
   },
   {
-    slug: 'sleep-headband',
-    name: 'Noctip Rest',
-    name_en: 'Noctip Rest',
-    name_es: 'Noctip Rest',
-    category: 'sleep-audio',
-    price: 19.99,
-    comparePrice: 31.99,
+    slug: 'vapor-duo',
+    name: 'Nítida Vapor — Pack Dúo',
+    name_en: 'Nítida Vapor — Duo Pack',
+    name_es: 'Nítida Vapor — Pack Dúo',
+    category: 'limpieza',
+    price: 69.99,
+    comparePrice: 69.99,
     rating: 0,
     reviewCount: 0,
-    shortDescription: 'Dabas vueltas con auriculares clavados. Te duermes sin molestar a tu pareja.',
-    shortDescription_en: 'You tossed and turned with painful earbuds. You fall asleep without waking your partner.',
-    shortDescription_es: 'Dabas vueltas con auriculares clavados. Te duermes sin molestar a tu pareja.',
+    hidden: true,
+    shortDescription: 'Dos unidades: una para ti y otra para regalar. Ahorras 9,99 €.',
+    shortDescription_en: 'Two units: one for you and one to gift. Save €9.99.',
+    shortDescription_es: 'Dos unidades: una para ti y otra para regalar. Ahorras 9,99 €.',
     description:
-      'Si nunca has probado una banda de sueño, empieza aquí. 45 gramos que no sientes. Lavable a máquina. 10 horas de batería. Sin apps, sin cables, sin curva de aprendizaje.\n\nTe la pones y funciona. Así de simple. Los altavoces ultrafinos no presionan tus orejas — la tela suave desaparece al ponértela. Conecta por Bluetooth a tu móvil y duerme con tu podcast, música o ruido blanco favorito.\n\nDespiertas preguntándote por qué no lo intentaste antes.',
+      'Pack de 2 unidades de Nítida Vapor. Cada una incluye los 12 accesorios, 1.050 W, 3 bar y hasta 115 °C. Una para casa y otra para regalar o para el coche.',
     description_en:
-      'If you\'ve never tried a sleep headband, start here. 45 grams you won\'t feel. Machine washable. 10 hours of battery. No apps, no cables, no learning curve.\n\nYou put it on and it works. That simple. Ultra-thin speakers don\'t press your ears — the soft fabric disappears when you wear it. Bluetooth connects to your phone and you sleep with your favorite podcast, music, or white noise.\n\nYou wake up wondering why you didn\'t try this sooner.',
+      'Pack of 2 Nítida Vapor units. Each one includes the 12 accessories, 1,050 W, 3 bar and up to 115 °C. One for home and one to gift or keep in the car.',
     description_es:
-      'Si nunca has probado una banda de sueño, empieza aquí. 45 gramos que no sientes. Lavable a máquina. 10 horas de batería. Sin apps, sin cables, sin curva de aprendizaje.\n\nTe la pones y funciona. Así de simple. Los altavoces ultrafinos no presionan tus orejas — la tela suave desaparece al ponértela. Conecta por Bluetooth a tu móvil y duerme con tu podcast, música o ruido blanco favorito.\n\nDespiertas preguntándote por qué no lo intentaste antes.',
+      'Pack de 2 unidades de Nítida Vapor. Cada una incluye los 12 accesorios, 1.050 W, 3 bar y hasta 115 °C. Una para casa y otra para regalar o para el coche.',
     features: [
-      'Bluetooth 5.0 — conexión estable y rápida sin cables',
-      'Altavoces ultrafinos — sin presión en las orejas, ideal para dormir de lado',
-      'Lavable a máquina — retira los altavoces en segundos',
-      '10+ horas de batería — cubre toda la noche sin cargar',
-      'Tela transpirable — fresca, cómoda y duradera',
-      'Talla única elástica — se adapta a cualquier forma de cabeza',
-      'Control de volumen integrado — ajusta sin usar el móvil',
-      'Rango de frecuencia 20-20000 Hz — sonido claro y equilibrado',
+      '2 limpiadores completos con 12 accesorios cada uno',
+      'Ahorras 9,99 € frente a comprar dos sueltos',
+      'Envío gratis y 30 días para probarlo',
+      'Garantía de 2 años en las dos unidades',
     ],
     features_en: [
-      'Bluetooth 5.0 — fast, stable wireless connection',
-      'Ultra-thin speakers — no ear pressure, perfect for side sleepers',
-      'Machine washable — speakers pop out in seconds',
-      '10+ hours of battery — covers the whole night',
-      'Breathable fabric — cool, comfy and durable',
-      'Stretchy one size — fits any head shape',
-      'Built-in volume control — adjust without your phone',
-      '20-20000 Hz frequency range — clear, balanced sound',
+      '2 complete steam cleaners with 12 accessories each',
+      'Save €9.99 versus buying two separately',
+      'Free shipping and 30 days to try it',
+      '2-year warranty on both units',
     ],
     specs: {
-      'Tipo': 'Auriculares inalámbricos para dormir',
-      'Batería': '10+ horas de reproducción',
-      'Carga': '≈1.5 horas (Micro-USB)',
-      'Conectividad': 'Bluetooth 5.0',
-      'Material': 'Poliéster transpirable — resistente y ligero',
-      'Tallas': 'Talla única — elástica',
-      'Peso': '≈45g',
-      'Frecuencia': '20-20000 Hz',
-      'Control': 'Volumen integrado en la banda',
-      'Paquete incluye': 'Banda de sueño + Cable de carga',
+      'Contenido': '2 × Nítida Vapor',
+      'Accesorios': '12 por unidad (24 en total)',
+      'Potencia': '1.050 W por unidad',
+      'Presión': '3 bar',
+      'Garantía': '2 años',
     },
-    // Fotos reales: estudio + persona usándola + detalle de tejido + colores (recortadas sin textos).
-    // Renders IA retirados de la galería (auditoría fotos, 17 Oct).
-    images: [
-      '/images/brand/rest-photo-1.jpg',
-      '/images/brand/antifaz-real-1.jpg',
-      '/images/brand/rest-use-2.jpg',
-      '/images/brand/rest-detail-fabric.jpg',
-      '/images/brand/rest-color-blue.jpg',
-    ],
-    video: '/videos/noctip-rest-val.mp4',
+    images: ['/images/vapor/vs-studio-kit.webp'],
     icon: '',
     cartIcon: '',
-    color: '#101828',
+    color: '#0b1520',
   },
- 
-  // ─── Posture & Recovery ────────────────────────────────────────────
   {
-    slug: 'neck-massager',
-    name: 'Noctip Cervical',
-    name_en: 'Noctip Cervical',
-    name_es: 'Noctip Cervical',
-    category: 'neck-recovery',
-    price: 21.99,
-    comparePrice: 34.99,
+    slug: 'vapor-trio',
+    name: 'Nítida Vapor — Pack Familia',
+    name_en: 'Nítida Vapor — Family Pack',
+    name_es: 'Nítida Vapor — Pack Familia',
+    category: 'limpieza',
+    price: 94.99,
+    comparePrice: 94.99,
     rating: 0,
     reviewCount: 0,
-    // badge: 'bestseller', // Activar cuando haya datos reales de ventas
-    shortDescription: 'Nuca piedra a las 7pm. En 15 min se suelta, sin fisio ni pastillas.',
-    shortDescription_en: 'Neck like stone at 7pm. Loose in 15 min, no physio, no pills.',
-    shortDescription_es: 'Nuca piedra a las 7pm. En 15 min se suelta, sin fisio ni pastillas.',
+    hidden: true,
+    shortDescription: 'Tres unidades: casa, coche y regalo. Ahorras 24,98 €.',
+    shortDescription_en: 'Three units: home, car and gift. Save €24.98.',
+    shortDescription_es: 'Tres unidades: casa, coche y regalo. Ahorras 24,98 €.',
     description:
-      'Tensión acumulada en cuello y hombros después de horas sentado. El Noctip Cervical la libera en 15 minutos con calor suave y masaje sin cables.\n\nSe adapta a cualquier cuello, no aprieta y no da alergia. Pequeño y portátil: úsalo en casa, en la oficina o de viaje. Una sesión y notas los hombros más ligeros.\n\n15 minutos al día y mejora la circulación. Material ABS+TPR resistente, 200g, con temporizador automático.',
+      'Pack de 3 unidades de Nítida Vapor. Tres limpiadores completos con 12 accesorios cada uno, para casa, el coche y para regalar.',
     description_en:
-      'Tension built up in your neck and shoulders after hours at your desk. The Noctip Cervical releases it in 15 minutes with gentle heat and cordless massage.\n\nAdapts to any neck, no pressure, non-allergenic. Small and portable: use it at home, at the office, or while traveling. One session and your shoulders feel lighter.\n\n15 minutes a day improves circulation. Durable ABS+TPR, 200g, with auto timer.',
+      'Pack of 3 Nítida Vapor units. Three complete steam cleaners with 12 accessories each, for home, car and gifting.',
     description_es:
-      'Tensión acumulada en cuello y hombros después de horas sentado. El Noctip Cervical la libera en 15 minutos con calor suave y masaje sin cables.\n\nSe adapta a cualquier cuello, no aprieta y no da alergia. Pequeño y portátil: úsalo en casa, en la oficina o de viaje. Una sesión y notas los hombros más ligeros.\n\n15 minutos al día y mejora la circulación. Material ABS+TPR resistente, 200g, con temporizador automático.',
+      'Pack de 3 unidades de Nítida Vapor. Tres limpiadores completos con 12 accesorios cada uno, para casa, el coche y para regalar.',
     features: [
-      'Se adapta a cualquier cuello — cómodo y no alergénico',
-      'Calor suave + masaje — alivia en 15 min',
-      'Sesión de 15 minutos — temporización automática',
-      'Compacto y portátil — úsalo donde quieras',
-      'No alergénico — material de alta calidad',
-      'Uso en casa, oficina o viaje',
+      '3 limpiadores completos con 12 accesorios cada uno',
+      'Ahorras 24,98 € frente a comprar tres sueltos',
+      'Envío gratis y 30 días para probarlo',
+      'Garantía de 2 años en las tres unidades',
     ],
     features_en: [
-      'Fits any neck — comfortable and non-allergenic',
-      'Gentle heat + massage — relief in 15 min',
-      '15-minute session — automatic timer',
-      'Compact and portable — use it anywhere',
-      'Non-allergenic — high-quality material',
-      'For home, office or travel',
+      '3 complete steam cleaners with 12 accessories each',
+      'Save €24.98 versus buying three separately',
+      'Free shipping and 30 days to try it',
+      '2-year warranty on all three units',
     ],
     specs: {
-      'Tipo': 'Masajeador cervical con electrodos curvos',
-      'Material': 'ABS y TPR',
-      'Peso': '200g',
-      'Dimensiones': '17 × 5 × 17 cm',
-      'Color': 'Blanco',
-      'Tiempo de masaje': '15 minutos (temporización automática)',
-      'Electrónico': 'Sí',
-      'Fuente de alimentación': 'Corriente Continua',
-      'Voltaje': '<50V CA',
-      'Paquete incluye': 'Masajeador cervical, Cable USB, Manual de usuario',
+      'Contenido': '3 × Nítida Vapor',
+      'Accesorios': '12 por unidad (36 en total)',
+      'Potencia': '1.050 W por unidad',
+      'Presión': '3 bar',
+      'Garantía': '2 años',
     },
-    // Fotos reales del producto (estudio + proveedor). Renders IA retirados (17 Oct).
-    images: [
-      '/images/cervical/gallery/1.jpg',
-      '/images/cervical-gallery-2.jpg',
-      '/images/cervical-gallery-3.jpg',
-      '/images/productos-reales/neck-massager.jpg',
-    ],
+    images: ['/images/vapor/vs-studio-kit.webp'],
     icon: '',
     cartIcon: '',
-    color: '#121a24',
+    color: '#0b1520',
   },
 ]
 
 export function getProductsByCategory(categoryId: string): CatalogProduct[] {
-  return CATALOG.filter((p) => p.category === categoryId)
+  return CATALOG.filter((p) => p.category === categoryId && !p.hidden)
 }
 
 const OLD_SLUGS: Record<string, string> = {
-  'sleepband-pro': 'halo',
-  'white-noise-pro': 'wave',
-  'weighted-mask-pro': 'neck-massager',
-  'weighted-mask': 'neck-massager',
-  'calm': 'neck-massager',
-  'sleepband': 'sleep-headband',
-  'rest': 'sleep-headband',
-  'back': 'wave',
-  'cervical': 'neck-massager',
+  'halo': 'vapor',
+  'wave': 'vapor',
+  'sleep-headband': 'vapor',
+  'neck-massager': 'vapor',
+  'sleepband-pro': 'vapor',
+  'white-noise-pro': 'vapor',
+  'weighted-mask-pro': 'vapor',
+  'weighted-mask': 'vapor',
+  'calm': 'vapor',
+  'sleepband': 'vapor',
+  'rest': 'vapor',
+  'back': 'vapor',
+  'cervical': 'vapor',
 }
 
 export function getCatalogProductBySlug(slug: string): CatalogProduct | undefined {
@@ -323,11 +228,11 @@ export function getCatalogProductBySlug(slug: string): CatalogProduct | undefine
 }
 
 export function getBestSellers(): CatalogProduct[] {
-  return CATALOG.filter((p) => p.badge === 'bestseller')
+  return CATALOG.filter((p) => p.badge === 'bestseller' && !p.hidden)
 }
 
 export function getDeals(): CatalogProduct[] {
-  return CATALOG.filter((p) => p.badge === 'deal' || p.badge === 'trending')
+  return CATALOG.filter((p) => (p.badge === 'deal' || p.badge === 'trending') && !p.hidden)
 }
 
 export function getCategoryById(id: string): Category | undefined {
@@ -367,76 +272,11 @@ export type Bundle = {
   discountPercent: number
 }
 
-export const BUNDLES: Bundle[] = [
-  {
-    id: 'full-sleep-pack',
-    name: 'Full Sleep Pack',
-    name_en: 'Full Sleep Pack',
-    name_es: 'Pack Sueño Completo',
-    slugs: ['halo', 'sleep-headband'],
-    discountPercent: 15,
-  },
-  {
-    id: 'recovery-pack',
-    name: 'Recovery Pack',
-    name_en: 'Recovery Pack',
-    name_es: 'Pack Recuperación',
-    slugs: ['wave', 'neck-massager'],
-    discountPercent: 15,
-  },
-  // P0-5: cualquier 3 productos → 20% (igual que el completo) para no penalizar carrito de 3
-  {
-    id: 'triple-hws',
-    name: 'Triple Pack',
-    name_en: 'Triple Pack',
-    name_es: 'Pack Triple',
-    slugs: ['halo', 'wave', 'sleep-headband'],
-    discountPercent: 20,
-  },
-  {
-    id: 'triple-hwn',
-    name: 'Triple Pack',
-    name_en: 'Triple Pack',
-    name_es: 'Pack Triple',
-    slugs: ['halo', 'wave', 'neck-massager'],
-    discountPercent: 20,
-  },
-  {
-    id: 'triple-hsn',
-    name: 'Triple Pack',
-    name_en: 'Triple Pack',
-    name_es: 'Pack Triple',
-    slugs: ['halo', 'sleep-headband', 'neck-massager'],
-    discountPercent: 20,
-  },
-  {
-    id: 'triple-wsn',
-    name: 'Triple Pack',
-    name_en: 'Triple Pack',
-    name_es: 'Pack Triple',
-    slugs: ['wave', 'sleep-headband', 'neck-massager'],
-    discountPercent: 20,
-  },
-  {
-    id: 'complete-pack',
-    name: 'Everything Pack',
-    name_en: 'Everything Pack',
-    name_es: 'Pack Todo Noctip',
-    slugs: ['halo', 'wave', 'sleep-headband', 'neck-massager'],
-    discountPercent: 20,
-  },
-]
+// Sin packs ni descuentos inventados: un producto, un precio.
+export const BUNDLES: Bundle[] = []
 
-export function getActiveBundle(cartSlugs: string[]): Bundle | null {
-  const unique = [...new Set(cartSlugs)]
-  let best: Bundle | null = null
-  for (const bundle of BUNDLES) {
-    const hasAll = bundle.slugs.every((s) => unique.includes(s))
-    if (hasAll && (!best || bundle.discountPercent > best.discountPercent)) {
-      best = bundle
-    }
-  }
-  return best
+export function getActiveBundle(_cartSlugs: string[]): Bundle | null {
+  return null
 }
 
 export function searchProducts(query: string): CatalogProduct[] {
@@ -444,6 +284,7 @@ export function searchProducts(query: string): CatalogProduct[] {
   const q = query.toLowerCase()
   return CATALOG.filter(
     (p) => {
+      if (p.hidden) return false
       const searchableFields = [
         p.name,
         p.name_en,
