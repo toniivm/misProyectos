@@ -170,31 +170,31 @@ export default function CheckoutSuccessPage() {
         {/* Success icon */}
         <div className="mb-6 flex justify-center">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[rgba(16,191,216,0.1)] border border-[rgba(16,191,216,0.2)]">
-            <CheckCircle2 size={40} className="text-[#10BFD8]" strokeWidth={1.5} />
+            <CheckCircle2 size={40} className="text-[#0F766E]" strokeWidth={1.5} />
           </div>
         </div>
 
-        <h1 className="text-[28px] font-bold tracking-tight text-[#f6f2eb] sm:text-[32px]">
+        <h1 className="text-[28px] font-bold tracking-tight text-[#14211F] sm:text-[32px]">
           {t('title')}
         </h1>
 
-        <p className="mt-4 text-[15px] text-[#8791a1]">
+        <p className="mt-4 text-[15px] text-[#5B6B68]">
           {t('subtitle')}
         </p>
 
         {ref && (
-          <div className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-5 py-3">
+          <div className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#E5E0D6] bg-[#F1EDE5] px-5 py-3">
             <span className="text-[12px] text-[#6b7280]">{t('ref')}</span>
-            <span className="font-mono text-[14px] font-bold text-[#f2eee7]">{ref}</span>
+            <span className="font-mono text-[14px] font-bold text-[#14211F]">{ref}</span>
           </div>
         )}
 
-        <div className="mt-6 flex flex-col items-center gap-1 text-[14px] text-[#8791a1]">
+        <div className="mt-6 flex flex-col items-center gap-1 text-[14px] text-[#5B6B68]">
           <span>
             {t('delivery')}:{' '}
-            <strong className="text-[#f2eee7]">7–20 {t('deliveryDays')}</strong>
+            <strong className="text-[#14211F]">7–20 {t('deliveryDays')}</strong>
           </span>
-          <span className="text-[11px] text-[#5a6678]">{isEs ? 'Con seguimiento incluido' : 'Tracking included'}</span>
+          <span className="text-[11px] text-[#7A8A86]">{isEs ? 'Con seguimiento incluido' : 'Tracking included'}</span>
         </div>
 
         {/* Email confirmation status */}
@@ -212,15 +212,15 @@ export default function CheckoutSuccessPage() {
         )}
 
         {/* Trust badges */}
-        <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#5a6678]">
-          <span className="flex items-center gap-1"><Shield size={11} className="text-[#10BFD8]" />{isEs ? 'Pago seguro' : 'Secure'}</span>
-          <span className="flex items-center gap-1"><Truck size={11} className="text-[#10BFD8]" />{isEs ? 'Envío gratis' : 'Free shipping'}</span>
-          <span className="flex items-center gap-1"><RotateCcw size={11} className="text-[#10BFD8]" />30 {isEs ? 'días' : 'days'}</span>
+        <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#7A8A86]">
+          <span className="flex items-center gap-1"><Shield size={11} className="text-[#0F766E]" />{isEs ? 'Pago seguro' : 'Secure'}</span>
+          <span className="flex items-center gap-1"><Truck size={11} className="text-[#0F766E]" />{isEs ? 'Envío gratis' : 'Free shipping'}</span>
+          <span className="flex items-center gap-1"><RotateCcw size={11} className="text-[#0F766E]" />30 {isEs ? 'días' : 'days'}</span>
         </div>
 
         <Link
           href={`/${locale}`}
-          className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#f2eee7] px-8 py-4 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px] hover:shadow-[0_8px_24px_rgba(242,238,231,0.2)]"
+          className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#0F766E] px-8 py-4 text-[14px] font-semibold text-[#FFFFFF] transition-all hover:bg-[#0B5F58] hover:-translate-y-[1px] hover:shadow-[0_8px_24px_rgba(242,238,231,0.2)]"
         >
           {t('continueShopping')} <ArrowRight size={15} />
         </Link>

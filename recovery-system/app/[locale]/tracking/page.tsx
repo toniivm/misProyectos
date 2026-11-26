@@ -66,7 +66,7 @@ function getStatusIcon(status: string) {
 }
 
 function getStatusColor(status: string): string {
-  return STATUS_CONFIG[status]?.color ?? 'text-[#8791a1] border-white/[0.1] bg-white/[0.04]'
+  return STATUS_CONFIG[status]?.color ?? 'text-[#5B6B68] border-[#E5E0D6] bg-[#F1EDE5]'
 }
 
 export default function TrackingPage() {
@@ -132,18 +132,18 @@ export default function TrackingPage() {
   ] : []
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
+    <div className="min-h-screen bg-[#F7F5F0] text-[#14211F]">
       <Header showBackButton />
 
       <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
         <div className="text-center mb-8">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#10BFD8]/10 border border-[#10BFD8]/20">
-            <Package size={24} className="text-[#10BFD8]" />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F766E]/10 border border-[#10BFD8]/20">
+            <Package size={24} className="text-[#0F766E]" />
           </div>
-          <h1 className="text-[24px] font-bold text-[#f2eee7]">
+          <h1 className="text-[24px] font-bold text-[#14211F]">
             {isEs ? 'Seguimiento de tu pedido' : 'Track your order'}
           </h1>
-          <p className="mt-2 text-[14px] text-[#8791a1]">
+          <p className="mt-2 text-[14px] text-[#5B6B68]">
             {isEs ? 'Introduce tu número de pedido y el email de la compra.' : 'Enter your order number and the email used at checkout.'}
           </p>
         </div>
@@ -151,7 +151,7 @@ export default function TrackingPage() {
         {/* Search form */}
         <form onSubmit={handleSearch} className="mb-8 space-y-3">
           <div>
-            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
               {isEs ? 'Número de pedido' : 'Order number'}
             </label>
             <input
@@ -164,7 +164,7 @@ export default function TrackingPage() {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+            <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
               {isEs ? 'Email de la compra' : 'Email used at checkout'}
             </label>
             <input
@@ -180,7 +180,7 @@ export default function TrackingPage() {
           <button
             type="submit"
             disabled={searching || !orderId.trim() || !email.trim()}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3.5 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px]"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0F766E] py-3.5 text-[14px] font-semibold text-[#FFFFFF] transition-all hover:bg-[#0B5F58] disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px]"
           >
             {searching ? (
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />
@@ -210,13 +210,13 @@ export default function TrackingPage() {
         {result && (
           <div className="space-y-4">
             {/* Status card */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6">
+            <div className="rounded-2xl border border-[#E5E0D6] bg-white p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7785] mb-1">
+                  <div className="text-[11px] uppercase tracking-[0.14em] text-[#5B6B68] mb-1">
                     {isEs ? 'Estado del pedido' : 'Order status'}
                   </div>
-                  <div className="text-[13px] font-mono text-[#8791a1]">
+                  <div className="text-[13px] font-mono text-[#5B6B68]">
                     #{result.id.slice(-8).toUpperCase()}
                   </div>
                 </div>
@@ -230,8 +230,8 @@ export default function TrackingPage() {
               <div className="flex items-center gap-1 mt-4">
                 {steps.map((step, idx) => (
                   <div key={step.key} className="flex-1">
-                    <div className={`h-1.5 rounded-full transition-all ${step.done ? 'bg-[#10BFD8]' : 'bg-white/[0.06]'}`} />
-                    <div className={`mt-1.5 text-[10px] text-center ${step.done ? 'text-[#10BFD8]' : 'text-[#4a5568]'}`}>
+                    <div className={`h-1.5 rounded-full transition-all ${step.done ? 'bg-[#0F766E]' : 'bg-[#F1EDE5]'}`} />
+                    <div className={`mt-1.5 text-[10px] text-center ${step.done ? 'text-[#0F766E]' : 'text-[#7A8A86]'}`}>
                       {step.label}
                     </div>
                   </div>
@@ -240,48 +240,48 @@ export default function TrackingPage() {
             </div>
 
             {/* Order details */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-5">
+            <div className="rounded-2xl border border-[#E5E0D6] bg-white p-5">
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-[13px]">
-                  <span className="text-[#8791a1]">{isEs ? 'Fecha' : 'Date'}</span>
-                  <span className="font-medium text-[#f2eee7]">
+                  <span className="text-[#5B6B68]">{isEs ? 'Fecha' : 'Date'}</span>
+                  <span className="font-medium text-[#14211F]">
                     {new Date(result.createdAt).toLocaleDateString(isEs ? 'es-ES' : 'en-US', {
                       day: 'numeric', month: 'long', year: 'numeric',
                     })}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-[13px]">
-                  <span className="text-[#8791a1]">{isEs ? 'Total' : 'Total'}</span>
-                  <span className="font-semibold text-[#f2eee7]">€{(result.amount / 100).toFixed(2)}</span>
+                  <span className="text-[#5B6B68]">{isEs ? 'Total' : 'Total'}</span>
+                  <span className="font-semibold text-[#14211F]">€{(result.amount / 100).toFixed(2)}</span>
                 </div>
                 {result.trackingNumber && (
                   <div className="flex items-center justify-between text-[13px]">
-                    <span className="text-[#8791a1]">{isEs ? 'Seguimiento' : 'Tracking'}</span>
-                    <span className="font-mono text-[#10BFD8]">{result.trackingNumber}</span>
+                    <span className="text-[#5B6B68]">{isEs ? 'Seguimiento' : 'Tracking'}</span>
+                    <span className="font-mono text-[#0F766E]">{result.trackingNumber}</span>
                   </div>
                 )}
               </div>
             </div>
 
             {/* Items */}
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-5">
-              <div className="text-[11px] uppercase tracking-[0.14em] text-[#6b7785] mb-3">
+            <div className="rounded-2xl border border-[#E5E0D6] bg-white p-5">
+              <div className="text-[11px] uppercase tracking-[0.14em] text-[#5B6B68] mb-3">
                 {isEs ? 'Productos' : 'Items'}
               </div>
               <div className="space-y-2">
                 {result.items.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between text-[13px]">
                     <span className="text-[#c8d0da]">{item.name} × {item.qty}</span>
-                    <span className="text-[#f2eee7]">€{(item.price * item.qty).toFixed(2)}</span>
+                    <span className="text-[#14211F]">€{(item.price * item.qty).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Help */}
-            <div className="text-center text-[12px] text-[#5a6678]">
+            <div className="text-center text-[12px] text-[#7A8A86]">
               {isEs ? '¿Problemas con tu pedido?' : 'Problems with your order?'}{' '}
-              <a href="mailto:support@noctip.com" className="text-[#10BFD8] underline">support@noctip.com</a>
+              <a href="mailto:support@noctip.com" className="text-[#0F766E] underline">support@noctip.com</a>
             </div>
           </div>
         )}
@@ -289,7 +289,7 @@ export default function TrackingPage() {
         {/* No search yet */}
         {!searched && !result && (
           <div className="text-center py-8">
-            <p className="text-[13px] text-[#5a6678]">
+            <p className="text-[13px] text-[#7A8A86]">
               {isEs
                 ? 'Tu número de pedido aparece en el email de confirmación de tu compra.'
                 : 'Your order number is in your order confirmation email.'}

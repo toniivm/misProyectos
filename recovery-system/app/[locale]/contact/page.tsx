@@ -64,7 +64,7 @@ export default function ContactPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
+    <div className="min-h-screen bg-[#F7F5F0] text-[#14211F]">
       <Header showBackButton />
 
       <div className="mx-auto max-w-4xl px-5 py-12 sm:px-6">
@@ -74,13 +74,13 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <span className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8ea7c7]">
+          <span className="inline-flex items-center rounded-full border border-[#E5E0D6] bg-[#FAF8F4] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#3E4F4B]">
             {isEs ? 'Contacto' : 'Contact'}
           </span>
-          <h1 className="mt-4 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight tracking-[-0.04em] text-[#f6f2eb]">
+          <h1 className="mt-4 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight tracking-[-0.04em] text-[#14211F]">
             {isEs ? '¿En qué podemos ayudarte?' : 'How can we help you?'}
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-[#8791a1]">
+          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-[#5B6B68]">
             {isEs
               ? 'Nuestro equipo de soporte está disponible de lunes a viernes. Resolvemos tu consulta en menos de 24 horas.'
               : 'Our support team is available Monday through Friday. We\'ll resolve your inquiry within 24 hours.'}
@@ -95,13 +95,13 @@ export default function ContactPage() {
           className="mt-10 grid gap-4 sm:grid-cols-3"
         >
           {contactMethods.map((method) => (
-            <div key={method.title} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 text-center transition-all hover:border-white/[0.12]">
-              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[rgba(16,191,216,0.08)]">
-                <method.icon size={18} className="text-[#10BFD8]" />
+            <div key={method.title} className="rounded-2xl border border-[#E5E0D6] bg-[#FAF8F4] p-5 text-center transition-all hover:border-[#D8D2C7]">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[#E6F4EF]">
+                <method.icon size={18} className="text-[#0F766E]" />
               </div>
-              <h3 className="mt-3 text-[13px] font-semibold text-[#f2eee7]">{method.title}</h3>
-              <p className="mt-1 text-[14px] font-medium text-[#c8d4e2]">{method.value}</p>
-              <p className="mt-1 text-[11px] text-[#6b7785]">{method.description}</p>
+              <h3 className="mt-3 text-[13px] font-semibold text-[#14211F]">{method.title}</h3>
+              <p className="mt-1 text-[14px] font-medium text-[#3E4F4B]">{method.value}</p>
+              <p className="mt-1 text-[11px] text-[#5B6B68]">{method.description}</p>
             </div>
           ))}
         </motion.div>
@@ -116,27 +116,27 @@ export default function ContactPage() {
           {submitted ? (
             <div className="rounded-2xl border border-[rgba(16,191,216,0.2)] bg-[rgba(16,191,216,0.05)] p-8 text-center">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[rgba(16,191,216,0.1)]">
-                <Send size={24} className="text-[#10BFD8]" />
+                <Send size={24} className="text-[#0F766E]" />
               </div>
-              <h2 className="mt-4 text-[20px] font-bold text-[#f2eee7]">
+              <h2 className="mt-4 text-[20px] font-bold text-[#14211F]">
                 {isEs ? 'Mensaje enviado' : 'Message sent'}
               </h2>
-              <p className="mt-2 text-[14px] text-[#8791a1]">
+              <p className="mt-2 text-[14px] text-[#5B6B68]">
                 {isEs
                   ? 'Gracias por contactarnos. Te responderemos en menos de 24 horas.'
                   : 'Thank you for reaching out. We\'ll respond within 24 hours.'}
               </p>
               <Link href={`/${locale}`}
-                className="mt-6 inline-flex items-center rounded-full bg-[#f2eee7] px-6 py-3 text-[13px] font-semibold text-[#11161d]">
+                className="mt-6 inline-flex items-center rounded-full bg-[#0F766E] px-6 py-3 text-[13px] font-semibold text-[#FFFFFF]">
                 {isEs ? 'Volver a la tienda' : 'Back to shop'}
               </Link>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="rounded-2xl border border-white/[0.08] bg-[#0d1219] p-6 sm:p-8">
-              <h2 className="text-[18px] font-bold text-[#f2eee7]">
+            <form onSubmit={handleSubmit} className="rounded-2xl border border-[#E5E0D6] bg-white p-6 sm:p-8">
+              <h2 className="text-[18px] font-bold text-[#14211F]">
                 {isEs ? 'Envíanos un mensaje' : 'Send us a message'}
               </h2>
-              <p className="mt-1 text-[13px] text-[#8791a1]">
+              <p className="mt-1 text-[13px] text-[#5B6B68]">
                 {isEs
                   ? 'Completa el formulario y te responderemos pronto.'
                   : 'Fill out the form and we\'ll get back to you soon.'}
@@ -144,21 +144,21 @@ export default function ContactPage() {
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
                     {isEs ? 'Nombre' : 'Name'}
                   </label>
                   <input type="text" required value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))}
                     className="input-premium" placeholder={isEs ? 'Ej: María García' : 'e.g. John Smith'} />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
                     {isEs ? 'Email' : 'Email'}
                   </label>
                   <input type="email" required value={form.email} onChange={e=>setForm(f=>({...f,email:e.target.value}))}
                     className="input-premium" placeholder="tu@email.com" />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
                     {isEs ? 'Asunto' : 'Subject'}
                   </label>
                   <select className="select-premium" value={form.subject} onChange={e=>setForm(f=>({...f,subject:e.target.value}))}>
@@ -169,7 +169,7 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
                     {isEs ? 'Mensaje' : 'Message'}
                   </label>
                   <textarea rows={4} required value={form.message} onChange={e=>setForm(f=>({...f,message:e.target.value}))}
@@ -185,11 +185,11 @@ export default function ContactPage() {
               )}
 
               <button type="submit" disabled={sending}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#f2eee7] py-3.5 text-[14px] font-semibold text-[#11161d] transition-all hover:bg-white hover:-translate-y-[1px] disabled:opacity-50">
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#0F766E] py-3.5 text-[14px] font-semibold text-[#FFFFFF] transition-all hover:bg-[#0B5F58] hover:-translate-y-[1px] disabled:opacity-50">
                 {sending ? <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" /> : <Send size={14} />}
                 {sending ? (isEs ? 'Enviando...' : 'Sending...') : (isEs ? 'Enviar mensaje' : 'Send message')}
               </button>
-              <p className="mt-3 text-center text-[11px] text-[#6b7785]">{isEs ? 'O escríbenos directamente a hola@noctip.com' : 'Or email us at hola@noctip.com'}</p>
+              <p className="mt-3 text-center text-[11px] text-[#5B6B68]">{isEs ? 'O escríbenos directamente a hola@noctip.com' : 'Or email us at hola@noctip.com'}</p>
             </form>
           )}
         </motion.div>
@@ -201,7 +201,7 @@ export default function ContactPage() {
           transition={{ delay: 0.3 }}
           className="mt-12"
         >
-          <h2 className="text-center text-[18px] font-bold text-[#f2eee7]">
+          <h2 className="text-center text-[18px] font-bold text-[#14211F]">
             {isEs ? 'Preguntas rápidas' : 'Quick questions'}
           </h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -211,9 +211,9 @@ export default function ContactPage() {
               { q: isEs ? '¿El pago es seguro?' : 'Is checkout secure?', a: 'SSL 256-bit + Stripe' },
               { q: isEs ? '¿Dónde está mi pedido?' : 'Where is my order?', a: isEs ? 'Email de seguimiento en 24h' : 'Tracking email within 24h' },
             ].map((item) => (
-              <div key={item.q} className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-4">
-                <p className="text-[13px] font-semibold text-[#f2eee7]">{item.q}</p>
-                <p className="mt-1 text-[12px] text-[#8791a1]">{item.a}</p>
+              <div key={item.q} className="rounded-xl border border-[#E5E0D6] bg-[#FAF8F4] p-4">
+                <p className="text-[13px] font-semibold text-[#14211F]">{item.q}</p>
+                <p className="mt-1 text-[12px] text-[#5B6B68]">{item.a}</p>
               </div>
             ))}
           </div>
@@ -226,9 +226,9 @@ export default function ContactPage() {
             { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee' },
             { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout' },
           ].map((item) => (
-            <div key={item.label} className="flex flex-col items-center gap-2 rounded-xl border border-white/[0.07] bg-white/[0.025] p-4 text-center">
-              <item.icon size={18} className="text-[#10BFD8]" />
-              <span className="text-[11px] font-medium text-[#8791a1]">{item.label}</span>
+            <div key={item.label} className="flex flex-col items-center gap-2 rounded-xl border border-[#E5E0D6] bg-[#FAF8F4] p-4 text-center">
+              <item.icon size={18} className="text-[#0F766E]" />
+              <span className="text-[11px] font-medium text-[#5B6B68]">{item.label}</span>
             </div>
           ))}
         </div>
