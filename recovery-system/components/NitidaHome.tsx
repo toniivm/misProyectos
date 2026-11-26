@@ -291,7 +291,7 @@ export default function NitidaHome() {
                         <span className="text-[11px] font-bold uppercase tracking-[0.04em] text-[#3E4F4B]">{isEs ? p.labelEs : p.labelEn}</span>
                         {i === 1 && (
                           <span className="rounded-full bg-[#0F766E] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[#FFFFFF]">
-                            {isEs ? 'Más elegido' : 'Most chosen'}
+                            {isEs ? 'Recomendado' : 'Recommended'}
                           </span>
                         )}
                       </div>
