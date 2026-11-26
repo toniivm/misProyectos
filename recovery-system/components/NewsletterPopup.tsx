@@ -102,7 +102,7 @@ export default function NewsletterPopup() {
             role="dialog"
             aria-modal="true"
             aria-label={isEs ? 'Oferta de newsletter' : 'Newsletter offer'}
-            className="fixed inset-0 z-[90] m-auto flex h-fit w-[calc(100vw-2rem)] max-w-md items-center justify-center overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0d1219] shadow-[0_24px_64px_rgba(0,0,0,0.5)]"
+            className="fixed inset-0 z-[90] m-auto flex h-fit w-[calc(100vw-2rem)] max-w-md items-center justify-center overflow-hidden rounded-2xl border border-[#E5E0D6] bg-white shadow-[0_24px_64px_rgba(20,33,31,0.12)]"
             style={{
               maxHeight: 'calc(100dvh - 2rem)',
               overflowY: 'auto',
@@ -110,7 +110,7 @@ export default function NewsletterPopup() {
           >
             <button
               onClick={dismiss}
-              className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full text-[#6b7785] transition hover:bg-white/[0.08] hover:text-white"
+              className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full text-[#5B6B68] transition hover:bg-white/[0.08] hover:text-white"
               aria-label={isEs ? 'Cerrar' : 'Close'}
             >
               <X size={16} />
@@ -122,14 +122,14 @@ export default function NewsletterPopup() {
               <div className="relative">
                 {!submitted ? (
                   <>
-                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#10BFD8]/20 bg-[#10BFD8]/10 sm:h-14 sm:w-14">
-                      <Sparkles size={22} className="text-[#10BFD8]" />
+                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-[#0F766E]/20 bg-[#0F766E]/10 sm:h-14 sm:w-14">
+                      <Sparkles size={22} className="text-[#0F766E]" />
                     </div>
 
-                    <h3 className="text-[18px] font-bold tracking-[-0.03em] text-[#f2eee7] sm:text-[22px]">
+                    <h3 className="text-[18px] font-bold tracking-[-0.03em] text-[#14211F] sm:text-[22px]">
                       {isEs ? 'Mantente al día' : 'Stay in the loop'}
                     </h3>
-                    <p className="mt-2 text-[13px] leading-6 text-[#8791a1] sm:text-[14px]">
+                    <p className="mt-2 text-[13px] leading-6 text-[#5B6B68] sm:text-[14px]">
                       {isEs ? 'Novedades, consejos de sueño y ofertas exclusivas. Sin spam.' : 'New releases, sleep tips, and exclusive offers. No spam.'}
                     </p>
 
@@ -144,7 +144,7 @@ export default function NewsletterPopup() {
                           required
                           autoComplete="email"
                           inputMode="email"
-                          className="w-full rounded-full border border-white/[0.1] bg-white/[0.04] py-3 pl-11 pr-4 text-[16px] text-[#f2eee7] placeholder-[#4a5568] outline-none transition focus:border-[#10BFD8]/40 focus:bg-white/[0.06] sm:py-3.5 sm:text-[14px]"
+                          className="w-full rounded-full border border-[#E5E0D6] bg-[#F7F5F0] py-3 pl-11 pr-4 text-[16px] text-[#14211F] placeholder-[#7A8A86] outline-none transition focus:border-[#0F766E]/40 focus:bg-[#F1EDE5] sm:py-3.5 sm:text-[14px]"
                         />
                       </div>
                       {error && (
@@ -176,10 +176,10 @@ export default function NewsletterPopup() {
                     <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20">
                       <Check size={28} className="text-emerald-400" />
                     </div>
-                    <h3 className="text-[20px] font-bold text-[#f2eee7]">
+                    <h3 className="text-[20px] font-bold text-[#14211F]">
                       {isEs ? '¡Gracias!' : 'Thank you!'}
                     </h3>
-                    <p className="mt-2 text-[14px] text-[#8791a1]">
+                    <p className="mt-2 text-[14px] text-[#5B6B68]">
                       {isEs ? 'Te mantendremos informado.' : 'We\'ll keep you posted.'}
                     </p>
                   </motion.div>

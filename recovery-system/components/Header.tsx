@@ -85,7 +85,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
   return (
     <>
       {/* ═══ ANNOUNCEMENT BAR ═══ */}
-      <div className="bg-[#1a1a1a] text-white">
+      <div className="bg-[#0F5E57] text-white">
         <div className="mx-auto max-w-[1320px] px-4">
           <div className="flex items-center justify-center gap-2 sm:gap-6 py-2 text-[10px] sm:text-[12px] font-bold tracking-wide text-center">
             <span className="flex items-center gap-1.5">🚚 {isEs ? 'Envío 24–72 h con seguimiento' : '24–72 h tracked shipping'}</span>
@@ -137,7 +137,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                       className="absolute left-0 top-full mt-1 w-[260px] rounded-2xl border border-[#e8e2d8] bg-white p-2 shadow-[0_20px_60px_rgba(0,0,0,0.12)] z-50">
                       <Link href={`/${locale}/products/vapor`} onClick={() => setProductsOpen(false)}
                         className="flex items-center gap-3 rounded-xl px-4 py-3 text-[13px] font-bold text-[#1a1a1a] hover:bg-[#f5f0eb] transition-colors">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/15 text-[#10BFD8]">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0F766E]/15 text-[#0F766E]">
                           <Search size={14} />
                         </span>
                         {isEs ? 'Ver todos' : 'View all'}
@@ -146,7 +146,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                       {CATALOG.filter((p) => !p.hidden).slice(0, 4).map((product) => (
                         <Link key={product.slug} href={`/${locale}/products/${product.slug}`} onClick={() => setProductsOpen(false)}
                           className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] text-[#4a4a4a] hover:text-[#1a1a1a] hover:bg-[#f5f0eb] transition-colors">
-                          <span className="flex h-7 w-7 items-center justify-center text-[#10BFD8]">
+                          <span className="flex h-7 w-7 items-center justify-center text-[#0F766E]">
                             {product.icon || <Wind size={14} />}
                           </span>
                           <span className="truncate font-medium">{isEs ? (product.name_es ?? product.name) : (product.name_en ?? product.name)}</span>
@@ -170,10 +170,10 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
 
             {/* Center: Logo */}
             <Link href={`/${locale}`} className="flex shrink-0 items-center gap-2.5 group mx-2 sm:mx-4 lg:mx-8">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#10BFD8] text-[20px] font-extrabold leading-none text-[#041014] transition-transform duration-300 group-hover:scale-105">N</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0F766E] text-[20px] font-extrabold leading-none text-white transition-transform duration-300 group-hover:scale-105">N</span>
               <div className="flex flex-col">
                 <span className="text-[16px] font-extrabold tracking-[0.16em] text-[#1a1a1a] uppercase leading-none">Nítida</span>
-                <span className="text-[8px] font-bold tracking-[0.2em] text-[#10BFD8] uppercase mt-0.5 hidden sm:block">{isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing'}</span>
+                <span className="text-[8px] font-bold tracking-[0.2em] text-[#0F766E] uppercase mt-0.5 hidden sm:block">{isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing'}</span>
               </div>
             </Link>
 
@@ -181,10 +181,10 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
             <div className="flex items-center gap-1 sm:gap-2 flex-1 justify-end">
               {/* Language */}
               <Link href={switchHref}
-                className="flex items-center gap-1.5 rounded-lg border border-[#e8e2d8] px-2.5 py-1.5 text-[11px] font-bold text-[#1a1a1a] hover:border-[#10BFD8]/40 hover:bg-[#10BFD8]/5 active:scale-95 transition-all"
+                className="flex items-center gap-1.5 rounded-lg border border-[#e8e2d8] px-2.5 py-1.5 text-[11px] font-bold text-[#1a1a1a] hover:border-[#0F766E]/40 hover:bg-[#0F766E]/5 active:scale-95 transition-all"
                 aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}>
                 {locale === 'es' ? <FlagEN /> : <FlagES />}
-                <span className="text-[#10BFD8] hidden sm:inline">{locale === 'es' ? 'EN' : 'ES'}</span>
+                <span className="text-[#0F766E] hidden sm:inline">{locale === 'es' ? 'EN' : 'ES'}</span>
               </Link>
 
               {/* Search */}
@@ -211,7 +211,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                 className="relative flex h-11 w-11 items-center justify-center rounded-full text-[#1a1a1a] hover:bg-[#f5f0eb] active:scale-95 transition-all">
                 <ShoppingCart size={18} />
                 {totalItems > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#10BFD8] px-1 text-[10px] font-bold text-white shadow-[0_2px_8px_rgba(16,191,216,0.4)]">
+                  <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#0F766E] px-1 text-[10px] font-bold text-white shadow-[0_2px_8px_rgba(16,191,216,0.4)]">
                     {totalItems > 9 ? '9+' : totalItems}
                   </span>
                 )}
@@ -251,10 +251,10 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
               {/* Mobile Header */}
               <div className="flex items-center justify-between px-6 py-5 border-b border-[#e8e2d8]">
                 <Link href={`/${locale}`} onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#10BFD8] text-[18px] font-extrabold leading-none text-[#041014]">N</span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0F766E] text-[18px] font-extrabold leading-none text-white">N</span>
                   <div className="flex flex-col">
                     <span className="text-[15px] font-extrabold tracking-[0.16em] text-[#1a1a1a] uppercase leading-none">Nítida</span>
-                    <span className="text-[8px] font-bold tracking-[0.18em] text-[#10BFD8] uppercase mt-0.5">{isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing'}</span>
+                    <span className="text-[8px] font-bold tracking-[0.18em] text-[#0F766E] uppercase mt-0.5">{isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing'}</span>
                   </div>
                 </Link>
                 <button onClick={() => setMobileMenuOpen(false)}
@@ -270,7 +270,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                   {isEs ? 'Productos' : 'Products'}
                 </div>
                 <MobileLink href={`/${locale}/products/vapor`} onClick={() => setMobileMenuOpen(false)} delay={0.03}>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8]/15 text-[#10BFD8]">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0F766E]/15 text-[#0F766E]">
                     <Search size={16} />
                   </span>
                   {isEs ? 'Ver todos' : 'View all'}
@@ -279,7 +279,7 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                   <motion.div key={product.slug} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 + idx * 0.04 }}>
                     <Link href={`/${locale}/products/${product.slug}`} onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center gap-3.5 rounded-xl px-4 py-3.5 text-[14px] text-[#4a4a4a] hover:text-[#1a1a1a] hover:bg-[#f5f0eb] transition-all min-h-[52px]">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[#10BFD8]">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0F766E]/10 text-[#0F766E]">
                         {product.icon || <Wind size={15} />}
                       </span>
                       <span className="flex-1 truncate font-semibold">{isEs ? (product.name_es ?? product.name) : (product.name_en ?? product.name)}</span>
@@ -316,11 +316,11 @@ export default function Header({ showBackButton = false, backLabel, backHref }: 
                   <span>{isEs ? 'Cambiar idioma' : 'Change language'}</span>
                   <span className="flex items-center gap-2.5">
                     {locale === 'es' ? <FlagEN /> : <FlagES />}
-                    <span className="text-[13px] font-bold text-[#10BFD8]">{locale === 'es' ? 'English' : 'Español'}</span>
+                    <span className="text-[13px] font-bold text-[#0F766E]">{locale === 'es' ? 'English' : 'Español'}</span>
                   </span>
                 </Link>
                 <Link href={`/${locale}/products/vapor`} onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2.5 rounded-full bg-[#10BFD8] px-5 py-4 text-[15px] font-extrabold text-white min-h-[56px] active:scale-[0.98] transition-transform shadow-[0_6px_24px_rgba(16,191,216,0.35)]">
+                  className="flex items-center justify-center gap-2.5 rounded-full bg-[#0F766E] px-5 py-4 text-[15px] font-extrabold text-white min-h-[56px] active:scale-[0.98] transition-transform shadow-[0_6px_24px_rgba(16,191,216,0.35)]">
                   <Sparkles size={16} />
                   {isEs ? 'Ver todos los productos' : 'View all products'}
                 </Link>

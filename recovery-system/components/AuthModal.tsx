@@ -99,26 +99,26 @@ export default function AuthModal() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="auth-modal-title"
-              className="relative max-h-[calc(100vh-2rem)] w-full max-w-sm overflow-y-auto rounded-2xl bg-[#0d1219] border border-white/[0.1] shadow-modal"
+              className="relative max-h-[calc(100vh-2rem)] w-full max-w-sm overflow-y-auto rounded-2xl bg-white border border-[#E5E0D6] shadow-modal"
             >
               {/* Decorative gradient */}
               <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[rgba(16,191,216,0.06)] to-transparent rounded-t-2xl" />
 
               <button onClick={closeModal}
-                className="absolute right-4 top-4 rounded-lg p-2 text-[#6b7785] transition hover:bg-white/[0.06] hover:text-[#f2eee7]"
+                className="absolute right-4 top-4 rounded-lg p-2 text-[#5B6B68] transition hover:bg-[#F1EDE5] hover:text-[#14211F]"
                 aria-label="Close">
                 <X size={16} />
               </button>
 
               <div className="relative mb-6 mt-8 text-center px-6">
-                <div className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-[#8ea7c7] uppercase">
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-[#E5E0D6] bg-[#F7F5F0] px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-[#3E4F4B] uppercase">
                   <Sparkles size={10} />
                    NOCTIP
                 </div>
                 <h2 id="auth-modal-title" className="mt-4 text-[22px] font-bold text-[#f6f2eb]">
                   {mode === 'login' ? t('welcomeBack') : t('createAccount')}
                 </h2>
-                <p className="mt-1.5 text-[13px] text-[#8791a1]">
+                <p className="mt-1.5 text-[13px] text-[#5B6B68]">
                   {mode === 'login' ? t('signInToAccount') : t('createSubtitle')}
                 </p>
               </div>
@@ -126,7 +126,7 @@ export default function AuthModal() {
               <div className="px-6 pb-6">
                 {/* Google */}
                 <button onClick={handleGoogle} disabled={loading}
-                  className="mb-4 flex w-full items-center justify-center gap-3 rounded-xl border border-white/[0.1] bg-white/[0.03] px-4 py-3 text-sm font-semibold text-[#c8d4e2] transition hover:bg-white/[0.06] hover:border-white/[0.2] active:scale-[0.98] disabled:opacity-60">
+                  className="mb-4 flex w-full items-center justify-center gap-3 rounded-xl border border-[#E5E0D6] bg-[#F7F5F0] px-4 py-3 text-sm font-semibold text-[#3E4F4B] transition hover:bg-[#F1EDE5] hover:border-[#D8D2C7] active:scale-[0.98] disabled:opacity-60">
                   <svg viewBox="0 0 24 24" className="h-4 w-4 flex-shrink-0">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
                     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
@@ -159,7 +159,7 @@ export default function AuthModal() {
                       autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                       className="input !pl-10 !pr-10" />
                     <button type="button" onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#5a6678] hover:text-[#c8d4e2]"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#5a6678] hover:text-[#3E4F4B]"
                       aria-label={showPassword ? 'Hide password' : 'Show password'}>
                       {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                     </button>
@@ -168,7 +168,7 @@ export default function AuthModal() {
                   {mode === 'login' && (
                     <div className="flex justify-end">
                       <button type="button" onClick={handlePasswordReset} disabled={loading}
-                        className="text-[12px] font-semibold text-[#8791a1] transition hover:text-[#f2eee7] disabled:opacity-60">
+                        className="text-[12px] font-semibold text-[#5B6B68] transition hover:text-[#14211F] disabled:opacity-60">
                         {t('forgotPassword')}
                       </button>
                     </div>
@@ -190,10 +190,10 @@ export default function AuthModal() {
                   </button>
                 </form>
 
-                <p className="mt-4 text-center text-[12px] text-[#6b7785]">
+                <p className="mt-4 text-center text-[12px] text-[#5B6B68]">
                   {mode === 'login' ? t('dontHaveAccount') : t('alreadyHaveAccount')}{' '}
                   <button onClick={switchMode}
-                    className="font-semibold text-[#8ea7c7] hover:text-[#f2eee7] transition-colors">
+                    className="font-semibold text-[#3E4F4B] hover:text-[#14211F] transition-colors">
                     {mode === 'login' ? t('signUp') : t('signIn')}
                   </button>
                 </p>

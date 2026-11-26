@@ -59,9 +59,9 @@ const COUNTRY_FROM_CODE: Record<string, string> = Object.fromEntries(
 );
 
 const PRODUCT_BG: Record<string, string> = {
-  'vapor': '#0b1520',
-  'vapor-duo': '#0b1520',
-  'vapor-trio': '#0b1520',
+  'vapor': '#E6F4EF',
+  'vapor-duo': '#E6F4EF',
+  'vapor-trio': '#E6F4EF',
   'halo': '#0b0f14',
   'wave': '#131020',
   'sleep-headband': '#101828',
@@ -76,6 +76,12 @@ const PRODUCT_ICON: Record<string, string> = {
   'wave': '',
   'sleep-headband': '',
   'neck-massager': '',
+};
+
+const PRODUCT_IMAGE: Record<string, string> = {
+  'vapor': '/images/vapor/vs-studio-product-800.webp',
+  'vapor-duo': '/images/vapor/vs-studio-kit.webp',
+  'vapor-trio': '/images/vapor/vs-studio-kit.webp',
 };
 
 const SPAIN_PROVINCES = [
@@ -431,17 +437,17 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
+    <div className="min-h-screen bg-[#F7F5F0] text-[#14211F]">
       {/* Header */}
-      <header className="border-b border-white/[0.06] bg-[rgba(8,12,22,0.92)] px-5 py-4 backdrop-blur-xl">
+      <header className="border-b border-[#E5E0D6] bg-white/90 px-5 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <Link href={`/${locale}`} className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#f2eee7]">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#10BFD8] text-[16px] font-extrabold leading-none text-[#041014]">N</span>
+          <Link href={`/${locale}`} className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#14211F]">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0F766E] text-[16px] font-extrabold leading-none text-[#FFFFFF]">N</span>
             NÍTIDA
           </Link>
-          <div className="flex items-center gap-2 text-[12px] text-[#6b7280]">
-            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#10BFD8]/10">
-              <Lock size={11} className="text-[#10BFD8]" />
+          <div className="flex items-center gap-2 text-[12px] text-[#5B6B68]">
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0F766E]/10">
+              <Lock size={11} className="text-[#0F766E]" />
             </div>
             <span className="hidden sm:inline">{t('title')}</span>
           </div>
@@ -459,13 +465,13 @@ export default function CheckoutPage() {
             ].map((step, idx) => (
               <div key={step.num} className="flex items-center">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-full bg-[#10BFD8]/15 text-[11px] sm:text-[12px] font-bold text-[#10BFD8]">
+                  <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-full bg-[#0F766E]/15 text-[11px] sm:text-[12px] font-bold text-[#0F766E]">
                     {step.num}
                   </div>
-                  <span className="text-[11px] sm:text-[12px] font-medium text-[#8791a1] hidden sm:inline">{step.label}</span>
+                  <span className="text-[11px] sm:text-[12px] font-medium text-[#5B6B68] hidden sm:inline">{step.label}</span>
                 </div>
                 {idx < 2 && (
-                  <div className="w-6 sm:w-12 h-px bg-white/10 mx-1.5 sm:mx-3" />
+                  <div className="w-6 sm:w-12 h-px bg-[#E5E0D6] mx-1.5 sm:mx-3" />
                 )}
               </div>
             ))}
@@ -473,7 +479,7 @@ export default function CheckoutPage() {
         </div>
 
         <Link href={`/${locale}`}
-          className="mb-6 sm:mb-8 inline-flex items-center gap-1.5 text-[13px] text-[#6b7280] transition hover:text-[#c4cdd6]">
+          className="mb-6 sm:mb-8 inline-flex items-center gap-1.5 text-[13px] text-[#5B6B68] transition hover:text-[#3E4F4B]">
           <ArrowLeft size={14} />
           {t('backToShop')}
         </Link>
@@ -499,13 +505,13 @@ export default function CheckoutPage() {
             {/* ── Contact ── */}
             <section className="checkout-section !p-4 sm:!p-6">
               <div className="mb-4 sm:mb-5 flex items-center gap-2.5 sm:gap-3">
-                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[12px] sm:text-[13px] font-bold text-[#10BFD8]">1</div>
+                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#0F766E]/10 text-[12px] sm:text-[13px] font-bold text-[#0F766E]">1</div>
                 <h2 className="checkout-section-title">{t('contact')}</h2>
               </div>
               <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <label className="mb-1 sm:mb-1.5 block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('email')} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1 sm:mb-1.5 block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {t('email')} <span className="text-[#0F766E]">*</span>
                   </label>
                   <input
                     type="email"
@@ -528,8 +534,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('phone')} <span className="text-[#5a6678] text-[10px]">({isEs ? 'opcional, para seguimiento' : 'optional, for tracking'})</span>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {t('phone')} <span className="text-[#7A8A86] text-[10px]">({isEs ? 'opcional, para seguimiento' : 'optional, for tracking'})</span>
                   </label>
                   <PhoneInputField
                     value={contact.phone}
@@ -550,13 +556,13 @@ export default function CheckoutPage() {
             {/* ── Shipping ── */}
             <section className="checkout-section !p-4 sm:!p-6">
               <div className="mb-4 sm:mb-5 flex items-center gap-2.5 sm:gap-3">
-                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[12px] sm:text-[13px] font-bold text-[#10BFD8]">2</div>
+                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#0F766E]/10 text-[12px] sm:text-[13px] font-bold text-[#0F766E]">2</div>
                 <h2 className="checkout-section-title">{t('shippingAddress')}</h2>
               </div>
               <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 sm:mb-1.5 block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('firstName')} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1 sm:mb-1.5 block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {t('firstName')} <span className="text-[#0F766E]">*</span>
                   </label>
                   <input type="text" required value={shipping.firstName}
                     autoComplete="given-name"
@@ -572,8 +578,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('lastName')} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {t('lastName')} <span className="text-[#0F766E]">*</span>
                   </label>
                   <input type="text" required value={shipping.lastName}
                     autoComplete="family-name"
@@ -589,8 +595,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {isEs ? 'Dirección (calle y número)' : 'Address (street and number)'} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {isEs ? 'Dirección (calle y número)' : 'Address (street and number)'} <span className="text-[#0F766E]">*</span>
                   </label>
                   <AddressAutocomplete
                     value={shipping.streetName}
@@ -614,15 +620,15 @@ export default function CheckoutPage() {
                     placeholder="Nº" />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">{t('floor')}</label>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">{t('floor')}</label>
                   <input type="text" value={shipping.floor}
                     onChange={(e) => setShipping((s) => ({...s, floor: e.target.value}))}
                     placeholder={isEs ? '2ºB, Portal A' : 'Apt 2B'}
                     className="input-premium" />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('city')} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {t('city')} <span className="text-[#0F766E]">*</span>
                   </label>
                   <input type="text" required value={shipping.city}
                     autoComplete="address-level2"
@@ -637,8 +643,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {isEs ? 'Provincia' : 'State / Province'} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {isEs ? 'Provincia' : 'State / Province'} <span className="text-[#0F766E]">*</span>
                   </label>
                   {shipping.country === 'Spain' || shipping.country === 'ES' ? (
                     <select
@@ -672,8 +678,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('zip')} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {t('zip')} <span className="text-[#0F766E]">*</span>
                   </label>
                   <input type="text" required value={shipping.zip}
                     autoComplete="postal-code"
@@ -700,8 +706,8 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8791a1]">
-                    {t('country')} <span className="text-[#10BFD8]">*</span>
+                  <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5B6B68]">
+                    {t('country')} <span className="text-[#0F766E]">*</span>
                   </label>
                   <select value={shipping.country}
                     autoComplete="country"
@@ -720,7 +726,7 @@ export default function CheckoutPage() {
             {/* ── Payment ── */}
             <section className="checkout-section !p-4 sm:!p-6">
               <div className="mb-3 sm:mb-4 flex items-center gap-2.5 sm:gap-3">
-                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#10BFD8]/10 text-[12px] sm:text-[13px] font-bold text-[#10BFD8]">3</div>
+                <div className="flex h-7 sm:h-8 w-7 sm:w-8 items-center justify-center rounded-lg bg-[#0F766E]/10 text-[12px] sm:text-[13px] font-bold text-[#0F766E]">3</div>
                 <h2 className="checkout-section-title">{t('paymentMethod')}</h2>
               </div>
 
@@ -733,33 +739,33 @@ export default function CheckoutPage() {
               {/* Security info */}
               <div className="space-y-2">
                 <div className="flex items-center gap-3 rounded-xl border border-[rgba(16,191,216,0.15)] bg-[rgba(16,191,216,0.04)] px-4 py-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                    <Lock size={16} className="text-[#10BFD8]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0F766E]/10">
+                    <Lock size={16} className="text-[#0F766E]" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Pago 100% seguro' : '100% secure payment'}</div>
-                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Cifrado SSL de 256 bits — tus datos nunca se almacenan' : '256-bit SSL encryption — your data is never stored'}</div>
+                    <div className="text-[13px] font-semibold text-[#14211F]">{isEs ? 'Pago 100% seguro' : '100% secure payment'}</div>
+                    <div className="text-[11px] text-[#5B6B68]">{isEs ? 'Cifrado SSL de 256 bits — tus datos nunca se almacenan' : '256-bit SSL encryption — your data is never stored'}</div>
                   </div>
-                  <ShieldCheck size={18} className="text-[#10BFD8]" />
+                  <ShieldCheck size={18} className="text-[#0F766E]" />
                 </div>
 
-                <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                    <Truck size={16} className="text-[#10BFD8]" />
+                <div className="flex items-center gap-3 rounded-xl border border-[#E5E0D6] bg-[#FAF8F4] px-4 py-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0F766E]/10">
+                    <Truck size={16} className="text-[#0F766E]" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Envío protegido' : 'Protected shipping'}</div>
-                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Seguimiento incluido · Entrega en 24-72 h' : 'Tracking included · Delivery in 24-72 h'}</div>
+                    <div className="text-[13px] font-semibold text-[#14211F]">{isEs ? 'Envío protegido' : 'Protected shipping'}</div>
+                    <div className="text-[11px] text-[#5B6B68]">{isEs ? 'Seguimiento incluido · Entrega en 24-72 h' : 'Tracking included · Delivery in 24-72 h'}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                    <RotateCcw size={16} className="text-[#10BFD8]" />
+                <div className="flex items-center gap-3 rounded-xl border border-[#E5E0D6] bg-[#FAF8F4] px-4 py-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0F766E]/10">
+                    <RotateCcw size={16} className="text-[#0F766E]" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-[13px] font-semibold text-[#f2eee7]">{isEs ? 'Garantía 2 años' : '2-year warranty'}</div>
-                    <div className="text-[11px] text-[#6b7280]">{isEs ? 'Devolución completa sin preguntas' : 'Full refund, no questions asked'}</div>
+                    <div className="text-[13px] font-semibold text-[#14211F]">{isEs ? 'Garantía 2 años' : '2-year warranty'}</div>
+                    <div className="text-[11px] text-[#5B6B68]">{isEs ? 'Devolución completa sin preguntas' : 'Full refund, no questions asked'}</div>
                   </div>
                 </div>
               </div>
@@ -767,19 +773,19 @@ export default function CheckoutPage() {
               {/* Stripe badge */}
               <div className="mt-3 flex items-center justify-center gap-1.5 text-[10px] text-[#4a5568]">
                 <Lock size={9} />
-                <span>{isEs ? 'Procesado por' : 'Powered by'} <span className="font-semibold text-[#6b7280]">Stripe</span></span>
+                <span>{isEs ? 'Procesado por' : 'Powered by'} <span className="font-semibold text-[#5B6B68]">Stripe</span></span>
               </div>
             </section>
 
 
 
             {/* ── Payment methods info ── */}
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5">
+            <div className="rounded-xl border border-[#E5E0D6] bg-[#FAF8F4] px-4 py-3.5">
               <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#6b7785]">
                 {isEs ? 'Métodos de pago aceptados' : 'Accepted payment methods'}
               </div>
               <PaymentLogos />
-              <p className="mt-2 text-[11px] text-[#5a6678] text-center">
+              <p className="mt-2 text-[11px] text-[#7A8A86] text-center">
                 {isEs
                   ? 'Paga de forma segura con tarjeta, PayPal, Apple Pay o Google Pay'
                   : 'Pay securely with card, PayPal, Apple Pay, or Google Pay'}
@@ -808,7 +814,7 @@ export default function CheckoutPage() {
             {/* ── Submit ── */}
             <button type="submit"
               disabled={loading || !hasHydrated || checkoutItems.length === 0}
-              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#f2eee7] py-4 text-[15px] font-semibold text-[#11161d] shadow-[0_4px_20px_rgba(242,238,231,0.08)] transition-all duration-200 hover:bg-white hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(242,238,231,0.12)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 min-h-[52px]">
+              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#0F766E] py-4 text-[15px] font-semibold text-white shadow-[0_4px_20px_rgba(15,118,110,0.18)] transition-all duration-200 hover:bg-[#0B5F58] hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(15,118,110,0.24)] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 min-h-[52px]">
               {loading ? (
                 <><span className="h-4 w-4 animate-spin rounded-full border-2 border-[#11161d] border-t-transparent" />{t('processing')}</>
               ) : (
@@ -817,49 +823,53 @@ export default function CheckoutPage() {
             </button>
 
             {/* ── Trust row ── */}
-            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] text-[#5a6678]">
-              <span className="flex items-center gap-1.5"><ShieldCheck size={12} className="text-[#10BFD8]" /> {isEs ? 'Garantía 2 años' : '2-year warranty'}</span>
-              <span className="flex items-center gap-1.5"><Truck size={12} className="text-[#10BFD8]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
-              <span className="flex items-center gap-1.5"><Lock size={12} className="text-[#10BFD8]" /> {isEs ? 'Pago seguro' : 'Secure checkout'}</span>
-              <span className="flex items-center gap-1.5"><RotateCcw size={12} className="text-[#10BFD8]" /> {isEs ? 'Devolución fácil' : 'Easy returns'}</span>
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] text-[#7A8A86]">
+              <span className="flex items-center gap-1.5"><ShieldCheck size={12} className="text-[#0F766E]" /> {isEs ? 'Garantía 2 años' : '2-year warranty'}</span>
+              <span className="flex items-center gap-1.5"><Truck size={12} className="text-[#0F766E]" /> {isEs ? 'Envío gratis' : 'Free shipping'}</span>
+              <span className="flex items-center gap-1.5"><Lock size={12} className="text-[#0F766E]" /> {isEs ? 'Pago seguro' : 'Secure checkout'}</span>
+              <span className="flex items-center gap-1.5"><RotateCcw size={12} className="text-[#0F766E]" /> {isEs ? 'Devolución fácil' : 'Easy returns'}</span>
             </div>
           </form>
 
           {/* ── Order Summary ── */}
-          <aside className="h-fit rounded-2xl border border-white/[0.06] bg-gradient-to-b from-[#0d1219] to-[#0b1018] p-3.5 sm:p-5 lg:p-6 lg:sticky lg:top-24 order-first lg:order-last">
-            <h2 className="mb-3 sm:mb-4 text-[14px] sm:text-[16px] font-semibold text-[#f2eee7]">{t('orderSummary')}</h2>
+          <aside className="h-fit rounded-2xl border border-[#E5E0D6] bg-gradient-to-b from-[#FFFFFF] to-[#FAF8F4] p-3.5 sm:p-5 lg:p-6 lg:sticky lg:top-24 order-first lg:order-last">
+            <h2 className="mb-3 sm:mb-4 text-[14px] sm:text-[16px] font-semibold text-[#14211F]">{t('orderSummary')}</h2>
 
             {!hasHydrated ? (
-              <div className="py-8 text-center text-[13px] text-[#6b7280]">{t('loadingCart')}</div>
+              <div className="py-8 text-center text-[13px] text-[#5B6B68]">{t('loadingCart')}</div>
             ) : checkoutItems.length === 0 ? (
-              <div className="py-8 text-center text-[13px] text-[#6b7280]">
+              <div className="py-8 text-center text-[13px] text-[#5B6B68]">
                 {t('emptyCart')}{' '}
-                <Link href={`/${locale}`} className="text-[#c4cdd6] underline">{t('addItems')}</Link>
+                <Link href={`/${locale}`} className="text-[#3E4F4B] underline">{t('addItems')}</Link>
               </div>
             ) : (
               <>
                 <ul className="space-y-3">
                   {checkoutItems.map((item) => (
                     <li key={item.slug} className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-white/[0.08] text-lg"
-                        style={{ background: PRODUCT_BG[item.slug] ?? '#111720' }}>
-                        {PRODUCT_ICON[item.slug] ?? '📦'}
+                      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#E5E0D6] text-lg"
+                        style={{ background: PRODUCT_BG[item.slug] ?? '#F1EDE5' }}>
+                        {PRODUCT_IMAGE[item.slug] ? (
+                          <img src={PRODUCT_IMAGE[item.slug]} alt={item.name} className="h-full w-full object-contain p-0.5" loading="lazy" decoding="async" />
+                        ) : (
+                          PRODUCT_ICON[item.slug] ?? '📦'
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[13px] font-semibold text-[#f2eee7] truncate">{item.name}</p>
-                        <p className="text-[11px] text-[#5a6678]">{t('qty')}: {item.quantity}</p>
+                        <p className="text-[13px] font-semibold text-[#14211F] truncate">{item.name}</p>
+                        <p className="text-[11px] text-[#7A8A86]">{t('qty')}: {item.quantity}</p>
                       </div>
-                      <span className="text-[13px] font-semibold text-[#f2eee7]">
+                      <span className="text-[13px] font-semibold text-[#14211F]">
                         €{(item.price * item.quantity).toFixed(2)}
                       </span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-4 space-y-2 border-t border-white/[0.06] pt-4">
-                  <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
+                <div className="mt-4 space-y-2 border-t border-[#E5E0D6] pt-4">
+                  <div className="flex items-center justify-between text-[13px] text-[#5B6B68]">
                     <span>{t('subtotalLine')}</span>
-                    <span className="font-semibold text-[#f2eee7]">€{checkoutSubtotal.toFixed(2)}</span>
+                    <span className="font-semibold text-[#14211F]">€{checkoutSubtotal.toFixed(2)}</span>
                   </div>
 
                   {bundleDiscount > 0 && activeBundle && (
@@ -872,18 +882,18 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between text-[13px] text-[#8791a1]">
+                  <div className="flex items-center justify-between text-[13px] text-[#5B6B68]">
                     <span>{t('shippingLine')}</span>
                     <span className="font-semibold text-[#5fb07c]">{t('freeShipping')}</span>
                   </div>
-                  <div className="flex items-center justify-between border-t border-white/[0.06] pt-3">
-                    <span className="text-[14px] font-semibold text-[#f2eee7]">{t('totalLine')}</span>
-                    <span className="text-[19px] font-bold text-[#f2eee7]">€{checkoutTotal.toFixed(2)}</span>
+                  <div className="flex items-center justify-between border-t border-[#E5E0D6] pt-3">
+                    <span className="text-[14px] font-semibold text-[#14211F]">{t('totalLine')}</span>
+                    <span className="text-[19px] font-bold text-[#14211F]">€{checkoutTotal.toFixed(2)}</span>
                   </div>
                 </div>
 
                 {/* Guarantee badge */}
-                <div className="mt-4 rounded-xl border border-white/[0.06] bg-white/[0.025] p-3 text-center text-[12px] text-[#6b7280]">
+                <div className="mt-4 rounded-xl border border-[#E5E0D6] bg-[#FAF8F4] p-3 text-center text-[12px] text-[#5B6B68]">
                   <Check size={12} className="mr-1 inline text-[#5fb07c]" />
                   {t('guaranteeBadge')}
                 </div>
@@ -895,9 +905,9 @@ export default function CheckoutPage() {
                     { icon: Truck, label: isEs ? 'Envío gratis' : 'Free shipping' },
                     { icon: RotateCcw, label: isEs ? '30 días' : '30-day return' },
                   ].map((item) => (
-                    <div key={item.label} className="flex flex-col items-center gap-1 rounded-lg border border-white/[0.05] bg-white/[0.02] py-2 text-center">
-                      <item.icon size={14} className="text-[#10BFD8]" />
-                      <span className="text-[9px] text-[#5a6678]">{item.label}</span>
+                    <div key={item.label} className="flex flex-col items-center gap-1 rounded-lg border border-[#E5E0D6] bg-[#FAF8F4] py-2 text-center">
+                      <item.icon size={14} className="text-[#0F766E]" />
+                      <span className="text-[9px] text-[#7A8A86]">{item.label}</span>
                     </div>
                   ))}
                 </div>

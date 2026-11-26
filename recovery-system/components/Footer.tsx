@@ -49,7 +49,7 @@ export default function Footer() {
           {/* Brand column */}
           <div className="sm:col-span-2 lg:col-span-4 space-y-5">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#10BFD8] text-[20px] font-extrabold leading-none text-[#041014]">N</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0F766E] text-[20px] font-extrabold leading-none text-white">N</span>
               <span className="text-[14px] font-extrabold uppercase tracking-[0.16em] text-[#1a1a1a]">Nítida</span>
             </div>
             <p className="max-w-sm text-[12px] sm:text-[13px] leading-[1.7] text-[#6b7785]">
@@ -60,14 +60,14 @@ export default function Footer() {
 
             {/* Customer Service inline */}
             <div className="flex items-center gap-3 text-[12px] text-[#6b7785]">
-              <Mail size={13} className="text-[#10BFD8]" />
-              <a href="mailto:support@noctip.com" className="hover:text-[#10BFD8] transition-colors">support@noctip.com</a>
+              <Mail size={13} className="text-[#0F766E]" />
+              <a href="mailto:support@noctip.com" className="hover:text-[#0F766E] transition-colors">support@noctip.com</a>
             </div>
 
             {/* Social */}
             <div className="flex items-center gap-2.5">
               <a href="https://www.tiktok.com/@noctip2" target="_blank" rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#e8e2d8] bg-white text-[#6b7785] transition-all hover:border-[#10BFD8] hover:text-[#10BFD8] active:scale-95"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#e8e2d8] bg-white text-[#6b7785] transition-all hover:border-[#0F766E] hover:text-[#0F766E] active:scale-95"
                 aria-label="TikTok">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.51a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 10.86 4.46V13a8.28 8.28 0 0 0 5.58 2.15v-3.45a4.85 4.85 0 0 1-5.58-2.74V6.69h5.58z"/>
@@ -166,13 +166,13 @@ export default function Footer() {
                       autoComplete="email"
                       inputMode="email"
                       disabled={loading}
-                      className="w-full rounded-xl border border-[#d5d0ca] bg-white py-2.5 pl-9 pr-3 text-[15px] text-[#1a1a1a] placeholder-[#9a9a9a] outline-none transition focus:border-[#10BFD8]/40 focus:ring-2 focus:ring-[#10BFD8]/10 disabled:opacity-50"
+                      className="w-full rounded-xl border border-[#d5d0ca] bg-white py-2.5 pl-9 pr-3 text-[15px] text-[#1a1a1a] placeholder-[#9a9a9a] outline-none transition focus:border-[#0F766E]/40 focus:ring-2 focus:ring-[#0F766E]/10 disabled:opacity-50"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#10BFD8] text-[#080c12] transition-all hover:bg-[#0ea5c7] active:scale-95 disabled:opacity-50"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0F766E] text-[#080c12] transition-all hover:bg-[#0ea5c7] active:scale-95 disabled:opacity-50"
                     aria-label={isEs ? 'Suscribirse' : 'Subscribe'}
                   >
                     <ArrowRight size={16} />
@@ -192,9 +192,9 @@ export default function Footer() {
             { icon: CreditCard, label: isEs ? 'Pago seguro' : 'Secure payment', sub: 'SSL + Stripe' },
             { icon: Shield, label: isEs ? 'Garantía 2 años' : '2-year warranty', sub: isEs ? 'Producto nuevo' : 'Brand new unit' },
           ].map(({ icon: Icon, label, sub }) => (
-            <div key={label} className="flex items-center gap-2.5 rounded-xl border border-[#e8e2d8] bg-white px-3 py-2.5 transition-all hover:border-[#10BFD8]">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                <Icon size={13} className="text-[#10BFD8]" />
+            <div key={label} className="flex items-center gap-2.5 rounded-xl border border-[#e8e2d8] bg-white px-3 py-2.5 transition-all hover:border-[#0F766E]">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0F766E]/10">
+                <Icon size={13} className="text-[#0F766E]" />
               </div>
               <div>
                 <div className="text-[11px] font-semibold text-[#1a1a1a]">{label}</div>
@@ -219,11 +219,11 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 rounded-lg border border-[#e8e2d8] bg-white px-2.5 py-1">
-              <Lock size={10} className="text-[#10BFD8]" />
+              <Lock size={10} className="text-[#0F766E]" />
               <span className="text-[9px] font-medium text-[#6b7785]">{isEs ? 'SSL Seguro' : 'SSL Secure'}</span>
             </div>
             <div className="flex items-center gap-1.5 rounded-lg border border-[#e8e2d8] bg-white px-2.5 py-1">
-              <CreditCard size={10} className="text-[#10BFD8]" />
+              <CreditCard size={10} className="text-[#0F766E]" />
               <span className="text-[9px] font-medium text-[#6b7785]">Stripe Payments</span>
             </div>
           </div>

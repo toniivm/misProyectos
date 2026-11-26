@@ -231,13 +231,13 @@ export default function NitidaHome() {
   }
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
+    <div className="min-h-screen bg-[#F7F5F0] text-[#14211F]">
       <Header />
       <main className="pb-28 lg:pb-0">
         {/* HERO */}
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-40 left-1/2 h-[620px] w-[980px] -translate-x-1/2 rounded-full bg-[#10BFD8]/[0.07] blur-[90px]" />
+            <div className="absolute -top-40 left-1/2 h-[620px] w-[980px] -translate-x-1/2 rounded-full bg-[#0F766E]/[0.07] blur-[90px]" />
             <div className="absolute right-[-120px] top-24 h-[420px] w-[420px] rounded-full bg-cyan-400/[0.04] blur-[70px] hidden lg:block" />
           </div>
 
@@ -248,32 +248,32 @@ export default function NitidaHome() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: EASE }}
               >
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#10BFD8] sm:text-[11px]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#0F766E] sm:text-[11px]">
                   {copy.eyebrow}
                 </p>
-                <h1 className="mt-4 text-[clamp(2.55rem,8.2vw,4.8rem)] font-bold leading-[0.92] tracking-[-0.045em] text-[#f6f2eb]">
+                <h1 className="mt-4 text-[clamp(2.55rem,8.2vw,4.8rem)] font-bold leading-[0.92] tracking-[-0.045em] text-[#14211F]">
                   {copy.title1}
                   <br />
                   {copy.title2}
                   <br />
-                  <span className="text-[#10BFD8]">{copy.title3}</span>
+                  <span className="text-[#0F766E]">{copy.title3}</span>
                 </h1>
-                <p className="mt-5 max-w-[540px] text-[15px] leading-[1.65] text-[#a8b3c2] sm:text-[16px]">
+                <p className="mt-5 max-w-[540px] text-[15px] leading-[1.65] text-[#5B6B68] sm:text-[16px]">
                   {copy.sub}
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   {copy.bullets.map((b) => (
-                    <span key={b} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-semibold text-[#d7dee6]">
-                      <Check size={12} className="text-[#10BFD8]" />
+                    <span key={b} className="inline-flex items-center gap-1.5 rounded-full border border-[#E5E0D6] bg-[#F1EDE5] px-3 py-1.5 text-[11px] font-semibold text-[#3E4F4B]">
+                      <Check size={12} className="text-[#0F766E]" />
                       {b}
                     </span>
                   ))}
                 </div>
 
                 <div className="mt-7 flex flex-wrap items-end gap-3">
-                  <div className="text-[34px] font-bold leading-none tracking-[-0.04em] text-[#f6f2eb] sm:text-[38px]">{eur(selected.price)}</div>
-                  <div className="pb-1 text-[12px] text-[#8791a1]">
+                  <div className="text-[34px] font-bold leading-none tracking-[-0.04em] text-[#14211F] sm:text-[38px]">{eur(selected.price)}</div>
+                  <div className="pb-1 text-[12px] text-[#5B6B68]">
                     <div>{isEs ? 'Envío gratis' : 'Free shipping'}</div>
                     <div>{isEs ? 'IVA incluido' : 'VAT included'}</div>
                   </div>
@@ -285,20 +285,20 @@ export default function NitidaHome() {
                       key={p.slug}
                       onClick={() => setPlan(i)}
                       aria-pressed={plan === i}
-                      className={`relative flex min-h-[58px] items-center justify-between gap-3 rounded-xl border px-3 py-2.5 text-left transition sm:block sm:min-h-[92px] sm:px-3 sm:py-3 ${plan === i ? 'border-[#10BFD8] bg-[#10BFD8]/10' : 'border-white/10 bg-white/[0.03] hover:border-white/20'}`}
+                      className={`relative flex min-h-[58px] items-center justify-between gap-3 rounded-xl border px-3 py-2.5 text-left transition sm:block sm:min-h-[92px] sm:px-3 sm:py-3 ${plan === i ? 'border-[#0F766E] bg-[#0F766E]/10' : 'border-[#E5E0D6] bg-[#F7F5F0] hover:border-[#0F766E]/30'}`}
                     >
                       <div className="flex min-w-0 items-center gap-2 sm:block">
-                        <span className="text-[11px] font-bold uppercase tracking-[0.04em] text-[#c8d0da]">{isEs ? p.labelEs : p.labelEn}</span>
+                        <span className="text-[11px] font-bold uppercase tracking-[0.04em] text-[#3E4F4B]">{isEs ? p.labelEs : p.labelEn}</span>
                         {i === 1 && (
-                          <span className="rounded-full bg-[#10BFD8] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[#041014]">
+                          <span className="rounded-full bg-[#0F766E] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[#FFFFFF]">
                             {isEs ? 'Más elegido' : 'Most chosen'}
                           </span>
                         )}
                       </div>
                       <div className="shrink-0 text-right sm:mt-1.5 sm:text-left">
-                        <div className="text-[15px] font-bold leading-none text-[#f6f2eb]">{eur(p.price)}</div>
-                        <div className="mt-1 text-[9px] text-[#7b8898]">{p.perUnit}/ud</div>
-                        {p.saveEs && <div className="mt-0.5 text-[9px] font-semibold text-[#34d399]">{isEs ? p.saveEs : p.saveEn}</div>}
+                        <div className="text-[15px] font-bold leading-none text-[#14211F]">{eur(p.price)}</div>
+                        <div className="mt-1 text-[9px] text-[#5B6B68]">{p.perUnit}/ud</div>
+                        {p.saveEs && <div className="mt-0.5 text-[9px] font-semibold text-[#15803D]">{isEs ? p.saveEs : p.saveEn}</div>}
                       </div>
                     </button>
                   ))}
@@ -307,19 +307,19 @@ export default function NitidaHome() {
                 <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
                   <button
                     onClick={buy}
-                    className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-7 py-4 text-[15px] font-bold text-[#041014] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#2fd0e6] hover:shadow-[0_10px_40px_rgba(16,191,216,0.28)] active:scale-[0.99]"
+                    className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-full bg-[#0F766E] px-7 py-4 text-[15px] font-bold text-[#FFFFFF] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#0B5F58] hover:shadow-[0_12px_32px_rgba(15,118,110,0.18)] active:scale-[0.99]"
                   >
                     {copy.cta} — {eur(selected.price)}
                     <ArrowRight size={16} />
                   </button>
                   <a
                     href="#como-funciona"
-                    className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-white/12 px-6 py-4 text-[14px] font-medium text-[#c8d0da] transition hover:border-white/25 hover:text-white"
+                    className="inline-flex min-h-[56px] items-center justify-center rounded-full border border-[#D8D2C7] px-6 py-4 text-[14px] font-medium text-[#3E4F4B] transition hover:border-[#0F766E]/50 hover:text-[#0F766E]"
                   >
                     {copy.secondary}
                   </a>
                 </div>
-                <p className="mt-3 text-[11px] leading-relaxed text-[#6f7c8c]">{copy.ctaSub}</p>
+                <p className="mt-3 text-[11px] leading-relaxed text-[#5B6B68]">{copy.ctaSub}</p>
               </motion.div>
 
               <motion.div
@@ -328,20 +328,20 @@ export default function NitidaHome() {
                 transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
                 className="relative order-2 lg:order-none"
               >
-                <div className="relative overflow-hidden rounded-[26px] border border-white/[0.08] bg-[#0b1520] shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+                <div className="relative overflow-hidden rounded-[26px] border border-[#E5E0D6] bg-[#E6F4EF] shadow-[0_24px_60px_rgba(20,33,31,0.12)]">
                   <ProductImage
                     slug="vapor"
-                    color="#0b1520"
+                    color="#E6F4EF"
                     icon=""
                     images={PRODUCT_IMAGES}
                     alt="Nítida Vapor, limpiador de vapor a presión con 12 accesorios"
                     className="aspect-square w-full"
                   />
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#080c12] to-transparent" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#F7F5F0] to-transparent" />
 
-                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-1.5 backdrop-blur-md">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#10BFD8] shadow-[0_0_8px_rgba(16,191,216,0.8)]" />
-                    <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-white">
+                  <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-[#E5E0D6] bg-white/90 px-3 py-1.5 backdrop-blur-md">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0F766E] shadow-[0_0_8px_rgba(15,118,110,0.5)]" />
+                    <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#0F766E]">
                       {isEs ? '12 accesorios' : '12 accessories'}
                     </span>
                   </div>
@@ -352,9 +352,9 @@ export default function NitidaHome() {
                       ['115 °C', isEs ? 'vapor' : 'steam'],
                       ['1.050 W', isEs ? 'potencia' : 'power'],
                     ].map(([k, v]) => (
-                      <div key={k} className="rounded-xl border border-white/10 bg-white/[0.06] px-2.5 py-2 text-center backdrop-blur-md">
-                        <div className="text-[13px] font-bold text-white">{k}</div>
-                        <div className="text-[9px] uppercase tracking-wide text-[#9fb0c0]">{v}</div>
+                      <div key={k} className="rounded-xl border border-[#E5E0D6] bg-white/85 px-2.5 py-2 text-center backdrop-blur-md">
+                        <div className="text-[13px] font-bold text-[#14211F]">{k}</div>
+                        <div className="text-[9px] uppercase tracking-wide text-[#5B6B68]">{v}</div>
                       </div>
                     ))}
                   </div>
@@ -365,13 +365,13 @@ export default function NitidaHome() {
             {/* TRUST */}
             <div className="mt-10 grid grid-cols-2 gap-2.5 sm:mt-14 sm:grid-cols-4 sm:gap-3">
               {copy.trust.map(({ icon: Icon, title, sub }) => (
-                <div key={title} className="flex items-center gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.025] px-3 py-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10BFD8]/10">
-                    <Icon size={14} className="text-[#10BFD8]" />
+                <div key={title} className="flex items-center gap-2.5 rounded-xl border border-[#E5E0D6] bg-[#F7F5F0] px-3 py-3">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0F766E]/10">
+                    <Icon size={14} className="text-[#0F766E]" />
                   </span>
                   <div className="min-w-0">
-                    <div className="text-[11px] font-semibold text-[#e9eef4]">{title}</div>
-                    <div className="truncate text-[9px] text-[#7b8898]">{sub}</div>
+                    <div className="text-[11px] font-semibold text-[#14211F]">{title}</div>
+                    <div className="truncate text-[9px] text-[#5B6B68]">{sub}</div>
                   </div>
                 </div>
               ))}
@@ -382,10 +382,10 @@ export default function NitidaHome() {
         {/* PROBLEMS */}
         <section className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-20">
           <div className="max-w-[700px]">
-            <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.02] tracking-[-0.04em] text-[#f6f2eb]">
+            <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.02] tracking-[-0.04em] text-[#14211F]">
               {copy.problemsTitle}
             </h2>
-            <p className="mt-3 text-[14px] leading-[1.7] text-[#8791a1] sm:text-[15px]">{copy.problemsSub}</p>
+            <p className="mt-3 text-[14px] leading-[1.7] text-[#5B6B68] sm:text-[15px]">{copy.problemsSub}</p>
           </div>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
@@ -396,34 +396,34 @@ export default function NitidaHome() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, delay: idx * 0.07, ease: EASE }}
-                className="rounded-2xl border border-white/[0.07] bg-[#0d1219] p-5 transition hover:border-white/[0.14]"
+                className="rounded-2xl border border-[#E5E0D6] bg-[#FFFFFF] p-5 transition hover:border-[#0F766E]/30"
               >
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#10BFD8]/10">
-                    <Icon size={18} className="text-[#10BFD8]" />
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0F766E]/10">
+                    <Icon size={18} className="text-[#0F766E]" />
                   </span>
-                  <span className="rounded-full border border-white/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-[#7b8898]">
+                  <span className="rounded-full border border-[#E5E0D6] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-[#5B6B68]">
                     {tag}
                   </span>
                 </div>
-                <h3 className="mt-4 text-[17px] font-bold tracking-[-0.02em] text-[#f2eee7]">{title}</h3>
-                <p className="mt-1.5 text-[13px] leading-[1.6] text-[#8791a1]">{desc}</p>
+                <h3 className="mt-4 text-[17px] font-bold tracking-[-0.02em] text-[#14211F]">{title}</h3>
+                <p className="mt-1.5 text-[13px] leading-[1.6] text-[#5B6B68]">{desc}</p>
               </motion.div>
             ))}
             </div>
         </section>
 
         {/* HOW */}
-        <section id="como-funciona" className="border-y border-white/[0.06] bg-[#0a0f16]">
+        <section id="como-funciona" className="border-y border-[#E5E0D6] bg-[#EFEBE3]">
           <div className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-20">
             <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div>
-                <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.02] tracking-[-0.04em] text-[#f6f2eb]">
+                <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.02] tracking-[-0.04em] text-[#14211F]">
                   {copy.howTitle}
                 </h2>
-                <p className="mt-3 max-w-[430px] text-[14px] leading-[1.7] text-[#8791a1] sm:text-[15px]">{copy.howSub}</p>
-                <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0d1219]">
-                  <div className="border-b border-white/[0.06] px-4 py-3 text-[10px] font-bold uppercase tracking-[0.14em] text-[#10BFD8]">
+                <p className="mt-3 max-w-[430px] text-[14px] leading-[1.7] text-[#5B6B68] sm:text-[15px]">{copy.howSub}</p>
+                <div className="mt-6 overflow-hidden rounded-2xl border border-[#E5E0D6] bg-[#FFFFFF]">
+                  <div className="border-b border-[#E5E0D6] px-4 py-3 text-[10px] font-bold uppercase tracking-[0.14em] text-[#0F766E]">
                     {isEs ? 'Lo que pasa por dentro' : 'What happens inside'}
                   </div>
                   <div className="grid grid-cols-3 divide-x divide-white/[0.06]">
@@ -433,11 +433,21 @@ export default function NitidaHome() {
                       ['3 bar', isEs ? 'presión' : 'pressure'],
                     ].map(([k, v]) => (
                       <div key={k} className="px-3 py-4 text-center">
-                        <div className="text-[16px] font-bold text-[#f2eee7]">{k}</div>
-                        <div className="text-[9px] uppercase tracking-wide text-[#7b8898]">{v}</div>
+                        <div className="text-[16px] font-bold text-[#14211F]">{k}</div>
+                        <div className="text-[9px] uppercase tracking-wide text-[#5B6B68]">{v}</div>
                       </div>
                     ))}
                   </div>
+                </div>
+
+                <div className="mt-4 overflow-hidden rounded-2xl border border-[#E5E0D6] bg-white">
+                  <img
+                    src="/images/vapor/vs-gal-limpieza-800.webp"
+                    alt={isEs ? 'Nítida Vapor limpiando fogones y juntas de la cocina' : 'Nítida Vapor cleaning hob and kitchen grout'}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               </div>
 
@@ -449,17 +459,17 @@ export default function NitidaHome() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: '-30px' }}
                     transition={{ duration: 0.45, delay: idx * 0.08, ease: EASE }}
-                    className="flex gap-4 rounded-2xl border border-white/[0.07] bg-[#0d1219] p-4 sm:p-5"
+                    className="flex gap-4 rounded-2xl border border-[#E5E0D6] bg-[#FFFFFF] p-4 sm:p-5"
                   >
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#10BFD8]/25 bg-[#10BFD8]/10 text-[12px] font-bold text-[#10BFD8]">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#0F766E]/25 bg-[#0F766E]/10 text-[12px] font-bold text-[#0F766E]">
                       {s.n}
                     </div>
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-[15px] font-bold text-[#f2eee7]">{s.title}</h3>
-                        <span className="rounded-full bg-white/[0.04] px-2 py-0.5 text-[9px] font-medium text-[#7b8898]">{s.detail}</span>
+                        <h3 className="text-[15px] font-bold text-[#14211F]">{s.title}</h3>
+                        <span className="rounded-full bg-[#F1EDE5] px-2 py-0.5 text-[9px] font-medium text-[#5B6B68]">{s.detail}</span>
                       </div>
-                      <p className="mt-1 text-[13px] leading-[1.55] text-[#8791a1]">{s.desc}</p>
+                      <p className="mt-1 text-[13px] leading-[1.55] text-[#5B6B68]">{s.desc}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -472,18 +482,18 @@ export default function NitidaHome() {
         <section className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-20">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div className="max-w-[620px]">
-              <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.02] tracking-[-0.04em] text-[#f6f2eb]">
+              <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.02] tracking-[-0.04em] text-[#14211F]">
                 {copy.kitTitle}
               </h2>
-              <p className="mt-3 text-[14px] leading-[1.7] text-[#8791a1] sm:text-[15px]">{copy.kitSub}</p>
+              <p className="mt-3 text-[14px] leading-[1.7] text-[#5B6B68] sm:text-[15px]">{copy.kitSub}</p>
             </div>
-            <div className="rounded-full border border-[#10BFD8]/20 bg-[#10BFD8]/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#10BFD8]">
+            <div className="rounded-full border border-[#0F766E]/20 bg-[#0F766E]/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#0F766E]">
               {isEs ? 'Todo en la caja' : 'All in the box'}
             </div>
           </div>
 
           <div className="mt-7 grid gap-4 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <div className="overflow-hidden rounded-2xl border border-white/[0.08] bg-[#f5f0eb]">
+            <div className="overflow-hidden rounded-2xl border border-[#E5E0D6] bg-[#F5F0EB]">
               <img
                 src="/images/vapor/vs-studio-kit.webp"
                 alt={isEs ? 'Los 12 accesorios de Nítida Vapor' : 'The 12 accessories of Nítida Vapor'}
@@ -500,12 +510,12 @@ export default function NitidaHome() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-30px' }}
                 transition={{ duration: 0.4, delay: idx * 0.03, ease: EASE }}
-                className="flex items-center gap-2.5 rounded-xl border border-white/[0.07] bg-[#0d1219] px-3 py-3"
+                className="flex items-center gap-2.5 rounded-xl border border-[#E5E0D6] bg-[#FFFFFF] px-3 py-3"
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.04]">
-                  <Icon size={14} className="text-[#10BFD8]" />
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#F1EDE5]">
+                  <Icon size={14} className="text-[#0F766E]" />
                 </span>
-                <span className="text-[11px] font-medium leading-tight text-[#c8d0da]">{name}</span>
+                <span className="text-[11px] font-medium leading-tight text-[#3E4F4B]">{name}</span>
               </motion.div>
             ))}
             </div>
@@ -513,41 +523,41 @@ export default function NitidaHome() {
         </section>
 
         {/* SPECS + COMPARE */}
-        <section className="border-y border-white/[0.06] bg-[#0a0f16]">
+        <section className="border-y border-[#E5E0D6] bg-[#EFEBE3]">
           <div className="mx-auto grid max-w-[1280px] gap-8 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-12">
             <div className="min-w-0">
-              <h2 className="text-[clamp(1.6rem,3.4vw,2.3rem)] font-bold tracking-[-0.04em] text-[#f6f2eb]">{copy.specsTitle}</h2>
-              <div className="mt-5 overflow-hidden rounded-2xl border border-white/[0.08]">
+              <h2 className="text-[clamp(1.6rem,3.4vw,2.3rem)] font-bold tracking-[-0.04em] text-[#14211F]">{copy.specsTitle}</h2>
+              <div className="mt-5 overflow-hidden rounded-2xl border border-[#E5E0D6]">
                 {copy.specs.map(([k, v], idx) => (
-                  <div key={k} className={`flex items-center justify-between gap-4 px-4 py-3 text-[12px] ${idx % 2 === 0 ? 'bg-[#0d1219]' : 'bg-[#0b1017]'}`}>
-                    <span className="min-w-0 break-words text-[#7b8898]">{k}</span>
-                    <span className="min-w-0 break-words text-right font-semibold text-[#e9eef4]">{v}</span>
+                  <div key={k} className={`flex items-center justify-between gap-4 px-4 py-3 text-[12px] ${idx % 2 === 0 ? 'bg-[#FFFFFF]' : 'bg-[#FAF8F4]'}`}>
+                    <span className="min-w-0 break-words text-[#5B6B68]">{k}</span>
+                    <span className="min-w-0 break-words text-right font-semibold text-[#14211F]">{v}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="min-w-0">
-              <h2 className="text-[clamp(1.6rem,3.4vw,2.3rem)] font-bold tracking-[-0.04em] text-[#f6f2eb]">{copy.compareTitle}</h2>
-              <p className="mt-3 text-[13px] leading-[1.6] text-[#8791a1]">{copy.compareSub}</p>
-              <div className="mt-5 max-w-full overflow-x-auto rounded-2xl border border-white/[0.08]">
+              <h2 className="text-[clamp(1.6rem,3.4vw,2.3rem)] font-bold tracking-[-0.04em] text-[#14211F]">{copy.compareTitle}</h2>
+              <p className="mt-3 text-[13px] leading-[1.6] text-[#5B6B68]">{copy.compareSub}</p>
+              <div className="mt-5 max-w-full overflow-x-auto rounded-2xl border border-[#E5E0D6]">
                 <table className="w-full min-w-[430px] border-collapse text-left">
                   <thead>
-                    <tr className="bg-[#0d1219]">
+                    <tr className="bg-[#FFFFFF]">
                       {copy.compareHead.map((h, i) => (
-                        <th key={i} className={`px-3 py-3 text-[9px] font-bold uppercase tracking-[0.08em] ${i === 1 ? 'text-[#10BFD8]' : 'text-[#7b8898]'}`}>{h}</th>
+                        <th key={i} className={`px-3 py-3 text-[9px] font-bold uppercase tracking-[0.08em] ${i === 1 ? 'text-[#0F766E]' : 'text-[#5B6B68]'}`}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {copy.compareRows.map((row, idx) => (
-                      <tr key={String(row[0])} className={idx % 2 === 0 ? 'bg-[#0b1017]' : 'bg-[#0d1219]'}>
+                      <tr key={String(row[0])} className={idx % 2 === 0 ? 'bg-[#FAF8F4]' : 'bg-[#FFFFFF]'}>
                         {row.map((cell, i) => (
-                          <td key={i} className="border-t border-white/[0.05] px-3 py-2.5 text-[11px] text-[#c8d0da]">
+                          <td key={i} className="border-t border-[#E5E0D6] px-3 py-2.5 text-[11px] text-[#3E4F4B]">
                             {typeof cell === 'boolean' ? (
-                              cell ? <Check size={13} className="text-[#34d399]" /> : <X size={13} className="text-[#5a6678]" />
+                              cell ? <Check size={13} className="text-[#15803D]" /> : <X size={13} className="text-[#5B6B68]" />
                             ) : (
-                              <span className={i === 1 ? 'font-semibold text-[#f2eee7]' : ''}>{cell}</span>
+                              <span className={i === 1 ? 'font-semibold text-[#14211F]' : ''}>{cell}</span>
                             )}
                           </td>
                         ))}
@@ -562,21 +572,21 @@ export default function NitidaHome() {
 
         {/* GUARANTEE */}
         <section className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-20">
-          <div className="rounded-[26px] border border-white/[0.08] bg-[linear-gradient(135deg,rgba(16,191,216,0.09),rgba(13,18,25,0.6))] p-6 sm:p-10">
+          <div className="rounded-[26px] border border-[#E5E0D6] bg-[linear-gradient(135deg,#E6F4EF,#F7F5F0)] p-6 sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#10BFD8]">{isEs ? 'SIN RIESGO' : 'RISK-FREE'}</p>
-                <h2 className="mt-2 text-[clamp(1.7rem,3.6vw,2.5rem)] font-bold leading-[1.04] tracking-[-0.04em] text-[#f6f2eb]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#0F766E]">{isEs ? 'SIN RIESGO' : 'RISK-FREE'}</p>
+                <h2 className="mt-2 text-[clamp(1.7rem,3.6vw,2.5rem)] font-bold leading-[1.04] tracking-[-0.04em] text-[#14211F]">
                   {copy.guaranteeTitle}
                 </h2>
-                <p className="mt-3 max-w-[600px] text-[13px] leading-[1.7] text-[#9aa7b6] sm:text-[14px]">{copy.guaranteeBody}</p>
+                <p className="mt-3 max-w-[600px] text-[13px] leading-[1.7] text-[#5B6B68] sm:text-[14px]">{copy.guaranteeBody}</p>
               </div>
               <div className="grid gap-2.5 sm:grid-cols-3">
                 {copy.guaranteeCards.map(({ icon: Icon, title, desc }) => (
-                  <div key={title} className="rounded-xl border border-white/[0.08] bg-[#0b1017]/80 p-3.5 text-center">
-                    <Icon size={17} className="mx-auto text-[#10BFD8]" />
-                    <div className="mt-2 text-[13px] font-bold text-[#f2eee7]">{title}</div>
-                    <div className="mt-0.5 text-[9px] leading-tight text-[#7b8898]">{desc}</div>
+                  <div key={title} className="rounded-xl border border-[#E5E0D6] bg-[#FAF8F4]/80 p-3.5 text-center">
+                    <Icon size={17} className="mx-auto text-[#0F766E]" />
+                    <div className="mt-2 text-[13px] font-bold text-[#14211F]">{title}</div>
+                    <div className="mt-0.5 text-[9px] leading-tight text-[#5B6B68]">{desc}</div>
                   </div>
                 ))}
               </div>
@@ -586,15 +596,15 @@ export default function NitidaHome() {
 
         {/* FAQ */}
         <section className="mx-auto max-w-[900px] px-4 pb-14 sm:px-6 sm:pb-20">
-          <h2 className="text-[clamp(1.7rem,3.6vw,2.4rem)] font-bold tracking-[-0.04em] text-[#f6f2eb]">{copy.faqTitle}</h2>
+          <h2 className="text-[clamp(1.7rem,3.6vw,2.4rem)] font-bold tracking-[-0.04em] text-[#14211F]">{copy.faqTitle}</h2>
           <div className="mt-6 space-y-2">
             {copy.faqs.map(([q, a]) => (
-              <details key={q} className="group rounded-xl border border-white/[0.07] bg-[#0d1219] px-4 py-3 open:border-white/[0.14]">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[13px] font-semibold text-[#e9eef4] [&::-webkit-details-marker]:hidden">
+              <details key={q} className="group rounded-xl border border-[#E5E0D6] bg-[#FFFFFF] px-4 py-3 open:border-[#0F766E]/30">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[13px] font-semibold text-[#14211F] [&::-webkit-details-marker]:hidden">
                   {q}
-                  <ChevronDown size={15} className="shrink-0 text-[#7b8898] transition-transform group-open:rotate-180" />
+                  <ChevronDown size={15} className="shrink-0 text-[#5B6B68] transition-transform group-open:rotate-180" />
                 </summary>
-                <p className="mt-2.5 text-[12px] leading-[1.7] text-[#8791a1]">{a}</p>
+                <p className="mt-2.5 text-[12px] leading-[1.7] text-[#5B6B68]">{a}</p>
               </details>
             ))}
           </div>
@@ -602,29 +612,29 @@ export default function NitidaHome() {
 
         {/* FINAL CTA */}
         <section className="mx-auto max-w-[1280px] px-4 pb-16 sm:px-6 sm:pb-24">
-          <div className="relative overflow-hidden rounded-[26px] border border-white/[0.08] bg-[#0d1219]">
-            <div className="pointer-events-none absolute -right-20 -top-24 h-[360px] w-[360px] rounded-full bg-[#10BFD8]/10 blur-[70px]" />
+          <div className="relative overflow-hidden rounded-[26px] border border-[#E5E0D6] bg-[#FFFFFF]">
+            <div className="pointer-events-none absolute -right-20 -top-24 h-[360px] w-[360px] rounded-full bg-[#0F766E]/10 blur-[70px]" />
             <div className="relative grid gap-6 p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
               <div className="mx-auto w-full max-w-[280px] lg:max-w-[320px]">
-                <ProductImage slug="vapor" color="#0b1520" icon="" images={PRODUCT_IMAGES} alt="Nítida Vapor" className="aspect-square w-full rounded-2xl" />
+                <ProductImage slug="vapor" color="#E6F4EF" icon="" images={PRODUCT_IMAGES} alt="Nítida Vapor" className="aspect-square w-full rounded-2xl" />
               </div>
               <div>
-                <h2 className="text-[clamp(1.7rem,3.6vw,2.5rem)] font-bold leading-[1.04] tracking-[-0.04em] text-[#f6f2eb]">
+                <h2 className="text-[clamp(1.7rem,3.6vw,2.5rem)] font-bold leading-[1.04] tracking-[-0.04em] text-[#14211F]">
                   {copy.finalTitle}
                 </h2>
-                <p className="mt-2 text-[13px] text-[#8791a1]">{copy.finalSub}</p>
+                <p className="mt-2 text-[13px] text-[#5B6B68]">{copy.finalSub}</p>
                 <div className="mt-5 flex flex-wrap items-center gap-4">
-                  <div className="text-[30px] font-bold tracking-[-0.04em] text-[#f6f2eb]">{eur(selected.price)}</div>
+                  <div className="text-[30px] font-bold tracking-[-0.04em] text-[#14211F]">{eur(selected.price)}</div>
                   <button
                     onClick={buy}
-                    className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-7 py-3.5 text-[14px] font-bold text-[#041014] transition-all hover:-translate-y-0.5 hover:bg-[#2fd0e6] active:scale-[0.99]"
+                    className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-full bg-[#0F766E] px-7 py-3.5 text-[14px] font-bold text-[#FFFFFF] transition-all hover:-translate-y-0.5 hover:bg-[#0B5F58] active:scale-[0.99]"
                   >
                     {copy.cta} — {eur(selected.price)}
                     <ArrowRight size={15} />
                   </button>
                 </div>
-                <p className="mt-2 text-[10px] text-[#6f7c8c]">{copy.ctaSub}</p>
-                <Link href={`/${locale}/products/vapor`} className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#10BFD8] hover:underline">
+                <p className="mt-2 text-[10px] text-[#5B6B68]">{copy.ctaSub}</p>
+                <Link href={`/${locale}/products/vapor`} className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#0F766E] hover:underline">
                   {isEs ? 'Ver la ficha completa' : 'See the full product page'} <ArrowRight size={12} />
                 </Link>
               </div>
@@ -634,15 +644,15 @@ export default function NitidaHome() {
       </main>
 
       {/* STICKY MOBILE CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#080c12]/95 px-3 py-2.5 backdrop-blur-lg lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5E0D6] bg-[#F7F5F0]/95 px-3 py-2.5 backdrop-blur-lg lg:hidden">
         <div className="mx-auto flex max-w-[520px] items-center gap-3">
           <div className="min-w-0 flex-1">
-            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#7b8898]">Nítida Vapor</div>
-            <div className="text-[17px] font-bold leading-tight text-[#f2eee7]">{eur(selected.price)}</div>
+            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#5B6B68]">Nítida Vapor</div>
+            <div className="text-[17px] font-bold leading-tight text-[#14211F]">{eur(selected.price)}</div>
           </div>
           <button
             onClick={buy}
-            className="inline-flex min-h-[50px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#10BFD8] px-5 py-3 text-[13px] font-bold text-[#041014] active:scale-[0.99]"
+            className="inline-flex min-h-[50px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#0F766E] px-5 py-3 text-[13px] font-bold text-[#FFFFFF] active:scale-[0.99]"
           >
             {isEs ? 'Lo quiero' : 'Get it'}
             <ArrowRight size={14} />

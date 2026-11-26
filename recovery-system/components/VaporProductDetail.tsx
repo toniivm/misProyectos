@@ -162,22 +162,22 @@ export default function VaporProductDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-[#080c12] text-[#f2eee7]">
+    <div className="min-h-screen bg-[#F7F5F0] text-[#14211F]">
       <Header showBackButton backLabel={isEs ? 'Volver' : 'Back'} backHref={`/${locale}`} />
       <main className="pb-28 lg:pb-0">
         <div className="mx-auto max-w-[1280px] px-4 py-6 sm:px-6 sm:py-10">
-          <nav className="flex items-center gap-2 text-[11px] text-[#6f7c8c]">
-            <Link href={`/${locale}`} className="hover:text-[#10BFD8]">{isEs ? 'Inicio' : 'Home'}</Link>
+          <nav className="flex items-center gap-2 text-[11px] text-[#5B6B68]">
+            <Link href={`/${locale}`} className="hover:text-[#0F766E]">{isEs ? 'Inicio' : 'Home'}</Link>
             <span>/</span>
-            <span className="text-[#a8b3c2]">{copy.breadcrumb}</span>
+            <span className="text-[#5B6B68]">{copy.breadcrumb}</span>
           </nav>
 
           <div className="mt-5 grid gap-7 lg:grid-cols-[1fr_0.9fr] lg:gap-12">
             <div>
-              <div className="overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0b1520]">
+              <div className="overflow-hidden rounded-[24px] border border-[#E5E0D6] bg-[#E6F4EF]">
                 <ProductImage
                   slug="vapor"
-                  color="#0b1520"
+                  color="#E6F4EF"
                   icon=""
                   images={PRODUCT_IMAGES}
                   activeIndex={activeImg}
@@ -190,7 +190,7 @@ export default function VaporProductDetail() {
                   <button
                     key={src}
                     onClick={() => setActiveImg(idx)}
-                    className={`overflow-hidden rounded-lg border bg-[#f5f0eb] transition ${activeImg === idx ? 'border-[#10BFD8]' : 'border-white/[0.08] hover:border-white/25'}`}
+                    className={`overflow-hidden rounded-lg border bg-[#F5F0EB] transition ${activeImg === idx ? 'border-[#0F766E]' : 'border-[#E5E0D6] hover:border-[#0F766E]/50'}`}
                     aria-label={`${isEs ? 'Ver imagen' : 'View image'} ${idx + 1}`}
                   >
                     <img src={src} alt="" className="aspect-square w-full object-contain p-1" loading="lazy" decoding="async" />
@@ -203,30 +203,30 @@ export default function VaporProductDetail() {
                   ['115 °C', isEs ? 'vapor' : 'steam'],
                   ['12', isEs ? 'accesorios' : 'accessories'],
                 ].map(([k, v]) => (
-                  <div key={k} className="rounded-xl border border-white/[0.07] bg-[#0d1219] px-3 py-3 text-center">
-                    <div className="text-[15px] font-bold text-[#f2eee7]">{k}</div>
-                    <div className="text-[9px] uppercase tracking-wide text-[#7b8898]">{v}</div>
+                  <div key={k} className="rounded-xl border border-[#E5E0D6] bg-[#FFFFFF] px-3 py-3 text-center">
+                    <div className="text-[15px] font-bold text-[#14211F]">{k}</div>
+                    <div className="text-[9px] uppercase tracking-wide text-[#5B6B68]">{v}</div>
                   </div>
                 ))}
               </div>
             </div>
 
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#10BFD8]">{copy.eyebrow}</p>
-              <h1 className="mt-2 text-[clamp(1.9rem,4.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.045em] text-[#f6f2eb]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#0F766E]">{copy.eyebrow}</p>
+              <h1 className="mt-2 text-[clamp(1.9rem,4.6vw,3rem)] font-bold leading-[0.98] tracking-[-0.045em] text-[#14211F]">
                 {copy.title}
               </h1>
-              <p className="mt-3 text-[14px] leading-[1.65] text-[#a8b3c2]">{copy.sub}</p>
+              <p className="mt-3 text-[14px] leading-[1.65] text-[#5B6B68]">{copy.sub}</p>
 
               <div className="mt-5 flex items-end gap-2">
-                <div className="text-[34px] font-bold leading-none tracking-[-0.04em] text-[#f6f2eb]">{eur(selected.price)}</div>
-                <div className="pb-1 text-[11px] text-[#7b8898]">{copy.priceNote}</div>
+                <div className="text-[34px] font-bold leading-none tracking-[-0.04em] text-[#14211F]">{eur(selected.price)}</div>
+                <div className="pb-1 text-[11px] text-[#5B6B68]">{copy.priceNote}</div>
               </div>
 
               <ul className="mt-5 space-y-2">
                 {copy.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-[12.5px] leading-[1.5] text-[#c8d0da]">
-                    <Check size={14} className="mt-0.5 shrink-0 text-[#10BFD8]" />
+                  <li key={b} className="flex items-start gap-2 text-[12.5px] leading-[1.5] text-[#3E4F4B]">
+                    <Check size={14} className="mt-0.5 shrink-0 text-[#0F766E]" />
                     {b}
                   </li>
                 ))}
@@ -238,20 +238,20 @@ export default function VaporProductDetail() {
                     key={p.slug}
                     onClick={() => setPlan(i)}
                     aria-pressed={plan === i}
-                    className={`relative flex min-h-[58px] items-center justify-between gap-3 rounded-xl border px-3 py-2.5 text-left transition sm:block sm:min-h-[92px] sm:px-3 sm:py-3 ${plan === i ? 'border-[#10BFD8] bg-[#10BFD8]/10' : 'border-white/10 bg-white/[0.03] hover:border-white/20'}`}
+                    className={`relative flex min-h-[58px] items-center justify-between gap-3 rounded-xl border px-3 py-2.5 text-left transition sm:block sm:min-h-[92px] sm:px-3 sm:py-3 ${plan === i ? 'border-[#0F766E] bg-[#0F766E]/10' : 'border-[#E5E0D6] bg-[#F7F5F0] hover:border-[#0F766E]/30'}`}
                   >
                     <div className="flex min-w-0 items-center gap-2 sm:block">
-                      <span className="text-[11px] font-bold uppercase tracking-[0.04em] text-[#c8d0da]">{isEs ? p.labelEs : p.labelEn}</span>
+                      <span className="text-[11px] font-bold uppercase tracking-[0.04em] text-[#3E4F4B]">{isEs ? p.labelEs : p.labelEn}</span>
                       {i === 1 && (
-                        <span className="rounded-full bg-[#10BFD8] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[#041014]">
+                        <span className="rounded-full bg-[#0F766E] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wide text-[#FFFFFF]">
                           {isEs ? 'Más elegido' : 'Most chosen'}
                         </span>
                       )}
                     </div>
                     <div className="shrink-0 text-right sm:mt-1.5 sm:text-left">
-                      <div className="text-[15px] font-bold leading-none text-[#f6f2eb]">{eur(p.price)}</div>
-                      <div className="mt-1 text-[9px] text-[#7b8898]">{p.perUnit}/ud</div>
-                      {p.saveEs && <div className="mt-0.5 text-[9px] font-semibold text-[#34d399]">{isEs ? p.saveEs : p.saveEn}</div>}
+                      <div className="text-[15px] font-bold leading-none text-[#14211F]">{eur(p.price)}</div>
+                      <div className="mt-1 text-[9px] text-[#5B6B68]">{p.perUnit}/ud</div>
+                      {p.saveEs && <div className="mt-0.5 text-[9px] font-semibold text-[#15803D]">{isEs ? p.saveEs : p.saveEn}</div>}
                     </div>
                   </button>
                 ))}
@@ -260,7 +260,7 @@ export default function VaporProductDetail() {
               <div className="mt-3 space-y-2">
                 <button
                   onClick={() => addToCart(false)}
-                  className="flex min-h-[56px] w-full items-center justify-center gap-2 rounded-full bg-[#10BFD8] px-6 py-4 text-[15px] font-bold text-[#041014] transition-all hover:bg-[#2fd0e6] active:scale-[0.99]"
+                  className="flex min-h-[56px] w-full items-center justify-center gap-2 rounded-full bg-[#0F766E] px-6 py-4 text-[15px] font-bold text-[#FFFFFF] transition-all hover:bg-[#0B5F58] active:scale-[0.99]"
                 >
                   {added ? <Check size={16} /> : null}
                   {added ? (isEs ? 'Añadido al carrito' : 'Added to cart') : copy.add}
@@ -268,7 +268,7 @@ export default function VaporProductDetail() {
                 </button>
                 <button
                   onClick={() => addToCart(true)}
-                  className="flex min-h-[52px] w-full items-center justify-center rounded-full border border-white/12 px-6 py-3.5 text-[13px] font-semibold text-[#c8d0da] transition hover:border-white/25 hover:text-white"
+                  className="flex min-h-[52px] w-full items-center justify-center rounded-full border border-[#D8D2C7] px-6 py-3.5 text-[13px] font-semibold text-[#3E4F4B] transition hover:border-[#0F766E]/50 hover:text-[#0F766E]"
                 >
                   {copy.buyNow}
                 </button>
@@ -276,10 +276,10 @@ export default function VaporProductDetail() {
 
               <div className="mt-4 grid grid-cols-3 gap-2">
                 {copy.trust.map(({ icon: Icon, title, sub }) => (
-                  <div key={title} className="rounded-xl border border-white/[0.07] bg-white/[0.02] px-2.5 py-2.5 text-center">
-                    <Icon size={15} className="mx-auto text-[#10BFD8]" />
-                    <div className="mt-1 text-[10px] font-semibold text-[#e9eef4]">{title}</div>
-                    <div className="text-[8px] text-[#7b8898]">{sub}</div>
+                  <div key={title} className="rounded-xl border border-[#E5E0D6] bg-[#FAF8F4] px-2.5 py-2.5 text-center">
+                    <Icon size={15} className="mx-auto text-[#0F766E]" />
+                    <div className="mt-1 text-[10px] font-semibold text-[#14211F]">{title}</div>
+                    <div className="text-[8px] text-[#5B6B68]">{sub}</div>
                   </div>
                 ))}
               </div>
@@ -288,14 +288,14 @@ export default function VaporProductDetail() {
 
           {/* KIT */}
           <section className="mt-12 sm:mt-16">
-            <h2 className="text-[22px] font-bold tracking-[-0.03em] text-[#f6f2eb] sm:text-[26px]">{copy.kitTitle}</h2>
+            <h2 className="text-[22px] font-bold tracking-[-0.03em] text-[#14211F] sm:text-[26px]">{copy.kitTitle}</h2>
             <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
               {copy.kit.map((name, idx) => {
                 const Icon = KIT_ICONS[idx] ?? Package
                 return (
-                  <div key={name} className="flex items-center gap-2.5 rounded-xl border border-white/[0.07] bg-[#0d1219] px-3 py-3">
-                    <Icon size={14} className="shrink-0 text-[#10BFD8]" />
-                    <span className="text-[11px] text-[#c8d0da]">{name}</span>
+                  <div key={name} className="flex items-center gap-2.5 rounded-xl border border-[#E5E0D6] bg-[#FFFFFF] px-3 py-3">
+                    <Icon size={14} className="shrink-0 text-[#0F766E]" />
+                    <span className="text-[11px] text-[#3E4F4B]">{name}</span>
                   </div>
                 )
               })}
@@ -305,27 +305,27 @@ export default function VaporProductDetail() {
           {/* SPECS */}
           <section className="mt-10 grid gap-8 lg:grid-cols-2">
             <div className="min-w-0">
-              <h2 className="text-[22px] font-bold tracking-[-0.03em] text-[#f6f2eb] sm:text-[26px]">{copy.specsTitle}</h2>
-              <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.08]">
+              <h2 className="text-[22px] font-bold tracking-[-0.03em] text-[#14211F] sm:text-[26px]">{copy.specsTitle}</h2>
+              <div className="mt-4 overflow-hidden rounded-2xl border border-[#E5E0D6]">
                 {copy.specs.map(([k, v], idx) => (
-                  <div key={k} className={`flex items-center justify-between gap-4 px-4 py-3 text-[12px] ${idx % 2 === 0 ? 'bg-[#0d1219]' : 'bg-[#0b1017]'}`}>
-                    <span className="min-w-0 break-words text-[#7b8898]">{k}</span>
-                    <span className="min-w-0 break-words text-right font-semibold text-[#e9eef4]">{v}</span>
+                  <div key={k} className={`flex items-center justify-between gap-4 px-4 py-3 text-[12px] ${idx % 2 === 0 ? 'bg-[#FFFFFF]' : 'bg-[#FAF8F4]'}`}>
+                    <span className="min-w-0 break-words text-[#5B6B68]">{k}</span>
+                    <span className="min-w-0 break-words text-right font-semibold text-[#14211F]">{v}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="min-w-0">
-              <h2 className="text-[22px] font-bold tracking-[-0.03em] text-[#f6f2eb] sm:text-[26px]">{copy.faqTitle}</h2>
+              <h2 className="text-[22px] font-bold tracking-[-0.03em] text-[#14211F] sm:text-[26px]">{copy.faqTitle}</h2>
               <div className="mt-4 space-y-2">
                 {copy.faqs.map(([q, a]) => (
-                  <details key={q} className="group rounded-xl border border-white/[0.07] bg-[#0d1219] px-4 py-3 open:border-white/[0.14]">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[12.5px] font-semibold text-[#e9eef4] [&::-webkit-details-marker]:hidden">
+                  <details key={q} className="group rounded-xl border border-[#E5E0D6] bg-[#FFFFFF] px-4 py-3 open:border-[#0F766E]/30">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[12.5px] font-semibold text-[#14211F] [&::-webkit-details-marker]:hidden">
                       {q}
-                      <ChevronDown size={14} className="shrink-0 text-[#7b8898] transition-transform group-open:rotate-180" />
+                      <ChevronDown size={14} className="shrink-0 text-[#5B6B68] transition-transform group-open:rotate-180" />
                     </summary>
-                    <p className="mt-2.5 text-[12px] leading-[1.65] text-[#8791a1]">{a}</p>
+                    <p className="mt-2.5 text-[12px] leading-[1.65] text-[#5B6B68]">{a}</p>
                   </details>
                 ))}
               </div>
@@ -333,17 +333,17 @@ export default function VaporProductDetail() {
           </section>
 
           {/* GUARANTEE */}
-          <section className="mt-10 rounded-2xl border border-white/[0.08] bg-[linear-gradient(135deg,rgba(16,191,216,0.08),rgba(13,18,25,0.5))] p-5 sm:p-7">
+          <section className="mt-10 rounded-2xl border border-[#E5E0D6] bg-[linear-gradient(135deg,#E6F4EF,#F7F5F0)] p-5 sm:p-7">
             <div className="flex flex-wrap items-center gap-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#10BFD8]/15">
-                <ShieldCheck size={20} className="text-[#10BFD8]" />
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0F766E]/15">
+                <ShieldCheck size={20} className="text-[#0F766E]" />
               </div>
               <div className="min-w-[220px] flex-1">
-                <div className="text-[14px] font-bold text-[#f2eee7]">{isEs ? '30 días para probarlo. 2 años de garantía.' : '30 days to try it. 2-year warranty.'}</div>
-                <div className="mt-0.5 text-[11px] text-[#8791a1]">{isEs ? 'Si no limpia como esperabas, lo recogemos y te devolvemos el dinero.' : 'If it does not clean as expected, we collect it and refund you.'}</div>
+                <div className="text-[14px] font-bold text-[#14211F]">{isEs ? '30 días para probarlo. 2 años de garantía.' : '30 days to try it. 2-year warranty.'}</div>
+                <div className="mt-0.5 text-[11px] text-[#5B6B68]">{isEs ? 'Si no limpia como esperabas, lo recogemos y te devolvemos el dinero.' : 'If it does not clean as expected, we collect it and refund you.'}</div>
               </div>
-              <div className="flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-[10px] text-[#c8d0da]">
-                <CreditCard size={12} className="text-[#10BFD8]" /> Stripe · SSL
+              <div className="flex items-center gap-1.5 rounded-full border border-[#E5E0D6] px-3 py-1.5 text-[10px] text-[#3E4F4B]">
+                <CreditCard size={12} className="text-[#0F766E]" /> Stripe · SSL
               </div>
             </div>
           </section>
@@ -351,15 +351,15 @@ export default function VaporProductDetail() {
       </main>
 
       {/* STICKY MOBILE CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#080c12]/95 px-3 py-2.5 backdrop-blur-lg lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E5E0D6] bg-[#F7F5F0]/95 px-3 py-2.5 backdrop-blur-lg lg:hidden">
         <div className="mx-auto flex max-w-[520px] items-center gap-3">
           <div className="min-w-0 flex-1">
-            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#7b8898]">Nítida Vapor</div>
-            <div className="text-[17px] font-bold leading-tight text-[#f2eee7]">{eur(selected.price)}</div>
+            <div className="text-[10px] font-semibold uppercase tracking-wide text-[#5B6B68]">Nítida Vapor</div>
+            <div className="text-[17px] font-bold leading-tight text-[#14211F]">{eur(selected.price)}</div>
           </div>
           <button
             onClick={() => addToCart(false)}
-            className="inline-flex min-h-[50px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#10BFD8] px-5 py-3 text-[13px] font-bold text-[#041014] active:scale-[0.99]"
+            className="inline-flex min-h-[50px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#0F766E] px-5 py-3 text-[13px] font-bold text-[#FFFFFF] active:scale-[0.99]"
           >
             {isEs ? 'Añadir' : 'Add'}
             <ArrowRight size={14} />
