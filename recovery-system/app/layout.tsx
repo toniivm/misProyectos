@@ -98,7 +98,7 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body className="bg-[#080c12] text-[#f2eee7] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
+      <body className="bg-[#F7F5F0] text-[#14211F] font-sans antialiased overflow-x-hidden" suppressHydrationWarning>
         <GoogleAnalytics />
         <MetaPixel />
         <TikTokPixel />
