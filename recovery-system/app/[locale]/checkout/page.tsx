@@ -733,7 +733,7 @@ export default function CheckoutPage() {
               {/* Payment methods available */}
               <PaymentLogos className="mb-4" />
               <p className="mb-4 text-center text-[11px] leading-4 text-[#6b7785]">
-                {isEs ? 'Serás redirigido a Stripe para pagar con tarjeta, PayPal, Apple Pay o Google Pay — según tu dispositivo.' : 'You’ll be redirected to Stripe to pay with card, PayPal, Apple Pay or Google Pay — depending on your device.'}
+                {isEs ? 'Serás redirigido a Stripe para pagar con tarjeta, Bizum, PayPal, Apple Pay o Google Pay — según tu dispositivo.' : 'You’ll be redirected to Stripe to pay with card, Bizum, PayPal, Apple Pay or Google Pay — depending on your device.'}
               </p>
 
               {/* Security info */}
@@ -787,8 +787,8 @@ export default function CheckoutPage() {
               <PaymentLogos />
               <p className="mt-2 text-[11px] text-[#7A8A86] text-center">
                 {isEs
-                  ? 'Paga de forma segura con tarjeta, PayPal, Apple Pay o Google Pay'
-                  : 'Pay securely with card, PayPal, Apple Pay, or Google Pay'}
+                  ? 'Paga de forma segura con tarjeta, Bizum, PayPal, Apple Pay o Google Pay'
+                  : 'Pay securely with card, Bizum, PayPal, Apple Pay, or Google Pay'}
               </p>
             </div>
 

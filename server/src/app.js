@@ -858,8 +858,11 @@ app.post('/payments/create-checkout-session', checkoutLimiter, async (req,res) =
 
     // Map payment method to Stripe payment_method_types
     // Stripe shows Apple Pay/Google Pay automatically on capable devices when using 'card'
+    // Bizum solo aplica a clientes de España y pagos en EUR
+    const shipToCountry = String(shipping?.address?.country || '').toUpperCase();
+    const isSpainEur = shipToCountry === 'ES' && String(currency || '').toLowerCase() === 'eur';
     const paymentMethodTypes = {
-      'card': ['card', 'paypal'],
+      'card': isSpainEur ? ['card', 'paypal', 'bizum'] : ['card', 'paypal'],
     };
 
     console.log(`💳 Creating Stripe Checkout session for order ${orderId}... (method: ${paymentMethod})`);

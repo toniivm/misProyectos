@@ -2,7 +2,7 @@ export default function PaymentLogos({ className = '' }: { className?: string })
   return (
     <div className={`flex items-center justify-center gap-2 sm:gap-3 flex-wrap ${className}`}>
       {/* Visa */}
-      <div className="flex items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 transition-colors hover:bg-white/[0.06]">
+      <div className="flex items-center justify-center rounded-md border border-[#E5E0D6] bg-white px-2.5 py-1.5 transition-colors hover:bg-[#F7F5F0]">
         <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="4" fill="#1A1F71"/>
           <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="14">VISA</text>
@@ -10,7 +10,7 @@ export default function PaymentLogos({ className = '' }: { className?: string })
       </div>
 
       {/* Mastercard */}
-      <div className="flex items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 transition-colors hover:bg-white/[0.06]">
+      <div className="flex items-center justify-center rounded-md border border-[#E5E0D6] bg-white px-2.5 py-1.5 transition-colors hover:bg-[#F7F5F0]">
         <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="4" fill="#2D2D2D"/>
           <circle cx="19" cy="16" r="8" fill="#EB001B"/>
@@ -20,7 +20,7 @@ export default function PaymentLogos({ className = '' }: { className?: string })
       </div>
 
       {/* PayPal */}
-      <div className="flex items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 transition-colors hover:bg-white/[0.06]">
+      <div className="flex items-center justify-center rounded-md border border-[#E5E0D6] bg-white px-2.5 py-1.5 transition-colors hover:bg-[#F7F5F0]">
         <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="4" fill="#003087"/>
           <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="10">PayPal</text>
@@ -28,7 +28,7 @@ export default function PaymentLogos({ className = '' }: { className?: string })
       </div>
 
       {/* American Express */}
-      <div className="flex items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 transition-colors hover:bg-white/[0.06]">
+      <div className="flex items-center justify-center rounded-md border border-[#E5E0D6] bg-white px-2.5 py-1.5 transition-colors hover:bg-[#F7F5F0]">
         <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="4" fill="#006FCF"/>
           <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="8">AMEX</text>
@@ -36,7 +36,7 @@ export default function PaymentLogos({ className = '' }: { className?: string })
       </div>
 
       {/* Apple Pay */}
-      <div className="flex items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 transition-colors hover:bg-white/[0.06]">
+      <div className="flex items-center justify-center rounded-md border border-[#E5E0D6] bg-white px-2.5 py-1.5 transition-colors hover:bg-[#F7F5F0]">
         <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="4" fill="#000000"/>
           <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontFamily="Arial, sans-serif" fontWeight="600" fontSize="9"> Pay</text>
@@ -44,10 +44,18 @@ export default function PaymentLogos({ className = '' }: { className?: string })
       </div>
 
       {/* Google Pay */}
-      <div className="flex items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 transition-colors hover:bg-white/[0.06]">
+      <div className="flex items-center justify-center rounded-md border border-[#E5E0D6] bg-white px-2.5 py-1.5 transition-colors hover:bg-[#F7F5F0]">
         <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
           <rect width="48" height="32" rx="4" fill="#FFFFFF"/>
           <text x="24" y="20" textAnchor="middle" fill="#5F6368" fontFamily="Arial, sans-serif" fontWeight="600" fontSize="9">G Pay</text>
+        </svg>
+      </div>
+
+      {/* Bizum */}
+      <div className="flex items-center justify-center rounded-md border border-[#E5E0D6] bg-white px-2.5 py-1.5 transition-colors hover:bg-[#F7F5F0]">
+        <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="32" rx="4" fill="#00A3D9"/>
+          <text x="24" y="20" textAnchor="middle" fill="#FFFFFF" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="11">Bizum</text>
         </svg>
       </div>
     </div>
