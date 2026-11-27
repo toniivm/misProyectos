@@ -106,3 +106,33 @@ Conclusión incómoda: **el margen de Dropea está bien**. Lo que falla no es el
 - Contra reembolso de Correos: **2,75 % del importe, mínimo 2,50 €**.
 
 Es decir: enviar tú solo tiene sentido con contrato o con volumen. A 3 pedidos al día, Dropea gana.
+
+---
+
+## Actualización 28/11/2026 — fábrica localizada y Bizum activo
+
+### La fábrica del modelo exacto
+
+El limpiador que vendemos (cuerpo redondo, 1050 W, 350 ml, 3 bar, 12 accesorios) es el modelo **UAHSC06** de **Guilin Use at Home Technology Co., Ltd.** (`steamcleanerschina.com`).
+
+- Precio de referencia publicado: **10,92–12,61 USD/unidad**.
+- **MOQ estándar: 1.002 unidades**; personalizado: 2.000.
+- Especificaciones reales: 900–1050 W, 2,8–3,4 bar, 350 ml (250 ml útiles), calentamiento 1–3 min, 8–10 min de vapor.
+- Contacto: `contact@steamcleanerschina.com` · WhatsApp +86 159 7211 2720.
+
+**Conclusión:** a 1.002 unidades el pedido son ~12.000 USD + flete. No es un pedido de arranque. Sirve para la segunda fase, cuando haya ventas que lo justifiquen.
+
+### El techo de precio del mercado
+
+PcComponentes vende el **mismo tipo de producto** (Rolipo, 1050 W, 440 ml, 12 accesorios, 135 °C) a **39,99 €** con envío y devolución gratis, vendido por ALLIANCE LIVING. Es decir: a 1 unidad no tenemos ventaja de precio; la ventaja real es el **pack de 2 a 69,99 € (35 €/ud)**, que sí queda por debajo de comprar dos sueltos.
+
+### Lo que ya está resuelto en la tienda
+
+- **Bizum activado** en Stripe Checkout para pedidos con dirección de España y moneda EUR. Verificado en producción: la sesión se crea con `["card","paypal","bizum"]` y cobra 39,99 € aunque el navegador envíe 0,01 € y un 99 % de descuento.
+- Las páginas de about, contacto, seguimiento, éxito y legales ya están en el tema claro.
+- El cuerpo del documento ya no tiene fondo oscuro.
+
+### Lo único que falta para vender de verdad
+
+1. **Stock o proveedor con envío 24-72 h.** Sin esto, cada pedido es un problema. La vía más rápida sigue siendo Dropea (0 € de alta, se paga con el monedero) o un mayorista español con stock real de este modelo.
+2. **Tráfico.** No hay cuenta de anuncios de Nítida ni TikTok de marca con acceso. La cuenta `@noctip2` existe pero tiene 0 seguidores y no tenemos sus credenciales. El vídeo `ads/nitida-vapor-9x16.mp4` está listo para publicar en cuanto haya cuenta.
