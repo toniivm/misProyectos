@@ -167,7 +167,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: '¿Cuánto tarda en secar Nítida Dry?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Con el temporizador en 3 horas, unas zapatillas mojadas quedan secas. Para botas gruesas o muy empapadas, usa 6 o 9 horas. El tiempo depende del material y de la humedad.',
+          text: 'Para unas zapatillas húmedas, 3 horas suelen bastar. Para botas gruesas o muy empapadas, usa 6 o 9 horas. El tiempo depende del material y de la humedad.',
         },
       },
       {
@@ -200,7 +200,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: 'How long does Nítida Dry take to dry shoes?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'With the 3-hour timer, wet trainers are dry. For thick or soaked boots, use 6 or 9 hours. Time depends on the material and the dampness.',
+          text: 'For damp trainers, 3 hours is usually enough. For thick or soaked boots, use 6 or 9 hours. Time depends on the material and the dampness.',
         },
       },
       {

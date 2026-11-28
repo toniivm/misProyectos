@@ -72,7 +72,7 @@ const COPY = {
     ],
     faqTitle: 'Preguntas frecuentes',
     faqs: [
-      ['¿Cuánto tarda en secar?', 'Con el temporizador en 3 horas, unas zapatillas mojadas quedan secas. Para botas gruesas o muy empapadas, usa 6 o 9 horas. El tiempo depende del material y de la humedad.'],
+      ['¿Cuánto tarda en secar?', 'Para unas zapatillas húmedas, 3 horas suelen bastar. Para botas gruesas o muy empapadas, usa 6 o 9 horas. El tiempo depende del material y de la humedad.'],
       ['¿Sirve para botas altas?', 'Sí. Los tubos llegan hasta la puntera y el aire sale por toda la superficie. Para botas muy altas, colócalas con la caña hacia arriba.'],
       ['¿Hace ruido?', 'Es un ventilador suave. Se puede dejar en el recibidor o en el baño por la noche.'],
       ['¿Es seguro dejarlo toda la noche?', 'Sí. Tiene apagado automático al terminar el tiempo y funciona a temperatura constante. No deja el calzado ardiendo.'],
@@ -130,7 +130,7 @@ const COPY = {
     ],
     faqTitle: 'FAQ',
     faqs: [
-      ['How long does it take to dry?', 'With the 3-hour timer, wet trainers are dry. For thick or soaked boots, use 6 or 9 hours. Time depends on the material and the dampness.'],
+      ['How long does it take to dry?', 'For damp trainers, 3 hours is usually enough. For thick or soaked boots, use 6 or 9 hours. Time depends on the material and the dampness.'],
       ['Does it work with tall boots?', 'Yes. The tubes reach the toe and air comes out along the whole surface. For very tall boots, place them with the shaft up.'],
       ['Is it noisy?', 'It is a gentle fan. You can leave it in the hallway or bathroom overnight.'],
       ['Is it safe to leave on all night?', 'Yes. It switches off automatically when the timer ends and runs at a constant temperature. It does not leave footwear burning hot.'],
