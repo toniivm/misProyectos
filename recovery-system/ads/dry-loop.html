@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;background:#0B1F1C;font-family:"Segoe UI",Arial,sans-serif}
+  .scene{position:absolute;inset:0;opacity:0;animation-duration:10s;animation-timing-function:ease-in-out;animation-fill-mode:both}
+  @keyframes a1{0%,2%{opacity:0}6%,36%{opacity:1}42%,100%{opacity:0}}
+  @keyframes a2{0%,36%{opacity:0}42%,66%{opacity:1}72%,100%{opacity:0}}
+  @keyframes a3{0%,66%{opacity:0}72%,96%{opacity:1}100%{opacity:0}}
+  #s1{animation-name:a1}#s2{animation-name:a2}#s3{animation-name:a3}
+  .photo{position:absolute;inset:-30px;background-size:cover;background-position:center;animation:zoom 10s ease-out both}
+  @keyframes zoom{0%{transform:scale(1.03)}100%{transform:scale(1.11)}}
+  .p1{background-image:url('../public/images/dry/studio.jpg');background-position:center 55%}
+  .p2{background-image:url('../public/images/dry/folded.jpg');background-position:center 55%}
+  .p3{background-image:url('../public/images/dry/hero-boots.jpg');background-position:center 8%}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,31,28,.06),rgba(11,31,28,.28))}
+  .warm{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,rgba(234,88,12,.14),transparent 60%);animation:pulse 3.4s ease-in-out infinite alternate}
+  @keyframes pulse{0%{opacity:.5}100%{opacity:1}}
+</style>
+</head>
+<body>
+  <section class="scene" id="s1"><div class="photo p1"></div><div class="warm"></div><div class="shade"></div></section>
+  <section class="scene" id="s2"><div class="photo p2"></div><div class="shade"></div></section>
+  <section class="scene" id="s3"><div class="photo p3"></div><div class="shade"></div></section>
+<script>
+  document.getAnimations().forEach(a => { try { a.pause(); a.currentTime = 0 } catch(e){} });
+  window.__playAd = () => document.getAnimations().forEach(a => { try { a.play() } catch(e){} });
+</script>
+</body>
+</html>

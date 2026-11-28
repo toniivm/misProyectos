@@ -22,7 +22,39 @@ const PRODUCTS = [
     stock: 20,
   },
 
-  // ─── Nítida Vapor ──────────────────────────────────────────────────
+  // ─── Nítida Dry ────────────────────────────────────────────────────
+  {
+    id: 'dry',
+    slug: 'dry',
+    title: 'Nítida Dry',
+    description: 'Secador de calzado 130 W con aire caliente a 360° y temporizador 3/6/9 h. Plegable.',
+    price: 39.99,
+    category: 'hogar',
+    brand: 'Nítida',
+    stock: 100,
+  },
+  {
+    id: 'dry-duo',
+    slug: 'dry-duo',
+    title: 'Nítida Dry — Pack Dúo (2 unidades)',
+    description: 'Dos secadores de calzado completos con temporizador 3/6/9 h.',
+    price: 69.99,
+    category: 'hogar',
+    brand: 'Nítida',
+    stock: 50,
+  },
+  {
+    id: 'dry-trio',
+    slug: 'dry-trio',
+    title: 'Nítida Dry — Pack Familia (3 unidades)',
+    description: 'Tres secadores de calzado completos con temporizador 3/6/9 h.',
+    price: 94.99,
+    category: 'hogar',
+    brand: 'Nítida',
+    stock: 30,
+  },
+
+  // ─── Nítida Vapor (legacy) ─────────────────────────────────────────
   {
     id: 'vapor',
     slug: 'vapor',

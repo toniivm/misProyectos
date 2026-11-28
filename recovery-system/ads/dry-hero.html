@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1350px;overflow:hidden;background:#0B1F1C;font-family:"Segoe UI",Arial,sans-serif}
+  .photo{position:absolute;inset:-18px;background:url('../public/images/dry/hero-boots.jpg') center 30%/cover no-repeat;animation:zoom 7s ease-out both}
+  @keyframes zoom{0%{transform:scale(1.01)}100%{transform:scale(1.06)}}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,31,28,.02) 0%,rgba(11,31,28,.12) 48%,rgba(11,31,28,.88) 100%)}
+  .warm{position:absolute;right:-140px;top:16%;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(234,88,12,.34),rgba(234,88,12,0) 66%);filter:blur(26px);animation:pulse 4.2s ease-in-out infinite alternate}
+  @keyframes pulse{0%{opacity:.65;transform:scale(.96)}100%{opacity:1;transform:scale(1.04)}}
+  .brand{position:absolute;left:56px;top:54px;display:flex;align-items:center;gap:14px;color:#fff}
+  .brand b{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:16px;background:#0F766E;font-size:30px;font-weight:800}
+  .brand span{font-size:26px;font-weight:800;letter-spacing:.2em}
+  .brand i{font-style:normal;font-size:14px;font-weight:700;letter-spacing:.28em;color:rgba(255,255,255,.55);margin-left:4px}
+  .pill{position:absolute;right:56px;top:64px;padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.22);backdrop-filter:blur(8px);color:#E6F4EF;font-size:20px;font-weight:700;letter-spacing:.06em}
+  .steam span{position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(2px);animation:rise 6.5s linear infinite}
+  @keyframes rise{0%{transform:translateY(40px);opacity:0}12%{opacity:.9}100%{transform:translateY(-260px);opacity:0}}
+  .foot{position:absolute;left:56px;bottom:56px;right:56px;display:flex;align-items:flex-end;justify-content:space-between}
+  .claim{color:#fff;font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.02;max-width:640px}
+  .claim em{font-style:normal;color:#5EEAD4}
+  .seal{display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.7);font-size:16px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+  .seal div{width:74px;height:74px;border-radius:50%;border:2px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;color:#5EEAD4;font-size:22px;letter-spacing:0;text-transform:none}
+</style>
+</head>
+<body>
+  <div class="photo"></div>
+  <div class="warm"></div>
+  <div class="shade"></div>
+
+  <div class="brand"><b>N</b><span>NÍTIDA</span><i>DRY</i></div>
+  <div class="pill">130 W · 3/6/9 h</div>
+
+  <div class="steam">
+    <span style="left:640px;top:760px;animation-delay:0s"></span>
+    <span style="left:700px;top:820px;animation-delay:.8s"></span>
+    <span style="left:760px;top:740px;animation-delay:1.6s"></span>
+    <span style="left:820px;top:860px;animation-delay:2.4s"></span>
+    <span style="left:690px;top:900px;animation-delay:3.2s"></span>
+    <span style="left:780px;top:960px;animation-delay:4s"></span>
+    <span style="left:850px;top:780px;animation-delay:4.8s"></span>
+    <span style="left:880px;top:920px;animation-delay:5.4s"></span>
+  </div>
+
+  <div class="foot">
+    <div class="claim">Zapatos secos<br><em>por dentro.</em></div>
+    <div class="seal"><div>360°</div>aire caliente</div>
+  </div>
+
+<script>
+  document.getAnimations().forEach(a => { try { a.pause(); a.currentTime = 0 } catch(e){} });
+  window.__playAd = () => document.getAnimations().forEach(a => { try { a.play() } catch(e){} });
+</script>
+</body>
+</html>

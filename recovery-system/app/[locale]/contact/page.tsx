@@ -206,7 +206,7 @@ export default function ContactPage() {
           </h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {[
-              { q: isEs ? '¿Cuánto tarda el envío?' : 'How long does shipping take?', a: isEs ? '24-72 h laborables en Europa' : '24-72 business hours in Europe' },
+              { q: isEs ? '¿Cuánto tarda el envío?' : 'How long does shipping take?', a: isEs ? 'Preparamos el pedido en 24 horas laborables. La entrega suele tardar entre 3 y 7 días laborables con seguimiento.' : 'We prepare the order within 24 working hours. Delivery usually takes 3 to 7 working days with tracking.' },
               { q: isEs ? '¿Cómo devuelvo un producto?' : 'How do I return a product?', a: isEs ? 'Contacta con nosotros en 30 días' : 'Contact us within 30 days' },
               { q: isEs ? '¿El pago es seguro?' : 'Is checkout secure?', a: 'SSL 256-bit + Stripe' },
               { q: isEs ? '¿Dónde está mi pedido?' : 'Where is my order?', a: isEs ? 'Email de seguimiento en 24h' : 'Tracking email within 24h' },

@@ -59,6 +59,9 @@ const COUNTRY_FROM_CODE: Record<string, string> = Object.fromEntries(
 );
 
 const PRODUCT_BG: Record<string, string> = {
+  'dry': '#F3E7D7',
+  'dry-duo': '#F3E7D7',
+  'dry-trio': '#F3E7D7',
   'vapor': '#E6F4EF',
   'vapor-duo': '#E6F4EF',
   'vapor-trio': '#E6F4EF',
@@ -69,6 +72,9 @@ const PRODUCT_BG: Record<string, string> = {
 };
 
 const PRODUCT_ICON: Record<string, string> = {
+  'dry': '🧦',
+  'dry-duo': '🧦',
+  'dry-trio': '🧦',
   'vapor': '💨',
   'vapor-duo': '💨',
   'vapor-trio': '💨',
@@ -79,6 +85,9 @@ const PRODUCT_ICON: Record<string, string> = {
 };
 
 const PRODUCT_IMAGE: Record<string, string> = {
+  'dry': '/images/dry/hero-boots.jpg',
+  'dry-duo': '/images/dry/studio.jpg',
+  'dry-trio': '/images/dry/folded.jpg',
   'vapor': '/images/vapor/vs-studio-product-800.webp',
   'vapor-duo': '/images/vapor/vs-studio-kit.webp',
   'vapor-trio': '/images/vapor/vs-studio-kit.webp',
@@ -755,7 +764,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex-1">
                     <div className="text-[13px] font-semibold text-[#14211F]">{isEs ? 'Envío protegido' : 'Protected shipping'}</div>
-                    <div className="text-[11px] text-[#5B6B68]">{isEs ? 'Seguimiento incluido · Entrega en 24-72 h' : 'Tracking included · Delivery in 24-72 h'}</div>
+                    <div className="text-[11px] text-[#5B6B68]">{isEs ? 'Seguimiento incluido · Entrega en 3-7 días laborables' : 'Tracking included · Delivery in 3-7 working days'}</div>
                   </div>
                 </div>
 

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1350px;overflow:hidden;background:#0B1F1C;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
+  .bg{position:absolute;inset:-40px;background:url('../public/images/dry/folded.jpg') center/cover no-repeat;filter:blur(10px) brightness(.42);transform:scale(1.08);animation:drift 9s ease-out both}
+  @keyframes drift{0%{transform:scale(1.04)}100%{transform:scale(1.12)}}
+  .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,31,28,.72),rgba(11,31,28,.9))}
+  .card{position:absolute;left:64px;right:64px;top:110px;bottom:110px;border-radius:40px;background:#F7F5F0;color:#14211F;padding:64px 60px;box-shadow:0 40px 120px rgba(0,0,0,.45);display:flex;flex-direction:column}
+  .tag{display:inline-flex;width:max-content;padding:12px 20px;border-radius:999px;background:#0F766E;color:#fff;font-size:17px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+  h1{font-size:76px;line-height:.95;letter-spacing:-.045em;font-weight:800;margin-top:22px}
+  h1 em{font-style:normal;color:#0F766E}
+  .list{margin-top:40px;display:flex;flex-direction:column;gap:16px}
+  .item{display:flex;align-items:center;gap:22px;padding:22px 24px;border-radius:22px;border:1px solid #E5E0D6;background:#fff;opacity:0;transform:translateY(22px);animation:in .7s cubic-bezier(.22,1,.36,1) both}
+  .item:nth-child(1){animation-delay:1.1s}
+  .item:nth-child(2){animation-delay:1.7s}
+  .item:nth-child(3){animation-delay:2.3s}
+  .item:nth-child(4){animation-delay:2.9s}
+  @keyframes in{to{opacity:1;transform:none}}
+  .ico{flex:0 0 64px;height:64px;border-radius:18px;background:rgba(15,118,110,.12);display:flex;align-items:center;justify-content:center;font-size:28px}
+  .item b{display:block;font-size:29px;letter-spacing:-.02em}
+  .item span{display:block;margin-top:4px;font-size:20px;color:#5B6B68}
+  .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #E5E0D6;padding-top:26px}
+  .foot b{font-size:26px;letter-spacing:-.02em}
+  .foot span{font-size:18px;font-weight:700;color:#0F766E;letter-spacing:.12em;text-transform:uppercase}
+  .bar{position:absolute;left:0;bottom:0;height:6px;background:#5EEAD4;width:0;animation:bar 9s linear both}
+  @keyframes bar{0%{width:0}100%{width:100%}}
+</style>
+</head>
+<body>
+  <div class="bg"></div><div class="veil"></div>
+  <div class="card">
+    <span class="tag">Contenido de la caja</span>
+    <h1>Lo que llega<br><em>a tu puerta.</em></h1>
+    <div class="list">
+      <div class="item"><div class="ico">🌀</div><div><b>Secador Nítida Dry</b><span>Plegado y montado</span></div></div>
+      <div class="item"><div class="ico">💨</div><div><b>2 tubos de aire</b><span>Llegan a la puntera</span></div></div>
+      <div class="item"><div class="ico">📘</div><div><b>Manual en español</b><span>Tres pasos, sin líos</span></div></div>
+      <div class="item"><div class="ico">🔌</div><div><b>Cable de 1,2 m</b><span>Enchufe europeo</span></div></div>
+    </div>
+    <div class="foot"><b>Nítida Dry · 130 W</b><span>Solo enchufar</span></div>
+  </div>
+  <div class="bar"></div>
+<script>
+  document.getAnimations().forEach(a => { try { a.pause(); a.currentTime = 0 } catch(e){} });
+  window.__playAd = () => document.getAnimations().forEach(a => { try { a.play() } catch(e){} });
+</script>
+</body>
+</html>

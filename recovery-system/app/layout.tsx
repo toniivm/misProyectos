@@ -27,45 +27,45 @@ export const viewport: Viewport = {
   maximumScale: 1,
   minimumScale: 1,
   userScalable: false,
-  themeColor: '#080c12',
+  themeColor: '#F7F5F0',
 }
 
 export const metadata: Metadata = {
   title: {
-    default: 'Nítida Vapor™ — Limpiador de vapor a presión | 12 accesorios',
+    default: 'Nítida Dry™ — Secador de calzado con temporizador | Zapatos secos en 3 h',
     template: '%s | Nítida™',
   },
   description:
-    'Nítida Vapor: limpiador de vapor a presión con 12 accesorios. Despega grasa y cal de cocina, baño y tapicería solo con agua. Envío 24-72 h, 30 días de prueba y 2 años de garantía.',
+    'Nítida Dry: secador de calzado con aire caliente a 360° y temporizador de 3, 6 o 9 horas. Seca botas, zapatillas, guantes y calcetines por dentro. 130 W, plegable. Envío gratis, 30 días de prueba y 2 años de garantía.',
   keywords: [
-    'nitida', 'limpiador de vapor', 'limpiadora a vapor', 'vapor a presión', 'limpieza sin frotar', 'quitar grasa', 'quitar cal',
-    'steam cleaner', 'pressurised steam', 'clean without scrubbing', 'limescale', 'grease',
+    'nitida', 'secador de zapatos', 'secador de calzado', 'secador de botas', 'zapatos mojados', 'olor a humedad', 'calzado seco',
+    'shoe dryer', 'boot dryer', 'wet shoes', 'damp shoes', 'footwear dryer',
   ],
   authors: [{ name: 'Nítida', url: 'https://noctip.com' }],
   creator: 'Nítida',
   publisher: 'Nítida',
   metadataBase: new URL('https://noctip.com'),
   openGraph: {
-    title: 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.',
-    description: 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
+    title: 'Nítida Dry™ — Zapatos secos y sin olor cada mañana',
+    description: 'Secador de calzado con aire caliente a 360° y temporizador 3/6/9 h. Envío gratis, 30 días de prueba y 2 años de garantía.',
     url: 'https://noctip.com',
     siteName: 'Nítida',
-    locale: 'en_US',
+    locale: 'es_ES',
     type: 'website',
     images: [
       {
-        url: 'https://noctip.com/images/logo/logo.png',
-        width: 1200,
-        height: 630,
-        alt: 'Noctip — Sleep & Recovery that Works',
+        url: 'https://noctip.com/images/dry/hero-boots.jpg',
+        width: 430,
+        height: 800,
+        alt: 'Nítida Dry secando unas botas',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.',
-    description: 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
-    images: ['https://noctip.com/images/logo/logo.png'],
+    title: 'Nítida Dry™ — Zapatos secos y sin olor cada mañana',
+    description: 'Secador de calzado con aire caliente a 360° y temporizador 3/6/9 h. Envío gratis, 30 días de prueba y 2 años de garantía.',
+    images: ['https://noctip.com/images/dry/hero-boots.jpg'],
   },
   robots: {
     index: true,

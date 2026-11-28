@@ -1,5 +1,5 @@
-import NitidaHome from '../../components/NitidaHome'
+import NitidaDryHome from '../../components/NitidaDryHome'
 
 export default function LocalizedHomePage() {
-  return <NitidaHome />
+  return <NitidaDryHome />
 }

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#0B1F1C;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
+  .scene{position:absolute;inset:0;opacity:0;animation-duration:15s;animation-timing-function:ease-in-out;animation-fill-mode:both}
+  @keyframes k1{0%,1%{opacity:0}3%,19%{opacity:1}22%,100%{opacity:0}}
+  @keyframes k2{0%,21%{opacity:0}24%,41%{opacity:1}44%,100%{opacity:0}}
+  @keyframes k3{0%,43%{opacity:0}46%,64%{opacity:1}67%,100%{opacity:0}}
+  @keyframes k4{0%,65%{opacity:0}68%,86%{opacity:1}89%,100%{opacity:0}}
+  @keyframes k5{0%,87%{opacity:0}90%,100%{opacity:1}}
+  #s1{animation-name:k1}#s2{animation-name:k2}#s3{animation-name:k3}#s4{animation-name:k4}#s5{animation-name:k5}
+
+  .photo{position:absolute;inset:-40px;background-size:cover;background-position:center}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,24,22,.5),rgba(8,24,22,.9))}
+  #s1 .photo{background-position:22% 28%;background-size:135% auto}
+  .rain{position:absolute;inset:0;background-image:repeating-linear-gradient(104deg,rgba(255,255,255,.14) 0 2px,transparent 2px 26px);background-size:200% 200%;animation:rain .7s linear infinite;opacity:.5}
+  @keyframes rain{0%{background-position:0 0}100%{background-position:0 260px}}
+
+  .pad{position:absolute;left:72px;right:72px;top:130px;bottom:130px;display:flex;flex-direction:column;justify-content:center}
+  .tag{display:inline-flex;width:max-content;padding:14px 24px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);font-size:22px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#E6F4EF}
+  h1{font-size:104px;line-height:.92;letter-spacing:-.05em;font-weight:800;margin-top:26px}
+  h1 em{font-style:normal;color:#5EEAD4}
+  p{font-size:32px;line-height:1.35;color:rgba(255,255,255,.72);margin-top:24px;max-width:820px}
+
+  /* s2 problem */
+  #s2{background:#0B1F1C}
+  .xline{display:flex;align-items:center;gap:22px;margin-top:22px}
+  .x{flex:0 0 52px;height:52px;border-radius:50%;background:rgba(194,65,12,.18);border:1px solid rgba(194,65,12,.4);display:flex;align-items:center;justify-content:center;font-size:24px;color:#FB923C;font-weight:800}
+  .xline b{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+
+  /* s3 product */
+  #s3 .photo{background-image:url('../public/images/dry/studio.jpg');animation:drift 15s ease-out both}
+  @keyframes drift{0%{transform:scale(1.02)}100%{transform:scale(1.1)}}
+  .chips{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .chip{padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.1);font-size:22px;font-weight:700}
+
+  /* s4 offer */
+  #s4{background:#F7F5F0;color:#14211F}
+  #s4 .pad{display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+  #s4 .tag{background:#0F766E;border-color:#0F766E;color:#fff}
+  #s4 h1{color:#14211F}
+  #s4 h1 em{color:#0F766E}
+  #s4 .price{font-size:128px;font-weight:800;letter-spacing:-.06em;line-height:1;color:#14211F;margin-top:14px}
+  #s4 .price small{font-size:30px;font-weight:700;letter-spacing:0;color:#5B6B68;margin-left:12px}
+  #s4 p{color:#5B6B68}
+  #s4 img{width:100%;height:760px;object-fit:cover;border-radius:36px;border:1px solid #E5E0D6}
+  .perks{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .perk{padding:12px 18px;border-radius:999px;background:#fff;border:1px solid #E5E0D6;font-size:20px;font-weight:700;color:#3E4F4B}
+  #s4 .bottomline{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #E5E0D6;padding-top:22px}
+  #s4 .bottomline b{font-size:24px;color:#3E4F4B}
+  #s4 .bottomline span{padding:16px 26px;border-radius:999px;background:#0F766E;color:#fff;font-size:24px;font-weight:800}
+
+  /* s5 cta */
+  #s5{background:radial-gradient(circle at 50% 30%,#123B34,#0B1F1C 64%)}
+  #s5 .pad{align-items:center;text-align:center}
+  #s5 h1{font-size:112px}
+  #s5 .logo{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+  #s5 .logo b{width:74px;height:74px;border-radius:20px;background:#0F766E;display:flex;align-items:center;justify-content:center;font-size:40px}
+  #s5 .logo span{font-size:32px;font-weight:800;letter-spacing:.2em}
+  #s5 .url{margin-top:36px;padding:20px 34px;border-radius:999px;background:#5EEAD4;color:#0B1F1C;font-size:36px;font-weight:800;letter-spacing:.02em}
+  #s5 p{color:rgba(255,255,255,.62)}
+
+  .bar{position:absolute;left:0;bottom:0;height:8px;background:#5EEAD4;width:0;animation:bar 15s linear both;z-index:20}
+  @keyframes bar{0%{width:0}100%{width:100%}}
+</style>
+</head>
+<body>
+
+<section class="scene" id="s1">
+  <div class="photo" style="background-image:url('../public/images/dry/hero-boots.jpg')"></div>
+  <div class="rain"></div>
+  <div class="shade"></div>
+  <div class="pad">
+    <span class="tag">Invierno</span>
+    <h1>¿Otra vez<br>con los pies<br><em>mojados?</em></h1>
+    <p>La suela aguanta. Lo que no seca es la plantilla.</p>
+  </div>
+</section>
+
+<section class="scene" id="s2">
+  <div class="pad">
+    <span class="tag">El problema</span>
+    <h1>Lo de<br><em>siempre</em><br>no seca.</h1>
+    <div class="xline"><div class="x">✕</div><b>El radiador calienta por fuera y deforma el cuero.</b></div>
+    <div class="xline"><div class="x">✕</div><b>El periódico no llega a la puntera ni al talón.</b></div>
+  </div>
+</section>
+
+<section class="scene" id="s3">
+  <div class="photo"></div>
+  <div class="shade"></div>
+  <div class="pad">
+    <span class="tag">La solución</span>
+    <h1>Aire caliente<br><em>a 360°.</em></h1>
+    <p>Dos tubos perforados secan el calzado por dentro. Sin radiadores. Sin periódicos.</p>
+    <div class="chips"><span class="chip">3/6/9 h</span><span class="chip">130 W</span><span class="chip">Se apaga solo</span></div>
+  </div>
+</section>
+
+<section class="scene" id="s4">
+  <div class="pad">
+    <div>
+      <span class="tag">Nítida Dry</span>
+      <div class="price">39,99 €<small>IVA incluido</small></div>
+      <p>Envío gratis · 30 días para probarlo · 2 años de garantía.</p>
+      <div class="perks"><span class="perk">Pago con Bizum</span><span class="perk">Se pliega</span><span class="perk">2 años</span></div>
+    </div>
+    <img src="../public/images/dry/folded.jpg" alt="">
+    <div class="bottomline"><b>Zapatos secos cada mañana</b><span>Comprar</span></div>
+  </div>
+</section>
+
+<section class="scene" id="s5">
+  <div class="pad">
+    <div class="logo"><b>N</b><span>NÍTIDA</span></div>
+    <h1>Zapatos secos<br><em>mañana.</em></h1>
+    <p>Producto nuevo. Sin reseñas inventadas.</p>
+    <div class="url">noctip.com</div>
+  </div>
+</section>
+
+<div class="bar"></div>
+<script>
+  document.getAnimations().forEach(a => { try { a.pause(); a.currentTime = 0 } catch(e){} });
+  window.__playAd = () => document.getAnimations().forEach(a => { try { a.play() } catch(e){} });
+</script>
+</body>
+</html>

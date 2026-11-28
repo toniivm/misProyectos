@@ -45,7 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages (tracking excluded intentionally - blocked by robots.txt)
   for (const locale of locales) {
     entries.push(
-      { url: `${BASE_URL}/${locale}/products/vapor`, lastModified: buildDate, changeFrequency: 'weekly', priority: 0.9 },
+      { url: `${BASE_URL}/${locale}/products/dry`, lastModified: buildDate, changeFrequency: 'weekly', priority: 0.9 },
       { url: `${BASE_URL}/${locale}/about`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.6 },
       { url: `${BASE_URL}/${locale}/contact`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.5 },
       { url: `${BASE_URL}/${locale}/legal/privacy`, lastModified: buildDate, changeFrequency: 'monthly', priority: 0.3 },

@@ -1,7 +1,7 @@
 import { getCatalogProductBySlug, CATALOG, type CatalogProduct } from '../../../../lib/catalog';
 import { locales } from '../../../../i18n/routing';
 import { notFound } from 'next/navigation';
-import VaporProductDetail from '../../../../components/VaporProductDetail';
+import DryProductDetail from '../../../../components/DryProductDetail';
 import type { Metadata } from 'next';
 
 type Props = { params: { locale: string; slug: string } };
@@ -11,16 +11,16 @@ export function generateStaticParams() {
 }
 
 const SEO_TITLES: Record<string, { es: string; en: string }> = {
-  vapor: {
-    es: 'Nítida Vapor — Limpiador de Vapor a Presión 1.050W | 12 Accesorios y 3 Bar',
-    en: 'Nítida Vapor — 1,050W Pressurised Steam Cleaner | 12 Accessories, 3 Bar',
+  dry: {
+    es: 'Nítida Dry — Secador de Calzado 130W con Temporizador 3/6/9 h | Plegable',
+    en: 'Nítida Dry — 130W Footwear Dryer with 3/6/9 h Timer | Foldable',
   },
 }
 
 const SEO_DESCS: Record<string, { es: string; en: string }> = {
-  vapor: {
-    es: 'Limpiador de vapor a presión Nítida Vapor: 1.050 W, 3 bar, hasta 115 °C y 12 accesorios. Despega grasa y cal de cocina, baño y tapicería solo con agua. Envío 24-72 h y 30 días para probarlo.',
-    en: 'Nítida Vapor pressurised steam cleaner: 1,050 W, 3 bar, up to 115 °C and 12 accessories. Lifts grease and limescale from kitchen, bathroom and upholstery with water only. 24-72 h shipping and 30-day trial.',
+  dry: {
+    es: 'Secador de calzado Nítida Dry: aire caliente a 360°, temporizador de 3, 6 o 9 horas y apagado automático. Seca botas, zapatillas, guantes y calcetines por dentro. 130 W, plegable. Envío gratis, 30 días de prueba y 2 años de garantía.',
+    en: 'Nítida Dry footwear dryer: 360° warm air, 3, 6 or 9-hour timer and automatic shut-off. Dries boots, trainers, gloves and socks from the inside. 130 W, foldable. Free shipping, 30-day trial and 2-year warranty.',
   },
 }
 
@@ -47,8 +47,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: seoTitle,
     description: seoDesc,
     keywords: isEs
-      ? 'limpiador de vapor, limpiadora a vapor, vapor a presión, limpieza sin frotar, grasa, cal, cocina, baño, 12 accesorios, nitida'
-      : 'steam cleaner, pressurised steam, clean without scrubbing, grease, limescale, kitchen, bathroom, 12 accessories, nitida',
+      ? 'secador de zapatos, secador de calzado, secador de botas, zapatos mojados, olor a humedad, calzado seco, temporizador, plegable, nitida'
+      : 'shoe dryer, boot dryer, footwear dryer, wet shoes, damp shoes, odour, timer, foldable, nitida',
     alternates: {
       canonical: `https://noctip.com/${params.locale}/products/${params.slug}`,
       languages: {
@@ -123,7 +123,7 @@ export default function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
-      <VaporProductDetail />
+      <DryProductDetail />
     </>
   );
 }

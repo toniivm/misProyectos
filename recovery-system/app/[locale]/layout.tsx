@@ -29,14 +29,14 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
   return {
     title: isEs
-      ? 'Limpiador de Vapor a Presión | 12 Accesorios y 3 Bar'
-      : 'Pressurised Steam Cleaner | 12 Accessories, 3 Bar',
+      ? 'Secador de Calzado con Temporizador | Zapatos Secos y sin Olor'
+      : 'Footwear Dryer with Timer | Dry, Odour-Free Shoes',
     description: isEs
-      ? 'Limpiador de vapor a presión con 12 accesorios: 1.050 W, 3 bar y hasta 115 °C. Despega grasa y cal de cocina, baño y tapicería solo con agua. Envío 24-72 h, 30 días para probarlo y 2 años de garantía.'
-      : 'Pressurised steam cleaner with 12 accessories: 1,050 W, 3 bar and up to 115 °C. Lifts grease and limescale from kitchen, bathroom and upholstery with water only. 24-72 h shipping, 30-day trial and 2-year warranty.',
+      ? 'Secador de calzado Nítida Dry: aire caliente a 360°, temporizador de 3, 6 o 9 horas y apagado automático. Seca botas, zapatillas, guantes y calcetines por dentro. 130 W, plegable. Envío gratis, 30 días de prueba y 2 años de garantía.'
+      : 'Nítida Dry footwear dryer: 360° warm air, 3, 6 or 9-hour timer and automatic shut-off. Dries boots, trainers, gloves and socks from the inside. 130 W, foldable. Free shipping, 30-day trial and 2-year warranty.',
     keywords: isEs
-      ? 'limpiador de vapor, limpiadora a vapor, vapor a presión, limpieza sin frotar, quitar grasa, quitar cal, limpieza cocina, limpieza baño, 12 accesorios, nitida'
-      : 'steam cleaner, pressurised steam, clean without scrubbing, remove grease, remove limescale, kitchen cleaning, bathroom cleaning, 12 accessories, nitida',
+      ? 'secador de zapatos, secador de calzado, secador de botas, zapatos mojados, olor a humedad, calzado seco, temporizador, plegable, nitida'
+      : 'shoe dryer, boot dryer, footwear dryer, wet shoes, damp shoes, odour, timer, foldable, nitida',
     alternates: {
       canonical: `https://noctip.com/${locale}`,
       languages: {
@@ -51,33 +51,33 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     },
     openGraph: {
       title: isEs
-        ? 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.'
-        : 'Nítida Vapor™ — Grease and limescale melt away. You don’t.',
+        ? 'Nítida Dry™ — Zapatos secos y sin olor cada mañana'
+        : 'Nítida Dry™ — Dry, odour-free shoes every morning',
       description: isEs
-        ? 'Limpiador de vapor a presión con 12 accesorios. Solo agua. Envío 24-72 h y 30 días para probarlo.'
-        : 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
+        ? 'Secador de calzado con aire caliente a 360° y temporizador 3/6/9 h. Envío gratis, 30 días de prueba y 2 años de garantía.'
+        : 'Footwear dryer with 360° warm air and a 3/6/9 h timer. Free shipping, 30-day trial and 2-year warranty.',
       url: 'https://noctip.com',
       siteName: 'Nítida',
       type: 'website',
       locale: isEs ? 'es_ES' : 'en_US',
       images: [
         {
-          url: 'https://noctip.com/images/logo/logo.png',
-          width: 1200,
-          height: 630,
-          alt: 'Nítida Vapor — limpiador de vapor a presión',
+          url: 'https://noctip.com/images/dry/hero-boots.jpg',
+          width: 430,
+          height: 800,
+          alt: isEs ? 'Nítida Dry secando unas botas' : 'Nítida Dry drying a pair of boots',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: isEs
-        ? 'Nítida Vapor™ — La grasa y la cal se derriten. Tú no.'
-        : 'Nítida Vapor™ — Grease and limescale melt away. You don’t.',
+        ? 'Nítida Dry™ — Zapatos secos y sin olor cada mañana'
+        : 'Nítida Dry™ — Dry, odour-free shoes every morning',
       description: isEs
-        ? 'Limpiador de vapor a presión con 12 accesorios. Solo agua. Envío 24-72 h y 30 días para probarlo.'
-        : 'Pressurised steam cleaner with 12 accessories. Water only. 24-72 h shipping and 30-day trial.',
-      images: ['https://noctip.com/images/logo/logo.png'],
+        ? 'Secador de calzado con aire caliente a 360° y temporizador 3/6/9 h. Envío gratis, 30 días de prueba y 2 años de garantía.'
+        : 'Footwear dryer with 360° warm air and a 3/6/9 h timer. Free shipping, 30-day trial and 2-year warranty.',
+      images: ['https://noctip.com/images/dry/hero-boots.jpg'],
     },
     other: {
       'apple-mobile-web-app-capable': 'yes',
@@ -107,8 +107,8 @@ export default async function LocaleLayout({children, params}: Props) {
     url: 'https://noctip.com',
     logo: 'https://noctip.com/favicon.svg',
     description: isEs
-      ? 'Nítida diseña limpiadores de vapor que despegan la grasa y la cal sin frotar. Solo agua, 12 accesorios y 2 años de garantía.'
-      : 'Nítida designs steam cleaners that lift grease and limescale without scrubbing. Water only, 12 accessories and a 2-year warranty.',
+      ? 'Nítida diseña secadores de calzado que quitan la humedad y el olor por dentro. Aire caliente a 360°, temporizador y 2 años de garantía.'
+      : 'Nítida designs footwear dryers that remove damp and odour from the inside. 360° warm air, timer and a 2-year warranty.',
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
@@ -124,7 +124,7 @@ export default async function LocaleLayout({children, params}: Props) {
     url: 'https://noctip.com',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `https://noctip.com/${locale}/products/vapor?q={search_term_string}`,
+      target: `https://noctip.com/${locale}/products/dry?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };
@@ -136,21 +136,21 @@ export default async function LocaleLayout({children, params}: Props) {
     name: 'Nítida',
     url: 'https://noctip.com',
     description: isEs
-      ? 'Tienda online de limpiadores de vapor para el hogar'
-      : 'Online store for home steam cleaners',
-    priceRange: '€39.99',
-    paymentAccepted: 'Credit Card, Stripe, Apple Pay, Google Pay',
+      ? 'Tienda online de secadores de calzado para el hogar'
+      : 'Online store for home footwear dryers',
+    priceRange: '€39.99–€94.99',
+    paymentAccepted: 'Credit Card, Bizum, PayPal, Apple Pay, Google Pay, Stripe',
     areaServed: [
       { '@type': 'Country', name: 'Spain' },
       { '@type': 'Country', name: 'Portugal' },
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: isEs ? 'Limpiadores de vapor' : 'Steam cleaners',
+      name: isEs ? 'Secadores de calzado' : 'Footwear dryers',
       itemListElement: [
         {
           '@type': 'OfferCatalog',
-          name: isEs ? 'Limpieza sin frotar' : 'Clean without scrubbing',
+          name: isEs ? 'Calzado seco' : 'Dry footwear',
           numberOfItems: 1,
         },
       ],
@@ -164,26 +164,26 @@ export default async function LocaleLayout({children, params}: Props) {
     mainEntity: isEs ? [
       {
         '@type': 'Question',
-        name: '¿Cuánto tarda el envío de Nítida Vapor?',
+        name: '¿Cuánto tarda en secar Nítida Dry?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Enviamos en 24-72 horas laborables con seguimiento. Recibes el número de seguimiento por email en cuanto sale el pedido.',
+          text: 'Con el temporizador en 3 horas, unas zapatillas mojadas quedan secas. Para botas gruesas o muy empapadas, usa 6 o 9 horas. El tiempo depende del material y de la humedad.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Qué limpia Nítida Vapor?',
+        name: '¿Qué seca Nítida Dry?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Grasa de vitrocerámica y horno, cal de grifos y mamparas, juntas del baño, azulejos, cristales y tapicería. Incluye 12 accesorios para cada zona.',
+          text: 'Calzado mojado por dentro: botas, zapatillas, guantes y calcetines. Dos tubos perforados llevan el aire caliente a la puntera y al talón.',
         },
       },
       {
         '@type': 'Question',
-        name: '¿Necesito detergente?',
+        name: '¿Es seguro dejarlo toda la noche?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'No. El depósito es solo agua del grifo. El vapor a 3 bar y hasta 115 °C ablanda la grasa y la cal sin productos químicos.',
+          text: 'Sí. Se apaga solo al terminar el tiempo y funciona a temperatura constante. No deja el calzado ardiendo.',
         },
       },
       {
@@ -191,32 +191,32 @@ export default async function LocaleLayout({children, params}: Props) {
         name: '¿Qué garantía tiene?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: '2 años de garantía y 30 días para probarlo. Si no limpia como esperabas, lo recogemos y te devolvemos el importe del producto.',
+          text: '2 años de garantía y 30 días para probarlo. Si no seca como esperabas, lo recogemos y te devolvemos el importe del producto.',
         },
       },
     ] : [
       {
         '@type': 'Question',
-        name: 'How long does Nítida Vapor shipping take?',
+        name: 'How long does Nítida Dry take to dry shoes?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We ship in 24-72 working hours with tracking. You receive the tracking number by email as soon as the order leaves.',
+          text: 'With the 3-hour timer, wet trainers are dry. For thick or soaked boots, use 6 or 9 hours. Time depends on the material and the dampness.',
         },
       },
       {
         '@type': 'Question',
-        name: 'What does Nítida Vapor clean?',
+        name: 'What does Nítida Dry dry?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Grease on induction hobs and ovens, limescale on taps and shower screens, bathroom grout, tiles, glass and upholstery. It includes 12 accessories for each area.',
+          text: 'Footwear that is wet inside: boots, trainers, gloves and socks. Two perforated tubes carry warm air to the toe and the heel.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Do I need detergent?',
+        name: 'Is it safe to leave on all night?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'No. The tank is tap water only. Steam at 3 bar and up to 115 °C softens grease and limescale without chemicals.',
+          text: 'Yes. It switches off automatically when the timer ends and runs at a constant temperature. It does not leave footwear burning hot.',
         },
       },
       {
@@ -224,7 +224,7 @@ export default async function LocaleLayout({children, params}: Props) {
         name: 'What warranty does it have?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: '2-year warranty and 30 days to try it. If it does not clean as expected, we collect it and refund the product price.',
+          text: '2-year warranty and 30 days to try it. If it does not dry as expected, we collect it and refund the product price.',
         },
       },
     ],
@@ -245,7 +245,7 @@ export default async function LocaleLayout({children, params}: Props) {
         '@type': 'ListItem',
         position: 2,
         name: isEs ? 'Producto' : 'Product',
-        item: `https://noctip.com/${locale}/products/vapor`,
+        item: `https://noctip.com/${locale}/products/dry`,
       },
     ],
   };

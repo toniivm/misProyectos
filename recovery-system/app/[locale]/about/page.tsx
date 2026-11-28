@@ -12,10 +12,10 @@ export default function AboutPage() {
   const values = [
     {
       icon: Target,
-      title: isEs ? 'Productos que funcionan' : 'Products that work',
+      title: isEs ? 'Pocas cosas, bien elegidas' : 'Few things, chosen well',
       text: isEs
-        ? 'No vendemos humo. Cada producto está probado por nosotros antes de ponerlo a la venta. Si no nos convence, no lo vendemos.'
-        : 'We don\'t sell hype. Every product is tested by us before we sell it. If it doesn\'t convince us, we don\'t sell it.',
+        ? 'No vendemos humo. Cada producto tiene que resolver un problema real y ser fácil de usar. Si no lo entendemos en dos minutos, no lo vendemos.'
+        : 'We don\'t sell hype. Every product has to solve a real problem and be easy to use. If we don\'t get it in two minutes, we don\'t sell it.',
     },
     {
       icon: Shield,
@@ -33,18 +33,18 @@ export default function AboutPage() {
     },
     {
       icon: Zap,
-      title: isEs ? 'Precios justos' : 'Fair prices',
+      title: isEs ? 'Sin trucos de precio' : 'No price tricks',
       text: isEs
-        ? 'Sin intermediarios. Traemos los productos directamente y aplicamos el margen mínimo. Pagas el producto, no la marca.'
-        : 'No middlemen. We source products directly and apply minimal margins. You pay for the product, not the brand.',
+        ? 'Sin precios tachados inventados ni cuentas atrás falsas. Un precio, un producto y lo que incluye, claro desde el principio.'
+        : 'No invented strikethrough prices or fake countdowns. One price, one product and exactly what is included, clear from the start.',
     },
   ]
 
   const stats = [
     { value: '1', label: isEs ? 'Producto, bien elegido' : 'One product, chosen well' },
-    { value: '12', label: isEs ? 'Accesorios incluidos' : 'Accessories included' },
+    { value: '360°', label: isEs ? 'Aire caliente' : 'Warm air' },
     { value: '30', label: isEs ? 'Días para probarlo' : 'Days to try it' },
-    { value: '24-72h', label: isEs ? 'Envío con seguimiento' : 'Tracked shipping' },
+    { value: '2', label: isEs ? 'Años de garantía' : 'Years of warranty' },
   ]
 
   return (
@@ -63,13 +63,13 @@ export default function AboutPage() {
           </span>
           <h1 className="mt-4 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight tracking-[-0.04em] text-[#14211F]">
             {isEs
-              ? 'Limpiar no debería costar una tarde'
-              : 'Cleaning shouldn\'t cost you an afternoon'}
+              ? 'Los pies secos no deberían esperar a mañana'
+              : 'Dry feet shouldn\'t have to wait until tomorrow'}
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-[#5B6B68]">
             {isEs
-              ? 'Somos una marca pequeña e independiente con una idea clara: quitar la fricción de las tareas del hogar. Empezamos con Nítida Vapor, un limpiador que despega la grasa y la cal solo con agua. Sin inversores, sin juntas directivas y sin márgenes inflados.'
-              : 'We are a small, independent brand with one clear idea: remove friction from household chores. We start with Nítida Vapor, a cleaner that lifts grease and limescale with water only. No investors, no board meetings, no inflated margins.'}
+              ? 'Somos una marca pequeña e independiente con una idea clara: quitar fricción a las tareas de casa. Empezamos con Nítida Dry, un secador que quita la humedad y el olor del calzado por dentro. Sin inversores, sin juntas directivas y sin márgenes inflados.'
+              : 'We are a small, independent brand with one clear idea: remove friction from household chores. We start with Nítida Dry, a dryer that removes damp and odour from footwear from the inside. No investors, no board meetings, no inflated margins.'}
           </p>
         </motion.div>
 
@@ -137,7 +137,7 @@ export default function AboutPage() {
         {/* Trust */}
         <div className="mt-12 grid grid-cols-3 gap-3">
           {[
-            { icon: Truck, label: isEs ? 'Envío 24-72 h' : '24-72 h shipping' },
+            { icon: Truck, label: isEs ? 'Envío 3-7 días' : '3-7 day shipping' },
             { icon: RotateCcw, label: isEs ? '30 días garantía' : '30-day guarantee' },
             { icon: Shield, label: isEs ? 'Pago seguro' : 'Secure checkout' },
           ].map((item) => (

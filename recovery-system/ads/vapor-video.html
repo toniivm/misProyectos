@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nítida Vapor — anuncio 9:16</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#F7F5F0}
+  body{font-family:"Segoe UI",Arial,Helvetica,sans-serif;color:#14211F;letter-spacing:-.03em}
+  #stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#F7F5F0}
+  .scene{position:absolute;inset:0;opacity:0;animation-fill-mode:both}
+  .pad{position:absolute;left:84px;right:84px}
+
+  /* grano sutil */
+  #grain{position:absolute;inset:-40%;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 1.2s steps(3) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-2%,1%)}66%{transform:translate(1%,-2%)}100%{transform:translate(0,0)}}
+
+  /* ── Escena 1: gancho ── */
+  #s1{animation:scene1 3.6s ease-in-out both;animation-delay:0s;background:#0A2A26}
+  @keyframes scene1{0%{opacity:0}4%{opacity:1}88%{opacity:1}100%{opacity:0}}
+  #s1 .glow{position:absolute;top:-260px;left:50%;transform:translateX(-50%);width:1100px;height:1100px;border-radius:50%;
+    background:radial-gradient(circle,rgba(94,234,212,.20) 0%,rgba(10,42,38,0) 62%)}
+  #s1 .steam{position:absolute;border-radius:50%;filter:blur(60px);background:rgba(255,255,255,.14);animation:steam 3.6s ease-out both}
+  #s1 .steam.a{width:420px;height:420px;left:620px;top:240px}
+  #s1 .steam.b{width:300px;height:300px;left:760px;top:120px;animation-delay:.4s;opacity:.7}
+  @keyframes steam{0%{transform:translateY(60px) scale(.9);opacity:0}45%{opacity:.9}100%{transform:translateY(-140px) scale(1.15);opacity:0}}
+  #s1 .tag{top:150px;display:inline-flex;padding:14px 26px;border-radius:999px;background:rgba(255,255,255,.10);border:2px solid rgba(255,255,255,.24);
+    color:#E6F4EF;font-size:28px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;width:max-content}
+  #s1 .list{position:absolute;left:84px;top:600px;display:flex;flex-direction:column;gap:16px}
+  #s1 .list span{color:rgba(255,255,255,.66);font-size:50px;font-weight:600;letter-spacing:-.02em}
+  #s1 h1{position:absolute;left:84px;right:120px;top:900px;color:#fff;font-size:118px;line-height:.92;font-weight:800;letter-spacing:-.05em}
+  #s1 h1 em{font-style:normal;color:#5EEAD4}
+  #s1 .sub{position:absolute;left:86px;top:1235px;color:rgba(255,255,255,.78);font-size:38px;font-weight:500;letter-spacing:-.01em}
+
+  /* ── Escena 2: producto ── */
+  #s2{animation:scene2 3.4s ease-in-out both;animation-delay:3.6s}
+  @keyframes scene2{0%{opacity:0}6%{opacity:1}86%{opacity:1}100%{opacity:0}}
+  #s2 .halo{position:absolute;top:190px;left:84px;width:912px;height:820px;border-radius:48px;
+    background:#fff;border:2px solid #E5E0D6;box-shadow:0 30px 70px rgba(20,33,31,.08)}
+  #s2 img{position:absolute;top:235px;left:50%;transform:translateX(-50%);width:720px;filter:drop-shadow(0 30px 50px rgba(20,33,31,.12));animation:pop 3.4s cubic-bezier(.22,1,.36,1) both}
+  @keyframes pop{0%{transform:translateX(-50%) scale(.96)}100%{transform:translateX(-50%) scale(1.01)}}
+  #s2 .over{position:absolute;left:84px;right:84px;bottom:300px}
+  #s2 .over .big{font-size:92px;line-height:.98;font-weight:800;letter-spacing:-.045em}
+  #s2 .over .big span{color:#0F766E}
+  #s2 .chips{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap}
+  #s2 .chip{padding:14px 24px;border-radius:999px;background:#fff;border:2px solid #E5E0D6;font-size:30px;font-weight:700;color:#0F766E}
+
+  /* ── Escena 3: kit ── */
+  #s3{animation:scene3 3.4s ease-in-out both;animation-delay:7.0s}
+  @keyframes scene3{0%{opacity:0}6%{opacity:1}86%{opacity:1}100%{opacity:0}}
+  #s3 .card{position:absolute;top:170px;left:84px;right:84px;height:830px;border-radius:44px;background:#fff;border:2px solid #E5E0D6;overflow:hidden}
+  #s3 .card img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transform:scale(1.02);animation:zoom 3.4s ease-out both}
+  @keyframes zoom{0%{transform:scale(1.06)}100%{transform:scale(1.0)}}
+  #s3 .txt{position:absolute;left:84px;right:84px;bottom:300px}
+  #s3 .txt .big{font-size:100px;line-height:.95;font-weight:800;letter-spacing:-.045em}
+  #s3 .txt .big span{color:#0F766E}
+  #s3 .txt p{margin-top:22px;font-size:36px;color:#5B6B68;font-weight:500}
+
+  /* ── Escena 4: precio ── */
+  #s4{animation:scene4 3.2s ease-in-out both;animation-delay:10.4s}
+  @keyframes scene4{0%{opacity:0}6%{opacity:1}86%{opacity:1}100%{opacity:0}}
+  #s4 .panel{position:absolute;top:420px;left:84px;right:84px;border-radius:48px;background:#fff;border:2px solid #E5E0D6;
+    padding:64px 58px;box-shadow:0 30px 70px rgba(20,33,31,.10)}
+  #s4 .kicker{font-size:26px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#0F766E}
+  #s4 .price{margin-top:16px;font-size:148px;line-height:.9;font-weight:800;letter-spacing:-.05em}
+  #s4 .price small{font-size:56px;font-weight:700;letter-spacing:-.02em}
+  #s4 .was{font-size:30px;color:#7A8A86;text-decoration:line-through;margin-top:6px}
+  #s4 ul{margin-top:34px;display:flex;flex-direction:column;gap:20px}
+  #s4 li{list-style:none;display:flex;align-items:center;gap:18px;font-size:33px;font-weight:600;color:#3E4F4B}
+  #s4 li i{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:#E6F4EF;color:#0F766E;font-style:normal;font-size:26px;font-weight:800;flex:0 0 auto}
+  #s4 .pack{margin-top:36px;border-top:2px solid #E5E0D6;padding-top:26px;font-size:30px;color:#5B6B68}
+  #s4 .pack b{color:#14211F}
+
+  /* ── Escena 5: CTA ── */
+  #s5{animation:scene5 2.8s ease-in-out both;animation-delay:13.6s}
+  @keyframes scene5{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0}}
+  #s5 .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px}
+  #s5 .logo{display:flex;align-items:center;gap:22px;margin-bottom:54px}
+  #s5 .logo .n{width:96px;height:96px;border-radius:26px;background:#0F766E;color:#fff;font-size:58px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  #s5 .logo .name{font-size:52px;font-weight:800;letter-spacing:-.04em;text-align:left;line-height:1}
+  #s5 .logo .name small{display:block;font-size:20px;letter-spacing:.22em;color:#5B6B68;font-weight:700;margin-top:10px}
+  #s5 h2{font-size:104px;line-height:.96;font-weight:800;letter-spacing:-.045em}
+  #s5 h2 span{color:#0F766E}
+  #s5 .url{margin-top:46px;padding:26px 52px;border-radius:999px;background:#0F766E;color:#fff;font-size:44px;font-weight:800;letter-spacing:-.01em}
+  #s5 .foot{margin-top:34px;font-size:26px;color:#5B6B68;font-weight:600}
+
+  /* barra de progreso */
+  #bar{position:absolute;left:0;bottom:0;height:10px;background:#0F766E;width:0;animation:bar 16.4s linear both;z-index:95}
+  @keyframes bar{to{width:100%}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <section class="scene" id="s1">
+    <div class="glow"></div>
+    <div class="steam a"></div>
+    <div class="steam b"></div>
+    <div class="pad tag">Limpieza sin químicos</div>
+    <div class="list">
+      <span>Grasa de horno.</span>
+      <span>Juntas negras.</span>
+      <span>Mampara opaca.</span>
+    </div>
+    <h1>Se <em>derriten</em><br>sin frotar.</h1>
+    <div class="sub">Solo agua del grifo · 115 °C</div>
+  </section>
+
+  <section class="scene" id="s2">
+    <div class="halo"></div>
+    <img src="../public/images/vapor/vs-studio-product-800.webp" alt="">
+    <div class="over">
+      <div class="big">Vapor a <span>3 bar</span><br>y 115 °C</div>
+      <div class="chips">
+        <div class="chip">1050 W</div>
+        <div class="chip">Listo en 3-5 min</div>
+        <div class="chip">Apagado seguro</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s3">
+    <div class="card"><img src="../public/images/vapor/vs-studio-kit.webp" alt=""></div>
+    <div class="txt">
+      <div class="big"><span>12 accesorios</span><br>en una caja</div>
+      <p>Baño, cocina, mamparas, tapicería y coche.</p>
+    </div>
+  </section>
+
+  <section class="scene" id="s4">
+    <div class="panel">
+      <div class="kicker">Nítida Vapor</div>
+      <div class="price">39,99 <small>€</small></div>
+      <ul>
+        <li><i>✓</i> Envío 24-72 h con seguimiento</li>
+        <li><i>✓</i> 30 días para probarlo</li>
+        <li><i>✓</i> 2 años de garantía</li>
+      </ul>
+      <div class="pack">Pack 2 unidades: <b>69,99 €</b> · 35,00 €/ud</div>
+    </div>
+  </section>
+
+  <section class="scene" id="s5">
+    <div class="center">
+      <div class="logo">
+        <div class="n">N</div>
+        <div class="name">NÍTIDA<small>LIMPIEZA SIN FROTAR</small></div>
+      </div>
+      <h2>Pídelo hoy.<br><span>Limpia sin frotar.</span></h2>
+      <div class="url">noctip.com</div>
+      <div class="foot">Envío gratis · Pago seguro con tarjeta</div>
+    </div>
+  </section>
+
+  <div id="bar"></div>
+  <div id="grain"></div>
+</div>
+<script>
+  // Las animaciones arrancan cuando el render lo pide (evita desfase con la grabación)
+  document.getAnimations().forEach(a => { try { a.pause(); a.currentTime = 0 } catch(e){} });
+  window.__playAd = () => { document.getAnimations().forEach(a => { try { a.play() } catch(e){} }) };
+</script>
+</body>
+</html>

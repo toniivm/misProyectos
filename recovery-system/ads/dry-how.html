@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1350px;overflow:hidden;background:#0B1F1C;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
+  .scene{position:absolute;inset:0;opacity:0;animation-duration:12s;animation-timing-function:ease-in-out;animation-fill-mode:both}
+  @keyframes s1{0%,2%{opacity:0}6%,29%{opacity:1}35%,100%{opacity:0}}
+  @keyframes s2{0%,33%{opacity:0}38%,62%{opacity:1}68%,100%{opacity:0}}
+  @keyframes s3{0%,66%{opacity:0}71%,96%{opacity:1}100%{opacity:0}}
+  #s1{animation-name:s1}
+  #s2{animation-name:s2}
+  #s3{animation-name:s3}
+
+  .photo{position:absolute;inset:-30px;background-size:cover;background-position:center}
+  .p1{background-image:url('../public/images/dry/studio.jpg');animation:drift 12s ease-out both}
+  .p3{background-image:url('../public/images/dry/folded.jpg');animation:drift 12s ease-out both}
+  @keyframes drift{0%{transform:scale(1.03)}100%{transform:scale(1.1)}}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,31,28,.55) 0%,rgba(11,31,28,.1) 38%,rgba(11,31,28,.9) 100%)}
+
+  .tag{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.08);font-size:18px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#E6F4EF}
+  h1{font-size:86px;line-height:.94;font-weight:800;letter-spacing:-.045em;margin-top:22px}
+  h1 em{font-style:normal;color:#5EEAD4}
+  p.sub{margin-top:18px;font-size:28px;line-height:1.35;color:rgba(255,255,255,.72);max-width:720px}
+
+  .top{position:absolute;left:60px;right:60px;top:64px}
+  .bottom{position:absolute;left:60px;right:60px;bottom:78px}
+
+  .warm{position:absolute;right:-140px;top:10%;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(234,88,12,.32),transparent 66%);filter:blur(24px);animation:pulse 3.6s ease-in-out infinite alternate}
+  @keyframes pulse{0%{opacity:.55}100%{opacity:1}}
+
+  /* Scene 2 */
+  #s2 .inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 72px;background:radial-gradient(circle at 50% 18%,#123B34 0%,#0B1F1C 62%)}
+  .steps{display:flex;flex-direction:column;gap:18px;margin-top:44px}
+  .step{display:flex;align-items:center;gap:26px;padding:26px 28px;border-radius:26px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);opacity:0;transform:translateY(26px);animation:stepIn .8s cubic-bezier(.22,1,.36,1) both}
+  .step:nth-child(1){animation-delay:4.4s}
+  .step:nth-child(2){animation-delay:5.2s}
+  .step:nth-child(3){animation-delay:6s}
+  @keyframes stepIn{to{opacity:1;transform:none}}
+  .num{flex:0 0 74px;height:74px;border-radius:22px;background:rgba(94,234,212,.14);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;color:#5EEAD4}
+  .step b{display:block;font-size:34px;letter-spacing:-.02em}
+  .step span{display:block;margin-top:6px;font-size:22px;line-height:1.35;color:rgba(255,255,255,.62)}
+  .step i{margin-left:auto;font-style:normal;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+  /* Scene 3 */
+  .chips{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .chip{padding:14px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);font-size:20px;font-weight:700;color:#fff}
+
+  .bar{position:absolute;left:0;bottom:0;height:6px;background:#5EEAD4;width:0;animation:bar 12s linear both}
+  @keyframes bar{0%{width:0}100%{width:100%}}
+
+  .logo{position:absolute;left:60px;bottom:56px;font-size:16px;font-weight:800;letter-spacing:.2em;color:rgba(255,255,255,.42);text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<section class="scene" id="s1">
+  <div class="photo p1"></div>
+  <div class="warm"></div>
+  <div class="shade"></div>
+  <div class="top"><span class="tag">Cómo funciona</span></div>
+  <div class="bottom">
+    <h1>Aire caliente<br><em>a 360°.</em></h1>
+    <p class="sub">Dos tubos perforados que llegan a la puntera y al talón. No es un chorro de calor: es circulación.</p>
+  </div>
+</section>
+
+<section class="scene" id="s2">
+  <div class="inner">
+    <span class="tag">Tres pasos</span>
+    <h1 style="font-size:74px">Cero vigilancia.</h1>
+    <div class="steps">
+      <div class="step"><div class="num">01</div><div><b>Coloca</b><span>Mete los tubos dentro del calzado.</span></div><i>Sin herramientas</i></div>
+      <div class="step"><div class="num">02</div><div><b>Elige el tiempo</b><span>3, 6 o 9 horas según el calzado.</span></div><i>Temporizador</i></div>
+      <div class="step"><div class="num">03</div><div><b>Olvídate</b><span>Se apaga solo. Por la mañana, seco.</span></div><i>Automático</i></div>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="s3">
+  <div class="photo p3"></div>
+  <div class="shade"></div>
+  <div class="top"><span class="tag">Se guarda</span></div>
+  <div class="bottom">
+    <h1>En un cajón.<br><em>Sin ocupar.</em></h1>
+    <p class="sub">130 W. Cable de 1,2 m. Se pliega como un libro.</p>
+    <div class="chips">
+      <span class="chip">130 W</span>
+      <span class="chip">3/6/9 h</span>
+      <span class="chip">Plegable</span>
+    </div>
+  </div>
+</section>
+
+<div class="logo">Nítida Dry</div>
+<div class="bar"></div>
+
+<script>
+  document.getAnimations().forEach(a => { try { a.pause(); a.currentTime = 0 } catch(e){} });
+  window.__playAd = () => document.getAnimations().forEach(a => { try { a.play() } catch(e){} });
+</script>
+</body>
+</html>

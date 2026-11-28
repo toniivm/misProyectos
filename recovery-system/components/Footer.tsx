@@ -54,8 +54,8 @@ export default function Footer() {
             </div>
             <p className="max-w-sm text-[12px] sm:text-[13px] leading-[1.7] text-[#6b7785]">
               {isEs
-                ? 'Limpiadores de vapor que despegan la grasa y la cal sin frotar. Solo agua, 12 accesorios y 2 años de garantía. Para gente que quiere limpiar en menos tiempo.'
-                : 'Steam cleaners that lift grease and limescale without scrubbing. Water only, 12 accessories and a 2-year warranty. For people who want to clean in less time.'}
+                ? 'Secadores de calzado que quitan la humedad y el olor por dentro. Aire caliente a 360°, temporizador y 2 años de garantía. Para llegar a casa con los pies secos.'
+                : 'Footwear dryers that remove damp and odour from the inside. 360° warm air, timer and a 2-year warranty. So you can come home to dry feet.'}
             </p>
 
             {/* Customer Service inline */}
@@ -65,15 +65,7 @@ export default function Footer() {
             </div>
 
             {/* Social */}
-            <div className="flex items-center gap-2.5">
-              <a href="https://www.tiktok.com/@noctip2" target="_blank" rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#e8e2d8] bg-white text-[#6b7785] transition-all hover:border-[#0F766E] hover:text-[#0F766E] active:scale-95"
-                aria-label="TikTok">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.51a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 10.86 4.46V13a8.28 8.28 0 0 0 5.58 2.15v-3.45a4.85 4.85 0 0 1-5.58-2.74V6.69h5.58z"/>
-                </svg>
-              </a>
-            </div>
+
           </div>
 
           {/* Categories */}
@@ -91,7 +83,7 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <Link href={`/${locale}/products/vapor`}
+                <Link href={`/${locale}/products/dry`}
                   className="text-[13px] text-[#6b7785] transition-colors hover:text-[#1a1a1a]">
                   {isEs ? 'Ver todos' : 'All products'}
                 </Link>
@@ -187,7 +179,7 @@ export default function Footer() {
         {/* Trust bar */}
         <div className="mt-10 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: Truck, label: isEs ? 'Envío 24-72 h' : '24-72 h shipping', sub: isEs ? 'Con seguimiento' : 'Tracked delivery' },
+            { icon: Truck, label: isEs ? 'Envío 3-7 días' : '3-7 day shipping', sub: isEs ? 'Con seguimiento' : 'Tracked delivery' },
             { icon: RotateCcw, label: isEs ? 'Devolución 30 días' : '30-day returns', sub: isEs ? 'Sin preguntas' : 'No questions asked' },
             { icon: CreditCard, label: isEs ? 'Pago seguro' : 'Secure payment', sub: 'SSL + Stripe' },
             { icon: Shield, label: isEs ? 'Garantía 2 años' : '2-year warranty', sub: isEs ? 'Producto nuevo' : 'Brand new unit' },
